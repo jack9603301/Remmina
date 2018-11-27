@@ -226,12 +226,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
   <object class="GtkImage" id="find_toggle_image">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="stock">gtk-find</property>
+    <property name="icon_name">edit-find</property>
   </object>
   <object class="GtkImage" id="image_new">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="stock">gtk-add</property>
+    <property name="icon_name">document-new</property>
   </object>
   <object class="GtkWindow" id="RemminaMain">
     <property name="can_focus">False</property>
@@ -342,8 +342,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
                     <property name="tooltip_text" translatable="yes">search string or server name/ip address for quick connect</property>
                     <property name="hexpand">True</property>
                     <property name="width_chars">61</property>
-                    <property name="primary_icon_stock">gtk-connect</property>
-                    <property name="secondary_icon_stock">gtk-clear</property>
+                    <property name="primary_icon_name">network-transmit</property>
+                    <property name="secondary_icon_name">edit-delete</property>
                     <property name="primary_icon_tooltip_text" translatable="yes">Server name or IP address</property>
                     <property name="secondary_icon_tooltip_text" translatable="yes">Clear</property>
                     <property name="primary_icon_tooltip_markup" translatable="yes">Server name or IP address</property>
