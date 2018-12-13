@@ -230,21 +230,21 @@ void remmina_message_panel_setup_question(RemminaMessagePanel *mp, const gchar *
 	gtk_widget_set_margin_start (GTK_WIDGET(w), 18);
 	gtk_widget_set_margin_end (GTK_WIDGET(w), 18);
 	gtk_widget_show(w);
-	gtk_grid_attach(GTK_GRID(grid), w, 0, 0, 3, 1);
+	gtk_grid_attach(GTK_GRID(grid), w, 0, 0, 2, 1);
 
 	/* A button for yes and one for no */
 	w = gtk_button_new_with_label(_("Yes"));
-	gtk_widget_set_halign(GTK_WIDGET(w), GTK_ALIGN_FILL);
+	gtk_widget_set_halign(GTK_WIDGET(w), GTK_ALIGN_START);
 	gtk_widget_set_valign(GTK_WIDGET(w), GTK_ALIGN_CENTER);
-	gtk_grid_attach(GTK_GRID(grid), w, 1, 1, 1, 1);
+	gtk_grid_attach(GTK_GRID(grid), w, 0, 1, 1, 1);
 	g_object_set_data(G_OBJECT(w), btn_response_key, (void *)GTK_RESPONSE_YES);
 
 	g_signal_connect(G_OBJECT(w), "clicked", G_CALLBACK(remmina_message_panel_button_clicked_callback), mp);
 
 	w = gtk_button_new_with_label(_("No"));
-	gtk_widget_set_halign(GTK_WIDGET(w), GTK_ALIGN_FILL);
+	gtk_widget_set_halign(GTK_WIDGET(w), GTK_ALIGN_END);
 	gtk_widget_set_valign(GTK_WIDGET(w), GTK_ALIGN_CENTER);
-	gtk_grid_attach(GTK_GRID(grid), w, 2, 1, 1, 1);
+	gtk_grid_attach(GTK_GRID(grid), w, 1, 1, 1, 1);
 	g_object_set_data(G_OBJECT(w), btn_response_key, (void *)GTK_RESPONSE_NO);
 
 	priv->response_callback = response_callback;
@@ -348,7 +348,7 @@ void remmina_message_panel_setup_auth(RemminaMessagePanel *mp, RemminaMessagePan
 	gtk_grid_attach(GTK_GRID(grid), widget, 0, grid_row, 1, 1);
 
 	password_entry = gtk_entry_new();
-	gtk_widget_set_halign(GTK_WIDGET(password_entry), GTK_ALIGN_START);
+	gtk_widget_set_halign(GTK_WIDGET(password_entry), GTK_ALIGN_FILL);
 	gtk_widget_set_valign(GTK_WIDGET(password_entry), GTK_ALIGN_FILL);
 	gtk_widget_set_margin_top (GTK_WIDGET(password_entry), 3);
 	gtk_widget_set_margin_bottom (GTK_WIDGET(password_entry), 3);
@@ -373,7 +373,7 @@ void remmina_message_panel_setup_auth(RemminaMessagePanel *mp, RemminaMessagePan
 		gtk_grid_attach(GTK_GRID(grid), widget, 0, grid_row, 1, 1);
 
 		domain_entry = gtk_entry_new();
-		gtk_widget_set_halign(GTK_WIDGET(domain_entry), GTK_ALIGN_START);
+		gtk_widget_set_halign(GTK_WIDGET(domain_entry), GTK_ALIGN_FILL);
 		gtk_widget_set_valign(GTK_WIDGET(domain_entry), GTK_ALIGN_FILL);
 		gtk_widget_set_margin_top (GTK_WIDGET(domain_entry), 3);
 		gtk_widget_set_margin_bottom (GTK_WIDGET(domain_entry), 3);
