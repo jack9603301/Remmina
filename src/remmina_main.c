@@ -85,6 +85,14 @@ static char *quick_connect_plugin_list[] =
 	"RDP", "VNC", "SSH", "NX", "SPICE"
 };
 
+static void remmina_main_on_action_application_quit (GSimpleAction *action,
+		GVariant *parameter, gpointer user_data)
+{
+	// Called by quit signal in remmina_main.glade
+	TRACE_CALL(__func__);
+	remmina_application_condexit(REMMINA_CONDEXIT_ONQUIT);
+}
+
 static void remmina_main_save_size(void)
 {
 	TRACE_CALL(__func__);
@@ -780,13 +788,6 @@ void remmina_main_on_action_application_preferences(GtkAction *action, gpointer 
 	gtk_widget_destroy(GTK_WIDGET(dialog));
 }
 
-void remmina_main_on_action_application_quit(GtkAction *action, gpointer user_data)
-{
-	// Called by quit signal in remmina_main.glade
-	TRACE_CALL(__func__);
-	remmina_application_condexit(REMMINA_CONDEXIT_ONQUIT);
-}
-
 void remmina_main_on_action_view_statusbar(GtkToggleAction *action, gpointer user_data)
 {
 	TRACE_CALL(__func__);
@@ -1113,7 +1114,20 @@ static void remmina_main_init(void)
 	TRACE_CALL(__func__);
 	int i;
 	char *name;
+	const gchar *quit_accels[2] = { "<Ctrl>Q", NULL };
+	GSimpleActionGroup *group;
 
+	static GActionEntry app_entries[] =
+	{
+		{ "quit", remmina_main_on_action_application_quit, NULL, NULL, NULL }
+	};
+
+	group = g_simple_action_group_new ();
+
+	g_action_map_add_action_entries(G_ACTION_MAP(group),
+			app_entries, G_N_ELEMENTS(app_entries), NULL);
+	gtk_application_set_accels_for_action(GTK_APPLICATION(g_application_get_default()),
+                                         "win.quit", quit_accels);
 	remminamain->priv->expanded_group = remmina_string_array_new_from_string(remmina_pref.expanded_group);
 	if (!kioskmode && kioskmode == FALSE) {
 		gtk_window_set_title(remminamain->window, _("Remmina Remote Desktop Client"));
@@ -1263,7 +1277,7 @@ GtkWidget* remmina_main_new(void)
 	remminamain->action_application_about = GTK_ACTION(GET_OBJECT("action_application_about"));
 	remminamain->action_application_plugins = GTK_ACTION(GET_OBJECT("action_application_plugins"));
 	remminamain->action_application_preferences = GTK_ACTION(GET_OBJECT("action_application_preferences"));
-	remminamain->action_application_quit = GTK_ACTION(GET_OBJECT("action_application_quit"));
+	//remminamain->action_application_quit = GTK_ACTION(GET_OBJECT("action_application_quit"));
 	/* Actions from the connections ActionGroup */
 	remminamain->action_connections_new = GTK_ACTION(GET_OBJECT("action_connections_new"));
 	/* Actions from the connection ActionGroup */
