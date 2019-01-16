@@ -114,6 +114,7 @@ typedef struct _RemminaPref {
 	gint default_action;
 	gint scale_quality;
 	gboolean deny_screenshot_clipboard;
+	gboolean allow_check_update;
 	const gchar *screenshot_path;
 	const gchar *screenshot_name;
 	gint auto_scroll_step;

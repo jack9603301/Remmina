@@ -404,6 +404,11 @@ void remmina_pref_init(void)
 	else
 		remmina_pref.deny_screenshot_clipboard = TRUE;
 
+	if (g_key_file_has_key(gkeyfile, "remmina_pref", "allow_check_update", NULL))
+		remmina_pref.allow_check_update = g_key_file_get_boolean(gkeyfile, "remmina_pref", "allow_check_update", NULL);
+	else
+		remmina_pref.allow_check_update = TRUE;
+
 	if (g_key_file_has_key(gkeyfile, "remmina_pref", "screenshot_path", NULL)) {
 		remmina_pref.screenshot_path = g_key_file_get_string(gkeyfile, "remmina_pref", "screenshot_path", NULL);
 	}else{
@@ -662,6 +667,7 @@ gboolean remmina_pref_save(void)
 
 	g_key_file_set_boolean(gkeyfile, "remmina_pref", "save_view_mode", remmina_pref.save_view_mode);
 	g_key_file_set_boolean(gkeyfile, "remmina_pref", "deny_screenshot_clipboard", remmina_pref.deny_screenshot_clipboard);
+	g_key_file_set_boolean(gkeyfile, "remmina_pref", "allow_check_update", remmina_pref.allow_check_update);
 	g_key_file_set_integer(gkeyfile, "remmina_pref", "floating_toolbar_placement", remmina_pref.floating_toolbar_placement);
 	g_key_file_set_integer(gkeyfile, "remmina_pref", "toolbar_placement", remmina_pref.toolbar_placement);
 	g_key_file_set_boolean(gkeyfile, "remmina_pref", "prevent_snap_welcome_message", remmina_pref.prevent_snap_welcome_message);
