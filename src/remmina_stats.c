@@ -117,7 +117,7 @@
  *  - Protocols used
  *  - Last time each protocol has been used (globally).
  *
- * @see http://www.remmina.org/wp for more information.
+ * @see https://remmina.org/ for more information.
  */
 
 

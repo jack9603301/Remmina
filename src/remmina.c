@@ -43,6 +43,7 @@
 #include "config.h"
 #include "remmina.h"
 #include "remmina_exec.h"
+#include "remmina_check_update.h"
 #include "remmina_file_manager.h"
 #include "remmina_icon.h"
 #include "remmina_main.h"
@@ -214,6 +215,7 @@ static void remmina_on_startup(GApplication *app)
 
 	RemminaSecretPlugin *secret_plugin;
 
+	remmina_check_update_init();
 	remmina_file_manager_init();
 	remmina_pref_init();
 	remmina_plugin_manager_init();

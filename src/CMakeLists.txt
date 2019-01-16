@@ -48,6 +48,8 @@ list(APPEND REMMINA_SRCS
     "remmina.h"
     "remmina_chat_window.c"
     "remmina_chat_window.h"
+    "remmina_check_update.c"
+    "remmina_check_update.h"
     "remmina_crypt.c"
     "remmina_crypt.h"
     "remmina_exec.c"
