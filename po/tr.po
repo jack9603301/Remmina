@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: remmina\n"
 "Report-Msgid-Bugs-To: admin@remmina.org\n"
 "POT-Creation-Date: 2019-02-19 07:38+0000\n"
-"PO-Revision-Date: 2019-02-18 07:54+0300\n"
+"PO-Revision-Date: 2019-03-01 08:33+0300\n"
 "Last-Translator: Serdar Sağlam <teknomobil@yandex.com>\n"
 "Language-Team: Ubuntu’yu Türkçe’ye Çevirenler Takımı <ubuntu-l10n-tr@lists."
 "launchpad.net>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Launchpad-Export-Date: 2014-04-10 15:04+0000\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 2.1.1\n"
 
 #: src/remmina_icon.c:139
 msgid "Open Main Window"
@@ -57,16 +57,15 @@ msgstr "Remmina Uzak Masaüstü İstemcisi"
 #, c-format
 msgid ""
 "There are %i active connections in the current window. Are you sure to close?"
-msgstr ""
-"Aktif pencerede %i aktif bağlantı var. Kapatmak istediğinizdem eminmisiniz?"
+msgstr "Aktif pencerede %i aktif bağlantı var. Kapatmak istiyor musunuz?"
 
 #: src/rcw.c:1169
 msgid "Viewport fullscreen mode"
-msgstr "Görünüm alanı tam ekran hali"
+msgstr "Görünüm alanı tam ekran kipi"
 
 #: src/rcw.c:1178
 msgid "Scrolled fullscreen mode"
-msgstr "Kaydırmalı tam ekran"
+msgstr "Kaydırmalı tam ekran kipi"
 
 #: src/rcw.c:1249
 msgid "Keep aspect ratio when scaled"
@@ -101,7 +100,7 @@ msgstr "Pencereyi uzak sunucu çözünürlüğüne göre ayarla"
 
 #: src/rcw.c:1934 data/ui/remmina_preferences.glade:740
 msgid "Toggle fullscreen mode"
-msgstr "Tam ekran modunu değiştir"
+msgstr "Tam ekran kipini değiştir"
 
 #: src/rcw.c:1980 data/ui/remmina_preferences.glade:796
 msgid "Switch tab pages"
@@ -113,7 +112,7 @@ msgstr "Çözünürlük güncellemesini değiştir"
 
 #: src/rcw.c:2004 data/ui/remmina_preferences.glade:837
 msgid "Toggle scaled mode"
-msgstr "Ölçekleme modunu değiştir"
+msgstr "Ölçekleme kipini değiştir"
 
 #: src/rcw.c:2040
 msgid "Grab all keyboard events"
@@ -189,17 +188,17 @@ msgstr "SSH ortak anahtarı değişti!"
 #: src/remmina_ssh.c:409
 #, c-format
 msgid "ssh_get_server_publickey() has failed: %s"
-msgstr ""
+msgstr "ssh_get_server_publickey() başarısız: %s"
 
 #: src/remmina_ssh.c:414
 #, c-format
 msgid "ssh_get_publickey() has failed: %s"
-msgstr ""
+msgstr "ssh_get_publickey() başarısız: %s"
 
 #: src/remmina_ssh.c:420
 #, c-format
 msgid "ssh_get_publickey_hash() has failed: %s"
-msgstr ""
+msgstr "ssh_get_publickey_hash() başarısız: %s"
 
 #: src/remmina_ssh.c:428
 msgid "The server is unknown. The public key fingerprint is:"
@@ -293,7 +292,7 @@ msgstr "Yerel bağlantı noktasına bağlanılamıyor %i."
 #: src/remmina_ssh.c:1248
 #, c-format
 msgid "ssh_channel_write() returned an error: %s"
-msgstr ""
+msgstr "ssh_channel_write() bir hata döndürdü: %s"
 
 #: src/remmina_ssh.c:1254
 #, c-format
@@ -303,12 +302,12 @@ msgstr "tünel üzerinde okuma dinleme soketi bir hata döndürdü: %s"
 #: src/remmina_ssh.c:1273
 #, c-format
 msgid "ssh_channel_poll() returned an error: %s"
-msgstr ""
+msgstr "ssh_channel_poll() bir hata döndürdü: %s"
 
 #: src/remmina_ssh.c:1279
 #, c-format
 msgid "ssh_channel_read_nonblocking() returned an error: %s"
-msgstr ""
+msgstr "ssh_channel_read_nonblocking() bir hata döndürdü: %s"
 
 #: src/remmina_ssh.c:1298
 #, c-format
@@ -426,7 +425,7 @@ msgstr "İsim"
 
 #: src/remmina_plugin_manager.c:414 plugins/nx/nx_session_manager.c:183
 msgid "Type"
-msgstr "Tip"
+msgstr "Tür"
 
 #: src/remmina_plugin_manager.c:420
 msgid "Description"
@@ -496,12 +495,12 @@ msgstr "Kimlik doğrulama bilgilerini girin"
 #: src/remmina_file_editor.c:937 src/remmina_sftp_plugin.c:323
 #: data/ui/remmina_mpc.glade:113
 msgid "Password"
-msgstr "Şifre"
+msgstr "Parola"
 
 #: src/remmina_protocol_widget.c:1328
 #, c-format
 msgid "%s password"
-msgstr "%s şifre"
+msgstr "%s parola"
 
 #: src/remmina_protocol_widget.c:1364
 msgid "Certificate Details:"
@@ -645,7 +644,7 @@ msgstr "Kullanıcı adı"
 #: plugins/spice/spice_plugin.c:427 plugins/vnc/vnc_plugin.c:1876
 #: plugins/vnc/vnc_plugin.c:1896
 msgid "User password"
-msgstr "Kullanıcı şifresi"
+msgstr "Kullanıcı parolası"
 
 #: src/remmina_ssh_plugin.c:1065 src/remmina_sftp_plugin.c:357
 msgid "Authentication type"
@@ -1061,22 +1060,22 @@ msgstr "Parolalar eşleşmiyor"
 
 #: src/remmina_mpchange.c:244
 msgid "Resetting passwords, please wait…"
-msgstr "Şifreler sıfırlanıyor lütfen bekle…"
+msgstr "Parolalar sıfırlanıyor lütfen bekle…"
 
 #: src/remmina_mpchange.c:327
 msgid "The multi password changer cannot work without a secret plugin.\n"
-msgstr "Çoklu şifre değiştirici gizli bir eklenti olmadan çalışmaz.\n"
+msgstr "Çoklu parola değiştirici gizli bir eklenti olmadan çalışmaz.\n"
 
 #: src/remmina_mpchange.c:330
 msgid "The multi password changer does not work without a secret service.\n"
-msgstr "Çoklu şifre değiştirici gizli servis olmadan çalışmıyor.\n"
+msgstr "Çoklu parola değiştirici gizli servis olmadan çalışmıyor.\n"
 
 #: src/remmina_mpchange.c:419
 #, c-format
 msgid "%d password changed."
 msgid_plural "%d passwords changed."
-msgstr[0] "%d şifre değiştirildi."
-msgstr[1] "%d şifreler değiştirildi."
+msgstr[0] "%d parola değiştirildi."
+msgstr[1] "%d parolalar değiştirildi."
 
 #: src/remmina_exec.c:244
 #, c-format
@@ -1153,7 +1152,7 @@ msgstr ""
 
 #: src/remmina.c:86
 msgid "Start Remmina in Kiosk mode"
-msgstr "Remmina Kiosk modunda başlat"
+msgstr "Remmina Kiosk kipinde başlat"
 
 #: src/remmina.c:87 data/ui/remmina_main.glade:69
 msgid "Create a new connection profile"
@@ -1353,7 +1352,7 @@ msgid ""
 "Check username, password and domain."
 msgstr ""
 "Kimlik doğrulama RDP sunucu %s başarısız.\n"
-"Kullanıcı adı, şifre ve alan adını kontrol edin."
+"Kullanıcı adı, parola ve alan adını kontrol edin."
 
 #: plugins/rdp/rdp_plugin.c:1194
 #, c-format
@@ -1380,7 +1379,7 @@ msgid ""
 "Password expired."
 msgstr ""
 "RDP sunucusuna erişim %s başarısız oldu.\n"
-"Şifrenin zamanı doldu."
+"Parolanın zamanı doldu."
 
 #: plugins/rdp/rdp_plugin.c:1215
 #, c-format
@@ -1416,7 +1415,7 @@ msgid ""
 "User must change password before connecting."
 msgstr ""
 "RDP sunucusuna erişim %s başarısız oldu.\n"
-"Kullanıcı bağlanmadan önce şifreyi değiştirmelidir."
+"Kullanıcı bağlanmadan önce parolayı değiştirmelidir."
 
 #: plugins/rdp/rdp_plugin.c:1242
 #, c-format
@@ -1458,7 +1457,7 @@ msgid ""
 "You requested an H264 GFX mode for server %s, but your libfreerdp does not "
 "support H264. Please use a non-AVC Color Depth setting."
 msgstr ""
-"Sunucu için bir H264 GFX modu istediniz %s, ancak libfreerdp H264 desteği "
+"Sunucu için bir H264 GFX kipi istediniz %s, ancak libfreerdp H264 desteği "
 "yok, lütfen AVC olmayan bir Renk Derinliği ayarı kullanın."
 
 #: plugins/rdp/rdp_plugin.c:1273
@@ -1584,7 +1583,7 @@ msgstr "RD Ağ Geçidi kullanıcı adı"
 
 #: plugins/rdp/rdp_plugin.c:1622
 msgid "RD Gateway password"
-msgstr "RD Ağ Geçidi şifre"
+msgstr "RD Ağ Geçidi parola"
 
 #: plugins/rdp/rdp_plugin.c:1623
 msgid "RD Gateway domain"
@@ -1640,7 +1639,7 @@ msgstr "Seri port paylaş"
 
 #: plugins/rdp/rdp_plugin.c:1638
 msgid "Serial ports permissive mode"
-msgstr "Seri portları permissive modu"
+msgstr "Seri port permissive kipi"
 
 #: plugins/rdp/rdp_plugin.c:1639
 msgid "Share parallel ports"
@@ -1859,7 +1858,7 @@ msgstr "Sonlandırılıyor"
 #: plugins/nx/nx_session_manager.c:143
 #, c-format
 msgid "NX Sessions on %s"
-msgstr "NX oturumları %s"
+msgstr "NX Oturumları %s"
 
 #: plugins/nx/nx_session_manager.c:147
 msgid "Attach"
@@ -1893,7 +1892,7 @@ msgstr ""
 
 #: plugins/nx/nx_plugin.c:718 plugins/vnc/vnc_plugin.c:1917
 msgid "Disable encryption"
-msgstr "Şifrelemeyi devredışı bırak"
+msgstr "Şifrelemeyi devre dışı bırak"
 
 #: plugins/nx/nx_plugin.c:719 plugins/xdmcp/xdmcp_plugin.c:371
 msgid "Use local cursor"
@@ -1995,7 +1994,7 @@ msgstr "Merhaba Dünya!"
 
 #: plugins/secret/src/glibsecret_plugin.c:158
 msgid "Secure passwords storing in the GNOME keyring"
-msgstr "Gnome Keyring ile depolanan güvenli şifreler"
+msgstr "Gnome Keyring ile depolanan güvenli parolalar"
 
 #: plugins/vnc/vnc_plugin.c:940
 msgid "Unable to connect to VNC server"
@@ -2054,7 +2053,7 @@ msgstr "VNC - VNC görüntüleyici"
 #. Name
 #: plugins/vnc/vnc_plugin.c:1967
 msgid "VNCI - VNC viewer listen mode"
-msgstr "VNCI - VNC görüntüleyici dinleme modu"
+msgstr "VNCI - VNC görüntüleyici dinleme kipi"
 
 #: plugins/xdmcp/xdmcp_plugin.c:97
 msgid "Run out of available local X display number."
@@ -2137,7 +2136,7 @@ msgstr "Ayarları düzenle"
 
 #: data/ui/remmina_preferences.glade:149
 msgid "Scale quality"
-msgstr "Kaliteyi ayarla"
+msgstr "Ölçek kalitesi"
 
 #: data/ui/remmina_preferences.glade:162
 msgid "Nearest"
@@ -2228,7 +2227,7 @@ msgstr "Sekmeli arayüzde araç çubuğunu gizle"
 
 #: data/ui/remmina_preferences.glade:442
 msgid "Default view mode"
-msgstr "Öntanımlı görünüm modu"
+msgstr "Öntanımlı görünüm kipi"
 
 #: data/ui/remmina_preferences.glade:455
 msgid "Automatic"
@@ -2599,7 +2598,7 @@ msgstr "Dışarı Aktar"
 
 #: data/ui/remmina_main.glade:322
 msgid "Multi password changer"
-msgstr "Çoklu Şifre Değiştirici"
+msgstr "Çoklu Parola Değiştirici"
 
 #: data/ui/remmina_main.glade:339
 msgid "Debug Window"
@@ -2652,7 +2651,7 @@ msgstr "Remmina Ana Sayfa"
 
 #: data/ui/remmina_mpc.glade:7
 msgid "Remmina - Multi Password Changer"
-msgstr "Remmina - Çoklu Şifre Değiştirici"
+msgstr "Remmina - Çoklu Parola Değiştirici"
 
 #: data/ui/remmina_mpc.glade:21
 msgid "Change"
@@ -2660,7 +2659,7 @@ msgstr "Değiştir"
 
 #: data/ui/remmina_mpc.glade:61
 msgid "<span weight='bold' size='larger'>Multi Password Changer</span>"
-msgstr "<span weight='bold' size='larger'>Çoklu Şifre Değiştirici</span>"
+msgstr "<span weight='bold' size='larger'>Çoklu Parola Değiştirici</span>"
 
 #: data/ui/remmina_mpc.glade:166
 msgid "Selection criteria"
@@ -2668,7 +2667,7 @@ msgstr "Seçim kriterleri"
 
 #: data/ui/remmina_mpc.glade:195
 msgid "Confirm password"
-msgstr "Şifreyi onayla"
+msgstr "Parolayı onayla"
 
 #: data/ui/remmina_mpc.glade:208
 msgid "Reset to"
