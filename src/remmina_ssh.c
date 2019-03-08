@@ -229,13 +229,16 @@ remmina_ssh_auth_pubkey(RemminaSSH *ssh)
 
 	g_snprintf (pubkey, sizeof(pubkey), "%s.pub", ssh->privkeyfile);
 
-	ret = ssh_pki_import_pubkey_file( pubkey, &key);
-	if (ret != SSH_OK) {
-		remmina_ssh_set_error(ssh, _("SSH public key cannot be imported: %s"));
-		return 0;
+	/*G_FILE_TEST_EXISTS*/
+	if (g_file_test (pubkey, G_FILE_TEST_EXISTS)) {
+		ret = ssh_pki_import_pubkey_file( pubkey, &key);
+		if (ret != SSH_OK) {
+			remmina_ssh_set_error(ssh, _("SSH public key cannot be imported: %s"));
+			return 0;
+		}
+		ssh_key_free(key);
 	}
 
-	ssh_key_free(key);
 
 	if ( ssh_pki_import_privkey_file( ssh->privkeyfile, (ssh->passphrase ? ssh->passphrase : ""),
 		NULL, NULL, &key ) != SSH_OK ) {
@@ -258,10 +261,34 @@ remmina_ssh_auth_pubkey(RemminaSSH *ssh)
 }
 
 static gint
-remmina_ssh_auth_auto_pubkey(RemminaSSH* ssh)
+remmina_ssh_auth_auto_pubkey(RemminaSSH* ssh, RemminaProtocolWidget *gp, RemminaFile *remminafile)
 {
 	TRACE_CALL(__func__);
-	gint ret = ssh_userauth_publickey_auto(ssh->session, NULL, ssh->passphrase);
+
+	gboolean disablepasswordstoring;
+	gboolean save_password;
+	gchar *pwd;
+	gchar *pwdtype = "ssh_passphrase" ;
+	gint ret;
+
+	if (!ssh->passphrase) {
+		disablepasswordstoring = remmina_file_get_int(remminafile, "disablepasswordstoring", FALSE);
+		ret = remmina_protocol_widget_panel_authpwd(gp, REMMINA_AUTHPWD_TYPE_SSH_PRIVKEY, !disablepasswordstoring);
+		save_password = remmina_protocol_widget_get_savepassword(gp);
+
+		if (ret == GTK_RESPONSE_OK) {
+			if (save_password) {
+				pwd = remmina_protocol_widget_get_password(gp);
+				remmina_file_set_string(remminafile, pwdtype, pwd);
+				g_free(pwd);
+			}
+		}else {
+			return -1;
+		}
+		ssh->passphrase = remmina_protocol_widget_get_password(gp);
+		g_print ("passphrase: %s\n", ssh->passphrase);
+	}
+	ret = ssh_userauth_publickey_auto(ssh->session, NULL, ssh->passphrase);
 
 	if (ret != SSH_AUTH_SUCCESS) {
 		remmina_ssh_set_error(ssh, _("SSH automatic public key authentication failed: %s"));
@@ -308,7 +335,7 @@ remmina_ssh_auth_gssapi(RemminaSSH *ssh)
 }
 
 gint
-remmina_ssh_auth(RemminaSSH *ssh, const gchar *password)
+remmina_ssh_auth(RemminaSSH *ssh, const gchar *password, RemminaProtocolWidget *gp, RemminaFile *remminafile)
 {
 	TRACE_CALL(__func__);
 	gint method;
@@ -359,7 +386,7 @@ remmina_ssh_auth(RemminaSSH *ssh, const gchar *password)
 
 	case SSH_AUTH_AUTO_PUBLICKEY:
 		/* ssh_agent or none */
-		return remmina_ssh_auth_auto_pubkey(ssh);
+		return remmina_ssh_auth_auto_pubkey(ssh, gp, remminafile);
 
 #if 0
 	/* Not yet supported by libssh */
@@ -472,7 +499,7 @@ remmina_ssh_auth_gui(RemminaSSH *ssh, RemminaProtocolWidget *gp, RemminaFile *re
 		return FALSE;
 	}
 	/* Try empty password or existing password/passphrase first */
-	ret = remmina_ssh_auth(ssh, remmina_file_get_string(remminafile, pwdtype));
+	ret = remmina_ssh_auth(ssh, remmina_file_get_string(remminafile, pwdtype), gp, remminafile);
 	if (ret > 0) return 1;
 
 	/* Requested for a non-empty password */
@@ -499,7 +526,7 @@ remmina_ssh_auth_gui(RemminaSSH *ssh, RemminaProtocolWidget *gp, RemminaFile *re
 			return -1;
 		}
 		pwd = remmina_protocol_widget_get_password(gp);
-		ret = remmina_ssh_auth(ssh, pwd);
+		ret = remmina_ssh_auth(ssh, pwd, gp, remminafile);
 		g_free(pwd);
 	}
 

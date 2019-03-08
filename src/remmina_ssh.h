@@ -96,7 +96,7 @@ gboolean remmina_ssh_init_session(RemminaSSH *ssh);
 
 /* Authenticate SSH session */
 /* -1: Require password; 0: Failed; 1: Succeeded */
-gint remmina_ssh_auth(RemminaSSH *ssh, const gchar *password);
+gint remmina_ssh_auth(RemminaSSH *ssh, const gchar *password, RemminaProtocolWidget *gp, RemminaFile *remminafile);
 
 /* -1: Cancelled; 0: Failed; 1: Succeeded */
 gint remmina_ssh_auth_gui(RemminaSSH *ssh, RemminaProtocolWidget *gp, RemminaFile *remminafile);
