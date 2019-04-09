@@ -39,6 +39,7 @@
 #include <openssl/rsa.h>
 #include <openssl/pem.h>
 #include <openssl/err.h>
+#include "remmina_scheduler.h"
 #include "remmina/remmina_trace_calls.h"
 #include "remmina_log.h"
 #include "remmina_stats.h"
@@ -329,13 +330,8 @@ static gboolean remmina_stats_sender_periodic_check(gpointer user_data)
 void remmina_stats_sender_schedule()
 {
 	TRACE_CALL(__func__);
-	/* If permitted, schedule the 1st statistics periodic check */
-	if (remmina_stat_sender_can_send()) {
-		periodic_check_counter = 0;
-		periodic_check_source = g_timeout_add_full(G_PRIORITY_LOW, PERIODIC_CHECK_1ST_MS, remmina_stats_sender_periodic_check, NULL, NULL);
-	} else
-		periodic_check_source = 0;
+	remmina_scheduler_setup(remmina_stats_sender_periodic_check,
+			NULL,
+			PERIODIC_CHECK_1ST_MS,
+			PERIODIC_CHECK_INTERVAL_MS);
 }
-
-
-

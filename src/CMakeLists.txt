@@ -117,6 +117,8 @@ list(APPEND REMMINA_SRCS
     "rcw.h"
     "remmina_mpchange.c"
     "remmina_mpchange.h"
+    "remmina_scheduler.c"
+    "remmina_scheduler.h"
     "remmina_stats.c"
     "remmina_stats.h"
     "remmina_stats_sender.c"
