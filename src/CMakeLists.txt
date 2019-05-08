@@ -115,6 +115,8 @@ list(APPEND REMMINA_SRCS
     "remmina_sysinfo.c"
     "rcw.c"
     "rcw.h"
+    "rmnews.c"
+    "rmnews.h"
     "remmina_mpchange.c"
     "remmina_mpchange.h"
     "remmina_scheduler.c"

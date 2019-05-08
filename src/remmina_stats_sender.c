@@ -58,8 +58,8 @@
 #define PERIODIC_UPLOAD_URL "https://www.remmina.org/stats/upload_stats.php"
 
 
-static gint periodic_check_source;
-static gint periodic_check_counter;
+//static gint periodic_check_source;
+//static gint periodic_check_counter;
 
 static char *remmina_RSA_PubKey_v1 =
 	"-----BEGIN PUBLIC KEY-----\n"
@@ -316,14 +316,6 @@ static gboolean remmina_stats_sender_periodic_check(gpointer user_data)
 		remmina_stats_sender_send(FALSE);
 	}
 
-	periodic_check_counter++;
-	if (periodic_check_counter <= 1) {
-		/* Reschedule periodic check less frequently after 1st tick.
-		 * Note that PERIODIC_CHECK_INTERVAL_MS becomes also a retry interval in case of
-		 * upload failure */
-		periodic_check_source = g_timeout_add_full(G_PRIORITY_LOW, PERIODIC_CHECK_INTERVAL_MS, remmina_stats_sender_periodic_check, NULL, NULL);
-		return G_SOURCE_REMOVE;
-	}
 	return G_SOURCE_CONTINUE;
 }
 
