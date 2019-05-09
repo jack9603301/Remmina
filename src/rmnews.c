@@ -54,7 +54,7 @@
 #define RMNEWS_OUTPUT "/var/tmp/rmnews_temp.html"
 
 static SoupSession *session;
-static const gchar *output_file_path = RMNEWS_OUTPUT;
+static const gchar *output_file_path = NULL;
 
 static void rmnews_get_url (const char *url)
 {
@@ -66,8 +66,12 @@ static void rmnews_get_url (const char *url)
 	msg = soup_message_new ("GET", url);
 	soup_message_set_flags (msg, SOUP_MESSAGE_NO_REDIRECT);
 
+	g_info ("Fetching %s", url);
+
 	g_object_ref (msg);
-	soup_session_queue_message (session, msg, NULL, NULL);
+	soup_session_send_message (session, msg);
+
+	g_info ("Status code %d", msg->status_code);
 
 	name = soup_message_get_uri (msg)->path;
 
@@ -84,6 +88,7 @@ static void rmnews_get_url (const char *url)
 	if (SOUP_STATUS_IS_REDIRECTION (msg->status_code)) {
 		header = soup_message_headers_get_one (msg->response_headers,
 						       "Location");
+		g_warning ("Redirection detected");
 		if (header) {
 			SoupURI *uri;
 			char *uri_string;
@@ -97,11 +102,16 @@ static void rmnews_get_url (const char *url)
 			soup_uri_free (uri);
 		}
 	} else if (SOUP_STATUS_IS_SUCCESSFUL (msg->status_code)) {
+		g_info ("Status 200");
 		if (output_file_path) {
+			g_info ("Opening %s output file for writing", output_file_path);
 			output_file = fopen (output_file_path, "w");
 			if (!output_file)
 				g_printerr ("Error trying to create file %s.\n", output_file_path);
+		} else {
+			g_error ("Cannot open output file for writing, because output_file_path is NULL");
 		}
+
 
 		if (output_file) {
 			fwrite (msg->response_body->data,
@@ -122,6 +132,14 @@ void rmnews_get_news(gboolean show_only)
 
 	SoupLogger *logger = NULL;
 
+	output_file_path = RMNEWS_OUTPUT;
+
+	if (output_file_path) {
+		g_info ("Output file set to %s", output_file_path);
+	} else {
+		g_error ("Outputfile not set correcthly");
+	}
+
 	g_info ("Gathering news");
 	session = g_object_new (SOUP_TYPE_SESSION,
 				SOUP_SESSION_ADD_FEATURE_BY_TYPE, SOUP_TYPE_CONTENT_DECODER,
@@ -132,6 +150,7 @@ void rmnews_get_news(gboolean show_only)
 	logger = soup_logger_new (SOUP_LOGGER_LOG_BODY, -1);
 	soup_session_add_feature (session, SOUP_SESSION_FEATURE (logger));
 	g_object_unref (logger);
+
 	rmnews_get_url(RMNEWS_URL);
 
 	g_object_unref (session);
