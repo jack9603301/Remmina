@@ -54,3 +54,4 @@ gchar* remmina_utils_get_lsb_release();
 gchar* remmina_utils_get_lsb_codename();
 GHashTable* remmina_utils_get_etc_release();
 const gchar* remmina_utils_get_os_info();
+gchar* remmina_sha1_file (const gchar *filename);

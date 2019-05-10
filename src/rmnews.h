@@ -36,4 +36,5 @@
 
 G_BEGIN_DECLS
 void rmnews_schedule();
+void rmnews_get_url (const char *url);
 G_END_DECLS

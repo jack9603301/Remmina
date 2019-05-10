@@ -41,6 +41,7 @@
 #include <libsoup/soup.h>
 
 #include "remmina_pref.h"
+#include "remmina_utils.h"
 #include "remmina_scheduler.h"
 #include "rmnews.h"
 #include "remmina/remmina_trace_calls.h"
@@ -50,26 +51,29 @@
 #define RMNEWS_CHECK_INTERVAL_MS 12000
 /* How many seconds before to get news */
 #define RMNEWS_INTERVAL_SEC 604800
-#define RMNEWS_URL "https://remmina.org/latest_news.html"
-#define RMNEWS_OUTPUT "/var/tmp/rmnews_temp.html"
+/* TODO: move in config.h */
+#define REMMINA_URL "https://remmina.org/"
+#define RMNEWS_OUTPUT "/var/tmp/latest_news.html"
 
 static SoupSession *session;
+static const gchar *rmnews_url = NULL;
 static const gchar *output_file_path = NULL;
 
-static void rmnews_get_url (const char *url)
+static void rmnews_show_news ()
 {
+	TRACE_CALL(__func__);
+	g_info("Showing news");
+	/* TODO: Implement a markdown renderer like Gnome ToDo
+	 * https://gitlab.gnome.org/search?group_id=&project_id=121&repository_ref=master&search=markdown&search_code=true
+	 */
+}
+static void rmnews_get_url_cb (SoupSession *session, SoupMessage *msg, gpointer data)
+{
+	TRACE_CALL(__func__);
 	const char *name;
-	SoupMessage *msg;
 	const char *header;
 	FILE *output_file = NULL;
-
-	msg = soup_message_new ("GET", url);
-	soup_message_set_flags (msg, SOUP_MESSAGE_NO_REDIRECT);
-
-	g_info ("Fetching %s", url);
-
-	g_object_ref (msg);
-	soup_session_send_message (session, msg);
+	GTimeVal t;
 
 	g_info ("Status code %d", msg->status_code);
 
@@ -121,23 +125,46 @@ static void rmnews_get_url (const char *url)
 
 			if (output_file_path)
 				fclose (output_file);
+			g_get_current_time(&t);
+			remmina_pref.periodic_rmnews_last_get = t.tv_sec;
+			remmina_pref_save();
+			rmnews_show_news();
 		}
 	}
 	g_object_unref (msg);
 }
 
-void rmnews_get_news(gboolean show_only)
+void rmnews_get_url (const char *url)
+{
+	TRACE_CALL(__func__);
+
+	SoupMessage *msg;
+
+	msg = soup_message_new ("GET", url);
+	soup_message_set_flags (msg, SOUP_MESSAGE_NO_REDIRECT);
+
+	g_info ("Fetching %s", url);
+
+	g_object_ref (msg);
+	soup_session_queue_message (session, msg, rmnews_get_url_cb, NULL);
+
+}
+
+void rmnews_get_news()
 {
 	TRACE_CALL(__func__);
 
 	SoupLogger *logger = NULL;
 
-	output_file_path = RMNEWS_OUTPUT;
+	gchar *cachedir = g_build_path("/", g_get_user_cache_dir(), REMMINA_APP_ID, NULL);
+	g_mkdir_with_parents(cachedir, 0750);
+	output_file_path = g_build_path("/", cachedir, "latest_news.html", NULL);
 
 	if (output_file_path) {
 		g_info ("Output file set to %s", output_file_path);
 	} else {
-		g_error ("Outputfile not set correcthly");
+		output_file_path = RMNEWS_OUTPUT;
+		g_warning ("Output file set to %s", output_file_path);
 	}
 
 	g_info ("Gathering news");
@@ -151,7 +178,11 @@ void rmnews_get_news(gboolean show_only)
 	soup_session_add_feature (session, SOUP_SESSION_FEATURE (logger));
 	g_object_unref (logger);
 
-	rmnews_get_url(RMNEWS_URL);
+	rmnews_get_url(g_strconcat(REMMINA_URL,
+				"remmina_news.",
+				VERSION,
+				".html",
+				NULL));
 
 	g_object_unref (session);
 
@@ -166,7 +197,7 @@ static gboolean rmnews_periodic_check(gpointer user_data)
 	next = remmina_pref.periodic_rmnews_last_get + RMNEWS_INTERVAL_SEC;
 	g_get_current_time(&t);
 	if (t.tv_sec > next || (t.tv_sec < remmina_pref.periodic_rmnews_last_get && t.tv_sec > 1514764800)) {
-		rmnews_get_news(FALSE);
+		rmnews_get_news();
 	}
 	return G_SOURCE_CONTINUE;
 }
