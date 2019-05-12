@@ -121,7 +121,6 @@ gint remmina_unlock_new(GtkWindow *parent)
 
 	remmina_unlock_dialog = g_new0(RemminaUnlockDialog, 1);
 	remmina_unlock_dialog->retval = 1;
-	//gtk_widget_destroy(GTK_WIDGET(remmina_unlock_dialog->dialog));
 
 	if (timer == NULL)
 		remmina_unlock_timer_init();

@@ -32,6 +32,17 @@
  *
  */
 
+typedef struct _RemminaNewsDialog {
+	GtkBuilder *builder;
+	GtkDialog *dialog;
+
+	GtkTextView *rmnews_text_view;
+	GtkTextBuffer *rmnews_text_buffer;
+	GtkButton *rmnews_button_close;
+
+	gint retval;
+} RemminaNewsDialog;
+
 #pragma once
 
 G_BEGIN_DECLS

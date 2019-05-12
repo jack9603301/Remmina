@@ -33,19 +33,24 @@
  */
 
 #include "config.h"
+#include "remmina/remmina_trace_calls.h"
+
 #include <stdlib.h>
 #include <stdio.h>
+#include <gtk/gtk.h>
 #include <gio/gio.h>
 #include <glib/gi18n.h>
-#include <string.h>
 #include <libsoup/soup.h>
 
+#include "remmina_main.h"
 #include "remmina_pref.h"
+#include "remmina_public.h"
 #include "remmina_utils.h"
 #include "remmina_scheduler.h"
 #include "rmnews.h"
-#include "remmina/remmina_trace_calls.h"
 
+/* Neas file buffer */
+#define READ_BUFFER_LEN 1024
 /* Timers */
 #define RMNEWS_CHECK_1ST_MS 3000
 #define RMNEWS_CHECK_INTERVAL_MS 12000
@@ -53,20 +58,76 @@
 #define RMNEWS_INTERVAL_SEC 604800
 /* TODO: move in config.h */
 #define REMMINA_URL "https://remmina.org/"
-#define RMNEWS_OUTPUT "/var/tmp/latest_news.html"
+#define RMNEWS_OUTPUT "/var/tmp/latest_news.md"
+
+static RemminaNewsDialog *rmnews_news_dialog;
+#define GET_OBJ(object_name) gtk_builder_get_object(rmnews_news_dialog->builder, object_name)
 
 static SoupSession *session;
 static const gchar *rmnews_url = NULL;
 static const gchar *output_file_path = NULL;
 
-static void rmnews_show_news ()
+static gchar *rmnews_get_file_contents(char *path)
+{
+	FILE *fh = fopen(path, "rt");
+
+	char buffer[READ_BUFFER_LEN];
+	size_t content_len = 1;
+	char *content = malloc(sizeof(char) * READ_BUFFER_LEN);
+	content[0] = '\0';
+
+	while (fgets(buffer, READ_BUFFER_LEN, fh))
+	{
+		content_len += strlen(buffer);
+		content = realloc(content, content_len);
+		strcat(content, buffer);
+	}
+
+	fclose(fh);
+	return content;
+}
+
+static void rmnews_close_clicked(GtkButton *btn, gpointer user_data)
+{
+	TRACE_CALL(__func__);
+	gtk_widget_destroy(GTK_WIDGET(rmnews_news_dialog->dialog));
+	rmnews_news_dialog->dialog = NULL;
+}
+static gint rmnews_show_news (GtkWindow *parent)
 {
 	TRACE_CALL(__func__);
 	g_info("Showing news");
-	/* TODO: Implement a markdown renderer like Gnome ToDo
-	 * https://gitlab.gnome.org/search?group_id=&project_id=121&repository_ref=master&search=markdown&search_code=true
-	 */
+
+	rmnews_news_dialog = g_new0(RemminaNewsDialog, 1);
+	rmnews_news_dialog->retval = 1;
+
+	rmnews_news_dialog->builder = remmina_public_gtk_builder_new_from_file("remmina_news.glade");
+	rmnews_news_dialog->dialog = GTK_DIALOG(gtk_builder_get_object(rmnews_news_dialog->builder, "RemminaNewsDialog"));
+	if (parent)
+		gtk_window_set_transient_for(GTK_WINDOW(rmnews_news_dialog->dialog), parent);
+
+	rmnews_news_dialog->rmnews_text_view = GTK_TEXT_VIEW(GET_OBJ("rmnews_text_view"));
+	rmnews_news_dialog->rmnews_text_buffer = GTK_TEXT_BUFFER(GET_OBJ("rmnews_text_buffer"));
+	rmnews_news_dialog->rmnews_button_close = GTK_BUTTON(GET_OBJ("rmnews_button_close"));
+	gtk_widget_set_can_default(GTK_WIDGET(rmnews_news_dialog->rmnews_button_close), TRUE);
+	gtk_widget_grab_default(GTK_WIDGET(rmnews_news_dialog->rmnews_button_close));
+
+	// Set contents to text view buffer
+	rmnews_news_dialog->rmnews_text_buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(rmnews_news_dialog->rmnews_text_view));
+	gchar *contents = rmnews_get_file_contents(g_strdup(output_file_path));
+	gtk_text_buffer_set_text(rmnews_news_dialog->rmnews_text_buffer, contents, -1);
+	g_signal_connect(rmnews_news_dialog->rmnews_button_close, "clicked",
+			G_CALLBACK(rmnews_close_clicked), (gpointer)rmnews_news_dialog);
+	g_signal_connect (rmnews_news_dialog->dialog, "close",
+			G_CALLBACK (rmnews_close_clicked), (gpointer)rmnews_news_dialog);
+
+	/* Connect signals */
+	gtk_builder_connect_signals(rmnews_news_dialog->builder, NULL);
+	gtk_dialog_run(rmnews_news_dialog->dialog);
+	return(rmnews_news_dialog->retval);
+
 }
+
 static void rmnews_get_url_cb (SoupSession *session, SoupMessage *msg, gpointer data)
 {
 	TRACE_CALL(__func__);
@@ -91,7 +152,7 @@ static void rmnews_get_url_cb (SoupSession *session, SoupMessage *msg, gpointer 
 
 	if (SOUP_STATUS_IS_REDIRECTION (msg->status_code)) {
 		header = soup_message_headers_get_one (msg->response_headers,
-						       "Location");
+				"Location");
 		g_warning ("Redirection detected");
 		if (header) {
 			SoupURI *uri;
@@ -119,16 +180,16 @@ static void rmnews_get_url_cb (SoupSession *session, SoupMessage *msg, gpointer 
 
 		if (output_file) {
 			fwrite (msg->response_body->data,
-				1,
-				msg->response_body->length,
-				output_file);
+					1,
+					msg->response_body->length,
+					output_file);
 
 			if (output_file_path)
 				fclose (output_file);
 			g_get_current_time(&t);
 			remmina_pref.periodic_rmnews_last_get = t.tv_sec;
 			remmina_pref_save();
-			rmnews_show_news();
+			rmnews_show_news(remmina_main_get_window());
 		}
 	}
 	g_object_unref (msg);
@@ -158,7 +219,7 @@ void rmnews_get_news()
 
 	gchar *cachedir = g_build_path("/", g_get_user_cache_dir(), REMMINA_APP_ID, NULL);
 	g_mkdir_with_parents(cachedir, 0750);
-	output_file_path = g_build_path("/", cachedir, "latest_news.html", NULL);
+	output_file_path = g_build_path("/", cachedir, "latest_news.md", NULL);
 
 	if (output_file_path) {
 		g_info ("Output file set to %s", output_file_path);
@@ -169,11 +230,11 @@ void rmnews_get_news()
 
 	g_info ("Gathering news");
 	session = g_object_new (SOUP_TYPE_SESSION,
-				SOUP_SESSION_ADD_FEATURE_BY_TYPE, SOUP_TYPE_CONTENT_DECODER,
-				SOUP_SESSION_ADD_FEATURE_BY_TYPE, SOUP_TYPE_COOKIE_JAR,
-				SOUP_SESSION_USER_AGENT, "get ",
-				SOUP_SESSION_ACCEPT_LANGUAGE_AUTO, TRUE,
-				NULL);
+			SOUP_SESSION_ADD_FEATURE_BY_TYPE, SOUP_TYPE_CONTENT_DECODER,
+			SOUP_SESSION_ADD_FEATURE_BY_TYPE, SOUP_TYPE_COOKIE_JAR,
+			SOUP_SESSION_USER_AGENT, "get ",
+			SOUP_SESSION_ACCEPT_LANGUAGE_AUTO, TRUE,
+			NULL);
 	logger = soup_logger_new (SOUP_LOGGER_LOG_BODY, -1);
 	soup_session_add_feature (session, SOUP_SESSION_FEATURE (logger));
 	g_object_unref (logger);
@@ -181,7 +242,7 @@ void rmnews_get_news()
 	rmnews_get_url(g_strconcat(REMMINA_URL,
 				"remmina_news.",
 				VERSION,
-				".html",
+				".md",
 				NULL));
 
 	g_object_unref (session);
