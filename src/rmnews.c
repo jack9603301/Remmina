@@ -138,6 +138,30 @@ static void rmnews_get_url_cb (SoupSession *session, SoupMessage *msg, gpointer 
 
 	name = soup_message_get_uri (msg)->path;
 
+	if (SOUP_STATUS_IS_CLIENT_ERROR (msg->status_code)) {
+		g_info ("Status 404 - Release file not available");
+		g_get_current_time(&t);
+		remmina_pref.periodic_rmnews_last_get = t.tv_sec;
+		remmina_pref_save();
+		return;
+	}
+
+	if (SOUP_STATUS_IS_SERVER_ERROR (msg->status_code)) {
+		g_info ("Server not available");
+		g_get_current_time(&t);
+		remmina_pref.periodic_rmnews_last_get = t.tv_sec;
+		remmina_pref_save();
+		return;
+	}
+
+	if (SOUP_STATUS_IS_TRANSPORT_ERROR (msg->status_code)) {
+		g_info ("Transport Error");
+		g_get_current_time(&t);
+		remmina_pref.periodic_rmnews_last_get = t.tv_sec;
+		remmina_pref_save();
+		return;
+	}
+
 	if (msg->status_code == SOUP_STATUS_SSL_FAILED) {
 		GTlsCertificateFlags flags;
 
@@ -145,6 +169,10 @@ static void rmnews_get_url_cb (SoupSession *session, SoupMessage *msg, gpointer 
 			g_warning ("%s: %d %s (0x%x)\n", name, msg->status_code, msg->reason_phrase, flags);
 		else
 			g_warning ("%s: %d %s (no handshake status)\n", name, msg->status_code, msg->reason_phrase);
+		g_get_current_time(&t);
+		remmina_pref.periodic_rmnews_last_get = t.tv_sec;
+		remmina_pref_save();
+		return;
 	} else if (SOUP_STATUS_IS_TRANSPORT_ERROR (msg->status_code))
 		g_warning ("%s: %d %s\n", name, msg->status_code, msg->reason_phrase);
 
@@ -164,6 +192,10 @@ static void rmnews_get_url_cb (SoupSession *session, SoupMessage *msg, gpointer 
 			g_free (uri_string);
 			soup_uri_free (uri);
 		}
+		g_get_current_time(&t);
+		remmina_pref.periodic_rmnews_last_get = t.tv_sec;
+		remmina_pref_save();
+		return;
 	} else if (SOUP_STATUS_IS_SUCCESSFUL (msg->status_code)) {
 		g_info ("Status 200");
 		if (output_file_path) {
