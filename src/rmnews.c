@@ -241,8 +241,6 @@ static void rmnews_get_url_cb(SoupSession *session, SoupMessage *msg, gpointer d
 				g_get_current_time(&t);
 				remmina_pref.periodic_rmnews_last_get = t.tv_sec;
 			}
-			g_free(filesha);
-			g_free(filesha_after);
 			remmina_pref_save();
 		}
 	}
