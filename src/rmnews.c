@@ -67,23 +67,18 @@ static SoupSession *session;
 static const gchar *rmnews_url = NULL;
 static const gchar *output_file_path = NULL;
 
-static gchar *rmnews_get_file_contents(char *path)
+static gchar *rmnews_get_file_contents(gchar *path)
 {
-	FILE *fh = fopen(path, "rt");
+	gsize size;
+	gchar *content;
 
-	char buffer[READ_BUFFER_LEN];
-	size_t content_len = 1;
-	char *content = malloc(sizeof(char) * READ_BUFFER_LEN);
-	content[0] = '\0';
-
-	while (fgets(buffer, READ_BUFFER_LEN, fh))
-	{
-		content_len += strlen(buffer);
-		content = realloc(content, content_len);
-		strcat(content, buffer);
+	if (g_file_get_contents (path, &content, &size, NULL)) {
+		if (!g_utf8_validate (content, size, NULL)) {
+			g_error("%s content is not UTF-8", path);
+			g_free (content);
+		}
 	}
-
-	fclose(fh);
+	//return g_markup_escape_text(content, strlen(content));
 	return content;
 }
 
@@ -96,7 +91,6 @@ static void rmnews_close_clicked(GtkButton *btn, gpointer user_data)
 static gint rmnews_show_news (GtkWindow *parent)
 {
 	TRACE_CALL(__func__);
-	g_info("Showing news");
 
 	rmnews_news_dialog = g_new0(RemminaNewsDialog, 1);
 	rmnews_news_dialog->retval = 1;
@@ -107,15 +101,17 @@ static gint rmnews_show_news (GtkWindow *parent)
 		gtk_window_set_transient_for(GTK_WINDOW(rmnews_news_dialog->dialog), parent);
 
 	rmnews_news_dialog->rmnews_text_view = GTK_TEXT_VIEW(GET_OBJ("rmnews_text_view"));
-	rmnews_news_dialog->rmnews_text_buffer = GTK_TEXT_BUFFER(GET_OBJ("rmnews_text_buffer"));
+	rmnews_news_dialog->rmnews_label = GTK_LABEL(GET_OBJ("rmnews_label"));
 	rmnews_news_dialog->rmnews_button_close = GTK_BUTTON(GET_OBJ("rmnews_button_close"));
 	gtk_widget_set_can_default(GTK_WIDGET(rmnews_news_dialog->rmnews_button_close), TRUE);
 	gtk_widget_grab_default(GTK_WIDGET(rmnews_news_dialog->rmnews_button_close));
 
-	// Set contents to text view buffer
-	rmnews_news_dialog->rmnews_text_buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(rmnews_news_dialog->rmnews_text_view));
 	gchar *contents = rmnews_get_file_contents(g_strdup(output_file_path));
-	gtk_text_buffer_set_text(rmnews_news_dialog->rmnews_text_buffer, contents, -1);
+	if (contents) {
+		gtk_label_set_markup(rmnews_news_dialog->rmnews_label, contents);
+		g_free(contents);
+	}
+
 	g_signal_connect(rmnews_news_dialog->rmnews_button_close, "clicked",
 			G_CALLBACK(rmnews_close_clicked), (gpointer)rmnews_news_dialog);
 	g_signal_connect (rmnews_news_dialog->dialog, "close",
@@ -134,6 +130,8 @@ static void rmnews_get_url_cb (SoupSession *session, SoupMessage *msg, gpointer 
 	const char *name;
 	const char *header;
 	FILE *output_file = NULL;
+	gchar *filesha = NULL;
+	gchar *filesha_after = NULL;
 	GTimeVal t;
 
 	g_info ("Status code %d", msg->status_code);
@@ -169,6 +167,11 @@ static void rmnews_get_url_cb (SoupSession *session, SoupMessage *msg, gpointer 
 	} else if (SOUP_STATUS_IS_SUCCESSFUL (msg->status_code)) {
 		g_info ("Status 200");
 		if (output_file_path) {
+			g_info ("Calculating the SHA1 of the local file");
+			filesha = remmina_sha1_file(output_file_path);
+			g_info("SHA1 is %s", filesha);
+			if (filesha == NULL || filesha[0] == 0)
+				filesha = "0\0";
 			g_info ("Opening %s output file for writing", output_file_path);
 			output_file = fopen (output_file_path, "w");
 			if (!output_file)
@@ -186,10 +189,18 @@ static void rmnews_get_url_cb (SoupSession *session, SoupMessage *msg, gpointer 
 
 			if (output_file_path)
 				fclose (output_file);
-			g_get_current_time(&t);
-			remmina_pref.periodic_rmnews_last_get = t.tv_sec;
+			if (output_file_path)
+				filesha_after = remmina_sha1_file(output_file_path);
+			g_info("SHA1 after download is %s", filesha_after);
+			if (g_strcmp0(filesha, filesha_after) != 0) {
+				g_info ("SHA1 differs, we show the news and reset the counter");
+				remmina_pref.periodic_rmnews_last_get = 0;
+				rmnews_show_news(remmina_main_get_window());
+			} else {
+				g_get_current_time(&t);
+				remmina_pref.periodic_rmnews_last_get = t.tv_sec;
+			}
 			remmina_pref_save();
-			rmnews_show_news(remmina_main_get_window());
 		}
 	}
 	g_object_unref (msg);

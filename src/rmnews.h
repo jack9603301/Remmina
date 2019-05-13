@@ -37,7 +37,7 @@ typedef struct _RemminaNewsDialog {
 	GtkDialog *dialog;
 
 	GtkTextView *rmnews_text_view;
-	GtkTextBuffer *rmnews_text_buffer;
+	GtkLabel *rmnews_label;
 	GtkButton *rmnews_button_close;
 
 	gint retval;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.22.1 
+<!-- Generated with glade 3.20.4 
 
 - 
 Copyright (C) Antenore Gatta & Giovanni Panozzo
@@ -26,15 +26,11 @@ Author: Antenore Gatta
   <!-- interface-license-type gplv2 -->
   <!-- interface-copyright Antenore Gatta & Giovanni Panozzo -->
   <!-- interface-authors Antenore Gatta -->
-  <object class="GtkTextBuffer" id="rmnews_text_buffer"/>
   <object class="GtkDialog" id="RemminaNewsDialog">
     <property name="can_focus">False</property>
     <property name="default_width">640</property>
     <property name="default_height">480</property>
     <property name="type_hint">dialog</property>
-    <child>
-      <placeholder/>
-    </child>
     <child internal-child="vbox">
       <object class="GtkBox">
         <property name="can_focus">False</property>
@@ -70,14 +66,20 @@ Author: Antenore Gatta
             <property name="can_focus">True</property>
             <property name="shadow_type">in</property>
             <child>
-              <object class="GtkTextView" id="rmnews_text_view">
+              <object class="GtkViewport">
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="hexpand">True</property>
-                <property name="vexpand">True</property>
-                <property name="editable">False</property>
-                <property name="wrap_mode">word</property>
-                <property name="buffer">rmnews_text_buffer</property>
+                <property name="can_focus">False</property>
+                <child>
+                  <object class="GtkLabel" id="rmnews_label">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="hexpand">True</property>
+                    <property name="vexpand">True</property>
+                    <property name="use_markup">True</property>
+                    <property name="wrap">True</property>
+                    <property name="selectable">True</property>
+                  </object>
+                </child>
               </object>
             </child>
           </object>
@@ -88,6 +90,9 @@ Author: Antenore Gatta
           </packing>
         </child>
       </object>
+    </child>
+    <child>
+      <placeholder/>
     </child>
   </object>
 </interface>
