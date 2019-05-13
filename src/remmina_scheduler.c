@@ -43,28 +43,28 @@
 static gboolean remmina_scheduler_periodic_check(gpointer user_data)
 {
 	TRACE_CALL(__func__);
-	rsSchedData *rssd = (rsSchedData*)user_data;
+	rsSchedData *rssd = (rsSchedData *)user_data;
 
-	rssd->count ++;
+	rssd->count++;
 	if (rssd->cb_func_ptr(rssd->cb_func_data) == G_SOURCE_REMOVE) {
 		g_free(rssd);
 		return G_SOURCE_REMOVE;
 	}
 	if (rssd->count <= 1) {
 		rssd->source = g_timeout_add_full(G_PRIORITY_LOW,
-				rssd->interval,
-				remmina_scheduler_periodic_check,
-				rssd,
-				NULL);
+						  rssd->interval,
+						  remmina_scheduler_periodic_check,
+						  rssd,
+						  NULL);
 		return G_SOURCE_REMOVE;
 	}
 	return G_SOURCE_CONTINUE;
 }
 
-void *remmina_scheduler_setup(GSourceFunc cb,
-		gpointer cb_data,
-		guint first_interval,
-		guint interval)
+void *remmina_scheduler_setup(GSourceFunc	cb,
+			      gpointer		cb_data,
+			      guint		first_interval,
+			      guint		interval)
 {
 	TRACE_CALL(__func__);
 	rsSchedData *rssd;
@@ -74,10 +74,10 @@ void *remmina_scheduler_setup(GSourceFunc cb,
 	rssd->interval = interval;
 	rssd->count = 0;
 	rssd->source = g_timeout_add_full(G_PRIORITY_LOW,
-			first_interval,
-			remmina_scheduler_periodic_check,
-			rssd,
-			NULL);
+					  first_interval,
+					  remmina_scheduler_periodic_check,
+					  rssd,
+					  NULL);
 	return (void *)rssd;
 }
 

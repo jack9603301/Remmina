@@ -72,10 +72,10 @@ static gchar *rmnews_get_file_contents(gchar *path)
 	gsize size;
 	gchar *content;
 
-	if (g_file_get_contents (path, &content, &size, NULL)) {
-		if (!g_utf8_validate (content, size, NULL)) {
+	if (g_file_get_contents(path, &content, &size, NULL)) {
+		if (!g_utf8_validate(content, size, NULL)) {
 			g_error("%s content is not UTF-8", path);
-			g_free (content);
+			g_free(content);
 		}
 	}
 	//return g_markup_escape_text(content, strlen(content));
@@ -88,7 +88,7 @@ static void rmnews_close_clicked(GtkButton *btn, gpointer user_data)
 	gtk_widget_destroy(GTK_WIDGET(rmnews_news_dialog->dialog));
 	rmnews_news_dialog->dialog = NULL;
 }
-static gint rmnews_show_news (GtkWindow *parent)
+static gint rmnews_show_news(GtkWindow *parent)
 {
 	TRACE_CALL(__func__);
 
@@ -113,18 +113,17 @@ static gint rmnews_show_news (GtkWindow *parent)
 	}
 
 	g_signal_connect(rmnews_news_dialog->rmnews_button_close, "clicked",
-			G_CALLBACK(rmnews_close_clicked), (gpointer)rmnews_news_dialog);
-	g_signal_connect (rmnews_news_dialog->dialog, "close",
-			G_CALLBACK (rmnews_close_clicked), (gpointer)rmnews_news_dialog);
+			 G_CALLBACK(rmnews_close_clicked), (gpointer)rmnews_news_dialog);
+	g_signal_connect(rmnews_news_dialog->dialog, "close",
+			 G_CALLBACK(rmnews_close_clicked), (gpointer)rmnews_news_dialog);
 
 	/* Connect signals */
 	gtk_builder_connect_signals(rmnews_news_dialog->builder, NULL);
 	gtk_dialog_run(rmnews_news_dialog->dialog);
-	return(rmnews_news_dialog->retval);
-
+	return rmnews_news_dialog->retval;
 }
 
-static void rmnews_get_url_cb (SoupSession *session, SoupMessage *msg, gpointer data)
+static void rmnews_get_url_cb(SoupSession *session, SoupMessage *msg, gpointer data)
 {
 	TRACE_CALL(__func__);
 	const char *name;
@@ -134,28 +133,28 @@ static void rmnews_get_url_cb (SoupSession *session, SoupMessage *msg, gpointer 
 	gchar *filesha_after = NULL;
 	GTimeVal t;
 
-	g_info ("Status code %d", msg->status_code);
+	g_info("Status code %d", msg->status_code);
 
-	name = soup_message_get_uri (msg)->path;
+	name = soup_message_get_uri(msg)->path;
 
-	if (SOUP_STATUS_IS_CLIENT_ERROR (msg->status_code)) {
-		g_info ("Status 404 - Release file not available");
+	if (SOUP_STATUS_IS_CLIENT_ERROR(msg->status_code)) {
+		g_info("Status 404 - Release file not available");
 		g_get_current_time(&t);
 		remmina_pref.periodic_rmnews_last_get = t.tv_sec;
 		remmina_pref_save();
 		return;
 	}
 
-	if (SOUP_STATUS_IS_SERVER_ERROR (msg->status_code)) {
-		g_info ("Server not available");
+	if (SOUP_STATUS_IS_SERVER_ERROR(msg->status_code)) {
+		g_info("Server not available");
 		g_get_current_time(&t);
 		remmina_pref.periodic_rmnews_last_get = t.tv_sec;
 		remmina_pref_save();
 		return;
 	}
 
-	if (SOUP_STATUS_IS_TRANSPORT_ERROR (msg->status_code)) {
-		g_info ("Transport Error");
+	if (SOUP_STATUS_IS_TRANSPORT_ERROR(msg->status_code)) {
+		g_info("Transport Error");
 		g_get_current_time(&t);
 		remmina_pref.periodic_rmnews_last_get = t.tv_sec;
 		remmina_pref_save();
@@ -165,67 +164,77 @@ static void rmnews_get_url_cb (SoupSession *session, SoupMessage *msg, gpointer 
 	if (msg->status_code == SOUP_STATUS_SSL_FAILED) {
 		GTlsCertificateFlags flags;
 
-		if (soup_message_get_https_status (msg, NULL, &flags))
-			g_warning ("%s: %d %s (0x%x)\n", name, msg->status_code, msg->reason_phrase, flags);
+		if (soup_message_get_https_status(msg, NULL, &flags))
+			g_warning("%s: %d %s (0x%x)\n", name, msg->status_code, msg->reason_phrase, flags);
 		else
-			g_warning ("%s: %d %s (no handshake status)\n", name, msg->status_code, msg->reason_phrase);
+			g_warning("%s: %d %s (no handshake status)\n", name, msg->status_code, msg->reason_phrase);
 		g_get_current_time(&t);
 		remmina_pref.periodic_rmnews_last_get = t.tv_sec;
 		remmina_pref_save();
 		return;
-	} else if (SOUP_STATUS_IS_TRANSPORT_ERROR (msg->status_code))
-		g_warning ("%s: %d %s\n", name, msg->status_code, msg->reason_phrase);
+	} else if (SOUP_STATUS_IS_TRANSPORT_ERROR(msg->status_code)) {
+		g_warning("%s: %d %s\n", name, msg->status_code, msg->reason_phrase);
+	}
 
-	if (SOUP_STATUS_IS_REDIRECTION (msg->status_code)) {
-		header = soup_message_headers_get_one (msg->response_headers,
-				"Location");
-		g_warning ("Redirection detected");
+	if (SOUP_STATUS_IS_REDIRECTION(msg->status_code)) {
+		header = soup_message_headers_get_one(msg->response_headers,
+						      "Location");
+		g_warning("Redirection detected");
 		if (header) {
 			SoupURI *uri;
 			char *uri_string;
 
-			g_info ("  -> %s\n", header);
+			g_info("  -> %s\n", header);
 
-			uri = soup_uri_new_with_base (soup_message_get_uri (msg), header);
-			uri_string = soup_uri_to_string (uri, FALSE);
-			rmnews_get_url (uri_string);
-			g_free (uri_string);
-			soup_uri_free (uri);
+			uri = soup_uri_new_with_base(soup_message_get_uri(msg), header);
+			uri_string = soup_uri_to_string(uri, FALSE);
+			rmnews_get_url(uri_string);
+			g_free(uri_string);
+			soup_uri_free(uri);
 		}
 		g_get_current_time(&t);
 		remmina_pref.periodic_rmnews_last_get = t.tv_sec;
 		remmina_pref_save();
 		return;
-	} else if (SOUP_STATUS_IS_SUCCESSFUL (msg->status_code)) {
-		g_info ("Status 200");
+	} else if (SOUP_STATUS_IS_SUCCESSFUL(msg->status_code)) {
+		g_info("Status 200");
 		if (output_file_path) {
-			g_info ("Calculating the SHA1 of the local file");
+			g_info("Calculating the SHA1 of the local file");
 			filesha = remmina_sha1_file(output_file_path);
 			g_info("SHA1 is %s", filesha);
 			if (filesha == NULL || filesha[0] == 0)
 				filesha = "0\0";
-			g_info ("Opening %s output file for writing", output_file_path);
-			output_file = fopen (output_file_path, "w");
-			if (!output_file)
-				g_printerr ("Error trying to create file %s.\n", output_file_path);
+			g_info("Opening %s output file for writing", output_file_path);
+			output_file = fopen(output_file_path, "w");
+			if (!output_file) {
+				g_printerr("Error trying to create file %s.\n", output_file_path);
+				g_get_current_time(&t);
+				remmina_pref.periodic_rmnews_last_get = t.tv_sec;
+				remmina_pref_save();
+				return;
+			}
 		} else {
-			g_error ("Cannot open output file for writing, because output_file_path is NULL");
+			g_error("Cannot open output file for writing, because output_file_path is NULL");
+			g_get_current_time(&t);
+			remmina_pref.periodic_rmnews_last_get = t.tv_sec;
+			remmina_pref_save();
+			return;
 		}
 
 
 		if (output_file) {
-			fwrite (msg->response_body->data,
-					1,
-					msg->response_body->length,
-					output_file);
+			fwrite(msg->response_body->data,
+			       1,
+			       msg->response_body->length,
+			       output_file);
 
 			if (output_file_path)
-				fclose (output_file);
+				fclose(output_file);
 			if (output_file_path)
 				filesha_after = remmina_sha1_file(output_file_path);
 			g_info("SHA1 after download is %s", filesha_after);
 			if (g_strcmp0(filesha, filesha_after) != 0) {
-				g_info ("SHA1 differs, we show the news and reset the counter");
+				g_info("SHA1 differs, we show the news and reset the counter");
 				remmina_pref.periodic_rmnews_last_get = 0;
 				rmnews_show_news(remmina_main_get_window());
 			} else {
@@ -237,23 +246,22 @@ static void rmnews_get_url_cb (SoupSession *session, SoupMessage *msg, gpointer 
 			remmina_pref_save();
 		}
 	}
-	g_object_unref (msg);
+	g_object_unref(msg);
 }
 
-void rmnews_get_url (const char *url)
+void rmnews_get_url(const char *url)
 {
 	TRACE_CALL(__func__);
 
 	SoupMessage *msg;
 
-	msg = soup_message_new ("GET", url);
-	soup_message_set_flags (msg, SOUP_MESSAGE_NO_REDIRECT);
+	msg = soup_message_new("GET", url);
+	soup_message_set_flags(msg, SOUP_MESSAGE_NO_REDIRECT);
 
-	g_info ("Fetching %s", url);
+	g_info("Fetching %s", url);
 
-	g_object_ref (msg);
-	soup_session_queue_message (session, msg, rmnews_get_url_cb, NULL);
-
+	g_object_ref(msg);
+	soup_session_queue_message(session, msg, rmnews_get_url_cb, NULL);
 }
 
 void rmnews_get_news()
@@ -267,31 +275,30 @@ void rmnews_get_news()
 	output_file_path = g_build_path("/", cachedir, "latest_news.md", NULL);
 
 	if (output_file_path) {
-		g_info ("Output file set to %s", output_file_path);
+		g_info("Output file set to %s", output_file_path);
 	} else {
 		output_file_path = RMNEWS_OUTPUT;
-		g_warning ("Output file set to %s", output_file_path);
+		g_warning("Output file set to %s", output_file_path);
 	}
 
-	g_info ("Gathering news");
-	session = g_object_new (SOUP_TYPE_SESSION,
-			SOUP_SESSION_ADD_FEATURE_BY_TYPE, SOUP_TYPE_CONTENT_DECODER,
-			SOUP_SESSION_ADD_FEATURE_BY_TYPE, SOUP_TYPE_COOKIE_JAR,
-			SOUP_SESSION_USER_AGENT, "get ",
-			SOUP_SESSION_ACCEPT_LANGUAGE_AUTO, TRUE,
-			NULL);
-	logger = soup_logger_new (SOUP_LOGGER_LOG_BODY, -1);
-	soup_session_add_feature (session, SOUP_SESSION_FEATURE (logger));
-	g_object_unref (logger);
+	g_info("Gathering news");
+	session = g_object_new(SOUP_TYPE_SESSION,
+			       SOUP_SESSION_ADD_FEATURE_BY_TYPE, SOUP_TYPE_CONTENT_DECODER,
+			       SOUP_SESSION_ADD_FEATURE_BY_TYPE, SOUP_TYPE_COOKIE_JAR,
+			       SOUP_SESSION_USER_AGENT, "get ",
+			       SOUP_SESSION_ACCEPT_LANGUAGE_AUTO, TRUE,
+			       NULL);
+	logger = soup_logger_new(SOUP_LOGGER_LOG_BODY, -1);
+	soup_session_add_feature(session, SOUP_SESSION_FEATURE(logger));
+	g_object_unref(logger);
 
 	rmnews_get_url(g_strconcat(REMMINA_URL,
-				"remmina_news.",
-				VERSION,
-				".md",
-				NULL));
+				   "remmina_news.",
+				   VERSION,
+				   ".md",
+				   NULL));
 
-	g_object_unref (session);
-
+	g_object_unref(session);
 }
 
 static gboolean rmnews_periodic_check(gpointer user_data)
@@ -302,16 +309,15 @@ static gboolean rmnews_periodic_check(gpointer user_data)
 
 	next = remmina_pref.periodic_rmnews_last_get + RMNEWS_INTERVAL_SEC;
 	g_get_current_time(&t);
-	if (t.tv_sec > next || (t.tv_sec < remmina_pref.periodic_rmnews_last_get && t.tv_sec > 1514764800)) {
+	if (t.tv_sec > next || (t.tv_sec < remmina_pref.periodic_rmnews_last_get && t.tv_sec > 1514764800))
 		rmnews_get_news();
-	}
 	return G_SOURCE_CONTINUE;
 }
 void rmnews_schedule()
 {
 	TRACE_CALL(__func__);
 	remmina_scheduler_setup(rmnews_periodic_check,
-			NULL,
-			RMNEWS_CHECK_1ST_MS,
-			RMNEWS_CHECK_INTERVAL_MS);
+				NULL,
+				RMNEWS_CHECK_1ST_MS,
+				RMNEWS_CHECK_INTERVAL_MS);
 }

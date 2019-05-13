@@ -35,18 +35,15 @@
 #pragma once
 
 typedef struct {
-	GSourceFunc cb_func_ptr;
-	gpointer cb_func_data;
-	guint interval;
-	guint source;
-	guint count;
+	GSourceFunc	cb_func_ptr;
+	gpointer	cb_func_data;
+	guint		interval;
+	guint		source;
+	guint		count;
 } rsSchedData;
 
 G_BEGIN_DECLS
 
-void *remmina_scheduler_setup(GSourceFunc cb,
-		gpointer cb_data,
-		guint first_interval,
-		guint interval);
+void *remmina_scheduler_setup(GSourceFunc cb, gpointer cb_data, guint first_interval, guint interval);
 
 G_END_DECLS
