@@ -87,9 +87,11 @@ pkg_search_module(WEBKIT2
     )
 
 if(WEBKIT2_FOUND)
-    message(STATUS "Enabling WWW plugin.")
-    add_definitions(-DWITH_WWW)
-    add_subdirectory(www)
+	message(STATUS "Enabling WWW plugin.")
+	add_definitions(-DWITH_WWW)
+	add_subdirectory(www)
+else(WEBKIT2_FOUND)
+	message(WARNING "WEBKIT not found")
 endif(WEBKIT2_FOUND)
 
 if(WITH_EXAMPLES)
