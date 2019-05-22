@@ -49,6 +49,11 @@
 typedef struct _RemminaPluginWWWData {
 	GtkWidget *box;
 	WebKitWebView *webview;
+	WebKitSettings *settings;
+	WebKitCredential *credential;
+
+	gchar *url;
+
 } RemminaPluginWWWData;
 
 static RemminaPluginService *remmina_plugin_service = NULL;
@@ -59,7 +64,6 @@ static gboolean remmina_www_query_feature(RemminaProtocolWidget* gp, const Remmi
 	return TRUE;
 }
 
-
 static void remmina_plugin_www_init(RemminaProtocolWidget *gp)
 {
 	TRACE_CALL(__func__);
@@ -67,24 +71,45 @@ static void remmina_plugin_www_init(RemminaProtocolWidget *gp)
 	RemminaPluginWWWData *gpdata;
 	RemminaFile *remminafile;
 
-	gchar * url = "https://remmina.org/";
 
 	gpdata = g_new0(RemminaPluginWWWData, 1);
 	g_object_set_data_full(G_OBJECT(gp), "plugin-data", gpdata, g_free);
 
 	remminafile = remmina_plugin_service->protocol_plugin_get_file(gp);
 
-	gpdata->box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
-	gtk_container_add(GTK_CONTAINER(gp), gpdata->box);
+	if (remmina_plugin_service->file_get_string(remminafile, "url")) {
+		gpdata->url = strdup(remmina_plugin_service->file_get_string(remminafile, "url"));
+	} else {
+		gpdata->url = "https://remmina.org";
+	}
+	g_info ("URL is set to %s", gpdata->url);
 
-	remmina_plugin_service->protocol_plugin_register_hostkey(gp, gpdata->box);
+	gpdata->settings = webkit_settings_new();
 
-	gpdata->webview = webkit_web_view_new();
-	gtk_widget_set_hexpand(GTK_WIDGET(gpdata->webview), TRUE);
-	gtk_widget_set_vexpand(GTK_WIDGET(gpdata->webview), TRUE);
-	gtk_container_add(GTK_CONTAINER(gpdata->box), GTK_WIDGET(gpdata->webview));
-	webkit_web_view_load_uri(gpdata->webview, url);
-	gtk_widget_show_all(gpdata->box);
+	/* enable-fullscreen, default TRUE, TODO: Try FALSE */
+
+	/* user-agent. TODO: Add option. */
+	/* enable-smooth-scrolling, TODO: Add option, default FALSE */
+	if (remmina_plugin_service->file_get_int(remminafile, "enable-smooth-scrolling", FALSE)) {
+		webkit_settings_set_enable_smooth_scrolling(gpdata->settings, TRUE);
+		g_info ("enable-smooth-scrolling enabled");
+	}
+	/* enable-spatial-navigation, TODO: Add option, default FALSE */
+	if (remmina_plugin_service->file_get_int(remminafile, "enable-spatial-navigation", FALSE)) {
+		webkit_settings_set_enable_spatial_navigation(gpdata->settings, TRUE);
+		g_info ("enable-spatial-navigation enabled");
+	}
+	/* enable-webaudio, TODO: Add option, default FALSE , experimental */
+	if (remmina_plugin_service->file_get_int(remminafile, "enable-webaudio", FALSE)) {
+		webkit_settings_set_enable_webaudio(gpdata->settings, TRUE);
+		g_info ("enable-webaudio enabled");
+	}
+	/* enable-webgl. TODO: Add option, default FALSE , experimental */
+	if (remmina_plugin_service->file_get_int(remminafile, "enable-webgl", FALSE)) {
+		webkit_settings_set_enable_webgl(gpdata->settings, TRUE);
+		g_info ("enable-webgl enabled");
+	}
+
 }
 
 static gboolean remmina_plugin_www_open_connection(RemminaProtocolWidget *gp)
@@ -92,8 +117,20 @@ static gboolean remmina_plugin_www_open_connection(RemminaProtocolWidget *gp)
 	TRACE_CALL(__func__);
 	RemminaPluginWWWData *gpdata;
 
-
 	gpdata = (RemminaPluginWWWData*) g_object_get_data(G_OBJECT(gp), "plugin-data");
+
+	gpdata->box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
+	gtk_container_add(GTK_CONTAINER(gp), gpdata->box);
+
+	remmina_plugin_service->protocol_plugin_register_hostkey(gp, gpdata->box);
+
+	gpdata->webview = WEBKIT_WEB_VIEW(webkit_web_view_new_with_settings(gpdata->settings));
+
+	gtk_widget_set_hexpand(GTK_WIDGET(gpdata->webview), TRUE);
+	gtk_widget_set_vexpand(GTK_WIDGET(gpdata->webview), TRUE);
+	gtk_container_add(GTK_CONTAINER(gpdata->box), GTK_WIDGET(gpdata->webview));
+	webkit_web_view_load_uri(gpdata->webview, gpdata->url);
+	gtk_widget_show_all(gpdata->box);
 
 	remmina_plugin_service->protocol_plugin_emit_signal(gp, "connect");
 
@@ -119,6 +156,8 @@ static gboolean remmina_plugin_www_close_connection(RemminaProtocolWidget *gp)
 static const RemminaProtocolSetting remmina_plugin_www_basic_settings[] =
 {
 	{ REMMINA_PROTOCOL_SETTING_TYPE_TEXT, "url", N_("Address"), FALSE, NULL, NULL },
+	{ REMMINA_PROTOCOL_SETTING_TYPE_TEXT, "username", N_("Username"), FALSE, NULL, NULL },
+	{ REMMINA_PROTOCOL_SETTING_TYPE_PASSWORD, "password", N_("Password"), FALSE, NULL, NULL },
 	{ REMMINA_PROTOCOL_SETTING_TYPE_END, NULL, NULL, FALSE, NULL, NULL }
 };
 
@@ -133,7 +172,11 @@ static const RemminaProtocolSetting remmina_plugin_www_basic_settings[] =
  */
 static const RemminaProtocolSetting remmina_plugin_www_advanced_settings[] =
 {
-	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK, "detached", N_("Detached window"), TRUE, NULL, NULL },
+	{ REMMINA_PROTOCOL_SETTING_TYPE_TEXT, "user-agent", N_("User Agent"), FALSE, NULL, NULL },
+	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK, "enable-smooth-scrolling", N_("Enable or disable smooth scrolling"), TRUE, NULL, NULL },
+	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK, "enable-spatial-navigation", N_("Enable or disable Spatial Navigation"), TRUE, NULL, NULL },
+	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK, "enable-webgl", N_("Enable or disable support for WebGL on pages"), TRUE, NULL, NULL },
+	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK, "enable-webaudio", N_("Enable or disable support for WebAudio on pages"), TRUE, NULL, NULL },
 	{ REMMINA_PROTOCOL_SETTING_TYPE_END, NULL, NULL, FALSE, NULL, NULL }
 };
 
@@ -143,7 +186,6 @@ static const RemminaProtocolFeature remmina_www_features[] =
 {
 	{ REMMINA_PROTOCOL_FEATURE_TYPE_END, 0, NULL, NULL, NULL}
 };
-
 
 /* Protocol plugin definition and features */
 static RemminaProtocolPlugin remmina_plugin =
@@ -167,7 +209,6 @@ static RemminaProtocolPlugin remmina_plugin =
 	NULL,                                 // Send a keystroke
 	NULL                                  // Capture screenshot
 };
-
 
 G_MODULE_EXPORT gboolean remmina_plugin_entry(RemminaPluginService *service)
 {
