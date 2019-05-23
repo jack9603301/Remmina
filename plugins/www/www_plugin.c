@@ -78,8 +78,8 @@ static void remmina_plugin_www_init(RemminaProtocolWidget *gp)
 
 	remminafile = remmina_plugin_service->protocol_plugin_get_file(gp);
 
-	if (remmina_plugin_service->file_get_string(remminafile, "url")) {
-		gpdata->url = strdup(remmina_plugin_service->file_get_string(remminafile, "url"));
+	if (remmina_plugin_service->file_get_string(remminafile, "server")) {
+		gpdata->url = strdup(remmina_plugin_service->file_get_string(remminafile, "server"));
 	} else {
 		gpdata->url = "https://remmina.org";
 	}
@@ -163,7 +163,7 @@ static gboolean remmina_plugin_www_close_connection(RemminaProtocolWidget *gp)
  */
 static const RemminaProtocolSetting remmina_plugin_www_basic_settings[] =
 {
-	{ REMMINA_PROTOCOL_SETTING_TYPE_TEXT, "url", N_("Address"), FALSE, NULL, NULL },
+	{ REMMINA_PROTOCOL_SETTING_TYPE_TEXT, "server", N_("Address"), FALSE, NULL, NULL },
 	{ REMMINA_PROTOCOL_SETTING_TYPE_TEXT, "username", N_("Username"), FALSE, NULL, NULL },
 	{ REMMINA_PROTOCOL_SETTING_TYPE_PASSWORD, "password", N_("Password"), FALSE, NULL, NULL },
 	{ REMMINA_PROTOCOL_SETTING_TYPE_END, NULL, NULL, FALSE, NULL, NULL }
