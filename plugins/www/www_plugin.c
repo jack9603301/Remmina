@@ -50,7 +50,8 @@ typedef struct _RemminaPluginWWWData {
 	GtkWidget *box;
 	WebKitSettings *settings;
 	WebKitWebContext *context;
-	WebKitCredential *credential;
+	WebKitCredential *credentials;
+	WebKitAuthenticationRequest *request;
 	WebKitWebView *webview;
 
 	gchar *url;
@@ -120,6 +121,62 @@ static void remmina_plugin_www_init(RemminaProtocolWidget *gp)
 
 }
 
+static gboolean remmina_plugin_www_on_auth (RemminaProtocolWidget *gp)
+{
+	TRACE_CALL(__func__);
+
+	gchar *s_username, *s_password;
+	gint ret;
+	RemminaPluginWWWData *gpdata;
+	gboolean save;
+	gboolean disablepasswordstoring;
+	RemminaFile* remminafile;
+
+	g_info ("Authenticate");
+
+	gpdata = (RemminaPluginWWWData*) g_object_get_data(G_OBJECT(gp), "plugin-data");
+
+	remminafile = remmina_plugin_service->protocol_plugin_get_file(gp);
+
+	disablepasswordstoring = remmina_plugin_service->file_get_int(remminafile, "disablepasswordstoring", FALSE);
+	ret = remmina_plugin_service->protocol_plugin_init_authuserpwd(gp, FALSE, !disablepasswordstoring);
+
+	if (ret == GTK_RESPONSE_OK) {
+		s_username = remmina_plugin_service->protocol_plugin_init_get_username(gp);
+		s_password = remmina_plugin_service->protocol_plugin_init_get_password(gp);
+		if (remmina_plugin_service->protocol_plugin_init_get_savepassword(gp))
+			remmina_plugin_service->file_set_string( remminafile, "password", s_password );
+		if (s_password)
+			gpdata->credentials = webkit_credential_new(
+					g_strdup(s_username),
+					g_strdup(s_password),
+					WEBKIT_CREDENTIAL_PERSISTENCE_FOR_SESSION);
+
+		save = remmina_plugin_service->protocol_plugin_init_get_savepassword(gp);
+		if (save) {
+			// User has requested to save credentials. We put all the new credentials
+			// into remminafile->settings. They will be saved later, on successful connection, by
+			// rcw.c
+
+			remmina_plugin_service->file_set_string( remminafile, "username", s_username );
+			remmina_plugin_service->file_set_string( remminafile, "password", s_password );
+
+		}
+
+		if ( s_username ) g_free( s_username );
+		if ( s_password ) g_free( s_password );
+
+		/* Free credentials */
+
+		return TRUE;
+	}else {
+		return FALSE;
+	}
+
+	return TRUE;
+}
+
+
 static gboolean remmina_plugin_www_open_connection(RemminaProtocolWidget *gp)
 {
 	TRACE_CALL(__func__);
@@ -138,6 +195,10 @@ static gboolean remmina_plugin_www_open_connection(RemminaProtocolWidget *gp)
 	gtk_widget_set_vexpand(GTK_WIDGET(gpdata->webview), TRUE);
 	gtk_container_add(GTK_CONTAINER(gpdata->box), GTK_WIDGET(gpdata->webview));
 	webkit_web_view_load_uri(gpdata->webview, gpdata->url);
+	g_object_connect(
+			G_OBJECT(gpdata->webview),
+			"signal::authenticate", G_CALLBACK (remmina_plugin_www_on_auth), gp,
+			NULL);
 	gtk_widget_show_all(gpdata->box);
 
 	remmina_plugin_service->protocol_plugin_emit_signal(gp, "connect");
