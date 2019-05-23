@@ -48,9 +48,10 @@
 
 typedef struct _RemminaPluginWWWData {
 	GtkWidget *box;
-	WebKitWebView *webview;
 	WebKitSettings *settings;
+	WebKitWebContext *context;
 	WebKitCredential *credential;
+	WebKitWebView *webview;
 
 	gchar *url;
 
@@ -85,6 +86,7 @@ static void remmina_plugin_www_init(RemminaProtocolWidget *gp)
 	g_info ("URL is set to %s", gpdata->url);
 
 	gpdata->settings = webkit_settings_new();
+	gpdata->context = webkit_web_context_get_default ();
 
 	/* enable-fullscreen, default TRUE, TODO: Try FALSE */
 
@@ -108,6 +110,12 @@ static void remmina_plugin_www_init(RemminaProtocolWidget *gp)
 	if (remmina_plugin_service->file_get_int(remminafile, "enable-webgl", FALSE)) {
 		webkit_settings_set_enable_webgl(gpdata->settings, TRUE);
 		g_info ("enable-webgl enabled");
+	}
+
+
+	if (remmina_plugin_service->file_get_int(remminafile, "ignore-tls-errors", FALSE)) {
+		 webkit_web_context_set_tls_errors_policy(gpdata->context, WEBKIT_TLS_ERRORS_POLICY_IGNORE);
+		g_info ("Ignore TLS errosrs");
 	}
 
 }
@@ -173,10 +181,11 @@ static const RemminaProtocolSetting remmina_plugin_www_basic_settings[] =
 static const RemminaProtocolSetting remmina_plugin_www_advanced_settings[] =
 {
 	{ REMMINA_PROTOCOL_SETTING_TYPE_TEXT, "user-agent", N_("User Agent"), FALSE, NULL, NULL },
-	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK, "enable-smooth-scrolling", N_("Enable or disable smooth scrolling"), TRUE, NULL, NULL },
-	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK, "enable-spatial-navigation", N_("Enable or disable Spatial Navigation"), TRUE, NULL, NULL },
-	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK, "enable-webgl", N_("Enable or disable support for WebGL on pages"), TRUE, NULL, NULL },
-	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK, "enable-webaudio", N_("Enable or disable support for WebAudio on pages"), TRUE, NULL, NULL },
+	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK, "enable-smooth-scrolling", N_("Enabl smooth scrolling"), TRUE, NULL, NULL },
+	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK, "enable-spatial-navigation", N_("Enable Spatial Navigation"), TRUE, NULL, NULL },
+	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK, "enable-webgl", N_("Enable support for WebGL on pages"), TRUE, NULL, NULL },
+	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK, "enable-webaudio", N_("Enable support for WebAudio on pages"), TRUE, NULL, NULL },
+	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK, "ignore-tls-errors", N_("Ignore TLS errors"), TRUE, NULL, NULL },
 	{ REMMINA_PROTOCOL_SETTING_TYPE_END, NULL, NULL, FALSE, NULL, NULL }
 };
 
