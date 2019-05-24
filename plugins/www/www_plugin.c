@@ -44,23 +44,22 @@
 
 #include <webkit2/webkit2.h>
 
-#define GET_PLUGIN_DATA(gp) (RemminaPluginExecData*)g_object_get_data(G_OBJECT(gp), "plugin-data")
+#define GET_PLUGIN_DATA(gp) (RemminaPluginExecData *)g_object_get_data(G_OBJECT(gp), "plugin-data")
 
 typedef struct _RemminaPluginWWWData {
-	GtkWidget *box;
-	WebKitSettings *settings;
-	WebKitWebContext *context;
-	WebKitCredential *credentials;
-	WebKitAuthenticationRequest *request;
-	WebKitWebView *webview;
+	GtkWidget *			box;
+	WebKitSettings *		settings;
+	WebKitWebContext *		context;
+	WebKitCredential *		credentials;
+	WebKitAuthenticationRequest *	request;
+	WebKitWebView *			webview;
 
-	gchar *url;
-
+	gchar *				url;
 } RemminaPluginWWWData;
 
 static RemminaPluginService *remmina_plugin_service = NULL;
 
-static gboolean remmina_www_query_feature(RemminaProtocolWidget* gp, const RemminaProtocolFeature* feature)
+static gboolean remmina_www_query_feature(RemminaProtocolWidget *gp, const RemminaProtocolFeature *feature)
 {
 	TRACE_CALL(__func__);
 	return TRUE;
@@ -78,15 +77,14 @@ static void remmina_plugin_www_init(RemminaProtocolWidget *gp)
 
 	remminafile = remmina_plugin_service->protocol_plugin_get_file(gp);
 
-	if (remmina_plugin_service->file_get_string(remminafile, "server")) {
+	if (remmina_plugin_service->file_get_string(remminafile, "server"))
 		gpdata->url = strdup(remmina_plugin_service->file_get_string(remminafile, "server"));
-	} else {
+	else
 		gpdata->url = "https://remmina.org";
-	}
-	g_info ("URL is set to %s", gpdata->url);
+	g_info("URL is set to %s", gpdata->url);
 
 	gpdata->settings = webkit_settings_new();
-	gpdata->context = webkit_web_context_get_default ();
+	gpdata->context = webkit_web_context_get_default();
 
 	/* enable-fullscreen, default TRUE, TODO: Try FALSE */
 
@@ -94,33 +92,32 @@ static void remmina_plugin_www_init(RemminaProtocolWidget *gp)
 	/* enable-smooth-scrolling, TODO: Add option, default FALSE */
 	if (remmina_plugin_service->file_get_int(remminafile, "enable-smooth-scrolling", FALSE)) {
 		webkit_settings_set_enable_smooth_scrolling(gpdata->settings, TRUE);
-		g_info ("enable-smooth-scrolling enabled");
+		g_info("enable-smooth-scrolling enabled");
 	}
 	/* enable-spatial-navigation, TODO: Add option, default FALSE */
 	if (remmina_plugin_service->file_get_int(remminafile, "enable-spatial-navigation", FALSE)) {
 		webkit_settings_set_enable_spatial_navigation(gpdata->settings, TRUE);
-		g_info ("enable-spatial-navigation enabled");
+		g_info("enable-spatial-navigation enabled");
 	}
 	/* enable-webaudio, TODO: Add option, default FALSE , experimental */
 	if (remmina_plugin_service->file_get_int(remminafile, "enable-webaudio", FALSE)) {
 		webkit_settings_set_enable_webaudio(gpdata->settings, TRUE);
-		g_info ("enable-webaudio enabled");
+		g_info("enable-webaudio enabled");
 	}
 	/* enable-webgl. TODO: Add option, default FALSE , experimental */
 	if (remmina_plugin_service->file_get_int(remminafile, "enable-webgl", FALSE)) {
 		webkit_settings_set_enable_webgl(gpdata->settings, TRUE);
-		g_info ("enable-webgl enabled");
+		g_info("enable-webgl enabled");
 	}
 
 
 	if (remmina_plugin_service->file_get_int(remminafile, "ignore-tls-errors", FALSE)) {
-		 webkit_web_context_set_tls_errors_policy(gpdata->context, WEBKIT_TLS_ERRORS_POLICY_IGNORE);
-		g_info ("Ignore TLS errosrs");
+		webkit_web_context_set_tls_errors_policy(gpdata->context, WEBKIT_TLS_ERRORS_POLICY_IGNORE);
+		g_info("Ignore TLS errosrs");
 	}
-
 }
 
-static gboolean remmina_plugin_www_on_auth (WebKitWebView *webview, WebKitAuthenticationRequest *request, RemminaProtocolWidget *gp)
+static gboolean remmina_plugin_www_on_auth(WebKitWebView *webview, WebKitAuthenticationRequest *request, RemminaProtocolWidget *gp)
 {
 	TRACE_CALL(__func__);
 
@@ -129,11 +126,11 @@ static gboolean remmina_plugin_www_on_auth (WebKitWebView *webview, WebKitAuthen
 	RemminaPluginWWWData *gpdata;
 	gboolean save;
 	gboolean disablepasswordstoring;
-	RemminaFile* remminafile;
+	RemminaFile *remminafile;
 
-	g_info ("Authenticate");
+	g_info("Authenticate");
 
-	gpdata = (RemminaPluginWWWData*) g_object_get_data(G_OBJECT(gp), "plugin-data");
+	gpdata = (RemminaPluginWWWData *)g_object_get_data(G_OBJECT(gp), "plugin-data");
 
 	remminafile = remmina_plugin_service->protocol_plugin_get_file(gp);
 
@@ -144,12 +141,12 @@ static gboolean remmina_plugin_www_on_auth (WebKitWebView *webview, WebKitAuthen
 		s_username = remmina_plugin_service->protocol_plugin_init_get_username(gp);
 		s_password = remmina_plugin_service->protocol_plugin_init_get_password(gp);
 		if (remmina_plugin_service->protocol_plugin_init_get_savepassword(gp))
-			remmina_plugin_service->file_set_string( remminafile, "password", s_password );
+			remmina_plugin_service->file_set_string(remminafile, "password", s_password);
 		if (s_password) {
 			gpdata->credentials = webkit_credential_new(
-					g_strdup(s_username),
-					g_strdup(s_password),
-					WEBKIT_CREDENTIAL_PERSISTENCE_FOR_SESSION);
+				g_strdup(s_username),
+				g_strdup(s_password),
+				WEBKIT_CREDENTIAL_PERSISTENCE_FOR_SESSION);
 			webkit_authentication_request_authenticate(request, gpdata->credentials);
 			webkit_credential_free(gpdata->credentials);
 		}
@@ -160,22 +157,32 @@ static gboolean remmina_plugin_www_on_auth (WebKitWebView *webview, WebKitAuthen
 			// into remminafile->settings. They will be saved later, on successful connection, by
 			// rcw.c
 
-			remmina_plugin_service->file_set_string( remminafile, "username", s_username );
-			remmina_plugin_service->file_set_string( remminafile, "password", s_password );
-
+			remmina_plugin_service->file_set_string(remminafile, "username", s_username);
+			remmina_plugin_service->file_set_string(remminafile, "password", s_password);
 		}
 
-		if ( s_username ) g_free( s_username );
-		if ( s_password ) g_free( s_password );
+		if (s_username) g_free(s_username);
+		if (s_password) g_free(s_password);
 
 		/* Free credentials */
 
 		return TRUE;
-	}else {
+	} else {
 		return FALSE;
 	}
 
 	return TRUE;
+}
+
+static gboolean remmina_plugin_www_close_connection(RemminaProtocolWidget *gp)
+{
+	TRACE_CALL(__func__);
+	RemminaPluginWWWData *gpdata;
+
+	gpdata = (RemminaPluginWWWData *)g_object_get_data(G_OBJECT(gp), "plugin-data");
+
+	remmina_plugin_service->protocol_plugin_emit_signal(gp, "disconnect");
+	return FALSE;
 }
 
 static gboolean remmina_plugin_www_open_connection(RemminaProtocolWidget *gp)
@@ -183,7 +190,7 @@ static gboolean remmina_plugin_www_open_connection(RemminaProtocolWidget *gp)
 	TRACE_CALL(__func__);
 	RemminaPluginWWWData *gpdata;
 
-	gpdata = (RemminaPluginWWWData*) g_object_get_data(G_OBJECT(gp), "plugin-data");
+	gpdata = (RemminaPluginWWWData *)g_object_get_data(G_OBJECT(gp), "plugin-data");
 
 	gpdata->box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
 	gtk_container_add(GTK_CONTAINER(gp), gpdata->box);
@@ -193,9 +200,10 @@ static gboolean remmina_plugin_www_open_connection(RemminaProtocolWidget *gp)
 	gpdata->webview = WEBKIT_WEB_VIEW(webkit_web_view_new_with_settings(gpdata->settings));
 
 	g_object_connect(
-			G_OBJECT(gpdata->webview),
-			"signal::authenticate", G_CALLBACK (remmina_plugin_www_on_auth), gp,
-			NULL);
+		G_OBJECT(gpdata->webview),
+		"signal::authenticate", G_CALLBACK(remmina_plugin_www_on_auth), gp,
+		"signal::close", G_CALLBACK(remmina_plugin_www_close_connection), gp,
+		NULL);
 
 	gtk_widget_set_hexpand(GTK_WIDGET(gpdata->webview), TRUE);
 	gtk_widget_set_vexpand(GTK_WIDGET(gpdata->webview), TRUE);
@@ -205,13 +213,6 @@ static gboolean remmina_plugin_www_open_connection(RemminaProtocolWidget *gp)
 	gtk_widget_show_all(gpdata->box);
 
 	return TRUE;
-}
-
-static gboolean remmina_plugin_www_close_connection(RemminaProtocolWidget *gp)
-{
-	TRACE_CALL(__func__);
-	remmina_plugin_service->protocol_plugin_emit_signal(gp, "disconnect");
-	return FALSE;
 }
 
 /* Array of RemminaProtocolSetting for basic settings.
@@ -225,10 +226,10 @@ static gboolean remmina_plugin_www_close_connection(RemminaProtocolWidget *gp)
  */
 static const RemminaProtocolSetting remmina_plugin_www_basic_settings[] =
 {
-	{ REMMINA_PROTOCOL_SETTING_TYPE_TEXT, "server", N_("Address"), FALSE, NULL, NULL },
-	{ REMMINA_PROTOCOL_SETTING_TYPE_TEXT, "username", N_("Username"), FALSE, NULL, NULL },
+	{ REMMINA_PROTOCOL_SETTING_TYPE_TEXT,	  "server",   N_("Address"),  FALSE, NULL, NULL },
+	{ REMMINA_PROTOCOL_SETTING_TYPE_TEXT,	  "username", N_("Username"), FALSE, NULL, NULL },
 	{ REMMINA_PROTOCOL_SETTING_TYPE_PASSWORD, "password", N_("Password"), FALSE, NULL, NULL },
-	{ REMMINA_PROTOCOL_SETTING_TYPE_END, NULL, NULL, FALSE, NULL, NULL }
+	{ REMMINA_PROTOCOL_SETTING_TYPE_END,	  NULL,	      NULL,	      FALSE, NULL, NULL }
 };
 
 /* Array of RemminaProtocolSetting for advanced settings.
@@ -242,44 +243,44 @@ static const RemminaProtocolSetting remmina_plugin_www_basic_settings[] =
  */
 static const RemminaProtocolSetting remmina_plugin_www_advanced_settings[] =
 {
-	{ REMMINA_PROTOCOL_SETTING_TYPE_TEXT, "user-agent", N_("User Agent"), FALSE, NULL, NULL },
-	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK, "enable-smooth-scrolling", N_("Enabl smooth scrolling"), TRUE, NULL, NULL },
-	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK, "enable-spatial-navigation", N_("Enable Spatial Navigation"), TRUE, NULL, NULL },
-	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK, "enable-webgl", N_("Enable support for WebGL on pages"), TRUE, NULL, NULL },
-	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK, "enable-webaudio", N_("Enable support for WebAudio on pages"), TRUE, NULL, NULL },
-	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK, "ignore-tls-errors", N_("Ignore TLS errors"), TRUE, NULL, NULL },
-	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK, "disablepasswordstoring", N_("Disable password storing"), TRUE, NULL, NULL},
-	{ REMMINA_PROTOCOL_SETTING_TYPE_END, NULL, NULL, FALSE, NULL, NULL }
+	{ REMMINA_PROTOCOL_SETTING_TYPE_TEXT,  "user-agent",		    N_("User Agent"),				FALSE, NULL, NULL },
+	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK, "enable-smooth-scrolling",   N_("Enabl smooth scrolling"),		TRUE,  NULL, NULL },
+	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK, "enable-spatial-navigation", N_("Enable Spatial Navigation"),		TRUE,  NULL, NULL },
+	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK, "enable-webgl",		    N_("Enable support for WebGL on pages"),	TRUE,  NULL, NULL },
+	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK, "enable-webaudio",	    N_("Enable support for WebAudio on pages"), TRUE,  NULL, NULL },
+	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK, "ignore-tls-errors",	    N_("Ignore TLS errors"),			TRUE,  NULL, NULL },
+	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK, "disablepasswordstoring",    N_("Disable password storing"),		TRUE,  NULL, NULL },
+	{ REMMINA_PROTOCOL_SETTING_TYPE_END,   NULL,			    NULL,					FALSE, NULL, NULL }
 };
 
 /* Array for available features.
  * The last element of the array must be REMMINA_PROTOCOL_FEATURE_TYPE_END. */
 static const RemminaProtocolFeature remmina_www_features[] =
 {
-	{ REMMINA_PROTOCOL_FEATURE_TYPE_END, 0, NULL, NULL, NULL}
+	{ REMMINA_PROTOCOL_FEATURE_TYPE_END, 0, NULL, NULL, NULL }
 };
 
 /* Protocol plugin definition and features */
 static RemminaProtocolPlugin remmina_plugin =
 {
-	REMMINA_PLUGIN_TYPE_PROTOCOL,         // Type
-	PLUGIN_NAME,                          // Name
-	PLUGIN_DESCRIPTION,                   // Description
-	GETTEXT_PACKAGE,                      // Translation domain
-	PLUGIN_VERSION,                       // Version number
-	PLUGIN_APPICON,                       // Icon for normal connection
-	NULL,                                 // Icon for SSH connection
-	remmina_plugin_www_basic_settings,    // Array for basic settings
-	remmina_plugin_www_advanced_settings, // Array for advanced settings
-	REMMINA_PROTOCOL_SSH_SETTING_NONE,    // SSH settings type
-	remmina_www_features,                 // Array for available features
-	remmina_plugin_www_init,              // Plugin initialization
-	remmina_plugin_www_open_connection,   // Plugin open connection
-	remmina_plugin_www_close_connection,  // Plugin close connection
-	remmina_www_query_feature,            // Query for available features
-	NULL,                                 // Call a feature
-	NULL,                                 // Send a keystroke
-	NULL                                  // Capture screenshot
+	REMMINA_PLUGIN_TYPE_PROTOCOL,           // Type
+	PLUGIN_NAME,                            // Name
+	PLUGIN_DESCRIPTION,                     // Description
+	GETTEXT_PACKAGE,                        // Translation domain
+	PLUGIN_VERSION,                         // Version number
+	PLUGIN_APPICON,                         // Icon for normal connection
+	NULL,                                   // Icon for SSH connection
+	remmina_plugin_www_basic_settings,      // Array for basic settings
+	remmina_plugin_www_advanced_settings,   // Array for advanced settings
+	REMMINA_PROTOCOL_SSH_SETTING_NONE,      // SSH settings type
+	remmina_www_features,                   // Array for available features
+	remmina_plugin_www_init,                // Plugin initialization
+	remmina_plugin_www_open_connection,     // Plugin open connection
+	remmina_plugin_www_close_connection,    // Plugin close connection
+	remmina_www_query_feature,              // Query for available features
+	NULL,                                   // Call a feature
+	NULL,                                   // Send a keystroke
+	NULL                                    // Capture screenshot
 };
 
 G_MODULE_EXPORT gboolean remmina_plugin_entry(RemminaPluginService *service)
@@ -291,9 +292,7 @@ G_MODULE_EXPORT gboolean remmina_plugin_entry(RemminaPluginService *service)
 	bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
 
 
-	if (!service->register_plugin((RemminaPlugin *) &remmina_plugin))
-	{
+	if (!service->register_plugin((RemminaPlugin *)&remmina_plugin))
 		return FALSE;
-	}
 	return TRUE;
 }
