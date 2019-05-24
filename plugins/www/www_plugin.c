@@ -73,7 +73,6 @@ static void remmina_plugin_www_init(RemminaProtocolWidget *gp)
 	RemminaPluginWWWData *gpdata;
 	RemminaFile *remminafile;
 
-
 	gpdata = g_new0(RemminaPluginWWWData, 1);
 	g_object_set_data_full(G_OBJECT(gp), "plugin-data", gpdata, g_free);
 
@@ -121,7 +120,7 @@ static void remmina_plugin_www_init(RemminaProtocolWidget *gp)
 
 }
 
-static gboolean remmina_plugin_www_on_auth (RemminaProtocolWidget *gp)
+static gboolean remmina_plugin_www_on_auth (WebKitWebView *webview, WebKitAuthenticationRequest *request, RemminaProtocolWidget *gp)
 {
 	TRACE_CALL(__func__);
 
@@ -146,11 +145,14 @@ static gboolean remmina_plugin_www_on_auth (RemminaProtocolWidget *gp)
 		s_password = remmina_plugin_service->protocol_plugin_init_get_password(gp);
 		if (remmina_plugin_service->protocol_plugin_init_get_savepassword(gp))
 			remmina_plugin_service->file_set_string( remminafile, "password", s_password );
-		if (s_password)
+		if (s_password) {
 			gpdata->credentials = webkit_credential_new(
 					g_strdup(s_username),
 					g_strdup(s_password),
 					WEBKIT_CREDENTIAL_PERSISTENCE_FOR_SESSION);
+			webkit_authentication_request_authenticate(request, gpdata->credentials);
+			webkit_credential_free(gpdata->credentials);
+		}
 
 		save = remmina_plugin_service->protocol_plugin_init_get_savepassword(gp);
 		if (save) {
@@ -176,7 +178,6 @@ static gboolean remmina_plugin_www_on_auth (RemminaProtocolWidget *gp)
 	return TRUE;
 }
 
-
 static gboolean remmina_plugin_www_open_connection(RemminaProtocolWidget *gp)
 {
 	TRACE_CALL(__func__);
@@ -191,17 +192,17 @@ static gboolean remmina_plugin_www_open_connection(RemminaProtocolWidget *gp)
 
 	gpdata->webview = WEBKIT_WEB_VIEW(webkit_web_view_new_with_settings(gpdata->settings));
 
-	gtk_widget_set_hexpand(GTK_WIDGET(gpdata->webview), TRUE);
-	gtk_widget_set_vexpand(GTK_WIDGET(gpdata->webview), TRUE);
-	gtk_container_add(GTK_CONTAINER(gpdata->box), GTK_WIDGET(gpdata->webview));
-	webkit_web_view_load_uri(gpdata->webview, gpdata->url);
 	g_object_connect(
 			G_OBJECT(gpdata->webview),
 			"signal::authenticate", G_CALLBACK (remmina_plugin_www_on_auth), gp,
 			NULL);
-	gtk_widget_show_all(gpdata->box);
 
+	gtk_widget_set_hexpand(GTK_WIDGET(gpdata->webview), TRUE);
+	gtk_widget_set_vexpand(GTK_WIDGET(gpdata->webview), TRUE);
+	gtk_container_add(GTK_CONTAINER(gpdata->box), GTK_WIDGET(gpdata->webview));
+	webkit_web_view_load_uri(gpdata->webview, gpdata->url);
 	remmina_plugin_service->protocol_plugin_emit_signal(gp, "connect");
+	gtk_widget_show_all(gpdata->box);
 
 	return TRUE;
 }
@@ -247,6 +248,7 @@ static const RemminaProtocolSetting remmina_plugin_www_advanced_settings[] =
 	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK, "enable-webgl", N_("Enable support for WebGL on pages"), TRUE, NULL, NULL },
 	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK, "enable-webaudio", N_("Enable support for WebAudio on pages"), TRUE, NULL, NULL },
 	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK, "ignore-tls-errors", N_("Ignore TLS errors"), TRUE, NULL, NULL },
+	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK, "disablepasswordstoring", N_("Disable password storing"), TRUE, NULL, NULL},
 	{ REMMINA_PROTOCOL_SETTING_TYPE_END, NULL, NULL, FALSE, NULL, NULL }
 };
 
