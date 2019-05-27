@@ -75,24 +75,106 @@ static void remmina_plugin_www_init(RemminaProtocolWidget *gp)
 	RemminaPluginWWWData *gpdata;
 	RemminaFile *remminafile;
 	gchar *datapath;
+	gchar *cache_dir;
+	gchar *scheme;
+	gchar *tempuri;
+	GRegex *regex;
+	GMatchInfo *match_info;
+	GError *r_error = NULL;
+	GError *m_error = NULL;
 
 	gpdata = g_new0(RemminaPluginWWWData, 1);
 	g_object_set_data_full(G_OBJECT(gp), "plugin-data", gpdata, g_free);
 
 	remminafile = remmina_plugin_service->protocol_plugin_get_file(gp);
 
-	datapath = g_path_get_dirname (remmina_plugin_service->file_get_path(remminafile));
-	g_debug ("WWW data path is %s", datapath);
+	datapath = g_build_path("/",
+				g_path_get_dirname(remmina_plugin_service->file_get_path(remminafile)),
+				PLUGIN_NAME,
+				NULL);
+	cache_dir = g_build_path("/", datapath, "cache", NULL);
+	g_debug("WWW data path is %s", datapath);
+
+	if (datapath) {
+		gchar *indexeddb_dir = g_build_filename(datapath, "indexeddb", NULL);
+		gchar *local_storage_dir = g_build_filename(datapath, "local_storage", NULL);
+		gchar *applications_dir = g_build_filename(datapath, "applications", NULL);
+		gchar *websql_dir = g_build_filename(datapath, "websql", NULL);
+		gpdata->data_mgr = webkit_website_data_manager_new(
+			"disk-cache-directory", cache_dir,
+			"indexeddb-directory", indexeddb_dir,
+			"local-storage-directory", local_storage_dir,
+			"offline-application-cache-directory", applications_dir,
+			"websql-directory", websql_dir,
+			NULL
+			);
+		g_free(indexeddb_dir);
+		g_free(local_storage_dir);
+		g_free(applications_dir);
+		g_free(websql_dir);
+	} else {
+		gpdata->data_mgr = webkit_website_data_manager_new_ephemeral();
+	}
 
 
-	if (remmina_plugin_service->file_get_string(remminafile, "server"))
-		gpdata->url = strdup(remmina_plugin_service->file_get_string(remminafile, "server"));
-	else
+	if (remmina_plugin_service->file_get_string(remminafile, "server")) {
+		if (remmina_plugin_service->file_get_int(remminafile, "send-auth", FALSE)) {
+			regex = g_regex_new("^http.*://", 0, 0, NULL);
+			tempuri = g_regex_replace(
+				regex,
+				remmina_plugin_service->file_get_string(remminafile, "server"),
+				-1,
+				0,
+				"",
+				0,
+				&r_error);
+			if (r_error != NULL) {
+				g_printerr("Error while replacing: %s\n", r_error->message);
+				g_error_free(r_error);
+			}
+
+			g_regex_match_full(
+				regex,
+				remmina_plugin_service->file_get_string(remminafile, "server"),
+				-1,
+				0,
+				0,
+				&match_info,
+				&m_error);
+
+			scheme = g_match_info_fetch(match_info, 0);
+			g_debug("Found: %s\n", scheme);
+			g_match_info_free(match_info);
+			if (m_error != NULL) {
+				g_printerr("Error while matching: %s\n", m_error->message);
+				g_error_free(m_error);
+			}
+
+			g_regex_unref(regex);
+
+
+
+
+			gpdata->url = g_strconcat(
+				scheme,
+				g_strdup(remmina_plugin_service->file_get_string(remminafile, "username")),
+				":",
+				g_strdup(remmina_plugin_service->file_get_string(remminafile, "password")),
+				"@",
+				g_strdup(tempuri),
+				NULL);
+			g_free(scheme);
+			g_free(tempuri);
+		} else {
+			gpdata->url = g_strdup(remmina_plugin_service->file_get_string(remminafile, "server"));
+		}
+	} else {
 		gpdata->url = "https://remmina.org";
+	}
 	g_info("URL is set to %s", gpdata->url);
 
 	gpdata->settings = webkit_settings_new();
-	gpdata->context = webkit_web_context_get_default();
+	gpdata->context = webkit_web_context_new_with_website_data_manager(gpdata->data_mgr);
 
 	/* enable-fullscreen, default TRUE, TODO: Try FALSE */
 
@@ -234,10 +316,11 @@ static gboolean remmina_plugin_www_open_connection(RemminaProtocolWidget *gp)
  */
 static const RemminaProtocolSetting remmina_plugin_www_basic_settings[] =
 {
-	{ REMMINA_PROTOCOL_SETTING_TYPE_TEXT,	  "server",   N_("Address"),  FALSE, NULL, NULL },
-	{ REMMINA_PROTOCOL_SETTING_TYPE_TEXT,	  "username", N_("Username"), FALSE, NULL, NULL },
-	{ REMMINA_PROTOCOL_SETTING_TYPE_PASSWORD, "password", N_("Password"), FALSE, NULL, NULL },
-	{ REMMINA_PROTOCOL_SETTING_TYPE_END,	  NULL,	      NULL,	      FALSE, NULL, NULL }
+	{ REMMINA_PROTOCOL_SETTING_TYPE_TEXT,	  "server",    N_("Address"),		   FALSE, NULL, NULL },
+	{ REMMINA_PROTOCOL_SETTING_TYPE_TEXT,	  "username",  N_("Username"),		   FALSE, NULL, NULL },
+	{ REMMINA_PROTOCOL_SETTING_TYPE_PASSWORD, "password",  N_("Password"),		   FALSE, NULL, NULL },
+	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK,	  "send-auth", N_("Force authentication"), TRUE,  NULL, NULL },
+	{ REMMINA_PROTOCOL_SETTING_TYPE_END,	  NULL,	       NULL,			   FALSE, NULL, NULL }
 };
 
 /* Array of RemminaProtocolSetting for advanced settings.
@@ -252,7 +335,7 @@ static const RemminaProtocolSetting remmina_plugin_www_basic_settings[] =
 static const RemminaProtocolSetting remmina_plugin_www_advanced_settings[] =
 {
 	{ REMMINA_PROTOCOL_SETTING_TYPE_TEXT,  "user-agent",		    N_("User Agent"),				FALSE, NULL, NULL },
-	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK, "enable-smooth-scrolling",   N_("Enabl smooth scrolling"),		TRUE,  NULL, NULL },
+	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK, "enable-smooth-scrolling",   N_("Enable smooth scrolling"),		TRUE,  NULL, NULL },
 	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK, "enable-spatial-navigation", N_("Enable Spatial Navigation"),		TRUE,  NULL, NULL },
 	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK, "enable-webgl",		    N_("Enable support for WebGL on pages"),	TRUE,  NULL, NULL },
 	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK, "enable-webaudio",	    N_("Enable support for WebAudio on pages"), TRUE,  NULL, NULL },
