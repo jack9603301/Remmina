@@ -40,6 +40,8 @@
 #include <gdk/gdkkeysyms.h>
 #include <gtk/gtk.h>
 #include <glib.h>
+#include <glib.h>
+#include <glib/gprintf.h>
 #include <stdlib.h>
 
 #include <webkit2/webkit2.h>
@@ -50,6 +52,7 @@ typedef struct _RemminaPluginWWWData {
 	GtkWidget *			box;
 	WebKitSettings *		settings;
 	WebKitWebContext *		context;
+	WebKitWebsiteDataManager *	data_mgr;
 	WebKitCredential *		credentials;
 	WebKitAuthenticationRequest *	request;
 	WebKitWebView *			webview;
@@ -71,11 +74,16 @@ static void remmina_plugin_www_init(RemminaProtocolWidget *gp)
 
 	RemminaPluginWWWData *gpdata;
 	RemminaFile *remminafile;
+	gchar *datapath;
 
 	gpdata = g_new0(RemminaPluginWWWData, 1);
 	g_object_set_data_full(G_OBJECT(gp), "plugin-data", gpdata, g_free);
 
 	remminafile = remmina_plugin_service->protocol_plugin_get_file(gp);
+
+	datapath = g_path_get_dirname (remmina_plugin_service->file_get_path(remminafile));
+	g_debug ("WWW data path is %s", datapath);
+
 
 	if (remmina_plugin_service->file_get_string(remminafile, "server"))
 		gpdata->url = strdup(remmina_plugin_service->file_get_string(remminafile, "server"));
