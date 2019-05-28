@@ -118,60 +118,10 @@ static void remmina_plugin_www_init(RemminaProtocolWidget *gp)
 	}
 
 
-	if (remmina_plugin_service->file_get_string(remminafile, "server")) {
-		if (remmina_plugin_service->file_get_int(remminafile, "send-auth", FALSE)) {
-			regex = g_regex_new("^http.*://", 0, 0, NULL);
-			tempuri = g_regex_replace(
-				regex,
-				remmina_plugin_service->file_get_string(remminafile, "server"),
-				-1,
-				0,
-				"",
-				0,
-				&r_error);
-			if (r_error != NULL) {
-				g_printerr("Error while replacing: %s\n", r_error->message);
-				g_error_free(r_error);
-			}
-
-			g_regex_match_full(
-				regex,
-				remmina_plugin_service->file_get_string(remminafile, "server"),
-				-1,
-				0,
-				0,
-				&match_info,
-				&m_error);
-
-			scheme = g_match_info_fetch(match_info, 0);
-			g_debug("Found: %s\n", scheme);
-			g_match_info_free(match_info);
-			if (m_error != NULL) {
-				g_printerr("Error while matching: %s\n", m_error->message);
-				g_error_free(m_error);
-			}
-
-			g_regex_unref(regex);
-
-
-
-
-			gpdata->url = g_strconcat(
-				scheme,
-				g_strdup(remmina_plugin_service->file_get_string(remminafile, "username")),
-				":",
-				g_strdup(remmina_plugin_service->file_get_string(remminafile, "password")),
-				"@",
-				g_strdup(tempuri),
-				NULL);
-			g_free(scheme);
-			g_free(tempuri);
-		} else {
-			gpdata->url = g_strdup(remmina_plugin_service->file_get_string(remminafile, "server"));
-		}
-	} else {
+	if (remmina_plugin_service->file_get_string(remminafile, "server"))
+		gpdata->url = g_strdup(remmina_plugin_service->file_get_string(remminafile, "server"));
+	else
 		gpdata->url = "https://remmina.org";
-	}
 	g_info("URL is set to %s", gpdata->url);
 
 	gpdata->settings = webkit_settings_new();
@@ -200,7 +150,6 @@ static void remmina_plugin_www_init(RemminaProtocolWidget *gp)
 		webkit_settings_set_enable_webgl(gpdata->settings, TRUE);
 		g_info("enable-webgl enabled");
 	}
-
 
 	if (remmina_plugin_service->file_get_int(remminafile, "ignore-tls-errors", FALSE)) {
 		webkit_web_context_set_tls_errors_policy(gpdata->context, WEBKIT_TLS_ERRORS_POLICY_IGNORE);
@@ -388,7 +337,6 @@ static const RemminaProtocolSetting remmina_plugin_www_basic_settings[] =
 	{ REMMINA_PROTOCOL_SETTING_TYPE_PASSWORD, "password",  N_("Password"),		   FALSE, NULL, NULL },
 	{ REMMINA_PROTOCOL_SETTING_TYPE_TEXT,	  "username-id",  N_("Username HTML element ID"),		   FALSE, NULL, NULL },
 	{ REMMINA_PROTOCOL_SETTING_TYPE_TEXT, "password-id",  N_("Password HTML element ID"),		   FALSE, NULL, NULL },
-	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK,	  "send-auth", N_("Try to force basic access authentication"), FALSE,  NULL, NULL },
 	{ REMMINA_PROTOCOL_SETTING_TYPE_END,	  NULL,	       NULL,			   FALSE, NULL, NULL }
 };
 
