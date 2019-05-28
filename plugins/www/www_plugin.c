@@ -70,6 +70,16 @@ static gboolean remmina_www_query_feature(RemminaProtocolWidget *gp, const Remmi
 	return TRUE;
 }
 
+static gboolean remmina_plugin_www_load_failed_tls_cb(WebKitWebView* webview,
+		gchar *failing_uri, GTlsCertificate *certificate,
+		GTlsCertificateFlags errors, RemminaProtocolWidget *gp)
+{
+	TRACE_CALL(__func__);
+	/* Avoid to fail if certificate is not good. TODO: Add widgets to let the user decide */
+	g_debug ("Ignoring certificate and return TRUE");
+	return TRUE;
+}
+
 static void remmina_plugin_www_init(RemminaProtocolWidget *gp)
 {
 	TRACE_CALL(__func__);
@@ -78,12 +88,6 @@ static void remmina_plugin_www_init(RemminaProtocolWidget *gp)
 	RemminaFile *remminafile;
 	gchar *datapath;
 	gchar *cache_dir;
-	gchar *scheme;
-	gchar *tempuri;
-	GRegex *regex;
-	GMatchInfo *match_info;
-	GError *r_error = NULL;
-	GError *m_error = NULL;
 
 	gpdata = g_new0(RemminaPluginWWWData, 1);
 	g_object_set_data_full(G_OBJECT(gp), "plugin-data", gpdata, g_free);
@@ -154,7 +158,7 @@ static void remmina_plugin_www_init(RemminaProtocolWidget *gp)
 
 	if (remmina_plugin_service->file_get_int(remminafile, "ignore-tls-errors", FALSE)) {
 		webkit_web_context_set_tls_errors_policy(gpdata->context, WEBKIT_TLS_ERRORS_POLICY_IGNORE);
-		g_info("Ignore TLS errosrs");
+		g_info("Ignore TLS errors");
 	}
 }
 
@@ -183,7 +187,7 @@ static gboolean remmina_plugin_www_on_auth(WebKitWebView *webview, WebKitAuthent
 		s_password = remmina_plugin_service->protocol_plugin_init_get_password(gp);
 		if (remmina_plugin_service->protocol_plugin_init_get_savepassword(gp))
 			remmina_plugin_service->file_set_string(remminafile, "password", s_password);
-		if (s_password) {
+		if (request) {
 			gpdata->credentials = webkit_credential_new(
 				g_strdup(s_username),
 				g_strdup(s_password),
@@ -208,8 +212,6 @@ static gboolean remmina_plugin_www_on_auth(WebKitWebView *webview, WebKitAuthent
 		/* Free credentials */
 
 		gpdata->authenticated = TRUE;
-		if (gpdata->load_event == WEBKIT_LOAD_FINISHED)
-			webkit_web_view_load_uri(gpdata->webview, gpdata->url);
 	} else {
 		gpdata->authenticated = FALSE;
 	}
@@ -222,10 +224,7 @@ static void remmina_plugin_www_form_auth (WebKitWebView *webview,
 {
 	TRACE_CALL(__func__);
 	gchar *s_username, *s_password, *s_js;
-	gint ret;
 	RemminaPluginWWWData *gpdata;
-	gboolean save;
-	gboolean disablepasswordstoring;
 	RemminaFile *remminafile;
 
 	gpdata = (RemminaPluginWWWData *)g_object_get_data(G_OBJECT(gp), "plugin-data");
@@ -238,7 +237,6 @@ static void remmina_plugin_www_form_auth (WebKitWebView *webview,
 
 	switch (gpdata->load_event) {
 		case WEBKIT_LOAD_STARTED:
-			remmina_plugin_www_on_auth(gpdata->webview, NULL, gp);
 			break;
 		case WEBKIT_LOAD_REDIRECTED:
 			break;
@@ -288,9 +286,8 @@ static void remmina_plugin_www_form_auth (WebKitWebView *webview,
 static gboolean remmina_plugin_www_close_connection(RemminaProtocolWidget *gp)
 {
 	TRACE_CALL(__func__);
-	RemminaPluginWWWData *gpdata;
-
-	gpdata = (RemminaPluginWWWData *)g_object_get_data(G_OBJECT(gp), "plugin-data");
+	// RemminaPluginWWWData *gpdata;
+	//gpdata = (RemminaPluginWWWData *)g_object_get_data(G_OBJECT(gp), "plugin-data");
 
 	remmina_plugin_service->protocol_plugin_emit_signal(gp, "disconnect");
 	return FALSE;
@@ -309,9 +306,11 @@ static gboolean remmina_plugin_www_open_connection(RemminaProtocolWidget *gp)
 	remmina_plugin_service->protocol_plugin_register_hostkey(gp, gpdata->box);
 
 	gpdata->webview = WEBKIT_WEB_VIEW(webkit_web_view_new_with_settings(gpdata->settings));
+	remmina_plugin_www_on_auth(gpdata->webview, NULL, gp);
 
 	g_object_connect(
 		G_OBJECT(gpdata->webview),
+		"signal::load-failed-with-tls-errors", G_CALLBACK(remmina_plugin_www_load_failed_tls_cb), gp,
 		"signal::load-changed", G_CALLBACK(remmina_plugin_www_form_auth), gp,
 		"signal::authenticate", G_CALLBACK(remmina_plugin_www_on_auth), gp,
 		"signal::close", G_CALLBACK(remmina_plugin_www_close_connection), gp,
