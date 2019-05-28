@@ -120,6 +120,7 @@ static void remmina_plugin_www_init(RemminaProtocolWidget *gp)
 		g_free(local_storage_dir);
 		g_free(applications_dir);
 		g_free(websql_dir);
+		g_free(datapath);
 	} else {
 		gpdata->data_mgr = webkit_website_data_manager_new_ephemeral();
 	}
@@ -280,13 +281,12 @@ static void remmina_plugin_www_form_auth(WebKitWebView *webview,
 			//webkit_web_view_load_uri(gpdata->webview, s_js);
 			webkit_web_view_run_javascript(gpdata->webview, s_js, NULL, NULL, NULL);
 
-			g_free(s_username);
-			g_free(s_password);
-			g_free(s_uid);
-			g_free(s_pwdid);
-			g_free(s_js);
+			if(s_username) g_free(s_username);
+			if(s_password) g_free(s_password);
+			if(s_uid) g_free(s_uid);
+			if(s_pwdid) g_free(s_pwdid);
+			if(s_js) g_free(s_js);
 		}
-
 		break;
 	}
 }
@@ -299,7 +299,7 @@ static gboolean remmina_plugin_www_close_connection(RemminaProtocolWidget *gp)
 
 	webkit_web_view_try_close(gpdata->webview);
 
-	gpdata->url = NULL;
+	if(gpdata->url) g_free(gpdata->url);
 	gpdata->authenticated = FALSE;
 	gpdata->webview = NULL;
 	gpdata->data_mgr = NULL;
