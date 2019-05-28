@@ -39,7 +39,7 @@
 #ifndef __PLUGIN_CONFIG_H
 #define __PLUGIN_CONFIG_H
 
-#define PLUGIN_NAME        "WWWW"
+#define PLUGIN_NAME        "WWW"
 #define PLUGIN_DESCRIPTION N_("Remmina Browser Plugin")
 #define PLUGIN_VERSION     "0.1.0"
 #define PLUGIN_APPICON     "remmina-www-symbolic"
