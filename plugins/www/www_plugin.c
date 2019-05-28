@@ -56,6 +56,7 @@ typedef struct _RemminaPluginWWWData {
 	WebKitCredential *		credentials;
 	WebKitAuthenticationRequest *	request;
 	WebKitWebView *			webview;
+	WebKitLoadEvent			load_event;
 
 	gchar *				url;
 	gboolean			authenticated;
@@ -130,22 +131,22 @@ static void remmina_plugin_www_init(RemminaProtocolWidget *gp)
 	/* enable-fullscreen, default TRUE, TODO: Try FALSE */
 
 	/* user-agent. TODO: Add option. */
-	/* enable-smooth-scrolling, TODO: Add option, default FALSE */
+	/* enable-smooth-scrolling */
 	if (remmina_plugin_service->file_get_int(remminafile, "enable-smooth-scrolling", FALSE)) {
 		webkit_settings_set_enable_smooth_scrolling(gpdata->settings, TRUE);
 		g_info("enable-smooth-scrolling enabled");
 	}
-	/* enable-spatial-navigation, TODO: Add option, default FALSE */
+	/* enable-spatial-navigation */
 	if (remmina_plugin_service->file_get_int(remminafile, "enable-spatial-navigation", FALSE)) {
 		webkit_settings_set_enable_spatial_navigation(gpdata->settings, TRUE);
 		g_info("enable-spatial-navigation enabled");
 	}
-	/* enable-webaudio, TODO: Add option, default FALSE , experimental */
+	/* enable-webaudio */
 	if (remmina_plugin_service->file_get_int(remminafile, "enable-webaudio", FALSE)) {
 		webkit_settings_set_enable_webaudio(gpdata->settings, TRUE);
 		g_info("enable-webaudio enabled");
 	}
-	/* enable-webgl. TODO: Add option, default FALSE , experimental */
+	/* enable-webgl */
 	if (remmina_plugin_service->file_get_int(remminafile, "enable-webgl", FALSE)) {
 		webkit_settings_set_enable_webgl(gpdata->settings, TRUE);
 		g_info("enable-webgl enabled");
@@ -207,6 +208,8 @@ static gboolean remmina_plugin_www_on_auth(WebKitWebView *webview, WebKitAuthent
 		/* Free credentials */
 
 		gpdata->authenticated = TRUE;
+		if (gpdata->load_event == WEBKIT_LOAD_FINISHED)
+			webkit_web_view_load_uri(gpdata->webview, gpdata->url);
 	} else {
 		gpdata->authenticated = FALSE;
 	}
@@ -227,12 +230,15 @@ static void remmina_plugin_www_form_auth (WebKitWebView *webview,
 
 	gpdata = (RemminaPluginWWWData *)g_object_get_data(G_OBJECT(gp), "plugin-data");
 
+	gpdata->load_event = load_event;
+
 	remminafile = remmina_plugin_service->protocol_plugin_get_file(gp);
 
 	g_debug ("load-changed emitted");
 
-	switch (load_event) {
+	switch (gpdata->load_event) {
 		case WEBKIT_LOAD_STARTED:
+			remmina_plugin_www_on_auth(gpdata->webview, NULL, gp);
 			break;
 		case WEBKIT_LOAD_REDIRECTED:
 			break;
