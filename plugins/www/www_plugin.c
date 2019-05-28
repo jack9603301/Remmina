@@ -137,6 +137,12 @@ static void remmina_plugin_www_init(RemminaProtocolWidget *gp)
 	/* enable-fullscreen, default TRUE, TODO: Try FALSE */
 
 	/* user-agent. TODO: Add option. */
+	if (remmina_plugin_service->file_get_string(remminafile, "user-agent")){
+		gchar* useragent = g_strdup(remmina_plugin_service->file_get_string(remminafile, "user-agent"));
+		webkit_settings_set_user_agent(gpdata->settings, useragent);
+		g_info("User Agent set to: %s", useragent);
+		g_free(useragent);
+	}
 	/* enable-smooth-scrolling */
 	if (remmina_plugin_service->file_get_int(remminafile, "enable-smooth-scrolling", FALSE)) {
 		webkit_settings_set_enable_smooth_scrolling(gpdata->settings, TRUE);
@@ -325,8 +331,10 @@ static gboolean remmina_plugin_www_open_connection(RemminaProtocolWidget *gp)
 
 	gpdata->webview = WEBKIT_WEB_VIEW(webkit_web_view_new_with_context(gpdata->context));
 	webkit_web_view_set_settings(gpdata->webview, gpdata->settings);
-	if (!remmina_plugin_service->file_get_int(remminafile, "no-autneticate", FALSE))
+	if (!remmina_plugin_service->file_get_int(remminafile, "no-authentication", FALSE)) {
+		g_debug ("Authentication is enabled");
 		remmina_plugin_www_on_auth(gpdata->webview, NULL, gp);
+	}
 
 	//"signal::load-failed-with-tls-errors", G_CALLBACK(remmina_plugin_www_load_failed_tls_cb), gp,
 	g_object_connect(
@@ -357,7 +365,7 @@ static gboolean remmina_plugin_www_open_connection(RemminaProtocolWidget *gp)
 static const RemminaProtocolSetting remmina_plugin_www_basic_settings[] =
 {
 	{ REMMINA_PROTOCOL_SETTING_TYPE_TEXT,	  "server",	       N_("Address"),		       FALSE, NULL, NULL },
-	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK,	  "no-authentication", N_("No authentication"),	       TRUE,  NULL, NULL },
+	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK,	  "no-authentication", N_("No authentication"),	       FALSE, NULL, NULL },
 	{ REMMINA_PROTOCOL_SETTING_TYPE_TEXT,	  "username",	       N_("Username"),		       FALSE, NULL, NULL },
 	{ REMMINA_PROTOCOL_SETTING_TYPE_PASSWORD, "password",	       N_("Password"),		       FALSE, NULL, NULL },
 	{ REMMINA_PROTOCOL_SETTING_TYPE_TEXT,	  "username-id",       N_("Username HTML element ID"), FALSE, NULL, NULL },
