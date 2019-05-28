@@ -58,6 +58,7 @@ typedef struct _RemminaPluginWWWData {
 	WebKitWebView *			webview;
 
 	gchar *				url;
+	gboolean			authenticated;
 } RemminaPluginWWWData;
 
 static RemminaPluginService *remmina_plugin_service = NULL;
@@ -256,13 +257,78 @@ static gboolean remmina_plugin_www_on_auth(WebKitWebView *webview, WebKitAuthent
 
 		/* Free credentials */
 
-		return TRUE;
+		gpdata->authenticated = TRUE;
 	} else {
-		return FALSE;
+		gpdata->authenticated = FALSE;
 	}
 
-	return TRUE;
+	return gpdata->authenticated;
 }
+
+static void remmina_plugin_www_form_auth (WebKitWebView *webview,
+		WebKitLoadEvent load_event, RemminaProtocolWidget *gp)
+{
+	TRACE_CALL(__func__);
+	gchar *s_username, *s_password, *s_js;
+	gint ret;
+	RemminaPluginWWWData *gpdata;
+	gboolean save;
+	gboolean disablepasswordstoring;
+	RemminaFile *remminafile;
+
+	gpdata = (RemminaPluginWWWData *)g_object_get_data(G_OBJECT(gp), "plugin-data");
+
+	remminafile = remmina_plugin_service->protocol_plugin_get_file(gp);
+
+	g_debug ("load-changed emitted");
+
+	switch (load_event) {
+		case WEBKIT_LOAD_STARTED:
+			break;
+		case WEBKIT_LOAD_REDIRECTED:
+			break;
+		case WEBKIT_LOAD_COMMITTED:
+			/* The load is being performed. Current URI is
+			 * the final one and it won't change unless a new
+			 * load is requested or a navigation within the
+			 * same page is performed
+			uri = webkit_web_view_get_uri (webview); */
+			break;
+		case WEBKIT_LOAD_FINISHED:
+			/* Load finished, we can now set user/password
+			 * in the html form */
+			g_debug("Load finished");
+			if (remmina_plugin_service->file_get_string(remminafile, "password-id")) {
+				s_username = g_strdup (remmina_plugin_service->file_get_string(remminafile, "username"));
+				s_password = g_strdup (remmina_plugin_service->file_get_string(remminafile, "password"));
+				gchar *s_uid = g_strdup (remmina_plugin_service->file_get_string(remminafile, "username-id"));
+				gchar *s_pwdid = g_strdup (remmina_plugin_service->file_get_string(remminafile, "password-id"));
+
+				s_js = g_strconcat ("javascript:document.getElementById('",
+						s_uid,
+						"').value = '",
+						s_username,
+						"';document.getElementById('",
+						s_pwdid,
+						"').value='",
+						s_password,
+						"';",
+						NULL);
+				g_debug ("We are trying to send this JS: %s", s_js);
+				//webkit_web_view_load_uri(gpdata->webview, s_js);
+				webkit_web_view_run_javascript (gpdata->webview, s_js, NULL, NULL, NULL);
+
+				g_free(s_username);
+				g_free(s_password);
+				g_free(s_uid);
+				g_free(s_pwdid);
+				g_free(s_js);
+			}
+
+			break;
+	}
+}
+
 
 static gboolean remmina_plugin_www_close_connection(RemminaProtocolWidget *gp)
 {
@@ -291,6 +357,7 @@ static gboolean remmina_plugin_www_open_connection(RemminaProtocolWidget *gp)
 
 	g_object_connect(
 		G_OBJECT(gpdata->webview),
+		"signal::load-changed", G_CALLBACK(remmina_plugin_www_form_auth), gp,
 		"signal::authenticate", G_CALLBACK(remmina_plugin_www_on_auth), gp,
 		"signal::close", G_CALLBACK(remmina_plugin_www_close_connection), gp,
 		NULL);
@@ -319,7 +386,9 @@ static const RemminaProtocolSetting remmina_plugin_www_basic_settings[] =
 	{ REMMINA_PROTOCOL_SETTING_TYPE_TEXT,	  "server",    N_("Address"),		   FALSE, NULL, NULL },
 	{ REMMINA_PROTOCOL_SETTING_TYPE_TEXT,	  "username",  N_("Username"),		   FALSE, NULL, NULL },
 	{ REMMINA_PROTOCOL_SETTING_TYPE_PASSWORD, "password",  N_("Password"),		   FALSE, NULL, NULL },
-	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK,	  "send-auth", N_("Force authentication"), TRUE,  NULL, NULL },
+	{ REMMINA_PROTOCOL_SETTING_TYPE_TEXT,	  "username-id",  N_("Username HTML element ID"),		   FALSE, NULL, NULL },
+	{ REMMINA_PROTOCOL_SETTING_TYPE_TEXT, "password-id",  N_("Password HTML element ID"),		   FALSE, NULL, NULL },
+	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK,	  "send-auth", N_("Try to force basic access authentication"), FALSE,  NULL, NULL },
 	{ REMMINA_PROTOCOL_SETTING_TYPE_END,	  NULL,	       NULL,			   FALSE, NULL, NULL }
 };
 
