@@ -1551,6 +1551,7 @@ GtkWidget *remmina_file_editor_new_copy(const gchar *filename)
 	GtkWidget *dialog;
 
 	remminafile = remmina_file_copy(filename);
+
 	if (remminafile) {
 		return remmina_file_editor_new_from_file(remminafile);
 	} else {
