@@ -64,6 +64,39 @@ typedef struct _RemminaPluginWWWData {
 
 static RemminaPluginService *remmina_plugin_service = NULL;
 
+static void remmina_www_web_view_js_finished (GObject *object, GAsyncResult *result, gpointer user_data)
+{
+    WebKitJavascriptResult *js_result;
+    JSCValue               *value;
+    GError                 *error = NULL;
+    gchar        *str_value;
+
+    js_result = webkit_web_view_run_javascript_finish (WEBKIT_WEB_VIEW (object), result, &error);
+    if (!js_result) {
+        g_warning ("Error running javascript: %s", error->message);
+        g_error_free (error);
+        return;
+    }
+
+    value = webkit_javascript_result_get_js_value (js_result);
+    if (jsc_value_is_string (value) || jsc_value_is_boolean (value)) {
+        JSCException *exception;
+
+        str_value = jsc_value_to_string (value);
+        exception = jsc_context_get_exception (jsc_value_get_context (value));
+        if (exception)
+            g_warning ("Error running javascript: %s", jsc_exception_get_message (exception));
+        else
+            g_print ("Script result: %s\n", str_value);
+        g_free (str_value);
+    } else {
+        str_value = jsc_value_to_string (value);
+        g_warning ("javascript: unexpected return value, is not a string: %s", str_value);
+        g_free (str_value);
+    }
+    webkit_javascript_result_unref (js_result);
+}
+
 static gboolean remmina_www_query_feature(RemminaProtocolWidget *gp, const RemminaProtocolFeature *feature)
 {
 	TRACE_CALL(__func__);
@@ -260,26 +293,38 @@ static void remmina_plugin_www_form_auth(WebKitWebView *webview,
 		/* Load finished, we can now set user/password
 		 * in the html form */
 		g_debug("Load finished");
-		if (remmina_plugin_service->file_get_string(remminafile, "password-id")
-		    && gpdata->authenticated == FALSE) {
+		if (remmina_plugin_service->file_get_string(remminafile, "password-id")) {
 			s_username = g_strdup(remmina_plugin_service->file_get_string(remminafile, "username"));
 			s_password = g_strdup(remmina_plugin_service->file_get_string(remminafile, "password"));
 			gchar *s_uid = g_strdup(remmina_plugin_service->file_get_string(remminafile, "username-id"));
 			gchar *s_pwdid = g_strdup(remmina_plugin_service->file_get_string(remminafile, "password-id"));
 
-			s_js = g_strconcat("javascript:document.getElementById('",
-					   s_uid,
-					   "').value = '",
-					   s_username,
-					   "';document.getElementById('",
-					   s_pwdid,
-					   "').value='",
-					   s_password,
-					   "';",
-					   NULL);
+			if (remmina_plugin_service->file_get_string(remminafile, "iframe-id")) {
+				gchar* iframe = g_strdup(remmina_plugin_service->file_get_string(remminafile, "iframe-id"));
+				/* document.getElementById('websso').contentDocument.getElementById('%s') */
+				s_js = g_strdup_printf (
+						"let evt = new Event('change');"
+						"document.getElementById('%s').contentDocument.getElementById('%s').value = '%s';"
+						"document.getElementById('%s').contentDocument.getElementById('%s').value = '%s';"
+						"document.getElementById('%s').contentDocument.getElementById('%s').dispatchEvent(evt);"
+						"document.getElementById('%s').contentDocument.getElementById('%s').dispatchEvent(evt);",
+						iframe, s_uid, s_username, iframe, s_pwdid, s_password,
+						iframe, s_uid, iframe, s_pwdid);
+				g_free(iframe);
+			} else {
+				s_js = g_strdup_printf (
+						"let evt = new Event('change');"
+						"document.getElementById('%s').value = '%s';"
+						"document.getElementById('%s').value = '%s';"
+						"document.getElementById('%s').dispatchEvent(evt);"
+						"document.getElementById('%s').dispatchEvent(evt);",
+						s_uid, s_username,
+						s_pwdid, s_password,
+						s_uid,
+						s_pwdid);
+			}
 			g_debug("We are trying to send this JS: %s", s_js);
-			//webkit_web_view_load_uri(gpdata->webview, s_js);
-			webkit_web_view_run_javascript(gpdata->webview, s_js, NULL, NULL, NULL);
+			webkit_web_view_run_javascript(webview, s_js, NULL, remmina_www_web_view_js_finished, NULL);
 
 			if(s_username) g_free(s_username);
 			if(s_password) g_free(s_password);
@@ -370,6 +415,7 @@ static const RemminaProtocolSetting remmina_plugin_www_basic_settings[] =
 	{ REMMINA_PROTOCOL_SETTING_TYPE_PASSWORD, "password",	       N_("Password"),		       FALSE, NULL, NULL },
 	{ REMMINA_PROTOCOL_SETTING_TYPE_TEXT,	  "username-id",       N_("Username HTML element ID"), FALSE, NULL, NULL },
 	{ REMMINA_PROTOCOL_SETTING_TYPE_TEXT,	  "password-id",       N_("Password HTML element ID"), FALSE, NULL, NULL },
+	{ REMMINA_PROTOCOL_SETTING_TYPE_TEXT,	  "iframe-id",         N_("iFrame HTML element ID"),   FALSE, NULL, NULL },
 	{ REMMINA_PROTOCOL_SETTING_TYPE_END,	  NULL,		       NULL,			       FALSE, NULL, NULL }
 };
 
