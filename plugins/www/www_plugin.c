@@ -330,8 +330,10 @@ static void remmina_plugin_www_form_auth(WebKitWebView *webview,
 					s_uid,
 					s_pwdid);
 			}
-			if (s_username) g_free(s_username);
-			if (s_uid) g_free(s_uid);
+			g_free(s_username);
+			g_free(s_uid);
+			g_free(s_password);
+			g_free(s_pwdid);
 		} else if (remmina_plugin_service->file_get_string(remminafile, "password-id") && !remmina_plugin_service->file_get_string(remminafile, "username-id")) {
 			s_password = g_strdup(remmina_plugin_service->file_get_string(remminafile, "password"));
 			s_pwdid = g_strdup(remmina_plugin_service->file_get_string(remminafile, "password-id"));
@@ -351,14 +353,15 @@ static void remmina_plugin_www_form_auth(WebKitWebView *webview,
 					"document.getElementById('%s').dispatchEvent(evt);",
 					s_pwdid, s_password, s_pwdid);
 			}
+			g_free(s_pwdid);
+			g_free(s_password);
 		}
-		g_debug("We are trying to send this JS: %s", s_js);
-		webkit_web_view_run_javascript(webview, s_js, NULL, remmina_www_web_view_js_finished, NULL);
-
-		if (s_password) g_free(s_password);
-		if (s_pwdid) g_free(s_pwdid);
-		if (s_js) g_free(s_js);
-
+		if (!s_js || s_js[0] == '\0') {
+			break;
+		} else {
+			g_debug("We are trying to send this JS: %s", s_js);
+			webkit_web_view_run_javascript(webview, s_js, NULL, remmina_www_web_view_js_finished, NULL);
+		}
 		break;
 	}
 }
@@ -423,6 +426,39 @@ static gboolean remmina_plugin_www_open_connection(RemminaProtocolWidget *gp)
 	gtk_widget_show_all(gpdata->box);
 
 	return TRUE;
+}
+
+static void remmina_plugin_www_save_snapshot(WebKitWebView *webview, GAsyncResult *result, RemminaPluginScreenshotData *rpsd)
+{
+	TRACE_CALL(__func__);
+
+	GError *err = NULL;
+	cairo_surface_t * surface;
+
+	surface = webkit_web_view_get_snapshot_finish (WEBKIT_WEB_VIEW(webview), result, &err);
+	if (err) {
+		g_error("An error happened generating the snapshot: %s\n",err->message);
+	}
+	rpsd->buffer = cairo_image_surface_get_data (surface);
+	rpsd->width = cairo_image_surface_get_width (surface);
+	rpsd->height = cairo_image_surface_get_height (surface);
+	rpsd->cairo_format = cairo_image_surface_get_format (surface);
+
+	remmina_plugin_service->get_plugin_screenshot(NULL, RemminaPluginScreenshotData *rpsd);
+}
+static gboolean remmina_plugin_www_get_snapshot(RemminaProtocolWidget *gp, RemminaPluginScreenshotData *rpsd)
+{
+	TRACE_CALL(__func__);
+	RemminaPluginWWWData *gpdata;
+	gpdata = (RemminaPluginWWWData *)g_object_get_data(G_OBJECT(gp), "plugin-data");
+
+	webkit_web_view_get_snapshot (gpdata->webview,
+                              WEBKIT_SNAPSHOT_REGION_FULL_DOCUMENT,
+                              WEBKIT_SNAPSHOT_OPTIONS_NONE,
+                              NULL,
+                              (GAsyncReadyCallback)remmina_plugin_www_save_snapshot,
+                              rpsd);
+	return FALSE;
 }
 
 /* Array of RemminaProtocolSetting for basic settings.
@@ -494,7 +530,7 @@ static RemminaProtocolPlugin remmina_plugin =
 	remmina_www_query_feature,              // Query for available features
 	NULL,                                   // Call a feature
 	NULL,                                   // Send a keystroke
-	NULL                                    // Capture screenshot
+	remmina_plugin_www_get_snapshot         // Capture screenshot
 };
 
 G_MODULE_EXPORT gboolean remmina_plugin_entry(RemminaPluginService *service)

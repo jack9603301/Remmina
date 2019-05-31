@@ -1910,18 +1910,23 @@ static void rcw_toolbar_screenshot(GtkWidget* widget, RemminaConnectionWindow* c
 	if (remmina_protocol_widget_plugin_screenshot(gp, &rpsd)) {
 		// Good, we have a screenshot from the plugin !
 
-		remmina_log_printf("Screenshot from plugin: w=%d h=%d bpp=%d bytespp=%d\n",
-			rpsd.width, rpsd.height, rpsd.bitsPerPixel, rpsd.bytesPerPixel);
+		if(!rpsd.cairo_format)
+			remmina_log_printf("Screenshot from plugin: w=%d h=%d bpp=%d bytespp=%d\n",
+					rpsd.width, rpsd.height, rpsd.bitsPerPixel, rpsd.bytesPerPixel);
 
 		width = rpsd.width;
 		height = rpsd.height;
 
-		if (rpsd.bitsPerPixel == 32)
-			cairo_format = CAIRO_FORMAT_ARGB32;
-		else if (rpsd.bitsPerPixel == 24)
-			cairo_format = CAIRO_FORMAT_RGB24;
-		else
-			cairo_format = CAIRO_FORMAT_RGB16_565;
+		if(!rpsd.cairo_format){
+			if (rpsd.bitsPerPixel == 32)
+				cairo_format = CAIRO_FORMAT_ARGB32;
+			else if (rpsd.bitsPerPixel == 24)
+				cairo_format = CAIRO_FORMAT_RGB24;
+			else
+				cairo_format = CAIRO_FORMAT_RGB16_565;
+		} else {
+			cairo_format = rpsd.cairo_format;
+		}
 
 		stride = cairo_format_stride_for_width(cairo_format, width);
 
