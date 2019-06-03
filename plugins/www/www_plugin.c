@@ -44,6 +44,8 @@
 #include <glib/gprintf.h>
 #include <stdlib.h>
 
+#include "www_utils.h"
+
 #include <webkit2/webkit2.h>
 #if WEBKIT_CHECK_VERSION(2, 21, 1)
 #include <jsc/jsc.h>
@@ -428,23 +430,73 @@ static gboolean remmina_plugin_www_open_connection(RemminaProtocolWidget *gp)
 	return TRUE;
 }
 
-static void remmina_plugin_www_save_snapshot(WebKitWebView *webview, GAsyncResult *result, RemminaPluginScreenshotData *rpsd)
+static void remmina_plugin_www_save_snapshot(GObject *object, GAsyncResult *result, RemminaProtocolWidget *gp)
 {
 	TRACE_CALL(__func__);
 
+	WebKitWebView *webview = WEBKIT_WEB_VIEW(object);
+
+	RemminaFile *remminafile;
+
 	GError *err = NULL;
 	cairo_surface_t * surface;
+	//unsigned char* buffer;
+	int width;
+	int height;
+	GdkPixbuf *screenshot;
+	GString *pngstr;
+	gchar* pngname;
+	//cairo_forma_t* cairo_format;
+	GDateTime *date = g_date_time_new_now_utc();
+
+	remminafile = remmina_plugin_service->protocol_plugin_get_file(gp);
 
 	surface = webkit_web_view_get_snapshot_finish (WEBKIT_WEB_VIEW(webview), result, &err);
 	if (err) {
 		g_error("An error happened generating the snapshot: %s\n",err->message);
 	}
-	rpsd->buffer = cairo_image_surface_get_data (surface);
-	rpsd->width = cairo_image_surface_get_width (surface);
-	rpsd->height = cairo_image_surface_get_height (surface);
-	rpsd->cairo_format = cairo_image_surface_get_format (surface);
+	//buffer = cairo_image_surface_get_data (surface);
+	width = cairo_image_surface_get_width (surface);
+	height = cairo_image_surface_get_height (surface);
+	//cairo_format = cairo_image_surface_get_format (surface);
 
-	remmina_plugin_service->get_plugin_screenshot(NULL, RemminaPluginScreenshotData *rpsd);
+	screenshot = gdk_pixbuf_get_from_surface(surface, 0, 0, width, height);
+	if (screenshot == NULL)
+		g_debug("WWW: gdk_pixbuf_get_from_surface failed");
+
+	// Transfer the PixBuf in the main clipboard selection
+	gchar* value = remmina_plugin_service->pref_get_value("deny_screenshot_clipboard");
+	if (value && value == FALSE ) {
+		GtkClipboard *c = gtk_clipboard_get (GDK_SELECTION_CLIPBOARD);
+		gtk_clipboard_set_image (c, screenshot);
+	}
+
+	pngstr = g_string_new(g_strdup_printf("%s/%s.png",
+				remmina_plugin_service->pref_get_value("screenshot_path"),
+				remmina_plugin_service->pref_get_value("screenshot_name")));
+	www_utils_string_replace_all(pngstr, "%p",
+			remmina_plugin_service->file_get_string(remminafile, "name"));
+	www_utils_string_replace_all(pngstr, "%h", "URL");
+	www_utils_string_replace_all(pngstr, "%Y",
+			g_strdup_printf("%d", g_date_time_get_year(date)));
+	www_utils_string_replace_all(pngstr, "%m", g_strdup_printf("%d",
+				g_date_time_get_month(date)));
+	www_utils_string_replace_all(pngstr, "%d",
+			g_strdup_printf("%d", g_date_time_get_day_of_month(date)));
+	www_utils_string_replace_all(pngstr, "%H",
+			g_strdup_printf("%d", g_date_time_get_hour(date)));
+	www_utils_string_replace_all(pngstr, "%M",
+			g_strdup_printf("%d", g_date_time_get_minute(date)));
+	www_utils_string_replace_all(pngstr, "%S",
+			g_strdup_printf("%f", g_date_time_get_seconds(date)));
+	g_date_time_unref(date);
+	pngname = g_string_free(pngstr, FALSE);
+	g_debug("Saving screenshot as %s", pngname);
+
+	cairo_surface_write_to_png(surface, pngname);
+
+	cairo_surface_destroy(surface);
+
 }
 static gboolean remmina_plugin_www_get_snapshot(RemminaProtocolWidget *gp, RemminaPluginScreenshotData *rpsd)
 {
@@ -457,7 +509,7 @@ static gboolean remmina_plugin_www_get_snapshot(RemminaProtocolWidget *gp, Remmi
                               WEBKIT_SNAPSHOT_OPTIONS_NONE,
                               NULL,
                               (GAsyncReadyCallback)remmina_plugin_www_save_snapshot,
-                              rpsd);
+                              gp);
 	return FALSE;
 }
 

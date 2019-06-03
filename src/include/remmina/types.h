@@ -67,7 +67,6 @@ typedef struct _RemminaPluginScreenshotData {
 	int bytesPerPixel;
 	int width;
 	int height;
-	cairo_format_t cairo_format;
 } RemminaPluginScreenshotData;
 
 
