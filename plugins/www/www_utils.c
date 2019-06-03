@@ -33,7 +33,7 @@
  */
 
 /* Some utils taken form remmina_utils
- * TODO: use directhly remmina_utils */
+* TODO: use directhly remmina_utils */
 
 #include <stdlib.h>
 #include <unistd.h>
@@ -49,6 +49,20 @@
 #define EMPTY(ptr) \
 	(!(ptr) || !*(ptr))
 
+/* Used to send desktop notifications */
+void www_utils_send_notification(const gchar *notification_id,
+				 const gchar *notification_title, const gchar *notification_message)
+{
+	TRACE_CALL(__func__);
+
+	GNotification *notification = g_notification_new(notification_title);
+	g_notification_set_body(notification, notification_message);
+#if GLIB_CHECK_VERSION(2, 42, 0)
+	g_notification_set_priority(notification, G_NOTIFICATION_PRIORITY_NORMAL);
+#endif
+	g_application_send_notification(g_application_get_default(), notification_id, notification);
+	g_object_unref(notification);
+}
 
 gint www_utils_strpos(const gchar *haystack, const gchar *needle)
 {
@@ -138,5 +152,3 @@ guint www_utils_string_replace_all(GString *haystack, const gchar *needle, const
 	}
 	return count;
 }
-
-
