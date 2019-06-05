@@ -301,6 +301,10 @@ static void remmina_plugin_www_form_auth(WebKitWebView *webview,
 		/* Load finished, we can now set user/password
 		 * in the html form */
 		g_debug("Load finished");
+		g_file_get_contents ("/home/tmow/remmina_devel/Remmina/plugins/www/resources/js/www-js.js",
+				&s_js, NULL, NULL);
+
+#if 0
 		gchar *s_uid, *s_pwdid;
 		if (remmina_plugin_service->file_get_string(remminafile, "password-id") && remmina_plugin_service->file_get_string(remminafile, "username-id")) {
 			s_username = g_strdup(remmina_plugin_service->file_get_string(remminafile, "username"));
@@ -358,6 +362,7 @@ static void remmina_plugin_www_form_auth(WebKitWebView *webview,
 			g_free(s_pwdid);
 			g_free(s_password);
 		}
+#endif
 		if (!s_js || s_js[0] == '\0') {
 			break;
 		} else {
