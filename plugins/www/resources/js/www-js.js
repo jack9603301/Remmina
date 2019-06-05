@@ -18,7 +18,8 @@ function getLoginFields(frame) {
             len = inputs.length;
             ret = [];
             while (len--) {
-                if (inputs[len].type === 'password') {
+                if (inputs[len].type === 'password'
+                    && inputs[len].getAttribute('autocomplete') !== 'new-password') {
                     ret[ret.length] = inputs[len];
                 }
             }
@@ -61,6 +62,28 @@ if (!userTriggered && passwordField.getAutocompleteInfo().fieldName == "new-pass
     //return;
 }
 */
+function setLoginData(frame, loginField) {
+    let evt = new Event('change');
+    elementLoginId = loginField.id;
+    elementLoginType = loginField.attr('type');
+    if ((frame !== undefined) && (frame !== null)) {
+        if ((elementLoginType !== undefined) && (elementLoginType === 'password')) {
+            document.getElementById(frame).contentDocument.getElementById(elementLoginId).value = 'PWDPLACEHOLDER';
+        } else {
+            document.getElementById(frame).contentDocument.getElementById(elementLoginId).value = 'USRPLACEHOLDER';
+        }
+        document.getElementById(frame).contentDocument.getElementById(elementLoginId).dispatchEvent(evt);
+        document.getElementById(frame).contentDocument.getElementById(elementLoginId).dispatchEvent(evt);
+    } else {
+        if ((elementLoginType !== undefined) && (elementLoginType === 'password')) {
+            document.getElementById(elementLoginId).value = 'PWDPLACEHOLDER';
+        } else {
+            document.getElementById(elementLoginId).value = 'USRPLACEHOLDER';
+        }
+        document.getElementById(elementLoginId).dispatchEvent(evt);
+        document.getElementById(elementLoginId).dispatchEvent(evt);
+
+}
 
 var frames = window.frames;
 var i;
@@ -68,10 +91,16 @@ var loginFields;
 
 if (frames.length != 0) {
     for (i = 0; i < frames.length; i++) {
-        //frames[i].location = "https://www.w3schools.com";
-        loginFields = getLoginFields(frames[i])[0]; // or loop through results.
+        //loginFields = getLoginFields(frames[i])[0]; // or loop through results.
+        // we loop through something like:
+        // [ [ <input id="username" /> , <input type="password" id="pswd" /> ] ]
+        for (c = 0; c < getLoginFields(frames[i]).length; c++) {
+            // Do something with each login field
+        }
     }
 } else {
-    loginFields = getLoginFields(null)[0]; // or loop through results.
+    //loginFields = getLoginFields(null)[0]; // or loop through results.
+    for (c = 0; c < getLoginFields(null).length; c++) {
+        // Do something with each login field
+    }
 }
-
