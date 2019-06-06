@@ -178,6 +178,11 @@ static void remmina_plugin_www_init(RemminaProtocolWidget *gp)
 
 	/* enable-fullscreen, default TRUE, TODO: Try FALSE */
 
+#ifdef DEBUG
+	/* Enable the developer extras */
+	webkit_settings_set_enable_developer_extras(gpdata->settings, TRUE);
+#endif
+
 	/* user-agent. TODO: Add option. */
 	if (remmina_plugin_service->file_get_string(remminafile, "user-agent")) {
 		gchar *useragent = g_strdup(remmina_plugin_service->file_get_string(remminafile, "user-agent"));
@@ -413,6 +418,7 @@ static gboolean remmina_plugin_www_open_connection(RemminaProtocolWidget *gp)
 
 	gpdata->webview = WEBKIT_WEB_VIEW(webkit_web_view_new_with_context(gpdata->context));
 	webkit_web_view_set_settings(gpdata->webview, gpdata->settings);
+
 	if (!remmina_plugin_service->file_get_int(remminafile, "no-authentication", FALSE)) {
 		g_debug("Authentication is enabled");
 		remmina_plugin_www_on_auth(gpdata->webview, NULL, gp);
@@ -429,6 +435,11 @@ static gboolean remmina_plugin_www_open_connection(RemminaProtocolWidget *gp)
 	gtk_widget_set_vexpand(GTK_WIDGET(gpdata->webview), TRUE);
 	gtk_container_add(GTK_CONTAINER(gpdata->box), GTK_WIDGET(gpdata->webview));
 	webkit_web_view_load_uri(gpdata->webview, gpdata->url);
+#ifdef DEBUG
+	WebKitWebInspector *inspector = webkit_web_view_get_inspector (WEBKIT_WEB_VIEW(gpdata->webview));
+	webkit_web_inspector_attach (inspector);
+	webkit_web_inspector_show (WEBKIT_WEB_INSPECTOR(inspector));
+#endif
 	remmina_plugin_service->protocol_plugin_emit_signal(gp, "connect");
 	gtk_widget_show_all(gpdata->box);
 
