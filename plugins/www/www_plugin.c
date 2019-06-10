@@ -278,7 +278,8 @@ static void remmina_plugin_www_form_auth(WebKitWebView *webview,
 					 WebKitLoadEvent load_event, RemminaProtocolWidget *gp)
 {
 	TRACE_CALL(__func__);
-	gchar *s_username, *s_password, *s_js;
+	gchar *s_js;
+	GString *jsstr;
 	RemminaPluginWWWData *gpdata;
 	RemminaFile *remminafile;
 
@@ -291,90 +292,40 @@ static void remmina_plugin_www_form_auth(WebKitWebView *webview,
 	g_debug("load-changed emitted");
 
 	switch (gpdata->load_event) {
-	case WEBKIT_LOAD_STARTED:
-		break;
-	case WEBKIT_LOAD_REDIRECTED:
-		break;
-	case WEBKIT_LOAD_COMMITTED:
-		/* The load is being performed. Current URI is
-		 * the final one and it won't change unless a new
-		 * load is requested or a navigation within the
-		 * same page is performed
-		 * uri = webkit_web_view_get_uri (webview); */
-		break;
-	case WEBKIT_LOAD_FINISHED:
-		/* Load finished, we can now set user/password
-		 * in the html form */
-		g_debug("Load finished");
-		g_file_get_contents ("/home/tmow/remmina_devel/Remmina/plugins/www/resources/js/www-js.js",
-				&s_js, NULL, NULL);
-
-#if 0
-		gchar *s_uid, *s_pwdid;
-		if (remmina_plugin_service->file_get_string(remminafile, "password-id") && remmina_plugin_service->file_get_string(remminafile, "username-id")) {
-			s_username = g_strdup(remmina_plugin_service->file_get_string(remminafile, "username"));
-			s_password = g_strdup(remmina_plugin_service->file_get_string(remminafile, "password"));
-			s_uid = g_strdup(remmina_plugin_service->file_get_string(remminafile, "username-id"));
-			s_pwdid = g_strdup(remmina_plugin_service->file_get_string(remminafile, "password-id"));
-
-			if (remmina_plugin_service->file_get_string(remminafile, "iframe-id")) {
-				gchar *iframe = g_strdup(remmina_plugin_service->file_get_string(remminafile, "iframe-id"));
-				/* document.getElementById('websso').contentDocument.getElementById('%s') */
-				s_js = g_strdup_printf(
-					"let evt = new Event('change');"
-					"document.getElementById('%s').contentDocument.getElementById('%s').value = '%s';"
-					"document.getElementById('%s').contentDocument.getElementById('%s').value = '%s';"
-					"document.getElementById('%s').contentDocument.getElementById('%s').dispatchEvent(evt);"
-					"document.getElementById('%s').contentDocument.getElementById('%s').dispatchEvent(evt);",
-					iframe, s_uid, s_username, iframe, s_pwdid, s_password,
-					iframe, s_uid, iframe, s_pwdid);
-				g_free(iframe);
-			} else {
-				s_js = g_strdup_printf(
-					"let evt = new Event('change');"
-					"document.getElementById('%s').value = '%s';"
-					"document.getElementById('%s').value = '%s';"
-					"document.getElementById('%s').dispatchEvent(evt);"
-					"document.getElementById('%s').dispatchEvent(evt);",
-					s_uid, s_username,
-					s_pwdid, s_password,
-					s_uid,
-					s_pwdid);
-			}
-			g_free(s_username);
-			g_free(s_uid);
-			g_free(s_password);
-			g_free(s_pwdid);
-		} else if (remmina_plugin_service->file_get_string(remminafile, "password-id") && !remmina_plugin_service->file_get_string(remminafile, "username-id")) {
-			s_password = g_strdup(remmina_plugin_service->file_get_string(remminafile, "password"));
-			s_pwdid = g_strdup(remmina_plugin_service->file_get_string(remminafile, "password-id"));
-			if (remmina_plugin_service->file_get_string(remminafile, "iframe-id")) {
-				gchar *iframe = g_strdup(remmina_plugin_service->file_get_string(remminafile, "iframe-id"));
-				/* document.getElementById('websso').contentDocument.getElementById('%s') */
-				s_js = g_strdup_printf(
-					"let evt = new Event('change');"
-					"document.getElementById('%s').contentDocument.getElementById('%s').value = '%s';"
-					"document.getElementById('%s').contentDocument.getElementById('%s').dispatchEvent(evt);",
-					iframe, s_pwdid, s_password, iframe, s_pwdid);
-				g_free(iframe);
-			} else {
-				s_js = g_strdup_printf(
-					"let evt = new Event('change');"
-					"document.getElementById('%s').value = '%s';"
-					"document.getElementById('%s').dispatchEvent(evt);",
-					s_pwdid, s_password, s_pwdid);
-			}
-			g_free(s_pwdid);
-			g_free(s_password);
-		}
-#endif
-		if (!s_js || s_js[0] == '\0') {
+		case WEBKIT_LOAD_STARTED:
 			break;
-		} else {
-			g_debug("We are trying to send this JS: %s", s_js);
-			webkit_web_view_run_javascript(webview, s_js, NULL, remmina_www_web_view_js_finished, NULL);
-		}
-		break;
+		case WEBKIT_LOAD_REDIRECTED:
+			break;
+		case WEBKIT_LOAD_COMMITTED:
+			/* The load is being performed. Current URI is
+			 * the final one and it won't change unless a new
+			 * load is requested or a navigation within the
+			 * same page is performed
+			 * uri = webkit_web_view_get_uri (webview); */
+			break;
+		case WEBKIT_LOAD_FINISHED:
+			/* Load finished, we can now set user/password
+			 * in the html form */
+			g_debug("Load finished");
+			g_file_get_contents ("/home/tmow/remmina_devel/Remmina/plugins/www/resources/js/www-js.js",
+					&s_js, NULL, NULL);
+			jsstr = g_string_new(s_js);
+			if (remmina_plugin_service->file_get_string(remminafile, "username"))
+				www_utils_string_replace_all(jsstr, "USRPLACEHOLDER",
+						remmina_plugin_service->file_get_string(remminafile, "username"));
+			if (remmina_plugin_service->file_get_string(remminafile, "password"))
+				www_utils_string_replace_all(jsstr, "PWDPLACEHOLDER",
+						remmina_plugin_service->file_get_string(remminafile, "password"));
+			s_js = g_string_free(jsstr, FALSE);
+
+			if (!s_js || s_js[0] == '\0') {
+				break;
+			} else {
+				g_debug("We are trying to send this JS: %s", s_js);
+				webkit_web_view_run_javascript(webview, s_js, NULL, remmina_www_web_view_js_finished, NULL);
+				g_free(s_js);
+			}
+			break;
 	}
 }
 

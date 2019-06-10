@@ -1,6 +1,7 @@
-
+/*jshint esversion: 6 */
 /* Some JS examples */
 // Get user/password input fields than...
+/*
 function getLoginFields(frame) {
 	var fieldPairs = [],
 		pswd = (function(){
@@ -11,10 +12,8 @@ function getLoginFields(frame) {
 				inputs = frame.contentDocument.getElementByTagName('input');
 			} else {
 				inputs = document.getElementsByTagName('input');
-				alert('inputs are ' + inputs);
 			}
 			len = inputs.length;
-			alert('len is ' + len);
 			ret = [];
 			while (len--) {
 				if (inputs[len].type === 'password' &&
@@ -22,32 +21,24 @@ function getLoginFields(frame) {
 					ret[ret.length] = inputs[len];
 				}
 			}
-			alert('ret is ' + ret);
 			return ret;
 		})(),
 		pswdLength = pswd.length,
 		parentForm = function(elem) {
 			while (elem.parentNode) {
 				if(elem.parentNode.nodeName.toLowerCase() === 'form') {
-					alert('elem.parentNode is ' + elem.parentNode);
 					return elem.parentNode;
 				}
 				elem = elem.parentNode;
-				alert('elem is ' + elem);
 			}
 		};
 	while (pswdLength--) {
-		alert('pswdLength is ' + pswdLength);
 		var curPswdField = pswd[pswdLength];
-		alert('curPswdField is ' + curPswdField);
 		parentForm = parentForm(curPswdField);
-		alert('parentForm is ' + parentForm);
 		var curField = curPswdField;
-		alert('curField is ' + curField);
 		if (parentForm) {
 			var inputs = parentForm.getElementsByTagName('input');
 			for (var i = 0; i < inputs.length; i++) {
-				alert('input is ' + inputs[i]);
 				if (inputs[i] !== curPswdField && inputs[i].type === 'text') {
 					fieldPairs[fieldPairs.length] = [inputs[i], curPswdField];
 					break;
@@ -55,11 +46,39 @@ function getLoginFields(frame) {
 			}
 		}
 	}
-	alert('fieldPairs is ' + fieldPairs);
 	return fieldPairs;
 }
+*/
 
 // Do something with what we have found
+
+function setLoginFields(frame) {
+    var evt;
+    evt = new Event('change');
+    var tmpPswdField;
+    var pwdId;
+    var prevId;
+    if ((frame !== undefined) && (frame !== null)) {
+        tmpPswdField = document.getElementById(frame).contentDocument.querySelectorAll("input[type='password']");
+    } else {
+        tmpPswdField = document.querySelectorAll("input[type='password']");
+
+    }
+    if (tmpPswdField !== undefined) {
+        tmpPswdField.forEach(function(pswdElement) {
+            pswdElement.value = 'PWDPLACEHOLDER';
+            //alert("password set");
+            //prevId = pswdElement.NonDocumentTypeChildNode.previousElementSibling;
+            //alert("Previous ID" + prevId);
+            //pwdId = pswdElement.id;
+            //alert("Element ID" + pswdElement.id);
+            //alert("Previous element " + pswdElement.previousElementSibling);
+            //prevId = document.getElementById(pwdId).previousElementSibling;
+            //alert("Previous element " + prevId);
+            pswdElement.dispatchEvent(evt);
+        });
+    }
+}
 
 
 /*
@@ -97,28 +116,17 @@ function setLoginData(frame, loginField) {
     }
 }
 
-alert('running main WWW JS');
 var frames = window.frames;
 var i;
-var loginFields;
-var c;
 
 if (frames.length != 0) {
-	for (i = 0; i < frames.length; i++) {
-		//loginFields = getLoginFields(frames[i])[0]; // or loop through results.
-		// we loop through something like:
-		// [ [ <input id="username" /> , <input type="password" id="pswd" /> ] ]
-		loginFields = getLoginFields(frames[i]);
-		for (c = 0; c < loginFields.length; c++) {
-			// Do something with each login field
-			setLoginData(frames[i], loginFields[c]);
-		}
-	}
+    for (i = 0; i < frames.length; i++) {
+        //loginFields = getLoginFields(frames[i])[0]; // or loop through results.
+        // we loop through something like:
+        // [ [ <input id="username" /> , <input type="password" id="pswd" /> ] ]
+        setLoginFields(frames[i].id);
+    }
 } else {
-	//loginFields = getLoginFields(null)[0]; // or loop through results.
-	loginFields = getLoginFields(null);
-	for (c = 0; c < loginFields.length; c++) {
-		// Do something with each login field
-		setLoginData(null, loginFields[c]);
-	}
+    //loginFields = getLoginFields(null)[0]; // or loop through results.
+    setLoginFields(null);
 }
