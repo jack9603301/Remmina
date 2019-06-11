@@ -1,118 +1,32 @@
 /*jshint esversion: 6 */
-/* Some JS examples */
-// Get user/password input fields than...
-/*
-function getLoginFields(frame) {
-	var fieldPairs = [],
-		pswd = (function(){
-			var inputs;
-			var len;
-			var ret;
-			if ((frame !== undefined) && (frame !== null)) {
-				inputs = frame.contentDocument.getElementByTagName('input');
-			} else {
-				inputs = document.getElementsByTagName('input');
-			}
-			len = inputs.length;
-			ret = [];
-			while (len--) {
-				if (inputs[len].type === 'password' &&
-					inputs[len].getAttribute('autocomplete') !== 'new-password') {
-					ret[ret.length] = inputs[len];
-				}
-			}
-			return ret;
-		})(),
-		pswdLength = pswd.length,
-		parentForm = function(elem) {
-			while (elem.parentNode) {
-				if(elem.parentNode.nodeName.toLowerCase() === 'form') {
-					return elem.parentNode;
-				}
-				elem = elem.parentNode;
-			}
-		};
-	while (pswdLength--) {
-		var curPswdField = pswd[pswdLength];
-		parentForm = parentForm(curPswdField);
-		var curField = curPswdField;
-		if (parentForm) {
-			var inputs = parentForm.getElementsByTagName('input');
-			for (var i = 0; i < inputs.length; i++) {
-				if (inputs[i] !== curPswdField && inputs[i].type === 'text') {
-					fieldPairs[fieldPairs.length] = [inputs[i], curPswdField];
-					break;
-				}
-			}
-		}
-	}
-	return fieldPairs;
-}
-*/
-
-// Do something with what we have found
-
 function setLoginFields(frame) {
     var evt;
     evt = new Event('change');
-    var tmpPswdField;
+    var pswdField;
+    var usrField;
     var pwdId;
-    var prevId;
+    var usrId;
+    var formNode;
     if ((frame !== undefined) && (frame !== null)) {
-        tmpPswdField = document.getElementById(frame).contentDocument.querySelectorAll("input[type='password']");
+        pswdField = document.getElementById(frame).contentDocument.querySelectorAll("input[type='password']");
     } else {
-        tmpPswdField = document.querySelectorAll("input[type='password']");
+        pswdField = document.querySelectorAll("input[type='password']");
 
     }
-    if (tmpPswdField !== undefined) {
-        tmpPswdField.forEach(function(pswdElement) {
+    if (pswdField !== undefined) {
+        pswdField.forEach(function(pswdElement) {
             pswdElement.value = 'PWDPLACEHOLDER';
-            //alert("password set");
-            //prevId = pswdElement.NonDocumentTypeChildNode.previousElementSibling;
-            //alert("Previous ID" + prevId);
-            //pwdId = pswdElement.id;
-            //alert("Element ID" + pswdElement.id);
-            //alert("Previous element " + pswdElement.previousElementSibling);
-            //prevId = document.getElementById(pwdId).previousElementSibling;
-            //alert("Previous element " + prevId);
+            formNode = pswdElement.form;
+            usrField = formNode.querySelectorAll("input[type='text']");
+            usrField.forEach(function(usrElement) {
+                if (usrElement.getAttribute('autocomplete') !== 'new-password') {
+                    usrElement.value = 'USRPLACEHOLDER';
+                }
+                usrId = usrElement.id;
+                usrElement.dispatchEvent(evt);
+            });
             pswdElement.dispatchEvent(evt);
         });
-    }
-}
-
-
-/*
-// Firefox, sice Feb 2019 does not fill inputtype=password and autocomplete="new-pèassword"
-if (!userTriggered && passwordField.getAutocompleteInfo().fieldName == "new-password") {
-    log("not filling form, password field has the autocomplete new-password value");
-    autofillResult = AUTOFILL_RESULT.PASSWORD_AUTOCOMPLETE_NEW_PASSWORD;
-    //return;
-}
-*/
-function setLoginData(frame, loginField) {
-    var elementLoginId;
-    var elementLoginType;
-    var evt;
-    evt = new Event('change');
-    elementLoginId = loginField.id;
-    elementLoginType = loginField.attr('type');
-    if ((frame !== undefined) && (frame !== null)) {
-        if ((elementLoginType !== undefined) && (elementLoginType === 'password')) {
-            document.getElementById(frame).contentDocument.getElementById(elementLoginId).value = 'PWDPLACEHOLDER';
-        } else {
-            document.getElementById(frame).contentDocument.getElementById(elementLoginId).value = 'USRPLACEHOLDER';
-        }
-        document.getElementById(frame).contentDocument.getElementById(elementLoginId).dispatchEvent(evt);
-        document.getElementById(frame).contentDocument.getElementById(elementLoginId).dispatchEvent(evt);
-    } else {
-        if ((elementLoginType !== undefined) && (elementLoginType === 'password')) {
-            document.getElementById(elementLoginId).value = 'PWDPLACEHOLDER';
-        } else {
-            document.getElementById(elementLoginId).value = 'USRPLACEHOLDER';
-        }
-        document.getElementById(elementLoginId).dispatchEvent(evt);
-        document.getElementById(elementLoginId).dispatchEvent(evt);
-
     }
 }
 
@@ -121,12 +35,8 @@ var i;
 
 if (frames.length != 0) {
     for (i = 0; i < frames.length; i++) {
-        //loginFields = getLoginFields(frames[i])[0]; // or loop through results.
-        // we loop through something like:
-        // [ [ <input id="username" /> , <input type="password" id="pswd" /> ] ]
         setLoginFields(frames[i].id);
     }
 } else {
-    //loginFields = getLoginFields(null)[0]; // or loop through results.
     setLoginFields(null);
 }
