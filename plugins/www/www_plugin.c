@@ -292,44 +292,44 @@ static void remmina_plugin_www_form_auth(WebKitWebView *webview,
 	g_debug("load-changed emitted");
 
 	switch (gpdata->load_event) {
-		case WEBKIT_LOAD_STARTED:
-			break;
-		case WEBKIT_LOAD_REDIRECTED:
-			break;
-		case WEBKIT_LOAD_COMMITTED:
-			/* The load is being performed. Current URI is
-			 * the final one and it won't change unless a new
-			 * load is requested or a navigation within the
-			 * same page is performed
-			 * uri = webkit_web_view_get_uri (webview); */
-			break;
-		case WEBKIT_LOAD_FINISHED:
-			/* Load finished, we can now set user/password
-			 * in the html form */
-			g_debug("Load finished");
-			if (remmina_plugin_service->file_get_string(remminafile, "username") ||
-					remmina_plugin_service->file_get_string(remminafile, "password")) {
-				g_debug("Authentication is enabled");
-				g_file_get_contents ("/home/tmow/remmina_devel/Remmina/plugins/www/resources/js/www-js.js",
-						&s_js, NULL, NULL);
-				jsstr = g_string_new(s_js);
-				if (remmina_plugin_service->file_get_string(remminafile, "username"))
-					www_utils_string_replace_all(jsstr, "USRPLACEHOLDER",
-							remmina_plugin_service->file_get_string(remminafile, "username"));
-				if (remmina_plugin_service->file_get_string(remminafile, "password"))
-					www_utils_string_replace_all(jsstr, "PWDPLACEHOLDER",
-							remmina_plugin_service->file_get_string(remminafile, "password"));
-				s_js = g_string_free(jsstr, FALSE);
+	case WEBKIT_LOAD_STARTED:
+		break;
+	case WEBKIT_LOAD_REDIRECTED:
+		break;
+	case WEBKIT_LOAD_COMMITTED:
+		/* The load is being performed. Current URI is
+		 * the final one and it won't change unless a new
+		 * load is requested or a navigation within the
+		 * same page is performed
+		 * uri = webkit_web_view_get_uri (webview); */
+		break;
+	case WEBKIT_LOAD_FINISHED:
+		/* Load finished, we can now set user/password
+		 * in the html form */
+		g_debug("Load finished");
+		if (remmina_plugin_service->file_get_string(remminafile, "username") ||
+		    remmina_plugin_service->file_get_string(remminafile, "password")) {
+			g_debug("Authentication is enabled");
+			g_file_get_contents("/home/tmow/remmina_devel/Remmina/plugins/www/resources/js/www-js.js",
+					    &s_js, NULL, NULL);
+			jsstr = g_string_new(s_js);
+			if (remmina_plugin_service->file_get_string(remminafile, "username"))
+				www_utils_string_replace_all(jsstr, "USRPLACEHOLDER",
+							     remmina_plugin_service->file_get_string(remminafile, "username"));
+			if (remmina_plugin_service->file_get_string(remminafile, "password"))
+				www_utils_string_replace_all(jsstr, "PWDPLACEHOLDER",
+							     remmina_plugin_service->file_get_string(remminafile, "password"));
+			s_js = g_string_free(jsstr, FALSE);
 
-				if (!s_js || s_js[0] == '\0') {
-					break;
-				} else {
-					g_debug("We are trying to send this JS: %s", s_js);
-					webkit_web_view_run_javascript(webview, s_js, NULL, remmina_www_web_view_js_finished, NULL);
-					g_free(s_js);
-				}
+			if (!s_js || s_js[0] == '\0') {
+				break;
+			} else {
+				g_debug("We are trying to send this JS: %s", s_js);
+				webkit_web_view_run_javascript(webview, s_js, NULL, remmina_www_web_view_js_finished, NULL);
+				g_free(s_js);
 			}
-			break;
+		}
+		break;
 	}
 }
 
@@ -375,7 +375,7 @@ static gboolean remmina_plugin_www_open_connection(RemminaProtocolWidget *gp)
 	webkit_web_view_set_settings(gpdata->webview, gpdata->settings);
 
 	if (remmina_plugin_service->file_get_string(remminafile, "username") ||
-			remmina_plugin_service->file_get_string(remminafile, "password")) {
+	    remmina_plugin_service->file_get_string(remminafile, "password")) {
 		g_debug("Authentication is enabled");
 		remmina_plugin_www_on_auth(gpdata->webview, NULL, gp);
 	}
@@ -394,9 +394,9 @@ static gboolean remmina_plugin_www_open_connection(RemminaProtocolWidget *gp)
 #ifdef DEBUG
 	if (remmina_plugin_service->file_get_int(remminafile, "enable-webinspector", FALSE)) {
 		g_info("WebInspector enabled");
-		WebKitWebInspector *inspector = webkit_web_view_get_inspector (WEBKIT_WEB_VIEW(gpdata->webview));
-		webkit_web_inspector_attach (inspector);
-		webkit_web_inspector_show (WEBKIT_WEB_INSPECTOR(inspector));
+		WebKitWebInspector *inspector = webkit_web_view_get_inspector(WEBKIT_WEB_VIEW(gpdata->webview));
+		webkit_web_inspector_attach(inspector);
+		webkit_web_inspector_show(WEBKIT_WEB_INSPECTOR(inspector));
 	}
 #endif
 	remmina_plugin_service->protocol_plugin_emit_signal(gp, "connect");
@@ -499,10 +499,10 @@ static gboolean remmina_plugin_www_get_snapshot(RemminaProtocolWidget *gp, Remmi
  */
 static const RemminaProtocolSetting remmina_plugin_www_basic_settings[] =
 {
-	{ REMMINA_PROTOCOL_SETTING_TYPE_TEXT,	  "server",	       N_("URL (http://address or https://address)"), FALSE, NULL, NULL },
-	{ REMMINA_PROTOCOL_SETTING_TYPE_TEXT,	  "username",	       N_("Username"),				      FALSE, NULL, NULL },
-	{ REMMINA_PROTOCOL_SETTING_TYPE_PASSWORD, "password",	       N_("Password"),				      FALSE, NULL, NULL },
-	{ REMMINA_PROTOCOL_SETTING_TYPE_END,	  NULL,		       NULL,					      FALSE, NULL, NULL }
+	{ REMMINA_PROTOCOL_SETTING_TYPE_TEXT,	  "server",   N_("URL (http://address or https://address)"), FALSE, NULL, NULL },
+	{ REMMINA_PROTOCOL_SETTING_TYPE_TEXT,	  "username", N_("Username"),				     FALSE, NULL, NULL },
+	{ REMMINA_PROTOCOL_SETTING_TYPE_PASSWORD, "password", N_("Password"),				     FALSE, NULL, NULL },
+	{ REMMINA_PROTOCOL_SETTING_TYPE_END,	  NULL,	      NULL,					     FALSE, NULL, NULL }
 };
 
 /* Array of RemminaProtocolSetting for advanced settings.
@@ -524,7 +524,7 @@ static const RemminaProtocolSetting remmina_plugin_www_advanced_settings[] =
 	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK, "ignore-tls-errors",	    N_("Ignore TLS errors"),			TRUE,  NULL, NULL },
 	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK, "disablepasswordstoring",    N_("Disable password storing"),		TRUE,  NULL, NULL },
 #ifdef DEBUG
-	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK, "enable-webinspector",    N_("Enable Web Inspector"),		TRUE,  NULL, NULL },
+	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK, "enable-webinspector",	    N_("Enable Web Inspector"),			TRUE,  NULL, NULL },
 #endif
 	{ REMMINA_PROTOCOL_SETTING_TYPE_END,   NULL,			    NULL,					FALSE, NULL, NULL }
 };
