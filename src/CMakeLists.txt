@@ -33,7 +33,7 @@
 # files in the program, then also delete it here.
 
 
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.0.0)
 
 list(APPEND REMMINA_SRCS
 	"remmina_about.c"
