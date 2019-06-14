@@ -37,16 +37,53 @@ function setLoginFields() {
             }
 
             formNode = pswdElement.form;
-            usrField = formNode.querySelectorAll("input[type='text']");
+            if (formNode !== null) {
+                console.debug("Form elements found");
+                usrField = formNode.querySelectorAll("input[type='text']");
 
-            usrField.forEach(function(usrElement) {
-                usrElement.value = 'USRPLACEHOLDER';
-                usrElement.dispatchEvent(evt);
-            });
-            pswdElement.dispatchEvent(evt);
+                usrField.forEach(function(usrElement) {
+                    usrElement.value = 'USRPLACEHOLDER';
+                    usrElement.dispatchEvent(evt);
+                });
+                pswdElement.dispatchEvent(evt);
+            } else {
+                console.debug("Form elements found");
+                console.debug("Inputs elements may be in other containers");
+                var inputs = doc.getElementsByTagName('input');
+                var userFound = false;
+                for (var i = 0; i < inputs.length; i += 1) {
+                    console.debug("input type: " + inputs[i].type);
+                    switch(inputs[i].type) {
+                        case 'new-password':
+                            break;
+                        case 'password':
+                            break;
+                        case 'email':
+                            inputs[i].value = 'USRPLACEHOLDER';
+                            userFound = true;
+                            break;
+                        case 'text':
+                            if(!userFound) {
+                                inputs[i].value = 'USRPLACEHOLDER';
+                                userFound = true;
+                            }
+                        default:
+                            console.debug("Tentativily try to add the username if no userFound");
+                            if(!userFound) {
+                                inputs[i].value = 'USRPLACEHOLDER';
+                                userFound = true;
+                            }
+                            // code block
+                    }
+                    if(userFound) {
+                        inputs[i].dispatchEvent(evt);
+                        console.debug("User name field found and set(?)");
+                        break;
+                    }
+                }
+            }
         });
     }
 }
-
 
 setLoginFields();
