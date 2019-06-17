@@ -9,16 +9,16 @@ msgstr ""
 "Project-Id-Version: remmina\n"
 "Report-Msgid-Bugs-To: admin@remmina.org\n"
 "POT-Creation-Date: 2019-06-17 14:06+0000\n"
-"PO-Revision-Date: 2019-02-19 17:20+0100\n"
+"PO-Revision-Date: 2019-06-17 22:47+0200\n"
 "Last-Translator: Antenore Gatta <antenore@simbiosi.org>\n"
 "Language-Team: Italian <admin@remmina.org>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "X-Launchpad-Export-Date: 2011-01-18 05:16+0000\n"
-"X-Generator: Poedit 2.0.9\n"
+"X-Generator: Gtranslator 3.32.1\n"
 
 #. Profile: Protocol
 #: src/remmina_plugin_manager.c:69 src/remmina_file_editor.c:1462
@@ -260,7 +260,7 @@ msgstr "Strumenti"
 
 #: src/rcw.c:2204
 msgid "Duplicate current connection"
-msgstr ""
+msgstr "Duplica la sessione corrente"
 
 #: src/rcw.c:2212 data/ui/remmina_preferences.glade:1083
 msgid "Screenshot"
@@ -892,7 +892,7 @@ msgstr "Configura le battute"
 
 #: src/remmina_pref_dialog.c:443
 msgid "libsodium >= 1.9.0 is required to use master password"
-msgstr ""
+msgstr "libsodium> = 1.9.0 è necessario per utilizzare master password"
 
 #: src/remmina_ssh.c:202
 #, c-format
@@ -1322,7 +1322,7 @@ msgstr "Abilitare logging sessione SSH all’uscita"
 
 #: src/remmina_ssh_plugin.c:1086
 msgid "Enable terminal audible bell"
-msgstr ""
+msgstr "Abilita campanello acustico del terminale"
 
 #: src/remmina_ssh_plugin.c:1087
 msgid "Enable SSH compression"
@@ -2101,51 +2101,51 @@ msgstr "Invito per la condivisione del desktop"
 
 #: plugins/www/www_plugin.c:538
 msgid "URL (http://address or https://address)"
-msgstr ""
+msgstr "URL (http://address o https://address)"
 
 #: plugins/www/www_plugin.c:539
 msgid "Username"
-msgstr ""
+msgstr "Nome utente"
 
 #: plugins/www/www_plugin.c:555
 msgid "User Agent"
-msgstr ""
+msgstr "Agente utente (User agent)"
 
 #: plugins/www/www_plugin.c:556
 msgid "Enable java support"
-msgstr ""
+msgstr "Abilita il supporto java"
 
 #: plugins/www/www_plugin.c:557
 msgid "Enable smooth scrolling"
-msgstr ""
+msgstr "Abilita lo scorrimento uniforme"
 
 #: plugins/www/www_plugin.c:558
 msgid "Enable Spatial Navigation"
-msgstr ""
+msgstr "Abilita navigazione spaziale"
 
 #: plugins/www/www_plugin.c:559
 msgid "Enable support for plugins"
-msgstr ""
+msgstr "Abilita il supporto per i plugin"
 
 #: plugins/www/www_plugin.c:560
 msgid "Enable support for WebGL"
-msgstr ""
+msgstr "Abilita il supporto per WebGL"
 
 #: plugins/www/www_plugin.c:561
 msgid "Enable support for WebAudio"
-msgstr ""
+msgstr "Abilita il supporto per WebAudio"
 
 #: plugins/www/www_plugin.c:562
 msgid "Ignore TLS errors"
-msgstr ""
+msgstr "Ignora gli errori TLS"
 
 #: plugins/www/www_plugin.c:565
 msgid "Enable Web Inspector"
-msgstr ""
+msgstr "Abilita Web Inspector"
 
 #: plugins/www/www_config.h:43
 msgid "Remmina Browser Plugin"
-msgstr ""
+msgstr "Remmina Browser Plugin"
 
 #: data/ui/remmina_string_list.glade:14 data/ui/remmina_string_list.glade:158
 msgid "Add"
@@ -2209,15 +2209,15 @@ msgstr "Premere un nuovo tasto prego…"
 
 #: data/ui/remmina_unlock.glade:60
 msgid "Unlock"
-msgstr ""
+msgstr "Sbloccare"
 
 #: data/ui/remmina_unlock.glade:94
 msgid "Unlock Remmina"
-msgstr ""
+msgstr "Sblocca Remmina"
 
 #: data/ui/remmina_unlock.glade:128
 msgid "Master password secret key"
-msgstr ""
+msgstr "Chiave segreta Master password"
 
 #: data/ui/remmina_main.glade:91
 msgid "Show search bar"
@@ -2241,7 +2241,7 @@ msgstr ""
 
 #: data/ui/remmina_main.glade:158
 msgid "Set Remmina as the default Remote Desktop Client"
-msgstr ""
+msgstr "Imposta Remmina come client desktop remoto predefinito"
 
 #: data/ui/remmina_main.glade:206
 msgid "search string or server name/ip address for quick connect"
@@ -2295,7 +2295,7 @@ msgstr "Informazioni"
 
 #: data/ui/remmina_main.glade:478
 msgid "Set as default remote desktop client"
-msgstr ""
+msgstr "Imposta come client desktop remoto predefinito"
 
 #: data/ui/remmina_main.glade:579
 msgid "Plugin"
@@ -2399,7 +2399,7 @@ msgstr "Selezionare una cartella"
 
 #: data/ui/remmina_preferences.glade:305
 msgid "Screen resolutions"
-msgstr ""
+msgstr "Risoluzioni dello schermo"
 
 #: data/ui/remmina_preferences.glade:326
 msgid "Screenshots file name"
@@ -2420,11 +2420,13 @@ msgid ""
 "This is the folder where the connection profiles will be saved, it defaults "
 "to the XDG_USER_DATA"
 msgstr ""
+"Questa è la cartella in cui verranno salvati i profili di connessione, "
+"XDG_USER_DATA per impostazione predefinita"
 
 #. It's the folder where the profiles are saved
 #: data/ui/remmina_preferences.glade:361
 msgid "Remmina data folder"
-msgstr ""
+msgstr "Cartella dati Remmina"
 
 #: data/ui/remmina_preferences.glade:388
 msgid "Remember last view mode for each connection"
@@ -2432,7 +2434,7 @@ msgstr "Ricordare l’ultima modalità di visualizzazione per ogni connessione"
 
 #: data/ui/remmina_preferences.glade:392
 msgid "Remember last view mode"
-msgstr ""
+msgstr "Ricorda l'ultima modalità di visualizzazione"
 
 #: data/ui/remmina_preferences.glade:418
 msgid "Send periodic usage statistics to remmina developers"
@@ -2440,7 +2442,7 @@ msgstr "Invia statistiche d’uso periodiche agli sviluppatori Remmina"
 
 #: data/ui/remmina_preferences.glade:422
 msgid "Send statistics to remmina.org"
-msgstr ""
+msgstr "Invia statistiche a remmina.org"
 
 #: data/ui/remmina_preferences.glade:462
 msgid ""
@@ -2452,17 +2454,19 @@ msgstr ""
 
 #: data/ui/remmina_preferences.glade:467
 msgid "Deny screenshot to clipboard"
-msgstr ""
+msgstr "Nega screenshot negli appunti"
 
 #: data/ui/remmina_preferences.glade:479
 msgid ""
 "Set a custom filename for your Remmina connection profiles, using a "
 "formatting string."
 msgstr ""
+"Impostare un nome file personalizzato per i profili di connessione Remmina, "
+"utilizzando una stringa di formattazione."
 
 #: data/ui/remmina_preferences.glade:483
 msgid "Profiles filename template"
-msgstr ""
+msgstr "Template per i nomi file dei profili"
 
 #: data/ui/remmina_preferences.glade:495
 msgid ""
@@ -2473,10 +2477,16 @@ msgid ""
 "\n"
 "\n"
 msgstr ""
+"% G Group Name (barra verrà convertita in - automaticamente)\n"
+"% P Nome protocollo\n"
+"% N Nome connessione\n"
+"% h Nomehost / IP\n"
+"\n"
+"\n"
 
 #: data/ui/remmina_preferences.glade:504
 msgid "%G_%P_%N_%h"
-msgstr ""
+msgstr "%G_%P_%N_%h"
 
 #: data/ui/remmina_preferences.glade:518
 msgid "Options"
@@ -2690,7 +2700,7 @@ msgstr "Opzioni SSH"
 
 #: data/ui/remmina_preferences.glade:1371
 msgid "Master password"
-msgstr ""
+msgstr "Password principale"
 
 #: data/ui/remmina_preferences.glade:1386
 #: data/ui/remmina_preferences.glade:1402
@@ -2698,26 +2708,28 @@ msgid ""
 "When activated, some widgets will require you to authenticate with a secret "
 "key"
 msgstr ""
+"Quando attivato, alcuni widget richiederanno l'autenticazione con una chiave "
+"segreta"
 
 #: data/ui/remmina_preferences.glade:1408
 msgid "Use master password"
-msgstr ""
+msgstr "Usa la password principale"
 
 #: data/ui/remmina_preferences.glade:1421
 msgid "Automatic lock interval"
-msgstr ""
+msgstr "Intervallo di blocco automatico"
 
 #: data/ui/remmina_preferences.glade:1432
 msgid "Master password validity in seconds"
-msgstr ""
+msgstr "Validità della password principale in secondi"
 
 #: data/ui/remmina_preferences.glade:1452
 msgid "File encryption"
-msgstr ""
+msgstr "Crittografia dei file"
 
 #: data/ui/remmina_preferences.glade:1482
 msgid "Retype password"
-msgstr ""
+msgstr "Ripeti password"
 
 #: data/ui/remmina_preferences.glade:1565
 msgid "Terminal font"
