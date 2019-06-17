@@ -8,6 +8,7 @@ function setLoginFields() {
     var pswdField;
     var usrField;
     var formNode;
+    var userFound = false;
 
     if (frames.length != 0) {
         for (var i = 0; i < frames.length; i++) {
@@ -43,21 +44,26 @@ function setLoginFields() {
 
                 usrField.forEach(function(usrElement) {
                     usrElement.value = 'USRPLACEHOLDER';
-                    usrElement.dispatchEvent(evt);
+                    if (usrElement !== null) {
+                        usrElement.dispatchEvent(evt);
+                        userFound = true;
+                    }
                 });
                 pswdElement.dispatchEvent(evt);
-            } else {
+            }
+            if (formNode === null || !userFound) {
                 console.debug("Form elements found");
                 console.debug("Inputs elements may be in other containers");
                 var inputs = doc.getElementsByTagName('input');
-                var userFound = false;
                 for (var i = 0; i < inputs.length; i += 1) {
                     console.debug("input type: " + inputs[i].type);
                     switch(inputs[i].type) {
                         case 'new-password':
-                            break;
+                            continue;
                         case 'password':
-                            break;
+                            continue;
+                        case 'hidden':
+                            continue;
                         case 'email':
                             inputs[i].value = 'USRPLACEHOLDER';
                             userFound = true;
