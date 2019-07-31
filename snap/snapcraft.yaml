@@ -40,6 +40,7 @@ apps:
     common-id: org.remmina.Remmina.desktop
     plugs:
       - avahi-observe
+      - browser-support
       - cups-control
       - desktop
       - desktop-legacy
@@ -48,13 +49,14 @@ apps:
       - mount-observe
       - network
       - network-bind
-      - pulseaudio
-      - unity7
+      - opengl
       - password-manager-service
-      - wayland
-      - x11
+      - pulseaudio
       - ssh-keys
       - ssh-public-keys
+      - unity7
+      - wayland
+      - x11
 
   winpr-makecert:
     command: winpr-makecert
@@ -147,6 +149,7 @@ parts:
 
   remmina:
     after:
+      - desktop-gnome-platform
       - libssh-0-8
       - freerdp
     plugin: cmake
