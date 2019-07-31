@@ -35,6 +35,7 @@ apps:
     # so we disable it
     environment:
       DISABLE_WAYLAND: 1
+      LD_LIBRARY_PATH: $SNAP/usr/lib/x86_64-linux-gnu/webkit2gtk-4.0/:$LD_LIBRARY_PATH
     command: desktop-launch remmina
     common-id: org.remmina.Remmina.desktop
     plugs:
@@ -153,6 +154,8 @@ parts:
     parse-info: [usr/share/metainfo/org.remmina.Remmina.appdata.xml]
     stage-packages:
       - xauth
+      - libwebkit2gtk-4.0-37
+      - libjavascriptcoregtk-4.0-18
     build-packages:
       - intltool
       - libappindicator3-dev
