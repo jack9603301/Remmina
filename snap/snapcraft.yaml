@@ -23,6 +23,10 @@ plugs:
     target: $SNAP/data-dir/sounds
     default-provider: gtk-common-themes
 
+layout:
+  /usr/lib/$SNAPCRAFT_ARCH_TRIPLET/webkit2gtk-4.0:
+    bind: $SNAP/gnome-platform/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/webkit2gtk-4.0
+
 slots:
   remmina-gapp:
     interface: dbus
@@ -155,8 +159,6 @@ parts:
     plugin: cmake
     source: .
     parse-info: [usr/share/metainfo/org.remmina.Remmina.appdata.xml]
-    stage-packages:
-      - xauth
     build-packages:
       - intltool
       - libappindicator3-dev
@@ -174,6 +176,8 @@ parts:
       - libvte-2.91-dev
       - libxkbfile-dev
       - libwebkit2gtk-4.0-dev
+    stage-packages:
+      - xauth
     configflags:
       - -DCMAKE_BUILD_TYPE=Release
       - -DCMAKE_PREFIX_PATH=$SNAPCRAFT_STAGE/usr
