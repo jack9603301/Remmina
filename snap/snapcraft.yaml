@@ -34,8 +34,8 @@ apps:
     # desktop-launch seems to be broken when setting up wayland env
     # so we disable it
     environment:
-      DISABLE_WAYLAND: 1
-      LD_LIBRARY_PATH: $SNAP/usr/lib/x86_64-linux-gnu/webkit2gtk-4.0/:$LD_LIBRARY_PATH
+      DISABLE_WAYLAND: "1"
+      LD_LIBRARY_PATH: "$SNAP/usr/lib/x86_64-linux-gnu/webkit2gtk-4.0/:$LD_LIBRARY_PATH"
     command: desktop-launch remmina
     common-id: org.remmina.Remmina.desktop
     plugs:
