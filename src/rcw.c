@@ -2674,7 +2674,6 @@ static void rcw_create_floating_toolbar(RemminaConnectionWindow *cnnwin, gint mo
 #if GTK_CHECK_VERSION(3, 20, 0)
 	gtk_widget_set_focus_on_click(GTK_WIDGET(pinbutton), FALSE);
 #else
-			       RemminaConnectionWindow *cnnwin)
 	gtk_button_set_focus_on_click(GTK_BUTTON(pinbutton), FALSE);
 #endif
 	gtk_widget_set_name(pinbutton, "remmina-pin-button");
@@ -3209,8 +3208,8 @@ static gboolean rcw_go_fullscreen(GtkWidget *widget, GdkEvent *event, gpointer d
 		if (cnnwin->priv->full_screen_target_monitor == FULL_SCREEN_TARGET_MONITOR_UNDEFINED) {
 			gtk_window_fullscreen(GTK_WINDOW(widget));
 		} else {
-			gtk_window_fullscreen_on_monitor(GTK_WINDOW(widget),
-				gtk_window_get_screen(GTK_WINDOW(widget)), cnnwin->priv->full_screen_target_monitor);
+			gtk_window_fullscreen_on_monitor(GTK_WINDOW(widget), gtk_window_get_screen(GTK_WINDOW(widget)),
+				cnnwin->priv->full_screen_target_monitor);
 		}
 	} else {
 		remmina_log_print("Fullscreen managed by WM or by the user, as per settings");
