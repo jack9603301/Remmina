@@ -226,9 +226,9 @@ void remmina_main_destroy()
 	if (remminamain) {
 		/* Schedule remminamain object destruction after
 		 * GTK will finish to destroy the main window */
-		g_idle_add(remmina_main_rmodestroy, NULL);
 		if (remminamain->window)
 			remmina_main_save_before_destroy();
+		g_idle_add(remmina_main_rmodestroy, NULL);
 	}
 }
 
