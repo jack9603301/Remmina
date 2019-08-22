@@ -146,8 +146,6 @@ struct _RemminaConnectionWindowPriv {
 	gboolean					hostkey_activated;
 	gboolean					hostkey_used;
 
-	gint						full_screen_target_monitor;
-
 	RemminaConnectionWindowOnDeleteConfirmMode	on_delete_confirm_mode;
 };
 
@@ -3196,20 +3194,22 @@ static RemminaConnectionWindow *rcw_create_scrolled(gint width, gint height, gbo
 
 static gboolean rcw_go_fullscreen(GtkWidget *widget, GdkEvent *event, gpointer data)
 {
+	gint target_monitor;
+
 	TRACE_CALL(__func__);
 
 	if (!REMMINA_IS_CONNECTION_WINDOW(widget))
 		return FALSE;
 
-	RemminaConnectionWindow* cnnwin = (RemminaConnectionWindow*)data;
+	target_monitor = (gint)data;
 
 #if GTK_CHECK_VERSION(3, 18, 0)
 	if (remmina_pref.fullscreen_on_auto) {
-		if (cnnwin->priv->full_screen_target_monitor == FULL_SCREEN_TARGET_MONITOR_UNDEFINED) {
+		if (target_monitor == FULL_SCREEN_TARGET_MONITOR_UNDEFINED) {
 			gtk_window_fullscreen(GTK_WINDOW(widget));
 		} else {
 			gtk_window_fullscreen_on_monitor(GTK_WINDOW(widget), gtk_window_get_screen(GTK_WINDOW(widget)),
-				cnnwin->priv->full_screen_target_monitor);
+				target_monitor);
 		}
 	} else {
 		remmina_log_print("Fullscreen managed by WM or by the user, as per settings");
@@ -3364,6 +3364,7 @@ RemminaConnectionWindow *rcw_create_fullscreen(GtkWindow *old, gint view_mode)
 	GdkDisplay* old_display;
 	GdkMonitor* old_monitor;
 	GdkWindow* old_window;
+	gint full_screen_target_monitor;
 
 	cnnwin = rcw_new();
 	gtk_widget_set_name(GTK_WIDGET(cnnwin), "remmina-connection-window-fullscreen");
@@ -3395,16 +3396,16 @@ RemminaConnectionWindow *rcw_create_fullscreen(GtkWindow *old, gint view_mode)
 
 	gtk_widget_show(GTK_WIDGET(cnnwin));
 
-	cnnwin->priv->full_screen_target_monitor = FULL_SCREEN_TARGET_MONITOR_UNDEFINED;
-
-	if (old) {
+    full_screen_target_monitor = FULL_SCREEN_TARGET_MONITOR_UNDEFINED;
+	
+    if (old) {
 		old_window = gtk_widget_get_window(GTK_WIDGET(old));
 		old_display = gdk_window_get_display(old_window);
 		old_monitor = gdk_display_get_monitor_at_window(old_display, old_window);
 		n_monitors = gdk_display_get_n_monitors(old_display);
 		for (i = 0; i < n_monitors; ++i) {
 			if (gdk_display_get_monitor(old_display, i) == old_monitor) {
-				cnnwin->priv->full_screen_target_monitor = i;
+				full_screen_target_monitor = i;
 				break;
 			}
 		}
@@ -3412,9 +3413,9 @@ RemminaConnectionWindow *rcw_create_fullscreen(GtkWindow *old, gint view_mode)
 
 
 	/* Put the window in fullscreen after it is mapped to have it appear on the same monitor */
-	g_signal_connect(G_OBJECT(cnnwin), "map-event", G_CALLBACK(rcw_go_fullscreen), (gpointer)cnnwin);
+	g_signal_connect(G_OBJECT(cnnwin), "map-event", G_CALLBACK(rcw_go_fullscreen), (gpointer)full_screen_target_monitor);
 
-  return cnnwin;
+	return cnnwin;
 }
 
 static gboolean rcw_hostkey_func(RemminaProtocolWidget *gp, guint keyval, gboolean release)
@@ -3867,7 +3868,7 @@ GtkWidget *rcw_open_from_file_full(RemminaFile *remminafile, GCallback disconnec
 		switch (view_mode) {
 		case SCROLLED_FULLSCREEN_MODE:
 		case VIEWPORT_FULLSCREEN_MODE:
-			cnnobj->cnnwin = rcw_create_fullscreen(GTK_WINDOW(cnnobj->proto), view_mode);
+			cnnobj->cnnwin = rcw_create_fullscreen(NULL, view_mode);
 			break;
 		case SCROLLED_WINDOW_MODE:
 		default:
