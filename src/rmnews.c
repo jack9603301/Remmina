@@ -159,10 +159,11 @@ static void rmnews_close_clicked(GtkButton *btn, gpointer user_data)
 	rmnews_news_dialog->dialog = NULL;
 }
 
-static void rmnews_set_modal (GtkWindow *parent, gpointer user_data)
+static void rmnews_set_modal (GtkWindow *window, gpointer user_data)
 {
 	TRACE_CALL(__func__);
-	gtk_window_set_modal(parent, FALSE);
+	g_debug("Unsetting modality for RemMinaNews");
+	gtk_window_set_modal(window, FALSE);
 }
 
 
