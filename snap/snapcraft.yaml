@@ -17,8 +17,8 @@ slots:
 
 apps:
   remmina:
-    # desktop-launch seems to be broken when setting up wayland env
-    # so we disable it
+    # desktop-launch (used under the covers in gnome-3-28 extension) seems to
+    # be broken when setting up wayland env so we disable it
     environment:
       DISABLE_WAYLAND: "1"
       LD_LIBRARY_PATH: "$SNAP/usr/lib/x86_64-linux-gnu/webkit2gtk-4.0/:$LD_LIBRARY_PATH"
