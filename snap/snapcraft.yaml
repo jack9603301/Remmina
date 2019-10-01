@@ -21,7 +21,6 @@ apps:
     # be broken when setting up wayland env so we disable it
     environment:
       DISABLE_WAYLAND: "1"
-      LD_LIBRARY_PATH: "$SNAP/usr/lib/x86_64-linux-gnu/webkit2gtk-4.0/:$LD_LIBRARY_PATH"
     command: usr/bin/remmina
     extensions: [gnome-3-28]
     common-id: org.remmina.Remmina.desktop
@@ -29,8 +28,6 @@ apps:
       - avahi-observe
       - browser-support
       - cups-control
-      - desktop
-      - desktop-legacy
       - gsettings
       - home
       - mount-observe
@@ -41,9 +38,6 @@ apps:
       - pulseaudio
       - ssh-keys
       - ssh-public-keys
-      - unity7
-      - wayland
-      - x11
 
   winpr-makecert:
     command: winpr-makecert
