@@ -1040,7 +1040,7 @@ static gboolean remmina_rdp_main(RemminaProtocolWidget* gp)
 	gchar *proxy_username   = g_strdup(remmina_plugin_service->file_get_string(remminafile , "proxy_username"));
 	gchar *proxy_password   = g_strdup(remmina_plugin_service->file_get_string(remminafile , "proxy_password"));
 	gchar *proxy_hostname = g_strdup(remmina_plugin_service->file_get_string(remminafile , "proxy_hostname"));
-	gint proxy_serverport   = remmina_plugin_service->file_get_int(remminafile    , "proxy_serverport", 80);
+	gint proxy_port   = remmina_plugin_service->file_get_int(remminafile    , "proxy_port", 80);
 	if (proxy_protocol && proxy_hostname) {
 		if (strcmp(proxy_protocol, "no_proxy") == 0) {
 				rfi->settings->ProxyType = PROXY_TYPE_IGNORE;
@@ -1056,8 +1056,8 @@ static gboolean remmina_rdp_main(RemminaProtocolWidget* gp)
 			rfi->settings->ProxyUsername = proxy_username;
 		if (proxy_password)
 			rfi->settings->ProxyPassword = proxy_password;
-		if (proxy_serverport)
-			rfi->settings->ProxyPort = proxy_serverport;
+		if (proxy_port)
+			rfi->settings->ProxyPort = proxy_port;
 	}
 
 	/* Remote Desktop Gateway server address */
