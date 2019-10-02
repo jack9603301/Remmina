@@ -943,6 +943,7 @@ static gboolean remmina_rdp_main(RemminaProtocolWidget* gp)
 	rdpChannels* channels;
 	gchar *gateway_host;
 	gint gateway_port;
+
 	gint desktopOrientation, desktopScaleFactor, deviceScaleFactor;
 
 	channels = rfi->instance->context->channels;
@@ -1031,6 +1032,34 @@ static gboolean remmina_rdp_main(RemminaProtocolWidget* gp)
 		rfi->settings->Password = strdup(s);
 		rfi->settings->AutoLogonEnabled = 1;
 	}
+	/**
+	 * Proxy support
+	 * Proxy settings are hidden at the moment as an advanced feauture
+	 */
+	gchar *proxy_protocol   = g_strdup(remmina_plugin_service->file_get_string(remminafile , "proxy_protocol"));
+	gchar *proxy_username   = g_strdup(remmina_plugin_service->file_get_string(remminafile , "proxy_username"));
+	gchar *proxy_password   = g_strdup(remmina_plugin_service->file_get_string(remminafile , "proxy_password"));
+	gchar *proxy_hostname = g_strdup(remmina_plugin_service->file_get_string(remminafile , "proxy_hostname"));
+	gint proxy_serverport   = remmina_plugin_service->file_get_int(remminafile    , "proxy_serverport", 80);
+	if (proxy_protocol && proxy_hostname) {
+		if (strcmp(proxy_protocol, "no_proxy") == 0) {
+				rfi->settings->ProxyType = PROXY_TYPE_IGNORE;
+		} else if (strcmp(proxy_protocol, "http") == 0) {
+				rfi->settings->ProxyType = PROXY_TYPE_HTTP;
+		} else if (strcmp(proxy_protocol, "socks5") == 0) {
+				rfi->settings->ProxyType = PROXY_TYPE_SOCKS;
+		} else {
+				g_warning ("Invalid Proxy protocol, at the moment only no_proxy, http and socks5 are supported");
+		}
+		rfi->settings->ProxyHostname = proxy_hostname;
+		if (proxy_username)
+			rfi->settings->ProxyUsername = proxy_username;
+		if (proxy_password)
+			rfi->settings->ProxyPassword = proxy_password;
+		if (proxy_serverport)
+			rfi->settings->ProxyPort = proxy_serverport;
+	}
+
 	/* Remote Desktop Gateway server address */
 	rfi->settings->GatewayEnabled = FALSE;
 	s = remmina_plugin_service->file_get_string(remminafile, "gateway_server");
