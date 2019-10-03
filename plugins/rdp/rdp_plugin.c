@@ -600,6 +600,50 @@ static BOOL remmina_rdp_authenticate(freerdp *instance, char **username, char **
 	return True;
 }
 
+static BOOL remmina_rdp_proxy_authenticate(RemminaProtocolWidget *gp)
+{
+	TRACE_CALL(__func__);
+	rfContext *rfi = GET_PLUGIN_DATA(gp);
+	gchar *p_username, *p_password;
+	gint ret;
+	gboolean save;
+	gboolean disablepasswordstoring;
+	RemminaFile *remminafile;
+
+	remminafile = remmina_plugin_service->protocol_plugin_get_file(gp);
+
+	if (!remmina_plugin_service->file_get_string(remminafile, "proxy_hostname"))
+		return False;
+	disablepasswordstoring = remmina_plugin_service->file_get_int(remminafile, "disablepasswordstoring", FALSE);
+	ret = remmina_plugin_service->protocol_plugin_init_authuserpwd(gp, TRUE, !disablepasswordstoring);
+	if (ret == GTK_RESPONSE_OK) {
+		p_username = remmina_plugin_service->protocol_plugin_init_get_username(gp);
+		if (p_username) rfi->settings->ProxyUsername = strdup(p_username);
+
+		p_password = remmina_plugin_service->protocol_plugin_init_get_password(gp);
+		if (p_password) rfi->settings->ProxyPassword = strdup(p_password);
+
+		save = remmina_plugin_service->protocol_plugin_init_get_savepassword(gp);
+		if (save) {
+			// User has requested to save credentials. We put all the new cretentials
+			// into remminafile->settings. They will be saved later, on successful connection, by
+			// rcw.c
+
+			remmina_plugin_service->file_set_string(remminafile, "proxy_username", p_username);
+			remmina_plugin_service->file_set_string(remminafile, "proxy_password", p_password);
+		}
+
+		if (p_username) g_free(p_username);
+		if (p_password) g_free(p_password);
+
+		return True;
+	} else {
+		rfi->user_cancelled = TRUE;
+		return False;
+	}
+
+	return True;
+}
 static BOOL remmina_rdp_gw_authenticate(freerdp *instance, char **username, char **password, char **domain)
 {
 	TRACE_CALL(__func__);
@@ -1037,14 +1081,15 @@ static gboolean remmina_rdp_main(RemminaProtocolWidget *gp)
 	gint proxy_port = remmina_plugin_service->file_get_int(remminafile, "proxy_port", 80);
 	g_debug ("proxy_type: %s", proxy_type);
 	g_debug ("proxy_username: %s", proxy_username);
+	g_debug ("proxy_password: %s", proxy_password);
 	g_debug ("proxy_hostname: %s", proxy_hostname);
 	g_debug ("proxy_port: %d", proxy_port);
 	if (proxy_type && proxy_hostname) {
-		if (strcmp(proxy_type, "no_proxy") == 0)
+		if (g_strcmp0(proxy_type, "no_proxy") == 0)
 			rfi->settings->ProxyType = PROXY_TYPE_IGNORE;
-		else if (strcmp(proxy_type, "http") == 0)
+		else if (g_strcmp0(proxy_type, "http") == 0)
 			rfi->settings->ProxyType = PROXY_TYPE_HTTP;
-		else if (strcmp(proxy_type, "socks5") == 0)
+		else if (g_strcmp0(proxy_type, "socks5") == 0)
 			rfi->settings->ProxyType = PROXY_TYPE_SOCKS;
 		else
 			g_warning("Invalid Proxy protocol, at the moment only no_proxy, http and socks5 are supported");
@@ -1057,6 +1102,10 @@ static gboolean remmina_rdp_main(RemminaProtocolWidget *gp)
 		if (proxy_port)
 			rfi->settings->ProxyPort = proxy_port;
 	}
+	if(proxy_type) g_free(proxy_type);
+	if(proxy_username) g_free(proxy_username);
+	if(proxy_password) g_free(proxy_password);
+	if(proxy_hostname) g_free(proxy_hostname);
 
 	/* Remote Desktop Gateway server address */
 	rfi->settings->GatewayEnabled = FALSE;
