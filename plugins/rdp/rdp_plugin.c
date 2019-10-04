@@ -1436,7 +1436,6 @@ static gboolean remmina_rdp_main(RemminaProtocolWidget *gp)
 		freerdp_device_collection_add(rfi->settings, (RDPDR_DEVICE *)parallel);
 	}
 
-
 	if (!freerdp_connect(rfi->instance)) {
 		if (!rfi->user_cancelled) {
 			UINT32 e;
