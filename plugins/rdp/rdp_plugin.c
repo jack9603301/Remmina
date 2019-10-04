@@ -1159,7 +1159,7 @@ static gboolean remmina_rdp_main(RemminaProtocolWidget *gp)
 		freerdp_set_gateway_usage_method(rfi->settings,
 						 remmina_plugin_service->file_get_int(remminafile, "gateway_usage", FALSE) ? TSC_PROXY_MODE_DETECT : TSC_PROXY_MODE_DIRECT);
 
-	freerdp_set_param_string(rfi->settings, FreeRDP_GatewayAccessToken,
+	freerdp_settings_set_string(rfi->settings, (size_t)FreeRDP_GatewayAccessToken,
 				 remmina_plugin_service->file_get_string(remminafile, "gatewayaccesstoken"));
 
 	rfi->settings->AuthenticationLevel = remmina_plugin_service->file_get_int(
