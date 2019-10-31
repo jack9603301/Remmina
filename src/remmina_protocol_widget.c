@@ -1392,11 +1392,11 @@ gint remmina_protocol_widget_panel_changed_certificate(RemminaProtocolWidget *gp
 		 _("Issuer:"), issuer,
 		 _("Old Fingerprint:"), old_fingerprint,
 		 _("New Fingerprint:"), new_fingerprint,
-		 _("Accept Changed Certificate?"));
+		 _("Accept changed certificate?"));
 	rc = remmina_protocol_widget_dialog(RPWDT_QUESTIONYESNO, gp, 0, s);
 	g_free(s);
 
-	/* For compatibility with plugin API: the plugin expects GTK_RESPONSE_OK when user confirms new cert */
+	/* For compatibility with plugin API: The plugin expects GTK_RESPONSE_OK when user confirms new cert */
 	return rc == GTK_RESPONSE_YES ? GTK_RESPONSE_OK : rc;
 }
 
