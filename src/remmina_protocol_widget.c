@@ -1390,8 +1390,8 @@ gint remmina_protocol_widget_panel_changed_certificate(RemminaProtocolWidget *gp
 		 _("The certificate changed! Details:"),
 		 _("Subject:"), subject,
 		 _("Issuer:"), issuer,
-		 _("Old Fingerprint:"), old_fingerprint,
-		 _("New Fingerprint:"), new_fingerprint,
+		 _("Old fingerprint:"), old_fingerprint,
+		 _("New fingerprint:"), new_fingerprint,
 		 _("Accept changed certificate?"));
 	rc = remmina_protocol_widget_dialog(RPWDT_QUESTIONYESNO, gp, 0, s);
 	g_free(s);
