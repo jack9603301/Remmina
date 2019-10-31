@@ -1387,7 +1387,7 @@ gint remmina_protocol_widget_panel_changed_certificate(RemminaProtocolWidget *gp
 	// For markup see https://developer.gnome.org/pygtk/stable/pango-markup-language.html
 	s = g_strdup_printf(
 		"<big>%s</big>\n\n%s %s\n%s %s\n%s %s\n%s %s\n\n<big>%s</big>",
-		 _("Certificate changed! Details:"),
+		 _("The certificate changed! Details:"),
 		 _("Subject:"), subject,
 		 _("Issuer:"), issuer,
 		 _("Old Fingerprint:"), old_fingerprint,
