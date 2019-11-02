@@ -538,21 +538,21 @@ remmina_ssh_auth_gui(RemminaSSH *ssh, RemminaProtocolWidget *gp, RemminaFile *re
 		} else {
 			/* ??? */
 			ret = remmina_protocol_widget_panel_auth(gp, (disablepasswordstoring ? 0 : REMMINA_MESSAGE_PANEL_FLAG_SAVEPASSWORD) | REMMINA_MESSAGE_PANEL_FLAG_USERNAME,
-				_("SSH ? credentials"),
-				remmina_file_get_string(remminafile, "username"),
-				remmina_file_get_string(remminafile, "password"),
+				_("SSH authentication"),
+				remmina_file_get_string(remminafile, "Username"),
+				remmina_file_get_string(remminafile, "Password"),
 				NULL,
 				NULL);
 			if (ret == GTK_RESPONSE_OK) {
 				pwd = remmina_protocol_widget_get_username(gp);
-				remmina_file_set_string(remminafile, "username", pwd);
+				remmina_file_set_string(remminafile, "Username", pwd);
 				g_free(pwd);
 				pwd = remmina_protocol_widget_get_password(gp);
 				save_password = remmina_protocol_widget_get_savepassword(gp);
 				if (save_password)
-					remmina_file_set_string(remminafile, "password", pwd);
+					remmina_file_set_string(remminafile, "Password", pwd);
 				else
-					remmina_file_set_string(remminafile, "password", NULL);
+					remmina_file_set_string(remminafile, "Password", NULL);
 				g_free(pwd);
 			} else
 				return -1;
@@ -598,7 +598,7 @@ remmina_ssh_init_session(RemminaSSH *ssh)
 	if (ssh->privkeyfile && *ssh->privkeyfile != 0) {
 		rc = ssh_options_set(ssh->session, SSH_OPTIONS_IDENTITY, ssh->privkeyfile);
 		if (rc == 0)
-			remmina_log_printf("[SSH] SSH_OPTIONS_IDENTITY has been set to: %s\n", ssh->privkeyfile);
+			remmina_log_printf("[SSH] SSH_OPTIONS_IDENTITY is now %s\n", ssh->privkeyfile);
 		else
 			remmina_log_printf("[SSH] SSH_OPTIONS_IDENTITY is not set, by default identity, id_dsa and id_rsa are checked.\n");
 	}
@@ -608,34 +608,34 @@ remmina_ssh_init_session(RemminaSSH *ssh)
 #endif
 	rc = ssh_options_set(ssh->session, SSH_OPTIONS_KEY_EXCHANGE, ssh->kex_algorithms);
 	if (rc == 0)
-		remmina_log_printf("[SSH] SSH_OPTIONS_KEY_EXCHANGE has been set to: %s\n", ssh->kex_algorithms);
+		remmina_log_printf("[SSH] SSH_OPTIONS_KEY_EXCHANGE is now %s\n", ssh->kex_algorithms);
 	else
-		remmina_log_printf("[SSH] SSH_OPTIONS_KEY_EXCHANGE does not have a valid value: %s\n", ssh->kex_algorithms);
+		remmina_log_printf("[SSH] SSH_OPTIONS_KEY_EXCHANGE does not have a valid value, %s\n", ssh->kex_algorithms);
 	rc = ssh_options_set(ssh->session, SSH_OPTIONS_CIPHERS_C_S, ssh->ciphers);
 	if (rc == 0)
-		remmina_log_printf("[SSH] SSH_OPTIONS_CIPHERS_C_S has been set to: %s\n", ssh->ciphers);
+		remmina_log_printf("[SSH] SSH_OPTIONS_CIPHERS_C_S has been set to %s\n", ssh->ciphers);
 	else
-		remmina_log_printf("[SSH] SSH_OPTIONS_CIPHERS_C_S does not have a valid value: %s\n", ssh->ciphers);
+		remmina_log_printf("[SSH] SSH_OPTIONS_CIPHERS_C_S does not have a valid value, %s\n", ssh->ciphers);
 	rc = ssh_options_set(ssh->session, SSH_OPTIONS_HOSTKEYS, ssh->hostkeytypes);
 	if (rc == 0)
-		remmina_log_printf("[SSH] SSH_OPTIONS_HOSTKEYS has been set to: %s\n", ssh->hostkeytypes);
+		remmina_log_printf("[SSH] SSH_OPTIONS_HOSTKEYS is now %s\n", ssh->hostkeytypes);
 	else
-		remmina_log_printf("[SSH] SSH_OPTIONS_HOSTKEYS does not have a valid value: %s\n", ssh->hostkeytypes);
+		remmina_log_printf("[SSH] SSH_OPTIONS_HOSTKEYS does not have a valid value, %s\n", ssh->hostkeytypes);
 	rc = ssh_options_set(ssh->session, SSH_OPTIONS_PROXYCOMMAND, ssh->proxycommand);
 	if (rc == 0)
-		remmina_log_printf("[SSH] SSH_OPTIONS_PROXYCOMMAND has been set to: %s\n", ssh->proxycommand);
+		remmina_log_printf("[SSH] SSH_OPTIONS_PROXYCOMMAND is now %s\n", ssh->proxycommand);
 	else
-		remmina_log_printf("[SSH] SSH_OPTIONS_PROXYCOMMAND does not have a valid value: %s\n", ssh->proxycommand);
+		remmina_log_printf("[SSH] SSH_OPTIONS_PROXYCOMMAND does not have a valid value, %s\n", ssh->proxycommand);
 	rc = ssh_options_set(ssh->session, SSH_OPTIONS_STRICTHOSTKEYCHECK, &ssh->stricthostkeycheck);
 	if (rc == 0)
-		remmina_log_printf("[SSH] SSH_OPTIONS_STRICTHOSTKEYCHECK has been set to: %d\n", ssh->stricthostkeycheck);
+		remmina_log_printf("[SSH] SSH_OPTIONS_STRICTHOSTKEYCHECK is now %d\n", ssh->stricthostkeycheck);
 	else
-		remmina_log_printf("[SSH] SSH_OPTIONS_STRICTHOSTKEYCHECK does not have a valid value: %d\n", ssh->stricthostkeycheck);
+		remmina_log_printf("[SSH] SSH_OPTIONS_STRICTHOSTKEYCHECK does not have a valid value, %d\n", ssh->stricthostkeycheck);
 	rc = ssh_options_set(ssh->session, SSH_OPTIONS_COMPRESSION, ssh->compression);
 	if (rc == 0)
-		remmina_log_printf("[SSH] SSH_OPTIONS_COMPRESSION has been set to: %s\n", ssh->compression);
+		remmina_log_printf("[SSH] SSH_OPTIONS_COMPRESSION is now %s\n", ssh->compression);
 	else
-		remmina_log_printf("[SSH] SSH_OPTIONS_COMPRESSION does not have a valid value: %s\n", ssh->compression);
+		remmina_log_printf("[SSH] SSH_OPTIONS_COMPRESSION does not have a valid value, %s\n", ssh->compression);
 
 	ssh_callbacks_init(ssh->callback);
 	if (remmina_log_running()) {
