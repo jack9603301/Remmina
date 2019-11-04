@@ -245,13 +245,13 @@ void remmina_protocol_widget_open_connection_real(gpointer data)
 		if (num_ssh) {
 			feature->type = REMMINA_PROTOCOL_FEATURE_TYPE_TOOL;
 			feature->id = REMMINA_PROTOCOL_FEATURE_TOOL_SSH;
-			feature->opt1 = _("Connect via SSH from a new terminal…");
+			feature->opt1 = _("Connect via SSH from a new terminal");
 			feature->opt2 = "utilities-terminal";
 			feature++;
 
 			feature->type = REMMINA_PROTOCOL_FEATURE_TYPE_TOOL;
 			feature->id = REMMINA_PROTOCOL_FEATURE_TOOL_SFTP;
-			feature->opt1 = _("Open SFTP transfer…");
+			feature->opt1 = _("Open SFTP transfer");
 			feature->opt2 = "folder-remote";
 			feature++;
 		}
