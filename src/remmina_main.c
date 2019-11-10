@@ -1013,7 +1013,7 @@ void remmina_main_on_action_help_community(GSimpleAction *action, GVariant *para
 void remmina_main_on_action_help_donations(GSimpleAction *action, GVariant *param, gpointer data)
 {
 	TRACE_CALL(__func__);
-	g_app_info_launch_default_for_uri("https://www.remmina.org/wp/donations", NULL, NULL);
+	g_app_info_launch_default_for_uri("https://www.remmina.org/donations", NULL, NULL);
 }
 
 void remmina_main_on_action_help_debug(GSimpleAction *action, GVariant *param, gpointer data)
