@@ -80,22 +80,38 @@ gboolean kioskmode;
 
 static GOptionEntry remmina_options[] =
 {
+	/// TRANSLATORS: Only on terminal
 	{ "about",	      'a',  0,			  G_OPTION_ARG_NONE,	       NULL, N_("Show \'About\'"),								     NULL	},
+	/// TRANSLATORS: Only on terminal
 	{ "connect",	      'c',  0,			  G_OPTION_ARG_FILENAME,       NULL, N_("Connect to desktop described in file (.remmina or type supported by plugin)"),	     "FILE"	},
+	/// TRANSLATORS: Only on terminal
 	{ G_OPTION_REMAINING, '\0', 0,			  G_OPTION_ARG_FILENAME_ARRAY, NULL, N_("Connect to desktop described in file (.remmina or type supported by plugin)"),	     "FILE"	},
+	/// TRANSLATORS: Only on terminal
 	{ "edit",	      'e',  0,			  G_OPTION_ARG_FILENAME,       NULL, N_("Edit desktop connection described in file (.remmina or type supported by plugin)"), "FILE"	},
 	{ "help",	      '?',  G_OPTION_FLAG_HIDDEN, G_OPTION_ARG_NONE,	       NULL, NULL,										     NULL	},
+	/// TRANSLATORS: Only on terminal
 	{ "kiosk",	      'k',  0,			  G_OPTION_ARG_NONE,	       NULL, N_("Start in kiosk mode"),							     NULL	},
+	/// TRANSLATORS: Only on terminal
 	{ "new",	      'n',  0,			  G_OPTION_ARG_NONE,	       NULL, N_("Create new connection profile"),						     NULL	},
+	/// TRANSLATORS: Only on terminal
 	{ "pref",	      'p',  0,			  G_OPTION_ARG_STRING,	       NULL, N_("Show preferences"),						     "PAGENR"	},
+	/// TRANSLATORS: Only on terminal
 	{ "plugin",	      'x',  0,			  G_OPTION_ARG_STRING,	       NULL, N_("Run a plugin"),								     "PLUGIN"	},
+	/// TRANSLATORS: Only on terminal
 	{ "quit",	      'q',  0,			  G_OPTION_ARG_NONE,	       NULL, N_("Quit"),							     NULL	},
+	/// TRANSLATORS: Only on terminal
 	{ "server",	      's',  0,			  G_OPTION_ARG_STRING,	       NULL, N_("Use default server name (for --new)"),						     "SERVER"	},
+	/// TRANSLATORS: Only on terminal
 	{ "protocol",	      't',  0,			  G_OPTION_ARG_STRING,	       NULL, N_("Use default protocol (for --new)"),						     "PROTOCOL" },
+	/// TRANSLATORS: Only on terminal
 	{ "icon",	      'i',  0,			  G_OPTION_ARG_NONE,	       NULL, N_("Start in tray"),								     NULL	},
+	/// TRANSLATORS: Only on terminal
 	{ "version",	      'v',  0,			  G_OPTION_ARG_NONE,	       NULL, N_("Show the application version"),						     NULL	},
+	/// TRANSLATORS: Only on terminal
 	{ "full-version",     'V',  0,			  G_OPTION_ARG_NONE,	       NULL, N_("Show version of the application and its plugins"),		     NULL	},
+	/// TRANSLATORS: Only on terminal
 	{ "update-profile",   0,    0,			  G_OPTION_ARG_FILENAME,       NULL, N_("Modify connection profile, (requires --set-option)"),			     NULL	},
+	/// TRANSLATORS: Only on terminal
 	{ "set-option",	      0,    0,			  G_OPTION_ARG_STRING_ARRAY,   NULL, N_("Set one or more profile settings, to be used with --update-profile"),		     NULL	},
 	{ NULL }
 };
