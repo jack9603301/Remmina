@@ -823,7 +823,7 @@ void remmina_main_on_action_connection_delete(GSimpleAction *action, GVariant *p
 		return;
 
 	dialog = gtk_message_dialog_new(remminamain->window, GTK_DIALOG_MODAL, GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO,
-		_("Are you sure to delete '%s'"), remminamain->priv->selected_name);
+		_("Are you sure you want to delete '%s'?"), remminamain->priv->selected_name);
 	if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_YES) {
 		delfilename = g_strdup(remminamain->priv->selected_filename);
 		remmina_file_delete(delfilename);
@@ -921,6 +921,7 @@ static void remmina_main_import_file_list(GSList *files)
 	}
 	g_slist_free(files);
 	if (err->len > 0) {
+		/// TRANSLATORS: The placeholder %s is an error message
 		dlg = gtk_message_dialog_new(remminamain->window, GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK,
 			_("Unable to import:\n%s"), err->str);
 		g_signal_connect(G_OBJECT(dlg), "response", G_CALLBACK(gtk_widget_destroy), NULL);
@@ -995,7 +996,7 @@ void remmina_main_on_action_application_plugins(GSimpleAction *action, GVariant 
 void remmina_main_on_action_help_homepage(GSimpleAction *action, GVariant *param, gpointer data)
 {
 	TRACE_CALL(__func__);
-	g_app_info_launch_default_for_uri("http://www.remmina.org", NULL, NULL);
+	g_app_info_launch_default_for_uri("https://www.remmina.org", NULL, NULL);
 }
 
 void remmina_main_on_action_help_wiki(GSimpleAction *action, GVariant *param, gpointer data)
@@ -1013,7 +1014,7 @@ void remmina_main_on_action_help_community(GSimpleAction *action, GVariant *para
 void remmina_main_on_action_help_donations(GSimpleAction *action, GVariant *param, gpointer data)
 {
 	TRACE_CALL(__func__);
-	g_app_info_launch_default_for_uri("http://www.remmina.org/wp/donations", NULL, NULL);
+	g_app_info_launch_default_for_uri("https://www.remmina.org/donations", NULL, NULL);
 }
 
 void remmina_main_on_action_help_debug(GSimpleAction *action, GVariant *param, gpointer data)
