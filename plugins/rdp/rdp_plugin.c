@@ -1565,7 +1565,7 @@ static gboolean remmina_rdp_main(RemminaProtocolWidget *gp)
 					remmina_plugin_service->protocol_plugin_set_error(gp, _("Could not start libfreerdp-gdi"));
 					break;
 				case REMMINA_POSTCONNECT_ERROR_NO_H264:
-					remmina_plugin_service->protocol_plugin_set_error(gp, _("You requested a H.264 GFX mode for server %s, but your libfreerdp does not support H.264. Please use a non-AVC color depth setting."), rfi->settings->ServerHostname);
+					remmina_plugin_service->protocol_plugin_set_error(gp, _("You requested a H.264 GFX mode for server %s, but your libfreerdp does not support H.264. Please use a non-AVC colour depth setting."), rfi->settings->ServerHostname);
 					break;
 				}
 				break;
