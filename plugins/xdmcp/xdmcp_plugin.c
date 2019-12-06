@@ -261,7 +261,7 @@ static gboolean remmina_plugin_xdmcp_open_connection(RemminaProtocolWidget *gp)
 
 	if (!remmina_plugin_service->gtksocket_available()) {
 		remmina_plugin_service->protocol_plugin_set_error(gp,
-			_("Protocol %s is unavailable because GtkSocket only works under X.Org"),
+			_("The protocol \"%s\" is unavailable because GtkSocket only works under X.Org."),
 			remmina_plugin_xdmcp.name);
 		return FALSE;
 	}
@@ -312,7 +312,7 @@ static gboolean remmina_plugin_xdmcp_close_connection(RemminaProtocolWidget *gp)
 	return FALSE;
 }
 
-/* Send CTRL+ALT+DEL keys keystrokes to the plugin socket widget */
+/* Send Ctrl+Alt+Del keys keystrokes to the plugin socket widget */
 static void remmina_plugin_xdmcp_send_ctrlaltdel(RemminaProtocolWidget *gp)
 {
 	TRACE_CALL(__func__);
@@ -360,7 +360,7 @@ static gpointer colordepth_list[] =
  * c) Setting description
  * d) Compact disposition
  * e) Values for REMMINA_PROTOCOL_SETTING_TYPE_SELECT or REMMINA_PROTOCOL_SETTING_TYPE_COMBO
- * f) Setting Tooltip
+ * f) Setting tooltip
  */
 static const RemminaProtocolSetting remmina_plugin_xdmcp_basic_settings[] =
 {
