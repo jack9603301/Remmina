@@ -1572,7 +1572,7 @@ static gboolean remmina_rdp_main(RemminaProtocolWidget *gp)
 #endif
 #ifdef FREERDP_ERROR_SERVER_DENIED_CONNECTION
 			case FREERDP_ERROR_SERVER_DENIED_CONNECTION:
-				remmina_plugin_service->protocol_plugin_set_error(gp, _("The %s server denied the connection."), rfi->settings->ServerHostname);
+				remmina_plugin_service->protocol_plugin_set_error(gp, _("The \"%s\" server refused the connection."), rfi->settings->ServerHostname);
 				break;
 #endif
 			case 0x800759DB:
