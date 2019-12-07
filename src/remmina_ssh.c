@@ -489,14 +489,14 @@ remmina_ssh_auth_gui(RemminaSSH *ssh, RemminaProtocolWidget *gp, RemminaFile *re
 #if LIBSSH_VERSION_INT >= SSH_VERSION_INT(0, 8, 6)
 		if (ssh_get_server_publickey(ssh->session, &server_pubkey) != SSH_OK) {
 			// TRANSLATORS: The placeholder %s is an error message
-			remmina_ssh_set_error(ssh, _("ssh_get_server_publickey() has failed: %s"));
+			remmina_ssh_set_error(ssh, _("Could not fetch the server\'s public SSH key. %s"));
 			g_debug ("ssh_get_server_publickey() has failed");
 			return 0;
 		}
 #else
 		if (ssh_get_publickey(ssh->session, &server_pubkey) != SSH_OK) {
 			// TRANSLATORS: The placeholder %s is an error message
-			remmina_ssh_set_error(ssh, _("ssh_get_publickey() has failed: %s"));
+			remmina_ssh_set_error(ssh, _("Could not fetch public SSH key. %s"));
 			g_debug ("ssh_get_publickey() has failed");
 			return 0;
 		}
