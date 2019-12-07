@@ -1564,7 +1564,7 @@ remmina_ssh_tunnel_x11(RemminaSSHTunnel *tunnel, const gchar *cmd)
 
 	if (pthread_create(&tunnel->thread, NULL, remmina_ssh_tunnel_main_thread, tunnel)) {
 		// TRANSLATORS: Do not translate pthread
-		remmina_ssh_set_application_error(REMMINA_SSH(tunnel), _("Could not initialize pthread."));
+		remmina_ssh_set_application_error(REMMINA_SSH(tunnel), _("Could not start pthread."));
 		tunnel->thread = 0;
 		return FALSE;
 	}
@@ -1599,7 +1599,7 @@ remmina_ssh_tunnel_reverse(RemminaSSHTunnel *tunnel, gint port, gint local_port)
 
 	if (pthread_create(&tunnel->thread, NULL, remmina_ssh_tunnel_main_thread, tunnel)) {
 		// TRANSLATORS: Do not translate pthread
-		remmina_ssh_set_application_error(REMMINA_SSH(tunnel), _("Could not initialize pthread."));
+		remmina_ssh_set_application_error(REMMINA_SSH(tunnel), _("Could not start pthread."));
 		tunnel->thread = 0;
 		return FALSE;
 	}
@@ -1688,12 +1688,12 @@ remmina_sftp_open(RemminaSFTP *sftp)
 	sftp->sftp_sess = sftp_new(sftp->ssh.session);
 	if (!sftp->sftp_sess) {
 		// TRANSLATORS: The placeholder %s is an error message
-		remmina_ssh_set_error(REMMINA_SSH(sftp), _("Could not create SFTP session: %s"));
+		remmina_ssh_set_error(REMMINA_SSH(sftp), _("Could not create SFTP session. %s"));
 		return FALSE;
 	}
 	if (sftp_init(sftp->sftp_sess)) {
 		// TRANSLATORS: The placeholder %s is an error message
-		remmina_ssh_set_error(REMMINA_SSH(sftp), _("Could not initialize SFTP session: %s"));
+		remmina_ssh_set_error(REMMINA_SSH(sftp), _("Could not start SFTP session. %s"));
 		return FALSE;
 	}
 	return TRUE;
