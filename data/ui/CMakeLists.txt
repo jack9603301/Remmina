@@ -42,3 +42,6 @@ install(FILES remmina_string_list.glade DESTINATION "${REMMINA_UIDIR}")
 install(FILES remmina_mpc.glade DESTINATION "${REMMINA_UIDIR}")
 install(FILES remmina_snap_info_dialog.glade DESTINATION "${REMMINA_UIDIR}")
 install(FILES remmina_unlock.glade DESTINATION "${REMMINA_UIDIR}")
+install(FILES remmina_createMonitor.glade DESTINATION "${REMMINA_UIDIR}")
+install(FILES remmina_monitorSelection.glade DESTINATION "${REMMINA_UIDIR}")
+
