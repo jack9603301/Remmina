@@ -1213,6 +1213,7 @@ struct Array* initialize_array(size_t size){
     struct Array *vector=malloc(sizeof(struct Array));
     ar.length=size;
     ar.monitor =malloc(sizeof(struct Monitors)*size);
+    ar.monitor->name = calloc(1, MONITOR_NAME_MAX);
     *vector=ar;
 
     return vector;
@@ -1439,9 +1440,6 @@ void define_structs(){
     monitorStruct->monitors = -1;
     monitorStruct->temp.ar = initialize_array(0); //Temporary Array for monitorSelection dialog
     monitorStruct->ar = initialize_array(0); //Main Array
-    //Initialize with zero so the copy_array function can detect this and can create a new element on the heap
-    monitorStruct->temp.ar->monitor->name = NULL;
-    monitorStruct->ar->monitor->name = NULL;
     monitorStruct->localWidth=0; //This is set to 0 so that other functions can see, that it has not been initialized
     if(!(remmina_file_get_int(monitorStruct->remmina_file, "mon_xDimension", 0)) || !(remmina_file_get_int(monitorStruct->remmina_file, "mon_yDimension", 0))) {
         remmina_file_set_int(monitorStruct->remmina_file, "mon_xDimension", 1);
