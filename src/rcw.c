@@ -1439,6 +1439,9 @@ void defineStructs(){
     monitorStruct->monitors = -1;
     monitorStruct->temp.ar = initializeArray(0); //Temporary Array for monitorSelection dialog
     monitorStruct->ar = initializeArray(0); //Main Array
+    //Initialize with zero so the copyArray function can detect this and can create a new element on the heap
+    monitorStruct->temp.ar->monitor->name = NULL;
+    monitorStruct->ar->monitor->name = NULL;
     monitorStruct->localWidth=0; //This is set to 0 so that other functions can see, that it has not been initialized
     if(!(remmina_file_get_int(monitorStruct->remmina_file, "mon_xDimension", 0)) || !(remmina_file_get_int(monitorStruct->remmina_file, "mon_yDimension", 0))) {
         remmina_file_set_int(monitorStruct->remmina_file, "mon_xDimension", 1);
