@@ -61,7 +61,7 @@
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="tooltip_text" translatable="yes">Save the changes</property>
-                <signal name="clicked" handler="monitorOkButton_clicked_cb" object="monitorActivateButton" swapped="no"/>
+                <signal name="clicked" handler="monitor_ok_button_clicked_cb" object="monitorActivateButton" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">True</property>
@@ -76,7 +76,7 @@
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="tooltip_text" translatable="yes">Cancels the changes </property>
-                <signal name="clicked" handler="monitorCancelButton_clicked_cb" object="dialog_remmina_monitorSelection" swapped="no"/>
+                <signal name="clicked" handler="monitor_cancel_button_clicked_cb" object="dialog_remmina_monitorSelection" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">True</property>

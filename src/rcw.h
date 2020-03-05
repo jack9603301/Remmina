@@ -139,19 +139,19 @@ struct Array{
  * @param size how many elements should be created
  * @return returns the vector
  */
-struct Array* initializeArray(size_t size);
+struct Array* initialize_array(size_t size);
 /**
  * @brief Adds a monitor to the Vector
  * @param vector where to add the monitor
  * @param monitors one mon that will be added
  */
-void addMonitors(struct Array *vector, struct Monitors *monitors);
+void add_monitors(struct Array *vector, struct Monitors *monitors);
 /**
  * @brief Vector will be copied in other
  * @param vector will be copied
  * @param copy will be overwritten
  */
-void copyArray(struct Array *vector, struct Array *copy);
+void copy_array(struct Array *vector, struct Array *copy);
 /**
  * @brief changes a single monitor
  * @param ar the vector in which the mon should be changed
@@ -163,13 +163,13 @@ void copyArray(struct Array *vector, struct Array *copy);
  * @param horizontalPosition the new position
  * @param verticalPosition
  */
-void changeMonitor(struct Array *ar, size_t index, char *name, int width, int height, int active, int horizontalPosition, int verticalPosition);
+void change_monitor(struct Array *ar, size_t index, char *name, int width, int height, int active, int horizontalPosition, int verticalPosition);
 /**
  * @brief deletes a specific element
  * @param vector in which the element should be deleted
  * @param number index of deleted element
  */
-void deleteElements(struct Array *vector, size_t number);
+void delete_elements(struct Array *vector, size_t number);
 /**
  * @brief temporary monitor list with dimensions
  */
@@ -232,8 +232,8 @@ void rco_change_scalemode(RemminaConnectionObject *cnnobj, gboolean bdyn, gboole
  * @param horizontalPositioning where to start drawing of monitor
  * @param verticalPositioning where to start drawing of monitor
  */
-void createMultiMonitor(char *name, float remoteMonitorPartWidth, float remoteMonitorPartHeight, int active,
-                               float horizontalPositioning, float verticalPositioning);
+void create_multi_monitor(char *name, float remoteMonitorPartWidth, float remoteMonitorPartHeight, int active,
+                          float horizontalPositioning, float verticalPositioning);
 
 /**
  * @brief This struct is necessary to give two arguments in one callback to change the monitor with buttons! It will called when you select one monitor
@@ -249,7 +249,7 @@ struct Daten{
  * @param localWidth width of the local monitor
  * @param localHeight height of the local monitor
 */
-void fillStaticMultiMonitor(float remoteWidth, float remoteHeight, float localWidth, float localHeight);
+void fill_static_multi_monitor(float remoteWidth, float remoteHeight, float localWidth, float localHeight);
 
 /**
  * @brief Create the fixed container and save it in cnnobj->aspectframe
@@ -257,44 +257,44 @@ void fillStaticMultiMonitor(float remoteWidth, float remoteHeight, float localWi
  * @param width The width of the local window
  * @param height The height of the local window
  */
-void initializeFixed(RemminaConnectionObject *cnnobj, gint width, gint height);
+void initialize_fixed(RemminaConnectionObject *cnnobj, gint width, gint height);
 
 /**
  * @brief Create the aspectframe container in aspectframe
  * @param cnnobj The RemminaConnectionObject struct which saves cnnwin and some graphical Container
  * @param aratio The Resolution of the remote Monitor
  */
-void initializeAspectframe(RemminaConnectionObject *cnnobj, gfloat aratio);
+void initialize_aspectframe(RemminaConnectionObject *cnnobj, gfloat aratio);
 
 /**
  * @brief Updates the fixed container this will be need, if the local monitor changes or the user want another monitor
  * @param cnnobj The RemminaConnectionObject struct which saves cnnwin and some graphical Container
  */
-void updateFixed(const RemminaConnectionObject *cnnobj);
+void update_fixed(const RemminaConnectionObject *cnnobj);
 
 /**
  * @brief This is a callback function which sets which monitor the user want to see
  * @param widget This parameter is required for the callback function, but will not be used
  * @param daten This function gets in the struct which monitor the user want and the RemminaConnectionObject
  */
-void useMonitor(GtkWidget *widget, struct Daten *daten);
+void use_monitor(GtkWidget *widget, struct Daten *daten);
 
 /**
  * @brief Initialize the monitorStruct with default values
  */
-void defineStructs();
+void define_structs();
 /**
  * @brief the ok button of the managing window has been clicked
  */
-void okButtonClicked();
+void ok_button_clicked();
 /**
  * @brief the cancel button of the managing window has been clicked
  */
-void cancelButtonClicked();
+void cancel_button_clicked();
 
 void
-writeFile(char *name, int width, int height, int active, float horizontalPositioning, float verticalPositioning,
-          int index, RemminaFile *remmina_file);
+write_file(char *name, int width, int height, int active, float horizontalPositioning, float verticalPositioning,
+           int index, RemminaFile *remmina_file);
 
 void tree_selection_changed_cb(GtkTreeSelection *selection, gpointer data);
 /**
@@ -302,14 +302,14 @@ void tree_selection_changed_cb(GtkTreeSelection *selection, gpointer data);
  * @param widget gives the widget itself, but isn't used
  * @param monitorNumber the number of the selected monitor
  */
-void monitorSelectionClicked(GtkWidget *widget, int *monitorNumber);
+void monitor_selection_clicked(GtkWidget *widget, int *monitorNumber);
 
 void rcw_screen_option_popdown(GtkWidget *widget, RemminaConnectionWindow *cnnwin);
 /**
  * @brief removes the aspect frame container
  * @param cnnobj the RemminaConnectionObject
  */
-void removeAspectframe(RemminaConnectionObject *cnnobj);
+void remove_aspectframe(RemminaConnectionObject *cnnobj);
 void remmina_protocol_widget_update_alignment(RemminaConnectionObject *cnnobj);
 #define MESSAGE_PANEL_SPINNER 0x00000001
 #define MESSAGE_PANEL_OKBUTTON 0x00000002
