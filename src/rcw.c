@@ -1209,13 +1209,13 @@ void monitor_ok_button_clicked_cb(GtkButton *button, GtkCheckButton *checkButton
 }
 
 struct Array* initialize_array(size_t size){
-    struct Array ar;
     struct Array *vector=malloc(sizeof(struct Array));
-    ar.length=size;
-    ar.monitor =malloc(sizeof(struct Monitors)*size);
-    ar.monitor->name = calloc(1, MONITOR_NAME_MAX);
-    *vector=ar;
-
+    vector->length=size;
+    vector->monitor = malloc(sizeof(struct Monitors)*size);
+    //
+    for(size_t i=0; i<size; ++i){
+        vector->monitor[i].name = (char*)calloc(MONITOR_NAME_MAX+1, sizeof(vector->monitor->name));
+    }
     return vector;
 }
 
@@ -1227,10 +1227,12 @@ void copy_array(struct Array *vector, struct Array *copy){
 
                 add_monitors(copy, &vector->monitor[i]);
 			}else{//Element is available at position
+			    char *temp = copy->monitor[i].name;
 				copy->monitor[i]=vector->monitor[i];
 				if(!copy->monitor[i].name){
 					copy->monitor[i].name = calloc(MONITOR_NAME_MAX+1, 1);
 				}
+				copy->monitor[i].name = temp;
 				strncpy(copy->monitor[i].name, vector->monitor[i].name, MONITOR_NAME_MAX);
 
 			}
