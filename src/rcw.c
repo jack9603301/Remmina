@@ -947,7 +947,7 @@ static void rcw_toolbar_createMonitor(GtkWidget *widget,
     gtk_container_add(GTK_CONTAINER(scrolledContainer),GTK_WIDGET(monitorStruct->flowBox));
 
 
-    copy_array(monitorStruct->ar, monitorStruct->temp.ar);
+    copy_monitor_array(monitorStruct->ar, monitorStruct->temp.ar);
     gtk_widget_show_all(GTK_WIDGET(scrolledContainer));
     gtk_window_present(GTK_WINDOW(monitorStruct->dialog));
     g_object_unref(G_OBJECT(monitorStruct->builder));
@@ -1164,14 +1164,15 @@ void ok_button_clicked(){
                    monitorStruct->temp.ar->monitor[i].remoteMonitorPartHeight,
                    monitorStruct->temp.ar->monitor[i].active, monitorStruct->temp.ar->monitor[i].monitorHorizontalSaved,
                    monitorStruct->temp.ar->monitor[i].monitorVerticalSaved, i, monitorStruct->remmina_file);
-        change_monitor(monitorStruct->temp.ar, i, monitorStruct->temp.ar->monitor[i].name,
+        //TODO Needed?
+        /*change_monitor_in_array(monitorStruct->temp.ar, i, monitorStruct->temp.ar->monitor[i].name,
                        monitorStruct->temp.ar->monitor[i].remoteMonitorPartWidth,
                        monitorStruct->temp.ar->monitor[i].remoteMonitorPartHeight,
                        monitorStruct->temp.ar->monitor[i].active,
                        monitorStruct->temp.ar->monitor[i].monitorHorizontalSaved,
-                       monitorStruct->temp.ar->monitor[i].monitorVerticalSaved);
+                       monitorStruct->temp.ar->monitor[i].monitorVerticalSaved);*/
     }
-    copy_array(monitorStruct->temp.ar, monitorStruct->ar);
+    copy_monitor_array(monitorStruct->temp.ar, monitorStruct->ar);
 
     gtk_widget_destroy(GTK_WIDGET(monitorStruct->dialog));
     remmina_protocol_widget_update_alignment(NULL);
@@ -1202,13 +1203,13 @@ void monitor_ok_button_clicked_cb(GtkButton *button, GtkCheckButton *checkButton
 	gtk_button_set_label(GTK_BUTTON(monitorStruct->temp.ar->monitor[index].monitorButton), name);
 
 
-    change_monitor(monitorStruct->temp.ar, index, (char *) name, width, height, active, horizontalPosition,
-                   verticalPosition);
+    change_monitor_in_array(monitorStruct->temp.ar, index, (char *) name, width, height, active, horizontalPosition,
+                            verticalPosition);
     gtk_widget_destroy(GTK_WIDGET(monitorStruct->temp.ar->monitor[index].dialog));
 
 }
 
-struct Array* initialize_array(size_t size){
+struct Array* initialize_monitor_array(size_t size){
     struct Array *vector=malloc(sizeof(struct Array));
     vector->length=size;
     vector->monitor = malloc(sizeof(struct Monitors)*size);
@@ -1219,7 +1220,7 @@ struct Array* initialize_array(size_t size){
     return vector;
 }
 
-void copy_array(struct Array *vector, struct Array *copy){
+void copy_monitor_array(struct Array *vector, struct Array *copy){
 	size_t i=0;
 	if(vector->length>=copy->length){//vector is bigger
 		for(; i<vector->length; ++i){
@@ -1251,8 +1252,8 @@ void add_monitors(struct Array *vector, struct Monitors *monitors){
     strncpy(vector->monitor[vector->length-1].name, monitors->name, MONITOR_NAME_MAX);
 }
 
-void change_monitor(struct Array *ar, size_t index, char *name, int width, int height, int active,
-                    int horizontalPosition, int verticalPosition) {
+void change_monitor_in_array(struct Array *ar, size_t index, char *name, int width, int height, int active,
+                             int horizontalPosition, int verticalPosition) {
 	ar->monitor[index].remoteMonitorPartWidth=width;
 	ar->monitor[index].remoteMonitorPartHeight=height;
 	strncpy(ar->monitor[index].name, name, MONITOR_NAME_MAX);
@@ -1440,8 +1441,8 @@ void define_structs(){
     char monitorName[MONITOR_NAME_MAX+1];
 	monitorStruct->actualMonitor = -42;//Number for the default monitor
     monitorStruct->monitors = -1;
-    monitorStruct->temp.ar = initialize_array(0); //Temporary Array for monitorSelection dialog
-    monitorStruct->ar = initialize_array(0); //Main Array
+    monitorStruct->temp.ar = initialize_monitor_array(0); //Temporary Array for monitorSelection dialog
+    monitorStruct->ar = initialize_monitor_array(0); //Main Array
     monitorStruct->localWidth=0; //This is set to 0 so that other functions can see, that it has not been initialized
     if(!(remmina_file_get_int(monitorStruct->remmina_file, "mon_xDimension", 0)) || !(remmina_file_get_int(monitorStruct->remmina_file, "mon_yDimension", 0))) {
         remmina_file_set_int(monitorStruct->remmina_file, "mon_xDimension", 1);
@@ -1487,7 +1488,7 @@ void define_structs(){
 	//Creates the monitors in temp array it is necessary to save the changes, before apply them by clicking OK in
 	//the create
 	// Monitor dialog
-    copy_array(monitorStruct->temp.ar, monitorStruct->ar);
+    copy_monitor_array(monitorStruct->temp.ar, monitorStruct->ar);
 
 }
 

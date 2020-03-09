@@ -139,7 +139,7 @@ struct Array{
  * @param size how many elements should be created
  * @return returns the vector
  */
-struct Array* initialize_array(size_t size);
+struct Array* initialize_monitor_array(size_t size);
 /**
  * @brief Adds a monitor to the Vector
  * @param vector where to add the monitor
@@ -151,7 +151,7 @@ void add_monitors(struct Array *vector, struct Monitors *monitors);
  * @param vector will be copied
  * @param copy will be overwritten
  */
-void copy_array(struct Array *vector, struct Array *copy);
+void copy_monitor_array(struct Array *vector, struct Array *copy);
 /**
  * @brief changes a single monitor
  * @param ar the vector in which the mon should be changed
@@ -163,7 +163,7 @@ void copy_array(struct Array *vector, struct Array *copy);
  * @param horizontalPosition the new position
  * @param verticalPosition
  */
-void change_monitor(struct Array *ar, size_t index, char *name, int width, int height, int active, int horizontalPosition, int verticalPosition);
+void change_monitor_in_array(struct Array *ar, size_t index, char *name, int width, int height, int active, int horizontalPosition, int verticalPosition);
 /**
  * @brief deletes a specific element
  * @param vector in which the element should be deleted
