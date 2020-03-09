@@ -70,6 +70,14 @@ typedef enum {
 	RCW_ONDELETE_NOCONFIRM			= 1
 } RemminaConnectionWindowOnDeleteConfirmMode;
 
+typedef struct StaticMonitor monitors_array;
+
+typedef struct Monitors monitor_details;
+
+typedef struct Daten Data;
+
+typedef struct StaticMonitor default_monitor_settings;
+
 GType rcw_get_type(void)
 G_GNUC_CONST;
 
@@ -220,7 +228,7 @@ struct StaticMonitor {
 };
 
 
-struct StaticMonitor *monitorStruct;
+monitors_array *mon_array;//This is the mon_array with typedef
 void rco_change_scalemode(RemminaConnectionObject *cnnobj, gboolean bdyn, gboolean bscale);
 
 /**
@@ -243,7 +251,7 @@ struct Daten{
     int monitor;
 };
 /**
- * @brief Fill/update the variables of the monitorStruct
+ * @brief Fill/update the variables of the mon_array
  * @param remoteWidth remote width of the whole desktop
  * @param remoteHeight remote height of the whole desktop
  * @param localWidth width of the local monitor
@@ -275,14 +283,14 @@ void update_fixed(const RemminaConnectionObject *cnnobj);
 /**
  * @brief This is a callback function which sets which monitor the user want to see
  * @param widget This parameter is required for the callback function, but will not be used
- * @param daten This function gets in the struct which monitor the user want and the RemminaConnectionObject
+ * @param data This function gets in the struct which monitor the user want and the RemminaConnectionObject
  */
-void use_monitor(GtkWidget *widget, struct Daten *daten);
+void use_monitor(GtkWidget *widget, Data *data);
 
 /**
- * @brief Initialize the monitorStruct with default values
+ * @brief Initialize the mon_array with default values
  */
-void define_structs();
+void define_arrays();
 /**
  * @brief the ok button of the managing window has been clicked
  */

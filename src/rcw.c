@@ -901,42 +901,42 @@ static void rcw_toolbar_createMonitor(GtkWidget *widget,
         gtk_widget_set_sensitive(widget, FALSE);
         return;
     }
-    monitorStruct->builder = remmina_public_gtk_builder_new_from_file("remmina_createMonitor.glade");
-    monitorStruct->dialog = GTK_DIALOG(gtk_builder_get_object(monitorStruct->builder, "dialog_remmina_createMonitor"));
-    gtk_builder_connect_signals(monitorStruct->builder, NULL);
-    monitorStruct->xDimensionButton = GTK_WIDGET(gtk_builder_get_object(GTK_BUILDER(monitorStruct->builder), "xDimensionButton"));
-    monitorStruct->yDimensionButton = GTK_WIDGET(gtk_builder_get_object(GTK_BUILDER(monitorStruct->builder), "yDimensionButton"));
-    GtkWidget *scrolledContainer = GTK_WIDGET(gtk_builder_get_object(GTK_BUILDER(monitorStruct->builder), "scrolledContainer"));
+    mon_array->builder = remmina_public_gtk_builder_new_from_file("remmina_createMonitor.glade");
+    mon_array->dialog = GTK_DIALOG(gtk_builder_get_object(mon_array->builder, "dialog_remmina_createMonitor"));
+    gtk_builder_connect_signals(mon_array->builder, NULL);
+    mon_array->xDimensionButton = GTK_WIDGET(gtk_builder_get_object(GTK_BUILDER(mon_array->builder), "xDimensionButton"));
+    mon_array->yDimensionButton = GTK_WIDGET(gtk_builder_get_object(GTK_BUILDER(mon_array->builder), "yDimensionButton"));
+    GtkWidget *scrolledContainer = GTK_WIDGET(gtk_builder_get_object(GTK_BUILDER(mon_array->builder), "scrolledContainer"));
 
 
     //Creates the flowBox
-    monitorStruct->flowBox = gtk_flow_box_new();
+    mon_array->flowBox = gtk_flow_box_new();
     //Sets the size of each child to the same size
-    gtk_flow_box_set_homogeneous(GTK_FLOW_BOX(monitorStruct->flowBox), TRUE);
+    gtk_flow_box_set_homogeneous(GTK_FLOW_BOX(mon_array->flowBox), TRUE);
     //Activates the children by one click on them
-    gtk_flow_box_set_activate_on_single_click(GTK_FLOW_BOX(monitorStruct->flowBox), FALSE);
+    gtk_flow_box_set_activate_on_single_click(GTK_FLOW_BOX(mon_array->flowBox), FALSE);
     //Sets the selection mode for the children
-    gtk_flow_box_set_selection_mode(GTK_FLOW_BOX(monitorStruct->flowBox), GTK_SELECTION_SINGLE);
+    gtk_flow_box_set_selection_mode(GTK_FLOW_BOX(mon_array->flowBox), GTK_SELECTION_SINGLE);
 
 
 
 
     int counter=0;
 
-    gtk_flow_box_set_max_children_per_line(GTK_FLOW_BOX(monitorStruct->flowBox), monitorStruct->temp.xDimension);
-    sprintf(temp, "%d", monitorStruct->temp.xDimension);
-    gtk_entry_set_text(GTK_ENTRY(monitorStruct->xDimensionButton), temp);
-    sprintf(temp, "%d", monitorStruct->temp.yDimension);
-    gtk_entry_set_text(GTK_ENTRY(monitorStruct->yDimensionButton), temp);
+    gtk_flow_box_set_max_children_per_line(GTK_FLOW_BOX(mon_array->flowBox), mon_array->temp.xDimension);
+    sprintf(temp, "%d", mon_array->temp.xDimension);
+    gtk_entry_set_text(GTK_ENTRY(mon_array->xDimensionButton), temp);
+    sprintf(temp, "%d", mon_array->temp.yDimension);
+    gtk_entry_set_text(GTK_ENTRY(mon_array->yDimensionButton), temp);
 
-	while(monitorStruct->ar->length>counter){
-        GtkWidget *widget = gtk_button_new_with_label(monitorStruct->ar->monitor[counter].name);
+	while(mon_array->ar->length > counter){
+        GtkWidget *widget = gtk_button_new_with_label(mon_array->ar->monitor[counter].name);
         int *value= malloc(sizeof(int));
         *value=counter;
         g_signal_connect(G_OBJECT(widget), "clicked", G_CALLBACK(monitor_selection_clicked), value);
 		++counter;
         //Inserts a widget parameters: flowBox, widget, position(-1 means end)
-        gtk_flow_box_insert(GTK_FLOW_BOX(monitorStruct->flowBox), widget, -1);
+        gtk_flow_box_insert(GTK_FLOW_BOX(mon_array->flowBox), widget, -1);
 
 
 
@@ -944,71 +944,71 @@ static void rcw_toolbar_createMonitor(GtkWidget *widget,
 
 
 
-    gtk_container_add(GTK_CONTAINER(scrolledContainer),GTK_WIDGET(monitorStruct->flowBox));
+    gtk_container_add(GTK_CONTAINER(scrolledContainer),GTK_WIDGET(mon_array->flowBox));
 
 
-    copy_monitor_array(monitorStruct->ar, monitorStruct->temp.ar);
+    copy_monitor_array(mon_array->ar, mon_array->temp.ar);
     gtk_widget_show_all(GTK_WIDGET(scrolledContainer));
-    gtk_window_present(GTK_WINDOW(monitorStruct->dialog));
-    g_object_unref(G_OBJECT(monitorStruct->builder));
+    gtk_window_present(GTK_WINDOW(mon_array->dialog));
+    g_object_unref(G_OBJECT(mon_array->builder));
 }
 
 void monitor_selection_clicked(GtkWidget *widget, int *monitorNumber){
         char charMon[12];
         char temp[MONITOR_NAME_MAX+1];
         //Saves the widget to rename it after changes
-        monitorStruct->temp.ar->monitor[*monitorNumber].monitorButton = widget;
+        mon_array->temp.ar->monitor[*monitorNumber].monitorButton = widget;
         //monitorNumber starts with ??
         snprintf(charMon, MONITOR_NAME_MAX, "%d", *monitorNumber);
-        monitorStruct->temp.ar->monitor[*monitorNumber].builder = remmina_public_gtk_builder_new_from_file("remmina_monitorSelection.glade");
-        monitorStruct->temp.ar->monitor[*monitorNumber].dialog = GTK_DIALOG(gtk_builder_get_object(monitorStruct->temp.ar->monitor[*monitorNumber].builder, "dialog_remmina_monitorSelection"));
-        gtk_builder_connect_signals(monitorStruct->temp.ar->monitor[*monitorNumber].builder, NULL);
-        monitorStruct->temp.ar->monitor[*monitorNumber].widthButton = GTK_WIDGET(gtk_builder_get_object(GTK_BUILDER(monitorStruct->temp.ar->monitor[*monitorNumber].builder), "monitorWidthButton"));
-        monitorStruct->temp.ar->monitor[*monitorNumber].heightButton = GTK_WIDGET(gtk_builder_get_object(GTK_BUILDER(monitorStruct->temp.ar->monitor[*monitorNumber].builder), "monitorHeightButton"));
-        monitorStruct->temp.ar->monitor[*monitorNumber].monitorNameEntry = GTK_WIDGET(gtk_builder_get_object(GTK_BUILDER(monitorStruct->temp.ar->monitor[*monitorNumber].builder), "monitorNameEntry"));
-        monitorStruct->temp.ar->monitor[*monitorNumber].monitorActivateButton = GTK_WIDGET(gtk_builder_get_object(GTK_BUILDER(monitorStruct->temp.ar->monitor[*monitorNumber].builder), "monitorActivateButton"));
-		monitorStruct->temp.ar->monitor[*monitorNumber].monitorHorizontalButton = GTK_WIDGET(gtk_builder_get_object(GTK_BUILDER(monitorStruct->temp.ar->monitor[*monitorNumber].builder), "monitorHorizontalButton"));
-		monitorStruct->temp.ar->monitor[*monitorNumber].monitorVerticalButton = GTK_WIDGET(gtk_builder_get_object(GTK_BUILDER(monitorStruct->temp.ar->monitor[*monitorNumber].builder), "monitorVerticalButton"));
+    mon_array->temp.ar->monitor[*monitorNumber].builder = remmina_public_gtk_builder_new_from_file("remmina_monitorSelection.glade");
+    mon_array->temp.ar->monitor[*monitorNumber].dialog = GTK_DIALOG(gtk_builder_get_object(mon_array->temp.ar->monitor[*monitorNumber].builder, "dialog_remmina_monitorSelection"));
+        gtk_builder_connect_signals(mon_array->temp.ar->monitor[*monitorNumber].builder, NULL);
+    mon_array->temp.ar->monitor[*monitorNumber].widthButton = GTK_WIDGET(gtk_builder_get_object(GTK_BUILDER(mon_array->temp.ar->monitor[*monitorNumber].builder), "monitorWidthButton"));
+    mon_array->temp.ar->monitor[*monitorNumber].heightButton = GTK_WIDGET(gtk_builder_get_object(GTK_BUILDER(mon_array->temp.ar->monitor[*monitorNumber].builder), "monitorHeightButton"));
+    mon_array->temp.ar->monitor[*monitorNumber].monitorNameEntry = GTK_WIDGET(gtk_builder_get_object(GTK_BUILDER(mon_array->temp.ar->monitor[*monitorNumber].builder), "monitorNameEntry"));
+    mon_array->temp.ar->monitor[*monitorNumber].monitorActivateButton = GTK_WIDGET(gtk_builder_get_object(GTK_BUILDER(mon_array->temp.ar->monitor[*monitorNumber].builder), "monitorActivateButton"));
+    mon_array->temp.ar->monitor[*monitorNumber].monitorHorizontalButton = GTK_WIDGET(gtk_builder_get_object(GTK_BUILDER(mon_array->temp.ar->monitor[*monitorNumber].builder), "monitorHorizontalButton"));
+    mon_array->temp.ar->monitor[*monitorNumber].monitorVerticalButton = GTK_WIDGET(gtk_builder_get_object(GTK_BUILDER(mon_array->temp.ar->monitor[*monitorNumber].builder), "monitorVerticalButton"));
 
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(monitorStruct->temp.ar->monitor[*monitorNumber].monitorActivateButton), monitorStruct->temp.ar->monitor[*monitorNumber].active);
-        gtk_entry_set_text(GTK_ENTRY(monitorStruct->temp.ar->monitor[*monitorNumber].monitorNameEntry), monitorStruct->temp.ar->monitor[*monitorNumber].name);
-        gtk_widget_set_name(GTK_WIDGET(monitorStruct->temp.ar->monitor[*monitorNumber].monitorActivateButton), charMon);
-        sprintf(temp, "%d", monitorStruct->temp.ar->monitor[*monitorNumber].remoteMonitorPartWidth);
-		gtk_entry_set_text(GTK_ENTRY(monitorStruct->temp.ar->monitor[*monitorNumber].widthButton), temp);
-	sprintf(temp, "%d", monitorStruct->temp.ar->monitor[*monitorNumber].remoteMonitorPartHeight);
-		gtk_entry_set_text(GTK_ENTRY(monitorStruct->temp.ar->monitor[*monitorNumber].heightButton), temp);
-	sprintf(temp, "%d", (int) monitorStruct->temp.ar->monitor[*monitorNumber].monitorHorizontalSaved);
-		gtk_entry_set_text(GTK_ENTRY(monitorStruct->temp.ar->monitor[*monitorNumber].monitorHorizontalButton), temp);
-	sprintf(temp, "%d", (int) monitorStruct->temp.ar->monitor[*monitorNumber].monitorVerticalSaved);
-		gtk_entry_set_text(GTK_ENTRY(monitorStruct->temp.ar->monitor[*monitorNumber].monitorVerticalButton), temp);
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(mon_array->temp.ar->monitor[*monitorNumber].monitorActivateButton), mon_array->temp.ar->monitor[*monitorNumber].active);
+        gtk_entry_set_text(GTK_ENTRY(mon_array->temp.ar->monitor[*monitorNumber].monitorNameEntry), mon_array->temp.ar->monitor[*monitorNumber].name);
+        gtk_widget_set_name(GTK_WIDGET(mon_array->temp.ar->monitor[*monitorNumber].monitorActivateButton), charMon);
+        sprintf(temp, "%d", mon_array->temp.ar->monitor[*monitorNumber].remoteMonitorPartWidth);
+		gtk_entry_set_text(GTK_ENTRY(mon_array->temp.ar->monitor[*monitorNumber].widthButton), temp);
+	sprintf(temp, "%d", mon_array->temp.ar->monitor[*monitorNumber].remoteMonitorPartHeight);
+		gtk_entry_set_text(GTK_ENTRY(mon_array->temp.ar->monitor[*monitorNumber].heightButton), temp);
+	sprintf(temp, "%d", (int) mon_array->temp.ar->monitor[*monitorNumber].monitorHorizontalSaved);
+		gtk_entry_set_text(GTK_ENTRY(mon_array->temp.ar->monitor[*monitorNumber].monitorHorizontalButton), temp);
+	sprintf(temp, "%d", (int) mon_array->temp.ar->monitor[*monitorNumber].monitorVerticalSaved);
+		gtk_entry_set_text(GTK_ENTRY(mon_array->temp.ar->monitor[*monitorNumber].monitorVerticalButton), temp);
 
 
 
-	gtk_window_present(GTK_WINDOW(monitorStruct->temp.ar->monitor[*monitorNumber].dialog));
-	g_object_unref(G_OBJECT(monitorStruct->temp.ar->monitor[*monitorNumber].builder));
+	gtk_window_present(GTK_WINDOW(mon_array->temp.ar->monitor[*monitorNumber].dialog));
+	g_object_unref(G_OBJECT(mon_array->temp.ar->monitor[*monitorNumber].builder));
 
 	remmina_protocol_widget_update_alignment(NULL);
 }
 
 void xDimension_value_changed_cb(){
 	int monNumber, width, height, horizontal, vertical;
-    int oldXDimension= monitorStruct->temp.xDimension;
-	if(!strtol(gtk_entry_get_text(GTK_ENTRY(monitorStruct->xDimensionButton)), NULL, 10)){
+    int oldXDimension= mon_array->temp.xDimension;
+	if(!strtol(gtk_entry_get_text(GTK_ENTRY(mon_array->xDimensionButton)), NULL, 10)){
 		return;//Checks if there is a entry
 	}
-    monitorStruct->temp.xDimension=strtol(gtk_entry_get_text(GTK_ENTRY(monitorStruct->xDimensionButton)), NULL, 10);
-    gtk_flow_box_set_max_children_per_line(GTK_FLOW_BOX(monitorStruct->flowBox), monitorStruct->temp.xDimension);
+    mon_array->temp.xDimension=strtol(gtk_entry_get_text(GTK_ENTRY(mon_array->xDimensionButton)), NULL, 10);
+    gtk_flow_box_set_max_children_per_line(GTK_FLOW_BOX(mon_array->flowBox), mon_array->temp.xDimension);
 
-    int monitorsNumber=(monitorStruct->temp.xDimension * monitorStruct->temp.yDimension) -
-            (oldXDimension * monitorStruct->temp.yDimension);
+    int monitorsNumber= (mon_array->temp.xDimension * mon_array->temp.yDimension) -
+                        (oldXDimension * mon_array->temp.yDimension);
 
     //Calculates how many monitors the old Dimension has
-    int oldDimension = oldXDimension * monitorStruct->temp.yDimension;
+    int oldDimension = oldXDimension * mon_array->temp.yDimension;
 
 
     //Calculate proposed values
-    width = monitorStruct->remoteWidth / monitorStruct->temp.xDimension;
-    height = monitorStruct->remoteHeight / monitorStruct->temp.yDimension;
+    width = mon_array->remoteWidth / mon_array->temp.xDimension;
+    height = mon_array->remoteHeight / mon_array->temp.yDimension;
 
 
 	monNumber=oldDimension;
@@ -1018,26 +1018,26 @@ void xDimension_value_changed_cb(){
         GtkWidget *widget = gtk_button_new();
         gtk_button_set_label(GTK_BUTTON(widget),"NEW");
         //Inserts a widget parameters: flowBox, widget, position(-1 means end)
-        gtk_flow_box_insert(GTK_FLOW_BOX(monitorStruct->flowBox), widget, -1);
+        gtk_flow_box_insert(GTK_FLOW_BOX(mon_array->flowBox), widget, -1);
         char *name = malloc(MONITOR_NAME_MAX);
         strncpy(name, "NEW", MONITOR_NAME_MAX);
 	    //Calculate proposed values that will be written in the new generated monitor as a suggestion for the user
-        if(!(monNumber % monitorStruct->temp.xDimension)){
+        if(!(monNumber % mon_array->temp.xDimension)){
         	horizontal=0;
         }else{
-	        horizontal = monitorStruct->temp.ar->monitor[monNumber-1].monitorHorizontalSaved +
-	                     monitorStruct->temp.ar->monitor[monNumber-1].remoteMonitorPartWidth;
+	        horizontal = mon_array->temp.ar->monitor[monNumber - 1].monitorHorizontalSaved +
+                         mon_array->temp.ar->monitor[monNumber - 1].remoteMonitorPartWidth;
         }
 
-	    if((monNumber < monitorStruct->temp.xDimension)){
+	    if((monNumber < mon_array->temp.xDimension)){
 		    vertical=0;
 	    }else{
 	    	int temporary=monNumber;
-	    	while(temporary>monitorStruct->temp.xDimension){
-	    		temporary-=monitorStruct->temp.xDimension;
+	    	while(temporary > mon_array->temp.xDimension){
+	    		temporary-=mon_array->temp.xDimension;
 	    	}
-		    vertical = monitorStruct->temp.ar->monitor[temporary].monitorVerticalSaved +
-		                 monitorStruct->temp.ar->monitor[temporary].remoteMonitorPartHeight;
+		    vertical = mon_array->temp.ar->monitor[temporary].monitorVerticalSaved +
+                       mon_array->temp.ar->monitor[temporary].remoteMonitorPartHeight;
 	    }
 
         create_multi_monitor(name, width, height, 0, horizontal, vertical);
@@ -1050,56 +1050,56 @@ void xDimension_value_changed_cb(){
     }
     //Delete Monitors
     while(monitorsNumber<0){
-        gtk_container_remove(GTK_CONTAINER(monitorStruct->flowBox),
-                             GTK_WIDGET(gtk_flow_box_get_child_at_index(GTK_FLOW_BOX(monitorStruct->flowBox), --oldXDimension)));
+        gtk_container_remove(GTK_CONTAINER(mon_array->flowBox),
+                             GTK_WIDGET(gtk_flow_box_get_child_at_index(GTK_FLOW_BOX(mon_array->flowBox), --oldXDimension)));
         ++monitorsNumber;
-        delete_elements(monitorStruct->temp.ar, 1);
+        delete_elements(mon_array->temp.ar, 1);
 
 
     }
     //This is to show the label
-    gtk_widget_show_all(monitorStruct->flowBox);
+    gtk_widget_show_all(mon_array->flowBox);
 }
 
 void yDimension_value_changed_cb(){
 	int monNumber, horizontal, vertical, width, height;//This is to count the monitors
-    int oldYDimension= monitorStruct->temp.yDimension;
-    if(!strtol(gtk_entry_get_text(GTK_ENTRY(monitorStruct->yDimensionButton)), NULL, 10)){
+    int oldYDimension= mon_array->temp.yDimension;
+    if(!strtol(gtk_entry_get_text(GTK_ENTRY(mon_array->yDimensionButton)), NULL, 10)){
 	    return;
     }
-    monitorStruct->temp.yDimension=strtol(gtk_entry_get_text(GTK_ENTRY(monitorStruct->yDimensionButton)), NULL, 10);
+    mon_array->temp.yDimension=strtol(gtk_entry_get_text(GTK_ENTRY(mon_array->yDimensionButton)), NULL, 10);
     //Calculate how many monitors must be added or removed
-    int monitorsNumber=(monitorStruct->temp.xDimension * monitorStruct->temp.yDimension) -
-                       (oldYDimension * monitorStruct->temp.xDimension);
+    int monitorsNumber= (mon_array->temp.xDimension * mon_array->temp.yDimension) -
+                        (oldYDimension * mon_array->temp.xDimension);
 
     //Calculates how many monitors were in the old Dimension
-    int oldDimension = oldYDimension * monitorStruct->temp.xDimension;
-	int newDimension = monitorStruct->temp.yDimension * monitorStruct->temp.xDimension;
+    int oldDimension = oldYDimension * mon_array->temp.xDimension;
+	int newDimension = mon_array->temp.yDimension * mon_array->temp.xDimension;
 
 	//Calculate proposed values
-	width = monitorStruct->remoteWidth / monitorStruct->temp.xDimension;
-	height = monitorStruct->remoteHeight / monitorStruct->temp.yDimension;
+	width = mon_array->remoteWidth / mon_array->temp.xDimension;
+	height = mon_array->remoteHeight / mon_array->temp.yDimension;
 
     monNumber=oldDimension;
     //Add Monitors
     while(monitorsNumber>0){
 	    //Calculate proposed values that will be written in the new generated monitor as a suggestion for the user
-	    if(!(monNumber % monitorStruct->temp.xDimension)){
+	    if(!(monNumber % mon_array->temp.xDimension)){
 		    horizontal=0;
 	    }else{
-		    horizontal = monitorStruct->temp.ar->monitor[monNumber-1].monitorHorizontalSaved +
-		                 monitorStruct->temp.ar->monitor[monNumber-1].remoteMonitorPartWidth;
+		    horizontal = mon_array->temp.ar->monitor[monNumber - 1].monitorHorizontalSaved +
+                         mon_array->temp.ar->monitor[monNumber - 1].remoteMonitorPartWidth;
 	    }
 
-	    if((monNumber < monitorStruct->temp.xDimension)){
+	    if((monNumber < mon_array->temp.xDimension)){
 		    vertical=0;
 	    }else{
 		    int temporary=monNumber;
-		    while(temporary>=monitorStruct->temp.xDimension){
-			    temporary-=monitorStruct->temp.xDimension;
+		    while(temporary >= mon_array->temp.xDimension){
+			    temporary-=mon_array->temp.xDimension;
 		    }
-		    vertical = monitorStruct->temp.ar->monitor[temporary].monitorVerticalSaved +
-		               monitorStruct->temp.ar->monitor[temporary].remoteMonitorPartHeight;
+		    vertical = mon_array->temp.ar->monitor[temporary].monitorVerticalSaved +
+                       mon_array->temp.ar->monitor[temporary].remoteMonitorPartHeight;
 	    }
         GtkWidget *widget = gtk_button_new();
 		gtk_button_set_label(GTK_BUTTON(widget), "New");
@@ -1110,20 +1110,20 @@ void yDimension_value_changed_cb(){
         --oldDimension;
 
         //Inserts a widget parameters: flowBox, widget, position(-1 means end)
-        gtk_flow_box_insert(GTK_FLOW_BOX(monitorStruct->flowBox), widget, -1);
+        gtk_flow_box_insert(GTK_FLOW_BOX(mon_array->flowBox), widget, -1);
         create_multi_monitor("NEW", width, height, 0, horizontal, vertical);
         --monitorsNumber;
     }
     //Delete Monitors
     while(monitorsNumber<0){
-        gtk_container_remove(GTK_CONTAINER(monitorStruct->flowBox),
-                GTK_WIDGET(gtk_flow_box_get_child_at_index(GTK_FLOW_BOX(monitorStruct->flowBox), newDimension)));
+        gtk_container_remove(GTK_CONTAINER(mon_array->flowBox),
+                GTK_WIDGET(gtk_flow_box_get_child_at_index(GTK_FLOW_BOX(mon_array->flowBox), newDimension)));
         ++monitorsNumber;
-        delete_elements(monitorStruct->temp.ar, 1);
+        delete_elements(mon_array->temp.ar, 1);
 
     }
     //This is to show the label
-    gtk_widget_show_all(monitorStruct->flowBox);
+    gtk_widget_show_all(mon_array->flowBox);
 }
 
 
@@ -1153,33 +1153,33 @@ write_file(char *name, int width, int height, int active, float horizontalPositi
 
 void ok_button_clicked(){
 	//save dimensions in connection file
-	remmina_file_set_int(monitorStruct->remmina_file, "mon_xDimension", monitorStruct->temp.xDimension);
-	remmina_file_set_int(monitorStruct->remmina_file, "mon_yDimension", monitorStruct->temp.yDimension);
+	remmina_file_set_int(mon_array->remmina_file, "mon_xDimension", mon_array->temp.xDimension);
+	remmina_file_set_int(mon_array->remmina_file, "mon_yDimension", mon_array->temp.yDimension);
 
 
 	int i=0;
-    for(; i<monitorStruct->temp.ar->length; ++i){
-        write_file(monitorStruct->temp.ar->monitor[i].name,
-                   monitorStruct->temp.ar->monitor[i].remoteMonitorPartWidth,
-                   monitorStruct->temp.ar->monitor[i].remoteMonitorPartHeight,
-                   monitorStruct->temp.ar->monitor[i].active, monitorStruct->temp.ar->monitor[i].monitorHorizontalSaved,
-                   monitorStruct->temp.ar->monitor[i].monitorVerticalSaved, i, monitorStruct->remmina_file);
+    for(; i < mon_array->temp.ar->length; ++i){
+        write_file(mon_array->temp.ar->monitor[i].name,
+                   mon_array->temp.ar->monitor[i].remoteMonitorPartWidth,
+                   mon_array->temp.ar->monitor[i].remoteMonitorPartHeight,
+                   mon_array->temp.ar->monitor[i].active, mon_array->temp.ar->monitor[i].monitorHorizontalSaved,
+                   mon_array->temp.ar->monitor[i].monitorVerticalSaved, i, mon_array->remmina_file);
         //TODO Needed?
-        /*change_monitor_in_array(monitorStruct->temp.ar, i, monitorStruct->temp.ar->monitor[i].name,
-                       monitorStruct->temp.ar->monitor[i].remoteMonitorPartWidth,
-                       monitorStruct->temp.ar->monitor[i].remoteMonitorPartHeight,
-                       monitorStruct->temp.ar->monitor[i].active,
-                       monitorStruct->temp.ar->monitor[i].monitorHorizontalSaved,
-                       monitorStruct->temp.ar->monitor[i].monitorVerticalSaved);*/
+        /*change_monitor_in_array(mon_array->temp.ar, i, mon_array->temp.ar->monitor[i].name,
+                       mon_array->temp.ar->monitor[i].remoteMonitorPartWidth,
+                       mon_array->temp.ar->monitor[i].remoteMonitorPartHeight,
+                       mon_array->temp.ar->monitor[i].active,
+                       mon_array->temp.ar->monitor[i].monitorHorizontalSaved,
+                       mon_array->temp.ar->monitor[i].monitorVerticalSaved);*/
     }
-    copy_monitor_array(monitorStruct->temp.ar, monitorStruct->ar);
+    copy_monitor_array(mon_array->temp.ar, mon_array->ar);
 
-    gtk_widget_destroy(GTK_WIDGET(monitorStruct->dialog));
+    gtk_widget_destroy(GTK_WIDGET(mon_array->dialog));
     remmina_protocol_widget_update_alignment(NULL);
 }
 
 void cancel_button_clicked() {
-    gtk_widget_destroy(GTK_WIDGET(monitorStruct->dialog));
+    gtk_widget_destroy(GTK_WIDGET(mon_array->dialog));
 
 }
 
@@ -1194,25 +1194,25 @@ void monitor_ok_button_clicked_cb(GtkButton *button, GtkCheckButton *checkButton
     const char *name=NULL;
 	int index=atoi(gtk_widget_get_name(GTK_WIDGET(checkButton)));
 	//FIXME can't get new values, if there are not changed with +,- buttons
-	width = atoi(gtk_entry_get_text(GTK_ENTRY(monitorStruct->temp.ar->monitor[index].widthButton)));
-    height = atoi(gtk_entry_get_text(GTK_ENTRY(monitorStruct->temp.ar->monitor[index].heightButton)));
-    name = gtk_entry_get_text(GTK_ENTRY(monitorStruct->temp.ar->monitor[index].monitorNameEntry));
-    active = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(monitorStruct->temp.ar->monitor[index].monitorActivateButton));
-	horizontalPosition = atoi(gtk_entry_get_text(GTK_ENTRY(monitorStruct->temp.ar->monitor[index].monitorHorizontalButton)));
-	verticalPosition = atoi(gtk_entry_get_text(GTK_ENTRY(monitorStruct->temp.ar->monitor[index].monitorVerticalButton)));
-	gtk_button_set_label(GTK_BUTTON(monitorStruct->temp.ar->monitor[index].monitorButton), name);
+	width = atoi(gtk_entry_get_text(GTK_ENTRY(mon_array->temp.ar->monitor[index].widthButton)));
+    height = atoi(gtk_entry_get_text(GTK_ENTRY(mon_array->temp.ar->monitor[index].heightButton)));
+    name = gtk_entry_get_text(GTK_ENTRY(mon_array->temp.ar->monitor[index].monitorNameEntry));
+    active = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(mon_array->temp.ar->monitor[index].monitorActivateButton));
+	horizontalPosition = atoi(gtk_entry_get_text(GTK_ENTRY(mon_array->temp.ar->monitor[index].monitorHorizontalButton)));
+	verticalPosition = atoi(gtk_entry_get_text(GTK_ENTRY(mon_array->temp.ar->monitor[index].monitorVerticalButton)));
+	gtk_button_set_label(GTK_BUTTON(mon_array->temp.ar->monitor[index].monitorButton), name);
 
 
-    change_monitor_in_array(monitorStruct->temp.ar, index, (char *) name, width, height, active, horizontalPosition,
+    change_monitor_in_array(mon_array->temp.ar, index, (char *) name, width, height, active, horizontalPosition,
                             verticalPosition);
-    gtk_widget_destroy(GTK_WIDGET(monitorStruct->temp.ar->monitor[index].dialog));
+    gtk_widget_destroy(GTK_WIDGET(mon_array->temp.ar->monitor[index].dialog));
 
 }
 
 struct Array* initialize_monitor_array(size_t size){
     struct Array *vector=malloc(sizeof(struct Array));
     vector->length=size;
-    vector->monitor = malloc(sizeof(struct Monitors)*size);
+    vector->monitor = malloc(sizeof(monitor_details) * size);
     //
     for(size_t i=0; i<size; ++i){
         vector->monitor[i].name = (char*)calloc(MONITOR_NAME_MAX+1, sizeof(vector->monitor->name));
@@ -1245,8 +1245,8 @@ void copy_monitor_array(struct Array *vector, struct Array *copy){
 	copy->length=vector->length;
 }
 
-void add_monitors(struct Array *vector, struct Monitors *monitors){
-    vector->monitor = realloc(vector->monitor, sizeof(struct Monitors ) * ++vector->length);
+void add_monitors(struct Array *vector, monitor_details *monitors){
+    vector->monitor = realloc(vector->monitor, sizeof(monitor_details) * ++vector->length);
     vector->monitor[vector->length-1]=*monitors;
     vector->monitor[vector->length-1].name = calloc(MONITOR_NAME_MAX+1, 1);
     strncpy(vector->monitor[vector->length-1].name, monitors->name, MONITOR_NAME_MAX);
@@ -1268,7 +1268,7 @@ void delete_elements(struct Array *vector, size_t number){
 	while(num<vector->length){
 		free(vector->monitor[num++].name);
 	}
-    vector->monitor = realloc(vector->monitor, sizeof(struct Monitors ) * vector->length-number);
+    vector->monitor = realloc(vector->monitor, sizeof(monitor_details) * vector->length - number);
 
     vector->length=vector->length-number;
 }
@@ -1435,47 +1435,46 @@ static void rcw_set_tooltip(GtkWidget *item, const gchar *tip, guint key1, guint
 	g_free(s1);
 }
 
-void define_structs(){
-    //Function to initialize values for monitorStruct!
+void define_arrays(){
+    //Function to initialize values for mon_array!
     int width, height, active, horizontalPositioning, verticalPositioning;
     char monitorName[MONITOR_NAME_MAX+1];
-	monitorStruct->actualMonitor = -42;//Number for the default monitor
-    monitorStruct->monitors = -1;
-    monitorStruct->temp.ar = initialize_monitor_array(0); //Temporary Array for monitorSelection dialog
-    monitorStruct->ar = initialize_monitor_array(0); //Main Array
-    monitorStruct->localWidth=0; //This is set to 0 so that other functions can see, that it has not been initialized
-    if(!(remmina_file_get_int(monitorStruct->remmina_file, "mon_xDimension", 0)) || !(remmina_file_get_int(monitorStruct->remmina_file, "mon_yDimension", 0))) {
-        remmina_file_set_int(monitorStruct->remmina_file, "mon_xDimension", 1);
-	    remmina_file_set_int(monitorStruct->remmina_file, "mon_yDimension", 1);
-        write_file("Monitor: 1", 1280, 1024, 1, 0, 0, 0, monitorStruct->remmina_file);
+    mon_array->actualMonitor = -42;//Number for the default monitor
+    mon_array->monitors = -1;
+    mon_array->temp.ar = initialize_monitor_array(0); //Temporary Array for monitorSelection dialog
+    mon_array->ar = initialize_monitor_array(0); //Main Array
+    mon_array->localWidth=0; //This is set to 0 so that other functions can see, that it has not been initialized
+    if(!(remmina_file_get_int(mon_array->remmina_file, "mon_xDimension", 0)) || !(remmina_file_get_int(mon_array->remmina_file, "mon_yDimension", 0))) {
+        remmina_file_set_int(mon_array->remmina_file, "mon_xDimension", 1);
+	    remmina_file_set_int(mon_array->remmina_file, "mon_yDimension", 1);
+        write_file("Monitor: 1", 1280, 1024, 1, 0, 0, 0, mon_array->remmina_file);
         create_multi_monitor("Monitor: 1", 1280, 1024, 1, 0, 0);
-	    monitorStruct->temp.xDimension=1;
-        monitorStruct->temp.yDimension=1;
+        mon_array->temp.xDimension=1;
+        mon_array->temp.yDimension=1;
     }else{
 
-	    monitorStruct->temp.xDimension = width = remmina_file_get_int(monitorStruct->remmina_file, "mon_xDimension", 0);
-	    monitorStruct->temp.yDimension = height = remmina_file_get_int(monitorStruct->remmina_file, "mon_yDimension", 0);
+        mon_array->temp.xDimension = width = remmina_file_get_int(mon_array->remmina_file, "mon_xDimension", 0);
+        mon_array->temp.yDimension = height = remmina_file_get_int(mon_array->remmina_file, "mon_yDimension", 0);
 	    char temp[MONITOR_NAME_MAX+1];
 	    int i = 0;
-		    for(;i<monitorStruct->temp.xDimension * monitorStruct->temp.yDimension; ++i){
+		    for(; i < mon_array->temp.xDimension * mon_array->temp.yDimension; ++i){
 			    snprintf(temp, MONITOR_NAME_MAX, "mon_name%d", i);
-			    strncpy(monitorName, remmina_file_get_string(monitorStruct->remmina_file, temp), MONITOR_NAME_MAX);
+			    strncpy(monitorName, remmina_file_get_string(mon_array->remmina_file, temp), MONITOR_NAME_MAX);
 			    if(!strncmp(monitorName, "",1)){
-				    remmina_log_printf("Failure in Remmina_Connection_File there are more Monitors in Dimension defined"
+				    g_error("Failure in Remmina_Connection_File there are more Monitors in Dimension defined"
 				                       "than there are saved");
-				    break;
 			    }
 			    snprintf(temp, MONITOR_NAME_MAX, "mon_width%d", i);
-			    width=remmina_file_get_int(monitorStruct->remmina_file, temp, -1);
+			    width=remmina_file_get_int(mon_array->remmina_file, temp, -1);
 			    assert(width != -1);//Exits if there is no entry
 			    snprintf(temp, MONITOR_NAME_MAX, "mon_height%d", i);
-			    height=remmina_file_get_int(monitorStruct->remmina_file, temp, -1);
+			    height=remmina_file_get_int(mon_array->remmina_file, temp, -1);
 			    snprintf(temp, MONITOR_NAME_MAX, "mon_active%d", i);
-			    active=remmina_file_get_int(monitorStruct->remmina_file, temp, -1);
+			    active=remmina_file_get_int(mon_array->remmina_file, temp, -1);
 			    snprintf(temp, MONITOR_NAME_MAX, "mon_hPos%d", i);
-			    horizontalPositioning=remmina_file_get_int(monitorStruct->remmina_file, temp, -1);
+			    horizontalPositioning=remmina_file_get_int(mon_array->remmina_file, temp, -1);
 			    snprintf(temp, MONITOR_NAME_MAX, "mon_vPos%d", i);
-			    verticalPositioning=remmina_file_get_int(monitorStruct->remmina_file, temp, -1);
+			    verticalPositioning=remmina_file_get_int(mon_array->remmina_file, temp, -1);
                 create_multi_monitor(monitorName, width, height, active, horizontalPositioning, verticalPositioning);
 
 
@@ -1488,19 +1487,19 @@ void define_structs(){
 	//Creates the monitors in temp array it is necessary to save the changes, before apply them by clicking OK in
 	//the create
 	// Monitor dialog
-    copy_monitor_array(monitorStruct->temp.ar, monitorStruct->ar);
+    copy_monitor_array(mon_array->temp.ar, mon_array->ar);
 
 }
 
 
 void
 fill_static_multi_monitor(float remoteWidth, float remoteHeight, float localWidth, float localHeight) {
-    monitorStruct->remoteWidth = remoteWidth;
-    monitorStruct->remoteHeight = remoteHeight;
-    monitorStruct->localWidth = localWidth;
-    monitorStruct->localHeight = localHeight;
-    monitorStruct->widthFactor =  localWidth /  remoteWidth;
-    monitorStruct->heightFactor =  localHeight /  remoteHeight;
+    mon_array->remoteWidth = remoteWidth;
+    mon_array->remoteHeight = remoteHeight;
+    mon_array->localWidth = localWidth;
+    mon_array->localHeight = localHeight;
+    mon_array->widthFactor = localWidth / remoteWidth;
+    mon_array->heightFactor = localHeight / remoteHeight;
 }
 
 
@@ -1508,9 +1507,9 @@ void
 create_multi_monitor(char *name, float remoteMonitorPartWidth, float remoteMonitorPartHeight, int active,
                      float horizontalPositioning, float verticalPositioning) {
     //Counts the created monitors
-    ++monitorStruct->monitors;
-    struct Monitors mon;
-    struct Monitors *monitor = &mon;
+    ++mon_array->monitors;
+    monitor_details mon;
+    monitor_details *monitor = &mon;
 
     mon.remoteMonitorPartHeight= remoteMonitorPartHeight;
     mon.remoteMonitorPartWidth= remoteMonitorPartWidth;
@@ -1522,54 +1521,54 @@ create_multi_monitor(char *name, float remoteMonitorPartWidth, float remoteMonit
     mon.name=calloc(MONITOR_NAME_MAX+1,sizeof(char));
 	strncpy(mon.name, name, MONITOR_NAME_MAX);
 	strncat(mon.name, "\0", 1);
-	if(monitorStruct->localWidth>0){//The values should not be calculated, if there are values, that are needed, but haven't been initialized
+	if(mon_array->localWidth > 0){//The values should not be calculated, if there are values, that are needed, but haven't been initialized
 		//Calculates, how the monitor must be resized, to see him in the whole window
 		mon.width =
-				(monitorStruct->localWidth / (remoteMonitorPartWidth * monitorStruct->widthFactor)) *
-				monitorStruct->localWidth;
+                (mon_array->localWidth / (remoteMonitorPartWidth * mon_array->widthFactor)) *
+                mon_array->localWidth;
 		mon.height =
-				(monitorStruct->localHeight / (remoteMonitorPartHeight * monitorStruct->heightFactor)) *
-				monitorStruct->localHeight;
+                (mon_array->localHeight / (remoteMonitorPartHeight * mon_array->heightFactor)) *
+                mon_array->localHeight;
 
 
 		mon.horizontalPositioning =
-				(( mon.width /  monitorStruct->remoteWidth) *
-				 horizontalPositioning) * (-1);
-		mon.verticalPositioning = ((mon.height / monitorStruct->remoteHeight) *
-		                           verticalPositioning) * (-1);
+				((mon.width / mon_array->remoteWidth) *
+                 horizontalPositioning) * (-1);
+		mon.verticalPositioning = ((mon.height / mon_array->remoteHeight) *
+                                   verticalPositioning) * (-1);
 	}
 
 
 
 //Activates the monitor in the list to  see it in the dropdown of available monitors
     *monitor = mon;
-    add_monitors(monitorStruct->temp.ar, monitor);
+    add_monitors(mon_array->temp.ar, monitor);
 
 }
 
 static void update_multi_monitor(){
-    if(-1 == monitorStruct->ar->length)
+    if(-1 == mon_array->ar->length)
         return;
 	size_t i=0;
-    for(; i<monitorStruct->ar->length; ++i) {
-        monitorStruct->ar->monitor[i].width =
-                (monitorStruct->localWidth /
-                 (monitorStruct->ar->monitor[i].remoteMonitorPartWidth * monitorStruct->widthFactor)) *
-                monitorStruct->localWidth;
+    for(; i < mon_array->ar->length; ++i) {
+        mon_array->ar->monitor[i].width =
+                (mon_array->localWidth /
+                 (mon_array->ar->monitor[i].remoteMonitorPartWidth * mon_array->widthFactor)) *
+                mon_array->localWidth;
 
-        monitorStruct->ar->monitor[i].height =
-                (monitorStruct->localHeight /
-                 (monitorStruct->ar->monitor[i].remoteMonitorPartHeight * monitorStruct->heightFactor)) *
-                monitorStruct->localHeight;
+        mon_array->ar->monitor[i].height =
+                (mon_array->localHeight /
+                 (mon_array->ar->monitor[i].remoteMonitorPartHeight * mon_array->heightFactor)) *
+                mon_array->localHeight;
 
 
 
             //Calculates where the monitor must be
-	    monitorStruct->ar->monitor[i].horizontalPositioning =
-			    (( monitorStruct->ar->monitor[i].width /  monitorStruct->remoteWidth) *
-					    monitorStruct->ar->monitor[i].monitorHorizontalSaved) * (-1);
-	    monitorStruct->ar->monitor[i].verticalPositioning = ((monitorStruct->ar->monitor[i].height / monitorStruct->remoteHeight) *
-			    monitorStruct->ar->monitor[i].monitorVerticalSaved) * (-1);
+	    mon_array->ar->monitor[i].horizontalPositioning =
+                ((mon_array->ar->monitor[i].width / mon_array->remoteWidth) *
+                 mon_array->ar->monitor[i].monitorHorizontalSaved) * (-1);
+        mon_array->ar->monitor[i].verticalPositioning = ((mon_array->ar->monitor[i].height / mon_array->remoteHeight) *
+                                                         mon_array->ar->monitor[i].monitorVerticalSaved) * (-1);
 
     }
 }
@@ -1580,7 +1579,7 @@ void remmina_protocol_widget_update_alignment(RemminaConnectionObject *cnnobj) {
     TRACE_CALL(__func__);
 	//This is necessary for the automatic sizing, when the window size will be changed
 	//The function will be called then with a wrong pointer this is a dirty fix
-	cnnobj=monitorStruct->cnnobj;
+	cnnobj=mon_array->cnnobj;
     RemminaScaleMode scalemode;
     gboolean scaledexpandedmode;
     int rdwidth, rdheight;
@@ -1593,7 +1592,7 @@ void remmina_protocol_widget_update_alignment(RemminaConnectionObject *cnnobj) {
     rdwidth = remmina_protocol_widget_get_width(REMMINA_PROTOCOL_WIDGET(cnnobj->proto));
     rdheight = remmina_protocol_widget_get_height(REMMINA_PROTOCOL_WIDGET(cnnobj->proto));
     aratio = (gfloat) rdwidth / (gfloat) rdheight;
-    //This set new values for the variables in monitorStruct! Necessary for example if window resizes
+    //This set new values for the variables in mon_array! Necessary for example if window resizes
     fill_static_multi_monitor(rdwidth, rdheight, width, height);
 
 
@@ -1621,9 +1620,9 @@ void remmina_protocol_widget_update_alignment(RemminaConnectionObject *cnnobj) {
 
 
                 //The dropdown for monitor selection is now visible
-                gtk_widget_set_sensitive(monitorStruct->useMonitorWidget, TRUE);
+                gtk_widget_set_sensitive(mon_array->useMonitorWidget, TRUE);
 
-                if (monitorStruct->actualMonitor != -42)//-42 is the number for the default monitor
+                if (mon_array->actualMonitor != -42)//-42 is the number for the default monitor
                 {
                     initialize_fixed(cnnobj, width, height);
 
@@ -1638,11 +1637,11 @@ void remmina_protocol_widget_update_alignment(RemminaConnectionObject *cnnobj) {
                     rcw_grab_focus(cnnobj->cnnwin);
             } else {//This happens when already an aspectframe exists
 
-                if (monitorStruct->actualMonitor != -42)//-42 is the number for the default monitor
+                if (mon_array->actualMonitor != -42)//-42 is the number for the default monitor
                 {//This happens, if the new Monitor is a fixed
                     //If the last monitor was not a aspect frame and in cnnobj->aspectframe is a fixed saved
 
-                    if (!monitorStruct->aspect) {//Last monitor was a fixed
+                    if (!mon_array->aspect) {//Last monitor was a fixed
                         update_fixed(cnnobj);
                         fill_static_multi_monitor(rdwidth, rdheight, width, height);
 
@@ -1660,10 +1659,10 @@ void remmina_protocol_widget_update_alignment(RemminaConnectionObject *cnnobj) {
 
                 } else //If the new monitor is a aspect
                 {
-                    if (monitorStruct->aspect) {//If the last monitor was a aspect
+                    if (mon_array->aspect) {//If the last monitor was a aspect
                         gtk_aspect_frame_set(GTK_ASPECT_FRAME(cnnobj->aspectframe), 0.5, 0.5, aratio, FALSE);
                         //Make the widgets visible
-                        gtk_widget_set_sensitive(monitorStruct->useMonitorWidget, TRUE);
+                        gtk_widget_set_sensitive(mon_array->useMonitorWidget, TRUE);
 
 
                     } else {
@@ -1708,10 +1707,10 @@ void update_fixed(const RemminaConnectionObject *cnnobj) {
 
 
 	gtk_fixed_move(GTK_FIXED(cnnobj->aspectframe), cnnobj->proto,
-            monitorStruct->ar->monitor[monitorStruct->actualMonitor].horizontalPositioning,
-                   monitorStruct->ar->monitor[monitorStruct->actualMonitor].verticalPositioning);
-    gtk_widget_set_size_request(cnnobj->proto, monitorStruct->ar->monitor[monitorStruct->actualMonitor].width,
-            monitorStruct->ar->monitor[monitorStruct->actualMonitor].height);
+                   mon_array->ar->monitor[mon_array->actualMonitor].horizontalPositioning,
+                   mon_array->ar->monitor[mon_array->actualMonitor].verticalPositioning);
+    gtk_widget_set_size_request(cnnobj->proto, mon_array->ar->monitor[mon_array->actualMonitor].width,
+                                mon_array->ar->monitor[mon_array->actualMonitor].height);
 
 
 	//This piece of code will trigger the signal that the window has changed so that it will be updated
@@ -1729,11 +1728,11 @@ void update_fixed(const RemminaConnectionObject *cnnobj) {
 
 void initialize_aspectframe(RemminaConnectionObject *cnnobj, gfloat aratio) {
 
-    monitorStruct->aspect=1;
+    mon_array->aspect=1;
     g_object_ref(cnnobj->proto);
     gtk_container_remove(GTK_CONTAINER(cnnobj->viewport), cnnobj->proto);
     //Make the widget visible
-    gtk_widget_set_sensitive(monitorStruct->useMonitorWidget, TRUE);
+    gtk_widget_set_sensitive(mon_array->useMonitorWidget, TRUE);
 
 
 
@@ -1762,29 +1761,29 @@ void initialize_fixed(RemminaConnectionObject *cnnobj, gint width, gint height) 
     //This says, that the container do not change his size automatically over the max content size and don't show scrollbars
     gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(cnnobj->scrolled_container), GTK_POLICY_EXTERNAL, GTK_POLICY_EXTERNAL);
     //Setting aspect to false, so if there is a window change this will indicate that there was the last time a fixed in aspectframe
-    monitorStruct->aspect=0;
+    mon_array->aspect=0;
     g_object_ref(cnnobj->proto);
     //Remove the Container proto first from viewport, so that we can put our Container between
     gtk_container_remove(GTK_CONTAINER(cnnobj->viewport), cnnobj->proto);
     //Activate the buttons to add and change monitors
-    gtk_widget_set_sensitive(monitorStruct->useMonitorWidget, TRUE);
+    gtk_widget_set_sensitive(mon_array->useMonitorWidget, TRUE);
 
     //Initialize aspectframe with fixed so it will be compatible to the other functions
     cnnobj->aspectframe = gtk_fixed_new();
     //Append aspectframe(fixed) on viewport
     gtk_container_add(GTK_CONTAINER(cnnobj->viewport), cnnobj->aspectframe);
-    //Updates the values for the monitors saved in monitorStruct
+    //Updates the values for the monitors saved in mon_array
     update_multi_monitor();
 
     //Set the coordinates, where proto will be placed
     gtk_fixed_put(GTK_FIXED(cnnobj->aspectframe), cnnobj->proto,
-                  monitorStruct->ar->monitor[monitorStruct->actualMonitor].horizontalPositioning,
-                  monitorStruct->ar->monitor[monitorStruct->actualMonitor].verticalPositioning);
+                  mon_array->ar->monitor[mon_array->actualMonitor].horizontalPositioning,
+                  mon_array->ar->monitor[mon_array->actualMonitor].verticalPositioning);
 
     //Sets the size of proto
     gtk_widget_set_size_request(cnnobj->proto,
-                                monitorStruct->ar->monitor[monitorStruct->actualMonitor].width,
-                                monitorStruct->ar->monitor[monitorStruct->actualMonitor].height);
+                                mon_array->ar->monitor[mon_array->actualMonitor].width,
+                                mon_array->ar->monitor[mon_array->actualMonitor].height);
 
 
 
@@ -1802,7 +1801,7 @@ void remove_aspectframe(RemminaConnectionObject *cnnobj) {/* We do not need an a
 	if (cnnobj->aspectframe) {
         /* We must remove the old aspectframe reparenting proto to viewport */
         //These parameters will be set to FALSE to not let the user push these buttons if it is not in the right mode
-        gtk_widget_set_sensitive(monitorStruct->useMonitorWidget, FALSE);
+        gtk_widget_set_sensitive(mon_array->useMonitorWidget, FALSE);
         g_object_ref(cnnobj->aspectframe);
         g_object_ref(cnnobj->proto);
         //Cut aspectframe out of the chain of containers
@@ -1816,15 +1815,15 @@ void remove_aspectframe(RemminaConnectionObject *cnnobj) {/* We do not need an a
             rcw_grab_focus(cnnobj->cnnwin);
     }
     //Resets the size of proto, so it is usable in aspect ratio
-    gtk_widget_set_size_request(cnnobj->proto, monitorStruct->localWidth, monitorStruct->localHeight);
+    gtk_widget_set_size_request(cnnobj->proto, mon_array->localWidth, mon_array->localHeight);
     //Resets the policy for aspect ratio and others
     gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(cnnobj->scrolled_container), GTK_POLICY_NEVER, GTK_POLICY_NEVER);
 
 }
 
-void use_monitor(GtkWidget *widget, struct Daten *daten) {
-    monitorStruct->actualMonitor = daten->monitor;
-    remmina_protocol_widget_update_alignment(daten->cnnobj);
+void use_monitor(GtkWidget *widget, Data *data) {
+    mon_array->actualMonitor = data->monitor;
+    remmina_protocol_widget_update_alignment(data->cnnobj);
 }
 
 static void nb_set_current_page(GtkNotebook *notebook, GtkWidget *page) {
@@ -2161,9 +2160,9 @@ static void rcw_toolbar_screen_option(GtkWidget *widget, RemminaConnectionWindow
     gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
     g_signal_connect(G_OBJECT(menuitem), "activate", G_CALLBACK(rcw_toolbar_createMonitor), cnnwin);
     char name[15] = {"Default"};
-    struct Daten *data = malloc(sizeof(struct Daten));
-    data->monitor = -42;
+    Data *data = malloc(sizeof(Data));
     data->cnnobj = cnnobj;
+    data->monitor = -42;
     menuitem = gtk_radio_menu_item_new_with_label(NULL, name);
     group = gtk_radio_menu_item_get_group(GTK_RADIO_MENU_ITEM(menuitem));
     gtk_widget_show(menuitem);
@@ -2178,18 +2177,18 @@ static void rcw_toolbar_screen_option(GtkWidget *widget, RemminaConnectionWindow
 
 
 	int i = 0;
-    for(; i < monitorStruct->ar->length; ++i) {
+    for(; i < mon_array->ar->length; ++i) {
         assert(i<100);//Throw a exception in case of a endless loop
-        if(monitorStruct->ar->monitor[i].active) {
-            struct Daten *daten = malloc(sizeof(struct Daten));
-            daten->monitor = i;
-            daten->cnnobj = cnnobj;
-            menuitem = gtk_radio_menu_item_new_with_label(group, monitorStruct->ar->monitor[i].name);
+        if(mon_array->ar->monitor[i].active) {
+            data = malloc(sizeof(Data));
+            data->monitor = i;
+            data->cnnobj = cnnobj;
+            menuitem = gtk_radio_menu_item_new_with_label(group, mon_array->ar->monitor[i].name);
             gtk_widget_show(menuitem);
             gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
-            g_signal_connect(G_OBJECT(menuitem), "toggled", G_CALLBACK(use_monitor), daten);
+            g_signal_connect(G_OBJECT(menuitem), "toggled", G_CALLBACK(use_monitor), data);
 
-            if (monitorStruct->actualMonitor == i) {
+            if (mon_array->actualMonitor == i) {
                 gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem), TRUE);
             } else {
                 gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem), FALSE);
@@ -2217,7 +2216,7 @@ void rcw_screen_option_popdown(GtkWidget *widget, RemminaConnectionWindow *cnnwi
     if (priv->toolbar_is_reconfiguring)
         return;
     priv->sticky = FALSE;
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(monitorStruct->useMonitorWidget), FALSE);
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(mon_array->useMonitorWidget), FALSE);
     rcw_floating_toolbar_show(cnnwin, FALSE);
 }
 
@@ -2880,7 +2879,7 @@ rcw_create_toolbar(RemminaConnectionWindow *cnnwin, gint mode)
 	gtk_widget_show(GTK_WIDGET(toolitem));
 
     //Define variables that are needed for start
-    define_structs();
+    define_arrays();
 	/* Fullscreen toggle */
 	toolitem = gtk_toggle_tool_button_new();
 	gtk_tool_button_set_icon_name(GTK_TOOL_BUTTON(toolitem), "remmina-fullscreen-symbolic");
@@ -3016,7 +3015,7 @@ rcw_create_toolbar(RemminaConnectionWindow *cnnwin, gint mode)
     gtk_container_add(GTK_CONTAINER(widget), arrow);
     g_signal_connect(G_OBJECT(widget), "toggled", G_CALLBACK(rcw_toolbar_screen_option), cnnwin);
     gtk_widget_set_sensitive(GTK_WIDGET(widget), FALSE);
-    monitorStruct->useMonitorWidget = GTK_WIDGET(widget);
+    mon_array->useMonitorWidget = GTK_WIDGET(widget);
 
 
 
@@ -3204,7 +3203,7 @@ static void rco_update_toolbar(RemminaConnectionObject *cnnobj)
     /* Check if we need aspectframe and create/destroy it accordingly */
     if (scalemode == REMMINA_PROTOCOL_WIDGET_SCALE_MODE_SCALED && !scaledexpandedmode){
         //Set the widgets visible
-            gtk_widget_set_sensitive(monitorStruct->useMonitorWidget, TRUE);
+            gtk_widget_set_sensitive(mon_array->useMonitorWidget, TRUE);
 
 
     }
@@ -3987,7 +3986,7 @@ rcw_on_notebook_create_window(GtkNotebook *notebook, GtkWidget *page, gint x, gi
 		return NULL;
 
 	cnnobj = (RemminaConnectionObject *)g_object_get_data(G_OBJECT(page), "cnnobj");
-	monitorStruct->remmina_file = cnnobj->remmina_file;
+    mon_array->remmina_file = cnnobj->remmina_file;
 	if (!dstcnnwin) {
 		/* Drop is directed to a new rcw: create a new scrolled window to accomodate
 		 * the dropped connectionand move our cnnobj there. Width and
@@ -4708,9 +4707,9 @@ GtkWidget *rcw_open_from_file_full(RemminaFile *remminafile, GCallback disconnec
 	/* Create the RemminaConnectionObject */
 	cnnobj = g_new0(RemminaConnectionObject, 1);
 	cnnobj->remmina_file = remminafile;
-	monitorStruct = malloc(sizeof(struct StaticMonitor));
-	monitorStruct->remmina_file = remminafile;
-	monitorStruct->cnnobj = cnnobj;
+    mon_array = malloc(sizeof(default_monitor_settings));
+    mon_array->remmina_file = remminafile;
+    mon_array->cnnobj = cnnobj;
 
 
 
