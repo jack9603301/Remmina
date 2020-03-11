@@ -986,8 +986,9 @@ void monitor_selection_clicked(GtkWidget *widget, int *monitorNumber){
 
 	gtk_window_present(GTK_WINDOW(mon_array->temp.ar->monitor[*monitorNumber].dialog));
 	g_object_unref(G_OBJECT(mon_array->temp.ar->monitor[*monitorNumber].builder));
+    fprintf(stderr,"\033[0;35m called from monitor_selection_clicked \033[0m");
 
-	remmina_protocol_widget_update_alignment(NULL);
+    remmina_protocol_widget_update_alignment(mon_array->cnnobj);
 }
 
 void xDimension_value_changed_cb(){
@@ -1175,7 +1176,7 @@ void ok_button_clicked(){
     copy_monitor_array(mon_array->temp.ar, mon_array->ar);
 
     gtk_widget_destroy(GTK_WIDGET(mon_array->dialog));
-    remmina_protocol_widget_update_alignment(NULL);
+    remmina_protocol_widget_update_alignment(mon_array->cnnobj);
 }
 
 void cancel_button_clicked() {
@@ -1579,7 +1580,9 @@ void remmina_protocol_widget_update_alignment(RemminaConnectionObject *cnnobj) {
     TRACE_CALL(__func__);
 	//This is necessary for the automatic sizing, when the window size will be changed
 	//The function will be called then with a wrong pointer this is a dirty fix
-	cnnobj=mon_array->cnnobj;
+	if(!REMMINA_IS_PROTOCOL_WIDGET(cnnobj)){
+        cnnobj=mon_array->cnnobj;
+    }
     RemminaScaleMode scalemode;
     gboolean scaledexpandedmode;
     int rdwidth, rdheight;
@@ -1751,15 +1754,21 @@ void initialize_aspectframe(RemminaConnectionObject *cnnobj, gfloat aratio) {
 void initialize_fixed(RemminaConnectionObject *cnnobj, gint width, gint height) {
 
     GtkPolicyType wPolicy, hPolicy;
-    gtk_scrolled_window_get_policy(GTK_SCROLLED_WINDOW(cnnobj->scrolled_container), &wPolicy, &hPolicy);
-    gtk_scrolled_window_set_min_content_width(GTK_SCROLLED_WINDOW(cnnobj->scrolled_container), 1);
-    gtk_scrolled_window_set_min_content_height(GTK_SCROLLED_WINDOW(cnnobj->scrolled_container), 1);
-    //These two defines to which to which size container can scale
-    gtk_scrolled_window_set_max_content_width(GTK_SCROLLED_WINDOW(cnnobj->scrolled_container), width);
-    gtk_scrolled_window_set_max_content_height(GTK_SCROLLED_WINDOW(cnnobj->scrolled_container), height);
 
-    //This says, that the container do not change his size automatically over the max content size and don't show scrollbars
-    gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(cnnobj->scrolled_container), GTK_POLICY_EXTERNAL, GTK_POLICY_EXTERNAL);
+    if(GTK_IS_SCROLLED_WINDOW(cnnobj->scrolled_container)){
+        gtk_scrolled_window_get_policy(GTK_SCROLLED_WINDOW(cnnobj->scrolled_container), &wPolicy, &hPolicy);
+        gtk_scrolled_window_set_min_content_width(GTK_SCROLLED_WINDOW(cnnobj->scrolled_container), 1);
+        gtk_scrolled_window_set_min_content_height(GTK_SCROLLED_WINDOW(cnnobj->scrolled_container), 1);
+        //These two defines to which to which size container can scale
+        gtk_scrolled_window_set_max_content_width(GTK_SCROLLED_WINDOW(cnnobj->scrolled_container), width);
+        gtk_scrolled_window_set_max_content_height(GTK_SCROLLED_WINDOW(cnnobj->scrolled_container), height);
+        //This says, that the container do not change his size automatically over the max content size and don't show scrollbars
+        gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(cnnobj->scrolled_container), GTK_POLICY_EXTERNAL,
+                                       GTK_POLICY_EXTERNAL);
+    }
+
+
+
     //Setting aspect to false, so if there is a window change this will indicate that there was the last time a fixed in aspectframe
     mon_array->aspect=0;
     g_object_ref(cnnobj->proto);
@@ -1817,7 +1826,11 @@ void remove_aspectframe(RemminaConnectionObject *cnnobj) {/* We do not need an a
     //Resets the size of proto, so it is usable in aspect ratio
     gtk_widget_set_size_request(cnnobj->proto, mon_array->localWidth, mon_array->localHeight);
     //Resets the policy for aspect ratio and others
-    gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(cnnobj->scrolled_container), GTK_POLICY_NEVER, GTK_POLICY_NEVER);
+    if(GTK_IS_SCROLLED_WINDOW(cnnobj->scrolled_container)) {
+        gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(cnnobj->scrolled_container), GTK_POLICY_NEVER,
+                                       GTK_POLICY_NEVER);
+    }
+
 
 }
 
@@ -2130,7 +2143,11 @@ static void rcw_toolbar_scaler_option(GtkWidget *widget, RemminaConnectionWindow
 		       gtk_get_current_event_time());
 #endif
 }
+void _remmina_protocol_widget_update_alignment(char *trash, RemminaProtocolWidget *cnnobj){
+    //This function just calls remmina_protocol_widget_update_alignment, because it can't be called right with the signal
+    remmina_protocol_widget_update_alignment(cnnobj);
 
+}
 
 static void rcw_toolbar_screen_option(GtkWidget *widget, RemminaConnectionWindow *cnnwin) {
     //This function creates the monitors in the useMonitor selection dropdown
@@ -2170,7 +2187,7 @@ static void rcw_toolbar_screen_option(GtkWidget *widget, RemminaConnectionWindow
     g_signal_connect(G_OBJECT(menuitem), "toggled", G_CALLBACK(use_monitor), data);
 	//screen-changed
 	g_signal_connect(G_OBJECT(&cnnobj->cnnwin->window), "size-allocate",
-	                 G_CALLBACK(remmina_protocol_widget_update_alignment), NULL);
+                     G_CALLBACK(_remmina_protocol_widget_update_alignment), cnnobj);
 
 
 
@@ -2206,7 +2223,7 @@ static void rcw_toolbar_screen_option(GtkWidget *widget, RemminaConnectionWindow
                gtk_get_current_event_time());
 #endif
 
-    remmina_protocol_widget_update_alignment(NULL);
+    remmina_protocol_widget_update_alignment(cnnobj);
 }
 
 
@@ -3203,6 +3220,7 @@ static void rco_update_toolbar(RemminaConnectionObject *cnnobj)
     /* Check if we need aspectframe and create/destroy it accordingly */
     if (scalemode == REMMINA_PROTOCOL_WIDGET_SCALE_MODE_SCALED && !scaledexpandedmode){
         //Set the widgets visible
+        if(mon_array->useMonitorWidget)
             gtk_widget_set_sensitive(mon_array->useMonitorWidget, TRUE);
 
 
@@ -4363,7 +4381,6 @@ static gboolean rcw_hostkey_func(RemminaProtocolWidget *gp, guint keyval, gboole
 			gint sz;
 			GtkAdjustment *adj;
 			gdouble value;
-
 			if (!GTK_IS_BIN(cnnobj->scrolled_container))
 				return FALSE;
 
@@ -4752,9 +4769,11 @@ GtkWidget *rcw_open_from_file_full(RemminaFile *remminafile, GCallback disconnec
 	cnnobj->scrolled_container = rco_create_scrolled_container(cnnobj, view_mode);
 
 	gtk_container_add(GTK_CONTAINER(cnnobj->scrolled_container), cnnobj->viewport);
+    fprintf(stderr,"\n \033[0;32m call ended from %s \n \033[0m", __func__);
 
-	/* Determine whether the plugin can scale or not. If the plugin can scale and we do
-	 * not want to expand, then we add a GtkAspectFrame to maintain aspect ratio during scaling */
+
+    /* Determine whether the plugin can scale or not. If the plugin can scale and we do
+     * not want to expand, then we add a GtkAspectFrame to maintain aspect ratio during scaling */
 	cnnobj->plugin_can_scale = remmina_plugin_manager_query_feature_by_type(REMMINA_PLUGIN_TYPE_PROTOCOL,
 										remmina_file_get_string(remminafile, "protocol"),
 										REMMINA_PROTOCOL_FEATURE_TYPE_SCALE);
