@@ -986,7 +986,6 @@ void monitor_selection_clicked(GtkWidget *widget, int *monitorNumber){
 
 	gtk_window_present(GTK_WINDOW(mon_array->temp.ar->monitor[*monitorNumber].dialog));
 	g_object_unref(G_OBJECT(mon_array->temp.ar->monitor[*monitorNumber].builder));
-    fprintf(stderr,"\033[0;35m called from monitor_selection_clicked \033[0m");
 
     remmina_protocol_widget_update_alignment(mon_array->cnnobj);
 }
@@ -4769,7 +4768,6 @@ GtkWidget *rcw_open_from_file_full(RemminaFile *remminafile, GCallback disconnec
 	cnnobj->scrolled_container = rco_create_scrolled_container(cnnobj, view_mode);
 
 	gtk_container_add(GTK_CONTAINER(cnnobj->scrolled_container), cnnobj->viewport);
-    fprintf(stderr,"\n \033[0;32m call ended from %s \n \033[0m", __func__);
 
 
     /* Determine whether the plugin can scale or not. If the plugin can scale and we do
