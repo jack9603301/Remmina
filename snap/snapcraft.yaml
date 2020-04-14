@@ -152,6 +152,7 @@ parts:
       - libzvbi0
     configflags:
       - -DCMAKE_BUILD_TYPE=Release
+      - -DWITH_FREERDP3=OFF
       - -DCMAKE_PREFIX_PATH=$SNAPCRAFT_STAGE/usr
       - -DSNAP_BUILD=on
 
