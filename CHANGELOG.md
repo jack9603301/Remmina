@@ -6,7 +6,7 @@
 * KB grabbing fixes (mostly for Wayland) [!2036](https://gitlab.com/Remmina/Remmina/merge_requests/2036) *@giox069*
 * Adding Freerdp 3 compile option and using FreeRDP tag 2.0.0 as default [!2034](https://gitlab.com/Remmina/Remmina/merge_requests/2034) *@antenore*
 * Adding remmina terminal dependencies [!2035](https://gitlab.com/Remmina/Remmina/merge_requests/2035) *@antenore*
-* 812268f4 Translated using Weblate (Turkish) by Oğuz Ersen <oguzersen@protonmail.com>
+* Translated using Weblate (Turkish) by Oğuz Ersen <oguzersen@protonmail.com>
 * Translated using Weblate (Swedish) by Allan Nordhøy <epost@anotheragency.no>
 * Translated using Weblate (Albanian) by Allan Nordhøy <epost@anotheragency.no>
 * Translated using Weblate (Dutch) by Jennifer <jen@elypia.org>
