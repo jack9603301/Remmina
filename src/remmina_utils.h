@@ -44,6 +44,7 @@ gint remmina_utils_string_find(GString *haystack, gint start, gint end, const gc
 gint remmina_utils_string_replace(GString *str, gint pos, gint len, const gchar *replace);
 guint remmina_utils_string_replace_all(GString *haystack, const gchar *needle, const gchar *replace);
 gchar *remmina_utils_string_strip(const gchar *s);
+gchar *remmina_utils_string_remove(gchar *str, const gchar *sub);
 
 gchar *remmina_utils_get_lang();
 const gchar *remmina_utils_get_kernel_name();
