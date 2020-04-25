@@ -37,7 +37,7 @@
 
 /* https://github.com/adlocode/xfwm4/blob/1d21be9ffc0fa1cea91905a07d1446c5227745f4/common/xfwm-common.c */
 
-void remmina_rdp_monitor_get (rfContext *rfi, gchar **monitorids)
+void remmina_rdp_monitor_get (rfContext *rfi, gchar **monitorids, guint32 *maxwidth, guint32 *maxheight)
 {
 	TRACE_CALL(__func__);
 
@@ -81,6 +81,8 @@ void remmina_rdp_monitor_get (rfContext *rfi, gchar **monitorids)
 			g_sprintf (buffer, "%d", i);
 		else
 			g_sprintf(buffer, "%s,%d", buffer, i);
+		*maxwidth = MIN(*maxwidth, geometry.width);
+		*maxheight = MIN(*maxheight, geometry.height);
 	}
 	if (n_monitors > 1)
 		rfi->settings->SupportMonitorLayoutPdu = TRUE;
