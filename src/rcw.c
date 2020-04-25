@@ -41,6 +41,7 @@
 #include <gdk/gdk.h>
 #include <gdk/gdkkeysyms.h>
 #include <glib/gi18n.h>
+#include <glib/gprintf.h>
 #include <gtk/gtk.h>
 #include <stdlib.h>
 
@@ -80,6 +81,7 @@ G_DEFINE_TYPE(RemminaConnectionWindow, rcw, GTK_TYPE_WINDOW)
 #define TB_HIDE_TIME_TIME 1000
 
 #define FULL_SCREEN_TARGET_MONITOR_UNDEFINED -1
+#define FULL_SCREEN_TARGET_MONITOR_ALL 100
 
 struct _RemminaConnectionWindowPriv {
 	GtkNotebook *					notebook;
@@ -107,6 +109,7 @@ struct _RemminaConnectionWindowPriv {
 	/* Toolitems that need to be handled */
 	GtkToolItem *					toolitem_autofit;
 	GtkToolItem *					toolitem_fullscreen;
+	GtkToolItem *					toolitem_multimon;
 	GtkToolItem *					toolitem_switch_page;
 	GtkToolItem *					toolitem_dynres;
 	GtkToolItem *					toolitem_scale;
@@ -115,6 +118,11 @@ struct _RemminaConnectionWindowPriv {
 	GtkToolItem *					toolitem_tools;
 	GtkToolItem *					toolitem_duplicate;
 	GtkToolItem *					toolitem_screenshot;
+	GtkWidget *					bmodel_mon1;
+	GtkWidget *					bmodel_mon2;
+	GtkWidget *					bmodel_mon3;
+	GtkWidget *					bmodel_mon4;
+	GtkWidget *					bmodel_monall;
 	GtkWidget *					fullscreen_option_button;
 	GtkWidget *					fullscreen_scaler_button;
 	GtkWidget *					scaler_option_button;
@@ -129,7 +137,7 @@ struct _RemminaConnectionWindowPriv {
 	gboolean					toolbar_is_reconfiguring;
 
 	/* This is the current view mode, i.e. VIEWPORT_FULLSCREEN_MODE,
-	 * as saved on the "viwemode" profile preference file */
+	 * as saved on the "viewmode" profile preference file */
 	gint						view_mode;
 
 	/* Status variables used when in fullscreen mode. Needed
@@ -146,6 +154,12 @@ struct _RemminaConnectionWindowPriv {
 	gboolean					hostkey_used;
 
 	gboolean					pointer_entered;
+	GdkMonitor *					monitor;
+	GString *					model;
+	GArray	*					models;
+	gchar *						monitors;
+	gint 						toolitem_fullscreen_index;
+	gint 						toolitem_multimon_index;
 
 	RemminaConnectionWindowOnDeleteConfirmMode	on_delete_confirm_mode;
 };
@@ -2125,8 +2139,186 @@ static void rcw_toolbar_grab(GtkWidget *widget, RemminaConnectionWindow *cnnwin)
 	}
 }
 
-static GtkWidget *
-rcw_create_toolbar(RemminaConnectionWindow *cnnwin, gint mode)
+static void toggle_changed_cb(GtkWidget *toolitem, GtkWidget *popover)
+{
+	TRACE_CALL(__func__);
+	gtk_widget_set_visible(popover,
+			       gtk_toggle_tool_button_get_active(GTK_TOGGLE_TOOL_BUTTON(toolitem)));
+}
+
+static void rcw_multimon_activate_radio (GSimpleAction *action, GVariant *parameter, gpointer user_data)
+{
+	TRACE_CALL(__func__);
+	g_action_change_state (G_ACTION (action), parameter);
+}
+
+static void rcw_multimon_action_monitor (GSimpleAction *action, GVariant *variant, gpointer user_data)
+{
+	TRACE_CALL(__func__);
+
+	RemminaConnectionWindow *cnnwin;
+	RemminaConnectionObject *cnnobj;
+	cnnwin = (RemminaConnectionWindow *)user_data;
+	cnnobj = rcw_get_visible_cnnobj(cnnwin);
+
+	guint index = 0;
+	const gchar *monitor;
+
+	monitor = g_variant_get_string (variant, NULL);
+
+	if (!cnnobj->remmina_file || cnnobj->remmina_file == NULL) {
+		g_debug ("Remmina file not defined");
+		return;
+	}
+
+	g_debug ("Loading monitor list from saved profile");
+	cnnwin->priv->monitors = g_strdup(remmina_file_get_string(cnnobj->remmina_file, "monitors"));
+	//cnnwin->priv->monitors = g_strdup(remmina_pref.monitors);
+	g_debug ("Monitor list is %s", cnnwin->priv->monitors);
+
+	if (g_strcmp0(cnnwin->priv->monitors, monitor) != 0) {
+		cnnwin->priv->monitors = g_strdup(monitor);
+		remmina_file_set_string (cnnobj->remmina_file, "monitors", g_strdup(monitor));
+		g_debug ("Saving monitors setup to %s", cnnobj->remmina_file->filename);
+		remmina_file_save(cnnobj->remmina_file);
+		g_debug ("Monitor list is %s", cnnwin->priv->monitors);
+	}
+
+	g_simple_action_set_state (action, variant);
+}
+
+/**
+ * Add a popover menu to the Remmina Connection Window toolbar.
+ * This menu is used to select on which monitor going fullscreen.
+ *
+ */
+static GtkWidget *rcw_multimon_popover(GtkWidget *parent, gint n_monitors, GtkPositionType pos, RemminaConnectionWindow *cnnwin)
+{
+	TRACE_CALL(__func__);
+
+
+	GtkWidget *popover, *vbox;
+	gint i;
+	GtkWidget *bmodel;
+	GActionGroup *actions;
+
+
+	GdkDisplay *display = gdk_display_get_default();
+
+	cnnwin->priv->models = g_array_new (FALSE, FALSE, sizeof (GString *));
+	static GActionEntry multi_entries[] = {
+		{ "monitor", rcw_multimon_activate_radio, "s", "'all'", rcw_multimon_action_monitor },
+	};
+
+	popover = gtk_popover_new(parent);
+	gtk_popover_set_position(GTK_POPOVER(popover), pos);
+	vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 24);
+	gtk_widget_set_halign(vbox, GTK_ALIGN_CENTER);
+	gtk_container_add(GTK_CONTAINER(popover), vbox);
+	for (i = 0; i < n_monitors; ++i) {
+		cnnwin->priv->monitor = gdk_display_get_monitor (display, i);
+		cnnwin->priv->model = g_string_new(g_strdup(gdk_monitor_get_model(cnnwin->priv->monitor)));
+		g_debug ("Appending %s to the monitors array", cnnwin->priv->model->str);
+		g_array_append_val (cnnwin->priv->models, cnnwin->priv->model);
+		switch(i) {
+			case 0 :
+				cnnwin->priv->bmodel_mon1 = gtk_model_button_new();
+				bmodel = cnnwin->priv->bmodel_mon1;
+				break;
+			case 1 :
+				cnnwin->priv->bmodel_mon2 = gtk_model_button_new();
+				bmodel = cnnwin->priv->bmodel_mon2;
+				break;
+			case 2 :
+				cnnwin->priv->bmodel_mon3 = gtk_model_button_new();
+				bmodel = cnnwin->priv->bmodel_mon3;
+				break;
+			case 3 :
+				cnnwin->priv->bmodel_mon4 = gtk_model_button_new();
+				bmodel = cnnwin->priv->bmodel_mon4;
+				break;
+			default :
+				g_print("Only up to 4 montors are supported");
+				return popover;
+		}
+		g_debug("Adding monitor radio n° %d/%d", i+1, n_monitors);
+		gtk_actionable_set_action_name (GTK_ACTIONABLE (bmodel), "toolbar.monitor");
+		gchar *action = g_strconcat("toolbar.monitor::", cnnwin->priv->model->str, NULL);
+		gtk_actionable_set_detailed_action_name (GTK_ACTIONABLE (bmodel), action);
+		g_object_set(bmodel,
+				"text", cnnwin->priv->model->str,
+				"role", GTK_BUTTON_ROLE_RADIO,
+				(void*)0);
+
+		gtk_container_add(GTK_CONTAINER(vbox), bmodel);
+		//g_signal_connect(G_OBJECT(toolitem), "toggled", G_CALLBACK(rcw_multimon_change), cnnwin);
+	}
+	cnnwin->priv->bmodel_monall = gtk_model_button_new();
+	bmodel = cnnwin->priv->bmodel_monall;
+	gtk_actionable_set_action_name (GTK_ACTIONABLE (bmodel), "toolbar.monitor");
+	gtk_actionable_set_detailed_action_name (GTK_ACTIONABLE (bmodel), "toolbar.monitor::all");
+	g_object_set(bmodel,
+			"text", _("Full screen on all monitors"),
+			"role", GTK_BUTTON_ROLE_RADIO,
+			(void*)0);
+
+	gtk_container_add(GTK_CONTAINER(vbox), bmodel);
+	//g_signal_connect(G_OBJECT(toolitem), "toggled", G_CALLBACK(rcw_multimon_change), cnnwin);
+	actions = (GActionGroup*)g_simple_action_group_new ();
+	g_action_map_add_action_entries (G_ACTION_MAP (actions), multi_entries, G_N_ELEMENTS (multi_entries), cnnwin);
+	gtk_widget_insert_action_group (popover, "toolbar", actions);
+
+	gtk_widget_show_all(vbox);
+	gtk_container_set_border_width(GTK_CONTAINER(popover), 6);
+
+	return popover;
+}
+
+/**
+ * Add a button in the Remmina Connection Window toolbar that shows how many monitors are connected.
+ *
+ * This button give access to a popover menu that is used to select on which monitor going fullscreen.
+ *
+ */
+static GtkToolItem *rcw_toolbar_multimon_icon(RemminaConnectionWindow *cnnwin, GtkWidget *toolbar)
+{
+	TRACE_CALL(__func__);
+	gint n_monitors;
+	GdkMonitor *monitor;
+	GdkDisplay *display;
+	GdkWindow *window;
+	GtkToolItem *toolitem;
+	GtkWidget *popover;
+
+	window = gtk_widget_get_window(GTK_WIDGET(cnnwin));
+	display = gdk_window_get_display(window);
+	monitor = gdk_display_get_monitor_at_window(display, window);
+	/* FIXME: This is a 3.22 only feature */
+	n_monitors = gdk_display_get_n_monitors(display);
+	g_debug("The display %s has %d monitors associated",
+		gdk_display_get_name(display), n_monitors);
+	/* Number of activated/enabled monitors
+	 * here we should see in the profile if the user disabled a specific
+	 * monitor
+	 */
+	toolitem = gtk_toggle_tool_button_new();
+	gtk_tool_button_set_icon_name(GTK_TOOL_BUTTON(toolitem), "remmina-set-fullscreen-symbolic");
+	gtk_tool_item_set_tooltip_text(toolitem,
+			_("Select fullscreen active displays"));
+	cnnwin->priv->toolitem_multimon_index = cnnwin->priv->toolitem_fullscreen_index +1;
+	gtk_toolbar_insert(GTK_TOOLBAR(toolbar), toolitem, cnnwin->priv->toolitem_multimon_index);
+	gtk_widget_set_sensitive(GTK_WIDGET(toolitem), TRUE);
+	popover = rcw_multimon_popover(GTK_WIDGET(toolitem),
+			n_monitors,
+			GTK_POS_TOP, cnnwin);
+	gtk_popover_set_modal(GTK_POPOVER(popover), FALSE);
+	g_signal_connect(G_OBJECT(toolitem), "toggled",
+			G_CALLBACK(toggle_changed_cb), popover);
+	gtk_widget_show(GTK_WIDGET(toolitem));
+	return toolitem;
+}
+
+static GtkWidget *rcw_create_toolbar(RemminaConnectionWindow *cnnwin, gint mode)
 {
 	TRACE_CALL(__func__);
 	RemminaConnectionWindowPriv *priv = cnnwin->priv;
@@ -2165,12 +2357,18 @@ rcw_create_toolbar(RemminaConnectionWindow *cnnwin, gint mode)
 	gtk_toolbar_insert(GTK_TOOLBAR(toolbar), toolitem, -1);
 	gtk_widget_show(GTK_WIDGET(toolitem));
 	priv->toolitem_fullscreen = toolitem;
+	priv->toolitem_fullscreen_index = gtk_toolbar_get_item_index (
+			GTK_TOOLBAR(toolbar),
+			priv->toolitem_fullscreen);
 	if (kioskmode) {
 		gtk_toggle_tool_button_set_active(GTK_TOGGLE_TOOL_BUTTON(toolitem), FALSE);
 	} else {
 		gtk_toggle_tool_button_set_active(GTK_TOGGLE_TOOL_BUTTON(toolitem), mode != SCROLLED_WINDOW_MODE);
 		g_signal_connect(G_OBJECT(toolitem), "clicked", G_CALLBACK(rcw_toolbar_fullscreen), cnnwin);
 	}
+
+	/* Fullscreen multi-monitor */
+	priv->toolitem_multimon = rcw_toolbar_multimon_icon(cnnwin, toolbar);
 
 	/* Fullscreen drop-down options */
 	toolitem = gtk_tool_item_new();
@@ -2428,7 +2626,6 @@ static void rco_update_toolbar(RemminaConnectionObject *cnnobj)
 	bval = remmina_protocol_widget_query_feature_by_type(REMMINA_PROTOCOL_WIDGET(cnnobj->proto),
 							     REMMINA_PROTOCOL_FEATURE_TYPE_TOOL);
 	gtk_widget_set_sensitive(GTK_WIDGET(toolitem), bval && cnnobj->connected);
-
 	gtk_widget_set_sensitive(GTK_WIDGET(priv->toolitem_screenshot), cnnobj->connected);
 
 	gtk_window_set_title(GTK_WINDOW(cnnobj->cnnwin), remmina_file_get_string(cnnobj->remmina_file, "name"));
@@ -3182,7 +3379,6 @@ static GtkWidget *rcw_append_new_page(RemminaConnectionWindow *cnnwin, RemminaCo
 
 	return page;
 }
-
 
 static void rcw_update_notebook(RemminaConnectionWindow *cnnwin)
 {
@@ -4119,7 +4315,6 @@ GtkWidget *rcw_open_from_file_full(RemminaFile *remminafile, GCallback disconnec
 
 	// Do not call remmina_protocol_widget_update_alignment(cnnobj); here or cnnobj->proto will not fill its parent size
 	// and remmina_protocol_widget_update_remote_resolution() cannot autodetect available space
-
 	gtk_widget_show(cnnobj->proto);
 	g_signal_connect(G_OBJECT(cnnobj->proto), "connect", G_CALLBACK(rco_on_connect), cnnobj);
 	g_signal_connect(G_OBJECT(cnnobj->proto), "disconnect", G_CALLBACK(rco_on_disconnect), NULL);

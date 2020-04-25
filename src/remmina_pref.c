@@ -302,6 +302,12 @@ void remmina_pref_init(void)
 	else
 		remmina_pref.fullscreen_on_auto = TRUE;
 
+	if (g_key_file_has_key(gkeyfile, "remmina_pref", "monitors", NULL))
+		remmina_pref.monitors = g_key_file_get_string(gkeyfile, "remmina_pref", "fullscreen_on_auto", NULL);
+	else
+		remmina_pref.monitors = "all";
+
+
 	if (g_key_file_has_key(gkeyfile, "remmina_pref", "floating_toolbar_placement", NULL))
 		remmina_pref.floating_toolbar_placement = g_key_file_get_integer(gkeyfile, "remmina_pref", "floating_toolbar_placement", NULL);
 	else
