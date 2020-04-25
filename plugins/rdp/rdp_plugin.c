@@ -43,6 +43,7 @@
 #include "rdp_file.h"
 #include "rdp_settings.h"
 #include "rdp_cliprdr.h"
+#include "rdp_monitor.h"
 #include "rdp_channels.h"
 
 #include <errno.h>
@@ -1578,6 +1579,26 @@ static gboolean remmina_rdp_main(RemminaProtocolWidget *gp)
 #endif /* HAVE_CUPS */
 	}
 
+	if (remmina_plugin_service->file_get_int(remminafile, "multimon", FALSE)) {
+		rfi->settings->UseMultimon = TRUE;
+		/* TODO Add an option for this */
+		rfi->settings->ForceMultimon = TRUE;
+		//const gchar *monitorids = remmina_plugin_service->file_get_string(remminafile, "monitorids");
+		/* Otherwise we get all the attached monitors */
+		//if (monitorids != NULL && monitorids[0] != '\0')
+		gchar *monitorids;
+		remmina_rdp_monitor_get(rfi, &monitorids);
+		if (monitorids != NULL && monitorids[0] != '\0') {
+			gchar **items;
+			guint32 i;
+			items = g_strsplit(monitorids, ",", -1);
+			rfi->settings->NumMonitorIds = g_strv_length(items);
+			for (i = 0; i < g_strv_length(items); i++) {
+				rfi->settings->MonitorIds[i] = (guint32)atoi(items[i]);
+			}
+		}
+	}
+
 	if (remmina_plugin_service->file_get_int(remminafile, "sharesmartcard", FALSE)) {
 		RDPDR_SMARTCARD *smartcard;
 		smartcard = (RDPDR_SMARTCARD *)calloc(1, sizeof(RDPDR_SMARTCARD));
@@ -2218,14 +2239,16 @@ static gchar timeout_tooltip[] =
  */
 static const RemminaProtocolSetting remmina_rdp_basic_settings[] =
 {
-	{ REMMINA_PROTOCOL_SETTING_TYPE_SERVER,	    "server",	   NULL,	       FALSE, NULL,	       NULL },
-	{ REMMINA_PROTOCOL_SETTING_TYPE_TEXT,	    "username",	   N_("Username"),     FALSE, NULL,	       NULL },
-	{ REMMINA_PROTOCOL_SETTING_TYPE_PASSWORD,   "password",	   N_("Password"),     FALSE, NULL,	       NULL },
-	{ REMMINA_PROTOCOL_SETTING_TYPE_TEXT,	    "domain",	   N_("Domain"),       FALSE, NULL,	       NULL },
-	{ REMMINA_PROTOCOL_SETTING_TYPE_RESOLUTION, "resolution",  NULL,	       FALSE, NULL,	       NULL },
-	{ REMMINA_PROTOCOL_SETTING_TYPE_SELECT,	    "colordepth",  N_("Colour depth"), FALSE, colordepth_list, NULL },
-	{ REMMINA_PROTOCOL_SETTING_TYPE_FOLDER,	    "sharefolder", N_("Share folder"), FALSE, NULL,	       NULL },
-	{ REMMINA_PROTOCOL_SETTING_TYPE_END,	    NULL,	   NULL,	       FALSE, NULL,	       NULL }
+	{ REMMINA_PROTOCOL_SETTING_TYPE_SERVER,	    "server",	   NULL,		FALSE, NULL,		NULL },
+	{ REMMINA_PROTOCOL_SETTING_TYPE_TEXT,	    "username",	   N_("Username"),	FALSE, NULL,		NULL },
+	{ REMMINA_PROTOCOL_SETTING_TYPE_PASSWORD,   "password",	   N_("Password"), FALSE, NULL,		NULL },
+	{ REMMINA_PROTOCOL_SETTING_TYPE_TEXT,	    "domain",	   N_("Domain"),	FALSE, NULL,		NULL },
+	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK,	    "multimon",	   N_("Enable multi monitor"),	FALSE, NULL,	NULL },
+	{ REMMINA_PROTOCOL_SETTING_TYPE_TEXT,	    "monitorids",	   N_("Monitor ID list"),	FALSE, NULL,	N_("Comma separated list of monitor IDs (0,1,2,4)") },
+	{ REMMINA_PROTOCOL_SETTING_TYPE_RESOLUTION, "resolution",  NULL,		FALSE, NULL,		NULL },
+	{ REMMINA_PROTOCOL_SETTING_TYPE_SELECT,	    "colordepth",  N_("Colour depth"),	FALSE, colordepth_list, NULL },
+	{ REMMINA_PROTOCOL_SETTING_TYPE_FOLDER,	    "sharefolder", N_("Share folder"),	FALSE, NULL,		NULL },
+	{ REMMINA_PROTOCOL_SETTING_TYPE_END,	    NULL,	   NULL,		FALSE, NULL,		NULL }
 };
 
 /* Array of RemminaProtocolSetting for advanced settings.
