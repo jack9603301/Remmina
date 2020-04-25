@@ -1564,6 +1564,8 @@ static gboolean remmina_rdp_main(RemminaProtocolWidget *gp)
 	}
 
 	if (remmina_plugin_service->file_get_int(remminafile, "multimon", FALSE)) {
+		guint32 maxwidth = 0;
+		guint32 maxheight = 0;
 		rfi->settings->UseMultimon = TRUE;
 		/* TODO Add an option for this */
 		rfi->settings->ForceMultimon = TRUE;
@@ -1571,7 +1573,7 @@ static gboolean remmina_rdp_main(RemminaProtocolWidget *gp)
 		/* Otherwise we get all the attached monitors */
 		//if (monitorids != NULL && monitorids[0] != '\0')
 		gchar *monitorids;
-		remmina_rdp_monitor_get(rfi, &monitorids);
+		remmina_rdp_monitor_get(rfi, &monitorids, &maxwidth, &maxheight);
 		if (monitorids != NULL && monitorids[0] != '\0') {
 			gchar **items;
 			guint32 i;
@@ -1581,6 +1583,12 @@ static gboolean remmina_rdp_main(RemminaProtocolWidget *gp)
 				rfi->settings->MonitorIds[i] = (guint32)atoi(items[i]);
 			}
 		}
+		if (maxwidth && maxheight)
+		{
+			rfi->settings->DesktopWidth = maxwidth;
+			rfi->settings->DesktopHeight = maxheight;
+		}
+
 	}
 
 	if (remmina_plugin_service->file_get_int(remminafile, "sharesmartcard", FALSE)) {
