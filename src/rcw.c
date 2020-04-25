@@ -3684,8 +3684,8 @@ static void rcw_create_overlay_ftb_overlay(RemminaConnectionWindow *cnnwin)
 	g_signal_connect(G_OBJECT(priv->overlay_ftb_overlay), "enter-notify-event", G_CALLBACK(rcw_floating_toolbar_on_enter), cnnwin);
 	g_signal_connect(G_OBJECT(priv->overlay_ftb_overlay), "scroll-event", G_CALLBACK(rcw_floating_toolbar_on_scroll), cnnwin);
 	gtk_widget_add_events(
-		GTK_WIDGET(priv->overlay_ftb_overlay), 
-		GDK_SCROLL_MASK 
+		GTK_WIDGET(priv->overlay_ftb_overlay),
+		GDK_SCROLL_MASK
 #if GTK_CHECK_VERSION(3, 4, 0)
 		| GDK_SMOOTH_SCROLL_MASK
 #endif
