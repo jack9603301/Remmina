@@ -113,6 +113,16 @@ void remmina_rdp_monitor_get (rfContext *rfi, gchar **monitorids, guint32 *maxwi
 	*maxwidth = destgeom.width;
 	*maxheight = destgeom.height;
 	g_debug("maxw and maxh: %ux%u", *maxwidth, *maxheight);
+=======
+			rfi->settings->MonitorLocalShiftX = rfi->settings->MonitorDefArray[i].x;
+			rfi->settings->MonitorLocalShiftY = rfi->settings->MonitorDefArray[i].y;
+		}
+		if (!buffer && buffer[0] != '\0')
+			g_sprintf (buffer, "%d", i);
+		else
+			g_sprintf(buffer, "%s,%d", buffer, i);
+	}
+>>>>>>> Monitor detection and setting for RDP
 	if (n_monitors > 1)
 		rfi->settings->SupportMonitorLayoutPdu = TRUE;
 	*monitorids = g_strdup(buffer);
