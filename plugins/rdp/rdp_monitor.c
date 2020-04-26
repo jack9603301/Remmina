@@ -94,8 +94,6 @@ void remmina_rdp_monitor_get (rfContext *rfi, gchar **monitorids, guint32 *maxwi
 			g_sprintf(buffer, "%s,%d", buffer, i);
 		g_debug("Monitor IDs buffer: %s", buffer);
 #if 0
-		if (i == 0)
-			*maxwidth = geometry.width;
 		else
 			*maxwidth = MIN(*maxwidth, geometry.width);
 		if (i == 0)
