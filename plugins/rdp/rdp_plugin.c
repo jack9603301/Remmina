@@ -1616,7 +1616,6 @@ static gboolean remmina_rdp_main(RemminaProtocolWidget *gp)
 			}
 			g_strfreev(items);
 		}
-<<<<<<< HEAD
 		if (maxwidth && maxheight) {
 			g_debug ("Setting DesktopWidth and DesktopHeight to: %dx%d", maxwidth, maxheight);
 			rfi->settings->DesktopWidth = maxwidth;
@@ -1626,14 +1625,6 @@ static gboolean remmina_rdp_main(RemminaProtocolWidget *gp)
 			g_debug("Cannot set Desktop Size, we are using the previously set values: %dx%d", rfi->settings->DesktopWidth, rfi->settings->DesktopHeight);
 		remmina_plugin_service->protocol_plugin_set_width(gp, rfi->settings->DesktopWidth);
 		remmina_plugin_service->protocol_plugin_set_height(gp, rfi->settings->DesktopHeight);
-=======
-		if (maxwidth && maxheight)
-		{
-			rfi->settings->DesktopWidth = maxwidth;
-			rfi->settings->DesktopHeight = maxheight;
-		}
-
->>>>>>> Adapting the Desktop size when there are multiple monitors
 	}
 
 	if (remmina_plugin_service->file_get_int(remminafile, "sharesmartcard", FALSE)) {
