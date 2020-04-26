@@ -1585,6 +1585,9 @@ static gboolean remmina_rdp_main(RemminaProtocolWidget *gp)
 		rfi->settings->UseMultimon = TRUE;
 		/* TODO Add an option for this */
 		rfi->settings->ForceMultimon = TRUE;
+		if (rfi->settings->NumMonitorIds)
+			rfi->settings->NumMonitorIds = 0;
+
 		//const gchar *monitorids = remmina_plugin_service->file_get_string(remminafile, "monitorids");
 		/* Otherwise we get all the attached monitors */
 		//if (monitorids != NULL && monitorids[0] != '\0')
@@ -1595,16 +1598,21 @@ static gboolean remmina_rdp_main(RemminaProtocolWidget *gp)
 			guint32 i;
 			items = g_strsplit(monitorids, ",", -1);
 			rfi->settings->NumMonitorIds = g_strv_length(items);
+			g_debug("MM: NumMonitorIds: %d", rfi->settings->NumMonitorIds);
 			for (i = 0; i < g_strv_length(items); i++) {
 				rfi->settings->MonitorIds[i] = (guint32)atoi(items[i]);
+				g_debug ("Added monitor with id %d", rfi->settings->MonitorIds[i]);
 			}
 		}
-		if (maxwidth && maxheight)
-		{
+		if (maxwidth && maxheight) {
+			g_debug ("MM: Setting DesktopWidth and DesktopHeight to: %dx%d", maxwidth, maxheight);
 			rfi->settings->DesktopWidth = maxwidth;
 			rfi->settings->DesktopHeight = maxheight;
-		}
-
+			g_debug ("MM: DesktopWidth and DesktopHeight set to: %dx%d", rfi->settings->DesktopWidth, rfi->settings->DesktopHeight);
+		} else
+			g_debug("Cannot set Desktop Size, we are using the previously set values: %dx%d", rfi->settings->DesktopWidth, rfi->settings->DesktopHeight);
+		remmina_plugin_service->protocol_plugin_set_width(gp, rfi->settings->DesktopWidth);
+		remmina_plugin_service->protocol_plugin_set_height(gp, rfi->settings->DesktopHeight);
 	}
 
 	if (remmina_plugin_service->file_get_int(remminafile, "sharesmartcard", FALSE)) {
