@@ -49,6 +49,7 @@ void remmina_rdp_monitor_get (rfContext *rfi, gchar **monitorids, guint32 *maxwi
 	GdkDisplay *display = gdk_display_get_default ();
 
 	GdkRectangle  geometry;
+	GdkRectangle  destgeom;
 
 	n_monitors = gdk_display_get_n_monitors(display);
 
@@ -80,6 +81,7 @@ void remmina_rdp_monitor_get (rfContext *rfi, gchar **monitorids, guint32 *maxwi
 		else
 			g_sprintf(buffer, "%s,%d", buffer, i);
 		g_debug("Monitor IDs buffer: %s", buffer);
+#if 0
 		if (i == 0)
 			*maxwidth = geometry.width;
 		else
@@ -89,7 +91,15 @@ void remmina_rdp_monitor_get (rfContext *rfi, gchar **monitorids, guint32 *maxwi
 		else
 			*maxheight = MIN(*maxheight, geometry.height);
 		g_debug("maxw and maxh: %ux%u", *maxwidth, *maxheight);
+#endif
+		if (destgeom.width && destgeom.height) {
+			gdk_rectangle_union(&geometry, &destgeom, &destgeom);
+		} else
+			destgeom = geometry;
 	}
+	*maxwidth = destgeom.width;
+	*maxheight = destgeom.height;
+	g_debug("maxw and maxh: %ux%u", *maxwidth, *maxheight);
 	if (n_monitors > 1)
 		rfi->settings->SupportMonitorLayoutPdu = TRUE;
 	*monitorids = g_strdup(buffer);
