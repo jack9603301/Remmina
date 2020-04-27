@@ -110,6 +110,7 @@ void remmina_rdp_monitor_get (rfContext *rfi, gchar **monitorids, guint32 *maxwi
 		count++;
 	}
 	rfi->settings->MonitorCount = count;
+	}
 	*maxwidth = destgeom.width;
 	*maxheight = destgeom.height;
 	g_debug("maxw and maxh: %ux%u", *maxwidth, *maxheight);
