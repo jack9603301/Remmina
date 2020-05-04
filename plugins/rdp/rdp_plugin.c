@@ -249,16 +249,19 @@ static BOOL rf_process_event_queue(RemminaProtocolWidget *gp)
 
 		case REMMINA_RDP_EVENT_TYPE_SEND_MONITOR_LAYOUT:
 			dcml = g_malloc0(sizeof(DISPLAY_CONTROL_MONITOR_LAYOUT));
-			if (dcml) {
-				dcml->Flags = DISPLAY_CONTROL_MONITOR_PRIMARY;
-				dcml->Width = event->monitor_layout.width;
-				dcml->Height = event->monitor_layout.height;
-				dcml->Orientation = event->monitor_layout.desktopOrientation;
-				dcml->DesktopScaleFactor = event->monitor_layout.desktopScaleFactor;
-				dcml->DeviceScaleFactor = event->monitor_layout.deviceScaleFactor;
-				rfi->dispcontext->SendMonitorLayout(rfi->dispcontext, 1, dcml);
-				g_free(dcml);
+			if (!dcml)
+				break;
+			for (gint i = 0; i < rfi->settings->MonitorCount; ++i) {
+				dcml[i].Flags = (rfi->settings->MonitorDefArray[i].is_primary ? DISPLAY_CONTROL_MONITOR_PRIMARY :0);
+				dcml[i].Left = rfi->settings->MonitorDefArray[i].x;
+				dcml[i].Width = rfi->settings->MonitorDefArray[i].width;
+				dcml[i].Height = rfi->settings->MonitorDefArray[i].height;
+				dcml[i].Orientation = event->monitor_layout.desktopOrientation;
+				dcml[i].DesktopScaleFactor = event->monitor_layout.desktopScaleFactor;
+				dcml[i].DeviceScaleFactor = event->monitor_layout.deviceScaleFactor;
+				rfi->dispcontext->SendMonitorLayout(rfi->dispcontext, rfi->settings->MonitorCount, dcml);
 			}
+			g_free(dcml);
 			break;
 		case REMMINA_RDP_EVENT_DISCONNECT:
 			/* Disconnect requested via GUI (i.e: tab destroy/close) */
@@ -1444,6 +1447,14 @@ static gboolean remmina_rdp_main(RemminaProtocolWidget *gp)
 	 * dynamically resize remote desktop. This will automatically open
 	 * the "disp" dynamic channel, if available */
 	rfi->settings->SupportDisplayControl = TRUE;
+	if (rfi->settings->SupportDisplayControl) {
+		char *d[1];
+		int dcount;
+
+		dcount = 1;
+		d[0] = "disp";
+		freerdp_client_add_dynamic_channel(rfi->settings, dcount, d);
+	}
 
 	/* Sound settings */
 
@@ -1598,17 +1609,18 @@ static gboolean remmina_rdp_main(RemminaProtocolWidget *gp)
 			guint32 i;
 			items = g_strsplit(monitorids, ",", -1);
 			rfi->settings->NumMonitorIds = g_strv_length(items);
-			g_debug("MM: NumMonitorIds: %d", rfi->settings->NumMonitorIds);
+			g_debug("NumMonitorIds: %d", rfi->settings->NumMonitorIds);
 			for (i = 0; i < g_strv_length(items); i++) {
 				rfi->settings->MonitorIds[i] = (guint32)atoi(items[i]);
 				g_debug ("Added monitor with id %d", rfi->settings->MonitorIds[i]);
 			}
+			g_strfreev(items);
 		}
 		if (maxwidth && maxheight) {
-			g_debug ("MM: Setting DesktopWidth and DesktopHeight to: %dx%d", maxwidth, maxheight);
+			g_debug ("Setting DesktopWidth and DesktopHeight to: %dx%d", maxwidth, maxheight);
 			rfi->settings->DesktopWidth = maxwidth;
 			rfi->settings->DesktopHeight = maxheight;
-			g_debug ("MM: DesktopWidth and DesktopHeight set to: %dx%d", rfi->settings->DesktopWidth, rfi->settings->DesktopHeight);
+			g_debug ("DesktopWidth and DesktopHeight set to: %dx%d", rfi->settings->DesktopWidth, rfi->settings->DesktopHeight);
 		} else
 			g_debug("Cannot set Desktop Size, we are using the previously set values: %dx%d", rfi->settings->DesktopWidth, rfi->settings->DesktopHeight);
 		remmina_plugin_service->protocol_plugin_set_width(gp, rfi->settings->DesktopWidth);
