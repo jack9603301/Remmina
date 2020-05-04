@@ -43,6 +43,8 @@ void remmina_rdp_monitor_get (rfContext *rfi, gchar **monitorids, guint32 *maxwi
 
 	gint n_monitors;
 	gint scale;
+	gint count;
+	gboolean primary_found = FALSE;
 	/* TODO (max monitors * 2) */
 	static gchar buffer[256];
 	GdkMonitor *monitor;
@@ -73,8 +75,16 @@ void remmina_rdp_monitor_get (rfContext *rfi, gchar **monitorids, guint32 *maxwi
 		rfi->settings->MonitorDefArray[i].height = geometry.height;
 		rfi->settings->MonitorDefArray[i].orig_screen = i;
 		if (gdk_monitor_is_primary(monitor)) {
+			rfi->settings->MonitorDefArray[i].is_primary = TRUE;
 			rfi->settings->MonitorLocalShiftX = rfi->settings->MonitorDefArray[i].x;
 			rfi->settings->MonitorLocalShiftY = rfi->settings->MonitorDefArray[i].y;
+			g_debug ("Primary monitor found with id: %d", i);
+			primary_found = TRUE;
+		}
+		if (!primary_found) {
+			rfi->settings->MonitorDefArray[0].is_primary = TRUE;
+			rfi->settings->MonitorLocalShiftX = rfi->settings->MonitorDefArray[0].x;
+			rfi->settings->MonitorLocalShiftY = rfi->settings->MonitorDefArray[0].y;
 		}
 		if (buffer[0] == '\0')
 			g_sprintf (buffer, "%d", i);
@@ -96,7 +106,9 @@ void remmina_rdp_monitor_get (rfContext *rfi, gchar **monitorids, guint32 *maxwi
 			gdk_rectangle_union(&geometry, &destgeom, &destgeom);
 		} else
 			destgeom = geometry;
+		count++;
 	}
+	rfi->settings->MonitorCount = count;
 	*maxwidth = destgeom.width;
 	*maxheight = destgeom.height;
 	g_debug("maxw and maxh: %ux%u", *maxwidth, *maxheight);
