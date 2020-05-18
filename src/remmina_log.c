@@ -187,6 +187,10 @@ void remmina_log_print(const gchar *text)
 	IDLE_ADD(remmina_log_print_real, g_strdup(text));
 }
 
+/**
+ * Print a string in the Remmina Debug Windows and in the terminal.
+ * The string will be visible in the terminal if G_MESSAGES_DEBUG=all
+ */
 void remmina_debug(const gchar *fmt, ...)
 {
 	/* IMPORTANT: DO NOT USE TRACES IN THIS FUNCION */
