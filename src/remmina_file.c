@@ -845,17 +845,17 @@ remmina_file_touch(RemminaFile *remminafile)
 
 	if ((r = stat(remminafile->filename, &st)) < 0) {
 		if (errno != ENOENT)
-			remmina_log_printf("stat %s:", remminafile->filename);
+			remmina_debug("stat %s:", remminafile->filename);
 	} else if (!r) {
 		times[0] = st.st_atim;
 		times[1] = st.st_mtim;
 		if (utimensat(AT_FDCWD, remminafile->filename, times, 0) < 0)
-			remmina_log_printf("utimensat %s:", remminafile->filename);
+			remmina_debug("utimensat %s:", remminafile->filename);
 		return;
 	}
 
 	if ((fd = open(remminafile->filename, O_CREAT | O_EXCL, 0644)) < 0)
-		remmina_log_printf("open %s:", remminafile->filename);
+		remmina_debug("open %s:", remminafile->filename);
 	close(fd);
 
 	remmina_file_touch(remminafile);
