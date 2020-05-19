@@ -138,6 +138,7 @@ snap:build:
        fi
   allow_failure: false
   artifacts:
+    expose_as: 'Testing snap package'
     paths: ['./*.snap']
     expire_in: 10 days
   only:
