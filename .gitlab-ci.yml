@@ -105,8 +105,7 @@ flatpak:test:
   script:
     - /bin/sh -xe ./flatpak/flatpak-build.sh
   artifacts:
-    name: "$CI_MERGE_REQUEST_IID-flatpak"
-    expose_as: 'Testing flatpak download'
+    expose_as: 'Testing flatpak package'
     paths:
       - flatpak/${BUNDLE}
     expire_in: 10 days
@@ -137,6 +136,7 @@ snap:build:
        fi
   allow_failure: false
   artifacts:
+    expose_as: 'Testing snap package'
     paths: ['./*.snap']
     expire_in: 10 days
   only:
