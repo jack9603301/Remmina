@@ -112,9 +112,11 @@ flatpak:test:
   cache:
     paths:
       - flatpak/.flatpak-builder/cache
+      - flatpak/.flatpak-builder/downloads
+      - flatpak/.flatpak-builder/git
   only:
-    - tags
     - merge_requests
+    - tags
     - web
     - schedules
 
