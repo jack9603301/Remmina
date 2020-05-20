@@ -108,6 +108,7 @@ flatpak:test:
     expose_as: 'Testing flatpak package'
     paths:
       - flatpak/${BUNDLE}
+      - flatpak
     expire_in: 10 days
   cache:
     paths:
