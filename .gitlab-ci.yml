@@ -105,7 +105,7 @@ flatpak:test:
   script:
     - /bin/sh -xe ./flatpak/flatpak-build.sh
   artifacts:
-    expose_as: "Download $BUNDLE from the flatpak artifact folder"
+    expose_as: "Download remmina-dev.flatpak from the flatpak artifact folder"
     paths:
       - flatpak/$BUNDLE
       - flatpak/
