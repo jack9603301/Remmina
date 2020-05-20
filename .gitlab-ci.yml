@@ -105,9 +105,9 @@ flatpak:test:
   script:
     - /bin/sh -xe ./flatpak/flatpak-build.sh
   artifacts:
-    expose_as: 'Testing flatpak package'
+    expose_as: "Download $BUNDLE from the flatpak artifact folder"
     paths:
-      - flatpak/remmina-dev.flatpak
+      - flatpak/$BUNDLE
       - flatpak/
     expire_in: 10 days
   cache:
