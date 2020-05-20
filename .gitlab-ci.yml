@@ -107,8 +107,8 @@ flatpak:test:
   artifacts:
     expose_as: 'Testing flatpak package'
     paths:
-      - flatpak/${BUNDLE}
-      - flatpak
+      - flatpak/remmina-dev.flatpak
+      - flatpak/
     expire_in: 10 days
   cache:
     paths:
