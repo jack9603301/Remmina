@@ -2596,6 +2596,11 @@ static gboolean focus_in_delayed_grab(RemminaConnectionWindow *cnnwin)
 		rcw_keyboard_grab(cnnwin);
 		rcw_pointer_grab(cnnwin);
 	}
+#if DEBUG_KB_GRABBING
+	else {
+		printf("DEBUG_KB_GRABBING:   %s not grabbing because pointer_entered is false\n", __func__);
+	}
+#endif
 	cnnwin->priv->delayed_grab_eventsourceid = 0;
 	return G_SOURCE_REMOVE;
 }
@@ -2609,7 +2614,7 @@ static void rcw_focus_in(RemminaConnectionWindow *cnnwin)
 
 	if (cnnobj && cnnobj->connected && remmina_file_get_int(cnnobj->remmina_file, "keyboard_grab", FALSE)) {
 #if DEBUG_KB_GRABBING
-		printf("DEBUG_KB_GRABBING: Received focus in, grabbing enabled, mouse inside: requesting kb grab, delayed\n");
+		printf("DEBUG_KB_GRABBING: Received focus in, grabbing enabled: requesting kb grab, delayed\n");
 #endif
 		if (cnnwin->priv->delayed_grab_eventsourceid == 0)
 			cnnwin->priv->delayed_grab_eventsourceid = g_timeout_add(300, (GSourceFunc)focus_in_delayed_grab, cnnwin);
