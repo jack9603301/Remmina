@@ -10,7 +10,7 @@
 # (at your option) any later version.
 #
 
-SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
+SCRIPTPATH="$( cd "$(dirname "$0")" || exit; pwd -P )"
 REMMINATOP="$(dirname "$SCRIPTPATH")"
 
 
@@ -132,18 +132,19 @@ if ! find data -name "*.glade" | sed 's/^.\///' >> po/POTFILES.in ; then
 	exit 1
 fi
 
-xgettext --from-code=UTF-8 \
-	--keyword=_ \
-	--keyword=N_ \
-	--keyword=translatable \
-	--keyword=C_:1c,2 \
-	--keyword=NC_:1c,2 \
-	--keyword=g_dngettext:2,3 \
-	--add-comments=TRANSLATORS: \
-	--files-from=po/POTFILES.in \
-	--output=po/remmina.temp.pot \
-	--package-version="$GIT_TAG" \
-	--package-name="Remmina" \
+xgettext --from-code=UTF-8                            \
+	--keyword=_                                   \
+	--keyword=N_                                  \
+	--keyword=translatable                        \
+	--keyword=C_:1c,2                             \
+	--keyword=NC_:1c,2                            \
+	--keyword=g_dngettext:2,3                     \
+	--add-comments=TRANSLATORS:                   \
+	--files-from=po/POTFILES.in                   \
+	--sort-output                                 \
+	--output=po/remmina.temp.pot                  \
+	--package-version="$GIT_TAG"                  \
+	--package-name="Remmina"                      \
 	--msgid-bugs-address="l10n@lists.remmina.org"
 
 cd "$REMMINATOP"/po || exit 1
