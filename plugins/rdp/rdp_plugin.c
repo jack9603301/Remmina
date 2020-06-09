@@ -248,10 +248,10 @@ static BOOL rf_process_event_queue(RemminaProtocolWidget *gp)
 			break;
 
 		case REMMINA_RDP_EVENT_TYPE_SEND_MONITOR_LAYOUT:
-			dcml = g_malloc0(sizeof(DISPLAY_CONTROL_MONITOR_LAYOUT));
+			dcml = calloc(rfi->settings->MonitorCount, sizeof(DISPLAY_CONTROL_MONITOR_LAYOUT));
 			if (!dcml)
 				break;
-			for (gint i = 0; i < rfi->settings->MonitorCount; ++i) {
+			for (gint i = 0; i < rfi->settings->MonitorCount; i++) {
 				dcml[i].Flags = (rfi->settings->MonitorDefArray[i].is_primary ? DISPLAY_CONTROL_MONITOR_PRIMARY :0);
 				dcml[i].Left = rfi->settings->MonitorDefArray[i].x;
 				dcml[i].Width = rfi->settings->MonitorDefArray[i].width;
