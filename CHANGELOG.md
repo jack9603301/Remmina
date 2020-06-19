@@ -1,7 +1,7 @@
 # Changelog
 
 ## v1.4.7
-[full changelog](https://gitlab.com/Remmina/Remmina/compare/v1.4.6...HEAD)
+[full changelog](https://gitlab.com/Remmina/Remmina/compare/v1.4.6...v1.4.7)
 
 * Allow compilation with libwinpr (freerdp) pre commit 8c5d96784d [!2083](https://gitlab.com/Remmina/Remmina/merge_requests/2083) *@giox069*
 * Bug fixing v1.4.6 [!2082](https://gitlab.com/Remmina/Remmina/merge_requests/2082) *@antenore*
