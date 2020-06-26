@@ -346,6 +346,7 @@ static gboolean remmina_rdp_event_delayed_monitor_layout(RemminaProtocolWidget* 
 	rfi->delayed_monitor_layout_handler = 0;
 	gint gpwidth, gpheight, prevwidth, prevheight;
 
+	REMMINA_PLUGIN_DEBUG("Sending preconfigured monitor layout");
 	if (rfi->dispcontext && rfi->dispcontext->SendMonitorLayout) {
 		remmina_rdp_settings_get_orientation_scale_prefs(&desktopOrientation, &desktopScaleFactor, &deviceScaleFactor);
 		gtk_widget_get_allocation(GTK_WIDGET(gp), &a);

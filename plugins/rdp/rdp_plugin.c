@@ -252,6 +252,7 @@ static BOOL rf_process_event_queue(RemminaProtocolWidget *gp)
 			if (!dcml)
 				break;
 			for (gint i = 0; i < rfi->settings->MonitorCount; i++) {
+				REMMINA_PLUGIN_DEBUG ("Sending diplay layout n° %d", i);
 				dcml[i].Flags = (rfi->settings->MonitorDefArray[i].is_primary ? DISPLAY_CONTROL_MONITOR_PRIMARY :0);
 				dcml[i].Left = rfi->settings->MonitorDefArray[i].x;
 				dcml[i].Width = rfi->settings->MonitorDefArray[i].width;
@@ -2247,7 +2248,7 @@ static const RemminaProtocolSetting remmina_rdp_basic_settings[] =
 	{ REMMINA_PROTOCOL_SETTING_TYPE_PASSWORD,   "password",	   N_("Password"), FALSE, NULL,		NULL },
 	{ REMMINA_PROTOCOL_SETTING_TYPE_TEXT,	    "domain",	   N_("Domain"),	FALSE, NULL,		NULL },
 	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK,	    "multimon",	   N_("Enable multi monitor"),	FALSE, NULL,	NULL },
-	{ REMMINA_PROTOCOL_SETTING_TYPE_TEXT,	    "monitorids",	   N_("Monitor ID list"),	FALSE, NULL,	N_("Comma separated list of monitor IDs (0,1,2,4)") },
+	{ REMMINA_PROTOCOL_SETTING_TYPE_TEXT,	    "monitorids",  N_("Monitor ID list"),	FALSE, NULL,	N_("Comma separated list of monitor IDs (0,1,2,4)") },
 	{ REMMINA_PROTOCOL_SETTING_TYPE_RESOLUTION, "resolution",  NULL,		FALSE, NULL,		NULL },
 	{ REMMINA_PROTOCOL_SETTING_TYPE_SELECT,	    "colordepth",  N_("Colour depth"),	FALSE, colordepth_list, NULL },
 	{ REMMINA_PROTOCOL_SETTING_TYPE_FOLDER,	    "sharefolder", N_("Share folder"),	FALSE, NULL,		NULL },
