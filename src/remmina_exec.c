@@ -223,7 +223,7 @@ void remmina_exec_command(RemminaCommandType command, const gchar* data)
 	gchar **protocolserver;
 	gchar **userat;
 	gchar **userpass;
-	gchar **rdpuserdomain;
+	gchar **rdpdomainuser;
 	gchar **vncserverquery;
 	gchar **vncparams;
 	gchar **vncparam;
@@ -366,12 +366,12 @@ void remmina_exec_command(RemminaCommandType command, const gchar* data)
 					
 					// Check for domain\user
 					if(strstr(user, "\\") != NULL) {
-						rdpuserdomain = g_strsplit(user, "\\", 2);
-						remmina_file_set_string(remminafile, "domain", rdpuserdomain[0]);
+						rdpdomainuser = g_strsplit(user, "\\", 2);
+						remmina_file_set_string(remminafile, "domain", rdpdomainuser[0]);
 						g_free(user);
-						user = g_strdup(rdpuserdomain[1]);
+						user = g_strdup(rdpdomainuser[1]);
 					}
-					
+
 					remmina_file_set_string(remminafile, "username", user);
 					g_free(user);
 					g_free(server);
