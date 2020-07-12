@@ -219,6 +219,17 @@ void remmina_exec_command(RemminaCommandType command, const gchar* data)
 	TRACE_CALL(__func__);
 	gchar* s1;
 	gchar* s2;
+	gchar *p;
+	gchar **protocolserver;
+	gchar **userat;
+	gchar **userpass;
+	gchar **vncserverquery;
+	gchar **vncparams;
+	gchar **vncparam;
+	gchar **vncparamkeyvalue;
+	gchar *protocol;
+	gchar *server;
+	RemminaFile *remminafile;
 	GtkWidget* widget;
 	GtkWindow* mainwindow;
 	GtkDialog* prefdialog;
@@ -274,7 +285,98 @@ void remmina_exec_command(RemminaCommandType command, const gchar* data)
 		 * we can implement multi profile connection:
 		 *    https://gitlab.com/Remmina/Remmina/issues/915
 		 */
-		rcw_open_from_filename(data);
+		protocol = NULL;
+		if (strncmp("rdp://", data, 6) == 0 || strncmp("RDP://", data, 6) == 0) {
+			protocol = "RDP";
+		}
+		else if (strncmp("spice://", data, 8) == 0 || strncmp("SPICE://", data, 8) == 0) {
+			protocol = "SPICE";
+		}
+		else if (strncmp("vnc://", data, 6) == 0 || strncmp("VNC://", data, 6) == 0) {
+			protocol = "VNC";
+		}
+
+		if(protocol != NULL)
+		{
+			protocolserver = g_strsplit(data, "://", 2);
+			server = g_strdup(protocolserver[1]);
+	
+			// Support loading .remmina files using handler
+			if ((p = strrchr(protocolserver[1], '.')) != NULL && g_strcmp0(p + 1, "remmina") == 0) {
+				g_strfreev(protocolserver);
+				rcw_open_from_filename(server);
+				break;
+			}
+
+			remminafile = remmina_file_new();
+			
+			if(strcmp(protocol, "VNC") == 0) {
+				// https://tools.ietf.org/html/rfc7869
+				// VncUsername, VncPassword and ColorLevel supported for vnc-params
+				// "vnc://" [ userinfo "@" ] [ host [ ":" port ] ] [ "?" [ vnc-params ] ]
+				if(strstr(server, "@") != NULL) {
+					userat = g_strsplit(server, "@", 2);			
+					if(strstr(userat[0], ":") != NULL) {
+						userpass = g_strsplit(userat[0], ":", 2);
+						remmina_file_set_string(remminafile, "username", userpass[0]);
+						remmina_file_set_string(remminafile, "password", userpass[1]);
+						g_strfreev(userpass);
+					} else {
+						remmina_file_set_string(remminafile, "username", userat[0]);
+					}	
+					g_free(server);
+					server = g_strdup(userat[1]);
+					g_strfreev(userat);
+				}
+				
+				if(strstr(server, "?") != NULL) {
+					vncserverquery = g_strsplit(server, "?", 2);
+					vncparams = g_strsplit(vncserverquery[1], "&", -1);
+					for (vncparam = vncparams; *vncparam; vncparam++) {
+						vncparamkeyvalue = g_strsplit(*vncparam, "=", -1);
+						if(strcmp(vncparamkeyvalue[0], "VncPassword") == 0) {
+							remmina_file_set_string(remminafile, "password", vncparamkeyvalue[1]);
+						} else if(strcmp(vncparamkeyvalue[0], "VncUsername") == 0) {
+							remmina_file_set_string(remminafile, "username", vncparamkeyvalue[1]);
+						} else if(strcmp(vncparamkeyvalue[0], "ColorLevel") == 0) {
+							remmina_file_set_string(remminafile, "colordepth", vncparamkeyvalue[1]);
+						}
+						g_strfreev(vncparamkeyvalue);
+					}
+					g_strfreev(vncparams);
+					g_free(server);
+					server = g_strdup(vncserverquery[0]);
+					g_strfreev(vncserverquery);
+				}
+			} else if(strcmp(protocol, "RDP") == 0) {
+				// https://tools.ietf.org/html/rfc3986
+				// "rdp://" [ userinfo "@" ] host [ ":" port ]
+				if(strstr(protocolserver[1], "@") != NULL) {
+					userat = g_strsplit(protocolserver[1], "@", 2);			
+					if(strstr(userat[0], ":") != NULL) {
+						userpass = g_strsplit(userat[0], ":", 2);
+						remmina_file_set_string(remminafile, "username", userpass[0]);
+						remmina_file_set_string(remminafile, "password", userpass[1]);
+						g_strfreev(userpass);
+					} else {
+						remmina_file_set_string(remminafile, "username", userat[0]);
+					}	
+					g_free(server);
+					server = g_strdup(userat[1]);
+					g_strfreev(userat);
+				}
+			}
+
+			remmina_file_set_string(remminafile, "server", server);
+			remmina_file_set_string(remminafile, "name", server);
+			remmina_file_set_string(remminafile, "sound", "off");
+			remmina_file_set_string(remminafile, "protocol", protocol);
+			g_free(server);
+			g_strfreev(protocolserver);
+			rcw_open_from_file(remminafile);
+		} else {
+			rcw_open_from_filename(data);
+		}
 		break;
 
 	case REMMINA_COMMAND_EDIT:
