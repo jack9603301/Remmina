@@ -292,28 +292,26 @@ void remmina_exec_command(RemminaCommandType command, const gchar* data)
 		 *    https://gitlab.com/Remmina/Remmina/issues/915
 		 */
 		protocol = NULL;
-		if (strncmp("rdp://", data, 6) == 0 || strncmp("RDP://", data, 6) == 0) {
-			protocol = "RDP";
-		}
-		else if (strncmp("spice://", data, 8) == 0 || strncmp("SPICE://", data, 8) == 0) {
-			protocol = "SPICE";
-		}
-		else if (strncmp("vnc://", data, 6) == 0 || strncmp("VNC://", data, 6) == 0) {
-			protocol = "VNC";
-		}
+        if (strncmp("rdp://", data, 6) == 0 || strncmp("RDP://", data, 6) == 0) {
+            protocol = "RDP";
+        } else if (strncmp("vnc://", data, 6) == 0 || strncmp("VNC://", data, 6) == 0) {
+            protocol = "VNC";
+        } else if (strncmp("spice://", data, 8) == 0 || strncmp("SPICE://", data, 8) == 0) {
+            protocol = "SPICE";
+        }
 
 		if(protocol != NULL)
 		{
 			protocolserver = g_strsplit(data, "://", 2);
 			server = g_strdup(protocolserver[1]);
-	
+
 			// Support loading .remmina files using handler
 			if ((p = strrchr(server, '.')) != NULL && g_strcmp0(p + 1, "remmina") == 0) {
 				g_strfreev(protocolserver);
                 temp = g_uri_unescape_string(server, NULL);
                 g_free(server);
                 server = temp;
-				rcw_open_from_filename(temp);
+				rcw_open_from_filename(server);
 				break;
 			}
 
@@ -361,7 +359,7 @@ void remmina_exec_command(RemminaCommandType command, const gchar* data)
 
                 // Check for username@server
 				if(strstr(server, "@") != NULL) {
-					userat = g_strsplit(server, "@", 2);			
+					userat = g_strsplit(server, "@", 2);
 
 					// Check for username:password
 					if(strstr(userat[0], ":") != NULL) {
@@ -377,7 +375,7 @@ void remmina_exec_command(RemminaCommandType command, const gchar* data)
 					    user = g_uri_unescape_string(userat[0], NULL);
 						remmina_file_set_string(remminafile, "username", user);
     					g_free(user);
-					}	
+					}
 					g_free(server);
 					server = g_strdup(userat[1]);
 					g_strfreev(userat);
