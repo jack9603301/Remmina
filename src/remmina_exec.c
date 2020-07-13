@@ -508,7 +508,7 @@ void remmina_exec_command(RemminaCommandType command, const gchar* data)
 		temp[i] = '\0';
 		s1 = remmina_crypt_encrypt(temp);
         g_print("\nEncrypted password: %s\n", s1);
-		g_print("\nExamples of encrypted password used in URI:\n");
+		g_print("\nExamples of encrypted passwords used in URI:\n");
 		g_print("rdp://username:%s@server\n", s1);
         g_print("vnc://username:%s@server\n", s1);
         g_print("vnc://server?VncUsername=user&VncPassword=%s\n", s1);
