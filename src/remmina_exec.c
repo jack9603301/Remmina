@@ -331,7 +331,7 @@ void remmina_exec_command(RemminaCommandType command, const gchar* data)
 						user = g_uri_unescape_string(userpass[0], NULL);
 						password = g_uri_unescape_string(userpass[1], NULL);
 
-                        // Try to decrypt password field if it contains =
+                        // Try to decrypt the password field if it contains =
 						temp = strrchr(password, '=') != NULL ? remmina_crypt_decrypt(password) : NULL;
                         if(temp != NULL) {
                             g_free(password);
