@@ -386,19 +386,19 @@ void remmina_exec_command(RemminaCommandType command, const gchar* data)
 					vncserverquery = g_strsplit(server, "?", 2);
 					vncparams = g_strsplit(vncserverquery[1], "&", -1);
 					for (vncparam = vncparams; *vncparam; vncparam++) {
-						vncparamkeyvalue = g_strsplit(*vncparam, "=", -1);
-                        value = g_uri_unescape_string(vncparamkeyvalue[1], NULL);
-
-                        if(strcmp(vncparamkeyvalue[0], "VncPassword") == 0) {
-                            remmina_file_set_string(remminafile, "password", value);
-						} else if(strcmp(vncparamkeyvalue[0], "VncUsername") == 0) {
-    						remmina_file_set_string(remminafile, "username", value);
-						} else if(strcmp(vncparamkeyvalue[0], "ColorLevel") == 0) {
-    						remmina_file_set_string(remminafile, "colordepth", value);
-						}
-
-                        g_free(value);
-						g_strfreev(vncparamkeyvalue);
+                        if(strstr(*vncparam, "=") != NULL) {
+                            vncparamkeyvalue = g_strsplit(*vncparam, "=", 2);
+                            value = g_uri_unescape_string(vncparamkeyvalue[1], NULL);
+                            if(strcmp(vncparamkeyvalue[0], "VncPassword") == 0) {
+                                remmina_file_set_string(remminafile, "password", value);
+                            } else if(strcmp(vncparamkeyvalue[0], "VncUsername") == 0) {
+                                remmina_file_set_string(remminafile, "username", value);
+                            } else if(strcmp(vncparamkeyvalue[0], "ColorLevel") == 0) {
+                                remmina_file_set_string(remminafile, "colordepth", value);
+                            }
+                            g_free(value);
+                            g_strfreev(vncparamkeyvalue);
+                        }
 					}
 					g_strfreev(vncparams);
 					g_free(server);
