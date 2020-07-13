@@ -218,28 +218,28 @@ static void remmina_exec_autostart_cb(RemminaFile *remminafile, gpointer user_da
 void remmina_exec_command(RemminaCommandType command, const gchar* data)
 {
 	TRACE_CALL(__func__);
-	gchar* s1;
-	gchar* s2;
+	gchar *s1;
+	gchar *s2;
 	gchar *p;
 	gchar **protocolserver;
 	gchar **userat;
 	gchar **userpass;
-	gchar **rdpdomainuser;
-	gchar **vncserverquery;
-	gchar **vncparams;
-	gchar **vncparam;
-	gchar **vncparamkeyvalue;
+	gchar **domainuser;
+	gchar **serverquery;
+	gchar **querystring;
+	gchar **querystringpart;
+	gchar **querystringpartkv;
 	gchar *protocol;
 	gchar *server;
 	gchar *user;
-    gchar *password;
-    gchar *value;
-    gchar *temp;
+	gchar *password;
+	gchar *value;
+	gchar *temp;
 	RemminaFile *remminafile;
-	GtkWidget* widget;
-	GtkWindow* mainwindow;
-	GtkDialog* prefdialog;
-	RemminaEntryPlugin* plugin;
+	GtkWidget *widget;
+	GtkWindow *mainwindow;
+	GtkDialog *prefdialog;
+	RemminaEntryPlugin *plugin;
 
 	mainwindow = remmina_main_get_window();
 
