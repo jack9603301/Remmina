@@ -72,6 +72,8 @@ Show the application's version
 Modify connection profile, require also \-\-set\-option
 .It --set-option \fIOPTION[=VALUE]\fR
 Set one or more profile settings, to be used with \-\-update\-profile
+.It --encrypt-password\fR
+Get encrypted password for use in URI
 .It --display\fR=\fIDISPLAY\fR
 X display to use
 .El
@@ -87,11 +89,16 @@ To connect using an exisitng connection profile use:
 To quick connect using URI:
 .RS
 .nf
-\fBremmina -c rdp://username:password@server\fP
-\fBremmina -c rdp://domain\\\\username:password@server\fP
-\fBremmina -c vnc://username:password@server\fP
-\fBremmina -c vnc://server?VncUsername=username\\&VncPassword=password\fP
+\fBremmina -c rdp://username@server\fP
+\fBremmina -c rdp://domain\\\\username@server\fP
+\fBremmina -c vnc://username@server\fP
+\fBremmina -c vnc://server?VncUsername=username\fP
 \fBremmina -c spice://server\fP
+
+A encrypted password can be provided to RDP and VNC quick connect via URI:
+rdp://username:password@server, vnc://username:password@server or vnc://server?VncUsername=user\\&VncPassword=password,
+Use \fBremmina --encrypt-password\fP to get encrypted password. Secret in ~/.config/remmina/remmina.pref is used as key.
+
 .fi
 .RE
 .Lp

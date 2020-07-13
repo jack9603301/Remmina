@@ -56,6 +56,7 @@
 #include "remmina_icon.h"
 #include "remmina/remmina_trace_calls.h"
 #include "remmina_file_manager.h"
+#include "remmina_crypt.h"
 
 #ifdef SNAP_BUILD
 #   define ISSNAP "- SNAP Build -"
@@ -240,7 +241,8 @@ void remmina_exec_command(RemminaCommandType command, const gchar* data)
 	GtkWindow *mainwindow;
 	GtkDialog *prefdialog;
 	RemminaEntryPlugin *plugin;
-
+    int i;
+    int ch;
 	mainwindow = remmina_main_get_window();
 
 	switch (command) {
@@ -328,7 +330,7 @@ void remmina_exec_command(RemminaCommandType command, const gchar* data)
 						userpass = g_strsplit(userat[0], ":", 2);
 						user = g_uri_unescape_string(userpass[0], NULL);
 						password = g_uri_unescape_string(userpass[1], NULL);
-						remmina_file_set_string(remminafile, "password", password);
+						remmina_file_set_string(remminafile, "password",  remmina_crypt_decrypt(password));
 						g_free(password);
 						g_strfreev(userpass);
 					} else {
@@ -365,7 +367,7 @@ void remmina_exec_command(RemminaCommandType command, const gchar* data)
 						remmina_file_set_string(remminafile, "username", user);
 						g_free(user);
 						password = g_uri_unescape_string(userpass[1], NULL);
-						remmina_file_set_string(remminafile, "password", password);
+						remmina_file_set_string(remminafile, "password", remmina_crypt_decrypt(password));
 						g_free(password);
 						g_strfreev(userpass);
 					} else {
@@ -387,7 +389,7 @@ void remmina_exec_command(RemminaCommandType command, const gchar* data)
 							querystringpartkv = g_strsplit(*querystringpart, "=", 2);
 							value = g_uri_unescape_string(querystringpartkv[1], NULL);
 							if (strcmp(querystringpartkv[0], "VncPassword") == 0)
-								remmina_file_set_string(remminafile, "password", value);
+								remmina_file_set_string(remminafile, "password",  remmina_crypt_decrypt(value));
 							else if (strcmp(querystringpartkv[0], "VncUsername") == 0)
 								remmina_file_set_string(remminafile, "username", value);
 							else if (strcmp(querystringpartkv[0], "ColorLevel") == 0)
@@ -469,6 +471,27 @@ void remmina_exec_command(RemminaCommandType command, const gchar* data)
 			gtk_widget_show(widget);
 			remmina_widget_pool_register(widget);
 		}
+		break;
+
+	case REMMINA_COMMAND_ENCRYPT_PASSWORD:
+		i = 0;
+		g_print("Enter password you want to encrypt: ");
+		temp = (char *)g_malloc(255 * sizeof(char));;
+		while ((ch = getchar()) != EOF && ch != '\n') {
+			if (i < 254) {
+				temp[i] = ch;
+				i++;
+			}
+		}
+		temp[i] = '\0';
+		s1 = remmina_crypt_encrypt(temp);
+        s2 = g_uri_escape_string(s1, NULL, TRUE);
+		g_print("\nEncrypted:\n");
+		g_print("rdp://username:%s@server\nvnc://:%s@server\n", s2, s2);
+		g_free(s1);
+		g_free(s2);
+		g_free(temp);
+		remmina_exec_exitremmina();
 		break;
 
 	case REMMINA_COMMAND_EXIT:

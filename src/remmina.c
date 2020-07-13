@@ -116,6 +116,7 @@ static GOptionEntry remmina_options[] =
 	{ "update-profile",   0,    0,			  G_OPTION_ARG_FILENAME,       NULL, N_("Modify connection profile (requires --set-option)"),				     NULL	},
 	// TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
 	{ "set-option",	      0,    0,			  G_OPTION_ARG_STRING_ARRAY,   NULL, N_("Set one or more profile settings, to be used with --update-profile"),		     NULL	},
+    { "encrypt-password",	      0,    0,			  G_OPTION_ARG_NONE,   NULL, N_("Encrypt password for use in URI"),		     NULL	},
 	{ NULL }
 };
 
@@ -226,7 +227,13 @@ static gint remmina_on_command_line(GApplication *app, GApplicationCommandLine *
 		executed = TRUE;
 	}
 
-	if (!executed)
+    if (g_variant_dict_lookup_value(opts, "encrypt-password", NULL)) {
+        remmina_exec_command(REMMINA_COMMAND_ENCRYPT_PASSWORD, NULL);
+        executed = TRUE;
+        status = 1;
+    }
+
+    if (!executed)
 		remmina_exec_command(REMMINA_COMMAND_MAIN, NULL);
 
 	return status;
