@@ -47,7 +47,7 @@ Show help options
 .It Fl a
 Show about dialog
 .It Fl c, -connect\fR=\fIFILE\fR
-Directly connect to desktop using options described by file, file type can be either .remmina or one supported by a file import capable plugin
+Directly connect to desktop using options described by file or supported URI (RDP, VNC or SPICE). File type can be either .remmina or one supported by a file import capable plugin
 .It Fl e, -edit\fR=\fIFILE\fR
 Open and edit desktop connection using options described by file, file type can be either .remmina or one supported by a file import capable plugin
 .It Fl k, -kiosk\fR
@@ -81,6 +81,17 @@ To connect using an exisitng connection profile use:
 .RS
 .nf
 \fBremmina -c FILE.remmina\fP
+.fi
+.RE
+.Lp
+To quick connect using URI:
+.RS
+.nf
+\fBremmina -c rdp://username:password@server\fP
+\fBremmina -c rdp://domain\\\\username:password@server\fP
+\fBremmina -c vnc://username:password@server\fP
+\fBremmina -c vnc://server?VncUsername=username\\&VncPassword=password\fP
+\fBremmina -c spice://server\fP
 .fi
 .RE
 .Lp

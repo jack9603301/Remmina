@@ -292,125 +292,121 @@ void remmina_exec_command(RemminaCommandType command, const gchar* data)
 		 *    https://gitlab.com/Remmina/Remmina/issues/915
 		 */
 		protocol = NULL;
-        if (strncmp("rdp://", data, 6) == 0 || strncmp("RDP://", data, 6) == 0) {
-            protocol = "RDP";
-        } else if (strncmp("vnc://", data, 6) == 0 || strncmp("VNC://", data, 6) == 0) {
-            protocol = "VNC";
-        } else if (strncmp("spice://", data, 8) == 0 || strncmp("SPICE://", data, 8) == 0) {
-            protocol = "SPICE";
-        }
+		if (strncmp("rdp://", data, 6) == 0 || strncmp("RDP://", data, 6) == 0)
+			protocol = "RDP";
+		else if (strncmp("vnc://", data, 6) == 0 || strncmp("VNC://", data, 6) == 0)
+			protocol = "VNC";
+		else if (strncmp("spice://", data, 8) == 0 || strncmp("SPICE://", data, 8) == 0)
+			protocol = "SPICE";
 
-		if(protocol != NULL)
-		{
+		if (protocol != NULL) {
 			protocolserver = g_strsplit(data, "://", 2);
 			server = g_strdup(protocolserver[1]);
 
 			// Support loading .remmina files using handler
 			if ((p = strrchr(server, '.')) != NULL && g_strcmp0(p + 1, "remmina") == 0) {
 				g_strfreev(protocolserver);
-                temp = g_uri_unescape_string(server, NULL);
-                g_free(server);
-                server = temp;
+				temp = g_uri_unescape_string(server, NULL);
+				g_free(server);
+				server = temp;
 				rcw_open_from_filename(server);
 				break;
 			}
 
 			remminafile = remmina_file_new();
 
-            if(strcmp(protocol, "RDP") == 0) {
-                // https://tools.ietf.org/html/rfc3986
-                // "rdp://" [ userinfo "@" ] host [ ":" port ]
+			if (strcmp(protocol, "RDP") == 0) {
+				// https://tools.ietf.org/html/rfc3986
+				// "rdp://" [ userinfo "@" ] host [ ":" port ]
 
-                // Check for username@server
-                if(strstr(server, "@") != NULL) {
-                    userat = g_strsplit(server, "@", 2);
+				// Check for username@server
+				if (strstr(server, "@") != NULL) {
+					userat = g_strsplit(server, "@", 2);
 
-                    // Check for username:password
-                    if(strstr(userat[0], ":") != NULL) {
-                        userpass = g_strsplit(userat[0], ":", 2);
-                        user = g_uri_unescape_string(userpass[0], NULL);
-                        password = g_uri_unescape_string(userpass[1], NULL);
-                        remmina_file_set_string(remminafile, "password", password);
-                        g_free(password);
-                        g_strfreev(userpass);
-                    } else {
-                        user = g_uri_unescape_string(userat[0], NULL);
-                    }
+					// Check for username:password
+					if (strstr(userat[0], ":") != NULL) {
+						userpass = g_strsplit(userat[0], ":", 2);
+						user = g_uri_unescape_string(userpass[0], NULL);
+						password = g_uri_unescape_string(userpass[1], NULL);
+						remmina_file_set_string(remminafile, "password", password);
+						g_free(password);
+						g_strfreev(userpass);
+					} else {
+						user = g_uri_unescape_string(userat[0], NULL);
+					}
 
-                    // Check for domain\user
-                    if(strstr(user, "\\") != NULL) {
-                        rdpdomainuser = g_strsplit(user, "\\", 2);
-                        remmina_file_set_string(remminafile, "domain", rdpdomainuser[0]);
-                        g_free(user);
-                        user = g_strdup(rdpdomainuser[1]);
-                    }
+					// Check for domain\user
+					if (strstr(user, "\\") != NULL) {
+						domainuser = g_strsplit(user, "\\", 2);
+						remmina_file_set_string(remminafile, "domain", domainuser[0]);
+						g_free(user);
+						user = g_strdup(domainuser[1]);
+					}
 
-                    remmina_file_set_string(remminafile, "username", user);
-                    g_free(user);
-                    g_free(server);
-                    server = g_strdup(userat[1]);
-                    g_strfreev(userat);
-                }
-            }
-            else if(strcmp(protocol, "VNC") == 0) {
+					remmina_file_set_string(remminafile, "username", user);
+					g_free(user);
+					g_free(server);
+					server = g_strdup(userat[1]);
+					g_strfreev(userat);
+				}
+			} else if (strcmp(protocol, "VNC") == 0) {
 				// https://tools.ietf.org/html/rfc7869
 				// VncUsername, VncPassword and ColorLevel supported for vnc-params
 				// "vnc://" [ userinfo "@" ] [ host [ ":" port ] ] [ "?" [ vnc-params ] ]
 
-                // Check for username@server
-				if(strstr(server, "@") != NULL) {
+				// Check for username@server
+				if (strstr(server, "@") != NULL) {
 					userat = g_strsplit(server, "@", 2);
 
 					// Check for username:password
-					if(strstr(userat[0], ":") != NULL) {
+					if (strstr(userat[0], ":") != NULL) {
 						userpass = g_strsplit(userat[0], ":", 2);
 						user = g_uri_unescape_string(userpass[0], NULL);
 						remmina_file_set_string(remminafile, "username", user);
 						g_free(user);
-                        password = g_uri_unescape_string(userpass[1], NULL);
+						password = g_uri_unescape_string(userpass[1], NULL);
 						remmina_file_set_string(remminafile, "password", password);
-                        g_free(password);
+						g_free(password);
 						g_strfreev(userpass);
 					} else {
-					    user = g_uri_unescape_string(userat[0], NULL);
+						user = g_uri_unescape_string(userat[0], NULL);
 						remmina_file_set_string(remminafile, "username", user);
-    					g_free(user);
+						g_free(user);
 					}
 					g_free(server);
 					server = g_strdup(userat[1]);
 					g_strfreev(userat);
 				}
 
-                // Check for query string parameters
-				if(strstr(server, "?") != NULL) {
-					vncserverquery = g_strsplit(server, "?", 2);
-					vncparams = g_strsplit(vncserverquery[1], "&", -1);
-					for (vncparam = vncparams; *vncparam; vncparam++) {
-                        if(strstr(*vncparam, "=") != NULL) {
-                            vncparamkeyvalue = g_strsplit(*vncparam, "=", 2);
-                            value = g_uri_unescape_string(vncparamkeyvalue[1], NULL);
-                            if(strcmp(vncparamkeyvalue[0], "VncPassword") == 0) {
-                                remmina_file_set_string(remminafile, "password", value);
-                            } else if(strcmp(vncparamkeyvalue[0], "VncUsername") == 0) {
-                                remmina_file_set_string(remminafile, "username", value);
-                            } else if(strcmp(vncparamkeyvalue[0], "ColorLevel") == 0) {
-                                remmina_file_set_string(remminafile, "colordepth", value);
-                            }
-                            g_free(value);
-                            g_strfreev(vncparamkeyvalue);
-                        }
+				// Check for query string parameters
+				if (strstr(server, "?") != NULL) {
+					serverquery = g_strsplit(server, "?", 2);
+					querystring = g_strsplit(serverquery[1], "&", -1);
+					for (querystringpart = querystring; *querystringpart; querystringpart++) {
+						if (strstr(*querystringpart, "=") != NULL) {
+							querystringpartkv = g_strsplit(*querystringpart, "=", 2);
+							value = g_uri_unescape_string(querystringpartkv[1], NULL);
+							if (strcmp(querystringpartkv[0], "VncPassword") == 0)
+								remmina_file_set_string(remminafile, "password", value);
+							else if (strcmp(querystringpartkv[0], "VncUsername") == 0)
+								remmina_file_set_string(remminafile, "username", value);
+							else if (strcmp(querystringpartkv[0], "ColorLevel") == 0)
+								remmina_file_set_string(remminafile, "colordepth", value);
+							g_free(value);
+							g_strfreev(querystringpartkv);
+						}
 					}
-					g_strfreev(vncparams);
+					g_strfreev(querystring);
 					g_free(server);
-					server = g_strdup(vncserverquery[0]);
-					g_strfreev(vncserverquery);
+					server = g_strdup(serverquery[0]);
+					g_strfreev(serverquery);
 				}
 			}
 
-            // Unescape server
-            temp = g_uri_unescape_string(server, NULL);
-            g_free(server);
-            server = temp;
+			// Unescape server
+			temp = g_uri_unescape_string(server, NULL);
+			g_free(server);
+			server = temp;
 
 			remmina_file_set_string(remminafile, "server", server);
 			remmina_file_set_string(remminafile, "name", server);
@@ -484,4 +480,3 @@ void remmina_exec_command(RemminaCommandType command, const gchar* data)
 		break;
 	}
 }
-
