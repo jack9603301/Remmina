@@ -497,7 +497,7 @@ void remmina_exec_command(RemminaCommandType command, const gchar* data)
 
 	case REMMINA_COMMAND_ENCRYPT_PASSWORD:
 		i = 0;
-		g_print("Enter password you want to encrypt: ");
+		g_print("Enter the password you want to encrypt: ");
 		temp = (char *)g_malloc(255 * sizeof(char));;
 		while ((ch = getchar()) != EOF && ch != '\n') {
 			if (i < 254) {
