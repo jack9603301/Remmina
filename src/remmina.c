@@ -227,13 +227,13 @@ static gint remmina_on_command_line(GApplication *app, GApplicationCommandLine *
 		executed = TRUE;
 	}
 
-    if (g_variant_dict_lookup_value(opts, "encrypt-password", NULL)) {
-        remmina_exec_command(REMMINA_COMMAND_ENCRYPT_PASSWORD, NULL);
-        executed = TRUE;
-        status = 1;
-    }
+	if (g_variant_dict_lookup_value(opts, "encrypt-password", NULL)) {
+		remmina_exec_command(REMMINA_COMMAND_ENCRYPT_PASSWORD, NULL);
+		executed = TRUE;
+		status = 1;
+	}
 
-    if (!executed)
+	if (!executed)
 		remmina_exec_command(REMMINA_COMMAND_MAIN, NULL);
 
 	return status;
