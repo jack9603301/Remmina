@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: remmina\n"
 "Report-Msgid-Bugs-To: l10n@lists.remmina.org\n"
-"POT-Creation-Date: 2020-07-10 17:42+0000\n"
-"PO-Revision-Date: 2020-06-16 15:49+0000\n"
+"POT-Creation-Date: 2020-07-14 07:25+0000\n"
+"PO-Revision-Date: 2020-07-12 20:41+0000\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <https://hosted.weblate.org/projects/remmina/remmina/"
 "he/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Weblate 4.1.1-dev\n"
+"X-Generator: Weblate 4.2-dev\n"
 "X-Launchpad-Export-Date: 2014-09-20 14:24+0000\n"
 
 #: src/remmina_protocol_widget.c:275
@@ -136,7 +136,7 @@ msgstr "שרת"
 msgid "Install the %s protocol plugin first."
 msgstr "תחילה יש להתקין את תוסף הפרוטוקול %s."
 
-#: src/remmina_exec.c:324
+#: src/remmina_exec.c:490
 #, c-format
 msgid "Plugin %s is not registered."
 msgstr "התוסף %s לא נרשם."
@@ -520,15 +520,32 @@ msgid "Show 'About'"
 msgstr "Show 'About'"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:86 src/remmina.c:88
+#: src/remmina.c:86
+#, fuzzy
+#| msgid ""
+#| "Connect to desktop described in file (.remmina or type supported by "
+#| "plugin)"
 msgid ""
-"Connect to desktop described in file (.remmina or type supported by plugin)"
+"Connect either to a desktop described in a file (.remmina or a filetype "
+"supported by a plugin) or a supported URI (RDP, VNC or SPICE)"
 msgstr ""
 "Connect to desktop described in file (.remmina or type supported by plugin)"
 
 #: src/remmina.c:86 src/remmina.c:88 src/remmina.c:90
 msgid "FILE"
 msgstr "FILE"
+
+#. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
+#: src/remmina.c:88
+#, fuzzy
+#| msgid ""
+#| "Connect to desktop described in file (.remmina or type supported by "
+#| "plugin)"
+msgid ""
+"Connect to a desktop described in a file (.remmina or a type supported by a "
+"plugin)"
+msgstr ""
+"Connect to desktop described in file (.remmina or type supported by plugin)"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
 #: src/remmina.c:90
@@ -605,6 +622,12 @@ msgstr "Modify connection profile (requires --set-option)"
 #: src/remmina.c:118
 msgid "Set one or more profile settings, to be used with --update-profile"
 msgstr "Set one or more profile settings, to be used with --update-profile"
+
+#: src/remmina.c:119
+#, fuzzy
+#| msgid "Enter VNC password"
+msgid "Encrypt a password"
+msgstr "נא להקליד ססמת VNC"
 
 #: src/remmina_icon.c:139
 msgid "Open Main Window"
@@ -2074,6 +2097,9 @@ msgid ""
 "connection.\n"
 "The highest possible value is 600000 ms (10 minutes)\n"
 msgstr ""
+"הגדרות מתקדמות לקישורים אטיים:\n"
+"יש לערוך את משך תפוגת החיבור אם מופיעים כשלי ניתוק עקב המתנה ממושכת.\n"
+"הערך הגבוה ביותר המותר הוא 600000 מילישניות שהם 10 דקות\n"
 
 #: plugins/rdp/rdp_plugin.c:2243
 msgid "Security protocol negotiation"
@@ -2092,10 +2118,8 @@ msgid "Redirect local microphone"
 msgstr "הפניית מיקרופון מקומי"
 
 #: plugins/rdp/rdp_plugin.c:2247
-#, fuzzy
-#| msgid "Connecting to \"%s\"…"
 msgid "Connection timeout in ms"
-msgstr "מתבצעת התחברות אל „%s”…"
+msgstr "משך המתנה לחיבור במילישניות"
 
 #: plugins/rdp/rdp_plugin.c:2248
 msgid "Remote Desktop Gateway server"
