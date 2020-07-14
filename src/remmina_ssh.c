@@ -641,7 +641,7 @@ remmina_ssh_auth_gui(RemminaSSH *ssh, RemminaProtocolWidget *gp, RemminaFile *re
 			ret = remmina_protocol_widget_panel_auth(gp,
 								 (disablepasswordstoring ? 0 : REMMINA_MESSAGE_PANEL_FLAG_SAVEPASSWORD)
 								 | REMMINA_MESSAGE_PANEL_FLAG_USERNAME
-								 | (remminafile->filename == NULL && !ssh->is_tunnel ? 0 : REMMINA_MESSAGE_PANEL_FLAG_USERNAME_READONLY),
+								 | (!ssh->is_tunnel ? 0 : REMMINA_MESSAGE_PANEL_FLAG_USERNAME_READONLY),
 								 ssh->is_tunnel ? _("SSH tunnel credentials") : _("SSH credentials"),
 								 current_user,
 								 current_pwd,
@@ -658,8 +658,12 @@ remmina_ssh_auth_gui(RemminaSSH *ssh, RemminaProtocolWidget *gp, RemminaFile *re
 				else
 					remmina_file_set_string(remminafile, pwdfkey, NULL);
 				
-				if(remminafile->filename == NULL && !ssh->is_tunnel && g_strcmp0(current_user, new_user) != 0) {
+				if(!ssh->is_tunnel) {
 					remmina_file_set_string(remminafile, "username", new_user);
+					if(ssh->user != NULL) {
+						free(ssh->user);
+					}
+					ssh->user = g_strdup(new_user);
 					if(ssh->password != NULL) {
 						free(ssh->password);
 					}
