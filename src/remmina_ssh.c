@@ -660,11 +660,11 @@ remmina_ssh_auth_gui(RemminaSSH *ssh, RemminaProtocolWidget *gp, RemminaFile *re
 					current_user = remmina_protocol_widget_get_username(gp);
 					remmina_file_set_string(remminafile, "username", current_user);
 					if(ssh->user != NULL) {
-						free(ssh->user);
+						g_free(ssh->user);
 					}
 					ssh->user = g_strdup(current_user);
 					if(ssh->password != NULL) {
-						free(ssh->password);
+						g_free(ssh->password);
 					}
 					ssh->password = g_strdup(current_pwd);
 					g_free(current_user);
