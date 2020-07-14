@@ -463,6 +463,8 @@ remmina_ssh_auth_gui(RemminaSSH *ssh, RemminaProtocolWidget *gp, RemminaFile *re
 	gchar *pwdfkey;
 	gchar *message;
 	gchar *current_pwd;
+	gchar *current_user;
+	gchar *new_user;
 	gint ret;
 	size_t len;
 	guchar *pubkey;
@@ -635,24 +637,43 @@ remmina_ssh_auth_gui(RemminaSSH *ssh, RemminaProtocolWidget *gp, RemminaFile *re
 			/* Ask for user credentials. Username cannot be changed here,
 			 * because we already sent it when opening the connection */
 			g_debug("Showing panel for password\n");
+			current_user = g_strdup(remmina_file_get_string(remminafile, ssh->is_tunnel ? "ssh_tunnel_username" : "username"));
 			ret = remmina_protocol_widget_panel_auth(gp,
 								 (disablepasswordstoring ? 0 : REMMINA_MESSAGE_PANEL_FLAG_SAVEPASSWORD)
-								 | REMMINA_MESSAGE_PANEL_FLAG_USERNAME | REMMINA_MESSAGE_PANEL_FLAG_USERNAME_READONLY,
+								 | REMMINA_MESSAGE_PANEL_FLAG_USERNAME
+								 | (remminafile->filename == NULL && !ssh->is_tunnel ? 0 : REMMINA_MESSAGE_PANEL_FLAG_USERNAME_READONLY),
 								 ssh->is_tunnel ? _("SSH tunnel credentials") : _("SSH credentials"),
-								 remmina_file_get_string(remminafile, ssh->is_tunnel ? "ssh_tunnel_username" : "username"),
-								 remmina_file_get_string(remminafile, pwdfkey),
+								 current_user,
+								 current_pwd,
 								 NULL,
 								 NULL);
 			if (ret == GTK_RESPONSE_OK) {
 				g_free(current_pwd);
 				current_pwd = remmina_protocol_widget_get_password(gp);
+				new_user = remmina_protocol_widget_get_username(gp);
+
 				save_password = remmina_protocol_widget_get_savepassword(gp);
 				if (save_password)
 					remmina_file_set_string(remminafile, pwdfkey, current_pwd);
 				else
 					remmina_file_set_string(remminafile, pwdfkey, NULL);
+				
+				if(remminafile->filename == NULL && !ssh->is_tunnel && g_strcmp0(current_user, new_user) != 0) {
+					remmina_file_set_string(remminafile, "username", new_user);
+					if(ssh->password != NULL) {
+						free(ssh->password);
+					}
+					ssh->password = g_strdup(current_pwd);
+					g_free(current_user);
+					g_free(new_user);
+					return REMMINA_SSH_AUTH_RECONNECT;
+				}
+				g_free(current_user);
+				g_free(new_user);
+
 			} else {
 				g_free(current_pwd);
+				g_free(current_user);
 				return REMMINA_SSH_AUTH_USERCANCEL;
 			}
 		} else {
