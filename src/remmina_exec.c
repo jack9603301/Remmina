@@ -332,7 +332,7 @@ void remmina_exec_command(RemminaCommandType command, const gchar* data)
 						password = g_uri_unescape_string(userpass[1], NULL);
 
 						// Try to decrypt the password field if it contains =
-						temp = strrchr(password, '=') != NULL ? remmina_crypt_decrypt(password) : NULL;
+						temp = password != NULL && strrchr(password, '=') != NULL ? remmina_crypt_decrypt(password) : NULL;
 						if (temp != NULL) {
 							g_free(password);
 							password = temp;
@@ -376,7 +376,7 @@ void remmina_exec_command(RemminaCommandType command, const gchar* data)
 						password = g_uri_unescape_string(userpass[1], NULL);
 
 						// Try to decrypt password field if it contains =
-						temp = strrchr(password, '=') != NULL ? remmina_crypt_decrypt(password) : NULL;
+						temp = password != NULL && strrchr(password, '=') != NULL ? remmina_crypt_decrypt(password) : NULL;
 						if (temp != NULL) {
 							g_free(password);
 							password = temp;
@@ -404,12 +404,12 @@ void remmina_exec_command(RemminaCommandType command, const gchar* data)
 							value = g_uri_unescape_string(querystringpartkv[1], NULL);
 							if (strcmp(querystringpartkv[0], "VncPassword") == 0) {
 								// Try to decrypt password field if it contains =
-								temp = strstr(value, '=') != NULL ? remmina_crypt_decrypt(value) : NULL;
+								temp = value != NULL && strrchr(value, '=') != NULL ? remmina_crypt_decrypt(value) : NULL;
 								if (temp != NULL) {
 									g_free(value);
 									value = temp;
 								}
-								remmina_file_set_string(remminafile, "password", remmina_crypt_decrypt(value));
+								remmina_file_set_string(remminafile, "password", value);
 							} else if (strcmp(querystringpartkv[0], "VncUsername") == 0) {
 								remmina_file_set_string(remminafile, "username", value);
 							} else if (strcmp(querystringpartkv[0], "ColorLevel") == 0) {
@@ -497,7 +497,7 @@ void remmina_exec_command(RemminaCommandType command, const gchar* data)
 	case REMMINA_COMMAND_ENCRYPT_PASSWORD:
 		i = 0;
 		g_print("Enter the password you want to encrypt: ");
-		temp = (char *)g_malloc(255 * sizeof(char));;
+		temp = (char *)g_malloc(255 * sizeof(char));
 		while ((ch = getchar()) != EOF && ch != '\n') {
 			if (i < 254) {
 				temp[i] = ch;
@@ -507,11 +507,11 @@ void remmina_exec_command(RemminaCommandType command, const gchar* data)
 		temp[i] = '\0';
 		s1 = remmina_crypt_encrypt(temp);
 		s2 = g_uri_escape_string(s1, NULL, TRUE);
-		g_print("\nEncrypted password: %s\n", s1);
-		g_print("\nExamples of encrypted passwords used in URIs:\n");
+		g_print("\nEncrypted password: %s\n\n", s1);
+		g_print("Usage:\n");
 		g_print("rdp://username:%s@server\n", s1);
 		g_print("vnc://username:%s@server\n", s1);
-		g_print("vnc://server?VncUsername=user&VncPassword=%s\n", s2);
+		g_print("vnc://server?VncUsername=user\\&VncPassword=%s\n", s2);
 		g_free(s1);
 		g_free(s2);
 		g_free(temp);

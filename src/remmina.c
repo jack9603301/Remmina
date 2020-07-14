@@ -116,7 +116,7 @@ static GOptionEntry remmina_options[] =
 	{ "update-profile",   0,    0,			  G_OPTION_ARG_FILENAME,       NULL, N_("Modify connection profile (requires --set-option)"),				     NULL	},
 	// TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
 	{ "set-option",	      0,    0,			  G_OPTION_ARG_STRING_ARRAY,   NULL, N_("Set one or more profile settings, to be used with --update-profile"),		     NULL	},
-    { "encrypt-password",	      0,    0,			  G_OPTION_ARG_NONE,   NULL, N_("Encrypt the password for use in a URI"),		     NULL	},
+	{ "encrypt-password", 0,    0,			  G_OPTION_ARG_NONE,	       NULL, N_("Encrypt a password"),												  NULL		 },
 	{ NULL }
 };
 
