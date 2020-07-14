@@ -464,7 +464,6 @@ remmina_ssh_auth_gui(RemminaSSH *ssh, RemminaProtocolWidget *gp, RemminaFile *re
 	gchar *message;
 	gchar *current_pwd;
 	gchar *current_user;
-	gchar *new_user;
 	gint ret;
 	size_t len;
 	guchar *pubkey;
@@ -650,7 +649,8 @@ remmina_ssh_auth_gui(RemminaSSH *ssh, RemminaProtocolWidget *gp, RemminaFile *re
 			if (ret == GTK_RESPONSE_OK) {
 				g_free(current_pwd);
 				current_pwd = remmina_protocol_widget_get_password(gp);
-				new_user = remmina_protocol_widget_get_username(gp);
+				g_free(current_user);
+				current_user = remmina_protocol_widget_get_username(gp);
 
 				save_password = remmina_protocol_widget_get_savepassword(gp);
 				if (save_password)
@@ -659,21 +659,19 @@ remmina_ssh_auth_gui(RemminaSSH *ssh, RemminaProtocolWidget *gp, RemminaFile *re
 					remmina_file_set_string(remminafile, pwdfkey, NULL);
 				
 				if(!ssh->is_tunnel) {
-					remmina_file_set_string(remminafile, "username", new_user);
+					remmina_file_set_string(remminafile, "username", current_user);
 					if(ssh->user != NULL) {
 						free(ssh->user);
 					}
-					ssh->user = g_strdup(new_user);
+					ssh->user = g_strdup(current_user);
 					if(ssh->password != NULL) {
 						free(ssh->password);
 					}
 					ssh->password = g_strdup(current_pwd);
 					g_free(current_user);
-					g_free(new_user);
 					return REMMINA_SSH_AUTH_RECONNECT;
 				}
 				g_free(current_user);
-				g_free(new_user);
 
 			} else {
 				g_free(current_pwd);
