@@ -43,7 +43,7 @@ void remmina_rdp_monitor_get (rfContext *rfi, gchar **monitorids, guint32 *maxwi
 
 	gint n_monitors;
 	gint scale;
-	gint count;
+	gint count = 0;
 	gboolean primary_found = FALSE;
 	/* TODO (max monitors * 2) */
 	static gchar buffer[256];
@@ -75,6 +75,10 @@ void remmina_rdp_monitor_get (rfContext *rfi, gchar **monitorids, guint32 *maxwi
 		rfi->settings->MonitorDefArray[i].y = geometry.x;
 		rfi->settings->MonitorDefArray[i].width = geometry.width;
 		rfi->settings->MonitorDefArray[i].height = geometry.height;
+		rfi->settings->MonitorDefArray[i].attributes.physicalHeight = gdk_monitor_get_height_mm (monitor);
+		REMMINA_PLUGIN_DEBUG("Monitor n %d physical  height: %d", i, rfi->settings->MonitorDefArray[i].attributes.physicalHeight);
+		rfi->settings->MonitorDefArray[i].attributes.physicalWidth = gdk_monitor_get_width_mm (monitor);
+		REMMINA_PLUGIN_DEBUG("Monitor n %d physical  width: %d", i, rfi->settings->MonitorDefArray[i].attributes.physicalWidth);
 		rfi->settings->MonitorDefArray[i].orig_screen = i;
 		if (gdk_monitor_is_primary(monitor)) {
 			rfi->settings->MonitorDefArray[i].is_primary = TRUE;
@@ -103,7 +107,6 @@ void remmina_rdp_monitor_get (rfContext *rfi, gchar **monitorids, guint32 *maxwi
 		REMMINA_PLUGIN_DEBUG("maxw and maxh: %ux%u", *maxwidth, *maxheight);
 #endif
 		gdk_rectangle_union(&tempgeom, &geometry, &destgeom);
-		//tempgeom = destgeom;
 		memcpy(&tempgeom, &destgeom, sizeof tempgeom);
 		count++;
 	}
