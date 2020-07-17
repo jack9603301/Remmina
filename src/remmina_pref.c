@@ -302,6 +302,12 @@ void remmina_pref_init(void)
 	else
 		remmina_pref.fullscreen_on_auto = TRUE;
 
+	if (g_key_file_has_key(gkeyfile, "remmina_pref", "fullscreen_on_all", NULL))
+		remmina_pref.fullscreen_on_all = g_key_file_get_boolean(gkeyfile, "remmina_pref", "fullscreen_on_all", NULL);
+	else
+		remmina_pref.fullscreen_on_all = FALSE;
+
+
 	if (g_key_file_has_key(gkeyfile, "remmina_pref", "monitors", NULL))
 		remmina_pref.monitors = g_key_file_get_string(gkeyfile, "remmina_pref", "fullscreen_on_auto", NULL);
 	else
@@ -767,6 +773,7 @@ gboolean remmina_pref_save(void)
 	g_key_file_set_boolean(gkeyfile, "remmina_pref", "prevent_snap_welcome_message", remmina_pref.prevent_snap_welcome_message);
 	g_key_file_set_string(gkeyfile, "remmina_pref", "last_quickconnect_protocol", remmina_pref.last_quickconnect_protocol);
 	g_key_file_set_boolean(gkeyfile, "remmina_pref", "fullscreen_on_auto", remmina_pref.fullscreen_on_auto);
+	g_key_file_set_boolean(gkeyfile, "remmina_pref", "fullscreen_on_all", remmina_pref.fullscreen_on_all);
 	g_key_file_set_boolean(gkeyfile, "remmina_pref", "always_show_tab", remmina_pref.always_show_tab);
 	g_key_file_set_boolean(gkeyfile, "remmina_pref", "hide_connection_toolbar", remmina_pref.hide_connection_toolbar);
 	g_key_file_set_boolean(gkeyfile, "remmina_pref", "hide_searchbar", remmina_pref.hide_searchbar);

@@ -128,6 +128,7 @@ typedef struct _RemminaPref {
 	gchar *			keystrokes;
 	/* In RemminaPrefDialog appearance tab */
 	gboolean		fullscreen_on_auto;
+	gboolean		fullscreen_on_all;
 	gchar *			monitors;
 	gboolean		always_show_tab;
 	gboolean		hide_connection_toolbar;

@@ -3155,6 +3155,8 @@ static gboolean rcw_map_event_fullscreen(GtkWidget *widget, GdkEvent *event, gpo
 
 	target_monitor = GPOINTER_TO_INT(data);
 
+	if (remmina_pref.fullscreen_on_all)
+		gdk_window_set_fullscreen_mode (gtk_widget_get_window(widget), GDK_FULLSCREEN_ON_ALL_MONITORS);
 #if GTK_CHECK_VERSION(3, 18, 0)
 	if (remmina_pref.fullscreen_on_auto) {
 		if (target_monitor == FULL_SCREEN_TARGET_MONITOR_UNDEFINED)
@@ -3164,7 +3166,6 @@ static gboolean rcw_map_event_fullscreen(GtkWidget *widget, GdkEvent *event, gpo
 							 target_monitor);
 	} else {
 		REMMINA_DEBUG("Fullscreen managed by WM or by the user, as per settings");
-		gdk_window_set_fullscreen_mode (gtk_widget_get_window(widget), GDK_FULLSCREEN_ON_ALL_MONITORS);
 		gtk_window_fullscreen(GTK_WINDOW(widget));
 	}
 #else
