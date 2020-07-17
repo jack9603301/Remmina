@@ -1631,20 +1631,20 @@ static gboolean remmina_rdp_main(RemminaProtocolWidget *gp)
 			guint32 i;
 			items = g_strsplit(monitorids, ",", -1);
 			rfi->settings->NumMonitorIds = g_strv_length(items);
-			g_debug("NumMonitorIds: %d", rfi->settings->NumMonitorIds);
+			REMMINA_PLUGIN_DEBUG("NumMonitorIds: %d", rfi->settings->NumMonitorIds);
 			for (i = 0; i < g_strv_length(items); i++) {
 				rfi->settings->MonitorIds[i] = (guint32)atoi(items[i]);
-				g_debug ("Added monitor with id %d", rfi->settings->MonitorIds[i]);
+				REMMINA_PLUGIN_DEBUG ("Added monitor with id %d", rfi->settings->MonitorIds[i]);
 			}
 			g_strfreev(items);
 		}
 		if (maxwidth && maxheight) {
-			g_debug ("Setting DesktopWidth and DesktopHeight to: %dx%d", maxwidth, maxheight);
+			REMMINA_PLUGIN_DEBUG ("Setting DesktopWidth and DesktopHeight to: %dx%d", maxwidth, maxheight);
 			rfi->settings->DesktopWidth = maxwidth;
 			rfi->settings->DesktopHeight = maxheight;
-			g_debug ("DesktopWidth and DesktopHeight set to: %dx%d", rfi->settings->DesktopWidth, rfi->settings->DesktopHeight);
+			REMMINA_PLUGIN_DEBUG ("DesktopWidth and DesktopHeight set to: %dx%d", rfi->settings->DesktopWidth, rfi->settings->DesktopHeight);
 		} else
-			g_debug("Cannot set Desktop Size, we are using the previously set values: %dx%d", rfi->settings->DesktopWidth, rfi->settings->DesktopHeight);
+			REMMINA_PLUGIN_DEBUG("Cannot set Desktop Size, we are using the previously set values: %dx%d", rfi->settings->DesktopWidth, rfi->settings->DesktopHeight);
 		remmina_plugin_service->protocol_plugin_set_width(gp, rfi->settings->DesktopWidth);
 		remmina_plugin_service->protocol_plugin_set_height(gp, rfi->settings->DesktopHeight);
 	}
