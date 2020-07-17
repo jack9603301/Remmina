@@ -60,6 +60,7 @@ typedef struct _RemminaPrefDialog {
 	GtkEntry *		unlock_repassword;
 	GtkCheckButton *	checkbutton_options_save_settings;
 	GtkCheckButton *	checkbutton_appearance_fullscreen_on_auto;
+	GtkCheckButton *	checkbutton_appearance_fullscreen_on_all;
 	GtkCheckButton *	checkbutton_appearance_show_tabs;
 	GtkCheckButton *	checkbutton_appearance_hide_toolbar;
 	GtkCheckButton *	checkbutton_appearance_hide_searchbar;
