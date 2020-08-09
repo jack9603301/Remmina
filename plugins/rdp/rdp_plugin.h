@@ -158,11 +158,16 @@ struct remmina_plugin_rdp_event {
 			CLIPRDR_FORMAT_DATA_REQUEST *pFormatDataRequest;
 		} clipboard_formatdatarequest;
 		struct {
+			gint    Flags;
+			gint    Left;
+			gint    Top;
 			gint	width;
 			gint	height;
 			gint	desktopOrientation;
 			gint	desktopScaleFactor;
 			gint	deviceScaleFactor;
+			gint    PhysicalWidth;
+			gint    PhysicalHeight;
 		} monitor_layout;
 	};
 };
