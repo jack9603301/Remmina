@@ -97,20 +97,9 @@ void remmina_rdp_monitor_get (rfContext *rfi, gchar **monitorids, guint32 *maxwi
 		else
 			g_sprintf(buffer, "%s,%d", buffer, i);
 		REMMINA_PLUGIN_DEBUG("Monitor IDs buffer: %s", buffer);
-#if 0
-		else
-			*maxwidth = MIN(*maxwidth, geometry.width);
-		if (i == 0)
-			*maxheight = geometry.height;
-		else
-			*maxheight = MIN(*maxheight, geometry.height);
-		REMMINA_PLUGIN_DEBUG("maxw and maxh: %ux%u", *maxwidth, *maxheight);
-#endif
 		gdk_rectangle_union(&tempgeom, &geometry, &destgeom);
 		memcpy(&tempgeom, &destgeom, sizeof tempgeom);
 		count++;
-	}
-	rfi->settings->MonitorCount = count;
 	}
 	rfi->settings->MonitorCount = count;
 	*maxwidth = destgeom.width;
