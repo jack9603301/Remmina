@@ -35,11 +35,14 @@ apps:
       - network-bind
       - opengl
       - password-manager-service
-      - pulseaudio
+      - audio-playback
+      - audio-record
       - ssh-keys
       - ssh-public-keys
       - removable-media
       - unity7
+      - wayland
+      - desktop
 
   winpr-makecert:
     command: winpr-makecert
