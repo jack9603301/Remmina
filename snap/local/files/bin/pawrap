@@ -7,7 +7,7 @@ if [ -n "$XDG_RUNTIME_DIR" ] && [ ! -d "$XDG_RUNTIME_DIR" ]; then
 fi
 
 papath="$XDG_RUNTIME_DIR/../pulse/native"
-if [ ! -e /var/run/pulse/native ]
+if [ ! -e /var/run/pulse/native ] ; then
     papath="/var/run/pulse/native"
 elif [ ! -e "$papath" ]; then
     echo "Cannot not find '$papath'"
