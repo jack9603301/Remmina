@@ -1636,7 +1636,7 @@ static gboolean remmina_rdp_main(RemminaProtocolWidget *gp)
 			REMMINA_PLUGIN_DEBUG("NumMonitorIds: %d", rfi->settings->NumMonitorIds);
 			for (i = 0; i < g_strv_length(items); i++) {
 				rfi->settings->MonitorIds[i] = (guint32)atoi(items[i]);
-				REMMINA_PLUGIN_DEBUG ("Added monitor with id %d", rfi->settings->MonitorIds[i]);
+				REMMINA_PLUGIN_DEBUG ("Added monitor with ID %d", rfi->settings->MonitorIds[i]);
 			}
 			g_strfreev(items);
 		}
