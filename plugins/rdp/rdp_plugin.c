@@ -1620,7 +1620,7 @@ static gboolean remmina_rdp_main(RemminaProtocolWidget *gp)
 		rfi->settings->UseMultimon = TRUE;
 		/* TODO Add an option for this */
 		rfi->settings->ForceMultimon = TRUE;
-		if (rfi->settings->NumMonitorIds)
+		if (!rfi->settings->NumMonitorIds)
 			rfi->settings->NumMonitorIds = 0;
 
 		//const gchar *monitorids = remmina_plugin_service->file_get_string(remminafile, "monitorids");
@@ -2246,20 +2246,6 @@ static gpointer sound_list[] =
 	"remote",	 N_("Remote"),
 	NULL
 };
-
-static gpointer log_level[] =
-{
-	"INFO",  "INFO",
-	"FATAL", "FATAL",
-	"ERROR", "ERROR",
-	"WARN",  "WARN",
-	"DEBUG", "DEBUG",
-	"TRACE", "TRACE",
-	"OFF",   "OFF",
-	NULL
-};
-
-/* Array of key/value pairs for FreeRDP log level */
 
 /* Array of key/value pairs for security */
 static gpointer security_list[] =

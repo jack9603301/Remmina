@@ -166,8 +166,8 @@ struct remmina_plugin_rdp_event {
 			gint	desktopOrientation;
 			gint	desktopScaleFactor;
 			gint	deviceScaleFactor;
-			gint    PhysicalWidth;
-			gint    PhysicalHeight;
+			gint    physicalWidth;
+			gint    physicalHeight;
 		} monitor_layout;
 	};
 };
