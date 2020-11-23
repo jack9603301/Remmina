@@ -37,8 +37,9 @@
  */
 
 #include "rdp_plugin.h"
-#include "rdp_event.h"
 #include "rdp_cliprdr.h"
+#include "rdp_event.h"
+#include "rdp_monitor.h"
 #include "rdp_settings.h"
 #include <gdk/gdkkeysyms.h>
 #include <cairo/cairo-xlib.h>
@@ -346,6 +347,11 @@ static gboolean remmina_rdp_event_delayed_monitor_layout(RemminaProtocolWidget* 
 	rfi->delayed_monitor_layout_handler = 0;
 	gint gpwidth, gpheight, prevwidth, prevheight;
 
+	gchar *monitorids;
+	guint32 maxwidth = 0;
+	guint32 maxheight = 0;
+	remmina_rdp_monitor_get(rfi, &monitorids, &maxwidth, &maxheight);
+
 	REMMINA_PLUGIN_DEBUG("Sending preconfigured monitor layout");
 	if (rfi->dispcontext && rfi->dispcontext->SendMonitorLayout) {
 		remmina_rdp_settings_get_orientation_scale_prefs(&desktopOrientation, &desktopScaleFactor, &deviceScaleFactor);
@@ -355,10 +361,7 @@ static gboolean remmina_rdp_event_delayed_monitor_layout(RemminaProtocolWidget* 
 		prevwidth = remmina_plugin_service->protocol_plugin_get_width(gp);
 		prevheight = remmina_plugin_service->protocol_plugin_get_height(gp);
 
-		if ((gpwidth != prevwidth || gpheight != prevheight) &&
-		    gpwidth >= 200 && gpwidth < 8192 &&
-		    gpheight >= 200 && gpheight < 8192
-		    ) {
+		if ((gpwidth != prevwidth || gpheight != prevheight) && gpwidth >= 200 && gpheight >= 200) {
 			if (rfi->rdpgfxchan) {
 				/* Workaround for FreeRDP issue #5417 */
 				if (gpwidth < AVC_MIN_DESKTOP_WIDTH)
@@ -373,7 +376,8 @@ static gboolean remmina_rdp_event_delayed_monitor_layout(RemminaProtocolWidget* 
 				REMMINA_PLUGIN_DEBUG ("EVNT MON LAYOUT - Flags: %i", rdp_event.monitor_layout.Flags);
 				rdp_event.monitor_layout.Left = rfi->settings->MonitorDefArray[i].x;
 				REMMINA_PLUGIN_DEBUG ("EVNT MON LAYOUT - Left: %i", rdp_event.monitor_layout.Left);
-				rdp_event.monitor_layout.Top = rfi->settings->MonitorDefArray[i].y;
+				//rdp_event.monitor_layout.Top = rfi->settings->MonitorDefArray[i].y;
+				rdp_event.monitor_layout.Top = rfi->settings->MonitorDefArray[0].y;
 				REMMINA_PLUGIN_DEBUG ("EVNT MON LAYOUT - Top: %i", rdp_event.monitor_layout.Top);
 				rdp_event.monitor_layout.width = rfi->settings->MonitorDefArray[i].width;
 				REMMINA_PLUGIN_DEBUG ("EVNT MON LAYOUT - width: %i", rdp_event.monitor_layout.width);
@@ -386,7 +390,7 @@ static gboolean remmina_rdp_event_delayed_monitor_layout(RemminaProtocolWidget* 
 				rdp_event.monitor_layout.desktopOrientation = rdp_event.monitor_layout.desktopOrientation;
 				REMMINA_PLUGIN_DEBUG ("EVNT MON LAYOUT - desktopOrientation: %i", rdp_event.monitor_layout.desktopOrientation);
 				rdp_event.monitor_layout.desktopScaleFactor = rdp_event.monitor_layout.desktopScaleFactor;
-				REMMINA_PLUGIN_DEBUG ("EVNT MON LAYOUT - FcaleFactorlags: %i", rdp_event.monitor_layout.desktopScaleFactor);
+				REMMINA_PLUGIN_DEBUG ("EVNT MON LAYOUT - ScaleFactorflag: %i", rdp_event.monitor_layout.desktopScaleFactor);
 				rdp_event.monitor_layout.deviceScaleFactor = rdp_event.monitor_layout.deviceScaleFactor;
 				remmina_rdp_event_event_push(gp, &rdp_event);
 			}

@@ -61,13 +61,14 @@ void remmina_rdp_monitor_get (rfContext *rfi, gchar **monitorids, guint32 *maxwi
 		/* If the desktop env in use doesn't have the working area concept
 		 * gdk_monitor_get_workarea will return the monitor geometry*/
 		REMMINA_PLUGIN_DEBUG("Monitor n %d", i);
-		gdk_monitor_get_workarea (monitor, &geometry);
+		//gdk_monitor_get_workarea (monitor, &geometry);
+		gdk_monitor_get_geometry (monitor, &geometry);
 		/* geometry contain the application geometry, to obtain the real one
 		 * we must multiply by the scale factor */
 		scale = gdk_monitor_get_scale_factor (monitor);
+		REMMINA_PLUGIN_DEBUG("Monitor n %d scale: %d", i, scale);
 		geometry.width *= scale;
 		geometry.height *= scale;
-		REMMINA_PLUGIN_DEBUG("Monitor n %d scale: %d", i, scale);
 		REMMINA_PLUGIN_DEBUG("Monitor n %d width: %d", i, geometry.width);
 		REMMINA_PLUGIN_DEBUG("Monitor n %d x: %d", i, geometry.x);
 		REMMINA_PLUGIN_DEBUG("Monitor n %d y: %d", i, geometry.y);

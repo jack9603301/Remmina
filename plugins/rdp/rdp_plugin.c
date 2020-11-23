@@ -1620,6 +1620,7 @@ static gboolean remmina_rdp_main(RemminaProtocolWidget *gp)
 		rfi->settings->UseMultimon = TRUE;
 		/* TODO Add an option for this */
 		rfi->settings->ForceMultimon = TRUE;
+		rfi->settings->Fullscreen = TRUE;
 		if (!rfi->settings->NumMonitorIds)
 			rfi->settings->NumMonitorIds = 0;
 
