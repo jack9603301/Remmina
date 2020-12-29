@@ -903,6 +903,7 @@ remmina_ssh_init_from_file(RemminaSSH *ssh, RemminaFile *remminafile, gboolean i
 
 	/* The ssh->server and ssh->port values */
 	if (is_tunnel) {
+		REMMINA_DEBUG ("We are initializing an SSH tunnel session");
 		server = remmina_file_get_string(remminafile, "ssh_tunnel_server");
 		if (server == NULL || server[0] == 0) {
 			// ssh_tunnel_server empty or invalid, we are opening a tunnel, it means that "Same server at port 22" has been selected
@@ -914,11 +915,14 @@ remmina_ssh_init_from_file(RemminaSSH *ssh, RemminaFile *remminafile, gboolean i
 		} else {
 			remmina_public_get_server_port(server, 22, &ssh->server, &ssh->port);
 		}
+		REMMINA_DEBUG ("server:port = %s, server = %, port = %d", server, ssh->server, ssh->port);
 	} else {
+		REMMINA_DEBUG ("We are initializing an SSH session");
 		server = remmina_file_get_string(remminafile, "server");
 		if (server == NULL || server[0] == 0)
 			server = "localhost";
 		remmina_public_get_server_port(server, 22, &ssh->server, &ssh->port);
+		REMMINA_DEBUG ("server:port = %s, server = %, port = %d", server, ssh->server, ssh->port);
 	}
 
 	if (ssh->server[0] == '\0') {
@@ -941,10 +945,22 @@ remmina_ssh_init_from_file(RemminaSSH *ssh, RemminaFile *remminafile, gboolean i
 	gint c = remmina_file_get_int(remminafile, is_tunnel ? "ssh_tunnel_compression" : "ssh_compression", 0);
 	ssh->compression = (c == 1) ? "yes" : "no";
 
+	REMMINA_DEBUG("ssh->user: %s", ssh->user);
+	REMMINA_DEBUG("ssh->password: %s", ssh->password);
+	REMMINA_DEBUG("ssh->auth: %d", ssh->auth);
+	REMMINA_DEBUG("ssh->charset: %s", ssh->charset);
+	REMMINA_DEBUG("ssh->kex_algorithms: %s", ssh->kex_algorithms);
+	REMMINA_DEBUG("ssh->ciphers: %s", ssh->ciphers);
+	REMMINA_DEBUG("ssh->hostkeytypes: %s", ssh->hostkeytypes);
+	REMMINA_DEBUG("ssh->proxycommand: %s", ssh->proxycommand);
+	REMMINA_DEBUG("ssh->stricthostkeycheck: %s", ssh->stricthostkeycheck);
+	REMMINA_DEBUG("ssh->compression: %s", ssh->compression);
+
 	/* Public/Private keys */
 	s = (privatekey ? g_strdup(privatekey) : remmina_ssh_find_identity());
 	if (s) {
 		ssh->privkeyfile = remmina_ssh_identity_path(s);
+		REMMINA_DEBUG("ssh->privkeyfile: %s", ssh->compression);
 		g_free(s);
 	} else {
 		ssh->privkeyfile = NULL;

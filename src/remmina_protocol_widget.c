@@ -762,14 +762,14 @@ static RemminaSSHTunnel* remmina_protocol_widget_init_tunnel(RemminaProtocolWidg
 
 	tunnel = remmina_ssh_tunnel_new_from_file(gp->priv->remmina_file);
 
-	REMMINA_DEBUG ("[RPW] %s creating SSH tunnel to \"%s\" via SSH…", __func__, REMMINA_SSH(tunnel)->server);
+	REMMINA_DEBUG ("Creating SSH tunnel to \"%s\" via SSH…", REMMINA_SSH(tunnel)->server);
 	msg = g_strdup_printf(_("Connecting to \"%s\" via SSH…"), REMMINA_SSH(tunnel)->server);
 
 	mp = remmina_protocol_widget_mpprogress(gp->cnnobj, msg, cancel_init_tunnel_cb, NULL);
 	g_free(msg);
 
 	if (!remmina_ssh_init_session(REMMINA_SSH(tunnel))) {
-		REMMINA_DEBUG ("%s Cannot init SSH session with tunnel struct", __func__);
+		REMMINA_DEBUG ("Cannot init SSH session with tunnel struct");
 		remmina_protocol_widget_set_error(gp, REMMINA_SSH(tunnel)->error);
 		remmina_ssh_tunnel_free(tunnel);
 		return NULL;
@@ -822,7 +822,7 @@ static gboolean remmina_protocol_widget_tunnel_destroy(RemminaSSHTunnel *tunnel,
 
 	if (found) {
 #ifdef HAVE_LIBSSH
-		REMMINA_DEBUG("[RPW] tunnel with idx %u has been disconnected", idx);
+		REMMINA_DEBUG("[Tunnel with idx %u has been disconnected", idx);
 		remmina_ssh_tunnel_free(tunnel);
 #endif
 		g_ptr_array_remove(gp->priv->ssh_tunnels, tunnel);
@@ -874,8 +874,8 @@ gchar *remmina_protocol_widget_start_direct_tunnel(RemminaProtocolWidget *gp, gi
 	if (!tunnel) {
 		g_free(srv_host);
 		g_free(ssh_tunnel_host);
-		REMMINA_DEBUG ("%s remmina_protocol_widget_init_tunnel failed with error is %s",
-				 __func__, remmina_protocol_widget_get_error_message(gp));
+		REMMINA_DEBUG ("remmina_protocol_widget_init_tunnel failed with error is %s",
+				remmina_protocol_widget_get_error_message(gp));
 		return NULL;
 	}
 
@@ -890,7 +890,7 @@ gchar *remmina_protocol_widget_start_direct_tunnel(RemminaProtocolWidget *gp, gi
 		srv_host = g_strdup("127.0.0.1");
 	}
 
-	REMMINA_DEBUG ("%s: starting tunnel to: %s, port: %d", __func__, ssh_tunnel_host, ssh_tunnel_port);
+	REMMINA_DEBUG ("Starting tunnel to: %s, port: %d", ssh_tunnel_host, ssh_tunnel_port);
 	if (!remmina_ssh_tunnel_open(tunnel, srv_host, srv_port, remmina_pref.sshtunnel_port)) {
 		g_free(srv_host);
 		g_free(ssh_tunnel_host);
