@@ -922,7 +922,7 @@ remmina_ssh_init_from_file(RemminaSSH *ssh, RemminaFile *remminafile, gboolean i
 		if (server == NULL || server[0] == 0)
 			server = "localhost";
 		remmina_public_get_server_port(server, 22, &ssh->server, &ssh->port);
-		REMMINA_DEBUG ("server:port = %s, server = %, port = %d", server, ssh->server, ssh->port);
+		REMMINA_DEBUG ("server:port = %s, server = %s, port = %d", server, ssh->server, ssh->port);
 	}
 
 	if (ssh->server[0] == '\0') {
