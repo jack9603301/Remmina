@@ -161,7 +161,7 @@ static void remmina_protocol_widget_close_all_tunnels(RemminaProtocolWidget *gp)
 #ifdef HAVE_LIBSSH
 			remmina_ssh_tunnel_free((RemminaSSHTunnel *)gp->priv->ssh_tunnels->pdata[i]);
 #else
-			g_debug ("LibSSH support turned off, no need to free SSH tunnel data");
+			REMMINA_DEBUG ("LibSSH support turned off, no need to free SSH tunnel data");
 #endif
 		}
 	}
@@ -762,7 +762,7 @@ static RemminaSSHTunnel* remmina_protocol_widget_init_tunnel(RemminaProtocolWidg
 
 	tunnel = remmina_ssh_tunnel_new_from_file(gp->priv->remmina_file);
 
-	g_debug ("[RPW] %s creating SSH tunnel to \"%s\" via SSH…", __func__, REMMINA_SSH(tunnel)->server);
+	REMMINA_DEBUG ("[RPW] %s creating SSH tunnel to \"%s\" via SSH…", __func__, REMMINA_SSH(tunnel)->server);
 	msg = g_strdup_printf(_("Connecting to \"%s\" via SSH…"), REMMINA_SSH(tunnel)->server);
 
 	mp = remmina_protocol_widget_mpprogress(gp->cnnobj, msg, cancel_init_tunnel_cb, NULL);
@@ -822,7 +822,7 @@ static gboolean remmina_protocol_widget_tunnel_destroy(RemminaSSHTunnel *tunnel,
 
 	if (found) {
 #ifdef HAVE_LIBSSH
-		g_debug("[RPW] tunnel with idx %u has been disconnected", idx);
+		REMMINA_DEBUG("[RPW] tunnel with idx %u has been disconnected", idx);
 		remmina_ssh_tunnel_free(tunnel);
 #endif
 		g_ptr_array_remove(gp->priv->ssh_tunnels, tunnel);
@@ -839,12 +839,10 @@ gchar *remmina_protocol_widget_start_direct_tunnel(RemminaProtocolWidget *gp, gi
 	TRACE_CALL(__func__);
 	const gchar *server;
 	const gchar *ssh_tunnel_server;
-	//const gchar *proto;
 	gchar *ssh_tunnel_host, *srv_host, *dest;
 	gint srv_port, ssh_tunnel_port;
 
-	g_debug ("SSH tunnel initialization…");
-	//proto = remmina_file_get_string(gp->priv->remmina_file, "protocol");
+	REMMINA_DEBUG ("SSH tunnel initialization…");
 
 	server = remmina_file_get_string(gp->priv->remmina_file, "server");
 	ssh_tunnel_server = remmina_file_get_string(gp->priv->remmina_file, "ssh_tunnel_server");
@@ -854,7 +852,7 @@ gchar *remmina_protocol_widget_start_direct_tunnel(RemminaProtocolWidget *gp, gi
 
 	remmina_public_get_server_port(server, default_port, &srv_host, &srv_port);
 	remmina_public_get_server_port(ssh_tunnel_server, 22, &ssh_tunnel_host, &ssh_tunnel_port);
-	g_debug ("server: %s, port: %d", srv_host, srv_port);
+	REMMINA_DEBUG ("server: %s, port: %d", srv_host, srv_port);
 
 	if (port_plus && srv_port < 100)
 		/* Protocols like VNC supports using instance number :0, :1, etc. as port number. */
@@ -892,7 +890,7 @@ gchar *remmina_protocol_widget_start_direct_tunnel(RemminaProtocolWidget *gp, gi
 		srv_host = g_strdup("127.0.0.1");
 	}
 
-	g_debug ("%s: starting tunnel to: %s, port: %d", __func__, ssh_tunnel_host, ssh_tunnel_port);
+	REMMINA_DEBUG ("%s: starting tunnel to: %s, port: %d", __func__, ssh_tunnel_host, ssh_tunnel_port);
 	if (!remmina_ssh_tunnel_open(tunnel, srv_host, srv_port, remmina_pref.sshtunnel_port)) {
 		g_free(srv_host);
 		g_free(ssh_tunnel_host);

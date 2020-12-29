@@ -654,7 +654,7 @@ remmina_ssh_auth_gui(RemminaSSH *ssh, RemminaProtocolWidget *gp, RemminaFile *re
 					remmina_file_set_string(remminafile, pwdfkey, current_pwd);
 				else
 					remmina_file_set_string(remminafile, pwdfkey, NULL);
-				
+
 				if(!ssh->is_tunnel) {
 					g_free(current_user);
 					current_user = remmina_protocol_widget_get_username(gp);
@@ -744,14 +744,13 @@ remmina_ssh_init_session(RemminaSSH *ssh)
 	if (ssh->is_tunnel) {
 		ssh_options_set(ssh->session, SSH_OPTIONS_HOST, ssh->server);
 		ssh_options_set(ssh->session, SSH_OPTIONS_PORT, &ssh->port);
+		REMMINA_DEBUG("Setting SSH_OPTIONS_HOST to %s and SSH_OPTIONS_PORT to %d", ssh->server, ssh->port);
 	} else {
 		ssh_options_set(ssh->session, SSH_OPTIONS_HOST, ssh->tunnel_entrance_host);
 		ssh_options_set(ssh->session, SSH_OPTIONS_PORT, &ssh->tunnel_entrance_port);
 		REMMINA_DEBUG("Setting SSH_OPTIONS_HOST to %s and SSH_OPTIONS_PORT to %d", ssh->tunnel_entrance_host, ssh->tunnel_entrance_port);
 	}
 
-	if (*ssh->user != 0)
-		ssh_options_set(ssh->session, SSH_OPTIONS_USER, ssh->user);
 	if (ssh->privkeyfile && *ssh->privkeyfile != 0) {
 		rc = ssh_options_set(ssh->session, SSH_OPTIONS_IDENTITY, ssh->privkeyfile);
 		if (rc == 0)
@@ -808,6 +807,18 @@ remmina_ssh_init_session(RemminaSSH *ssh)
 	/* As the latest parse the ~/.ssh/config file */
 	if (remmina_pref.ssh_parseconfig)
 		ssh_options_parse_config(ssh->session, NULL);
+	gchar *parsed_user;
+	rc = ssh_options_get (ssh->session, SSH_OPTIONS_USER, &parsed_user);
+	if (rc == SSH_OK) {
+		REMMINA_DEBUG ("ssh_config have been correctly parsed for SSH_OPTIONS_USER");
+		ssh->user = g_strdup (parsed_user);
+		ssh_string_free_char (parsed_user);
+	} else
+		REMMINA_DEBUG ("Parsing ssh_config for SSH_OPTIONS_USER returned an error, we try to set it anyway");
+	//if (*ssh->user != 0) {
+		REMMINA_DEBUG("SSH_OPTIONS_USER is now %s", ssh->user);
+		ssh_options_set(ssh->session, SSH_OPTIONS_USER, ssh->user);
+	//}
 
 	if (ssh_connect(ssh->session)) {
 		// TRANSLATORS: The placeholder %s is an error message
@@ -918,7 +929,7 @@ remmina_ssh_init_from_file(RemminaSSH *ssh, RemminaFile *remminafile, gboolean i
 
 	REMMINA_DEBUG("Initialized SSH struct from file with ssh->server = %s and SSH->port = %d", ssh->server, ssh->port);
 
-	ssh->user = g_strdup(username ? username : g_get_user_name());
+	ssh->user = g_strdup(username ? username : NULL);
 	ssh->password = NULL;
 	ssh->auth = remmina_file_get_int(remminafile, is_tunnel ? "ssh_tunnel_auth" : "ssh_auth", 0);
 	ssh->charset = g_strdup(remmina_file_get_string(remminafile, "ssh_charset"));
@@ -954,7 +965,7 @@ remmina_ssh_init_from_ssh(RemminaSSH *ssh, const RemminaSSH *ssh_src)
 	ssh->is_tunnel = ssh_src->is_tunnel;
 	ssh->server = g_strdup(ssh_src->server);
 	ssh->port = ssh_src->port;
-	ssh->user = g_strdup(ssh_src->user);
+	ssh->user = g_strdup(ssh_src->user ? ssh_src->user : NULL);
 	ssh->auth = ssh_src->auth;
 	ssh->password = g_strdup(ssh_src->password);
 	ssh->passphrase = g_strdup(ssh_src->passphrase);
@@ -1201,7 +1212,7 @@ remmina_ssh_tunnel_create_forward_channel(RemminaSSHTunnel *tunnel)
 	}
 
 	/* Request the SSH server to connect to the destination */
-	g_debug("SSH tunnel destination is %s", tunnel->dest);
+	REMMINA_DEBUG("SSH tunnel destination is %s", tunnel->dest);
 	if (ssh_channel_open_forward(channel, tunnel->dest, tunnel->port, "127.0.0.1", 0) != SSH_OK) {
 		ssh_channel_close(channel);
 		ssh_channel_send_eof(channel);
