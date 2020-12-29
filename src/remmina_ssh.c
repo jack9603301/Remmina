@@ -910,9 +910,11 @@ remmina_ssh_init_from_file(RemminaSSH *ssh, RemminaFile *remminafile, gboolean i
 			server = remmina_file_get_string(remminafile, "server");
 			if (server == NULL || server[0] == 0)
 				server = "localhost";
+			REMMINA_DEBUG ("Calling remmina_public_get_server_port");
 			remmina_public_get_server_port(server, 22, &ssh->server, &ssh->port);
 			ssh->port = 22;
 		} else {
+			REMMINA_DEBUG ("Calling remmina_public_get_server_port");
 			remmina_public_get_server_port(server, 22, &ssh->server, &ssh->port);
 		}
 		REMMINA_DEBUG ("server:port = %s, server = %, port = %d", server, ssh->server, ssh->port);
@@ -921,6 +923,7 @@ remmina_ssh_init_from_file(RemminaSSH *ssh, RemminaFile *remminafile, gboolean i
 		server = remmina_file_get_string(remminafile, "server");
 		if (server == NULL || server[0] == 0)
 			server = "localhost";
+		REMMINA_DEBUG ("Calling remmina_public_get_server_port");
 		remmina_public_get_server_port(server, 22, &ssh->server, &ssh->port);
 		REMMINA_DEBUG ("server:port = %s, server = %s, port = %d", server, ssh->server, ssh->port);
 	}
@@ -928,6 +931,7 @@ remmina_ssh_init_from_file(RemminaSSH *ssh, RemminaFile *remminafile, gboolean i
 	if (ssh->server[0] == '\0') {
 		g_free(ssh->server);
 		// ???
+		REMMINA_DEBUG ("Calling remmina_public_get_server_port");
 		remmina_public_get_server_port(server, 0, &ssh->server, NULL);
 	}
 

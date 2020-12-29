@@ -850,7 +850,9 @@ gchar *remmina_protocol_widget_start_direct_tunnel(RemminaProtocolWidget *gp, gi
 	if (!server)
 		return g_strdup("");
 
+	REMMINA_DEBUG ("Calling remmina_public_get_server_port");
 	remmina_public_get_server_port(server, default_port, &srv_host, &srv_port);
+	REMMINA_DEBUG ("Calling remmina_public_get_server_port (tunnel)");
 	remmina_public_get_server_port(ssh_tunnel_server, 22, &ssh_tunnel_host, &ssh_tunnel_port);
 	REMMINA_DEBUG ("server: %s, port: %d", srv_host, srv_port);
 
@@ -1030,6 +1032,7 @@ static gboolean remmina_protocol_widget_xport_tunnel_init_callback(RemminaSSHTun
 	gint port;
 	gboolean ret;
 
+	REMMINA_DEBUG ("Calling remmina_public_get_server_port");
 	remmina_public_get_server_port(remmina_file_get_string(gp->priv->remmina_file, "server"), 177, &server, &port);
 	ret = ((RemminaXPortTunnelInitFunc)gp->priv->init_func)(gp,
 								tunnel->remotedisplay, (tunnel->bindlocalhost ? "localhost" : server), port);
@@ -1084,6 +1087,7 @@ gboolean remmina_protocol_widget_start_xport_tunnel(RemminaProtocolWidget *gp, R
 	tunnel->disconnect_func = remmina_protocol_widget_xport_tunnel_disconnect_callback;
 	tunnel->callback_data = gp;
 
+	REMMINA_DEBUG ("Calling remmina_public_get_server_port");
 	remmina_public_get_server_port(remmina_file_get_string(gp->priv->remmina_file, "server"), 0, &server, NULL);
 	bindlocalhost = (g_strcmp0(REMMINA_SSH(tunnel)->server, server) == 0);
 	g_free(server);
