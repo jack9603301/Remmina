@@ -287,7 +287,7 @@ remmina_ssh_auth_auto_pubkey(RemminaSSH *ssh, RemminaProtocolWidget *gp, Remmina
 	if (ret != SSH_AUTH_SUCCESS) {
 		// TRANSLATORS: The placeholder %s is an error message
 		remmina_ssh_set_error(ssh, _("Could not authenticate automatically with public SSH key. %s"));
-		g_debug("Cannot authenticate automatically with public SSH key. Error is %s", ssh->error);
+		REMMINA_DEBUG("Cannot authenticate automatically with public SSH key. Error is %s", ssh->error);
 		return REMMINA_SSH_AUTH_AUTHFAILED_RETRY_AFTER_PROMPT;
 	}
 
@@ -393,14 +393,14 @@ remmina_ssh_auth(RemminaSSH *ssh, const gchar *password, RemminaProtocolWidget *
 			rv = remmina_ssh_auth_password(ssh);
 			if (rv != REMMINA_SSH_AUTH_SUCCESS)
 				return rv;
-			g_debug("SSH using remmina_ssh_auth_password");
+			REMMINA_DEBUG("SSH using remmina_ssh_auth_password");
 		}
 		if (!ssh->authenticated && (method & SSH_AUTH_METHOD_INTERACTIVE)) {
 			/* SSH server is requesting us to do interactive auth. */
 			rv = remmina_ssh_auth_interactive(ssh);
 			if (rv != REMMINA_SSH_AUTH_SUCCESS)
 				return rv;
-			g_debug("SSH using remmina_ssh_auth_interactive");
+			REMMINA_DEBUG("SSH using remmina_ssh_auth_interactive");
 		}
 		if (!ssh->authenticated) {
 			// The real error here should be: "The SSH server %s:%d does not support password or interactive authentication"
@@ -508,14 +508,14 @@ remmina_ssh_auth_gui(RemminaSSH *ssh, RemminaProtocolWidget *gp, RemminaFile *re
 		if (ssh_get_server_publickey(ssh->session, &server_pubkey) != SSH_OK) {
 			// TRANSLATORS: The placeholder %s is an error message
 			remmina_ssh_set_error(ssh, _("Could not fetch the server\'s public SSH key. %s"));
-			g_debug("ssh_get_server_publickey() has failed");
+			REMMINA_DEBUG("ssh_get_server_publickey() has failed");
 			return REMMINA_SSH_AUTH_FATAL_ERROR;
 		}
 #else
 		if (ssh_get_publickey(ssh->session, &server_pubkey) != SSH_OK) {
 			// TRANSLATORS: The placeholder %s is an error message
 			remmina_ssh_set_error(ssh, _("Could not fetch public SSH key. %s"));
-			g_debug("ssh_get_publickey() has failed");
+			REMMINA_DEBUG("ssh_get_publickey() has failed");
 			return REMMINA_SSH_AUTH_FATAL_ERROR;
 		}
 #endif
@@ -523,7 +523,7 @@ remmina_ssh_auth_gui(RemminaSSH *ssh, RemminaProtocolWidget *gp, RemminaFile *re
 			ssh_key_free(server_pubkey);
 			// TRANSLATORS: The placeholder %s is an error message
 			remmina_ssh_set_error(ssh, _("Could not fetch checksum for public SSH key. %s"));
-			g_debug("ssh_get_publickey_hash() has failed");
+			REMMINA_DEBUG("ssh_get_publickey_hash() has failed");
 			return REMMINA_SSH_AUTH_FATAL_ERROR;
 		}
 		ssh_key_free(server_pubkey);
@@ -566,7 +566,7 @@ remmina_ssh_auth_gui(RemminaSSH *ssh, RemminaProtocolWidget *gp, RemminaFile *re
 	default:
 		// TRANSLATORS: The placeholder %s is an error message
 		remmina_ssh_set_error(ssh, _("Could not check list of known SSH hosts. %s"));
-		g_debug("Could not check list of known SSH hosts");
+		REMMINA_DEBUG("Could not check list of known SSH hosts");
 		return REMMINA_SSH_AUTH_FATAL_ERROR;
 	}
 
@@ -635,7 +635,7 @@ remmina_ssh_auth_gui(RemminaSSH *ssh, RemminaProtocolWidget *gp, RemminaFile *re
 		} else if (remmina_ssh_auth_type == REMMINA_SSH_AUTH_PASSWORD) {
 			/* Ask for user credentials. Username cannot be changed here,
 			 * because we already sent it when opening the connection */
-			g_debug("Showing panel for password\n");
+			REMMINA_DEBUG("Showing panel for password\n");
 			current_user = g_strdup(remmina_file_get_string(remminafile, ssh->is_tunnel ? "ssh_tunnel_username" : "username"));
 			ret = remmina_protocol_widget_panel_auth(gp,
 								 (disablepasswordstoring ? 0 : REMMINA_MESSAGE_PANEL_FLAG_SAVEPASSWORD)
