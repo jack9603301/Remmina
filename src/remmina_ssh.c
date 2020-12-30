@@ -762,37 +762,6 @@ remmina_ssh_init_session(RemminaSSH *ssh)
 #ifdef SNAP_BUILD
 	ssh_options_set(ssh->session, SSH_OPTIONS_SSH_DIR, g_strdup_printf("%s/.ssh", g_getenv("SNAP_USER_COMMON")));
 #endif
-	rc = ssh_options_set(ssh->session, SSH_OPTIONS_KEY_EXCHANGE, ssh->kex_algorithms);
-	if (rc == 0)
-		REMMINA_DEBUG("SSH_OPTIONS_KEY_EXCHANGE is now %s", ssh->kex_algorithms);
-	else
-		REMMINA_DEBUG("SSH_OPTIONS_KEY_EXCHANGE does not have a valid value. %s", ssh->kex_algorithms);
-	rc = ssh_options_set(ssh->session, SSH_OPTIONS_CIPHERS_C_S, ssh->ciphers);
-	if (rc == 0)
-		REMMINA_DEBUG("SSH_OPTIONS_CIPHERS_C_S has been set to %s", ssh->ciphers);
-	else
-		REMMINA_DEBUG("SSH_OPTIONS_CIPHERS_C_S does not have a valid value. %s", ssh->ciphers);
-	rc = ssh_options_set(ssh->session, SSH_OPTIONS_HOSTKEYS, ssh->hostkeytypes);
-	if (rc == 0)
-		REMMINA_DEBUG("SSH_OPTIONS_HOSTKEYS is now %s", ssh->hostkeytypes);
-	else
-		REMMINA_DEBUG("SSH_OPTIONS_HOSTKEYS does not have a valid value. %s", ssh->hostkeytypes);
-	rc = ssh_options_set(ssh->session, SSH_OPTIONS_PROXYCOMMAND, ssh->proxycommand);
-	if (rc == 0)
-		REMMINA_DEBUG("SSH_OPTIONS_PROXYCOMMAND is now %s", ssh->proxycommand);
-	else
-		REMMINA_DEBUG("SSH_OPTIONS_PROXYCOMMAND does not have a valid value. %s", ssh->proxycommand);
-	rc = ssh_options_set(ssh->session, SSH_OPTIONS_STRICTHOSTKEYCHECK, &ssh->stricthostkeycheck);
-	if (rc == 0)
-		REMMINA_DEBUG("SSH_OPTIONS_STRICTHOSTKEYCHECK is now %d", ssh->stricthostkeycheck);
-	else
-		REMMINA_DEBUG("SSH_OPTIONS_STRICTHOSTKEYCHECK does not have a valid value. %d", ssh->stricthostkeycheck);
-	rc = ssh_options_set(ssh->session, SSH_OPTIONS_COMPRESSION, ssh->compression);
-	if (rc == 0)
-		REMMINA_DEBUG("SSH_OPTIONS_COMPRESSION is now %s", ssh->compression);
-	else
-		REMMINA_DEBUG("SSH_OPTIONS_COMPRESSION does not have a valid value. %s", ssh->compression);
-
 	ssh_callbacks_init(ssh->callback);
 	if (remmina_log_running()) {
 		verbosity = remmina_pref.ssh_loglevel;
@@ -819,17 +788,91 @@ remmina_ssh_init_session(RemminaSSH *ssh)
 		REMMINA_DEBUG ("Setting SSH_OPTIONS_HOST to ssh->tunnel_entrance_host is 127.0.0.1,");
 		ssh_options_set(ssh->session, SSH_OPTIONS_HOST, ssh->tunnel_entrance_host);
 	}
-	gchar *parsed_user;
-	rc = ssh_options_get (ssh->session, SSH_OPTIONS_USER, &parsed_user);
+	gchar *parsed_config;
+	rc = ssh_options_get (ssh->session, SSH_OPTIONS_USER, &parsed_config);
 	if (rc == SSH_OK) {
-		ssh->user = g_strdup (parsed_user);
-		ssh_string_free_char (parsed_user);
+		ssh->user = g_strdup (parsed_config);
+		ssh_string_free_char (parsed_config);
 	} else
 		REMMINA_DEBUG ("Parsing ssh_config for SSH_OPTIONS_USER returned an error: %s", ssh_get_error(ssh->session));
 	ssh_options_set(ssh->session, SSH_OPTIONS_USER, ssh->user);
-	//if (*ssh->user != 0) {
 	REMMINA_DEBUG("SSH_OPTIONS_USER is now %s", ssh->user);
-	//}
+
+	/* SSH_OPTIONS_PROXYCOMMAND */
+	rc = ssh_options_get (ssh->session, SSH_OPTIONS_PROXYCOMMAND, &parsed_config);
+	if (rc == SSH_OK) {
+		ssh->proxycommand = g_strdup (parsed_config);
+		ssh_string_free_char (parsed_config);
+	} else
+		REMMINA_DEBUG ("Parsing ssh_config for SSH_OPTIONS_PROXYCOMMAND returned an error: %s", ssh_get_error(ssh->session));
+	rc = ssh_options_set(ssh->session, SSH_OPTIONS_PROXYCOMMAND, ssh->proxycommand);
+	if (rc == 0)
+		REMMINA_DEBUG("SSH_OPTIONS_PROXYCOMMAND is now %s", ssh->proxycommand);
+	else
+		REMMINA_DEBUG("SSH_OPTIONS_PROXYCOMMAND does not have a valid value. %s", ssh->proxycommand);
+
+	/* SSH_OPTIONS_HOSTKEYS */
+	rc = ssh_options_get (ssh->session, SSH_OPTIONS_HOSTKEYS, &parsed_config);
+	if (rc == SSH_OK) {
+		ssh->hostkeytypes = g_strdup (parsed_config);
+		ssh_string_free_char (parsed_config);
+	} else
+		REMMINA_DEBUG ("Parsing ssh_config for SSH_OPTIONS_HOSTKEYS returned an error: %s", ssh_get_error(ssh->session));
+	rc = ssh_options_set(ssh->session, SSH_OPTIONS_HOSTKEYS, ssh->hostkeytypes);
+	if (rc == 0)
+		REMMINA_DEBUG("SSH_OPTIONS_HOSTKEYS is now %s", ssh->hostkeytypes);
+	else
+		REMMINA_DEBUG("SSH_OPTIONS_HOSTKEYS does not have a valid value. %s", ssh->hostkeytypes);
+
+	/* SSH_OPTIONS_KEY_EXCHANGE */
+	rc = ssh_options_get (ssh->session, SSH_OPTIONS_KEY_EXCHANGE, &parsed_config);
+	if (rc == SSH_OK) {
+		ssh->kex_algorithms = g_strdup (parsed_config);
+		ssh_string_free_char (parsed_config);
+	} else
+		REMMINA_DEBUG ("Parsing ssh_config for SSH_OPTIONS_KEY_EXCHANGE returned an error: %s", ssh_get_error(ssh->session));
+	rc = ssh_options_set(ssh->session, SSH_OPTIONS_KEY_EXCHANGE, ssh->kex_algorithms);
+	if (rc == 0)
+		REMMINA_DEBUG("SSH_OPTIONS_KEY_EXCHANGE is now %s", ssh->kex_algorithms);
+	else
+		REMMINA_DEBUG("SSH_OPTIONS_KEY_EXCHANGE does not have a valid value. %s", ssh->kex_algorithms);
+
+	/* SSH_OPTIONS_CIPHERS_C_S */
+	rc = ssh_options_get (ssh->session, SSH_OPTIONS_CIPHERS_C_S, &parsed_config);
+	if (rc == SSH_OK) {
+		ssh->ciphers = g_strdup (parsed_config);
+		ssh_string_free_char (parsed_config);
+	} else
+		REMMINA_DEBUG ("Parsing ssh_config for SSH_OPTIONS_CIPHERS_C_S returned an error: %s", ssh_get_error(ssh->session));
+	rc = ssh_options_set(ssh->session, SSH_OPTIONS_CIPHERS_C_S, ssh->ciphers);
+	if (rc == 0)
+		REMMINA_DEBUG("SSH_OPTIONS_CIPHERS_C_S has been set to %s", ssh->ciphers);
+	else
+		REMMINA_DEBUG("SSH_OPTIONS_CIPHERS_C_S does not have a valid value. %s", ssh->ciphers);
+	/* SSH_OPTIONS_STRICTHOSTKEYCHECK */
+	rc = ssh_options_get (ssh->session, SSH_OPTIONS_STRICTHOSTKEYCHECK, &parsed_config);
+	if (rc == SSH_OK) {
+		ssh->stricthostkeycheck = g_strdup (parsed_config);
+		ssh_string_free_char (parsed_config);
+	} else
+		REMMINA_DEBUG ("Parsing ssh_config for SSH_OPTIONS_STRICTHOSTKEYCHECK returned an error: %s", ssh_get_error(ssh->session));
+	rc = ssh_options_set(ssh->session, SSH_OPTIONS_STRICTHOSTKEYCHECK, &ssh->stricthostkeycheck);
+	if (rc == 0)
+		REMMINA_DEBUG("SSH_OPTIONS_STRICTHOSTKEYCHECK is now %d", ssh->stricthostkeycheck);
+	else
+		REMMINA_DEBUG("SSH_OPTIONS_STRICTHOSTKEYCHECK does not have a valid value. %d", ssh->stricthostkeycheck);
+	/* SSH_OPTIONS_COMPRESSION */
+	rc = ssh_options_get (ssh->session, SSH_OPTIONS_COMPRESSION, &parsed_config);
+	if (rc == SSH_OK) {
+		ssh->compression = g_strdup (parsed_config);
+		ssh_string_free_char (parsed_config);
+	} else
+		REMMINA_DEBUG ("Parsing ssh_config for SSH_OPTIONS_COMPRESSION returned an error: %s", ssh_get_error(ssh->session));
+	rc = ssh_options_set(ssh->session, SSH_OPTIONS_COMPRESSION, ssh->compression);
+	if (rc == 0)
+		REMMINA_DEBUG("SSH_OPTIONS_COMPRESSION is now %s", ssh->compression);
+	else
+		REMMINA_DEBUG("SSH_OPTIONS_COMPRESSION does not have a valid value. %s", ssh->compression);
 
 	if (ssh_connect(ssh->session)) {
 		// TRANSLATORS: The placeholder %s is an error message
