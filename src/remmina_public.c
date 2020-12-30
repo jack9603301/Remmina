@@ -335,19 +335,22 @@ void remmina_public_get_server_port(const gchar *server, gint defaultport, gchar
 	TRACE_CALL(__func__);
 
 	const gchar *nul_terminated_server = NULL;
-	GNetworkAddress *address;
-	GError *err;
+	if (server != NULL) {
+		GNetworkAddress *address;
+		GError *err;
 
-	nul_terminated_server = g_strdup (server);
-	g_debug ("(%s) - Parsing server: %s, default port: %d", __func__, server, defaultport);
-	address = (GNetworkAddress*)g_network_address_parse ((const gchar *) nul_terminated_server,  defaultport, &err);
+		nul_terminated_server = g_strdup (server);
+		g_debug ("(%s) - Parsing server: %s, default port: %d", __func__, server, defaultport);
+		address = (GNetworkAddress*)g_network_address_parse ((const gchar *) nul_terminated_server,  defaultport, &err);
 
-	if (address == NULL) {
-		g_debug ("(%s) - Error converting server string: %s, with error: %s", __func__, nul_terminated_server, err->message);
-	}
+		if (address == NULL) {
+			g_debug ("(%s) - Error converting server string: %s, with error: %s", __func__, nul_terminated_server, err->message);
+		}
 
-	*host = g_strdup(g_network_address_get_hostname (address));
-	*port = g_network_address_get_port (address);
+		*host = g_strdup(g_network_address_get_hostname (address));
+		*port = g_network_address_get_port (address);
+	} else
+		*host = NULL;
 
 	if (port == 0)
 		*port = defaultport;

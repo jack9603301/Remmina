@@ -805,19 +805,30 @@ remmina_ssh_init_session(RemminaSSH *ssh)
 	ssh_set_callbacks(ssh->session, ssh->callback);
 
 	/* As the latest parse the ~/.ssh/config file */
-	if (remmina_pref.ssh_parseconfig)
-		ssh_options_parse_config(ssh->session, NULL);
+	if (g_strcmp0(ssh->tunnel_entrance_host, "127.0.0.1") == 0) {
+		REMMINA_DEBUG ("SSH_OPTIONS_HOST temporary set to the destination host as ssh->tunnel_entrance_host is 127.0.0.1,");
+		ssh_options_set(ssh->session, SSH_OPTIONS_HOST, ssh->server);
+	}
+	if (remmina_pref.ssh_parseconfig) {
+		if (ssh_options_parse_config(ssh->session, NULL) == 0)
+			REMMINA_DEBUG ("ssh_config have been correctly parsed");
+		else
+			REMMINA_DEBUG ("Cannot parse ssh_config: %s", ssh_get_error(ssh->session));
+	}
+	if (g_strcmp0(ssh->tunnel_entrance_host, "127.0.0.1") == 0) {
+		REMMINA_DEBUG ("Setting SSH_OPTIONS_HOST to ssh->tunnel_entrance_host is 127.0.0.1,");
+		ssh_options_set(ssh->session, SSH_OPTIONS_HOST, ssh->tunnel_entrance_host);
+	}
 	gchar *parsed_user;
 	rc = ssh_options_get (ssh->session, SSH_OPTIONS_USER, &parsed_user);
 	if (rc == SSH_OK) {
-		REMMINA_DEBUG ("ssh_config have been correctly parsed for SSH_OPTIONS_USER");
 		ssh->user = g_strdup (parsed_user);
 		ssh_string_free_char (parsed_user);
 	} else
-		REMMINA_DEBUG ("Parsing ssh_config for SSH_OPTIONS_USER returned an error, we try to set it anyway");
+		REMMINA_DEBUG ("Parsing ssh_config for SSH_OPTIONS_USER returned an error: %s", ssh_get_error(ssh->session));
+	ssh_options_set(ssh->session, SSH_OPTIONS_USER, ssh->user);
 	//if (*ssh->user != 0) {
-		REMMINA_DEBUG("SSH_OPTIONS_USER is now %s", ssh->user);
-		ssh_options_set(ssh->session, SSH_OPTIONS_USER, ssh->user);
+	REMMINA_DEBUG("SSH_OPTIONS_USER is now %s", ssh->user);
 	//}
 
 	if (ssh_connect(ssh->session)) {
@@ -917,7 +928,7 @@ remmina_ssh_init_from_file(RemminaSSH *ssh, RemminaFile *remminafile, gboolean i
 			REMMINA_DEBUG ("Calling remmina_public_get_server_port");
 			remmina_public_get_server_port(server, 22, &ssh->server, &ssh->port);
 		}
-		REMMINA_DEBUG ("server:port = %s, server = %, port = %d", server, ssh->server, ssh->port);
+		REMMINA_DEBUG ("server:port = %s, server = %s, port = %d", server, ssh->server, ssh->port);
 	} else {
 		REMMINA_DEBUG ("We are initializing an SSH session");
 		server = remmina_file_get_string(remminafile, "server");
