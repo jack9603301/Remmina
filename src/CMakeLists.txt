@@ -79,16 +79,6 @@ list(APPEND REMMINA_SRCS
 	"remmina_plugin_manager.h"
 	"remmina_plugin_native.c"
 	"remmina_plugin_native.h"
-	"remmina_plugin_python.c"
-	"remmina_plugin_python.h"
-	"remmina_plugin_python_module.c"
-	"remmina_plugin_python_module.h"
-	"remmina_plugin_python_remmina.c"
-	"remmina_plugin_python_remmina.h"
-	"remmina_plugin_python_protocol_widget.c"
-	"remmina_plugin_python_protocol_widget.h"
-	"remmina_plugin_python_remmina_file.c"
-	"remmina_plugin_python_remmina_file.h"
 	"remmina_ext_exec.c"
 	"remmina_ext_exec.h"
 	"remmina_pref.c"
@@ -143,9 +133,31 @@ add_executable(remmina ${REMMINA_SRCS})
 include_directories(${GTK_INCLUDE_DIRS} ${gio_INCLUDE_DIRS} ${gio-unix_INCLUDE_DIRS})
 target_link_libraries(remmina ${GTK_LIBRARIES})
 
-find_package(PythonLibs REQUIRED)
-include_directories(${PYTHON_INCLUDE_DIRS})
-target_link_libraries(remmina ${PYTHON_LIBRARIES})
+option(WITH_PYTHON "Enable Python plugins support" OFF)
+if(WITH_PYTHON)
+	find_suggested_package(PythonLibs)
+	if(PythonLibs_FOUND)
+		add_definitions(-DWITH_PYTHON)
+		list(APPEND REMMINA_SRCS
+			"remmina_plugin_python.c"
+			"remmina_plugin_python.h"
+			"remmina_plugin_python_module.c"
+			"remmina_plugin_python_module.h"
+			"remmina_plugin_python_remmina.c"
+			"remmina_plugin_python_remmina.h"
+			"remmina_plugin_python_protocol_widget.c"
+			"remmina_plugin_python_protocol_widget.h"
+			"remmina_plugin_python_remmina_file.c"
+			"remmina_plugin_python_remmina_file.h"
+			)
+		include_directories(${PYTHON_INCLUDE_DIRS})
+		target_link_libraries(remmina ${PYTHON_LIBRARIES})
+	else()
+		message(STATUS "Python plugins support enabled, but Python libs not found")
+	endif()
+else()
+  message(STATUS "Python plugins support disabled")
+endif()
 
 if(WITH_MANPAGES)
 	install(FILES remmina.1 DESTINATION ${CMAKE_INSTALL_FULL_MANDIR}/man1)
