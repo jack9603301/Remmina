@@ -129,16 +129,14 @@ list(APPEND REMMINA_SRCS
 	"remmina_stats_sender.h"
 	)
 
-add_executable(remmina ${REMMINA_SRCS})
-include_directories(${GTK_INCLUDE_DIRS} ${gio_INCLUDE_DIRS} ${gio-unix_INCLUDE_DIRS})
-target_link_libraries(remmina ${GTK_LIBRARIES})
-
-option(WITH_PYTHON "Enable Python plugins support" OFF)
-if(WITH_PYTHON)
+option(WITH_PYTHONLIBS "Enable Python plugins support" OFF)
+if(WITH_PYTHONLIBS)
 	find_suggested_package(PythonLibs)
 	if(PythonLibs_FOUND)
-		add_definitions(-DWITH_PYTHON)
-		list(APPEND REMMINA_SRCS
+		add_definitions(-DWITH_PYTHONLIBS)
+		list(FIND REMMINA_SRCS "remmina_exec.c" SRCINDEX)
+		# Index calculated at "remmina_exec.c" position (43 as of today)
+		list(INSERT ${SRCINDEX} REMMINA_SRCS
 			"remmina_plugin_python.c"
 			"remmina_plugin_python.h"
 			"remmina_plugin_python_module.c"
@@ -150,13 +148,21 @@ if(WITH_PYTHON)
 			"remmina_plugin_python_remmina_file.c"
 			"remmina_plugin_python_remmina_file.h"
 			)
-		include_directories(${PYTHON_INCLUDE_DIRS})
-		target_link_libraries(remmina ${PYTHON_LIBRARIES})
 	else()
 		message(STATUS "Python plugins support enabled, but Python libs not found")
 	endif()
 else()
   message(STATUS "Python plugins support disabled")
+endif()
+add_executable(remmina ${REMMINA_SRCS})
+include_directories(${GTK_INCLUDE_DIRS} ${gio_INCLUDE_DIRS} ${gio-unix_INCLUDE_DIRS})
+target_link_libraries(remmina ${GTK_LIBRARIES})
+
+if(WITH_PYTHONLIBS)
+	if(PythonLibs_FOUND)
+		include_directories(${PYTHON_INCLUDE_DIRS})
+		target_link_libraries(remmina ${PYTHON_LIBRARIES})
+	endif()
 endif()
 
 if(WITH_MANPAGES)

@@ -54,7 +54,7 @@
 #include "rcw.h"
 #include "remmina_plugin_manager.h"
 #include "remmina_plugin_native.h"
-#ifdef WITH_PYTHON
+#ifdef WITH_PYTHONLIBS
 #include "remmina_plugin_python.h"
 #endif
 #include "remmina_public.h"
@@ -266,7 +266,7 @@ static void remmina_plugin_manager_load_plugin(const gchar *name)
 	if (g_str_equal(G_MODULE_SUFFIX, ext)) {
 		remmina_plugin_native_load(&remmina_plugin_manager_service, name);
 	} else if (g_str_equal("py", ext)) {
-#ifdef WITH_PYTHON
+#ifdef WITH_PYTHONLIBS
 		remmina_plugin_python_load(&remmina_plugin_manager_service, name);
 #else
 		REMMINA_DEBUG("Python support not compiled, cannot load Python plugins");
@@ -303,7 +303,7 @@ void remmina_plugin_manager_init()
 	GSList *sple;
 
 	remmina_plugin_table = g_ptr_array_new();
-#ifdef WITH_PYTHON
+#ifdef WITH_PYTHONLIBS
 	remmina_plugin_python_init();
 #endif
 
