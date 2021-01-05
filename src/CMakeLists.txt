@@ -137,8 +137,9 @@ if(WITH_PYTHONLIBS)
 		message(STATUS "Python libs found, Python support enabled")
 		add_definitions(-DWITH_PYTHONLIBS)
 		list(FIND REMMINA_SRCS "remmina_exec.c" SRCINDEX)
+		message(DEBUG "remmina_exec.c found at index: " ${SRCINDEX})
 		# Index calculated at "remmina_exec.c" position (43 as of today)
-		list(INSERT ${SRCINDEX} REMMINA_SRCS
+		list(INSERT REMMINA_SRCS ${SRCINDEX}
 			"remmina_plugin_python.c"
 			"remmina_plugin_python.h"
 			"remmina_plugin_python_module.c"
@@ -156,6 +157,9 @@ if(WITH_PYTHONLIBS)
 else()
   message(STATUS "Python plugins support disabled")
 endif()
+
+message(DEBUG "Source list set to: " ${REMMINA_SRCS})
+
 add_executable(remmina ${REMMINA_SRCS})
 include_directories(${GTK_INCLUDE_DIRS} ${gio_INCLUDE_DIRS} ${gio-unix_INCLUDE_DIRS})
 target_link_libraries(remmina ${GTK_LIBRARIES})
