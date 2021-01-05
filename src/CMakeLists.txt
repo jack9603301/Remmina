@@ -131,8 +131,10 @@ list(APPEND REMMINA_SRCS
 
 option(WITH_PYTHONLIBS "Enable Python plugins support" OFF)
 if(WITH_PYTHONLIBS)
+	message(STATUS "Python plugins support enabled")
 	find_suggested_package(PythonLibs)
 	if(PythonLibs_FOUND)
+		message(STATUS "Python libs found, Python support enabled")
 		add_definitions(-DWITH_PYTHONLIBS)
 		list(FIND REMMINA_SRCS "remmina_exec.c" SRCINDEX)
 		# Index calculated at "remmina_exec.c" position (43 as of today)
