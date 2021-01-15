@@ -232,7 +232,7 @@ remmina_ssh_auth_pubkey(RemminaSSH *ssh)
 	if (ssh->privkeyfile == NULL) {
 		// TRANSLATORS: The placeholder %s is an error message
 		ssh->error = g_strdup_printf(_("Could not authenticate with public SSH key. %s"),
-					     _("Select the file containing the SSH key first."));
+					     _("File for SSH key not selected."));
 		return REMMINA_SSH_AUTH_FATAL_ERROR;
 	}
 
@@ -252,7 +252,7 @@ remmina_ssh_auth_pubkey(RemminaSSH *ssh)
 	if (ssh_pki_import_privkey_file(ssh->privkeyfile, (ssh->passphrase ? ssh->passphrase : ""),
 					NULL, NULL, &key) != SSH_OK) {
 		if (ssh->passphrase == NULL || ssh->passphrase[0] == '\0') {
-			remmina_ssh_set_error(ssh, _("Fill in the SSH passphrase first."));
+			remmina_ssh_set_error(ssh, _("No saved SSH passphrase supplied. Asking user to enter it."));
 			return REMMINA_SSH_AUTH_AUTHFAILED_RETRY_AFTER_PROMPT;
 		}
 
