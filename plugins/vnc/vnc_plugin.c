@@ -1919,7 +1919,7 @@ static const RemminaProtocolSetting remmina_plugin_vnc_advanced_settings[] =
 	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK, "viewonly",		 N_("View only"),		 FALSE, NULL, NULL },
 	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK, "disableclipboard",	 N_("Turn off clipboard sync"),	 TRUE,	NULL, NULL },
 	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK, "disableencryption",	 N_("Turn off encryption"),	 FALSE, NULL, NULL },
-	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK, "disableserverinput",	 N_("Don\'t send input events to server"),	 TRUE,	NULL, NULL },
+	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK, "disableserverinput",	 N_("Prevent local interaction on the server"),	 TRUE,	NULL, NULL },
 	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK, "disablepasswordstoring", N_("Forget passwords after use"), FALSE, NULL, NULL },
 	{ REMMINA_PROTOCOL_SETTING_TYPE_END,   NULL,			 NULL,				 FALSE, NULL, NULL }
 };
@@ -1932,7 +1932,7 @@ static const RemminaProtocolFeature remmina_plugin_vnc_features[] =
 	  quality_list },
 	{ REMMINA_PROTOCOL_FEATURE_TYPE_PREF,	 REMMINA_PLUGIN_VNC_FEATURE_PREF_VIEWONLY,	     GINT_TO_POINTER(REMMINA_PROTOCOL_FEATURE_PREF_CHECK), "viewonly",
 	  N_("View only") },
-	{ REMMINA_PROTOCOL_FEATURE_TYPE_PREF,	 REMMINA_PLUGIN_VNC_FEATURE_PREF_DISABLESERVERINPUT, GINT_TO_POINTER(REMMINA_PROTOCOL_FEATURE_PREF_CHECK), "disableserverinput",N_("Don\'t send input events to server")  },
+	{ REMMINA_PROTOCOL_FEATURE_TYPE_PREF,	 REMMINA_PLUGIN_VNC_FEATURE_PREF_DISABLESERVERINPUT, GINT_TO_POINTER(REMMINA_PROTOCOL_FEATURE_PREF_CHECK), "disableserverinput",N_("Prevent local interaction on the server")  },
 	{ REMMINA_PROTOCOL_FEATURE_TYPE_TOOL,	 REMMINA_PLUGIN_VNC_FEATURE_TOOL_REFRESH,	     N_("Refresh"),					   NULL,		NULL			    },
 	{ REMMINA_PROTOCOL_FEATURE_TYPE_TOOL,	 REMMINA_PLUGIN_VNC_FEATURE_TOOL_CHAT,		     N_("Open Chat…"),					   "face-smile",	NULL			    },
 	{ REMMINA_PROTOCOL_FEATURE_TYPE_TOOL,	 REMMINA_PLUGIN_VNC_FEATURE_TOOL_SENDCTRLALTDEL,     N_("Send Ctrl+Alt+Delete"),			   NULL,		NULL			    },
