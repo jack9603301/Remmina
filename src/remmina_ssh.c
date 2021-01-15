@@ -232,7 +232,7 @@ remmina_ssh_auth_pubkey(RemminaSSH *ssh)
 	if (ssh->privkeyfile == NULL) {
 		// TRANSLATORS: The placeholder %s is an error message
 		ssh->error = g_strdup_printf(_("Could not authenticate with public SSH key. %s"),
-					     _("File for SSH key not selected."));
+					     _("SSH identity file not selected."));
 		return REMMINA_SSH_AUTH_FATAL_ERROR;
 	}
 
