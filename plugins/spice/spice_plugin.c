@@ -383,7 +383,7 @@ static void remmina_plugin_spice_display_ready_cb(GObject *display, GParamSpec *
 					(gint *) preferred_codecs->data,
 					preferred_codecs->len,
 					&err)) {
-				REMMINA_PLUGIN_DEBUG("Setting preferred video codecs failed: %s", err->message);
+				REMMINA_PLUGIN_DEBUG("Could not set video-codec preference. %s", err->message);
 				g_error_free(err);
 			}
 
