@@ -286,8 +286,6 @@ static BOOL rf_process_event_queue(RemminaProtocolWidget *gp)
 					g_free(dcml);\
 				}
 			}
-			rfi->dispcontext->SendMonitorLayout(rfi->dispcontext, rfi->settings->MonitorCount, dcml);
-			g_free(dcml);
 			break;
 		case REMMINA_RDP_EVENT_DISCONNECT:
 			/* Disconnect requested via GUI (i.e: tab destroy/close) */
