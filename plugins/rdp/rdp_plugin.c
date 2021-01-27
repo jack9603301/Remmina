@@ -193,11 +193,14 @@ static BOOL rf_process_event_queue(RemminaProtocolWidget *gp)
 	RemminaPluginRdpEvent *event;
 	DISPLAY_CONTROL_MONITOR_LAYOUT *dcml;
 	CLIPRDR_FORMAT_DATA_RESPONSE response = { 0 };
+	RemminaFile *remminafile;
 
 	if (rfi->event_queue == NULL)
 		return True;
 
 	input = rfi->instance->input;
+
+	remminafile = remmina_plugin_service->protocol_plugin_get_file(gp);
 
 	while ((event = (RemminaPluginRdpEvent *)g_async_queue_try_pop(rfi->event_queue)) != NULL) {
 		switch (event->type) {
@@ -242,32 +245,47 @@ static BOOL rf_process_event_queue(RemminaProtocolWidget *gp)
 			break;
 
 		case REMMINA_RDP_EVENT_TYPE_SEND_MONITOR_LAYOUT:
-			dcml = calloc(rfi->settings->MonitorCount, sizeof(DISPLAY_CONTROL_MONITOR_LAYOUT));
-			REMMINA_PLUGIN_DEBUG("REMMINA_RDP_EVENT_TYPE_SEND_MONITOR_LAYOUT:");
-			if (!dcml)
-				break;
-			for (gint i = 0; i < rfi->settings->MonitorCount; ++i) {
-				REMMINA_PLUGIN_DEBUG("Sending diplay layout for monitor n° %d", i);
-				dcml[i].Flags = (rfi->settings->MonitorDefArray[i].is_primary ? DISPLAY_CONTROL_MONITOR_PRIMARY : 0);
-				REMMINA_PLUGIN_DEBUG("Monitor %d is primary: %d", i, dcml[i].Flags);
-				dcml[i].Left = rfi->settings->MonitorDefArray[i].x;
-				REMMINA_PLUGIN_DEBUG("Monitor %d x: %d", i, dcml[i].Left);
-				dcml[i].Top = rfi->settings->MonitorDefArray[i].y;
-				REMMINA_PLUGIN_DEBUG("Monitor %d y: %d", i, dcml[i].Top);
-				dcml[i].Width = rfi->settings->MonitorDefArray[i].width;
-				REMMINA_PLUGIN_DEBUG("Monitor %d width: %d", i, dcml[i].Width);
-				dcml[i].Height = rfi->settings->MonitorDefArray[i].height;
-				REMMINA_PLUGIN_DEBUG("Monitor %d height: %d", i, dcml[i].Height);
-				dcml[i].PhysicalWidth = rfi->settings->MonitorDefArray[i].attributes.physicalWidth;
-				REMMINA_PLUGIN_DEBUG("Monitor %d physical width: %d", i, dcml[i].PhysicalWidth);
-				dcml[i].PhysicalHeight = rfi->settings->MonitorDefArray[i].attributes.physicalHeight;
-				REMMINA_PLUGIN_DEBUG("Monitor %d physical height: %d", i, dcml[i].PhysicalHeight);
-				dcml[i].Orientation = event->monitor_layout.desktopOrientation;
-				dcml[i].DesktopScaleFactor = event->monitor_layout.desktopScaleFactor;
-				dcml[i].DeviceScaleFactor = event->monitor_layout.deviceScaleFactor;
+			if (remmina_plugin_service->file_get_int(remminafile, "multimon", FALSE)) {
+				/* got some crashes with g_malloc0, to be investigated */
+				dcml = calloc(rfi->settings->MonitorCount, sizeof(DISPLAY_CONTROL_MONITOR_LAYOUT));
+				REMMINA_PLUGIN_DEBUG("REMMINA_RDP_EVENT_TYPE_SEND_MONITOR_LAYOUT:");
+				if (!dcml)
+					break;
+				for (gint i = 0; i < rfi->settings->MonitorCount; ++i) {
+					REMMINA_PLUGIN_DEBUG("Sending diplay layout for monitor n° %d", i);
+					dcml[i].Flags = (rfi->settings->MonitorDefArray[i].is_primary ? DISPLAY_CONTROL_MONITOR_PRIMARY : 0);
+					REMMINA_PLUGIN_DEBUG("Monitor %d is primary: %d", i, dcml[i].Flags);
+					dcml[i].Left = rfi->settings->MonitorDefArray[i].x;
+					REMMINA_PLUGIN_DEBUG("Monitor %d x: %d", i, dcml[i].Left);
+					dcml[i].Top = rfi->settings->MonitorDefArray[i].y;
+					REMMINA_PLUGIN_DEBUG("Monitor %d y: %d", i, dcml[i].Top);
+					dcml[i].Width = rfi->settings->MonitorDefArray[i].width;
+					REMMINA_PLUGIN_DEBUG("Monitor %d width: %d", i, dcml[i].Width);
+					dcml[i].Height = rfi->settings->MonitorDefArray[i].height;
+					REMMINA_PLUGIN_DEBUG("Monitor %d height: %d", i, dcml[i].Height);
+					dcml[i].PhysicalWidth = rfi->settings->MonitorDefArray[i].attributes.physicalWidth;
+					REMMINA_PLUGIN_DEBUG("Monitor %d physical width: %d", i, dcml[i].PhysicalWidth);
+					dcml[i].PhysicalHeight = rfi->settings->MonitorDefArray[i].attributes.physicalHeight;
+					REMMINA_PLUGIN_DEBUG("Monitor %d physical height: %d", i, dcml[i].PhysicalHeight);
+					dcml[i].Orientation = event->monitor_layout.desktopOrientation;
+					dcml[i].DesktopScaleFactor = event->monitor_layout.desktopScaleFactor;
+					dcml[i].DeviceScaleFactor = event->monitor_layout.deviceScaleFactor;
+				}
+				rfi->dispcontext->SendMonitorLayout(rfi->dispcontext, rfi->settings->MonitorCount, dcml);
+				g_free(dcml);
+			} else {
+				dcml = g_malloc0(sizeof(DISPLAY_CONTROL_MONITOR_LAYOUT));
+				if (dcml) {
+					dcml->Flags = DISPLAY_CONTROL_MONITOR_PRIMARY;
+					dcml->Width = event->monitor_layout.width;
+					dcml->Height = event->monitor_layout.height;
+					dcml->Orientation = event->monitor_layout.desktopOrientation;
+					dcml->DesktopScaleFactor = event->monitor_layout.desktopScaleFactor;
+					dcml->DeviceScaleFactor = event->monitor_layout.deviceScaleFactor;
+					rfi->dispcontext->SendMonitorLayout(rfi->dispcontext, 1, dcml);
+					g_free(dcml);\
+				}
 			}
-			rfi->dispcontext->SendMonitorLayout(rfi->dispcontext, rfi->settings->MonitorCount, dcml);
-			g_free(dcml);
 			break;
 		case REMMINA_RDP_EVENT_DISCONNECT:
 			/* Disconnect requested via GUI (i.e: tab destroy/close) */

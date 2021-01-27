@@ -366,8 +366,12 @@ static gboolean remmina_rdp_event_delayed_monitor_layout(RemminaProtocolWidget *
 	GtkAllocation a;
 	gint desktopOrientation, desktopScaleFactor, deviceScaleFactor;
 
+	RemminaFile *remminafile;
+
 	if (!rfi || !rfi->connected || rfi->is_reconnecting)
 		return FALSE;
+
+	remminafile = remmina_plugin_service->protocol_plugin_get_file(gp);
 
 	if (rfi->scale != REMMINA_PROTOCOL_WIDGET_SCALE_MODE_DYNRES)
 		return FALSE;
@@ -398,28 +402,37 @@ static gboolean remmina_rdp_event_delayed_monitor_layout(RemminaProtocolWidget *
 					gpheight = AVC_MIN_DESKTOP_HEIGHT;
 			}
 			rdp_event.type = REMMINA_RDP_EVENT_TYPE_SEND_MONITOR_LAYOUT;
-			for (gint i = 0; i < rfi->settings->MonitorCount; ++i) {
-				REMMINA_PLUGIN_DEBUG("Sending diplay layout n° %d", i);
-				rdp_event.monitor_layout.Flags = rfi->settings->MonitorDefArray[i].is_primary;
-				REMMINA_PLUGIN_DEBUG("EVNT MON LAYOUT - Flags: %i", rdp_event.monitor_layout.Flags);
-				rdp_event.monitor_layout.Left = rfi->settings->MonitorDefArray[i].x;
-				REMMINA_PLUGIN_DEBUG("EVNT MON LAYOUT - Left: %i", rdp_event.monitor_layout.Left);
-				rdp_event.monitor_layout.Top = rfi->settings->MonitorDefArray[i].y;
-				//rdp_event.monitor_layout.Top = rfi->settings->MonitorDefArray[0].y;
-				REMMINA_PLUGIN_DEBUG("EVNT MON LAYOUT - Top: %i", rdp_event.monitor_layout.Top);
-				rdp_event.monitor_layout.width = rfi->settings->MonitorDefArray[i].width;
-				REMMINA_PLUGIN_DEBUG("EVNT MON LAYOUT - width: %i", rdp_event.monitor_layout.width);
-				rdp_event.monitor_layout.height = rfi->settings->MonitorDefArray[i].height;
-				REMMINA_PLUGIN_DEBUG("EVNT MON LAYOUT - height: %i", rdp_event.monitor_layout.height);
-				rdp_event.monitor_layout.physicalWidth = rfi->settings->MonitorDefArray[i].attributes.physicalWidth;
-				REMMINA_PLUGIN_DEBUG("EVNT MON LAYOUT - physicalWidth: %i", rdp_event.monitor_layout.physicalWidth);
-				rdp_event.monitor_layout.physicalHeight = rfi->settings->MonitorDefArray[i].attributes.physicalHeight;
-				REMMINA_PLUGIN_DEBUG("EVNT MON LAYOUT - PhysicalHeight: %i", rdp_event.monitor_layout.physicalHeight);
-				rdp_event.monitor_layout.desktopOrientation = rdp_event.monitor_layout.desktopOrientation;
-				REMMINA_PLUGIN_DEBUG("EVNT MON LAYOUT - desktopOrientation: %i", rdp_event.monitor_layout.desktopOrientation);
-				rdp_event.monitor_layout.desktopScaleFactor = rdp_event.monitor_layout.desktopScaleFactor;
-				REMMINA_PLUGIN_DEBUG("EVNT MON LAYOUT - ScaleFactorflag: %i", rdp_event.monitor_layout.desktopScaleFactor);
-				rdp_event.monitor_layout.deviceScaleFactor = rdp_event.monitor_layout.deviceScaleFactor;
+			if (remmina_plugin_service->file_get_int(remminafile, "multimon", FALSE)) {
+				for (gint i = 0; i < rfi->settings->MonitorCount; ++i) {
+					REMMINA_PLUGIN_DEBUG("Sending diplay layout n° %d", i);
+					rdp_event.monitor_layout.Flags = rfi->settings->MonitorDefArray[i].is_primary;
+					REMMINA_PLUGIN_DEBUG("EVNT MON LAYOUT - Flags: %i", rdp_event.monitor_layout.Flags);
+					rdp_event.monitor_layout.Left = rfi->settings->MonitorDefArray[i].x;
+					REMMINA_PLUGIN_DEBUG("EVNT MON LAYOUT - Left: %i", rdp_event.monitor_layout.Left);
+					rdp_event.monitor_layout.Top = rfi->settings->MonitorDefArray[i].y;
+					REMMINA_PLUGIN_DEBUG("EVNT MON LAYOUT - Top: %i", rdp_event.monitor_layout.Top);
+					rdp_event.monitor_layout.width = rfi->settings->MonitorDefArray[i].width;
+					REMMINA_PLUGIN_DEBUG("EVNT MON LAYOUT - width: %i", rdp_event.monitor_layout.width);
+					rdp_event.monitor_layout.height = rfi->settings->MonitorDefArray[i].height;
+					REMMINA_PLUGIN_DEBUG("EVNT MON LAYOUT - height: %i", rdp_event.monitor_layout.height);
+					rdp_event.monitor_layout.physicalWidth = rfi->settings->MonitorDefArray[i].attributes.physicalWidth;
+					REMMINA_PLUGIN_DEBUG("EVNT MON LAYOUT - physicalWidth: %i", rdp_event.monitor_layout.physicalWidth);
+					rdp_event.monitor_layout.physicalHeight = rfi->settings->MonitorDefArray[i].attributes.physicalHeight;
+					REMMINA_PLUGIN_DEBUG("EVNT MON LAYOUT - PhysicalHeight: %i", rdp_event.monitor_layout.physicalHeight);
+					rdp_event.monitor_layout.desktopOrientation = rdp_event.monitor_layout.desktopOrientation;
+					REMMINA_PLUGIN_DEBUG("EVNT MON LAYOUT - desktopOrientation: %i", rdp_event.monitor_layout.desktopOrientation);
+					rdp_event.monitor_layout.desktopScaleFactor = rdp_event.monitor_layout.desktopScaleFactor;
+					REMMINA_PLUGIN_DEBUG("EVNT MON LAYOUT - ScaleFactorflag: %i", rdp_event.monitor_layout.desktopScaleFactor);
+					rdp_event.monitor_layout.deviceScaleFactor = rdp_event.monitor_layout.deviceScaleFactor;
+				}
+				remmina_rdp_event_event_push(gp, &rdp_event);
+			} else {
+
+				rdp_event.monitor_layout.width = gpwidth;
+				rdp_event.monitor_layout.height = gpheight;
+				rdp_event.monitor_layout.desktopOrientation = desktopOrientation;
+				rdp_event.monitor_layout.desktopScaleFactor = desktopScaleFactor;
+				rdp_event.monitor_layout.deviceScaleFactor = deviceScaleFactor;
 				remmina_rdp_event_event_push(gp, &rdp_event);
 			}
 		}
