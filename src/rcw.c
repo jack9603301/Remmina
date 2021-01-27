@@ -1311,6 +1311,14 @@ static void rcw_toolbar_fullscreen(GtkToolItem *toggle, RemminaConnectionWindow 
 
 	if (!(cnnobj = rcw_get_visible_cnnobj(cnnwin))) return;
 
+	RemminaProtocolWidget *gp = REMMINA_PROTOCOL_WIDGET(cnnobj->proto);
+
+	if (remmina_protocol_widget_get_multimon (gp) >= 1) {
+		REMMINA_DEBUG("Fullscreen on all monitor");
+		gdk_window_set_fullscreen_mode (gtk_widget_get_window(GTK_WIDGET(toggle)), GDK_FULLSCREEN_ON_ALL_MONITORS);
+	} else
+		REMMINA_DEBUG("Fullscreen on one monitor");
+
 	if (gtk_toggle_tool_button_get_active(GTK_TOGGLE_TOOL_BUTTON(toggle)))
 		rcw_switch_viewmode(cnnwin, cnnwin->priv->fss_view_mode);
 	else
@@ -2943,12 +2951,37 @@ static gboolean rcw_state_event(GtkWidget *widget, GdkEventWindowState *event, g
 
 static gboolean rcw_map_event_fullscreen(GtkWidget *widget, GdkEvent *event, gpointer data)
 {
+	TRACE_CALL(__func__);
+	RemminaConnectionObject *cnnobj;
 	gint target_monitor;
 
-	TRACE_CALL(__func__);
+	REMMINA_DEBUG ("Mapping Remmina connection window");
 
-	if (!REMMINA_IS_CONNECTION_WINDOW(widget))
+	if (!REMMINA_IS_CONNECTION_WINDOW(widget)) {
+		REMMINA_DEBUG ("Remmina Connection Window undefined, cannot go fullscreen");
 		return FALSE;
+	}
+
+	//RemminaConnectionWindow *cnnwin = (RemminaConnectionWindow *)data;
+	cnnobj = rcw_get_visible_cnnobj((RemminaConnectionWindow*)widget);
+	//cnnobj = g_object_get_data(G_OBJECT(widget), "cnnobj");
+	if (!cnnobj) {
+		REMMINA_DEBUG ("Remmina Connection Object undefined, cannot go fullscreen");
+		return FALSE;
+	}
+
+	RemminaProtocolWidget *gp = REMMINA_PROTOCOL_WIDGET(cnnobj->proto);
+	if (!gp) {
+		REMMINA_DEBUG ("Remmina Protocol Widget undefined, cannot go fullscreen");
+	}
+
+	if (remmina_protocol_widget_get_multimon (gp) >= 1) {
+		REMMINA_DEBUG("Fullscreen on all monitor");
+		gdk_window_set_fullscreen_mode (gtk_widget_get_window(widget), GDK_FULLSCREEN_ON_ALL_MONITORS);
+		gdk_window_fullscreen(gtk_widget_get_window(widget));
+		return TRUE;
+	} else
+		REMMINA_DEBUG("Fullscreen on one monitor");
 
 	target_monitor = GPOINTER_TO_INT(data);
 
