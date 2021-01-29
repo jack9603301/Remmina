@@ -84,6 +84,7 @@
 #define REMMINA_RDP_FEATURE_UNFOCUS              3
 #define REMMINA_RDP_FEATURE_TOOL_SENDCTRLALTDEL  4
 #define REMMINA_RDP_FEATURE_DYNRESUPDATE         5
+#define REMMINA_RDP_FEATURE_MULTIMON             6
 
 #define REMMINA_CONNECTION_TYPE_NONE             0
 
@@ -1775,13 +1776,9 @@ static gboolean remmina_rdp_main(RemminaProtocolWidget *gp)
 		/* TODO Add an option for this */
 		rfi->settings->ForceMultimon = TRUE;
 		rfi->settings->Fullscreen = TRUE;
-		//if (!rfi->settings->NumMonitorIds)
-			//rfi->settings->NumMonitorIds = 0;
 
 		gchar *monitorids = g_strdup(remmina_plugin_service->file_get_string(remminafile, "monitorids"));
 		/* Otherwise we get all the attached monitors */
-		//if (monitorids != NULL && monitorids[0] != '\0')
-		//gchar *monitorids = NULL;
 		remmina_rdp_monitor_get(rfi, &monitorids, &maxwidth, &maxheight);
 		if (monitorids != NULL && monitorids[0] != '\0') {
 			gchar **items;
@@ -2269,22 +2266,36 @@ static void remmina_rdp_call_feature(RemminaProtocolWidget *gp, const RemminaPro
 		if (rfi) {
 			rfi->scale = remmina_plugin_service->remmina_protocol_widget_get_current_scale_mode(gp);
 			remmina_rdp_event_update_scale(gp);
-		} else {
-			printf("Remmina RDP plugin warning: Null value for rfi in %s REMMINA_RDP_FEATURE_SCALE\n", __func__);
+		} else
+			REMMINA_PLUGIN_DEBUG("Remmina RDP plugin warning: Null value for rfi by REMMINA_RDP_FEATURE_SCALE");
+		break;
+
+	case REMMINA_RDP_FEATURE_MULTIMON:
+		if (rfi) {
+			RemminaFile *remminafile = remmina_plugin_service->protocol_plugin_get_file(gp);
+			if (remmina_plugin_service->file_get_int(remminafile, "multimon", FALSE)) {
+				rfi->settings->UseMultimon = TRUE;
+				/* TODO Add an option for this */
+				rfi->settings->ForceMultimon = TRUE;
+				rfi->settings->Fullscreen = TRUE;
+				remmina_rdp_event_send_delayed_monitor_layout(gp);
+			}
+
 		}
+		else
+			REMMINA_PLUGIN_DEBUG("Remmina RDP plugin warning: Null value for rfi by REMMINA_RDP_FEATURE_MULTIMON");
 		break;
 
 	case REMMINA_RDP_FEATURE_DYNRESUPDATE:
 		break;
 
 	case REMMINA_RDP_FEATURE_TOOL_REFRESH:
-		if (rfi) {
+		if (rfi)
 			gtk_widget_queue_draw_area(rfi->drawing_area, 0, 0,
-						   remmina_plugin_service->protocol_plugin_get_width(gp),
-						   remmina_plugin_service->protocol_plugin_get_height(gp));
-		} else {
-			printf("Remmina RDP plugin warning: Null value for rfi in %s REMMINA_RDP_FEATURE_TOOL_REFRESH\n", __func__);
-		}
+					remmina_plugin_service->protocol_plugin_get_width(gp),
+					remmina_plugin_service->protocol_plugin_get_height(gp));
+		else
+			REMMINA_PLUGIN_DEBUG("Remmina RDP plugin warning: Null value for rfi by REMMINA_RDP_FEATURE_TOOL_REFRESH");
 		break;
 
 	case REMMINA_RDP_FEATURE_TOOL_SENDCTRLALTDEL:
@@ -2574,6 +2585,7 @@ static const RemminaProtocolFeature remmina_rdp_features[] =
 	{ REMMINA_PROTOCOL_FEATURE_TYPE_TOOL,	      REMMINA_RDP_FEATURE_TOOL_REFRESH,	       N_("Refresh"),		   NULL, NULL },
 	{ REMMINA_PROTOCOL_FEATURE_TYPE_SCALE,	      REMMINA_RDP_FEATURE_SCALE,	       NULL,			   NULL, NULL },
 	{ REMMINA_PROTOCOL_FEATURE_TYPE_DYNRESUPDATE, REMMINA_RDP_FEATURE_DYNRESUPDATE,	       NULL,			   NULL, NULL },
+	{ REMMINA_PROTOCOL_FEATURE_TYPE_MULTIMON,     REMMINA_RDP_FEATURE_MULTIMON,	       NULL,			   NULL, NULL },
 	{ REMMINA_PROTOCOL_FEATURE_TYPE_TOOL,	      REMMINA_RDP_FEATURE_TOOL_SENDCTRLALTDEL, N_("Send Ctrl+Alt+Delete"), NULL, NULL },
 	{ REMMINA_PROTOCOL_FEATURE_TYPE_UNFOCUS,      REMMINA_RDP_FEATURE_UNFOCUS,	       NULL,			   NULL, NULL },
 	{ REMMINA_PROTOCOL_FEATURE_TYPE_END,	      0,				       NULL,			   NULL, NULL }

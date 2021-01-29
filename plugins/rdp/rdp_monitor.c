@@ -70,7 +70,7 @@ void remmina_rdp_monitor_get (rfContext *rfi, gchar **monitorids, guint32 *maxwi
 	TRACE_CALL(__func__);
 
 	GdkDisplay *display;
-	GdkMonitor *current_monitor, *monitor;
+	GdkMonitor *monitor;
 	gboolean has_custom_monitors = FALSE;
 
 	gboolean primary_found = FALSE;
@@ -210,10 +210,10 @@ void remmina_rdp_monitor_get (rfContext *rfi, gchar **monitorids, guint32 *maxwi
 	{
 		settings->MonitorDefArray[i].x =
 			settings->MonitorDefArray[i].x - settings->MonitorLocalShiftX;
-		REMMINA_PLUGIN_DEBUG("Monitor n %d calculated x: %d", index, settings->MonitorDefArray[index].x);
+		REMMINA_PLUGIN_DEBUG("Monitor n %d calculated x: %d", i, settings->MonitorDefArray[i].x);
 		settings->MonitorDefArray[i].y =
 			settings->MonitorDefArray[i].y - settings->MonitorLocalShiftY;
-		REMMINA_PLUGIN_DEBUG("Monitor n %d calculated y: %d", index, settings->MonitorDefArray[index].y);
+		REMMINA_PLUGIN_DEBUG("Monitor n %d calculated y: %d", i, settings->MonitorDefArray[i].y);
 	}
 
 	REMMINA_PLUGIN_DEBUG("%d monitors on %d have been configured", rfi->settings->MonitorCount, count);

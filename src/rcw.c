@@ -111,6 +111,7 @@ struct _RemminaConnectionWindowPriv {
 	GtkToolItem *					toolitem_dynres;
 	GtkToolItem *					toolitem_scale;
 	GtkToolItem *					toolitem_grab;
+	GtkToolItem *					toolitem_multimon;
 	GtkToolItem *					toolitem_preferences;
 	GtkToolItem *					toolitem_tools;
 	GtkToolItem *					toolitem_duplicate;
@@ -1656,6 +1657,28 @@ static void rcw_toolbar_scaled_mode(GtkToolItem *toggle, RemminaConnectionWindow
 	rco_change_scalemode(cnnobj, bdyn, bscale);
 }
 
+static void rcw_toolbar_multi_monitor_mode(GtkToolItem *toggle, RemminaConnectionWindow *cnnwin)
+{
+	TRACE_CALL(__func__);
+	RemminaConnectionObject *cnnobj;
+
+	if (cnnwin->priv->toolbar_is_reconfiguring)
+		return;
+
+	if (!(cnnobj = rcw_get_visible_cnnobj(cnnwin))) return;
+
+	if (gtk_toggle_tool_button_get_active(GTK_TOGGLE_TOOL_BUTTON(toggle))) {
+		remmina_file_set_int(cnnobj->remmina_file, "multimon", 1);
+		remmina_protocol_widget_call_feature_by_type(REMMINA_PROTOCOL_WIDGET(cnnobj->proto),
+				REMMINA_PROTOCOL_FEATURE_TYPE_MULTIMON, 0);
+		// Here we need a new rcw->toolbar->fullscreen_toggle. passing this toggle is a mistake
+		rcw_toolbar_fullscreen(cnnwin->priv->toolitem_fullscreen, cnnwin);
+	} else {
+		remmina_file_set_int(cnnobj->remmina_file, "multimon", 0);
+		rcw_toolbar_fullscreen(NULL, cnnwin);
+	}
+}
+
 static void rcw_toolbar_preferences_popdown(GtkToolItem *toggle, RemminaConnectionWindow *cnnwin)
 {
 	TRACE_CALL(__func__);
@@ -2139,6 +2162,12 @@ rcw_create_toolbar(RemminaConnectionWindow *cnnwin, gint mode)
 	GtkWidget *widget;
 	GtkWidget *arrow;
 
+	GdkDisplay *display;
+	gint n_monitors;
+
+	display = gdk_display_get_default ();
+	n_monitors = gdk_display_get_n_monitors(display);
+
 	cnnobj = rcw_get_visible_cnnobj(cnnwin);
 
 	priv->toolbar_is_reconfiguring = TRUE;
@@ -2264,6 +2293,19 @@ rcw_create_toolbar(RemminaConnectionWindow *cnnwin, gint mode)
 	g_signal_connect(G_OBJECT(widget), "toggled", G_CALLBACK(rcw_toolbar_scaler_option), cnnwin);
 	priv->scaler_option_button = widget;
 
+	/* Multi monitor */
+
+	if (n_monitors > 1) {
+		toolitem = gtk_toggle_tool_button_new();
+		gtk_tool_button_set_icon_name(GTK_TOOL_BUTTON(toolitem), "remmina-multi-monitor-symbolic");
+		rcw_set_tooltip(GTK_WIDGET(toolitem), _("Multi monitor"),
+				remmina_pref.shortcutkey_multimon, 0);
+		gtk_toolbar_insert(GTK_TOOLBAR(toolbar), toolitem, -1);
+		gtk_widget_show(GTK_WIDGET(toolitem));
+		g_signal_connect(G_OBJECT(toolitem), "toggled", G_CALLBACK(rcw_toolbar_multi_monitor_mode), cnnwin);
+		priv->toolitem_multimon = toolitem;
+	}
+
 	/* Grab keyboard button */
 	toolitem = gtk_toggle_tool_button_new();
 	gtk_tool_button_set_icon_name(GTK_TOOL_BUTTON(toolitem), "remmina-keyboard-symbolic");
@@ -2380,7 +2422,6 @@ static void rco_update_toolbar(RemminaConnectionObject *cnnobj)
 	priv->toolbar_is_reconfiguring = TRUE;
 
 	rco_update_toolbar_autofit_button(cnnobj);
-
 
 	toolitem = priv->toolitem_switch_page;
 	if (kioskmode)
