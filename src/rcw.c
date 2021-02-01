@@ -1671,8 +1671,8 @@ static void rcw_toolbar_multi_monitor_mode(GtkToolItem *toggle, RemminaConnectio
 		remmina_file_set_int(cnnobj->remmina_file, "multimon", 1);
 		remmina_protocol_widget_call_feature_by_type(REMMINA_PROTOCOL_WIDGET(cnnobj->proto),
 				REMMINA_PROTOCOL_FEATURE_TYPE_MULTIMON, 0);
-		// Here we need a new rcw->toolbar->fullscreen_toggle. passing this toggle is a mistake
-		rcw_toolbar_fullscreen(cnnwin->priv->toolitem_fullscreen, cnnwin);
+		if (!gtk_toggle_tool_button_get_active(GTK_TOGGLE_TOOL_BUTTON(cnnwin->priv->toolitem_fullscreen)))
+			gtk_toggle_tool_button_set_active(GTK_TOGGLE_TOOL_BUTTON(cnnwin->priv->toolitem_fullscreen), TRUE);
 	} else {
 		remmina_file_set_int(cnnobj->remmina_file, "multimon", 0);
 		rcw_toolbar_fullscreen(NULL, cnnwin);
@@ -2456,6 +2456,11 @@ static void rco_update_toolbar(RemminaConnectionObject *cnnobj)
 		gtk_widget_set_sensitive(GTK_WIDGET(priv->scaler_option_button), FALSE);
 		break;
 	}
+
+	toolitem = priv->toolitem_multimon;
+	gtk_widget_set_sensitive(GTK_WIDGET(toolitem), cnnobj->connected);
+	gtk_toggle_tool_button_set_active(GTK_TOGGLE_TOOL_BUTTON(toolitem),
+					  remmina_file_get_int(cnnobj->remmina_file, "multimon", FALSE));
 
 	toolitem = priv->toolitem_grab;
 	gtk_widget_set_sensitive(GTK_WIDGET(toolitem), cnnobj->connected);
