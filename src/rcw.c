@@ -2234,6 +2234,18 @@ rcw_create_toolbar(RemminaConnectionWindow *cnnwin, gint mode)
 	if (mode == SCROLLED_WINDOW_MODE)
 		gtk_widget_set_sensitive(GTK_WIDGET(widget), FALSE);
 
+	/* Multi monitor */
+	if (n_monitors > 1) {
+		toolitem = gtk_toggle_tool_button_new();
+		gtk_tool_button_set_icon_name(GTK_TOOL_BUTTON(toolitem), "remmina-multi-monitor-symbolic");
+		rcw_set_tooltip(GTK_WIDGET(toolitem), _("Multi monitor"),
+				remmina_pref.shortcutkey_multimon, 0);
+		gtk_toolbar_insert(GTK_TOOLBAR(toolbar), toolitem, -1);
+		gtk_widget_show(GTK_WIDGET(toolitem));
+		g_signal_connect(G_OBJECT(toolitem), "toggled", G_CALLBACK(rcw_toolbar_multi_monitor_mode), cnnwin);
+		priv->toolitem_multimon = toolitem;
+	}
+
 	/* Switch tabs */
 	toolitem = gtk_toggle_tool_button_new();
 	gtk_tool_button_set_icon_name(GTK_TOOL_BUTTON(toolitem), "remmina-switch-page-symbolic");
@@ -2292,19 +2304,6 @@ rcw_create_toolbar(RemminaConnectionWindow *cnnwin, gint mode)
 	gtk_container_add(GTK_CONTAINER(widget), arrow);
 	g_signal_connect(G_OBJECT(widget), "toggled", G_CALLBACK(rcw_toolbar_scaler_option), cnnwin);
 	priv->scaler_option_button = widget;
-
-	/* Multi monitor */
-
-	if (n_monitors > 1) {
-		toolitem = gtk_toggle_tool_button_new();
-		gtk_tool_button_set_icon_name(GTK_TOOL_BUTTON(toolitem), "remmina-multi-monitor-symbolic");
-		rcw_set_tooltip(GTK_WIDGET(toolitem), _("Multi monitor"),
-				remmina_pref.shortcutkey_multimon, 0);
-		gtk_toolbar_insert(GTK_TOOLBAR(toolbar), toolitem, -1);
-		gtk_widget_show(GTK_WIDGET(toolitem));
-		g_signal_connect(G_OBJECT(toolitem), "toggled", G_CALLBACK(rcw_toolbar_multi_monitor_mode), cnnwin);
-		priv->toolitem_multimon = toolitem;
-	}
 
 	/* Grab keyboard button */
 	toolitem = gtk_toggle_tool_button_new();
