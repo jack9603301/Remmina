@@ -47,7 +47,7 @@ resource_rules:
         actions:
           status: close
           comment: |
-            {{author}} This issue is now closed due to being marked marked as "needinfo" with no updates for a long time. Please re-open if still relevant.
+            {{author}} This issue is now closed due to being marked as "needinfo" with no updates for a long time. Please re-open if still relevant.
             CC {{assignees}}
 
       - name: Close old needs attention policy
