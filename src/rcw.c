@@ -114,6 +114,7 @@ struct _RemminaConnectionWindowPriv {
 	GtkToolItem *					toolitem_multimon;
 	GtkToolItem *					toolitem_preferences;
 	GtkToolItem *					toolitem_tools;
+	GtkToolItem *                   toolitem_new;
 	GtkToolItem *					toolitem_duplicate;
 	GtkToolItem *					toolitem_screenshot;
 	GtkWidget *					fullscreen_option_button;
@@ -1691,6 +1692,16 @@ static void rcw_toolbar_multi_monitor_mode(GtkToolItem *toggle, RemminaConnectio
 	}
 }
 
+static void rcw_toolbar_open_main(GtkToolItem *toggle, RemminaConnectionWindow *cnnwin)
+{
+    TRACE_CALL(__func__);
+
+    if (cnnwin->priv->toolbar_is_reconfiguring)
+        return;
+
+    remmina_exec_command(REMMINA_COMMAND_MAIN, NULL);
+}
+
 static void rcw_toolbar_preferences_popdown(GtkToolItem *toggle, RemminaConnectionWindow *cnnwin)
 {
 	TRACE_CALL(__func__);
@@ -2354,6 +2365,15 @@ rcw_create_toolbar(RemminaConnectionWindow *cnnwin, gint mode)
 	toolitem = gtk_separator_tool_item_new();
 	gtk_toolbar_insert(GTK_TOOLBAR(toolbar), toolitem, -1);
 	gtk_widget_show(GTK_WIDGET(toolitem));
+
+    toolitem = gtk_tool_button_new(NULL, "Open Remmina Main window");
+    gtk_tool_button_set_icon_name(GTK_TOOL_BUTTON(toolitem), "remmina-new-symbolic");
+    gtk_tool_item_set_tooltip_text(toolitem, _("Open the Remmina main window"));
+    gtk_toolbar_insert(GTK_TOOLBAR(toolbar), toolitem, -1);
+    gtk_widget_show(GTK_WIDGET(toolitem));
+    g_signal_connect(G_OBJECT(toolitem), "clicked", G_CALLBACK(rcw_toolbar_open_main), cnnwin);
+
+    priv->toolitem_new = toolitem;
 
 	toolitem = gtk_tool_button_new(NULL, "Duplicate connection");
 	gtk_tool_button_set_icon_name(GTK_TOOL_BUTTON(toolitem), "remmina-duplicate-symbolic");
