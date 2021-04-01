@@ -760,9 +760,7 @@ static gboolean remmina_main_search_key_event (GtkWidget *search_entry, GdkEvent
 	TRACE_CALL(__func__);
 	if (event->keyval == GDK_KEY_Escape) {
 		gtk_entry_set_text(remminamain->entry_quick_connect_server, "");
-		//gtk_search_bar_set_search_mode(remminamain->search_bar, FALSE);
-		//if (gtk_toggle_button_get_active(remminamain->search_toggle))
-			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(RM_GET_OBJECT("search_toggle")), FALSE);
+		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(RM_GET_OBJECT("search_toggle")), FALSE);
 		return TRUE;
 	}
 	return FALSE;
@@ -1183,21 +1181,6 @@ void remmina_main_on_action_search_toggle(GSimpleAction *action, GVariant *param
 		gtk_widget_grab_focus (GTK_WIDGET(remminamain->entry_quick_connect_server));
 	} else
 		REMMINA_DEBUG("Search toggle is not active");
-
-
-#if 0
-	gboolean toggle_status = gtk_toggle_button_get_active(remminamain->search_toggle);
-	//gtk_search_bar_set_search_mode(remminamain->search_bar, !toggle_status);
-	//gtk_toggle_button_set_active(remminamain->search_toggle, !toggle_status);
-	if (toggle_status) {
-		REMMINA_DEBUG("Search toggle is active");
-		gtk_search_bar_set_search_mode(remminamain->search_bar, TRUE);
-		gtk_widget_grab_focus (GTK_WIDGET(remminamain->entry_quick_connect_server));
-	} else {
-		REMMINA_DEBUG("Search toggle is not active");
-		gtk_search_bar_set_search_mode(remminamain->search_bar, FALSE);
-	}
-#endif
 }
 
 void remmina_main_on_accel_search_toggle(RemminaMain *remminamain)
