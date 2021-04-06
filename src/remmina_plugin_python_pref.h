@@ -1,6 +1,6 @@
 /*
  * Remmina - The GTK+ Remote Desktop Client
- * Copyright (C) 2014-2022 Antenore Gatta, Giovanni Panozzo
+ * Copyright (C) 2014-2021 Antenore Gatta, Giovanni Panozzo
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,15 +34,12 @@
 
 #pragma once
 
-#include "remmina/plugin.h"
-
 G_BEGIN_DECLS
 
-RemminaPlugin* remmina_plugin_python_create_protocol_plugin(PyObject* pluginInstance);
-RemminaPlugin* remmina_plugin_python_create_entry_plugin(PyObject* pluginInstance);
-RemminaPlugin* remmina_plugin_python_create_file_plugin(PyObject* pluginInstance);
-RemminaPlugin* remmina_plugin_python_create_tool_plugin(PyObject* pluginInstance);
-RemminaPlugin* remmina_plugin_python_create_pref_plugin(PyObject* pluginInstance);
-RemminaPlugin* remmina_plugin_python_create_secret_plugin(PyObject* pluginInstance);
+/**
+ * @brief
+ */
+GtkWidget *remmina_plugin_python_pref_get_pref_body_wrapper(RemminaPrefPlugin* instance);
 
 G_END_DECLS
+

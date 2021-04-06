@@ -1,6 +1,6 @@
 /*
  * Remmina - The GTK+ Remote Desktop Client
- * Copyright (C) 2014-2022 Antenore Gatta, Giovanni Panozzo
+ * Copyright (C) 2014-2021 Antenore Gatta, Giovanni Panozzo
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -36,13 +36,13 @@
 
 #include "remmina/plugin.h"
 
+
 G_BEGIN_DECLS
 
-RemminaPlugin* remmina_plugin_python_create_protocol_plugin(PyObject* pluginInstance);
-RemminaPlugin* remmina_plugin_python_create_entry_plugin(PyObject* pluginInstance);
-RemminaPlugin* remmina_plugin_python_create_file_plugin(PyObject* pluginInstance);
-RemminaPlugin* remmina_plugin_python_create_tool_plugin(PyObject* pluginInstance);
-RemminaPlugin* remmina_plugin_python_create_pref_plugin(PyObject* pluginInstance);
-RemminaPlugin* remmina_plugin_python_create_secret_plugin(PyObject* pluginInstance);
+gboolean remmina_plugin_python_secret_init_wrapper(RemminaSecretPlugin* instance);
+gboolean remmina_plugin_python_secret_is_service_available_wrapper(RemminaSecretPlugin* instance);
+void remmina_plugin_python_secret_store_password_wrapper(RemminaSecretPlugin* instance, RemminaFile* file, const gchar *key, const gchar *password);
+gchar * remmina_plugin_python_secret_get_password_wrapper(RemminaSecretPlugin* instance, RemminaFile* file, const gchar *key);
+void remmina_plugin_python_secret_delete_password_wrapper(RemminaSecretPlugin* instance, RemminaFile* file, const gchar *key);
 
 G_END_DECLS

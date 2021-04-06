@@ -1,6 +1,6 @@
 /*
  * Remmina - The GTK+ Remote Desktop Client
- * Copyright (C) 2014-2022 Antenore Gatta, Giovanni Panozzo
+ * Copyright (C) 2014-2021 Antenore Gatta, Giovanni Panozzo
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,53 +34,67 @@
 
 #pragma once
 
-#include "pygobject.h"
-#include "remmina_plugin_python_protocol_widget.h"
+#include "remmina/plugin.h"
+
+
+G_BEGIN_DECLS
+
 
 /**
- * @brief Maps an instance of a Python plugin to a Remmina one.
+ * @brief Handles the initialization of the Python plugin.
+ * @details This function prepares the plugin structure and calls the init method of the
+ * plugin Python class.
  *
- * @details This is used to map a Python plugin instance to the Remmina plugin one. Also instance specific data as the
- * protocol widget are stored in this struct.
+ * @param   gp  The protocol widget used by the plugin.
  */
-typedef struct {
-    RemminaProtocolPlugin *protocol_plugin;
-    RemminaFilePlugin* file_plugin;
-    RemminaSecretPlugin* secret_plugin;
-    RemminaToolPlugin* tool_plugin;
-    RemminaEntryPlugin* entry_plugin;
-    RemminaPrefPlugin* pref_plugin;
-    RemminaPlugin* generic_plugin;
-
-    PyRemminaProtocolWidget *gp;
-    PyObject *instance;
-} PyPlugin;
-
-
+void remmina_protocol_init_wrapper(RemminaProtocolWidget* gp);
 
 /**
- * @brief Initializes the 'remmina' module in the Python engine.
- */
-void remmina_plugin_python_module_init(void);
-
-/**
- * @brief Returns a pointer to the Python instance, mapped to the RemminaProtocolWidget or null if not found.
+ * @brief
+ * @details
  *
- * @details Remmina expects this callback function to be part of one plugin, which is the reason no instance information is explicitly passed. To bridge
- * that, this function can be used to retrieve the very plugin instance owning the given RemminaProtocolWidget.
+ * @param   gp  The protocol widget used by the plugin.
  */
-PyPlugin* remmina_plugin_python_module_get_plugin(RemminaProtocolWidget* gp);
+gboolean remmina_protocol_open_connection_wrapper(RemminaProtocolWidget* gp);
 
 /**
+ * @brief
+ * @details
  *
- * @param dest
- * @param setting
+ * @param   gp  The protocol widget used by the plugin.
  */
-void remmina_plugin_python_to_protocol_setting(RemminaProtocolSetting* dest, PyObject* setting);
+gboolean remmina_protocol_close_connection_wrapper(RemminaProtocolWidget* gp);
 
 /**
+ * @brief
+ * @details
  *
- * @param dest
- * @param feature
+ * @param   gp  The protocol widget used by the plugin.
  */
-void remmina_plugin_python_to_protocol_feature(RemminaProtocolFeature* dest, PyObject* feature);
+gboolean remmina_protocol_query_feature_wrapper(RemminaProtocolWidget* gp, const RemminaProtocolFeature* feature);
+
+/**
+ * @brief
+ * @details
+ *
+ * @param   gp  The protocol widget used by the plugin.
+ */
+void remmina_protocol_call_feature_wrapper(RemminaProtocolWidget* gp, const RemminaProtocolFeature* feature);
+
+/**
+ * @brief
+ * @details
+ *
+ * @param   gp  The protocol widget used by the plugin.
+ */
+void remmina_protocol_send_keytrokes_wrapper(RemminaProtocolWidget* gp, const guint keystrokes[], const gint keylen);
+
+/**
+ * @brief
+ * @details
+ *
+ * @param   gp  The protocol widget used by the plugin.
+ */
+gboolean remmina_protocol_get_plugin_screenshot_wrapper(RemminaProtocolWidget* gp, RemminaPluginScreenshotData* rpsd);
+
+G_END_DECLS
