@@ -94,8 +94,9 @@
 typedef struct _RemminaPluginGVncData {
 	GtkWidget *			box;
 	GtkWidget *                     vnc;
+	VncConnection *                 conn;
 	VncAudioPulse *                 pa;
-	const gchar *                   username;
+	gchar *                         error_msg;
 } RemminaPluginGVncData;
 
 G_BEGIN_DECLS

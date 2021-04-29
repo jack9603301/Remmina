@@ -54,12 +54,53 @@ enum {
 static RemminaPluginService *remmina_plugin_service = NULL;
 #define REMMINA_PLUGIN_DEBUG(fmt, ...) remmina_plugin_service->_remmina_debug(__func__, fmt, ##__VA_ARGS__)
 
+static void remmina_plugin_gvnc_mouse_grab(GtkWidget *vncdisplay, RemminaProtocolWidget *gp)
+{
+	TRACE_CALL(__func__);
+	RemminaPluginGVncData *gpdata = GET_PLUGIN_DATA(gp);
+	VncGrabSequence *seq = vnc_display_get_grab_keys(VNC_DISPLAY(gpdata->vnc));
+	gchar *seqstr = vnc_grab_sequence_as_string(seq);
+
+	REMMINA_PLUGIN_DEBUG("Pointer grabbed: %s", seqstr);
+}
+
+static void remmina_plugin_gvnc_mouse_ungrab(GtkWidget *vncdisplay, RemminaProtocolWidget *gp)
+{
+	TRACE_CALL(__func__);
+	REMMINA_PLUGIN_DEBUG("Pointer ungrabbed");
+}
+
+static void remmina_plugin_gvnc_on_vnc_error(GtkWidget *vncdisplay G_GNUC_UNUSED, const gchar *msg, RemminaProtocolWidget *gp)
+{
+	TRACE_CALL(__func__);
+	RemminaPluginGVncData *gpdata = GET_PLUGIN_DATA(gp);
+	REMMINA_PLUGIN_DEBUG("Error: %s\n", msg);
+	/* "vnc-error" is always followed by "vnc-disconnected",
+	 * so save the error for that signal */
+	g_free(gpdata->error_msg);
+	gpdata->error_msg = g_strdup(msg);
+}
+
 static void remmina_plugin_gvnc_desktop_resize(GtkWidget *vncdisplay G_GNUC_UNUSED, int width, int height)
 {
 	TRACE_CALL(__func__);
 	REMMINA_PLUGIN_DEBUG("Remote desktop size changed to %dx%d\n", width, height);
 }
 
+static void remmina_plugin_gvnc_on_bell(RemminaProtocolWidget *gp)
+{
+	TRACE_CALL(__func__);
+	REMMINA_PLUGIN_DEBUG("Bell message received");
+	RemminaPluginGVncData *gpdata = GET_PLUGIN_DATA(gp);
+	RemminaFile *remminafile = remmina_plugin_service->protocol_plugin_get_file(gp);
+	if (remmina_plugin_service->file_get_int(remminafile, "disableserverbell", FALSE))
+		return;
+	GdkWindow *window = gtk_widget_get_window(GTK_WIDGET(gp));
+
+	if (window)
+		gdk_window_beep(window);
+	REMMINA_PLUGIN_DEBUG("Beep emitted");
+}
 static void remmina_plugin_gvnc_update_scale_mode(RemminaProtocolWidget *gp)
 {
 	TRACE_CALL(__func__);
@@ -129,7 +170,9 @@ static gboolean remmina_plugin_gvnc_ask_auth(GtkWidget *vncdisplay, GValueArray 
 
 	gint ret;
 	gboolean disablepasswordstoring;
-	gchar *s_username, *s_password;
+	gchar *s_username = NULL, *s_password = NULL;
+	gboolean wantPassword = FALSE, wantUsername = FALSE;
+	int i;
 	gboolean save;
 
 
@@ -139,14 +182,31 @@ static gboolean remmina_plugin_gvnc_ask_auth(GtkWidget *vncdisplay, GValueArray 
 
 	REMMINA_PLUGIN_DEBUG("Got credential request for %u credential(s)\n", credList->n_values);
 
+	for (i = 0 ; i < credList->n_values ; i++) {
+		GValue *cred = g_value_array_get_nth(credList, i);
+		switch (g_value_get_enum(cred)) {
+			case VNC_DISPLAY_CREDENTIAL_USERNAME:
+				wantUsername = TRUE;
+				break;
+			case VNC_DISPLAY_CREDENTIAL_PASSWORD:
+				wantPassword = TRUE;
+				break;
+			case VNC_DISPLAY_CREDENTIAL_CLIENTNAME:
+				break;
+			default:
+				REMMINA_PLUGIN_DEBUG("Unsupported credential type %d", g_value_get_enum(cred));
+				vnc_display_close(VNC_DISPLAY(gpdata->vnc));
+				goto cleanup;
+		}
+	}
 	disablepasswordstoring = remmina_plugin_service->file_get_int(remminafile, "disablepasswordstoring", FALSE);
 
 	ret = remmina_plugin_service->protocol_plugin_init_auth(gp,
 								(disablepasswordstoring ? 0 : REMMINA_MESSAGE_PANEL_FLAG_SAVEPASSWORD)
-								| REMMINA_MESSAGE_PANEL_FLAG_USERNAME ,
+								| (wantUsername ? REMMINA_MESSAGE_PANEL_FLAG_USERNAME : 0),
 								_("Enter VNC authentication credentials"),
-								remmina_plugin_service->file_get_string(remminafile, "username"),
-								remmina_plugin_service->file_get_string(remminafile, "password"),
+								(wantUsername ? remmina_plugin_service->file_get_string(remminafile, "username") : NULL),
+								(wantPassword ? remmina_plugin_service->file_get_string(remminafile, "password") : NULL),
 								NULL,
 								NULL);
 	if (ret == GTK_RESPONSE_OK) {
@@ -164,8 +224,40 @@ static gboolean remmina_plugin_gvnc_ask_auth(GtkWidget *vncdisplay, GValueArray 
 			remmina_plugin_service->file_set_string(remminafile, "password", NULL);
 		}
 
-		vnc_display_set_credential(VNC_DISPLAY(gpdata->vnc), VNC_DISPLAY_CREDENTIAL_USERNAME, s_username);
-		vnc_display_set_credential(VNC_DISPLAY(gpdata->vnc), VNC_DISPLAY_CREDENTIAL_PASSWORD, s_password);
+		for (i = 0 ; i < credList->n_values ; i++) {
+			GValue *cred = g_value_array_get_nth(credList, i);
+			switch (g_value_get_enum(cred)) {
+				case VNC_DISPLAY_CREDENTIAL_USERNAME:
+					if (!s_username ||
+							vnc_display_set_credential(VNC_DISPLAY(gpdata->vnc),
+								g_value_get_enum(cred),
+								s_username)) {
+						g_debug("Failed to set credential type %d", g_value_get_enum(cred));
+						vnc_display_close(VNC_DISPLAY(gpdata->vnc));
+					}
+					break;
+				case VNC_DISPLAY_CREDENTIAL_PASSWORD:
+					if (!s_password ||
+							vnc_display_set_credential(VNC_DISPLAY(gpdata->vnc),
+								g_value_get_enum(cred),
+								s_password)) {
+						g_debug("Failed to set credential type %d", g_value_get_enum(cred));
+						vnc_display_close(VNC_DISPLAY(gpdata->vnc));
+					}
+					break;
+				case VNC_DISPLAY_CREDENTIAL_CLIENTNAME:
+					if (vnc_display_set_credential(VNC_DISPLAY(gpdata->vnc),
+								g_value_get_enum(cred),
+								"remmina")) {
+						g_debug("Failed to set credential type %d", g_value_get_enum(cred));
+						vnc_display_close(VNC_DISPLAY(gpdata->vnc));
+					}
+					break;
+				default:
+					g_debug("Unsupported credential type %d", g_value_get_enum(cred));
+					vnc_display_close(VNC_DISPLAY(gpdata->vnc));
+			}
+		}
 
 		if (s_username) g_free(s_username);
 		if (s_password) g_free(s_password);
@@ -175,29 +267,12 @@ static gboolean remmina_plugin_gvnc_ask_auth(GtkWidget *vncdisplay, GValueArray 
 		return FALSE;
 	}
 
+cleanup:
+	g_free(s_username);
+	g_free(s_password);
 
 	//g_object_set(gpdata->session, "password", s_password, NULL);
 	return TRUE;
-}
-
-static void remmina_plugin_gvnc_init(RemminaProtocolWidget *gp)
-{
-	TRACE_CALL(__func__);
-	RemminaPluginGVncData *gpdata;
-	VncGrabSequence *seq;
-
-	gpdata = g_new0(RemminaPluginGVncData, 1);
-	g_object_set_data_full(G_OBJECT(gp), "plugin-data", gpdata, g_free);
-
-	REMMINA_PLUGIN_DEBUG("[%s] Plugin init", PLUGIN_NAME);
-
-	//vnc_util_set_debug(TRUE);
-
-	gpdata->vnc = vnc_display_new();
-	gpdata->pa = vnc_audio_pulse_new();
-	seq = vnc_grab_sequence_new_from_string ("Control_R");
-        vnc_display_set_grab_keys(VNC_DISPLAY(gpdata->vnc), seq);
-        vnc_grab_sequence_free(seq);
 }
 
 static void remmina_plugin_gvnc_initialized(GtkWidget *vncdisplay, RemminaProtocolWidget *gp)
@@ -205,19 +280,22 @@ static void remmina_plugin_gvnc_initialized(GtkWidget *vncdisplay, RemminaProtoc
 	TRACE_CALL(__func__);
 
 	RemminaPluginGVncData *gpdata = GET_PLUGIN_DATA(gp);
+	RemminaFile *remminafile = remmina_plugin_service->protocol_plugin_get_file(gp);
 	REMMINA_PLUGIN_DEBUG("Connection initialized");
 
-	VncConnection *conn;
 	VncAudioFormat format = {
 		VNC_AUDIO_FORMAT_RAW_S32,
 		2,
 		44100,
 	};
 
-	conn = vnc_display_get_connection(VNC_DISPLAY(gpdata->vnc));
-	vnc_connection_set_audio_format(conn, &format);
-	vnc_connection_set_audio(conn, VNC_AUDIO(gpdata->pa));
-	vnc_connection_audio_enable(conn);
+	gpdata->conn = vnc_display_get_connection(VNC_DISPLAY(gpdata->vnc));
+
+	if (remmina_plugin_service->file_get_int(remminafile, "enableaudio", FALSE)) {
+		vnc_connection_set_audio_format(gpdata->conn, &format);
+		vnc_connection_set_audio(gpdata->conn, VNC_AUDIO(gpdata->pa));
+		vnc_connection_audio_enable(gpdata->conn);
+	}
 }
 
 static gboolean remmina_plugin_gvnc_close_connection(RemminaProtocolWidget *gp)
@@ -227,11 +305,58 @@ static gboolean remmina_plugin_gvnc_close_connection(RemminaProtocolWidget *gp)
 	REMMINA_PLUGIN_DEBUG("[%s] Plugin close connection", PLUGIN_NAME);
 
 	//vnc_display_close(VNC_DISPLAY(gpdata->vnc));
+	gpdata->conn = NULL;
+	if (gpdata->pa)
+		gpdata->pa = NULL;
+	gpdata->vnc = NULL;
+	gpdata->box = NULL;
+	g_free(gpdata->error_msg);
 
 	/* Remove instance->context from gp object data to avoid double free */
 	g_object_steal_data(G_OBJECT(gp), "plugin-data");
 	remmina_plugin_service->protocol_plugin_signal_connection_closed(gp);
 	return FALSE;
+}
+
+static void remmina_plugin_gvnc_init(RemminaProtocolWidget *gp)
+{
+	TRACE_CALL(__func__);
+	RemminaPluginGVncData *gpdata;
+	//VncGrabSequence *seq;
+
+	gpdata = g_new0(RemminaPluginGVncData, 1);
+	g_object_set_data_full(G_OBJECT(gp), "plugin-data", gpdata, g_free);
+
+	gpdata->pa = NULL;
+
+	REMMINA_PLUGIN_DEBUG("[%s] Plugin init", PLUGIN_NAME);
+
+	RemminaFile *remminafile = remmina_plugin_service->protocol_plugin_get_file(gp);
+	if (remmina_plugin_service->file_get_int(remminafile, "gvncdebug", FALSE))
+		vnc_util_set_debug(TRUE);
+
+	gpdata->vnc = vnc_display_new();
+	if (remmina_plugin_service->file_get_int(remminafile, "enableaudio", FALSE))
+		gpdata->pa = vnc_audio_pulse_new();
+	g_signal_connect(gpdata->vnc, "vnc-auth-credential",
+			G_CALLBACK(remmina_plugin_gvnc_ask_auth), gp);
+	g_signal_connect(gpdata->vnc, "vnc-disconnected",
+			G_CALLBACK(remmina_plugin_gvnc_close_connection), NULL);
+	g_signal_connect(gpdata->vnc, "vnc-initialized",
+			G_CALLBACK(remmina_plugin_gvnc_initialized), gp);
+	g_signal_connect(gpdata->vnc, "vnc-desktop-resize",
+			G_CALLBACK(remmina_plugin_gvnc_desktop_resize), NULL);
+	g_signal_connect(gpdata->vnc, "vnc-bell",
+			G_CALLBACK(remmina_plugin_gvnc_on_bell), gp);
+	g_signal_connect(gpdata->vnc, "vnc-error",
+			G_CALLBACK(remmina_plugin_gvnc_on_vnc_error), gp);
+	g_signal_connect(gpdata->vnc, "vnc-pointer-grab",
+			G_CALLBACK(remmina_plugin_gvnc_mouse_grab), gp);
+	g_signal_connect(gpdata->vnc, "vnc-pointer-ungrab",
+			G_CALLBACK(remmina_plugin_gvnc_mouse_ungrab), gp);
+	//seq = vnc_grab_sequence_new_from_string ("Control_R");
+        //vnc_display_set_grab_keys(VNC_DISPLAY(gpdata->vnc), seq);
+        //vnc_grab_sequence_free(seq);
 }
 
 static gboolean remmina_plugin_gvnc_open_connection(RemminaProtocolWidget *gp)
@@ -272,25 +397,21 @@ static gboolean remmina_plugin_gvnc_open_connection(RemminaProtocolWidget *gp)
 	g_free(host);
 	g_free(tunnel);
 
-	vnc_display_set_keyboard_grab(VNC_DISPLAY(gpdata->vnc), TRUE);
-	vnc_display_set_pointer_grab(VNC_DISPLAY(gpdata->vnc), TRUE);
+	/* TRUE Conflict with remmina? */
+	vnc_display_set_keyboard_grab(VNC_DISPLAY(gpdata->vnc), FALSE);
+	/* TRUE Conflict with remmina? */
+	vnc_display_set_pointer_grab(VNC_DISPLAY(gpdata->vnc), FALSE);
 	vnc_display_set_pointer_local(VNC_DISPLAY(gpdata->vnc), TRUE);
 
 	vnc_display_set_scaling(VNC_DISPLAY(gpdata->vnc), TRUE);
 	/* check library version */
-	//vnc_display_set_allow_resize(VNC_DISPLAY(gpdata->vnc), TRUE);
+	if (vnc_util_check_version(1, 2, 0))
+		vnc_display_set_allow_resize(VNC_DISPLAY(gpdata->vnc), TRUE);
 	vnc_display_set_lossy_encoding(VNC_DISPLAY(gpdata->vnc), TRUE);
 	/* check library version */
-	//vnc_display_set_zoom_level(VNC_DISPLAY(gpdata->vnc), opt_zoom);
+	if (vnc_util_check_version(1, 2, 0))
+		vnc_display_set_zoom_level(VNC_DISPLAY(gpdata->vnc), opt_zoom);
 
-	g_signal_connect(gpdata->vnc, "vnc-auth-credential",
-			G_CALLBACK(remmina_plugin_gvnc_ask_auth), gp);
-	g_signal_connect(gpdata->vnc, "vnc-disconnected",
-			G_CALLBACK(remmina_plugin_gvnc_close_connection), NULL);
-	g_signal_connect(gpdata->vnc, "vnc-initialized",
-			G_CALLBACK(remmina_plugin_gvnc_initialized), gp);
-	g_signal_connect(gpdata->vnc, "vnc-desktop-resize",
-			G_CALLBACK(remmina_plugin_gvnc_desktop_resize), NULL);
 	remmina_plugin_service->protocol_plugin_signal_connection_opened(gp);
 	gtk_widget_show_all(gpdata->box);
 	return TRUE;
@@ -309,7 +430,27 @@ static const RemminaProtocolSetting remmina_plugin_gvnc_basic_settings[] =
 {
 	{ REMMINA_PROTOCOL_SETTING_TYPE_SERVER,	  "server",	    NULL,					FALSE,	NULL,	NULL},
 	{ REMMINA_PROTOCOL_SETTING_TYPE_PASSWORD, "password",	    N_("VNC password"),			FALSE,	NULL,	NULL},
+	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK,	"gvncdebug",		    N_("Enable GTK-VNC debug"),			TRUE,	NULL,	NULL},
 	{ REMMINA_PROTOCOL_SETTING_TYPE_END, NULL, NULL, FALSE, NULL, NULL }
+};
+
+/* Array of RemminaProtocolSetting for advanced settings.
+ * Each item is composed by:
+ * a) RemminaProtocolSettingType for setting type
+ * b) Setting name
+ * c) Setting description
+ * d) Compact disposition
+ * e) Values for REMMINA_PROTOCOL_SETTING_TYPE_SELECT or REMMINA_PROTOCOL_SETTING_TYPE_COMBO
+ * f) Setting Tooltip
+ */
+static const RemminaProtocolSetting remmina_plugin_gvnc_advanced_settings[] =
+{
+	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK,	"disableclipboard",	    N_("No clipboard sync"),		TRUE,	NULL,	NULL},
+	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK,	"disablepasswordstoring",   N_("Forget passwords after use"),		FALSE,	NULL,	NULL},
+	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK, "disableserverbell",	 N_("Ignore remote bell messages"),	 TRUE,	NULL, NULL },
+	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK,	"enableaudio",		    N_("Enable audio channel"),			FALSE,	NULL,	NULL},
+	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK,	"viewonly",		    N_("View only"),				TRUE,	NULL,	NULL},
+	{ REMMINA_PROTOCOL_SETTING_TYPE_END,	NULL,			    NULL,					TRUE,	NULL,	NULL}
 };
 
 /* Array for available features.
@@ -335,7 +476,7 @@ static RemminaProtocolPlugin remmina_plugin = {
 	PLUGIN_APPICON,                                 // Icon for normal connection
 	PLUGIN_APPICON,                                 // Icon for SSH connection
 	remmina_plugin_gvnc_basic_settings,             // Array for basic settings
-	NULL,                                           // Array for advanced settings
+	remmina_plugin_gvnc_advanced_settings,          // Array for advanced settings
 	REMMINA_PROTOCOL_SSH_SETTING_NONE,              // SSH settings type
 	remmina_plugin_gvnc_features,                   // Array for available features
 	remmina_plugin_gvnc_init,                       // Plugin initialization
