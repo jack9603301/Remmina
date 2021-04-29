@@ -81,6 +81,50 @@ static void remmina_plugin_gvnc_on_vnc_error(GtkWidget *vncdisplay G_GNUC_UNUSED
 	gpdata->error_msg = g_strdup(msg);
 }
 
+/* text was actually requested */
+static void remmina_plugin_gvnc_clipboard_copy(GtkClipboard *clipboard G_GNUC_UNUSED, GtkSelectionData *data, guint info G_GNUC_UNUSED, RemminaProtocolWidget *gp)
+{
+	TRACE_CALL(__func__);
+	RemminaPluginGVncData *gpdata = GET_PLUGIN_DATA(gp);
+	gtk_selection_data_set_text(data, gpdata->clipboard, -1);
+	REMMINA_PLUGIN_DEBUG("Text copied");
+}
+
+static void remmina_plugin_gvnc_cut_text(VncDisplay *vnc G_GNUC_UNUSED, const gchar *text, RemminaProtocolWidget *gp)
+{
+	TRACE_CALL(__func__);
+	RemminaPluginGVncData *gpdata = GET_PLUGIN_DATA(gp);
+	REMMINA_PLUGIN_DEBUG("Got clipboard request for \"%s\"", text);
+	GtkClipboard *cb;
+	gsize a, b;
+
+	GtkTargetEntry targets[] = {
+		{g_strdup("UTF8_STRING"), 0, 0},
+		{g_strdup("COMPOUND_TEXT"), 0, 0},
+		{g_strdup("TEXT"), 0, 0},
+		{g_strdup("STRING"), 0, 0},
+	};
+
+	if (!text)
+		return;
+	g_free (gpdata->clipboard);
+	gpdata->clipboard = g_convert (text, -1, "utf-8", "iso8859-1", &a, &b, NULL);
+
+	if (gpdata->clipboard) {
+		cb = gtk_clipboard_get (GDK_SELECTION_CLIPBOARD);
+
+		gtk_clipboard_set_with_owner (cb,
+				targets,
+				G_N_ELEMENTS(targets),
+				(GtkClipboardGetFunc)remmina_plugin_gvnc_clipboard_copy,
+				NULL,
+				G_OBJECT (gp));
+	}
+
+    //g_signal_emit_by_name(session, "session-cut-text", text);
+}
+
+
 static void remmina_plugin_gvnc_desktop_resize(GtkWidget *vncdisplay G_GNUC_UNUSED, int width, int height)
 {
 	TRACE_CALL(__func__);
@@ -162,6 +206,26 @@ static void remmina_plugin_gvnc_call_feature(RemminaProtocolWidget *gp, const Re
 	default:
 		break;
 	}
+}
+
+static void remmina_plugin_gvnc_auth_unsupported(VncDisplay *vnc G_GNUC_UNUSED, unsigned int authType, RemminaProtocolWidget *gp)
+{
+	TRACE_CALL(__func__);
+	RemminaPluginGVncData *gpdata = GET_PLUGIN_DATA(gp);
+	g_clear_pointer(&gpdata->error_msg, g_free);
+	gchar *msg = g_strdup_printf(_("Unsupported authentication type %u"), authType);
+	remmina_plugin_service->protocol_plugin_set_error(gp, "%s", msg);
+	g_free(msg);
+}
+
+static void remmina_plugin_gvnc_auth_failure(VncDisplay *vnc G_GNUC_UNUSED, const gchar *reason, RemminaProtocolWidget *gp)
+{
+	TRACE_CALL(__func__);
+	RemminaPluginGVncData *gpdata = GET_PLUGIN_DATA(gp);
+	g_clear_pointer(&gpdata->error_msg, g_free);
+	gchar *msg = g_strdup_printf(_("Authentication failure: %s"), reason);
+	remmina_plugin_service->protocol_plugin_set_error(gp, "%s", msg);
+	g_free(msg);
 }
 
 static gboolean remmina_plugin_gvnc_ask_auth(GtkWidget *vncdisplay, GValueArray *credList, RemminaProtocolWidget *gp)
@@ -298,19 +362,24 @@ static void remmina_plugin_gvnc_initialized(GtkWidget *vncdisplay, RemminaProtoc
 	}
 }
 
+static void remmina_plugin_gvnc_disconnected(VncDisplay *vnc G_GNUC_UNUSED, RemminaProtocolWidget *gp)
+{
+	TRACE_CALL(__func__);
+	RemminaPluginGVncData *gpdata = GET_PLUGIN_DATA(gp);
+	REMMINA_PLUGIN_DEBUG("[%s] Plugin disconnected", PLUGIN_NAME);
+}
 static gboolean remmina_plugin_gvnc_close_connection(RemminaProtocolWidget *gp)
 {
 	TRACE_CALL(__func__);
 	RemminaPluginGVncData *gpdata = GET_PLUGIN_DATA(gp);
 	REMMINA_PLUGIN_DEBUG("[%s] Plugin close connection", PLUGIN_NAME);
 
-	//vnc_display_close(VNC_DISPLAY(gpdata->vnc));
-	gpdata->conn = NULL;
-	if (gpdata->pa)
-		gpdata->pa = NULL;
-	gpdata->vnc = NULL;
-	gpdata->box = NULL;
-	g_free(gpdata->error_msg);
+	if (gpdata) {
+		if (gpdata->error_msg) g_free(gpdata->error_msg);
+		if (gpdata->vnc)
+			vnc_display_close(VNC_DISPLAY(gpdata->vnc));
+			//g_object_unref(gpdata->vnc);
+	}
 
 	/* Remove instance->context from gp object data to avoid double free */
 	g_object_steal_data(G_OBJECT(gp), "plugin-data");
@@ -340,8 +409,12 @@ static void remmina_plugin_gvnc_init(RemminaProtocolWidget *gp)
 		gpdata->pa = vnc_audio_pulse_new();
 	g_signal_connect(gpdata->vnc, "vnc-auth-credential",
 			G_CALLBACK(remmina_plugin_gvnc_ask_auth), gp);
+	g_signal_connect(gpdata->vnc, "vnc-auth-failure",
+			G_CALLBACK(remmina_plugin_gvnc_auth_failure), gp);
+	g_signal_connect(gpdata->vnc, "vnc-auth-unsupported",
+			G_CALLBACK(remmina_plugin_gvnc_auth_unsupported), gp);
 	g_signal_connect(gpdata->vnc, "vnc-disconnected",
-			G_CALLBACK(remmina_plugin_gvnc_close_connection), NULL);
+			G_CALLBACK(remmina_plugin_gvnc_disconnected), gp);
 	g_signal_connect(gpdata->vnc, "vnc-initialized",
 			G_CALLBACK(remmina_plugin_gvnc_initialized), gp);
 	g_signal_connect(gpdata->vnc, "vnc-desktop-resize",
@@ -354,6 +427,8 @@ static void remmina_plugin_gvnc_init(RemminaProtocolWidget *gp)
 			G_CALLBACK(remmina_plugin_gvnc_mouse_grab), gp);
 	g_signal_connect(gpdata->vnc, "vnc-pointer-ungrab",
 			G_CALLBACK(remmina_plugin_gvnc_mouse_ungrab), gp);
+	g_signal_connect(gpdata->vnc, "vnc-server-cut-text",
+			G_CALLBACK(remmina_plugin_gvnc_cut_text), gp);
 	//seq = vnc_grab_sequence_new_from_string ("Control_R");
         //vnc_display_set_grab_keys(VNC_DISPLAY(gpdata->vnc), seq);
         //vnc_grab_sequence_free(seq);

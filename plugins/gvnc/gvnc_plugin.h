@@ -32,8 +32,6 @@
  *
  */
 
-#pragma once
-
 #include "common/remmina_plugin.h"
 
 #include <gdk/gdkkeysyms.h>
@@ -97,6 +95,7 @@ typedef struct _RemminaPluginGVncData {
 	VncConnection *                 conn;
 	VncAudioPulse *                 pa;
 	gchar *                         error_msg;
+	gchar *				clipboard;
 } RemminaPluginGVncData;
 
 G_BEGIN_DECLS
