@@ -41,6 +41,13 @@
 
 #define GVNC_DEFAULT_PORT 5900
 
+#ifndef VNC_CHECK_VERSION
+# define VNC_CHECK_VERSION(a, b, c) 0
+#endif
+#if VNC_CHECK_VERSION(1, 2, 0)
+# define HAVE_VNC_REMOTE_RESIZE
+#endif
+
 enum {
 	REMMINA_PLUGIN_GVNC_FEATURE_PREF_VIEWONLY = 1,
 	REMMINA_PLUGIN_GVNC_FEATURE_DYNRESUPDATE,
@@ -81,12 +88,92 @@ static void remmina_plugin_gvnc_on_vnc_error(GtkWidget *vncdisplay G_GNUC_UNUSED
 	gpdata->error_msg = g_strdup(msg);
 }
 
+static gboolean remmina_plugin_gvnc_get_screenshot(RemminaProtocolWidget *gp, RemminaPluginScreenshotData *rpsd)
+{
+	RemminaPluginGVncData *gpdata = GET_PLUGIN_DATA(gp);
+	gsize szmem;
+	const VncPixelFormat *currentFormat;
+	GError *err = NULL;
+
+	if (!gpdata)
+		return FALSE;
+
+	/* Get current pixel format for server */
+	currentFormat = vnc_connection_get_pixel_format(gpdata->conn);
+
+
+        GdkPixbuf *pix = vnc_display_get_pixbuf(VNC_DISPLAY(gpdata->vnc));
+	rpsd->width = gdk_pixbuf_get_width(pix);
+	rpsd->height = gdk_pixbuf_get_height(pix);
+	rpsd->bitsPerPixel = currentFormat->bits_per_pixel;
+	rpsd->bytesPerPixel = rpsd->bitsPerPixel / 8;
+	//szmem = gdk_pixbuf_get_byte_length(pix);
+
+	//szmem = rpsd->width * rpsd->height * rpsd->bytesPerPixel;
+
+	//REMMINA_PLUGIN_DEBUG("allocating %zu bytes for a full screenshot", szmem);
+	//REMMINA_PLUGIN_DEBUG("Calculated screenshot size: %zu", szcalc);
+	//rpsd->buffer = malloc(szmem);
+
+	//memcpy(rpsd->buffer, pix, szmem);
+	gdk_pixbuf_save_to_buffer (pix, &rpsd->buffer, &szmem, "jpeg", &err, "quality", "100", NULL);
+
+
+	/* Returning TRUE instruct also the caller to deallocate rpsd->buffer */
+	return TRUE;
+}
+
+void remmina_plugin_gvnc_paste_text (RemminaProtocolWidget *gp, const gchar *text)
+{
+	TRACE_CALL(__func__);
+	RemminaPluginGVncData *gpdata = GET_PLUGIN_DATA(gp);
+	gchar *out;
+	gsize a, b;
+	GError *error = NULL;
+
+	if (!gpdata) return;
+
+	out = g_convert_with_fallback (text, -1, "iso8859-1//TRANSLIT", "utf-8", NULL, &a, &b, &error);
+	if (out)
+	{
+		REMMINA_PLUGIN_DEBUG ("Pasting text");
+		vnc_display_client_cut_text (VNC_DISPLAY (gpdata->vnc), out);
+		g_free (out);
+	}
+	else
+	{
+		REMMINA_PLUGIN_DEBUG ("Error pasting text: %s", error->message);
+		g_error_free (error);
+	}
+}
+
+static void remmina_plugin_gvnc_clipboard_cb (GtkClipboard *cb, GdkEvent *event, RemminaProtocolWidget *gp)
+{
+	TRACE_CALL(__func__);
+	RemminaPluginGVncData *gpdata = GET_PLUGIN_DATA(gp);
+	gchar *text;
+
+	REMMINA_PLUGIN_DEBUG("owner-change event received");
+
+	if (cb && gtk_clipboard_get_owner(cb) == (GObject *)gp)
+		return;
+
+	text = gtk_clipboard_wait_for_text (cb);
+	if (!text)
+		return;
+
+	remmina_plugin_gvnc_paste_text (gp, text);
+	g_free (text);
+}
+
+
 /* text was actually requested */
 static void remmina_plugin_gvnc_clipboard_copy(GtkClipboard *clipboard G_GNUC_UNUSED, GtkSelectionData *data, guint info G_GNUC_UNUSED, RemminaProtocolWidget *gp)
 {
 	TRACE_CALL(__func__);
 	RemminaPluginGVncData *gpdata = GET_PLUGIN_DATA(gp);
-	gtk_selection_data_set_text(data, gpdata->clipboard, -1);
+	if (!gpdata) return;
+	gtk_selection_data_set_text(data, gpdata->clipstr, -1);
 	REMMINA_PLUGIN_DEBUG("Text copied");
 }
 
@@ -94,10 +181,11 @@ static void remmina_plugin_gvnc_cut_text(VncDisplay *vnc G_GNUC_UNUSED, const gc
 {
 	TRACE_CALL(__func__);
 	RemminaPluginGVncData *gpdata = GET_PLUGIN_DATA(gp);
+
 	REMMINA_PLUGIN_DEBUG("Got clipboard request for \"%s\"", text);
+
 	GtkClipboard *cb;
 	gsize a, b;
-
 	GtkTargetEntry targets[] = {
 		{g_strdup("UTF8_STRING"), 0, 0},
 		{g_strdup("COMPOUND_TEXT"), 0, 0},
@@ -107,12 +195,13 @@ static void remmina_plugin_gvnc_cut_text(VncDisplay *vnc G_GNUC_UNUSED, const gc
 
 	if (!text)
 		return;
-	g_free (gpdata->clipboard);
-	gpdata->clipboard = g_convert (text, -1, "utf-8", "iso8859-1", &a, &b, NULL);
+	g_free (gpdata->clipstr);
+	gpdata->clipstr = g_convert (text, -1, "utf-8", "iso8859-1", &a, &b, NULL);
 
-	if (gpdata->clipboard) {
+	if (gpdata->clipstr) {
 		cb = gtk_clipboard_get (GDK_SELECTION_CLIPBOARD);
 
+		REMMINA_PLUGIN_DEBUG("setting clipboard with owner to owner %p", gp);
 		gtk_clipboard_set_with_owner (cb,
 				targets,
 				G_N_ELEMENTS(targets),
@@ -376,9 +465,10 @@ static gboolean remmina_plugin_gvnc_close_connection(RemminaProtocolWidget *gp)
 
 	if (gpdata) {
 		if (gpdata->error_msg) g_free(gpdata->error_msg);
-		if (gpdata->vnc)
+		if (gpdata->vnc) {
 			vnc_display_close(VNC_DISPLAY(gpdata->vnc));
 			//g_object_unref(gpdata->vnc);
+		}
 	}
 
 	/* Remove instance->context from gp object data to avoid double free */
@@ -392,6 +482,8 @@ static void remmina_plugin_gvnc_init(RemminaProtocolWidget *gp)
 	TRACE_CALL(__func__);
 	RemminaPluginGVncData *gpdata;
 	//VncGrabSequence *seq;
+
+	GtkClipboard *cb;
 
 	gpdata = g_new0(RemminaPluginGVncData, 1);
 	g_object_set_data_full(G_OBJECT(gp), "plugin-data", gpdata, g_free);
@@ -432,6 +524,13 @@ static void remmina_plugin_gvnc_init(RemminaProtocolWidget *gp)
 	//seq = vnc_grab_sequence_new_from_string ("Control_R");
         //vnc_display_set_grab_keys(VNC_DISPLAY(gpdata->vnc), seq);
         //vnc_grab_sequence_free(seq);
+
+	/* Setup the clipboard */
+	cb = gtk_clipboard_get (GDK_SELECTION_CLIPBOARD);
+	gpdata->signal_clipboard =  g_signal_connect (cb,
+			"owner-change",
+			G_CALLBACK (remmina_plugin_gvnc_clipboard_cb),
+			gp);
 }
 
 static gboolean remmina_plugin_gvnc_open_connection(RemminaProtocolWidget *gp)
@@ -472,21 +571,19 @@ static gboolean remmina_plugin_gvnc_open_connection(RemminaProtocolWidget *gp)
 	g_free(host);
 	g_free(tunnel);
 
+	vnc_display_set_lossy_encoding(VNC_DISPLAY(gpdata->vnc), TRUE);
 	/* TRUE Conflict with remmina? */
 	vnc_display_set_keyboard_grab(VNC_DISPLAY(gpdata->vnc), FALSE);
 	/* TRUE Conflict with remmina? */
 	vnc_display_set_pointer_grab(VNC_DISPLAY(gpdata->vnc), FALSE);
 	vnc_display_set_pointer_local(VNC_DISPLAY(gpdata->vnc), TRUE);
 
+	vnc_display_set_force_size(VNC_DISPLAY(gpdata->vnc), FALSE);
 	vnc_display_set_scaling(VNC_DISPLAY(gpdata->vnc), TRUE);
-	/* check library version */
-	if (vnc_util_check_version(1, 2, 0))
-		vnc_display_set_allow_resize(VNC_DISPLAY(gpdata->vnc), TRUE);
-	vnc_display_set_lossy_encoding(VNC_DISPLAY(gpdata->vnc), TRUE);
-	/* check library version */
-	if (vnc_util_check_version(1, 2, 0))
-		vnc_display_set_zoom_level(VNC_DISPLAY(gpdata->vnc), opt_zoom);
-
+#ifdef HAVE_VNC_REMOTE_RESIZE
+	vnc_display_set_allow_resize(VNC_DISPLAY(gpdata->vnc), TRUE);
+	vnc_display_set_zoom_level(VNC_DISPLAY(gpdata->vnc), opt_zoom);
+#endif
 	remmina_plugin_service->protocol_plugin_signal_connection_opened(gp);
 	gtk_widget_show_all(gpdata->box);
 	return TRUE;
@@ -561,6 +658,7 @@ static RemminaProtocolPlugin remmina_plugin = {
 	remmina_plugin_gvnc_call_feature,               // Call a feature
 	NULL,                                           // Send a keystroke
 	NULL,                                           // No screenshot support available
+	//remmina_plugin_gvnc_get_screenshot,             // No screenshot support available
 	NULL,                                           // RCW map event
 	NULL                                            // RCW unmap event
 };

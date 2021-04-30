@@ -95,7 +95,8 @@ typedef struct _RemminaPluginGVncData {
 	VncConnection *                 conn;
 	VncAudioPulse *                 pa;
 	gchar *                         error_msg;
-	gchar *				clipboard;
+	gchar *				clipstr;
+	gulong                          signal_clipboard;
 } RemminaPluginGVncData;
 
 G_BEGIN_DECLS
