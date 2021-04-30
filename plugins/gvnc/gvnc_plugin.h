@@ -87,18 +87,18 @@
 #endif
 
 #define GET_PLUGIN_DATA(gp) (RemminaPluginGVncData *)g_object_get_data(G_OBJECT(gp), "plugin-data")
-#define REMMINA_PLUGIN_DEBUG(fmt, ...) remmina_plugin_service->_remmina_debug(__func__, fmt, ##__VA_ARGS__)
+#define REMMINA_PLUGIN_DEBUG(fmt, ...) remmina_plugin_service->_remmina_debug(__func__, fmt, ## __VA_ARGS__)
 
 typedef struct _RemminaPluginGVncData {
-	GtkWidget *			box;
-	GtkWidget *                     vnc;
-	VncConnection *                 conn;
-	VncAudioPulse *                 pa;
-	gchar *                         error_msg;
-	gchar *				clipstr;
-	gulong                          signal_clipboard;
-	gint				depth_profile;
-	gboolean                        lossy_encoding;
+	GtkWidget *	box;
+	GtkWidget *	vnc;
+	VncConnection * conn;
+	VncAudioPulse * pa;
+	gchar *		error_msg;
+	gchar *		clipstr;
+	gulong		signal_clipboard;
+	gint		depth_profile;
+	gboolean	lossy_encoding;
 } RemminaPluginGVncData;
 
 G_BEGIN_DECLS
