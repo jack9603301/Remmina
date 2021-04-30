@@ -97,6 +97,8 @@ typedef struct _RemminaPluginGVncData {
 	gchar *                         error_msg;
 	gchar *				clipstr;
 	gulong                          signal_clipboard;
+	gint				depth_profile;
+	gboolean                        lossy_encoding;
 } RemminaPluginGVncData;
 
 G_BEGIN_DECLS

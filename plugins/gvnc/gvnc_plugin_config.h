@@ -39,5 +39,5 @@
 #define PLUGIN_NAME        "Gnome VNC"
 #define PLUGIN_DESCRIPTION N_("VNC plugin using GTK-VNC")
 #define PLUGIN_VERSION     "0.1b"
-#define PLUGIN_APPICON     "remmina-gvnc"
+#define PLUGIN_APPICON     "remmina-gvnc-symbolic"
 #endif
