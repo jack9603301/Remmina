@@ -98,6 +98,7 @@ typedef struct _RemminaPluginGVncData {
 	gchar *		clipstr;
 	gulong		signal_clipboard;
 	gint		depth_profile;
+	gint		shared;
 	gboolean	lossy_encoding;
 } RemminaPluginGVncData;
 

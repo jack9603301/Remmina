@@ -508,10 +508,6 @@ static void remmina_plugin_gvnc_init(RemminaProtocolWidget *gp)
 	if (remmina_plugin_service->file_get_int(remminafile, "enableaudio", FALSE))
 		gpdata->pa = vnc_audio_pulse_new();
 
-	gpdata->depth_profile = remmina_plugin_service->file_get_int(remminafile, "depth_profile", 24);
-	vnc_display_set_depth(VNC_DISPLAY(gpdata->vnc), gpdata->depth_profile);
-	gpdata->lossy_encoding = remmina_plugin_service->file_get_int(remminafile, "lossy_encoding", FALSE);
-	vnc_display_set_lossy_encoding(VNC_DISPLAY(gpdata->vnc), gpdata->lossy_encoding);
 
 	g_signal_connect(gpdata->vnc, "vnc-auth-credential",
 			 G_CALLBACK(remmina_plugin_gvnc_ask_auth), gp);
@@ -579,7 +575,12 @@ static gboolean remmina_plugin_gvnc_open_connection(RemminaProtocolWidget *gp)
 						&host,
 						&port);
 
+	gpdata->depth_profile = remmina_plugin_service->file_get_int(remminafile, "depth_profile", 24);
+	vnc_display_set_depth(VNC_DISPLAY(gpdata->vnc), gpdata->depth_profile);
 	vnc_display_open_host(VNC_DISPLAY(gpdata->vnc), host, g_strdup_printf("%d", port));
+	gpdata->lossy_encoding = remmina_plugin_service->file_get_int(remminafile, "lossy_encoding", FALSE);
+	vnc_display_set_lossy_encoding(VNC_DISPLAY(gpdata->vnc), gpdata->shared);
+	vnc_display_set_shared_flag (VNC_DISPLAY(gpdata->vnc), gpdata->shared);
 
 	g_free(host);
 	g_free(tunnel);
@@ -604,11 +605,11 @@ static gboolean remmina_plugin_gvnc_open_connection(RemminaProtocolWidget *gp)
 /* Array of key/value pairs for color depths */
 static gpointer colordepth_list[] =
 {
-	"0",  N_("Use server settings"),
-	"24", N_("True colour (24 bits)"),
-	"16", N_("High colour (16 bits)"),
-	"8",  N_("Low colour (8 bits)"),
-	"3",  N_("Ultra low colour (3 bits)"),
+	"0", N_("Use server settings"),
+	"1", N_("True colour (24 bits)"),
+	"2", N_("High colour (16 bits)"),
+	"3", N_("Low colour (8 bits)"),
+	"4", N_("Ultra low colour (3 bits)"),
 	NULL
 };
 /* Array of RemminaProtocolSetting for basic settings.
@@ -626,7 +627,7 @@ static const RemminaProtocolSetting remmina_plugin_gvnc_basic_settings[] =
 	{ REMMINA_PROTOCOL_SETTING_TYPE_PASSWORD, "password",	    N_("VNC password"),		FALSE, NULL,		NULL					     },
 	{ REMMINA_PROTOCOL_SETTING_TYPE_SELECT,	  "depth_profile",  N_("Colour depth"),		FALSE, colordepth_list, NULL					     },
 	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK,	  "lossy_encoding", N_("Use JPEG Compression"), TRUE,  NULL,		N_("This might not work on all VNC servers") },
-	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK,	  "gvncdebug",	    N_("Enable GTK-VNC debug"), TRUE,  NULL,		NULL					     },
+	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK,	  "gvncdebug",	    N_("Enable GTK-VNC debug"), FALSE,  NULL,		NULL					     },
 	{ REMMINA_PROTOCOL_SETTING_TYPE_END,	  NULL,		    NULL,			FALSE, NULL,		NULL					     }
 };
 
@@ -646,6 +647,7 @@ static const RemminaProtocolSetting remmina_plugin_gvnc_advanced_settings[] =
 	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK, "disableserverbell",	 N_("Ignore remote bell messages"), TRUE,  NULL, NULL },
 	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK, "enableaudio",		 N_("Enable audio channel"),	    FALSE, NULL, NULL },
 	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK, "viewonly",		 N_("View only"),		    TRUE,  NULL, NULL },
+	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK, "shared",		 N_("Shared connection"),	    TRUE,  NULL, N_("If the server should try to share the desktop by leaving other clients connected") },
 	{ REMMINA_PROTOCOL_SETTING_TYPE_END,   NULL,			 NULL,				    TRUE,  NULL, NULL }
 };
 
@@ -673,7 +675,7 @@ static RemminaProtocolPlugin remmina_plugin = {
 	PLUGIN_APPICON,                                 // Icon for SSH connection
 	remmina_plugin_gvnc_basic_settings,             // Array for basic settings
 	remmina_plugin_gvnc_advanced_settings,          // Array for advanced settings
-	REMMINA_PROTOCOL_SSH_SETTING_NONE,              // SSH settings type
+	REMMINA_PROTOCOL_SSH_SETTING_TUNNEL,            // SSH settings type
 	remmina_plugin_gvnc_features,                   // Array for available features
 	remmina_plugin_gvnc_init,                       // Plugin initialization
 	remmina_plugin_gvnc_open_connection,            // Plugin open connection
