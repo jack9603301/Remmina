@@ -86,10 +86,10 @@
 #define GDK_F11 GDK_KEY_F11
 #endif
 
-#define GET_PLUGIN_DATA(gp) (RemminaPluginGVncData *)g_object_get_data(G_OBJECT(gp), "plugin-data")
+#define GET_PLUGIN_DATA(gp) (GVncPluginData *)g_object_get_data(G_OBJECT(gp), "plugin-data")
 #define REMMINA_PLUGIN_DEBUG(fmt, ...) remmina_plugin_service->_remmina_debug(__func__, fmt, ## __VA_ARGS__)
 
-typedef struct _RemminaPluginGVncData {
+typedef struct _GVncPluginData {
 	GtkWidget *	box;
 	GtkWidget *	vnc;
 	VncConnection * conn;
@@ -100,7 +100,10 @@ typedef struct _RemminaPluginGVncData {
 	gint		depth_profile;
 	gint		shared;
 	gboolean	lossy_encoding;
-} RemminaPluginGVncData;
+	gboolean	viewonly;
+	gint		width;
+	gint		height;
+} GVncPluginData;
 
 G_BEGIN_DECLS
 G_END_DECLS

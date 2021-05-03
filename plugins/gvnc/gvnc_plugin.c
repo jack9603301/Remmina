@@ -49,38 +49,79 @@
 #endif
 
 enum {
-	REMMINA_PLUGIN_GVNC_FEATURE_PREF_VIEWONLY = 1,
-	REMMINA_PLUGIN_GVNC_FEATURE_DYNRESUPDATE,
-	REMMINA_PLUGIN_GVNC_FEATURE_PREF_DISABLECLIPBOARD,
-	REMMINA_PLUGIN_GVNC_FEATURE_TOOL_SENDCTRLALTDEL,
-	REMMINA_PLUGIN_GVNC_FEATURE_TOOL_USBREDIR,
-	REMMINA_PLUGIN_GVNC_FEATURE_SCALE
+	GVNC_PLUGIN_FEATURE_PREF_VIEWONLY = 1,
+	GVNC_PLUGIN_FEATURE_DYNRESUPDATE,
+	GVNC_PLUGIN_FEATURE_PREF_DISABLECLIPBOARD,
+	GVNC_PLUGIN_FEATURE_TOOL_SENDCTRLALTDEL,
+	GVNC_PLUGIN_FEATURE_TOOL_SENDCTRLALTBACKSPACE,
+	GVNC_PLUGIN_FEATURE_TOOL_SENDCTRLALTF1,
+	GVNC_PLUGIN_FEATURE_TOOL_SENDCTRLALTF2,
+	GVNC_PLUGIN_FEATURE_TOOL_SENDCTRLALTF3,
+	GVNC_PLUGIN_FEATURE_TOOL_SENDCTRLALTF4,
+	GVNC_PLUGIN_FEATURE_TOOL_SENDCTRLALTF5,
+	GVNC_PLUGIN_FEATURE_TOOL_SENDCTRLALTF6,
+	GVNC_PLUGIN_FEATURE_TOOL_SENDCTRLALTF7,
+	GVNC_PLUGIN_FEATURE_TOOL_SENDCTRLALTF8,
+	GVNC_PLUGIN_FEATURE_TOOL_SENDCTRLALTF9,
+	GVNC_PLUGIN_FEATURE_TOOL_SENDCTRLALTF10,
+	GVNC_PLUGIN_FEATURE_TOOL_SENDCTRLALTF11,
+	GVNC_PLUGIN_FEATURE_TOOL_SENDCTRLALTF12,
+	GVNC_PLUGIN_FEATURE_TOOL_REBOOT,
+	GVNC_PLUGIN_FEATURE_TOOL_RESET,
+	GVNC_PLUGIN_FEATURE_TOOL_SHUTDOWN,
+	GVNC_PLUGIN_FEATURE_SCALE
 };
 
 
 static RemminaPluginService *remmina_plugin_service = NULL;
 #define REMMINA_PLUGIN_DEBUG(fmt, ...) remmina_plugin_service->_remmina_debug(__func__, fmt, ## __VA_ARGS__)
 
-static void remmina_plugin_gvnc_mouse_grab(GtkWidget *vncdisplay, RemminaProtocolWidget *gp)
+/* Send a keystroke to the plugin window */
+static void gvnc_plugin_keystroke(RemminaProtocolWidget *gp, const guint keystrokes[], const gint keylen)
 {
 	TRACE_CALL(__func__);
-	RemminaPluginGVncData *gpdata = GET_PLUGIN_DATA(gp);
+	GVncPluginData *gpdata = GET_PLUGIN_DATA(gp);
+
+	if (gpdata->vnc) {
+		vnc_display_send_keys(VNC_DISPLAY(gpdata->vnc),
+				      keystrokes,
+				      keylen);
+	}
+}
+
+static void gvnc_plugin_power_ctrl(RemminaProtocolWidget *gp, VncConnectionPowerAction action)
+{
+	GVncPluginData *gpdata = GET_PLUGIN_DATA(gp);
+	VncConnection *conn = vnc_display_get_connection(VNC_DISPLAY(gpdata->vnc));
+
+	if (!vnc_connection_get_power_control(conn)) {
+		REMMINA_PLUGIN_DEBUG("Power control not available on this server");
+		return;
+	}
+	vnc_connection_power_control(conn, action);
+}
+
+
+static void gvnc_plugin_mouse_grab(GtkWidget *vncdisplay, RemminaProtocolWidget *gp)
+{
+	TRACE_CALL(__func__);
+	GVncPluginData *gpdata = GET_PLUGIN_DATA(gp);
 	VncGrabSequence *seq = vnc_display_get_grab_keys(VNC_DISPLAY(gpdata->vnc));
 	gchar *seqstr = vnc_grab_sequence_as_string(seq);
 
 	REMMINA_PLUGIN_DEBUG("Pointer grabbed: %s", seqstr);
 }
 
-static void remmina_plugin_gvnc_mouse_ungrab(GtkWidget *vncdisplay, RemminaProtocolWidget *gp)
+static void gvnc_plugin_mouse_ungrab(GtkWidget *vncdisplay, RemminaProtocolWidget *gp)
 {
 	TRACE_CALL(__func__);
 	REMMINA_PLUGIN_DEBUG("Pointer ungrabbed");
 }
 
-static void remmina_plugin_gvnc_on_vnc_error(GtkWidget *vncdisplay G_GNUC_UNUSED, const gchar *msg, RemminaProtocolWidget *gp)
+static void gvnc_plugin_on_vnc_error(GtkWidget *vncdisplay G_GNUC_UNUSED, const gchar *msg, RemminaProtocolWidget *gp)
 {
 	TRACE_CALL(__func__);
-	RemminaPluginGVncData *gpdata = GET_PLUGIN_DATA(gp);
+	GVncPluginData *gpdata = GET_PLUGIN_DATA(gp);
 
 	REMMINA_PLUGIN_DEBUG("Error: %s\n", msg);
 	/* "vnc-error" is always followed by "vnc-disconnected",
@@ -89,9 +130,9 @@ static void remmina_plugin_gvnc_on_vnc_error(GtkWidget *vncdisplay G_GNUC_UNUSED
 	gpdata->error_msg = g_strdup(msg);
 }
 
-static gboolean remmina_plugin_gvnc_get_screenshot(RemminaProtocolWidget *gp, RemminaPluginScreenshotData *rpsd)
+static gboolean gvnc_plugin_get_screenshot(RemminaProtocolWidget *gp, RemminaPluginScreenshotData *rpsd)
 {
-	RemminaPluginGVncData *gpdata = GET_PLUGIN_DATA(gp);
+	GVncPluginData *gpdata = GET_PLUGIN_DATA(gp);
 	gsize szmem;
 	const VncPixelFormat *currentFormat;
 	GError *err = NULL;
@@ -125,10 +166,10 @@ static gboolean remmina_plugin_gvnc_get_screenshot(RemminaProtocolWidget *gp, Re
 	return TRUE;
 }
 
-void remmina_plugin_gvnc_paste_text(RemminaProtocolWidget *gp, const gchar *text)
+void gvnc_plugin_paste_text(RemminaProtocolWidget *gp, const gchar *text)
 {
 	TRACE_CALL(__func__);
-	RemminaPluginGVncData *gpdata = GET_PLUGIN_DATA(gp);
+	GVncPluginData *gpdata = GET_PLUGIN_DATA(gp);
 	gchar *out;
 	gsize a, b;
 	GError *error = NULL;
@@ -146,10 +187,10 @@ void remmina_plugin_gvnc_paste_text(RemminaProtocolWidget *gp, const gchar *text
 	}
 }
 
-static void remmina_plugin_gvnc_clipboard_cb(GtkClipboard *cb, GdkEvent *event, RemminaProtocolWidget *gp)
+static void gvnc_plugin_clipboard_cb(GtkClipboard *cb, GdkEvent *event, RemminaProtocolWidget *gp)
 {
 	TRACE_CALL(__func__);
-	RemminaPluginGVncData *gpdata = GET_PLUGIN_DATA(gp);
+	//GVncPluginData *gpdata = GET_PLUGIN_DATA(gp);
 	gchar *text;
 
 	REMMINA_PLUGIN_DEBUG("owner-change event received");
@@ -161,26 +202,26 @@ static void remmina_plugin_gvnc_clipboard_cb(GtkClipboard *cb, GdkEvent *event, 
 	if (!text)
 		return;
 
-	remmina_plugin_gvnc_paste_text(gp, text);
+	gvnc_plugin_paste_text(gp, text);
 	g_free(text);
 }
 
 
 /* text was actually requested */
-static void remmina_plugin_gvnc_clipboard_copy(GtkClipboard *clipboard G_GNUC_UNUSED, GtkSelectionData *data, guint info G_GNUC_UNUSED, RemminaProtocolWidget *gp)
+static void gvnc_plugin_clipboard_copy(GtkClipboard *clipboard G_GNUC_UNUSED, GtkSelectionData *data, guint info G_GNUC_UNUSED, RemminaProtocolWidget *gp)
 {
 	TRACE_CALL(__func__);
-	RemminaPluginGVncData *gpdata = GET_PLUGIN_DATA(gp);
+	GVncPluginData *gpdata = GET_PLUGIN_DATA(gp);
 
 	if (!gpdata) return;
 	gtk_selection_data_set_text(data, gpdata->clipstr, -1);
 	REMMINA_PLUGIN_DEBUG("Text copied");
 }
 
-static void remmina_plugin_gvnc_cut_text(VncDisplay *vnc G_GNUC_UNUSED, const gchar *text, RemminaProtocolWidget *gp)
+static void gvnc_plugin_cut_text(VncDisplay *vnc G_GNUC_UNUSED, const gchar *text, RemminaProtocolWidget *gp)
 {
 	TRACE_CALL(__func__);
-	RemminaPluginGVncData *gpdata = GET_PLUGIN_DATA(gp);
+	GVncPluginData *gpdata = GET_PLUGIN_DATA(gp);
 
 	REMMINA_PLUGIN_DEBUG("Got clipboard request for \"%s\"", text);
 
@@ -205,7 +246,7 @@ static void remmina_plugin_gvnc_cut_text(VncDisplay *vnc G_GNUC_UNUSED, const gc
 		gtk_clipboard_set_with_owner(cb,
 					     targets,
 					     G_N_ELEMENTS(targets),
-					     (GtkClipboardGetFunc)remmina_plugin_gvnc_clipboard_copy,
+					     (GtkClipboardGetFunc)gvnc_plugin_clipboard_copy,
 					     NULL,
 					     G_OBJECT(gp));
 	}
@@ -214,17 +255,24 @@ static void remmina_plugin_gvnc_cut_text(VncDisplay *vnc G_GNUC_UNUSED, const gc
 }
 
 
-static void remmina_plugin_gvnc_desktop_resize(GtkWidget *vncdisplay G_GNUC_UNUSED, int width, int height)
+static void gvnc_plugin_desktop_resize(GtkWidget *vncdisplay G_GNUC_UNUSED, int width, int height, RemminaProtocolWidget *gp)
 {
 	TRACE_CALL(__func__);
+	GVncPluginData *gpdata = GET_PLUGIN_DATA(gp);
+
 	REMMINA_PLUGIN_DEBUG("Remote desktop size changed to %dx%d\n", width, height);
+	REMMINA_PLUGIN_DEBUG("Desktop size is set to %dx%d\n", gpdata->width, gpdata->height);
+	remmina_plugin_service->protocol_plugin_set_width(gp, width);
+	remmina_plugin_service->protocol_plugin_set_height(gp, height);
+
+	remmina_plugin_service->protocol_plugin_desktop_resize(gp);
 }
 
-static void remmina_plugin_gvnc_on_bell(RemminaProtocolWidget *gp)
+static void gvnc_plugin_on_bell(RemminaProtocolWidget *gp)
 {
 	TRACE_CALL(__func__);
 	REMMINA_PLUGIN_DEBUG("Bell message received");
-	RemminaPluginGVncData *gpdata = GET_PLUGIN_DATA(gp);
+	//GVncPluginData *gpdata = GET_PLUGIN_DATA(gp);
 	RemminaFile *remminafile = remmina_plugin_service->protocol_plugin_get_file(gp);
 
 	if (remmina_plugin_service->file_get_int(remminafile, "disableserverbell", FALSE))
@@ -235,12 +283,11 @@ static void remmina_plugin_gvnc_on_bell(RemminaProtocolWidget *gp)
 		gdk_window_beep(window);
 	REMMINA_PLUGIN_DEBUG("Beep emitted");
 }
-static void remmina_plugin_gvnc_update_scale_mode(RemminaProtocolWidget *gp)
+static void gvnc_plugin_update_scale_mode(RemminaProtocolWidget *gp)
 {
 	TRACE_CALL(__func__);
 
-	gint width, height;
-	RemminaPluginGVncData *gpdata = GET_PLUGIN_DATA(gp);
+	GVncPluginData *gpdata = GET_PLUGIN_DATA(gp);
 	RemminaScaleMode scaleMode = remmina_plugin_service->remmina_protocol_widget_get_current_scale_mode(gp);
 
 #if 0
@@ -254,8 +301,10 @@ static void remmina_plugin_gvnc_update_scale_mode(RemminaProtocolWidget *gp)
 	else
 		vnc_display_set_scaling(VNC_DISPLAY(gpdata->vnc), FALSE);
 
-	width = remmina_plugin_service->protocol_plugin_get_width(gp);
-	height = remmina_plugin_service->protocol_plugin_get_height(gp);
+	//width = remmina_plugin_service->protocol_plugin_get_width(gp);
+	//height = remmina_plugin_service->protocol_plugin_get_height(gp);
+	gpdata->width = vnc_display_get_width(VNC_DISPLAY(gpdata->vnc));
+	gpdata->height = vnc_display_get_height(VNC_DISPLAY(gpdata->vnc));
 
 	if (scaleMode != REMMINA_PROTOCOL_WIDGET_SCALE_MODE_NONE) {
 		/* In scaled mode, the VncDisplay will get its dimensions from its parent */
@@ -269,39 +318,131 @@ static void remmina_plugin_gvnc_update_scale_mode(RemminaProtocolWidget *gp)
 			     NULL);
 		gtk_widget_set_size_request(GTK_WIDGET(gpdata->vnc), width, height);
 #endif
-		gtk_widget_set_size_request(GTK_WIDGET(gpdata->vnc), width, height);
+		gtk_widget_set_size_request(GTK_WIDGET(gpdata->vnc), gpdata->width, gpdata->height);
 	}
 	remmina_plugin_service->protocol_plugin_update_align(gp);
 }
 
-static gboolean remmina_plugin_gvnc_query_feature(RemminaProtocolWidget *gp, const RemminaProtocolFeature *feature)
+static gboolean gvnc_plugin_query_feature(RemminaProtocolWidget *gp, const RemminaProtocolFeature *feature)
 {
 	TRACE_CALL(__func__);
 
 	return TRUE;
 }
 
-static void remmina_plugin_gvnc_call_feature(RemminaProtocolWidget *gp, const RemminaProtocolFeature *feature)
+static void gvnc_plugin_call_feature(RemminaProtocolWidget *gp, const RemminaProtocolFeature *feature)
 {
 	TRACE_CALL(__func__);
 
-	RemminaPluginGVncData *gpdata = GET_PLUGIN_DATA(gp);
+	GVncPluginData *gpdata = GET_PLUGIN_DATA(gp);
 	RemminaFile *remminafile = remmina_plugin_service->protocol_plugin_get_file(gp);
 
+	guint keys[3];
+
 	switch (feature->id) {
-	case REMMINA_PLUGIN_GVNC_FEATURE_DYNRESUPDATE:
-	case REMMINA_PLUGIN_GVNC_FEATURE_SCALE:
-		remmina_plugin_gvnc_update_scale_mode(gp);
+	case GVNC_PLUGIN_FEATURE_PREF_VIEWONLY:
+		gpdata->viewonly = remmina_plugin_service->file_get_int(remminafile, "viewonly", FALSE);
+		break;
+	case GVNC_PLUGIN_FEATURE_DYNRESUPDATE:
+	case GVNC_PLUGIN_FEATURE_SCALE:
+		gvnc_plugin_update_scale_mode(gp);
+		break;
+	case GVNC_PLUGIN_FEATURE_TOOL_SENDCTRLALTDEL:
+		keys[0] = GDK_KEY_Control_L;
+		keys[1] = GDK_KEY_Alt_L;
+		keys[2] = GDK_KEY_Delete;
+		gvnc_plugin_keystroke(gp, keys, G_N_ELEMENTS(keys));
+		break;
+	case GVNC_PLUGIN_FEATURE_TOOL_SENDCTRLALTBACKSPACE:
+		keys[0] = GDK_KEY_Control_L;
+		keys[1] = GDK_KEY_Alt_L;
+		keys[2] = GDK_KEY_BackSpace;
+		gvnc_plugin_keystroke(gp, keys, G_N_ELEMENTS(keys));
+		break;
+	case GVNC_PLUGIN_FEATURE_TOOL_SENDCTRLALTF1:
+		keys[0] = GDK_KEY_Control_L;
+		keys[1] = GDK_KEY_Alt_L;
+		keys[2] = GDK_KEY_F1;
+		gvnc_plugin_keystroke(gp, keys, G_N_ELEMENTS(keys));
+		break;
+	case GVNC_PLUGIN_FEATURE_TOOL_SENDCTRLALTF2:
+		keys[0] = GDK_KEY_Control_L;
+		keys[1] = GDK_KEY_Alt_L;
+		keys[2] = GDK_KEY_F2;
+		gvnc_plugin_keystroke(gp, keys, G_N_ELEMENTS(keys));
+		break;
+	case GVNC_PLUGIN_FEATURE_TOOL_SENDCTRLALTF3:
+		keys[0] = GDK_KEY_Control_L;
+		keys[1] = GDK_KEY_Alt_L;
+		keys[2] = GDK_KEY_F3;
+		gvnc_plugin_keystroke(gp, keys, G_N_ELEMENTS(keys));
+		break;
+	case GVNC_PLUGIN_FEATURE_TOOL_SENDCTRLALTF4:
+		keys[0] = GDK_KEY_Control_L;
+		keys[1] = GDK_KEY_Alt_L;
+		keys[2] = GDK_KEY_F4;
+		gvnc_plugin_keystroke(gp, keys, G_N_ELEMENTS(keys));
+		break;
+	case GVNC_PLUGIN_FEATURE_TOOL_SENDCTRLALTF5:
+		keys[0] = GDK_KEY_Control_L;
+		keys[1] = GDK_KEY_Alt_L;
+		keys[2] = GDK_KEY_F5;
+		gvnc_plugin_keystroke(gp, keys, G_N_ELEMENTS(keys));
+		break;
+	case GVNC_PLUGIN_FEATURE_TOOL_SENDCTRLALTF6:
+		keys[0] = GDK_KEY_Control_L;
+		keys[1] = GDK_KEY_Alt_L;
+		keys[2] = GDK_KEY_F6;
+		gvnc_plugin_keystroke(gp, keys, G_N_ELEMENTS(keys));
+		break;
+	case GVNC_PLUGIN_FEATURE_TOOL_SENDCTRLALTF7:
+		keys[0] = GDK_KEY_Control_L;
+		keys[1] = GDK_KEY_Alt_L;
+		keys[2] = GDK_KEY_F7;
+		gvnc_plugin_keystroke(gp, keys, G_N_ELEMENTS(keys));
+		break;
+	case GVNC_PLUGIN_FEATURE_TOOL_SENDCTRLALTF9:
+		keys[0] = GDK_KEY_Control_L;
+		keys[1] = GDK_KEY_Alt_L;
+		keys[2] = GDK_KEY_F9;
+		gvnc_plugin_keystroke(gp, keys, G_N_ELEMENTS(keys));
+		break;
+	case GVNC_PLUGIN_FEATURE_TOOL_SENDCTRLALTF10:
+		keys[0] = GDK_KEY_Control_L;
+		keys[1] = GDK_KEY_Alt_L;
+		keys[2] = GDK_KEY_F10;
+		gvnc_plugin_keystroke(gp, keys, G_N_ELEMENTS(keys));
+		break;
+	case GVNC_PLUGIN_FEATURE_TOOL_SENDCTRLALTF11:
+		keys[0] = GDK_KEY_Control_L;
+		keys[1] = GDK_KEY_Alt_L;
+		keys[2] = GDK_KEY_F11;
+		gvnc_plugin_keystroke(gp, keys, G_N_ELEMENTS(keys));
+		break;
+	case GVNC_PLUGIN_FEATURE_TOOL_SENDCTRLALTF12:
+		keys[0] = GDK_KEY_Control_L;
+		keys[1] = GDK_KEY_Alt_L;
+		keys[2] = GDK_KEY_F12;
+		gvnc_plugin_keystroke(gp, keys, G_N_ELEMENTS(keys));
+		break;
+	case GVNC_PLUGIN_FEATURE_TOOL_REBOOT:
+		gvnc_plugin_power_ctrl(gp, VNC_CONNECTION_POWER_ACTION_REBOOT);
+		break;
+	case GVNC_PLUGIN_FEATURE_TOOL_RESET:
+		gvnc_plugin_power_ctrl(gp, VNC_CONNECTION_POWER_ACTION_RESET);
+		break;
+	case GVNC_PLUGIN_FEATURE_TOOL_SHUTDOWN:
+		gvnc_plugin_power_ctrl(gp, VNC_CONNECTION_POWER_ACTION_SHUTDOWN);
 		break;
 	default:
 		break;
 	}
 }
 
-static void remmina_plugin_gvnc_auth_unsupported(VncDisplay *vnc G_GNUC_UNUSED, unsigned int authType, RemminaProtocolWidget *gp)
+static void gvnc_plugin_auth_unsupported(VncDisplay *vnc G_GNUC_UNUSED, unsigned int authType, RemminaProtocolWidget *gp)
 {
 	TRACE_CALL(__func__);
-	RemminaPluginGVncData *gpdata = GET_PLUGIN_DATA(gp);
+	GVncPluginData *gpdata = GET_PLUGIN_DATA(gp);
 
 	g_clear_pointer(&gpdata->error_msg, g_free);
 	gchar *msg = g_strdup_printf(_("Unsupported authentication type %u"), authType);
@@ -310,10 +451,10 @@ static void remmina_plugin_gvnc_auth_unsupported(VncDisplay *vnc G_GNUC_UNUSED, 
 	g_free(msg);
 }
 
-static void remmina_plugin_gvnc_auth_failure(VncDisplay *vnc G_GNUC_UNUSED, const gchar *reason, RemminaProtocolWidget *gp)
+static void gvnc_plugin_auth_failure(VncDisplay *vnc G_GNUC_UNUSED, const gchar *reason, RemminaProtocolWidget *gp)
 {
 	TRACE_CALL(__func__);
-	RemminaPluginGVncData *gpdata = GET_PLUGIN_DATA(gp);
+	GVncPluginData *gpdata = GET_PLUGIN_DATA(gp);
 
 	g_clear_pointer(&gpdata->error_msg, g_free);
 	gchar *msg = g_strdup_printf(_("Authentication failure: %s"), reason);
@@ -322,7 +463,7 @@ static void remmina_plugin_gvnc_auth_failure(VncDisplay *vnc G_GNUC_UNUSED, cons
 	g_free(msg);
 }
 
-static gboolean remmina_plugin_gvnc_ask_auth(GtkWidget *vncdisplay, GValueArray *credList, RemminaProtocolWidget *gp)
+static gboolean gvnc_plugin_ask_auth(GtkWidget *vncdisplay, GValueArray *credList, RemminaProtocolWidget *gp)
 {
 	TRACE_CALL(__func__);
 
@@ -334,7 +475,7 @@ static gboolean remmina_plugin_gvnc_ask_auth(GtkWidget *vncdisplay, GValueArray 
 	gboolean save;
 
 
-	RemminaPluginGVncData *gpdata = GET_PLUGIN_DATA(gp);
+	GVncPluginData *gpdata = GET_PLUGIN_DATA(gp);
 	RemminaFile *remminafile = remmina_plugin_service->protocol_plugin_get_file(gp);
 
 
@@ -433,11 +574,11 @@ cleanup:
 	return TRUE;
 }
 
-static void remmina_plugin_gvnc_initialized(GtkWidget *vncdisplay, RemminaProtocolWidget *gp)
+static void gvnc_plugin_initialized(GtkWidget *vncdisplay, RemminaProtocolWidget *gp)
 {
 	TRACE_CALL(__func__);
 
-	RemminaPluginGVncData *gpdata = GET_PLUGIN_DATA(gp);
+	GVncPluginData *gpdata = GET_PLUGIN_DATA(gp);
 	RemminaFile *remminafile = remmina_plugin_service->protocol_plugin_get_file(gp);
 
 	REMMINA_PLUGIN_DEBUG("Connection initialized");
@@ -455,19 +596,21 @@ static void remmina_plugin_gvnc_initialized(GtkWidget *vncdisplay, RemminaProtoc
 		vnc_connection_set_audio(gpdata->conn, VNC_AUDIO(gpdata->pa));
 		vnc_connection_audio_enable(gpdata->conn);
 	}
+	gpdata->width = vnc_display_get_width(VNC_DISPLAY(gpdata->vnc));
+	gpdata->width = vnc_display_get_height(VNC_DISPLAY(gpdata->vnc));
 }
 
-static void remmina_plugin_gvnc_disconnected(VncDisplay *vnc G_GNUC_UNUSED, RemminaProtocolWidget *gp)
+static void gvnc_plugin_disconnected(VncDisplay *vnc G_GNUC_UNUSED, RemminaProtocolWidget *gp)
 {
 	TRACE_CALL(__func__);
-	RemminaPluginGVncData *gpdata = GET_PLUGIN_DATA(gp);
+	//GVncPluginData *gpdata = GET_PLUGIN_DATA(gp);
 
 	REMMINA_PLUGIN_DEBUG("[%s] Plugin disconnected", PLUGIN_NAME);
 }
-static gboolean remmina_plugin_gvnc_close_connection(RemminaProtocolWidget *gp)
+static gboolean gvnc_plugin_close_connection(RemminaProtocolWidget *gp)
 {
 	TRACE_CALL(__func__);
-	RemminaPluginGVncData *gpdata = GET_PLUGIN_DATA(gp);
+	GVncPluginData *gpdata = GET_PLUGIN_DATA(gp);
 
 	REMMINA_PLUGIN_DEBUG("[%s] Plugin close connection", PLUGIN_NAME);
 
@@ -475,7 +618,7 @@ static gboolean remmina_plugin_gvnc_close_connection(RemminaProtocolWidget *gp)
 		if (gpdata->error_msg) g_free(gpdata->error_msg);
 		if (gpdata->vnc)
 			vnc_display_close(VNC_DISPLAY(gpdata->vnc));
-			//g_object_unref(gpdata->vnc);
+		//g_object_unref(gpdata->vnc);
 	}
 
 	/* Remove instance->context from gp object data to avoid double free */
@@ -484,15 +627,15 @@ static gboolean remmina_plugin_gvnc_close_connection(RemminaProtocolWidget *gp)
 	return FALSE;
 }
 
-static void remmina_plugin_gvnc_init(RemminaProtocolWidget *gp)
+static void gvnc_plugin_init(RemminaProtocolWidget *gp)
 {
 	TRACE_CALL(__func__);
-	RemminaPluginGVncData *gpdata;
+	GVncPluginData *gpdata;
 	//VncGrabSequence *seq;
 
 	GtkClipboard *cb;
 
-	gpdata = g_new0(RemminaPluginGVncData, 1);
+	gpdata = g_new0(GVncPluginData, 1);
 	g_object_set_data_full(G_OBJECT(gp), "plugin-data", gpdata, g_free);
 
 	gpdata->pa = NULL;
@@ -510,27 +653,27 @@ static void remmina_plugin_gvnc_init(RemminaProtocolWidget *gp)
 
 
 	g_signal_connect(gpdata->vnc, "vnc-auth-credential",
-			 G_CALLBACK(remmina_plugin_gvnc_ask_auth), gp);
+			 G_CALLBACK(gvnc_plugin_ask_auth), gp);
 	g_signal_connect(gpdata->vnc, "vnc-auth-failure",
-			 G_CALLBACK(remmina_plugin_gvnc_auth_failure), gp);
+			 G_CALLBACK(gvnc_plugin_auth_failure), gp);
 	g_signal_connect(gpdata->vnc, "vnc-auth-unsupported",
-			 G_CALLBACK(remmina_plugin_gvnc_auth_unsupported), gp);
+			 G_CALLBACK(gvnc_plugin_auth_unsupported), gp);
 	g_signal_connect(gpdata->vnc, "vnc-disconnected",
-			 G_CALLBACK(remmina_plugin_gvnc_disconnected), gp);
+			 G_CALLBACK(gvnc_plugin_disconnected), gp);
 	g_signal_connect(gpdata->vnc, "vnc-initialized",
-			 G_CALLBACK(remmina_plugin_gvnc_initialized), gp);
+			 G_CALLBACK(gvnc_plugin_initialized), gp);
 	g_signal_connect(gpdata->vnc, "vnc-desktop-resize",
-			 G_CALLBACK(remmina_plugin_gvnc_desktop_resize), NULL);
+			 G_CALLBACK(gvnc_plugin_desktop_resize), gp);
 	g_signal_connect(gpdata->vnc, "vnc-bell",
-			 G_CALLBACK(remmina_plugin_gvnc_on_bell), gp);
+			 G_CALLBACK(gvnc_plugin_on_bell), gp);
 	g_signal_connect(gpdata->vnc, "vnc-error",
-			 G_CALLBACK(remmina_plugin_gvnc_on_vnc_error), gp);
+			 G_CALLBACK(gvnc_plugin_on_vnc_error), gp);
 	g_signal_connect(gpdata->vnc, "vnc-pointer-grab",
-			 G_CALLBACK(remmina_plugin_gvnc_mouse_grab), gp);
+			 G_CALLBACK(gvnc_plugin_mouse_grab), gp);
 	g_signal_connect(gpdata->vnc, "vnc-pointer-ungrab",
-			 G_CALLBACK(remmina_plugin_gvnc_mouse_ungrab), gp);
+			 G_CALLBACK(gvnc_plugin_mouse_ungrab), gp);
 	g_signal_connect(gpdata->vnc, "vnc-server-cut-text",
-			 G_CALLBACK(remmina_plugin_gvnc_cut_text), gp);
+			 G_CALLBACK(gvnc_plugin_cut_text), gp);
 	//seq = vnc_grab_sequence_new_from_string ("Control_R");
 	//vnc_display_set_grab_keys(VNC_DISPLAY(gpdata->vnc), seq);
 	//vnc_grab_sequence_free(seq);
@@ -539,18 +682,17 @@ static void remmina_plugin_gvnc_init(RemminaProtocolWidget *gp)
 	cb = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
 	gpdata->signal_clipboard = g_signal_connect(cb,
 						    "owner-change",
-						    G_CALLBACK(remmina_plugin_gvnc_clipboard_cb),
+						    G_CALLBACK(gvnc_plugin_clipboard_cb),
 						    gp);
 }
 
-static gboolean remmina_plugin_gvnc_open_connection(RemminaProtocolWidget *gp)
+static gboolean gvnc_plugin_open_connection(RemminaProtocolWidget *gp)
 {
 	TRACE_CALL(__func__);
 
 	gint port;
 	gchar *host, *tunnel;
-	gint opt_zoom = 100;
-	RemminaPluginGVncData *gpdata = GET_PLUGIN_DATA(gp);
+	GVncPluginData *gpdata = GET_PLUGIN_DATA(gp);
 	RemminaFile *remminafile = remmina_plugin_service->protocol_plugin_get_file(gp);
 
 	REMMINA_PLUGIN_DEBUG("[%s] Plugin open connection", PLUGIN_NAME);
@@ -576,17 +718,19 @@ static gboolean remmina_plugin_gvnc_open_connection(RemminaProtocolWidget *gp)
 						&port);
 
 	gpdata->depth_profile = remmina_plugin_service->file_get_int(remminafile, "depth_profile", 24);
+	gpdata->viewonly = remmina_plugin_service->file_get_int(remminafile, "viewonly", FALSE);
 	vnc_display_set_depth(VNC_DISPLAY(gpdata->vnc), gpdata->depth_profile);
 	vnc_display_open_host(VNC_DISPLAY(gpdata->vnc), host, g_strdup_printf("%d", port));
 	gpdata->lossy_encoding = remmina_plugin_service->file_get_int(remminafile, "lossy_encoding", FALSE);
 	vnc_display_set_lossy_encoding(VNC_DISPLAY(gpdata->vnc), gpdata->shared);
-	vnc_display_set_shared_flag (VNC_DISPLAY(gpdata->vnc), gpdata->shared);
+	vnc_display_set_shared_flag(VNC_DISPLAY(gpdata->vnc), gpdata->shared);
 
 	g_free(host);
 	g_free(tunnel);
 
 	/* TRUE Conflict with remmina? */
 	vnc_display_set_keyboard_grab(VNC_DISPLAY(gpdata->vnc), FALSE);
+	vnc_display_set_read_only(VNC_DISPLAY(gpdata->vnc), gpdata->viewonly);
 	/* TRUE Conflict with remmina? */
 	vnc_display_set_pointer_grab(VNC_DISPLAY(gpdata->vnc), FALSE);
 	vnc_display_set_pointer_local(VNC_DISPLAY(gpdata->vnc), TRUE);
@@ -621,13 +765,13 @@ static gpointer colordepth_list[] =
  * e) Values for REMMINA_PROTOCOL_SETTING_TYPE_SELECT or REMMINA_PROTOCOL_SETTING_TYPE_COMBO
  * f) Setting Tooltip
  */
-static const RemminaProtocolSetting remmina_plugin_gvnc_basic_settings[] =
+static const RemminaProtocolSetting gvnc_plugin_basic_settings[] =
 {
 	{ REMMINA_PROTOCOL_SETTING_TYPE_SERVER,	  "server",	    NULL,			FALSE, NULL,		NULL					     },
 	{ REMMINA_PROTOCOL_SETTING_TYPE_PASSWORD, "password",	    N_("VNC password"),		FALSE, NULL,		NULL					     },
 	{ REMMINA_PROTOCOL_SETTING_TYPE_SELECT,	  "depth_profile",  N_("Colour depth"),		FALSE, colordepth_list, NULL					     },
 	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK,	  "lossy_encoding", N_("Use JPEG Compression"), TRUE,  NULL,		N_("This might not work on all VNC servers") },
-	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK,	  "gvncdebug",	    N_("Enable GTK-VNC debug"), FALSE,  NULL,		NULL					     },
+	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK,	  "gvncdebug",	    N_("Enable GTK-VNC debug"), FALSE, NULL,		NULL					     },
 	{ REMMINA_PROTOCOL_SETTING_TYPE_END,	  NULL,		    NULL,			FALSE, NULL,		NULL					     }
 };
 
@@ -640,53 +784,68 @@ static const RemminaProtocolSetting remmina_plugin_gvnc_basic_settings[] =
  * e) Values for REMMINA_PROTOCOL_SETTING_TYPE_SELECT or REMMINA_PROTOCOL_SETTING_TYPE_COMBO
  * f) Setting Tooltip
  */
-static const RemminaProtocolSetting remmina_plugin_gvnc_advanced_settings[] =
+static const RemminaProtocolSetting gvnc_plugin_advanced_settings[] =
 {
-	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK, "disableclipboard",	 N_("No clipboard sync"),	    TRUE,  NULL, NULL },
-	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK, "disablepasswordstoring", N_("Forget passwords after use"),  FALSE, NULL, NULL },
-	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK, "disableserverbell",	 N_("Ignore remote bell messages"), TRUE,  NULL, NULL },
-	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK, "enableaudio",		 N_("Enable audio channel"),	    FALSE, NULL, NULL },
-	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK, "viewonly",		 N_("View only"),		    TRUE,  NULL, NULL },
+	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK, "disableclipboard",	 N_("No clipboard sync"),	    TRUE,  NULL, NULL											},
+	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK, "disablepasswordstoring", N_("Forget passwords after use"),  FALSE, NULL, NULL											},
+	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK, "disableserverbell",	 N_("Ignore remote bell messages"), TRUE,  NULL, NULL											},
+	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK, "enableaudio",		 N_("Enable audio channel"),	    FALSE, NULL, NULL											},
+	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK, "viewonly",		 N_("View only"),		    TRUE,  NULL, NULL											},
 	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK, "shared",		 N_("Shared connection"),	    TRUE,  NULL, N_("If the server should try to share the desktop by leaving other clients connected") },
-	{ REMMINA_PROTOCOL_SETTING_TYPE_END,   NULL,			 NULL,				    TRUE,  NULL, NULL }
+	{ REMMINA_PROTOCOL_SETTING_TYPE_END,   NULL,			 NULL,				    TRUE,  NULL, NULL											}
 };
 
 /* Array for available features.
  * The last element of the array must be REMMINA_PROTOCOL_FEATURE_TYPE_END. */
-static const RemminaProtocolFeature remmina_plugin_gvnc_features[] =
+static const RemminaProtocolFeature gvnc_plugin_features[] =
 {
-	{ REMMINA_PROTOCOL_FEATURE_TYPE_PREF,	      REMMINA_PLUGIN_GVNC_FEATURE_PREF_VIEWONLY,	 GINT_TO_POINTER(REMMINA_PROTOCOL_FEATURE_PREF_CHECK), "viewonly",	   N_("View only")	   },
-	{ REMMINA_PROTOCOL_FEATURE_TYPE_PREF,	      REMMINA_PLUGIN_GVNC_FEATURE_PREF_DISABLECLIPBOARD, GINT_TO_POINTER(REMMINA_PROTOCOL_FEATURE_PREF_CHECK), "disableclipboard", N_("No clipboard sync") },
-	{ REMMINA_PROTOCOL_FEATURE_TYPE_TOOL,	      REMMINA_PLUGIN_GVNC_FEATURE_TOOL_SENDCTRLALTDEL,	 N_("Send Ctrl+Alt+Delete"),			       NULL,		   NULL			   },
-	{ REMMINA_PROTOCOL_FEATURE_TYPE_TOOL,	      REMMINA_PLUGIN_GVNC_FEATURE_TOOL_USBREDIR,	 N_("Select USB devices for redirection"),	       NULL,		   NULL			   },
-	{ REMMINA_PROTOCOL_FEATURE_TYPE_DYNRESUPDATE, REMMINA_PLUGIN_GVNC_FEATURE_DYNRESUPDATE,		 NULL,						       NULL,		   NULL			   },
-	{ REMMINA_PROTOCOL_FEATURE_TYPE_SCALE,	      REMMINA_PLUGIN_GVNC_FEATURE_SCALE,		 NULL,						       NULL,		   NULL			   },
-	{ REMMINA_PROTOCOL_FEATURE_TYPE_END,	      0,						 NULL,						       NULL,		   NULL			   }
+	{ REMMINA_PROTOCOL_FEATURE_TYPE_PREF,	      GVNC_PLUGIN_FEATURE_PREF_VIEWONLY,	     GINT_TO_POINTER(REMMINA_PROTOCOL_FEATURE_PREF_CHECK), "viewonly",	       N_("View only")	       },
+	{ REMMINA_PROTOCOL_FEATURE_TYPE_PREF,	      GVNC_PLUGIN_FEATURE_PREF_DISABLECLIPBOARD,     GINT_TO_POINTER(REMMINA_PROTOCOL_FEATURE_PREF_CHECK), "disableclipboard", N_("No clipboard sync") },
+	{ REMMINA_PROTOCOL_FEATURE_TYPE_TOOL,	      GVNC_PLUGIN_FEATURE_TOOL_SENDCTRLALTDEL,	     N_("Send Ctrl+Alt+_Del"),				   NULL,	       NULL		       },
+	{ REMMINA_PROTOCOL_FEATURE_TYPE_TOOL,	      GVNC_PLUGIN_FEATURE_TOOL_SENDCTRLALTBACKSPACE, N_("Send Ctrl+Alt+_Backspace"),			   NULL,	       NULL		       },
+	{ REMMINA_PROTOCOL_FEATURE_TYPE_TOOL,	      GVNC_PLUGIN_FEATURE_TOOL_SENDCTRLALTF1,	     N_("Send Ctrl+Alt+_F1"),				   NULL,	       NULL		       },
+	{ REMMINA_PROTOCOL_FEATURE_TYPE_TOOL,	      GVNC_PLUGIN_FEATURE_TOOL_SENDCTRLALTF2,	     N_("Send Ctrl+Alt+_F2"),				   NULL,	       NULL		       },
+	{ REMMINA_PROTOCOL_FEATURE_TYPE_TOOL,	      GVNC_PLUGIN_FEATURE_TOOL_SENDCTRLALTF3,	     N_("Send Ctrl+Alt+_F3"),				   NULL,	       NULL		       },
+	{ REMMINA_PROTOCOL_FEATURE_TYPE_TOOL,	      GVNC_PLUGIN_FEATURE_TOOL_SENDCTRLALTF4,	     N_("Send Ctrl+Alt+_F4"),				   NULL,	       NULL		       },
+	{ REMMINA_PROTOCOL_FEATURE_TYPE_TOOL,	      GVNC_PLUGIN_FEATURE_TOOL_SENDCTRLALTF5,	     N_("Send Ctrl+Alt+_F5"),				   NULL,	       NULL		       },
+	{ REMMINA_PROTOCOL_FEATURE_TYPE_TOOL,	      GVNC_PLUGIN_FEATURE_TOOL_SENDCTRLALTF6,	     N_("Send Ctrl+Alt+_F6"),				   NULL,	       NULL		       },
+	{ REMMINA_PROTOCOL_FEATURE_TYPE_TOOL,	      GVNC_PLUGIN_FEATURE_TOOL_SENDCTRLALTF7,	     N_("Send Ctrl+Alt+_F7"),				   NULL,	       NULL		       },
+	{ REMMINA_PROTOCOL_FEATURE_TYPE_TOOL,	      GVNC_PLUGIN_FEATURE_TOOL_SENDCTRLALTF8,	     N_("Send Ctrl+Alt+_F8"),				   NULL,	       NULL		       },
+	{ REMMINA_PROTOCOL_FEATURE_TYPE_TOOL,	      GVNC_PLUGIN_FEATURE_TOOL_SENDCTRLALTF9,	     N_("Send Ctrl+Alt+_F9"),				   NULL,	       NULL		       },
+	{ REMMINA_PROTOCOL_FEATURE_TYPE_TOOL,	      GVNC_PLUGIN_FEATURE_TOOL_SENDCTRLALTF10,	     N_("Send Ctrl+Alt+_F10"),				   NULL,	       NULL		       },
+	{ REMMINA_PROTOCOL_FEATURE_TYPE_TOOL,	      GVNC_PLUGIN_FEATURE_TOOL_SENDCTRLALTF11,	     N_("Send Ctrl+Alt+_F11"),				   NULL,	       NULL		       },
+	{ REMMINA_PROTOCOL_FEATURE_TYPE_TOOL,	      GVNC_PLUGIN_FEATURE_TOOL_SENDCTRLALTF12,	     N_("Send Ctrl+Alt+_F12"),				   NULL,	       NULL		       },
+	{ REMMINA_PROTOCOL_FEATURE_TYPE_TOOL,	      GVNC_PLUGIN_FEATURE_TOOL_REBOOT,		     N_("Reboot remote host"),				   NULL,	       NULL		       },
+	{ REMMINA_PROTOCOL_FEATURE_TYPE_TOOL,	      GVNC_PLUGIN_FEATURE_TOOL_RESET,		     N_("Reset remote host (hard reboot)"),		   NULL,	       NULL		       },
+	{ REMMINA_PROTOCOL_FEATURE_TYPE_TOOL,	      GVNC_PLUGIN_FEATURE_TOOL_SHUTDOWN,	     N_("Shutdown remote host"),			   NULL,	       NULL		       },
+	{ REMMINA_PROTOCOL_FEATURE_TYPE_DYNRESUPDATE, GVNC_PLUGIN_FEATURE_DYNRESUPDATE,		     NULL,						   NULL,	       NULL		       },
+	{ REMMINA_PROTOCOL_FEATURE_TYPE_SCALE,	      GVNC_PLUGIN_FEATURE_SCALE,		     NULL,						   NULL,	       NULL		       },
+	{ REMMINA_PROTOCOL_FEATURE_TYPE_END,	      0,					     NULL,						   NULL,	       NULL		       }
 };
 
 /* Protocol plugin definition and features */
 static RemminaProtocolPlugin remmina_plugin = {
-	REMMINA_PLUGIN_TYPE_PROTOCOL,                   // Type
-	PLUGIN_NAME,                                    // Name
-	PLUGIN_DESCRIPTION,                             // Description
-	GETTEXT_PACKAGE,                                // Translation domain
-	PLUGIN_VERSION,                                 // Version number
-	PLUGIN_APPICON,                                 // Icon for normal connection
-	PLUGIN_APPICON,                                 // Icon for SSH connection
-	remmina_plugin_gvnc_basic_settings,             // Array for basic settings
-	remmina_plugin_gvnc_advanced_settings,          // Array for advanced settings
-	REMMINA_PROTOCOL_SSH_SETTING_TUNNEL,            // SSH settings type
-	remmina_plugin_gvnc_features,                   // Array for available features
-	remmina_plugin_gvnc_init,                       // Plugin initialization
-	remmina_plugin_gvnc_open_connection,            // Plugin open connection
-	remmina_plugin_gvnc_close_connection,           // Plugin close connection
-	remmina_plugin_gvnc_query_feature,              // Query for available features
-	remmina_plugin_gvnc_call_feature,               // Call a feature
-	NULL,                                           // Send a keystroke
-	NULL,                                           // No screenshot support available
-	//remmina_plugin_gvnc_get_screenshot,             // No screenshot support available
-	NULL,                                           // RCW map event
-	NULL                                            // RCW unmap event
+	REMMINA_PLUGIN_TYPE_PROTOCOL,           // Type
+	PLUGIN_NAME,                            // Name
+	PLUGIN_DESCRIPTION,                     // Description
+	GETTEXT_PACKAGE,                        // Translation domain
+	PLUGIN_VERSION,                         // Version number
+	PLUGIN_APPICON,                         // Icon for normal connection
+	PLUGIN_APPICON,                         // Icon for SSH connection
+	gvnc_plugin_basic_settings,             // Array for basic settings
+	gvnc_plugin_advanced_settings,          // Array for advanced settings
+	REMMINA_PROTOCOL_SSH_SETTING_TUNNEL,    // SSH settings type
+	gvnc_plugin_features,                   // Array for available features
+	gvnc_plugin_init,                       // Plugin initialization
+	gvnc_plugin_open_connection,            // Plugin open connection
+	gvnc_plugin_close_connection,           // Plugin close connection
+	gvnc_plugin_query_feature,              // Query for available features
+	gvnc_plugin_call_feature,               // Call a feature
+	gvnc_plugin_keystroke,                  // Send a keystroke
+	NULL,                                   // No screenshot support available
+	//gvnc_plugin_get_screenshot,             // No screenshot support available
+	NULL,                                   // RCW map event
+	NULL                                    // RCW unmap event
 };
 
 G_MODULE_EXPORT gboolean remmina_plugin_entry(RemminaPluginService *service)
