@@ -46,6 +46,7 @@
 #endif
 #if VNC_CHECK_VERSION(1, 2, 0)
 # define HAVE_VNC_REMOTE_RESIZE
+# define HAVE_VNC_POWER_CONTROL
 #endif
 
 enum {
@@ -66,9 +67,11 @@ enum {
 	GVNC_PLUGIN_FEATURE_TOOL_SENDCTRLALTF10,
 	GVNC_PLUGIN_FEATURE_TOOL_SENDCTRLALTF11,
 	GVNC_PLUGIN_FEATURE_TOOL_SENDCTRLALTF12,
+#ifdef HAVE_VNC_POWER_CONTROL
 	GVNC_PLUGIN_FEATURE_TOOL_REBOOT,
 	GVNC_PLUGIN_FEATURE_TOOL_RESET,
 	GVNC_PLUGIN_FEATURE_TOOL_SHUTDOWN,
+#endif
 	GVNC_PLUGIN_FEATURE_SCALE
 };
 
@@ -89,6 +92,7 @@ static void gvnc_plugin_keystroke(RemminaProtocolWidget *gp, const guint keystro
 	}
 }
 
+#ifdef HAVE_VNC_POWER_CONTROL
 static void gvnc_plugin_power_ctrl(RemminaProtocolWidget *gp, VncConnectionPowerAction action)
 {
 	GVncPluginData *gpdata = GET_PLUGIN_DATA(gp);
@@ -100,6 +104,7 @@ static void gvnc_plugin_power_ctrl(RemminaProtocolWidget *gp, VncConnectionPower
 	}
 	vnc_connection_power_control(conn, action);
 }
+#endif
 
 
 static void gvnc_plugin_mouse_grab(GtkWidget *vncdisplay, RemminaProtocolWidget *gp)
@@ -425,6 +430,7 @@ static void gvnc_plugin_call_feature(RemminaProtocolWidget *gp, const RemminaPro
 		keys[2] = GDK_KEY_F12;
 		gvnc_plugin_keystroke(gp, keys, G_N_ELEMENTS(keys));
 		break;
+#ifdef HAVE_VNC_POWER_CONTROL
 	case GVNC_PLUGIN_FEATURE_TOOL_REBOOT:
 		gvnc_plugin_power_ctrl(gp, VNC_CONNECTION_POWER_ACTION_REBOOT);
 		break;
@@ -434,6 +440,7 @@ static void gvnc_plugin_call_feature(RemminaProtocolWidget *gp, const RemminaPro
 	case GVNC_PLUGIN_FEATURE_TOOL_SHUTDOWN:
 		gvnc_plugin_power_ctrl(gp, VNC_CONNECTION_POWER_ACTION_SHUTDOWN);
 		break;
+#endif
 	default:
 		break;
 	}
@@ -815,9 +822,11 @@ static const RemminaProtocolFeature gvnc_plugin_features[] =
 	{ REMMINA_PROTOCOL_FEATURE_TYPE_TOOL,	      GVNC_PLUGIN_FEATURE_TOOL_SENDCTRLALTF10,	     N_("Send Ctrl+Alt+_F10"),				   NULL,	       NULL		       },
 	{ REMMINA_PROTOCOL_FEATURE_TYPE_TOOL,	      GVNC_PLUGIN_FEATURE_TOOL_SENDCTRLALTF11,	     N_("Send Ctrl+Alt+_F11"),				   NULL,	       NULL		       },
 	{ REMMINA_PROTOCOL_FEATURE_TYPE_TOOL,	      GVNC_PLUGIN_FEATURE_TOOL_SENDCTRLALTF12,	     N_("Send Ctrl+Alt+_F12"),				   NULL,	       NULL		       },
+#ifdef HAVE_VNC_POWER_CONTROL
 	{ REMMINA_PROTOCOL_FEATURE_TYPE_TOOL,	      GVNC_PLUGIN_FEATURE_TOOL_REBOOT,		     N_("Reboot remote host"),				   NULL,	       NULL		       },
 	{ REMMINA_PROTOCOL_FEATURE_TYPE_TOOL,	      GVNC_PLUGIN_FEATURE_TOOL_RESET,		     N_("Reset remote host (hard reboot)"),		   NULL,	       NULL		       },
 	{ REMMINA_PROTOCOL_FEATURE_TYPE_TOOL,	      GVNC_PLUGIN_FEATURE_TOOL_SHUTDOWN,	     N_("Shutdown remote host"),			   NULL,	       NULL		       },
+#endif
 	{ REMMINA_PROTOCOL_FEATURE_TYPE_DYNRESUPDATE, GVNC_PLUGIN_FEATURE_DYNRESUPDATE,		     NULL,						   NULL,	       NULL		       },
 	{ REMMINA_PROTOCOL_FEATURE_TYPE_SCALE,	      GVNC_PLUGIN_FEATURE_SCALE,		     NULL,						   NULL,	       NULL		       },
 	{ REMMINA_PROTOCOL_FEATURE_TYPE_END,	      0,					     NULL,						   NULL,	       NULL		       }
