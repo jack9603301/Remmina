@@ -54,6 +54,8 @@ static void remmina_plugin_spice_display_ready_cb(GObject *, GParamSpec *, Remmi
 static void remmina_plugin_spice_update_scale_mode(RemminaProtocolWidget *);
 static gboolean remmina_plugin_spice_session_open_fd(RemminaProtocolWidget *gp, gint fd) __attribute__ ((unused));
 static gboolean remmina_plugin_spice_channel_open_fd(SpiceChannel *, int with_tls, RemminaProtocolWidget *) __attribute__ ((unused));
+//static gboolean remmina_plugin_spice_session_open_fd(RemminaProtocolWidget *gp, gint fd);
+//static gboolean remmina_plugin_spice_channel_open_fd(SpiceChannel *, int with_tls, RemminaProtocolWidget *);
 
 void remmina_plugin_spice_select_usb_devices(RemminaProtocolWidget *);
 #ifdef SPICE_GTK_CHECK_VERSION
@@ -99,11 +101,13 @@ static gboolean
 remmina_plugin_spice_channel_open_fd(SpiceChannel *channel, int with_tls G_GNUC_UNUSED, RemminaProtocolWidget *gp)
 {
 	TRACE_CALL(__func__);
-
 	RemminaPluginSpiceData *gpdata = GET_PLUGIN_DATA(gp);
 	g_return_val_if_fail(gpdata != NULL, FALSE);
 
-	REMMINA_PLUGIN_DEBUG("Opening spice channel for FD: %d", gpdata->fd);
+	gint id, type;
+
+	g_object_get(channel, "channel-id", &id, "channel-type", &type, NULL);
+	REMMINA_PLUGIN_DEBUG ("Opening channel %p %s %d with FD: %d", channel, g_type_name(G_OBJECT_TYPE(channel)), id, gpdata->fd);
 
 	return spice_channel_open_fd(channel, gpdata->fd);
 }
@@ -157,50 +161,50 @@ static gboolean remmina_plugin_spice_open_connection(RemminaProtocolWidget *gp)
 		return FALSE;
 	}
 
-	/** -START- UNIX socket
-	 * if(strstr(g_strdup(tunnel), "unix:///") != NULL) {
-	 *		REMMINA_PLUGIN_DEBUG("Tunnel contain unix:// -> %s", tunnel);
-	 *		gchar *val = str_replace (tunnel, "unix://", "");
-	 *		REMMINA_PLUGIN_DEBUG("tunnel after cleaning = %s", val);
-	 *		//gchar *val = g_strdup(remmina_plugin_service->file_get_string(remminafile, "server"));
-	 *		g_object_set(gpdata->session, "unix-path", val, NULL);
-	 *		gint fd = remmina_plugin_service->open_unix_sock(val);
-	 *		REMMINA_PLUGIN_DEBUG("Unix socket fd: %d", fd);
-	 *		g_object_set(gpdata->session, "fd", fd, NULL);
-	 *		gpdata->fd = fd;
-	 *		if (fd > 0)
-	 *			remmina_plugin_spice_session_open_fd (gp, fd);
-	 *		g_free(val);
-	 *
-	 *	} else {
-	 */
+	/**-START- UNIX socket
+	* if(strstr(g_strdup(tunnel), "unix:///") != NULL) {
+	* 	REMMINA_PLUGIN_DEBUG("Tunnel contain unix:// -> %s", tunnel);
+	* 	gchar *val = str_replace (tunnel, "unix://", "");
+	* 	REMMINA_PLUGIN_DEBUG("tunnel after cleaning = %s", val);
+	* 	//gchar *val = g_strdup(remmina_plugin_service->file_get_string(remminafile, "server"));
+	* 	g_object_set(gpdata->session, "unix-path", val, NULL);
+	* 	gint fd = remmina_plugin_service->open_unix_sock(val);
+	* 	REMMINA_PLUGIN_DEBUG("Unix socket fd: %d", fd);
+	* 	gpdata->fd = fd;
+	* 	if (fd > 0)
+	* 		remmina_plugin_spice_session_open_fd (gp, fd);
+	* 	g_free(val);
+	*
+	* } else {
+	*/
 
-	remmina_plugin_service->get_server_port(tunnel,
-			XSPICE_DEFAULT_PORT,
-			&host,
-			&port);
 
-	g_object_set(gpdata->session, "host", host, NULL);
-	g_free(host);
-	g_free(tunnel);
+		remmina_plugin_service->get_server_port(tunnel,
+				XSPICE_DEFAULT_PORT,
+				&host,
+				&port);
 
-	/* Unencrypted connection */
-	if (!remmina_plugin_service->file_get_int(remminafile, "usetls", FALSE)) {
-		g_object_set(gpdata->session, "port", g_strdup_printf("%i", port), NULL);
-	}
-	/* TLS encrypted connection */
-	else{
-		g_object_set(gpdata->session, "tls_port", g_strdup_printf("%i", port), NULL);
+		g_object_set(gpdata->session, "host", host, NULL);
+		g_free(host);
+		g_free(tunnel);
 
-		/* Server CA certificate */
-		cacert = remmina_plugin_service->file_get_string(remminafile, "cacert");
-		if (cacert) {
-			g_object_set(gpdata->session, "ca-file", cacert, NULL);
+		/* Unencrypted connection */
+		if (!remmina_plugin_service->file_get_int(remminafile, "usetls", FALSE)) {
+			g_object_set(gpdata->session, "port", g_strdup_printf("%i", port), NULL);
 		}
-	}
+		/* TLS encrypted connection */
+		else{
+			g_object_set(gpdata->session, "tls_port", g_strdup_printf("%i", port), NULL);
 
-	spice_session_connect(gpdata->session);
-	 //-END- Unixsocket}
+			/* Server CA certificate */
+			cacert = remmina_plugin_service->file_get_string(remminafile, "cacert");
+			if (cacert) {
+				g_object_set(gpdata->session, "ca-file", cacert, NULL);
+			}
+		}
+
+		spice_session_connect(gpdata->session);
+	/** } -END- UNIX socket */
 
 	/*
 	 * FIXME: Add a waiting loop until the g_signal "channel-event" occurs.
@@ -252,18 +256,21 @@ static void remmina_plugin_spice_channel_new_cb(SpiceSession *session, SpiceChan
 {
 	TRACE_CALL(__func__);
 
-	gint id;
+	gint id, type;
 	RemminaPluginSpiceData *gpdata = GET_PLUGIN_DATA(gp);
 	RemminaFile *remminafile = remmina_plugin_service->protocol_plugin_get_file(gp);
 
+	g_return_if_fail(gpdata != NULL);
+
 	/**
 	* g_signal_connect(channel,
-	*		"open-fd",
-	*		G_CALLBACK(remmina_plugin_spice_channel_open_fd),
-	*		gp);
+	*	"open-fd",
+	*	G_CALLBACK(remmina_plugin_spice_channel_open_fd),
+	*	gp);
 	*/
 
-	g_object_get(channel, "channel-id", &id, NULL);
+	g_object_get(channel, "channel-id", &id, "channel-type", &type, NULL);
+	REMMINA_PLUGIN_DEBUG ("New spice channel %p %s %d", channel, g_type_name(G_OBJECT_TYPE(channel)), id);
 
 	if (SPICE_IS_MAIN_CHANNEL(channel)) {
 		gpdata->main_channel = SPICE_MAIN_CHANNEL(channel);
@@ -303,13 +310,22 @@ static void remmina_plugin_spice_channel_new_cb(SpiceSession *session, SpiceChan
 
 	}
 
+	if (SPICE_IS_INPUTS_CHANNEL(channel)) {
+		REMMINA_PLUGIN_DEBUG("New inputs channel");
+	}
 	if (SPICE_IS_PLAYBACK_CHANNEL(channel)) {
+		REMMINA_PLUGIN_DEBUG("New audio channel");
 		if (remmina_plugin_service->file_get_int(remminafile, "enableaudio", FALSE)) {
 			gpdata->audio = spice_audio_get(gpdata->session, NULL);
 		}
 	}
 
+	if (SPICE_IS_USBREDIR_CHANNEL(channel)) {
+		REMMINA_PLUGIN_DEBUG("New usbredir channel");
+	}
+
 	if (SPICE_IS_WEBDAV_CHANNEL(channel)) {
+		REMMINA_PLUGIN_DEBUG("New webdav channel");
 		if (remmina_plugin_service->file_get_string(remminafile, "sharefolder")) {
 			spice_channel_connect(channel);
 		}
