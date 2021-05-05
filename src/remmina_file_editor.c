@@ -61,7 +61,12 @@ static const gchar *server_tips = N_("<tt><big>"
 				     "Supported formats\n"
 				     "• server\n"
 				     "• server:port\n"
-				     "• server:[port]"
+				     "• server:[port]\n"
+				     "VNC additional format\n"
+				     "• ID:repeater ID number\n"
+				     "• unix:///path/socket.sock\n"
+				     "SPICE additional format\n"
+				     "• unix:///path/socket.sock"
 				     "</big></tt>");
 
 static const gchar *cmd_tips = N_("<tt><big>"
