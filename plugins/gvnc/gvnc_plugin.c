@@ -615,6 +615,8 @@ static void gvnc_plugin_initialized(GtkWidget *vncdisplay, RemminaProtocolWidget
 	RemminaFile *remminafile = remmina_plugin_service->protocol_plugin_get_file(gp);
 
 	REMMINA_PLUGIN_DEBUG("Connection initialized");
+	g_return_if_fail(gpdata != NULL);
+	REMMINA_PLUGIN_DEBUG("Presenting the window");
 
 	VncAudioFormat format = {
 		VNC_AUDIO_FORMAT_RAW_S32,
@@ -622,12 +624,30 @@ static void gvnc_plugin_initialized(GtkWidget *vncdisplay, RemminaProtocolWidget
 		44100,
 	};
 
+	REMMINA_PLUGIN_DEBUG("Gathering the VNC connection object");
 	gpdata->conn = vnc_display_get_connection(VNC_DISPLAY(gpdata->vnc));
+	g_return_if_fail(gpdata->conn != NULL);
 
 	if (remmina_plugin_service->file_get_int(remminafile, "enableaudio", FALSE)) {
-		vnc_connection_set_audio_format(gpdata->conn, &format);
-		vnc_connection_set_audio(gpdata->conn, VNC_AUDIO(gpdata->pa));
-		vnc_connection_audio_enable(gpdata->conn);
+		REMMINA_PLUGIN_DEBUG("Setting up VNC audio channel");
+		if (vnc_connection_set_audio_format(gpdata->conn, &format))
+			REMMINA_PLUGIN_DEBUG("VNC audio format set");
+		else {
+			REMMINA_PLUGIN_DEBUG("VNC audio format returned an error");
+			return;
+		}
+
+		if (vnc_connection_set_audio(gpdata->conn, VNC_AUDIO(gpdata->pa)))
+			REMMINA_PLUGIN_DEBUG("VNC audio channel has been set");
+		else {
+			REMMINA_PLUGIN_DEBUG("VNC audio channel cannot be set");
+			return;
+		}
+		REMMINA_PLUGIN_DEBUG("Enabling audio");
+		if (vnc_connection_audio_enable(gpdata->conn))
+			REMMINA_PLUGIN_DEBUG("Audio enabled");
+		else
+			REMMINA_PLUGIN_DEBUG("Audio cannot be enabled");
 	}
 	gpdata->width = vnc_display_get_width(VNC_DISPLAY(gpdata->vnc));
 	gpdata->width = vnc_display_get_height(VNC_DISPLAY(gpdata->vnc));
@@ -766,8 +786,7 @@ static gboolean gvnc_plugin_open_connection(RemminaProtocolWidget *gp)
 	gpdata->viewonly = remmina_plugin_service->file_get_int(remminafile, "viewonly", FALSE);
 	vnc_display_set_depth(VNC_DISPLAY(gpdata->vnc), gpdata->depth_profile);
 	if (gpdata->fd > 0)
-		//vnc_display_open_fd(VNC_DISPLAY(gpdata->vnc), gpdata->fd);
-		vnc_display_open_addr(VNC_DISPLAY(gpdata->vnc), gpdata->addr);
+		vnc_display_open_fd(VNC_DISPLAY(gpdata->vnc), gpdata->fd);
 	else
 		vnc_display_open_host(VNC_DISPLAY(gpdata->vnc), host, g_strdup_printf("%d", port));
 	gpdata->lossy_encoding = remmina_plugin_service->file_get_int(remminafile, "lossy_encoding", FALSE);
