@@ -25,7 +25,7 @@
 * Do not use alpha as it is not used for the Desktop [!2247](https://gitlab.com/Remmina/Remmina/merge_requests/2247) *@antenore*
 * Refactoring: Deprecations and warnings [!2249](https://gitlab.com/Remmina/Remmina/merge_requests/2249) *@antenore*
 * Removing unneeded widgets in the headerbar [!2252](https://gitlab.com/Remmina/Remmina/merge_requests/2252) *@antenore*
-*
+
 ## v1.4.13
 [full changelog](https://gitlab.com/Remmina/Remmina/compare/v1.4.12...v1.4.13)
 
