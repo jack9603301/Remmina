@@ -215,9 +215,6 @@
             "name": "freerdp",
             "buildsystem": "cmake-ninja",
             "cleanup": [
-                "/bin",
-                "/lib/libwinpr-tools2.so*",
-                "/lib/libuwac0.so*"
             ],
             "config-opts": [
                 "-DCMAKE_BUILD_TYPE:STRING=Release",
@@ -233,6 +230,7 @@
                 "-DWITH_CLIENT:BOOL=OFF",
                 "-DWITH_CUPS:BOOL=ON",
                 "-DWITH_FFMPEG:BOOL=ON",
+                "-DWITH_DSP_FFMPEG:BOOL=ON",
                 "-DWITH_OSS:BOOL=OFF",
                 "-DWITH_PULSE:BOOL=ON",
                 "-DWITH_CHANNELS:BOOL=ON",
@@ -244,8 +242,8 @@
                 {
                     "type": "git",
                     "url": "https://github.com/FreeRDP/FreeRDP.git",
-                    "tag": "2.3.1",
-                    "commit": "136a58fbd0c3c2421a4e02d6422119406f1c32c2",
+                    "tag": "2.3.2",
+                    "commit": "c3df0be63953ed98525d9b736ba878ad733de059",
                     "x-checker-data": {
                         "type": "git",
                         "tag-pattern": "^([\\d.]+)$"
