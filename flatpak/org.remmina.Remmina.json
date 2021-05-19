@@ -358,6 +358,20 @@
                             }
                         }
                     ]
+                },
+                {
+                    "name": "usbredir",
+                    "buildsystem": "meson",
+                    "config-opts": [
+                        "-Dtools=disabled"
+                    ],
+                    "sources": [
+                        {
+                            "type": "git",
+                            "url": "https://gitlab.freedesktop.org/spice/usbredir.git",
+                            "commit": "456d2715973fa28fc4daf70378c125825645e193"
+                        }
+                    ]
                 }
             ]
         },
