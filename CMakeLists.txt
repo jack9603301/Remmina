@@ -511,8 +511,6 @@ endif()
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.h.in
 			   ${CMAKE_CURRENT_BINARY_DIR}/generated/config.h)
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.h.in
-			   ${CMAKE_CURRENT_SOURCE_DIR}/config.h)
 
 set(REMMINA_BUILD_CONFIG_LIST "")
 get_cmake_property(res VARIABLES)
