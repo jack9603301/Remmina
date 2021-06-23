@@ -347,15 +347,7 @@ void remmina_icon_init(void)
 	gboolean sni_supported;
 	char msg[200];
 
-	if (remmina_pref.dark_theme) {
-		g_debug("(%s) Dark theme, inverted icon (light)", __func__);
-		//g_stpcpy(remmina_panel, "remmina-panel-inverted");
-		g_stpcpy(remmina_panel, "remmina-status");
-	} else {
-		g_debug("(%s) Light theme, normal icon (dark)", __func__);
-		//g_stpcpy(remmina_panel, "remmina-panel");
-		g_stpcpy(remmina_panel, "remmina-status");
-	}
+	g_stpcpy(remmina_panel, "remmina-panel");
 
 	/* Print on stdout the availability of appindicators on DBUS */
 	sni_supported = remmina_sysinfo_is_appindicator_available();
@@ -381,8 +373,8 @@ void remmina_icon_init(void)
 #ifdef HAVE_LIBAPPINDICATOR
 		remmina_icon.icon = app_indicator_new("remmina-icon", remmina_panel, APP_INDICATOR_CATEGORY_APPLICATION_STATUS);
 		//app_indicator_set_icon_theme_path(remmina_icon.icon, REMMINA_RUNTIME_DATADIR G_DIR_SEPARATOR_S "icons");
-		const gchar *theme_path = app_indicator_get_icon_theme_path(remmina_icon.icon);
-		REMMINA_DEBUG("Custom app indicator icon theme path is %s", theme_path);
+		//const gchar *theme_path = app_indicator_get_icon_theme_path(remmina_icon.icon);
+		//REMMINA_DEBUG("Custom app indicator icon theme path is %s", theme_path);
 
 		app_indicator_set_status(remmina_icon.icon, APP_INDICATOR_STATUS_ACTIVE);
 		app_indicator_set_title(remmina_icon.icon, "Remmina");
