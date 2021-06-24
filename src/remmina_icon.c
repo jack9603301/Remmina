@@ -347,7 +347,7 @@ void remmina_icon_init(void)
 	gboolean sni_supported;
 	char msg[200];
 
-	g_stpcpy(remmina_panel, "remmina-panel");
+	g_stpcpy(remmina_panel, "remmina-status");
 
 	/* Print on stdout the availability of appindicators on DBUS */
 	sni_supported = remmina_sysinfo_is_appindicator_available();
