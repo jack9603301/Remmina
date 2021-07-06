@@ -115,6 +115,7 @@ struct _RemminaConnectionWindowPriv {
 	GtkToolItem *					toolitem_scale;
 	GtkToolItem *					toolitem_grab;
 	GtkToolItem *					toolitem_multimon;
+	GtkToolItem *					toolitem_pastefiles;
 	GtkToolItem *					toolitem_preferences;
 	GtkToolItem *					toolitem_tools;
 	GtkToolItem *                   toolitem_new;
@@ -171,6 +172,7 @@ typedef struct _RemminaConnectionObject {
 	gboolean			dynres_unlocked;
 
 	gulong				deferred_open_size_allocate_handler;
+	gulong				has_files_to_paste;
 
 } RemminaConnectionObject;
 
