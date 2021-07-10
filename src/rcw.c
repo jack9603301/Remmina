@@ -2466,6 +2466,14 @@ rcw_create_toolbar(RemminaConnectionWindow *cnnwin, gint mode)
 	g_signal_connect(G_OBJECT(toolitem), "toggled", G_CALLBACK(rcw_toolbar_grab), cnnwin);
 	priv->toolitem_grab = toolitem;
 
+	/* Paste files button */
+	toolitem = gtk_tool_button_new(NULL, _("Paste files"));
+	gtk_tool_button_set_icon_name(GTK_TOOL_BUTTON(toolitem), "remmina-paste-files-symbolic");
+	gtk_toolbar_insert(GTK_TOOLBAR(toolbar), toolitem, -1);
+	gtk_widget_show(GTK_WIDGET(toolitem));
+	g_signal_connect(G_OBJECT(toolitem), "clicked", G_CALLBACK(rcw_toolbar_pastefiles), cnnwin);
+	priv->toolitem_pastefiles = toolitem;
+
 	/* Preferences */
 	toolitem = gtk_toggle_tool_button_new();
 	gtk_tool_button_set_icon_name(GTK_TOOL_BUTTON(toolitem), "remmina-preferences-system-symbolic");
@@ -2564,9 +2572,10 @@ static void rco_update_toolbar(RemminaConnectionObject *cnnobj)
 	TRACE_CALL(__func__);
 	RemminaConnectionWindowPriv *priv = cnnobj->cnnwin->priv;
 	GtkToolItem *toolitem;
-	gboolean bval, dynres_avail, scale_avail;
+	gboolean bval, dynres_avail, scale_avail, paste_sensitive;
 	gboolean test_floating_toolbar;
 	RemminaScaleMode scalemode;
+	gchar *ttip;
 
 	priv->toolbar_is_reconfiguring = TRUE;
 
@@ -2583,6 +2592,21 @@ static void rco_update_toolbar(RemminaConnectionObject *cnnobj)
 		gtk_widget_set_sensitive(GTK_WIDGET(priv->toolitem_duplicate), TRUE);
 	else
 		gtk_widget_set_sensitive(GTK_WIDGET(priv->toolitem_duplicate), FALSE);
+
+	paste_sensitive = FALSE;
+	if (!cnnobj->has_files_to_paste)
+		ttip = g_strdup("");
+	else if (!cnnobj->paste_in_progress) {
+		paste_sensitive = TRUE;
+		ttip = g_strdup(_("Click here to paste some files available at the server side"));
+	}
+	else {
+		paste_sensitive = TRUE;
+		ttip = g_strdup_printf("Pasting files, %u%% done. Click here to abort.", cnnobj->paste_progress_percent);
+	}
+	gtk_widget_set_sensitive(GTK_WIDGET(priv->toolitem_pastefiles), paste_sensitive);
+	rcw_set_tooltip(GTK_WIDGET(priv->toolitem_pastefiles), ttip, 0, 0);
+	g_free(ttip);
 
 	scalemode = get_current_allowed_scale_mode(cnnobj, &dynres_avail, &scale_avail);
 	gtk_widget_set_sensitive(GTK_WIDGET(priv->toolitem_dynres), dynres_avail && cnnobj->connected);
