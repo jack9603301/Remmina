@@ -83,6 +83,8 @@ typedef struct _RemminaProtocolPlugin {
 	gboolean (*get_plugin_screenshot)(RemminaProtocolWidget *gp, RemminaPluginScreenshotData *rpsd);
 	gboolean (*map_event)(RemminaProtocolWidget *gp);
 	gboolean (*unmap_event)(RemminaProtocolWidget *gp);
+	void (* retrieve_remote_clipboard_files)(RemminaProtocolWidget *gp, const char *destdir);
+	void (* stop_clipboard_transfer)(RemminaProtocolWidget *gp);
 } RemminaProtocolPlugin;
 
 typedef struct _RemminaEntryPlugin {
@@ -229,6 +231,7 @@ typedef struct _RemminaPluginService {
 	gboolean (*gtksocket_available)(void);
 	gint (*get_profile_remote_width)(RemminaProtocolWidget *gp);
 	gint (*get_profile_remote_height)(RemminaProtocolWidget *gp);
+	void (* protocol_plugin_emit_signal_with_int_param)(RemminaProtocolWidget *gp, const gchar *signal_name, int param);
 } RemminaPluginService;
 
 /* "Prototype" of the plugin entry function */

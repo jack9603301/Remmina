@@ -172,7 +172,9 @@ typedef struct _RemminaConnectionObject {
 	gboolean			dynres_unlocked;
 
 	gulong				deferred_open_size_allocate_handler;
-	gulong				has_files_to_paste;
+	gboolean			has_files_to_paste;
+	gboolean			paste_in_progress;
+	guint				paste_progress_percent;
 
 } RemminaConnectionObject;
 
@@ -2258,6 +2260,53 @@ static void rcw_toolbar_grab(GtkToolItem *toggle, RemminaConnectionWindow *cnnwi
 		rcw_kp_ungrab(cnnobj->cnnwin);
 	}
 }
+
+static void rcw_toolbar_pastefiles(GtkWidget* widget, RemminaConnectionWindow* cnnwin)
+{
+	TRACE_CALL(__func__);
+	RemminaConnectionObject* cnnobj;
+
+	GtkWidget *dialog;
+	gint res;
+	char *destdir;
+
+	if (cnnwin->priv->toolbar_is_reconfiguring)
+		return;
+	if (!(cnnobj = rcw_get_visible_cnnobj(cnnwin))) return;
+
+	if (!cnnobj->has_files_to_paste)
+		return;
+
+	if (cnnobj->paste_in_progress) {
+		remmina_protocol_widget_stop_clipboard_transfer((RemminaProtocolWidget*)cnnobj->proto);
+		return;
+	}
+
+	dialog = gtk_file_chooser_dialog_new (_("Choose a destination folder"),
+		GTK_WINDOW(cnnwin),
+		GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,
+		_("_Cancel"),
+		GTK_RESPONSE_CANCEL,
+		_("_Select"),
+		GTK_RESPONSE_ACCEPT,
+		NULL);
+
+	res = gtk_dialog_run (GTK_DIALOG (dialog));
+	if (res == GTK_RESPONSE_ACCEPT) {
+		GtkFileChooser *chooser = GTK_FILE_CHOOSER (dialog);
+		destdir = gtk_file_chooser_get_filename (chooser);
+	}
+
+	gtk_widget_destroy (dialog);
+
+	if (res == GTK_RESPONSE_ACCEPT) {
+		remmina_protocol_widget_plugin_retrieve_paste_files((RemminaProtocolWidget*)cnnobj->proto, destdir);
+		g_free(destdir);
+	}
+
+}
+
+
 
 static GtkWidget *
 rcw_create_toolbar(RemminaConnectionWindow *cnnwin, gint mode)
