@@ -701,6 +701,24 @@ gboolean remmina_protocol_widget_plugin_screenshot(RemminaProtocolWidget *gp, Re
 	return gp->priv->plugin->get_plugin_screenshot(gp, rpsd);
 }
 
+gboolean remmina_protocol_widget_plugin_retrieve_paste_files(RemminaProtocolWidget* gp, const char *destdir)
+{
+	if (!gp->priv->plugin->retrieve_remote_clipboard_files) {
+			remmina_log_printf("paste files function is not implemented\n");
+			return FALSE;
+	}
+	if (gp->priv->plugin->retrieve_remote_clipboard_files != NULL)
+			gp->priv->plugin->retrieve_remote_clipboard_files(gp, destdir);
+	return TRUE;
+}
+
+gboolean remmina_protocol_widget_stop_clipboard_transfer(RemminaProtocolWidget* gp)
+{
+	if (gp->priv->plugin->stop_clipboard_transfer != NULL)
+			gp->priv->plugin->stop_clipboard_transfer(gp);
+	return TRUE;
+}
+
 gboolean remmina_protocol_widget_map_event(RemminaProtocolWidget *gp)
 {
 	TRACE_CALL(__func__);

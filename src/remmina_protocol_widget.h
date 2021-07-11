@@ -175,6 +175,9 @@ gboolean remmina_protocol_widget_plugin_screenshot(RemminaProtocolWidget *gp, Re
 /* Deal with the remimna connection window map/unmap events */
 gboolean remmina_protocol_widget_map_event(RemminaProtocolWidget *gp);
 gboolean remmina_protocol_widget_unmap_event(RemminaProtocolWidget *gp);
+/* Copy and paste of files */
+gboolean remmina_protocol_widget_plugin_retrieve_paste_files(RemminaProtocolWidget* gp, const char *destdir);
+gboolean remmina_protocol_widget_stop_clipboard_transfer(RemminaProtocolWidget* gp);
 
 void remmina_protocol_widget_update_remote_resolution(RemminaProtocolWidget *gp);
 
