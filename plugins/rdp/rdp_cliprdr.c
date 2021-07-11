@@ -188,9 +188,14 @@ static void remmina_rdp_cliprdr_send_client_capabilities(rfClipboard *clipboard)
 
 	generalCapabilitySet.capabilitySetType = CB_CAPSTYPE_GENERAL;
 	generalCapabilitySet.capabilitySetLength = 12;
-
 	generalCapabilitySet.version = CB_CAPS_VERSION_2;
 	generalCapabilitySet.generalFlags = CB_USE_LONG_FORMAT_NAMES;
+
+	if (clipboard->streams_supported && clipboard->file_formats_registered)
+		generalCapabilitySet.generalFlags |=
+			CB_STREAM_FILECLIP_ENABLED | CB_FILECLIP_NO_FILE_PATHS | CB_HUGE_FILE_SUPPORT_ENABLED;
+
+	clipboard->file_capability_flags = generalCapabilitySet.generalFlags;
 
 	clipboard->context->ClientCapabilities(clipboard->context, &capabilities);
 }
@@ -212,6 +217,25 @@ static UINT remmina_rdp_cliprdr_monitor_ready(CliprdrClientContext *context, con
 static UINT remmina_rdp_cliprdr_server_capabilities(CliprdrClientContext *context, const CLIPRDR_CAPABILITIES *capabilities)
 {
 	TRACE_CALL(__func__);
+
+	UINT32 i;
+	const CLIPRDR_CAPABILITY_SET* caps;
+	const CLIPRDR_GENERAL_CAPABILITY_SET* generalCaps;
+	const BYTE* capsPtr = (const BYTE*)capabilities->capabilitySets;
+	rfClipboard* clipboard = (rfClipboard*)context->custom;
+	clipboard->streams_supported = FALSE;
+
+	for(i = 0; i < capabilities->cCapabilitiesSets; i++) {
+		caps = (const CLIPRDR_CAPABILITY_SET*) capsPtr;
+		if (caps->capabilitySetType == CB_CAPSTYPE_GENERAL) {
+			generalCaps = (const CLIPRDR_GENERAL_CAPABILITY_SET*) caps;
+			if (generalCaps->generalFlags & CB_STREAM_FILECLIP_ENABLED) {
+				REMMINA_PLUGIN_DEBUG("Remote RDP server supports CB_STREAM_FILECLIP_ENABLED");
+				clipboard->streams_supported = TRUE;
+			}
+			capsPtr += caps->capabilitySetLength;
+		}
+	}
 	return CHANNEL_RC_OK;
 }
 
