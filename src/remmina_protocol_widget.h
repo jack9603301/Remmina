@@ -116,6 +116,7 @@ void remmina_protocol_widget_call_feature_by_type(RemminaProtocolWidget *gp, Rem
 void remmina_protocol_widget_call_feature_by_ref(RemminaProtocolWidget *gp, const RemminaProtocolFeature *feature);
 /* Provide thread-safe way to emit signals */
 void remmina_protocol_widget_emit_signal(RemminaProtocolWidget *gp, const gchar *signal_name);
+void remmina_protocol_widget_emit_signal_with_int_param(RemminaProtocolWidget* gp, const gchar* signal_name, int int_param);
 void remmina_protocol_widget_register_hostkey(RemminaProtocolWidget *gp, GtkWidget *widget);
 
 typedef gboolean (*RemminaHostkeyFunc)(RemminaProtocolWidget *gp, guint keyval, gboolean release);

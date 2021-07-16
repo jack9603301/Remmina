@@ -45,6 +45,11 @@
 
 #define CLIPBOARD_TRANSFER_WAIT_TIME 6
 
+enum {
+	REMMINA_RDP_CLIPRDR_FORMAT_COPIED_FILES = 0x34670001	// use an ID that can't conflict with RDP clipboard format like CF_TEXT.
+};
+
+
 UINT32 remmina_rdp_cliprdr_get_format_from_gdkatom(GdkAtom atom)
 {
 	TRACE_CALL(__func__);
@@ -229,7 +234,7 @@ static UINT remmina_rdp_cliprdr_server_capabilities(CliprdrClientContext *contex
 		caps = (const CLIPRDR_CAPABILITY_SET*) capsPtr;
 		if (caps->capabilitySetType == CB_CAPSTYPE_GENERAL) {
 			generalCaps = (const CLIPRDR_GENERAL_CAPABILITY_SET*) caps;
-			if (generalCaps->generalFlags & CB_STREAM_FILECLIP_ENABLED) {
+ 			if (generalCaps->generalFlags & CB_STREAM_FILECLIP_ENABLED) {
 				REMMINA_PLUGIN_DEBUG("Remote RDP server supports CB_STREAM_FILECLIP_ENABLED");
 				clipboard->streams_supported = TRUE;
 			}
@@ -254,10 +259,13 @@ static UINT remmina_rdp_cliprdr_server_format_list(CliprdrClientContext *context
 	CLIPRDR_FORMAT *format;
 	CLIPRDR_FORMAT_LIST_RESPONSE formatListResponse;
 	const char *serverFormatName;
+	gboolean have_files;
 
 	int has_dib_level = 0;
 
 	int i;
+
+	have_files = FALSE;
 
 	clipboard = (rfClipboard *)context->custom;
 	gp = clipboard->rfi->protocol_widget;
@@ -303,7 +311,21 @@ static UINT remmina_rdp_cliprdr_server_format_list(CliprdrClientContext *context
 			serverFormatName = "CF_LOCALE";
 		} else if (format->formatId == CF_METAFILEPICT) {
 			serverFormatName = "CF_METAFILEPICT";
+		} else if (format->formatName && strcmp(format->formatName, "FileGroupDescriptorW") == 0) {
+			/* Files (1 of 3). Put a special reference inside the clipboard and take note of formatId */
+			GdkAtom atom;
+			have_files = TRUE;
+			atom = gdk_atom_intern("x-special/remmina-copied-files", TRUE);
+			gtk_target_list_add(list, atom, 0, REMMINA_RDP_CLIPRDR_FORMAT_COPIED_FILES);
+			clipboard->filegroupdescriptorw_id = format->formatId;
+		} else if (format->formatName && strcmp(format->formatName, "FileContents") == 0) {
+			/* Files (2 of 3). take note of formatId for FileContents*/
+			clipboard->filecontents_id = format->formatId;
+		} else if (format->formatName && strcmp(format->formatName, "Preferred DropEffect") == 0) {
+			/* Files (3 of 3). take note of formatId for Preferred DropEffect */
+			clipboard->preferred_dropeffect_id = format->formatId;
 		}
+
 		REMMINA_PLUGIN_DEBUG("the server has clipboard format %d: %s", format->formatId, serverFormatName);
 	}
 
@@ -316,7 +338,7 @@ static UINT remmina_rdp_cliprdr_server_format_list(CliprdrClientContext *context
 			gtk_target_list_add(list, atom, 0, CF_DIB);
 	}
 
-	/* Now we tell GTK to change the local keyboard calling gtk_clipboard_set_with_owner
+	/* Now we tell GTK to change the local clipboard calling gtk_clipboard_set_with_owner
 	 * via REMMINA_RDP_UI_CLIPBOARD_SET_DATA
 	 * GTK will immediately fire an "owner-change" event, that we should ignore */
 
@@ -326,6 +348,11 @@ static UINT remmina_rdp_cliprdr_server_format_list(CliprdrClientContext *context
 	ui->clipboard.type = REMMINA_RDP_UI_CLIPBOARD_SET_DATA;
 	ui->clipboard.targetlist = list;
 	remmina_rdp_event_queue_ui_sync_retint(gp, ui);
+
+	/* Signal the protocol widget that whe have files or we don't */
+	printf("GIO: remmina_plugin_service = %p\n",remmina_plugin_service);
+	printf("GIO: gp = %p\n",gp);
+	remmina_plugin_service->protocol_plugin_emit_signal_with_int_param(gp, "pastefiles-status", have_files ? -1 : -2);
 
 	/* Send FormatListResponse to server */
 

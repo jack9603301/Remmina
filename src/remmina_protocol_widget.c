@@ -743,6 +743,25 @@ gboolean remmina_protocol_widget_unmap_event(RemminaProtocolWidget *gp)
 	return gp->priv->plugin->unmap_event(gp);
 }
 
+void remmina_protocol_widget_emit_signal_with_int_param(RemminaProtocolWidget* gp, const gchar* signal_name, int int_param)
+{
+	TRACE_CALL(__func__);
+
+	if ( !remmina_masterthread_exec_is_main_thread() ) {
+		/* Allow the execution of this function from a non main thread */
+		RemminaMTExecData *d;
+		d = (RemminaMTExecData*)g_malloc( sizeof(RemminaMTExecData) );
+		d->func = FUNC_PROTOCOLWIDGET_EMIT_SIGNAL_WITH_PARAM;
+		d->p.protocolwidget_emit_signal.signal_name = signal_name;
+		d->p.protocolwidget_emit_signal.gp = gp;
+		d->p.protocolwidget_emit_signal.int_param = int_param;
+		remmina_masterthread_exec_and_wait(d);
+		g_free(d);
+		return;
+	}
+	g_signal_emit_by_name(G_OBJECT(gp), signal_name, int_param);
+}
+
 void remmina_protocol_widget_emit_signal(RemminaProtocolWidget *gp, const gchar *signal_name)
 {
 	TRACE_CALL(__func__);

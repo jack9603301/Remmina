@@ -124,6 +124,11 @@ struct rf_clipboard {
 	gboolean		file_formats_registered;
 	UINT32			file_capability_flags;
 
+	UINT32		filegroupdescriptorw_id;
+	UINT32		filecontents_id;
+	UINT32		preferred_dropeffect_id;
+
+
 };
 typedef struct rf_clipboard rfClipboard;
 
