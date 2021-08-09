@@ -103,9 +103,6 @@ snap:build:
   #image: registry.gitlab.com/remmina/remmina/gnome-3-28:18.04
   image: registry.gitlab.com/remmina/remmina/gnome-3-38:20.04
   stage: build
-  before_script:
-  - apt remove -y -qq snapcraft
-  - snap install snapcraft --classic
   script:
   - export LC_ALL=C.UTF-8
   - export LANG=C.UTF-8
