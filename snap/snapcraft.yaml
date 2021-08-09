@@ -3,7 +3,7 @@ version: git
 adopt-info: remmina
 grade: stable
 confinement: strict
-base: core18
+base: core20
 
 architectures:
   - build-on: amd64
@@ -348,10 +348,10 @@ parts:
   cleanup:
     after: [pulse-utils, freerdp, remmina, app]  # Make this part run last; list all your other parts here
     plugin: nil
-    build-snaps: [core18, gnome-3-34-1804, gtk-common-themes]  # List all content-snaps you're using here
+    build-snaps: [core20, gnome-3-38-2004, gtk-common-themes]  # List all content-snaps you're using here
     override-prime: |
       set -eux
-      for snap in "core18" "gnome-3-34-1804" "gtk-common-themes"; do  # List all content-snaps you're using here
+      for snap in "core20" "gnome-3-38-2004" "gtk-common-themes"; do  # List all content-snaps you're using here
         cd "/snap/$snap/current" && find . -type f,l -exec rm -f "$SNAPCRAFT_PRIME/{}" \;
       done
       for CRUFT in bug lintian man; do
