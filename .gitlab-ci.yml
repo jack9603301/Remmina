@@ -102,13 +102,8 @@ snap:build:
   #image: ubuntudesktop/gnome-3-28-1804
   #image: registry.gitlab.com/remmina/remmina/gnome-3-28:18.04
   #image: registry.gitlab.com/remmina/remmina/gnome-3-38:20.04
-  image: ubuntu:latest
+  image: cibuilds/snapcraft:core20
   stage: build
-  before_script:
-  - apt-get update -qq
-  - apt install -y -qq snap
-  - snap install snapcraft --classic
-  - snap install multipass --classic
   script:
   - export LC_ALL=C.UTF-8
   - export LANG=C.UTF-8
