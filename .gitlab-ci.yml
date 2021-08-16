@@ -106,7 +106,8 @@ snap:build:
   stage: build
   before_script:
   - apt-get update -qq
-  - apt-get install -y -qq snapcraft
+  - snap install snapcraft --classic
+  - snap install multipass --classic
   script:
   - export LC_ALL=C.UTF-8
   - export LANG=C.UTF-8
