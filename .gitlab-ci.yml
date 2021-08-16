@@ -106,6 +106,7 @@ snap:build:
   stage: build
   before_script:
   - apt-get update -qq
+  - apt install -y -qq snap
   - snap install snapcraft --classic
   - snap install multipass --classic
   script:
