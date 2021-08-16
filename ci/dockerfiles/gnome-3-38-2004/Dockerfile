@@ -10,5 +10,6 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN \
     LC_ALL=en_US.UTF-8 apt-get -y update -qq \
+    && apt install -y -qq snapcraft \
     && apt-get autoremove -y \
     && apt-get clean -y

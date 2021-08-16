@@ -3,7 +3,7 @@ version: git
 adopt-info: remmina
 grade: stable
 confinement: strict
-base: core20
+base: core18
 
 architectures:
   - build-on: amd64
@@ -43,7 +43,7 @@ environment:
 apps:
   remmina:
     command: bin/remmina
-    extensions: [gnome-3-38]
+    extensions: [gnome-3-34]
     common-id: org.remmina.Remmina.desktop
     plugs:
       - alsa
@@ -124,7 +124,7 @@ parts:
       - pulse-utils
     plugin: cmake
     source: https://github.com/FreeRDP/FreeRDP.git
-    source-tag: 2.4.0
+    source-tag: 2.3.2
     source-depth: 1
     # override-build: |
     #   current_dir=$PWD
@@ -348,10 +348,10 @@ parts:
   cleanup:
     after: [pulse-utils, freerdp, remmina, app]  # Make this part run last; list all your other parts here
     plugin: nil
-    build-snaps: [core20, gnome-3-38-2004, gtk-common-themes]  # List all content-snaps you're using here
+    build-snaps: [core18, gnome-3-34-1804, gtk-common-themes]  # List all content-snaps you're using here
     override-prime: |
       set -eux
-      for snap in "core20" "gnome-3-38-2004" "gtk-common-themes"; do  # List all content-snaps you're using here
+      for snap in "core18" "gnome-3-34-1804" "gtk-common-themes"; do  # List all content-snaps you're using here
         cd "/snap/$snap/current" && find . -type f,l -exec rm -f "$SNAPCRAFT_PRIME/{}" \;
       done
       for CRUFT in bug lintian man; do
