@@ -101,7 +101,8 @@ flatpak:test:
 snap:build:
   #image: ubuntudesktop/gnome-3-28-1804
   #image: registry.gitlab.com/remmina/remmina/gnome-3-28:18.04
-  image: registry.gitlab.com/remmina/remmina/gnome-3-38:20.04
+  #image: registry.gitlab.com/remmina/remmina/gnome-3-38:20.04
+  image: ubuntu:latest
   stage: build
   script:
   - export LC_ALL=C.UTF-8
