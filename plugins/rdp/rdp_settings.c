@@ -49,6 +49,7 @@ static void remmina_rdp_settings_kbd_init(void)
 #if FREERDP_CHECK_VERSION(2, 3, 0)
 	rdp_keyboard_remapping_list = g_strdup(
 			remmina_plugin_service->pref_get_value("rdp_kbd_remap"));
+	REMMINA_PLUGIN_DEBUG("rdp_keyboard_remapping_list: %s", rdp_keyboard_remapping_list);
 	keyboard_layout = freerdp_keyboard_init_ex(rdp_keyboard_layout, rdp_keyboard_remapping_list);
 #else
 	keyboard_layout = freerdp_keyboard_init(rdp_keyboard_layout);

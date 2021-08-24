@@ -1626,7 +1626,8 @@ static gboolean remmina_rdp_main(RemminaProtocolWidget *gp)
 	freerdp_performance_flags_split(rfi->settings);
 
 #if FREERDP_CHECK_VERSION(2, 3, 0)
-	freerdp_settings_set_string(rfi->settings, FreeRDP_KeyboardRemappingList, remmina_plugin_service->pref_get_value("kbd_remap"));
+	freerdp_settings_set_string(rfi->settings, FreeRDP_KeyboardRemappingList, remmina_plugin_service->pref_get_value("rdp_kbd_remap"));
+	REMMINA_PLUGIN_DEBUG("rdp_keyboard_remapping_list: %s", rfi->settings->KeyboardRemappingList);
 #endif
 	freerdp_settings_set_uint32(rfi->settings, FreeRDP_KeyboardLayout, remmina_rdp_settings_get_keyboard_layout());
 
