@@ -165,7 +165,7 @@ parts:
       - libusb-1.0-0
       - libzvbi0
       - x11-utils
-    configflags:
+    cmake-parameters:
       # Workaround for ubuntu 18.04 armhf: build fails with "unable to find a register to spill"
       # remember to remove when snapcraft will be built in ubuntu >= 20.04
       # This must be at the beginning
@@ -244,7 +244,7 @@ parts:
       - xauth
       - xterm
       - openssh-client
-    configflags:
+    cmake-parameters:
       - -DCMAKE_BUILD_TYPE=Release
       - -DWITH_NEWS:BOOL=ON
       - -DWITH_FREERDP3=OFF
