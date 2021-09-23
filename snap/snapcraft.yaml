@@ -169,7 +169,6 @@ parts:
       # Workaround for ubuntu 18.04 armhf: build fails with "unable to find a register to spill"
       # remember to remove when snapcraft will be built in ubuntu >= 20.04
       # This must be at the beginning
-      - -DCMAKE_C_FLAGS_RELEASE=-O1 -g -DNDEBUG
       - -DCMAKE_BUILD_TYPE=Release
       - -DWITH_WAYLAND=on
       - -DWITH_SERVER=off
