@@ -30,9 +30,9 @@ ubuntu:devel:
   - make VERBOSE=1 -C $BUILD_FOLDER
   only:
     refs:
-    #- master
+    - master
     - tags
-    - merge_requests
+    #- merge_requests
     - web
     - schedules
 appimage:build:
