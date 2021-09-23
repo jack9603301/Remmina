@@ -30,7 +30,7 @@ ubuntu:devel:
   - make VERBOSE=1 -C $BUILD_FOLDER
   only:
     refs:
-    - master
+    #- master
     - tags
     - merge_requests
     - web
@@ -94,7 +94,7 @@ flatpak:test:
     - flatpak/.flatpak-builder/downloads/
     - flatpak/.flatpak-builder/git/
   only:
-  - merge_requests
+  #- merge_requests
   - tags
   - web
   - schedules
