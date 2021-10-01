@@ -313,7 +313,7 @@ static void remmina_plugin_x2go_remove_window_id (Window window_id) {
 	if (already_seen)
 	{
 		g_array_remove_index_fast (remmina_x2go_window_id_array, i);
-		REMMINA_PLUGIN_DEBUG("forgetting about window for X2Go Agent with ID [0x%lx]",
+		REMMINA_PLUGIN_DEBUG("Forgetting about window for X2Go Agent with ID [0x%lx]",
 							 window_id);
 	}
 	pthread_mutex_unlock (&remmina_x2go_init_mutex);
@@ -361,7 +361,7 @@ static gboolean remmina_plugin_x2go_close_connection(RemminaProtocolWidget *gp) 
 	REMMINA_PLUGIN_DEBUG("function entry.");
 
 	if (gpdata->disconnected) {
-		REMMINA_PLUGIN_DEBUG("plugin already disconnected. No need to do it again.");
+		REMMINA_PLUGIN_DEBUG("Plugin already disconnected. No need to do it again.");
 		return FALSE;
 	}
 
@@ -377,16 +377,16 @@ static void remmina_plugin_x2go_pyhoca_cli_exited(GPid pid,
 
 	RemminaPluginX2GoData *gpdata = GET_PLUGIN_DATA(gp);
 	if (!gpdata) {
-		REMMINA_PLUGIN_DEBUG("gpdata already null. Doing nothing then.");
+		REMMINA_PLUGIN_DEBUG("Doing nothing since gpdata is already null.");
 		return;
 	}
 	
 	if (gpdata->pidx2go <= 0) {
-		REMMINA_PLUGIN_DEBUG("pidx2go <= 0! -> Doing nothing then.");
+		REMMINA_PLUGIN_DEBUG("Doing nothing since pidx2go is less than or equal to 0.");
 		return;
 	}
 
-	REMMINA_PLUGIN_CRITICAL("%s", _("pyhoca-cli exited unexpectedly. "
+	REMMINA_PLUGIN_CRITICAL("%s", _("PyHoca-CLI exited unexpectedly. "
 							        "This connection will now be closed."));
 
 	DialogData *ddata = g_new0(DialogData, 1);
@@ -397,7 +397,7 @@ static void remmina_plugin_x2go_pyhoca_cli_exited(GPid pid,
 	ddata->buttons = GTK_BUTTONS_OK;
 	ddata->title = N_("An error occured.");
 	ddata->message = N_("The necessary child process 'pyhoca-cli' stopped unexpectedly.\n"
-						"Please check your profile settings and pyhoca-cli's output for "
+						"Please check your profile settings and PyHoca-CLI's output for "
 						"possible errors and ensure the remote server is "
 						"reachable.");
 	ddata->callbackfunc = NULL; // `Dialog` frees itself, no need for an callbackfunc.
@@ -437,7 +437,7 @@ static gchar* remmina_plugin_x2go_get_pyhoca_features() {
 		if (!error) {
 			REMMINA_PLUGIN_WARNING("%s",
 						g_strdup_printf(_("An unknown error happened while retrieving "
-										  "pyhoca-cli's cmdline features! "
+										  "PyHoca-CLI's cmdline features! "
 								          "Exit code: %i"), exit_code));
 		} else {
 			REMMINA_PLUGIN_WARNING("%s",
@@ -781,10 +781,9 @@ static GList* remmina_plugin_x2go_populate_available_features_list() {
 		// version of pyhoca-cli available yet we artificially create a list
 		// of an old limited set of features.
 
-		REMMINA_PLUGIN_WARNING("%s", _("Couldn't get pyhoca-cli's cmdline-features. This "
-							   "indicates either your pyhoca-cli version is too old "
-							   "or pyhoca-cli is not installed! An old limited set of "
-							   "features will be used now."));
+		REMMINA_PLUGIN_WARNING("%s", _("Couldn't get PyHoca-CLI's cmdline-features. This "
+							   "indicates either it is too old or not installed. "
+							   "An old limited set of features will be used now."));
 
 		return remmina_plugin_x2go_old_pyhoca_features();
 	} else {
@@ -793,14 +792,14 @@ static GList* remmina_plugin_x2go_populate_available_features_list() {
 		features = remmina_plugin_x2go_parse_pyhoca_features(features_string,
 															 &features_size);
 		if (features == NULL && features_size > 0) {
-			gchar *error_msg = _("parsing pyhoca-cli functionality was not possible! "
+			gchar *error_msg = _("Could not parse PyHoca-CLI's functionality. "
 							      "Using a limited feature-set for now.");
 			REMMINA_PLUGIN_CRITICAL("%s", error_msg);
 			return remmina_plugin_x2go_old_pyhoca_features();
 		}
 
 		REMMINA_PLUGIN_INFO("%s", _("Retrieved the "
-									"following pyhoca-cli functionality:"));
+									"following PyHoca-CLI functionality:"));
 
 		for(int k = 0; k < features_size; k++) {
 			REMMINA_PLUGIN_INFO("%s", g_strdup_printf(_("Available feature[%i]: '%s'"),
@@ -915,7 +914,7 @@ static gboolean remmina_plugin_x2go_start_create_notify(RemminaProtocolWidget *g
 				 XDefaultRootWindow(gpdata->display),
 				 SubstructureNotifyMask);
 
-	REMMINA_PLUGIN_DEBUG("X11 event watcher created.");
+	REMMINA_PLUGIN_DEBUG("X11 event-watcher created.");
 
 	return TRUE;
 }
@@ -945,7 +944,7 @@ static gboolean remmina_plugin_x2go_monitor_create_notify(RemminaProtocolWidget 
 
 	CANCEL_DEFER
 
-	REMMINA_PLUGIN_DEBUG("%s", _("Waiting for X2Go Agent window to appear."));
+	REMMINA_PLUGIN_DEBUG("%s", _("Waiting for X2Go Agent window to appear…"));
 
 	gpdata = GET_PLUGIN_DATA(gp);
 	atom = XInternAtom(gpdata->display, "WM_COMMAND", True);
@@ -962,7 +961,7 @@ static gboolean remmina_plugin_x2go_monitor_create_notify(RemminaProtocolWidget 
 		pthread_testcancel();
 		if (!(gpdata->pidx2go > 0)) {
 			nanosleep(&ts, NULL);
-			REMMINA_PLUGIN_DEBUG("Waiting for X2Go session to be launched.");
+			REMMINA_PLUGIN_DEBUG("Waiting for X2Go session to be launched…");
 			continue;
 		}
 
@@ -971,8 +970,8 @@ static gboolean remmina_plugin_x2go_monitor_create_notify(RemminaProtocolWidget 
 			wait_amount--;
 			// Don't spam the console. Print every second though.
 			if (wait_amount % 5 == 0) {
-				REMMINA_PLUGIN_INFO("%s", _("Waiting for pyhoca-cli "
-				                            "to show the session's window."));
+				REMMINA_PLUGIN_INFO("%s", _("Waiting for PyHoca-CLI "
+				                            "to show the session's window…"));
 			}
 			continue;
 		}
@@ -1142,7 +1141,7 @@ static gboolean remmina_plugin_x2go_open_connection(RemminaProtocolWidget *gp) {
 
 	if (!remmina_plugin_service->gtksocket_available()) {
 		remmina_plugin_service->protocol_plugin_set_error(gp,
-		    _("The protocol %s is unavailable because GtkSocket only works under X.org"),
+		    _("The %s protocol is unavailable because GtkSocket only works under X.org"),
 		    PLUGIN_NAME);
 		return FALSE;
 	}
@@ -1220,7 +1219,7 @@ static const RemminaProtocolSetting remmina_plugin_x2go_basic_settings[] = {
 	{ REMMINA_PROTOCOL_SETTING_TYPE_INT,
 		"dpi", N_("DPI resolution"), FALSE, NULL,
 		/* Tooltip */ N_("Launch session with a specific resolution (in dots per inch). "
-						 "Must be between 20 and 400")
+						 "Must be between 20 and 400.")
 	},
 	{ REMMINA_PROTOCOL_SETTING_TYPE_END, NULL, NULL, FALSE, NULL, NULL }
 };
