@@ -1366,7 +1366,7 @@ static gchar* rmplugin_x2go_enumeration_prettifier(const guint max_elements,
 			// your language.
 			// (Except your listing-grammar differs from english.)
 			// 'value1', 'value2', 'valueN-1' and 'valueN'
-			return g_strdup_printf(_("%s and '%s'"), string, element_to_add);
+			return g_strdup_printf(_("%sand '%s'"), string, element_to_add);
 		} else if (current_element == max_elements - 2) {
 			// TRANSLATORS: Presumably you just want to leave it english.
 			// (Except your listing-grammar differs from english.)
