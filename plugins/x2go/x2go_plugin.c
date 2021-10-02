@@ -280,7 +280,7 @@ static void rmplugin_x2go_open_dialog(RemminaProtocolWidget *gp)
 		return;
 	}
 
-	REMMINA_PLUGIN_DEBUG("`DialogData` checks passed. Now showin `Dialog`…");
+	REMMINA_PLUGIN_DEBUG("`DialogData` checks passed. Now showing `Dialog`…");
 
 	GtkWidget *widget_gtk_dialog;
 	widget_gtk_dialog = gtk_message_dialog_new(ddata->parent,
@@ -437,7 +437,7 @@ static gboolean rmplugin_x2go_cleanup(RemminaProtocolWidget *gp)
 
 	RemminaPluginX2GoData *gpdata = GET_PLUGIN_DATA(gp);
 	if (gpdata == NULL) {
-		REMMINA_PLUGIN_DEBUG("Exiting since gpdata is already null…");
+		REMMINA_PLUGIN_DEBUG("Exiting since gpdata is already 'NULL'…");
 		return FALSE;
 	}
 
@@ -493,12 +493,12 @@ static void rmplugin_x2go_pyhoca_cli_exited(GPid pid,
 
 	RemminaPluginX2GoData *gpdata = GET_PLUGIN_DATA(gp);
 	if (!gpdata) {
-		REMMINA_PLUGIN_DEBUG("Doing nothing since gpdata is already null.");
+		REMMINA_PLUGIN_DEBUG("Doing nothing since gpdata is already 'NULL'.");
 		return;
 	}
 	
 	if (gpdata->pidx2go <= 0) {
-		REMMINA_PLUGIN_DEBUG("Doing nothing since pidx2go is less than or equal to 0.");
+		REMMINA_PLUGIN_DEBUG("Doing nothing since pyhoca-cli was expected to stop.");
 		return;
 	}
 
@@ -618,10 +618,11 @@ static gboolean rmplugin_x2go_save_credentials(RemminaFile* remminafile,
 		rm_plugin_service->file_set_string(remminafile, "username",
 						   s_username);
 	} else {
-		g_strlcpy(errmsg, _("Could not save "
-				    "new credentials: 's_password' or "
-				    "'s_username' strings were not set."), 512);
-		//REMMINA_PLUGIN_CRITICAL("%s", errmsg); // No need.
+		g_strlcpy(errmsg, _("Internal error: Could not save new credentials."), 512);
+		
+				    REMMINA_PLUGIN_CRITICAL("%s", _("An error occured while trying to save "
+				"new credentials: 's_password' or "
+				"'s_username' strings were not set."));
 		return FALSE;
 	}
 
@@ -883,7 +884,7 @@ static gboolean rmplugin_x2go_exec_x2go(gchar *host,
 	// Prevent a race condition where pyhoca-cli is not
 	// started yet (pidx2go == 0) but a watcher is added.
 	while (gpdata->pidx2go == 0) {
-		REMMINA_PLUGIN_DEBUG("Starting PyHoca-CLI…");
+		REMMINA_PLUGIN_DEBUG("Waiting for PyHoca-CLI to start…");
 	};
 
 	REMMINA_PLUGIN_DEBUG("Watching child 'pyhoca-cli' process now…");
@@ -959,7 +960,7 @@ static GList* rmplugin_x2go_populate_available_features_list()
 		}
 
 		REMMINA_PLUGIN_INFO("%s", _("Retrieved the following PyHoca-CLI "
-					    "functionality:"));
+					    "command-line features:"));
 
 		for(int k = 0; k < features_amount; k++) {
 			REMMINA_PLUGIN_INFO("%s",
@@ -1033,7 +1034,7 @@ static gboolean rmplugin_x2go_try_window_id(Window window_id)
 	gint i;
 	gboolean already_seen = FALSE;
 
-	REMMINA_PLUGIN_DEBUG("Check if window for X2Go Agent [0x%lx] is already known or if "
+	REMMINA_PLUGIN_DEBUG("Check if window for X2Go Agent with ID [0x%lx] is already known or if "
 			     "it needs registration", window_id);
 
 	pthread_mutex_lock(&remmina_x2go_init_mutex);
@@ -1108,7 +1109,7 @@ static gboolean rmplugin_x2go_monitor_create_notify(RemminaProtocolWidget *gp,
 
 	CANCEL_DEFER
 
-	REMMINA_PLUGIN_DEBUG("%s", _("Opening window for X2Go Agent…"));
+	REMMINA_PLUGIN_DEBUG("%s", _("Waiting for window of X2Go Agent to appear…"));
 
 	gpdata = GET_PLUGIN_DATA(gp);
 	atom = XInternAtom(gpdata->display, "WM_COMMAND", True);
@@ -1125,7 +1126,7 @@ static gboolean rmplugin_x2go_monitor_create_notify(RemminaProtocolWidget *gp,
 		pthread_testcancel();
 		if (!(gpdata->pidx2go > 0)) {
 			nanosleep(&ts, NULL);
-			REMMINA_PLUGIN_DEBUG("Starting X2Go session…");
+			REMMINA_PLUGIN_DEBUG("Waiting for X2Go session to start…");
 			continue;
 		}
 
@@ -1496,11 +1497,11 @@ static GError* rmplugin_x2go_int_setting_validator(gchar* key, gpointer value, g
 	gint minimum;
 	str2int_errno err = str2int(&minimum, integer_list[0], 10);
 	if (err == STR2INT_INCONVERTIBLE) {
-		g_set_error(&error, 1, 1, _("Minimal threshold is not a valid integer!"));
+		g_set_error(&error, 1, 1, _("The lower limit is not a valid integer!"));
 	} else if (err == STR2INT_OVERFLOW) {
-		g_set_error(&error, 1, 1, _("Minimal threshold is too high!"));
+		g_set_error(&error, 1, 1, _("The lower limit is too high!"));
 	} else if (err == STR2INT_UNDERFLOW) {
-		g_set_error(&error, 1, 1, _("Minimal threshold is too low!"));
+		g_set_error(&error, 1, 1, _("The lower limit is too low!"));
 	} else if (err == STR2INT_INVALID_DATA) {
 		g_set_error(&error, 1, 1, _("Something went wrong."));
 	}
@@ -1510,11 +1511,11 @@ static GError* rmplugin_x2go_int_setting_validator(gchar* key, gpointer value, g
 	gint maximum;
 	err = str2int(&maximum, integer_list[1], 10);
 	if (err == STR2INT_INCONVERTIBLE) {
-		g_set_error(&error, 1, 1, _("Maximal threshold is not a valid integer!"));
+		g_set_error(&error, 1, 1, _("The upper limit is not a valid integer!"));
 	} else if (err == STR2INT_OVERFLOW) {
-		g_set_error(&error, 1, 1, _("Maximal threshold is too high!"));
+		g_set_error(&error, 1, 1, _("The upper limit is too high!"));
 	} else if (err == STR2INT_UNDERFLOW) {
-		g_set_error(&error, 1, 1, _("Maximal threshold is too low!"));
+		g_set_error(&error, 1, 1, _("The upper limit is too low!"));
 	} else if (err == STR2INT_INVALID_DATA) {
 		g_set_error(&error, 1, 1, _("Something went wrong."));
 	}
