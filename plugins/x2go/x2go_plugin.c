@@ -473,7 +473,7 @@ static gboolean rmplugin_x2go_close_connection(RemminaProtocolWidget *gp)
 	TRACE_CALL(__func__);
 	RemminaPluginX2GoData *gpdata = GET_PLUGIN_DATA(gp);
 
-	REMMINA_PLUGIN_DEBUG("function entry.");
+	REMMINA_PLUGIN_DEBUG("Function entry.");
 
 	if (gpdata->disconnected) {
 		REMMINA_PLUGIN_DEBUG("Doing nothing since the plugin is already disconnected.");
@@ -953,8 +953,8 @@ static GList* rmplugin_x2go_populate_available_features_list()
 								   &features_amount);
 
 		if (features_list == NULL || features_amount <= 0) {
-			gchar *error_msg = _("Could not parse PyHoca-CLI's functionality. "
-					     "Using a limited feature-set for now.");
+			gchar *error_msg = _("Could not parse PyHoca-CLI's command-line "
+					     "features. Using a limited feature-set for now.");
 			REMMINA_PLUGIN_WARNING("%s", error_msg);
 			return rmplugin_x2go_old_pyhoca_features();
 		}
