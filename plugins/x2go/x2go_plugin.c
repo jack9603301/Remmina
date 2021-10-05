@@ -1506,7 +1506,11 @@ static GError* rmplugin_x2go_int_setting_validator(gchar* key, gpointer value, g
 		g_set_error(&error, 1, 1, _("Something went wrong."));
 	}
 
-	if (error) return error;
+	if (error) {
+		REMMINA_PLUGIN_CRITICAL("%s", _("Please check the RemminaProtocolSetting "
+						"array for possible errors."));
+		return error;
+	}
 
 	gint maximum;
 	err = str2int(&maximum, integer_list[1], 10);
@@ -1520,7 +1524,11 @@ static GError* rmplugin_x2go_int_setting_validator(gchar* key, gpointer value, g
 		g_set_error(&error, 1, 1, _("Something went wrong."));
 	}
 
-	if (error) return error;
+	if (error) {
+		REMMINA_PLUGIN_CRITICAL("%s", _("Please check the RemminaProtocolSetting "
+						"array for possible errors."));
+		return error;
+	}
 
 	gint int_value;
 	err = str2int(&int_value, value, 10);
@@ -1535,6 +1543,12 @@ static GError* rmplugin_x2go_int_setting_validator(gchar* key, gpointer value, g
 		g_set_error(&error, 1, 1, _("Something went wrong."));
 	}
 
+	if (error) {
+		REMMINA_PLUGIN_CRITICAL("%s", _("Please check the RemminaProtocolSetting "
+						"array for possible errors."));
+		return error;
+	}
+
 	/*REMMINA_PLUGIN_DEBUG("Key:  \t%s", (gchar*) key);
 	REMMINA_PLUGIN_DEBUG("Value:\t%s", (gchar*) value);
 	REMMINA_PLUGIN_DEBUG("Data: \t%s", data);
@@ -1546,6 +1560,7 @@ static GError* rmplugin_x2go_int_setting_validator(gchar* key, gpointer value, g
 			    minimum, maximum);
 	}
 
+	// Should be NULL.
 	return error;
 }
 
