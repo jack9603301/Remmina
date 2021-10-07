@@ -280,7 +280,7 @@ static void rmplugin_x2go_open_dialog(RemminaProtocolWidget *gp)
 		return;
 	}
 
-	REMMINA_PLUGIN_DEBUG("`DialogData` checks passed. Now showing `Dialog`…");
+	REMMINA_PLUGIN_DEBUG("`DialogData` checks passed. Now showing dialog…");
 
 	GtkWidget *widget_gtk_dialog;
 	widget_gtk_dialog = gtk_message_dialog_new(ddata->parent,
