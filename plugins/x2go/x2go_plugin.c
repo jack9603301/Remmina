@@ -416,7 +416,7 @@ static void rmplugin_x2go_remove_window_id (Window window_id)
 	for (i = 0; i < remmina_x2go_window_id_array->len; i++) {
 		if (g_array_index(remmina_x2go_window_id_array, Window, i) == window_id) {
 			already_seen = TRUE;
-			REMMINA_PLUGIN_DEBUG("Window for X2Go Agent with ID [0x%lx] seen already.",
+			REMMINA_PLUGIN_DEBUG("Window of X2Go Agent with ID [0x%lx] seen already.",
 					     window_id);
 			break;
 		}
@@ -424,7 +424,7 @@ static void rmplugin_x2go_remove_window_id (Window window_id)
 
 	if (already_seen) {
 		g_array_remove_index_fast(remmina_x2go_window_id_array, i);
-		REMMINA_PLUGIN_DEBUG("Forgetting about window for X2Go Agent with ID [0x%lx]…",
+		REMMINA_PLUGIN_DEBUG("Forgetting about window of X2Go Agent with ID [0x%lx]…",
 				     window_id);
 	}
 
@@ -1034,14 +1034,14 @@ static gboolean rmplugin_x2go_try_window_id(Window window_id)
 	gint i;
 	gboolean already_seen = FALSE;
 
-	REMMINA_PLUGIN_DEBUG("Check if window for X2Go Agent with ID [0x%lx] is already known or if "
+	REMMINA_PLUGIN_DEBUG("Check if the window of X2Go Agent with ID [0x%lx] is already known or if "
 			     "it needs registration", window_id);
 
 	pthread_mutex_lock(&remmina_x2go_init_mutex);
 	for (i = 0; i < remmina_x2go_window_id_array->len; i++) {
 		if (g_array_index(remmina_x2go_window_id_array, Window, i) == window_id) {
 			already_seen = TRUE;
-			REMMINA_PLUGIN_DEBUG("X2Go window for Agent with ID [0x%lx] "
+			REMMINA_PLUGIN_DEBUG("Window of X2Go Agent with ID [0x%lx] "
 					     "already seen.", window_id);
 			break;
 		}
@@ -1593,7 +1593,7 @@ static const RemminaProtocolSetting rmplugin_x2go_basic_settings[] = {
     {REMMINA_PROTOCOL_SETTING_TYPE_TEXT,	"kbdtype", 	N_("Keyboard type (auto)"), 	FALSE, NULL, NULL, NULL, NULL},
     {REMMINA_PROTOCOL_SETTING_TYPE_COMBO,	"audio", 	N_("Audio support"), 		FALSE,
      /* SELECT & COMBO Values */ "pulse,esd,none",
-     /* Tooltip */ N_("The X2Go server's sound system (default: 'pulse')."),
+     /* Tooltip */ N_("The sound system of the X2Go server (default: 'pulse')."),
      /* Validation data */ "pulse,esd,none",
      /* Validation method */ G_CALLBACK(rmplugin_x2go_string_setting_validator)},
     {REMMINA_PROTOCOL_SETTING_TYPE_COMBO,	"clipboard", 	N_("Clipboard direction"), 	FALSE,
