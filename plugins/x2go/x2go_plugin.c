@@ -1515,13 +1515,21 @@ static GError* rmplugin_x2go_int_setting_validator(gchar* key, gpointer value, g
 	gint maximum;
 	err = str2int(&maximum, integer_list[1], 10);
 	if (err == STR2INT_INCONVERTIBLE) {
-		g_set_error(&error, 1, 1, _("The upper limit is not a valid integer!"));
+		g_set_error(&error, 1, 1, g_strdup_printf("%s%s",
+									_("Internal error: "),
+									_("The upper limit is not a valid integer!")));
 	} else if (err == STR2INT_OVERFLOW) {
-		g_set_error(&error, 1, 1, _("The upper limit is too high!"));
+		g_set_error(&error, 1, 1, g_strdup_printf("%s%s",
+									_("Internal error: "),
+									_("The upper limit is too high!")));
 	} else if (err == STR2INT_UNDERFLOW) {
-		g_set_error(&error, 1, 1, _("The upper limit is too low!"));
+		g_set_error(&error, 1, 1, g_strdup_printf("%s%s",
+									_("Internal error: "),
+									_("The upper limit is too low!")));
 	} else if (err == STR2INT_INVALID_DATA) {
-		g_set_error(&error, 1, 1, _("Something went wrong."));
+		g_set_error(&error, 1, 1, g_strdup_printf("%s%s",
+									_("Internal error: "),
+									_("Something went wrong.")));
 	}
 
 	if (error) {
