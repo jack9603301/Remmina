@@ -49,3 +49,7 @@ install(TARGETS remmina-plugin-exec DESTINATION ${REMMINA_PLUGINDIR})
 install(FILES
     scalable/emblems/org.remmina.Remmina-tool-symbolic.svg
     DESTINATION ${APPICONSCALE_EMBLEMS_DIR})
+
+if(WITH_ICON_CACHE)
+    gtk_update_icon_cache("${REMMINA_DATADIR}/icons/hicolor")
+endif()
