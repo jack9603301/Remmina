@@ -47,5 +47,5 @@ target_link_libraries(remmina-plugin-exec ${REMMINA_COMMON_LIBRARIES})
 install(TARGETS remmina-plugin-exec DESTINATION ${REMMINA_PLUGINDIR})
 
 install(FILES
-    scalable/emblems/remmina-tool-symbolic.svg
+    scalable/emblems/org.remmina.Remmina-tool-symbolic.svg
     DESTINATION ${APPICONSCALE_EMBLEMS_DIR})
