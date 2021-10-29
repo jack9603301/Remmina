@@ -4170,12 +4170,8 @@ void rco_on_connect(RemminaProtocolWidget *gp, RemminaConnectionObject *cnnobj)
 	if (remmina_file_get_filename(cnnobj->remmina_file) == NULL)
 		remmina_pref_add_recent(remmina_file_get_string(cnnobj->remmina_file, "protocol"),
 					remmina_file_get_string(cnnobj->remmina_file, "server"));
-	if (remmina_pref.periodic_usage_stats_permitted) {
-		REMMINA_DEBUG("Stats are allowed, we save the last successful connection date");
-		//remmina_file_set_string(cnnobj->remmina_file, "last_success", last_success);
-		remmina_file_state_last_success(cnnobj->remmina_file);
-		//REMMINA_DEBUG("Last connection made on %s.", last_success);
-	}
+
+	remmina_file_state_last_success(cnnobj->remmina_file);
 
 	REMMINA_DEBUG("Saving credentials");
 	/* Save credentials */

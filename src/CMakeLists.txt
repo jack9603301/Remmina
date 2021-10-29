@@ -121,8 +121,6 @@ list(
   "remmina_scheduler.h"
   "remmina_stats.c"
   "remmina_stats.h"
-  "remmina_stats_sender.c"
-  "remmina_stats_sender.h"
   "resources.c")
 
 set(RESOURCE_LIST

@@ -38,7 +38,6 @@
 #include <glib/gi18n.h>
 #include "remmina_public.h"
 #include "remmina_log.h"
-#include "remmina_stats_sender.h"
 #include "remmina/remmina_trace_calls.h"
 
 /***** Define the log window GUI *****/
@@ -76,17 +75,21 @@ static GtkWidget *log_window = NULL;
 static gboolean remmina_log_on_keypress(GtkWidget *widget, GdkEvent *event, gpointer user_data)
 {
 	TRACE_CALL(__func__);
-	GdkEventKey *e = (GdkEventKey *)event;
 
 	if (!log_window)
 		return FALSE;
 
-	if ((e->state & GDK_CONTROL_MASK) == GDK_CONTROL_MASK) {
-		if ((e->keyval == GDK_KEY_s || e->keyval == GDK_KEY_t) && remmina_stat_sender_can_send()) {
-			remmina_stats_sender_send(e->keyval != GDK_KEY_s);
-		}
-		return TRUE;
-	}
+	/* Stats have been deprecated, we will use most of the functions to provide debugging informations
+	*
+	* GdkEventKey *e = (GdkEventKey *)event;
+	*
+	* if ((e->state & GDK_CONTROL_MASK) == GDK_CONTROL_MASK) {
+	* 	if ((e->keyval == GDK_KEY_s || e->keyval == GDK_KEY_t) && remmina_stat_sender_can_send()) {
+	* 		remmina_stats_sender_send(e->keyval != GDK_KEY_s);
+	* 	}
+	* 	return TRUE;
+	* }
+	*/
 
 	return FALSE;
 }
@@ -139,10 +142,13 @@ void remmina_log_start(void)
 		g_signal_connect(G_OBJECT(log_window), "destroy", G_CALLBACK(remmina_log_end), NULL);
 		gtk_widget_show(log_window);
 	}
-	if (remmina_stat_sender_can_send())
-		remmina_log_print("Shortcut keys for stats:\n"
-			"\tCTRL+S: collect, show and send stats\n"
-			"\tCTRL+T: collect and show stats\n");
+	/* Stats have been deprecated, we will use most of the functions to provide debugging informations
+	*
+	* if (remmina_stat_sender_can_send())
+	* 	remmina_log_print("Shortcut keys for stats:\n"
+	* 		"\tCTRL+S: collect, show and send stats\n"
+	* 		"\tCTRL+T: collect and show stats\n");
+	*/
 }
 
 gboolean remmina_log_running(void)

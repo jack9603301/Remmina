@@ -168,48 +168,6 @@ struct ProfilesData {
 	gchar datestr;
 };
 
-JsonNode *remmina_stats_get_uid()
-{
-	TRACE_CALL(__func__);
-	JsonNode *r;
-	GChecksum *chs;
-	const gchar *uname, *hname;
-	const gchar *uid_suffix;
-	gchar *uid_prefix;
-	gchar *uid;
-
-	/** @warning this function is usually executed on a dedicated thread,
-	 * not on the main thread
-	 */
-
-	if (remmina_pref.periodic_usage_stats_uuid_prefix == NULL || remmina_pref.periodic_usage_stats_uuid_prefix[0] == 0) {
-		/* Generate a new UUID_PREFIX for this installation */
-		uid_prefix = remmina_gen_random_uuid();
-		if (remmina_pref.periodic_usage_stats_uuid_prefix)
-			g_free(remmina_pref.periodic_usage_stats_uuid_prefix);
-		remmina_pref.periodic_usage_stats_uuid_prefix = uid_prefix;
-		remmina_pref_save();
-	}
-
-	uname = g_get_user_name();
-	hname = g_get_host_name();
-	chs = g_checksum_new(G_CHECKSUM_SHA256);
-	g_checksum_update(chs, (const guchar*)uname, strlen(uname));
-	g_checksum_update(chs, (const guchar*)hname, strlen(hname));
-	uid_suffix = g_checksum_get_string(chs);
-
-	uid = g_strdup_printf("%s-%.10s", remmina_pref.periodic_usage_stats_uuid_prefix, uid_suffix);
-	g_checksum_free(chs);
-
-	r = json_node_alloc();
-	json_node_init_string(r, uid);
-
-	g_free(uid);
-
-	return r;
-
-}
-
 JsonNode *remmina_stats_get_os_info()
 {
 	TRACE_CALL(__func__);
@@ -853,10 +811,6 @@ JsonNode *remmina_stats_get_all()
 
 	b = json_builder_new();
 	json_builder_begin_object(b);
-
-	n = remmina_stats_get_uid();
-	json_builder_set_member_name(b, "UID");
-	json_builder_add_value(b, n);
 
 	n = remmina_stats_get_version();
 	json_builder_set_member_name(b, "REMMINAVERSION");
