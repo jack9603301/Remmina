@@ -38,6 +38,10 @@
  * @author Antenore Gatta and Giovanni Panozzo
  * @date 12 Feb 2018
  *
+ * Since October 29, 2021 we don't send anymore data to remmina.org, all the
+ * code intended to send data, has been removed, the following documentation
+ * has to be kept for thos having an old version of Remmina than 1.4.22.
+ *
  * When Remmina starts asks the user to share some usage statistics
  * with the Remmina developers. As per the opt-in model
  * (https://en.wikipedia.org/wiki/Opt-in_email), without the consent of the user,
@@ -127,7 +131,7 @@
  *  - Protocols used
  *  - Last time each protocol has been used (globally).
  *
- * @see https://www.remmina.org/wp for more info.
+ * @see https://www.remmina.org for more info.
  */
 
 
@@ -793,8 +797,6 @@ JsonNode *remmina_stats_get_kiosk_mode()
 
 	return r;
 }
-
-
 
 /**
  * Get all statistics in JSON format to send periodically to the PHP server.
