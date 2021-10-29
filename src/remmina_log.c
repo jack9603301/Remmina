@@ -79,7 +79,7 @@ static gboolean remmina_log_on_keypress(GtkWidget *widget, GdkEvent *event, gpoi
 	if (!log_window)
 		return FALSE;
 
-	/* Stats have been deprecated, we will use most of the functions to provide debugging informations
+	/* Stats have been deprecated, but many of the functions will be used locally to provide debugging info
 	*
 	* GdkEventKey *e = (GdkEventKey *)event;
 	*
@@ -142,7 +142,7 @@ void remmina_log_start(void)
 		g_signal_connect(G_OBJECT(log_window), "destroy", G_CALLBACK(remmina_log_end), NULL);
 		gtk_widget_show(log_window);
 	}
-	/* Stats have been deprecated, we will use most of the functions to provide debugging informations
+	/* Stats have been deprecated, but many of the functions are provided for local debugging
 	*
 	* if (remmina_stat_sender_can_send())
 	* 	remmina_log_print("Shortcut keys for stats:\n"
