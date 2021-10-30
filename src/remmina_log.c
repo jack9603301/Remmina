@@ -60,11 +60,6 @@ typedef struct _RemminaLogWindowClass {
 	GtkWindowClass parent_class;
 } RemminaLogWindowClass;
 
-typedef struct {
-	gboolean show_only;
-	JsonNode *statsroot;
-} sc_tdata;
-
 GType remmina_log_window_get_type(void)
 G_GNUC_CONST;
 
@@ -384,6 +379,7 @@ static void remmina_log_window_init(RemminaLogWindow *logwin)
 	gtk_widget_show(widget);
 	gtk_text_view_set_wrap_mode(GTK_TEXT_VIEW(widget), GTK_WRAP_WORD_CHAR);
 	gtk_text_view_set_editable(GTK_TEXT_VIEW(widget), FALSE);
+	gtk_text_view_set_monospace(GTK_TEXT_VIEW(widget), TRUE);
 	gtk_container_add(GTK_CONTAINER(scrolledwindow), widget);
 	logwin->log_view = widget;
 	logwin->log_buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(widget));
