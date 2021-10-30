@@ -38,6 +38,7 @@
 #include <glib/gi18n.h>
 #include "remmina_public.h"
 #include "remmina_log.h"
+#include "remmina_stats.h"
 #include "remmina/remmina_trace_calls.h"
 
 /***** Define the log window GUI *****/
@@ -59,6 +60,11 @@ typedef struct _RemminaLogWindowClass {
 	GtkWindowClass parent_class;
 } RemminaLogWindowClass;
 
+typedef struct {
+	gboolean show_only;
+	JsonNode *statsroot;
+} sc_tdata;
+
 GType remmina_log_window_get_type(void)
 G_GNUC_CONST;
 
@@ -71,52 +77,6 @@ static void remmina_log_window_class_init(RemminaLogWindowClass *klass)
 
 /* We will always only have one log window per instance */
 static GtkWidget *log_window = NULL;
-
-static gboolean remmina_log_on_keypress(GtkWidget *widget, GdkEvent *event, gpointer user_data)
-{
-	TRACE_CALL(__func__);
-
-	if (!log_window)
-		return FALSE;
-
-	/* Stats have been deprecated, we will use most of the functions to provide debugging informations
-	*
-	* GdkEventKey *e = (GdkEventKey *)event;
-	*
-	* if ((e->state & GDK_CONTROL_MASK) == GDK_CONTROL_MASK) {
-	* 	if ((e->keyval == GDK_KEY_s || e->keyval == GDK_KEY_t) && remmina_stat_sender_can_send()) {
-	* 		remmina_stats_sender_send(e->keyval != GDK_KEY_s);
-	* 	}
-	* 	return TRUE;
-	* }
-	*/
-
-	return FALSE;
-}
-
-static void remmina_log_window_init(RemminaLogWindow *logwin)
-{
-	TRACE_CALL(__func__);
-	GtkWidget *scrolledwindow;
-	GtkWidget *widget;
-
-	gtk_container_set_border_width(GTK_CONTAINER(logwin), 4);
-
-	scrolledwindow = gtk_scrolled_window_new(NULL, NULL);
-	gtk_widget_show(scrolledwindow);
-	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolledwindow), GTK_POLICY_NEVER, GTK_POLICY_ALWAYS);
-	gtk_container_add(GTK_CONTAINER(logwin), scrolledwindow);
-
-	widget = gtk_text_view_new();
-	gtk_widget_show(widget);
-	gtk_text_view_set_wrap_mode(GTK_TEXT_VIEW(widget), GTK_WRAP_WORD_CHAR);
-	gtk_text_view_set_editable(GTK_TEXT_VIEW(widget), FALSE);
-	gtk_container_add(GTK_CONTAINER(scrolledwindow), widget);
-	logwin->log_view = widget;
-	logwin->log_buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(widget));
-
-	g_signal_connect(G_OBJECT(logwin->log_view), "key-press-event", G_CALLBACK(remmina_log_on_keypress), (gpointer)logwin);
-}
 
 static GtkWidget*
 remmina_log_window_new(void)
@@ -142,13 +102,8 @@ void remmina_log_start(void)
 		g_signal_connect(G_OBJECT(log_window), "destroy", G_CALLBACK(remmina_log_end), NULL);
 		gtk_widget_show(log_window);
 	}
-	/* Stats have been deprecated, we will use most of the functions to provide debugging informations
-	*
-	* if (remmina_stat_sender_can_send())
-	* 	remmina_log_print("Shortcut keys for stats:\n"
-	* 		"\tCTRL+S: collect, show and send stats\n"
-	* 		"\tCTRL+T: collect and show stats\n");
-	*/
+	remmina_log_print("Shortcut keys for stats:\n"
+	"\tCTRL+T: collect and show stats\n");
 }
 
 gboolean remmina_log_running(void)
@@ -374,3 +329,65 @@ void remmina_log_printf(const gchar *fmt, ...)
 
 	IDLE_ADD(remmina_log_print_real, text);
 }
+
+void remmina_log_stats()
+{
+	TRACE_CALL(__func__);
+	JsonNode *n;
+
+	n = remmina_stats_get_all();
+	if (n != NULL) {
+
+		JsonGenerator *g = json_generator_new();
+		json_generator_set_pretty (g, TRUE);
+		json_generator_set_root(g, n);
+		json_node_unref(n);
+		g_autofree gchar *s = json_generator_to_data(g, NULL);	// s=serialized stats
+		REMMINA_DEBUG("STATS: JSON data%s\n", s);
+		g_object_unref(g);
+	}
+}
+
+static gboolean remmina_log_on_keypress(GtkWidget *widget, GdkEvent *event, gpointer user_data)
+{
+	TRACE_CALL(__func__);
+
+	if (!log_window)
+		return FALSE;
+
+	GdkEventKey *e = (GdkEventKey *)event;
+
+	if ((e->state & GDK_CONTROL_MASK) == GDK_CONTROL_MASK) {
+		if (e->keyval == GDK_KEY_t) {
+			remmina_log_stats();
+		}
+		return TRUE;
+	}
+
+	return FALSE;
+}
+
+static void remmina_log_window_init(RemminaLogWindow *logwin)
+{
+	TRACE_CALL(__func__);
+	GtkWidget *scrolledwindow;
+	GtkWidget *widget;
+
+	gtk_container_set_border_width(GTK_CONTAINER(logwin), 4);
+
+	scrolledwindow = gtk_scrolled_window_new(NULL, NULL);
+	gtk_widget_show(scrolledwindow);
+	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolledwindow), GTK_POLICY_NEVER, GTK_POLICY_ALWAYS);
+	gtk_container_add(GTK_CONTAINER(logwin), scrolledwindow);
+
+	widget = gtk_text_view_new();
+	gtk_widget_show(widget);
+	gtk_text_view_set_wrap_mode(GTK_TEXT_VIEW(widget), GTK_WRAP_WORD_CHAR);
+	gtk_text_view_set_editable(GTK_TEXT_VIEW(widget), FALSE);
+	gtk_container_add(GTK_CONTAINER(scrolledwindow), widget);
+	logwin->log_view = widget;
+	logwin->log_buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(widget));
+
+	g_signal_connect(G_OBJECT(logwin->log_view), "key-press-event", G_CALLBACK(remmina_log_on_keypress), (gpointer)logwin);
+}
+
