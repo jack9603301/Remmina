@@ -98,7 +98,7 @@ void remmina_log_start(void)
 		gtk_widget_show(log_window);
 	}
 	remmina_log_print("Shortcut keys for stats:\n"
-	"\tCTRL+T: collect and show stats\n");
+	"\tCtrl+T: collect and show stats\n");
 }
 
 gboolean remmina_log_running(void)

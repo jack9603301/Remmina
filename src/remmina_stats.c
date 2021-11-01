@@ -40,7 +40,7 @@
  *
  * Since October 29, 2021 data is not collected nor sent to remmina.org anymore. All the
  * code intended to send data has been removed. The following documentation
- * has to be kept for those with older versions of Remmina than 1.4.22.
+ * has to be kept for those with versions of Remmina older than 1.4.22.
  *
  * When Remmina starts asks the user to share some usage statistics
  * with the Remmina developers. As per the opt-in model
