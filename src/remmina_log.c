@@ -41,6 +41,8 @@
 #include "remmina_stats.h"
 #include "remmina/remmina_trace_calls.h"
 
+gboolean logstart;
+
 /***** Define the log window GUI *****/
 #define REMMINA_TYPE_LOG_WINDOW               (remmina_log_window_get_type())
 #define REMMINA_LOG_WINDOW(obj)               (G_TYPE_CHECK_INSTANCE_CAST((obj), REMMINA_TYPE_LOG_WINDOW, RemminaLogWindow))
@@ -65,6 +67,24 @@ G_GNUC_CONST;
 
 G_DEFINE_TYPE(RemminaLogWindow, remmina_log_window, GTK_TYPE_WINDOW)
 
+void remmina_log_stats()
+{
+	TRACE_CALL(__func__);
+	JsonNode *n;
+
+	n = remmina_stats_get_all();
+	if (n != NULL) {
+
+		JsonGenerator *g = json_generator_new();
+		json_generator_set_pretty (g, TRUE);
+		json_generator_set_root(g, n);
+		json_node_unref(n);
+		g_autofree gchar *s = json_generator_to_data(g, NULL);	// s=serialized stats
+		REMMINA_DEBUG("STATS: JSON data%s\n", s);
+		g_object_unref(g);
+	}
+}
+
 static void remmina_log_window_class_init(RemminaLogWindowClass *klass)
 {
 	TRACE_CALL(__func__);
@@ -86,6 +106,12 @@ static void remmina_log_end(GtkWidget *widget, gpointer data)
 	log_window = NULL;
 }
 
+static void remmina_log_start_stop (GtkSwitch *logswitch, gpointer   user_data)
+{
+	TRACE_CALL(__func__);
+	logstart = !logstart;
+}
+
 void remmina_log_start(void)
 {
 	TRACE_CALL(__func__);
@@ -94,11 +120,41 @@ void remmina_log_start(void)
 	}else  {
 		log_window = remmina_log_window_new();
 		gtk_window_set_default_size(GTK_WINDOW(log_window), 640, 480);
+		gtk_window_set_resizable (GTK_WINDOW(log_window), TRUE);
+		gtk_window_set_decorated (GTK_WINDOW(log_window), TRUE);
+
+		/* Header bar */
+		GtkWidget *header = gtk_header_bar_new ();
+		gtk_header_bar_set_show_close_button (GTK_HEADER_BAR (header), TRUE);
+		gtk_header_bar_set_title (GTK_HEADER_BAR (header), _("Remmina debugging window"));
+		gtk_header_bar_set_has_subtitle (GTK_HEADER_BAR (header), FALSE);
+		/* Stats */
+		GtkWidget *getstat = gtk_button_new ();
+		gtk_widget_set_tooltip_text (getstat, _("Paste sytem information in the Remmina debugging window"));
+		GIcon *icon = g_themed_icon_new ("edit-paste-symbolic");
+		GtkWidget *image = gtk_image_new_from_gicon (icon, GTK_ICON_SIZE_BUTTON);
+		g_object_unref (icon);
+		gtk_container_add (GTK_CONTAINER (getstat), image);
+		gtk_header_bar_pack_start (GTK_HEADER_BAR (header), getstat);
+		/* Start logging */
+		GtkWidget *start = gtk_switch_new ();
+		logstart = TRUE;
+		gtk_switch_set_active (GTK_SWITCH(start), logstart);
+		gtk_header_bar_pack_start (GTK_HEADER_BAR (header), start);
+
+		gtk_window_set_titlebar (GTK_WINDOW (log_window), header);
+
+		g_signal_connect(getstat, "button-press-event", G_CALLBACK(remmina_log_stats), NULL);
+		g_signal_connect(start, "notify::active", G_CALLBACK(remmina_log_start_stop), NULL);
 		g_signal_connect(G_OBJECT(log_window), "destroy", G_CALLBACK(remmina_log_end), NULL);
-		gtk_widget_show(log_window);
+		gtk_widget_show_all(log_window);
 	}
-	remmina_log_print("Shortcut keys for stats:\n"
-	"\tCtrl+T: collect and show stats\n");
+
+	remmina_log_print(_("This window can help you finding connections problems.\n"
+		"You can stop and start the logging at any moment using the On/Off switch.\n"
+		"The stats button (Ctrl+T), may be useful to gather system information that you may share while reporting a bug.\n"
+		"For more information on debugging Remmina see : https://gitlab.com/Remmina/Remmina/-/wikis/Usage/Remmina-debugging\n"
+		));
 }
 
 gboolean remmina_log_running(void)
@@ -125,7 +181,7 @@ static gboolean remmina_log_print_real(gpointer data)
 	TRACE_CALL(__func__);
 	GtkTextIter iter;
 
-	if (log_window) {
+	if (log_window && logstart) {
 		gtk_text_buffer_get_end_iter(REMMINA_LOG_WINDOW(log_window)->log_buffer, &iter);
 		gtk_text_buffer_insert(REMMINA_LOG_WINDOW(log_window)->log_buffer, &iter, (const gchar*)data, -1);
 		IDLE_ADD(remmina_log_scroll_to_end, NULL);
@@ -323,24 +379,6 @@ void remmina_log_printf(const gchar *fmt, ...)
 	va_end(args);
 
 	IDLE_ADD(remmina_log_print_real, text);
-}
-
-void remmina_log_stats()
-{
-	TRACE_CALL(__func__);
-	JsonNode *n;
-
-	n = remmina_stats_get_all();
-	if (n != NULL) {
-
-		JsonGenerator *g = json_generator_new();
-		json_generator_set_pretty (g, TRUE);
-		json_generator_set_root(g, n);
-		json_node_unref(n);
-		g_autofree gchar *s = json_generator_to_data(g, NULL);	// s=serialized stats
-		REMMINA_DEBUG("STATS: JSON data%s\n", s);
-		g_object_unref(g);
-	}
 }
 
 static gboolean remmina_log_on_keypress(GtkWidget *widget, GdkEvent *event, gpointer user_data)
