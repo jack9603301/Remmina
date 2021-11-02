@@ -66,15 +66,4 @@ void remmina_plugin_python_protocol_init(void);
  */
 RemminaPlugin* remmina_plugin_python_create_protocol_plugin(PyPlugin* plugin);
 
-/**
- * @brief 	Returns a pointer to the Python instance, mapped to the RemminaProtocolWidget or null if not found.
- *
- * @details Remmina expects this callback function to be part of one plugin, which is the reason no instance information
- * 			is explicitly passed. To bridge that, this function can be used to retrieve the very plugin instance owning
- * 			the given RemminaProtocolWidget.
- *
- * @return	Returns a new instance of the RemminaPlugin (must be freed!).
- */
-PyPlugin* remmina_plugin_python_module_get_plugin(RemminaProtocolWidget* gp);
-
 G_END_DECLS

@@ -77,6 +77,9 @@ static int basename_no_ext(const gchar* in, gchar** out)
 {
 	TRACE_CALL(__func__);
 
+	assert(in);
+	assert(out);
+
 	const gchar* base = strrchr(in, '/');
 	if (base)
 	{
@@ -107,6 +110,8 @@ void remmina_plugin_python_init(void)
 {
 	TRACE_CALL(__func__);
 
+	assert(python_init_commands);
+
 	remmina_plugin_python_module_init();
 	Py_Initialize();
 
@@ -121,6 +126,11 @@ void remmina_plugin_python_init(void)
 gboolean remmina_plugin_python_load(RemminaPluginService* service, const gchar* name)
 {
 	TRACE_CALL(__func__);
+
+	assert(service);
+	assert(name);
+
+  	remmina_plugin_python_set_service(service);
 
 	gchar* filename = NULL;
 	if (basename_no_ext(name, &filename) == 0)

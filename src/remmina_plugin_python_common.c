@@ -40,6 +40,11 @@
 #include <assert.h>
 #include <stdio.h>
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+#include "pygobject.h"
+#pragma GCC diagnostic pop
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // D E C L A R A T I O N S
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -48,7 +53,10 @@
  * A cache to store the last result that has been returned by the Python code using CallPythonMethod
  * (@see remmina_plugin_python_common.h)
  */
-PyObject* __last_result;
+static PyObject* __last_result;
+static GPtrArray* plugin_map = NULL;
+
+static RemminaPluginService* remmina_plugin_service;
 
 static const gchar* MISSING_ATTR_ERROR_FMT = "Python plugin instance is missing member: %s\n";
 static const gchar* MALLOC_RETURNED_NULL_ERROR_FMT = "Unable to allocate %d in memory!\n";
@@ -69,7 +77,7 @@ const gchar* ATTR_PREF_LABEL = "pref_label";
 const gchar* ATTR_INIT_ORDER = "init_order";
 
 /**
- * To prevent any memory related attack or accidental allocation of an excessive amount of byes, this limit should
+ * To prevent some memory related attacks or accidental allocation of an excessive amount of byes, this limit should
  * always be used to check for a sane amount of bytes to allocate.
  */
 static const int REASONABLE_LIMIT_FOR_MALLOC = 1024 * 1024;
@@ -183,7 +191,26 @@ gchar* remmina_plugin_python_copy_string_from_python(PyObject* string, Py_ssize_
 	return result;
 }
 
-PyPlugin* remmina_plugin_python_get_plugin(GPtrArray* plugin_map, RemminaPlugin* instance)
+void remmina_plugin_python_set_service(RemminaPluginService* service)
+{
+  remmina_plugin_service = service;
+}
+
+RemminaPluginService* remmina_plugin_python_get_service(void)
+{
+  return remmina_plugin_service;
+}
+
+void remmina_plugin_python_add_plugin(PyPlugin* plugin)
+{
+  TRACE_CALL(__func__);
+  if (!plugin_map) {
+	plugin_map = g_ptr_array_new();
+  }
+  g_ptr_array_add(plugin_map, plugin);
+}
+
+PyPlugin* remmina_plugin_python_get_plugin(RemminaPlugin* instance)
 {
 	TRACE_CALL(__func__);
 
@@ -203,4 +230,19 @@ PyPlugin* remmina_plugin_python_get_plugin(GPtrArray* plugin_map, RemminaPlugin*
 	g_printerr(PLUGIN_NOT_FOUND_FMT, __FILE__, __LINE__, instance->name);
 
 	return NULL;
+}
+
+void init_pygobject()
+{
+  pygobject_init(-1, -1, -1);
+}
+
+GtkWidget* new_pywidget(GObject* obj)
+{
+  return pygobject_new(obj);
+}
+
+GtkWidget* get_pywidget(PyObject* obj)
+{
+	return (GtkWidget*) pygobject_get(obj);
 }

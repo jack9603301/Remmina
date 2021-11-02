@@ -18,6 +18,16 @@ class VncFeature:
     Scale = 7
     Unfocus = 8
 
+class VncData:
+    def __init__(self):
+        self.connected = False
+        self.running = False
+        self.auth_called = False
+        self.auth_first = False
+        self.drawing_area = False
+        self.vnc_buffer = False
+        self.rgb_buffer = False
+
 
 class Plugin:
     def __init__(self):
@@ -28,7 +38,7 @@ class Plugin:
         self.icon_name = "org.remmina.Remmina-vnc-symbolic"
         self.icon_name_ssh = "org.remmina.Remmina-vnc-ssh-symbolic"
         self.ssh_setting = remmina.PROTOCOL_SSH_SETTING_TUNNEL
-
+        self.gpdata = VncData()
         self.features = [
             remmina.Feature(
                 type=remmina.PROTOCOL_FEATURE_TYPE_PREF,
@@ -50,7 +60,7 @@ class Plugin:
         qualities = ("0", "Poor (fastest)", "1","Medium", "2","Good", "9","Best (slowest)")
         print(type(qualities))
         self.basic_settings = [
-              remmina.Setting(type=remmina.PROTOCOL_SETTING_TYPE_SERVER,  name="server",    label="",             compact=False, opt1="_rfb._tcp",opt2=None)
+            remmina.Setting(type=remmina.PROTOCOL_SETTING_TYPE_SERVER,  name="server",    label="",             compact=False, opt1="_rfb._tcp",opt2=None)
             , remmina.Setting(type=remmina.PROTOCOL_SETTING_TYPE_TEXT,    name="proxy",     label="Repeater",     compact=False, opt1=None,       opt2=None)
             , remmina.Setting(type=remmina.PROTOCOL_SETTING_TYPE_TEXT,    name="username",  label="Username",     compact=False, opt1=None,       opt2=None)
             , remmina.Setting(type=remmina.PROTOCOL_SETTING_TYPE_PASSWORD,name="password",  label="User password",compact=False, opt1=None,       opt2=None)
@@ -59,16 +69,22 @@ class Plugin:
             , remmina.Setting(type=remmina.PROTOCOL_SETTING_TYPE_KEYMAP,  name="keymap",    label="",             compact=False, opt1=None,       opt2=None)
         ]
         self.advanced_settings = [
-              remmina.Setting(remmina.PROTOCOL_SETTING_TYPE_CHECK, "showcursor",             "Show remote cursor",       True,  None, None)
+            remmina.Setting(remmina.PROTOCOL_SETTING_TYPE_CHECK, "showcursor",             "Show remote cursor",       True,  None, None)
             , remmina.Setting(remmina.PROTOCOL_SETTING_TYPE_CHECK, "viewonly",               "View only",                False, None, None)
             , remmina.Setting(remmina.PROTOCOL_SETTING_TYPE_CHECK, "disableclipboard",       "Disable clipboard sync",   True,  None, None)
             , remmina.Setting(remmina.PROTOCOL_SETTING_TYPE_CHECK, "disableencryption",      "Disable encryption",       False, None, None)
             , remmina.Setting(remmina.PROTOCOL_SETTING_TYPE_CHECK, "disableserverinput",     "Disable server input",     True,  None, None)
-            , remmina.Setting(remmina.PROTOCOL_SETTING_TYPE_CHECK, "disablepasswordstoring", "Disable password storing", False, None, None)
+            , remmina.Setting(remmina.PROTOCOL_SETTING_TYPE_CHECK, "disablepasswordstoring", "Disable password storing", True, None, None)
+            , remmina.Setting(remmina.PROTOCOL_SETTING_TYPE_CHECK, "disablesmoothscrolling", "Disable smooth scrolling", False, None, None)
         ]
 
     def init(self, gp):
         print("[PyVNC.init]: Called!")
+        file = remmina.protocol_plugin_get_file(gp)
+        disable_smooth_scrolling = file.get_setting("disablesmoothscrolling", False)
+        remmina.debug("Disable smooth scrolling is set to %d" % disable_smooth_scrolling)
+        self.gpdata.drawing_area = gtk.DrawingArea()
+        print(self.gpdata.drawing_area);
         return True
 
     def open_connection(self, gp):
@@ -81,13 +97,13 @@ class Plugin:
         if password == None:
             #dont_save_passwords = connection_file.get_setting("disablepasswordstoring", False)
             ret = remmina.protocol_plugin_init_auth(widget=gp,
-                                              flags=0, #if dont_save_passwords else remmina.REMMINA_MESSAGE_PANEL_FLAG_SAVEPASSWORD,
-                                              title="Enter VNC password",
-                                              default_username="",
-                                              default_password="", #connection_file.get_setting("password", None),
-                                              default_domain="",
-                                              password_prompt="Enter VNC password")
-            
+                                                    flags=0, #if dont_save_passwords else remmina.REMMINA_MESSAGE_PANEL_FLAG_SAVEPASSWORD,
+                                                    title="Enter VNC password",
+                                                    default_username="",
+                                                    default_password="", #connection_file.get_setting("password", None),
+                                                    default_domain="",
+                                                    password_prompt="Enter VNC password")
+
             print("ret: %s" % "None" if ret is None else str(ret))
 
     def close_connection(self, gp):
@@ -106,9 +122,10 @@ class Plugin:
         print("[PyVNC.unmap_event]: Called!")
         return True
 
-    def call_feature(self, gp):
+    def call_feature(self, gp, feature):
         print("[PyVNC.call_feature]: Called!")
-        pass
+        if self.vnc == None:
+            return;
 
     def keystroke(self, gp):
         print("[PyVNC.keystroke]: Called!")

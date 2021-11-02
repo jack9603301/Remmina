@@ -61,6 +61,7 @@
 #include "remmina_masterthread_exec.h"
 
 #include "rcw.h"
+#include "remmina_plugin_python_remmina_file.h"
 
 #include <string.h>
 
@@ -74,6 +75,7 @@
 gboolean remmina_plugin_python_check_mandatory_member(PyObject* instance, const gchar* member);
 
 static PyObject* remmina_plugin_python_log_printf_wrapper(PyObject* self, PyObject* msg);
+static PyObject* remmina_plugin_python_debug_wrapper(PyObject* self, PyObject* msg);
 static PyObject* remmina_register_plugin_wrapper(PyObject* self, PyObject* plugin);
 static PyObject* remmina_plugin_python_get_viewport(PyObject* self, PyObject* handle);
 static PyObject* remmina_file_get_datadir_wrapper(PyObject* self, PyObject* plugin);
@@ -117,6 +119,11 @@ static PyMethodDef remmina_python_module_type_methods[] = {
 	 * Prints a string into the Remmina log infrastructure.
 	 */
 	{ "log_print", remmina_plugin_python_log_print_wrapper, METH_VARARGS, NULL },
+
+	/**
+	 * Prints a debug message if enabled.
+	 */
+	{ "debug", remmina_plugin_python_debug_wrapper, METH_VARARGS, NULL },
 
 	/**
 	 * Shows a GTK+ dialog.
@@ -441,6 +448,7 @@ static PyMODINIT_FUNC remmina_plugin_python_module_initialize(void)
 	}
 
 	remmina_plugin_python_protocol_widget_type_ready();
+  	remmina_plugin_python_remmina_init_types();
 
 	PyObject* module = PyModule_Create(&remmina_python_module_type);
 	if (!module)
@@ -791,6 +799,21 @@ static PyObject* remmina_plugin_python_log_print_wrapper(PyObject* self, PyObjec
 	return Py_None;
 }
 
+
+static PyObject* remmina_plugin_python_debug_wrapper(PyObject* self, PyObject* args)
+{
+  TRACE_CALL(__func__);
+
+  gchar* text;
+  if (!PyArg_ParseTuple(args, "s", &text) || !text)
+  {
+	return Py_None;
+  }
+
+  remmina_plugin_manager_service._remmina_debug("python", "%s", text);
+  return Py_None;
+}
+
 static PyObject* remmina_widget_pool_register_wrapper(PyObject* self, PyObject* args, PyObject* kwargs)
 {
 	TRACE_CALL(__func__);
@@ -800,7 +823,7 @@ static PyObject* remmina_widget_pool_register_wrapper(PyObject* self, PyObject* 
 
 	if (PyArg_ParseTupleAndKeywords(args, kwargs, "O", kwlist, &widget) && widget)
 	{
-		remmina_widget_pool_register((GtkWidget*)pygobject_get(widget));
+		remmina_widget_pool_register(get_pywidget(widget));
 	}
 
 	return Py_None;
@@ -1013,7 +1036,7 @@ PyObject* remmina_plugin_python_get_mainwindow_wrapper(PyObject* self, PyObject*
 		return Py_None;
 	}
 
-	return pygobject_new((GObject*)result);
+	return new_pywidget((GObject*)result);
 }
 
 static PyObject* remmina_protocol_plugin_signal_connection_closed_wrapper(PyObject* self, PyObject* args)

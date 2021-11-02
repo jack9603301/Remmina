@@ -69,6 +69,11 @@ static PyTypeObject python_remmina_file_type = {
 	.tp_dealloc = file_dealloc
 };
 
+void remmina_plugin_python_remmina_init_types(void)
+{
+  PyType_Ready(&python_remmina_file_type);
+}
+
 PyRemminaFile* remmina_plugin_python_remmina_file_to_python(RemminaFile* file)
 {
 	TRACE_CALL(__func__);

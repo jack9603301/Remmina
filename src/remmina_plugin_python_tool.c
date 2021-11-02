@@ -34,23 +34,19 @@
 #include "remmina_plugin_python_common.h"
 #include "remmina_plugin_python_tool.h"
 
-GPtrArray* plugin_map;
-
 /**
  *
  */
 void remmina_plugin_python_tool_init(void)
 {
 	TRACE_CALL(__func__);
-
-	plugin_map = g_ptr_array_new();
 }
 
 void remmina_plugin_python_tool_exec_func_wrapper(RemminaToolPlugin* instance)
 {
 	TRACE_CALL(__func__);
 
-	PyPlugin* plugin = remmina_plugin_python_get_plugin(plugin_map, (RemminaPlugin*)instance);
+	PyPlugin* plugin = remmina_plugin_python_get_plugin((RemminaPlugin*)instance);
 	CallPythonMethod(plugin->instance, "exec_func", NULL);
 }
 
@@ -77,7 +73,7 @@ RemminaPlugin* remmina_plugin_python_create_tool_plugin(PyPlugin* plugin)
 	plugin->tool_plugin = remmina_plugin;
 	plugin->generic_plugin = (RemminaPlugin*)remmina_plugin;
 
-	g_ptr_array_add(plugin_map, plugin);
+	remmina_plugin_python_add_plugin(plugin);
 
 	return (RemminaPlugin*)remmina_plugin;
 }

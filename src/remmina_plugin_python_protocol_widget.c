@@ -236,7 +236,7 @@ PyRemminaProtocolWidget* remmina_plugin_python_protocol_widget_create()
 
 void remmina_plugin_python_protocol_widget_init(void)
 {
-	pygobject_init(-1, -1, -1);
+	init_pygobject();
 }
 
 void remmina_plugin_python_protocol_widget_type_ready(void)
@@ -251,7 +251,7 @@ void remmina_plugin_python_protocol_widget_type_ready(void)
 static PyObject* protocol_widget_get_viewport(PyRemminaProtocolWidget* self, PyObject* args)
 {
 	TRACE_CALL(__func__);
-	return pygobject_new(G_OBJECT(remmina_protocol_widget_gtkviewport(self->gp)));
+	return new_pywidget(G_OBJECT(remmina_protocol_widget_gtkviewport(self->gp)));
 }
 
 static PyObject* protocol_widget_get_width(PyRemminaProtocolWidget* self, PyObject* args)
@@ -408,7 +408,7 @@ static PyObject* protocol_widget_register_hostkey(PyRemminaProtocolWidget* self,
 
 	if (var_widget)
 	{
-		remmina_protocol_widget_register_hostkey(self->gp, (GtkWidget*)pygobject_get(var_widget));
+		remmina_protocol_widget_register_hostkey(self->gp, get_pywidget(var_widget));
 	}
 	else
 	{
@@ -458,7 +458,7 @@ static PyObject* protocol_widget_start_reverse_tunnel(PyRemminaProtocolWidget* s
 
 static gboolean xport_tunnel_init(RemminaProtocolWidget* gp, gint remotedisplay, const gchar* server, gint port)
 {
-	PyPlugin* plugin = remmina_plugin_python_module_get_plugin(gp);
+	PyPlugin* plugin = remmina_plugin_python_get_plugin((RemminaPlugin*)gp->plugin);
 	PyObject* result = PyObject_CallMethod(plugin
 		->instance, "xport_tunnel_init", "Oisi", gp, remotedisplay, server, port);
 	return PyObject_IsTrue(result);
@@ -718,13 +718,13 @@ static PyObject* protocol_widget_ssh_exec(PyRemminaProtocolWidget* self, PyObjec
 
 static void _on_send_callback_wrapper(RemminaProtocolWidget* gp, const gchar* text)
 {
-	PyPlugin* plugin = remmina_plugin_python_module_get_plugin(gp);
+	PyPlugin* plugin = remmina_plugin_python_get_plugin((RemminaPlugin*)gp->plugin);
 	PyObject_CallMethod(plugin->instance, "on_send", "Os", gp, text);
 }
 
 static void _on_destroy_callback_wrapper(RemminaProtocolWidget* gp)
 {
-	PyPlugin* plugin = remmina_plugin_python_module_get_plugin(gp);
+	PyPlugin* plugin = remmina_plugin_python_get_plugin((RemminaPlugin*)gp->plugin);
 	PyObject_CallMethod(plugin->instance, "on_destroy", "O", gp);
 }
 

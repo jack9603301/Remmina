@@ -54,10 +54,6 @@
 #include <Python.h>
 #include <structmember.h>
 
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-#include "pygobject.h"
-#pragma GCC diagnostic pop
 
 #include "remmina/plugin.h"
 #include "config.h"
@@ -141,6 +137,11 @@ typedef struct
 // A P I
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+void remmina_plugin_python_add_plugin(PyPlugin* plugin);
+
+void remmina_plugin_python_set_service(RemminaPluginService* service);
+RemminaPluginService* remmina_plugin_python_get_service(void);
+
 /**
  * Gets the result of the last python method call.
  */
@@ -218,6 +219,11 @@ gchar* remmina_plugin_python_copy_string_from_python(PyObject* string, Py_ssize_
  *
  * @return	A pointer to a PyPlugin instance if successful. Otherwise NULL is returned.
  */
-PyPlugin* remmina_plugin_python_get_plugin(GPtrArray* plugin_map, RemminaPlugin* instance);
+PyPlugin* remmina_plugin_python_get_plugin(RemminaPlugin* instance);
+
+
+GtkWidget* new_pywidget(GObject* obj);
+GtkWidget* get_pywidget(PyObject* obj);
+void init_pygobject();
 
 G_END_DECLS

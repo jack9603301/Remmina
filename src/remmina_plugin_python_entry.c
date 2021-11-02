@@ -49,11 +49,6 @@
 // D E C L A R A T I O N S
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-/**
- *
- */
-GPtrArray* plugin_map;
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // A P I
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -61,15 +56,13 @@ GPtrArray* plugin_map;
 void remmina_plugin_python_entry_init(void)
 {
 	TRACE_CALL(__func__);
-
-	plugin_map = g_ptr_array_new();
 }
 
 void remmina_plugin_python_entry_entry_func_wrapper(RemminaEntryPlugin* instance)
 {
 	TRACE_CALL(__func__);
 
-	PyPlugin* plugin = remmina_plugin_python_get_plugin(plugin_map, (RemminaPlugin*)instance);
+	PyPlugin* plugin = remmina_plugin_python_get_plugin((RemminaPlugin*)instance);
 	if (plugin)
 	{
 		CallPythonMethod(plugin->instance, "entry_func", NULL);
@@ -100,7 +93,7 @@ RemminaPlugin* remmina_plugin_python_create_entry_plugin(PyPlugin* plugin)
 	plugin->entry_plugin = remmina_plugin;
 	plugin->generic_plugin = (RemminaPlugin*)remmina_plugin;
 
-	g_ptr_array_add(plugin_map, plugin);
+	remmina_plugin_python_add_plugin(plugin);
 
 	return (RemminaPlugin*)remmina_plugin;
 }

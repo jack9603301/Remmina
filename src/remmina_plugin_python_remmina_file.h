@@ -53,6 +53,8 @@ typedef struct
 	RemminaFile* file;
 } PyRemminaFile;
 
+void remmina_plugin_python_remmina_init_types(void);
+
 /**
  * Converts the instance of RemminaFile to a Python object that can be passed to the Python engine.
  */

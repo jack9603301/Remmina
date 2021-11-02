@@ -34,7 +34,6 @@
 #include "remmina_plugin_python_common.h"
 #include "remmina_plugin_python_pref.h"
 
-GPtrArray* plugin_map;
 
 /**
  *
@@ -43,7 +42,6 @@ void remmina_plugin_python_pref_init(void)
 {
 	TRACE_CALL(__func__);
 
-	plugin_map = g_ptr_array_new();
 }
 
 /**
@@ -53,7 +51,7 @@ GtkWidget* remmina_plugin_python_pref_get_pref_body_wrapper(RemminaPrefPlugin* i
 {
 	TRACE_CALL(__func__);
 
-	PyPlugin* plugin = remmina_plugin_python_get_plugin(plugin_map, (RemminaPlugin*)instance);
+	PyPlugin* plugin = remmina_plugin_python_get_plugin((RemminaPlugin*)instance);
 
 	PyObject* result = CallPythonMethod(plugin->instance, "entry_func", "O", plugin->instance);
 	if (result == Py_None)
@@ -61,7 +59,7 @@ GtkWidget* remmina_plugin_python_pref_get_pref_body_wrapper(RemminaPrefPlugin* i
 		return NULL;
 	}
 
-	return (GtkWidget*)pygobject_get(result);
+	return get_pywidget(result);
 }
 
 RemminaPlugin* remmina_plugin_python_create_pref_plugin(PyPlugin* plugin)
@@ -88,7 +86,7 @@ RemminaPlugin* remmina_plugin_python_create_pref_plugin(PyPlugin* plugin)
 	plugin->pref_plugin = remmina_plugin;
 	plugin->generic_plugin = (RemminaPlugin*)remmina_plugin;
 
-	g_ptr_array_add(plugin_map, plugin);
+	remmina_plugin_python_add_plugin(plugin);
 
 	return (RemminaPlugin*)remmina_plugin;
 }
