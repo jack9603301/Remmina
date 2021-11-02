@@ -37,6 +37,7 @@
 #pragma once
 
 #include <glib.h>
+#include <glib-object.h>
 
 G_BEGIN_DECLS
 
