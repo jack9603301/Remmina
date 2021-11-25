@@ -334,10 +334,10 @@ int main(int argc, char *argv[])
 		 * This link should point to a resource explaining how to get Remmina
 		 * to log more verbose statements.
 		 */
-		g_message(_("Remmina does not log all output statements. To enable a "
-			    "more verbose output please use G_MESSAGES_DEBUG=all as an "
-			    "environment variable.\n"
-			    "For more information, please visit the Remmina Wiki at:\n"
+		g_message(_("Remmina does not log all output statements. "
+			    "Turn on more verbose output by using "
+			    "\"G_MESSAGES_DEBUG=all\" as an environment variable.\n"
+			    "More info available on the Remmina wiki at:\n"
 			    "https://gitlab.com/Remmina/Remmina/-/wikis/Usage/Remmina-debugging"
 		));
 	}
