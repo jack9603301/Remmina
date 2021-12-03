@@ -76,6 +76,7 @@ typedef struct _RemminaMain {
 	GtkTreeViewColumn *	column_files_list_plugin;
 	GtkTreeViewColumn *	column_files_list_date;
 	GtkStatusbar *		statusbar_main;
+	GtkWidget *		network_icon;
 	/* Non widget objects */
 	GtkAccelGroup *		accelgroup_shortcuts;
 	RemminaMainPriv *	priv;
