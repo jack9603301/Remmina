@@ -178,7 +178,7 @@
 * Refactoring SSH plugin [!2160](https://gitlab.com/Remmina/Remmina/merge_requests/2160) *@antenore*
 * Spelling: SGR 1 attribute colour and bold switching [!2163](https://gitlab.com/Remmina/Remmina/merge_requests/2163) *@kingu*
 * Remove extra parenthesis [!2164](https://gitlab.com/Remmina/Remmina/merge_requests/2164) *@yurchor*
-* Spice option to choose Prefered Video Codec and Image Compressor [!2165](https://gitlab.com/Remmina/Remmina/merge_requests/2165) *@hadogenes*
+* Spice option to choose Preffered Video Codec and Image Compressor [!2165](https://gitlab.com/Remmina/Remmina/merge_requests/2165) *@hadogenes*
 * Spelling: Protocol info and view strings reworked [!2166](https://gitlab.com/Remmina/Remmina/merge_requests/2166) *@kingu*
 * Spelling: Server name placeholder moved [!2167](https://gitlab.com/Remmina/Remmina/merge_requests/2167) *@kingu*
 * Spelling: Glade [!2170](https://gitlab.com/Remmina/Remmina/merge_requests/2170) *@kingu*
