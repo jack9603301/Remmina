@@ -433,7 +433,7 @@ void remmina_public_get_server_port(const gchar *server, gint defaultport, gchar
 		GError *err = NULL;
 
 		nul_terminated_server = g_strdup (server);
-		g_debug ("(%s) - Parsing server: %s, default port: %d", __func__, server, defaultport);
+		//g_debug ("(%s) - Parsing server: %s, default port: %d", __func__, server, defaultport);
 		address = (GNetworkAddress*)g_network_address_parse ((const gchar *)nul_terminated_server, defaultport, &err);
 
 		if (address == NULL) {
@@ -452,8 +452,8 @@ void remmina_public_get_server_port(const gchar *server, gint defaultport, gchar
 	if (port == 0)
 		*port = defaultport;
 
-	g_debug ("(%s) - host: %s", __func__, *host);
-	g_debug ("(%s) - port: %d", __func__, *port);
+	//g_debug ("(%s) - host: %s", __func__, *host);
+	//g_debug ("(%s) - port: %d", __func__, *port);
 
 	return;
 }

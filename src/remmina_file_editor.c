@@ -1094,6 +1094,7 @@ static void remmina_file_editor_create_behavior_tab(RemminaFileEditor *gfe)
 	/* Autostart profile option */
 	priv->behavior_autostart_check = remmina_file_editor_create_check(gfe, grid, 6, 1, _("Auto-start this profile"),
 							remmina_file_get_int(priv->remmina_file, "enable-autostart", FALSE), "enable-autostart");
+
 }
 
 static gpointer ssh_tunnel_auth_list[] =

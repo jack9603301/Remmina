@@ -64,6 +64,8 @@ list(
   "remmina_log.h"
   "remmina_main.c"
   "remmina_main.h"
+  "remmina_monitor.c"
+  "remmina_monitor.h"
   "remmina_marshals.c"
   "remmina_marshals.h"
   "remmina_marshals.list"

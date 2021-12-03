@@ -34,11 +34,13 @@
  *
  */
 
-#include "remmina_string_array.h"
-
 #pragma once
 
 #include "remmina_file.h"
+#include "remmina_monitor.h"
+#include <gtk/gtk.h>
+
+#include "remmina_string_array.h"
 
 typedef struct _RemminaMainPriv RemminaMainPriv;
 
@@ -77,6 +79,7 @@ typedef struct _RemminaMain {
 	/* Non widget objects */
 	GtkAccelGroup *		accelgroup_shortcuts;
 	RemminaMainPriv *	priv;
+	RemminaMonitor *	monitor;
 } RemminaMain;
 
 struct _RemminaMainPriv {
