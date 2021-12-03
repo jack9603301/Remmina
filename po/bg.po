@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: remmina\n"
 "Report-Msgid-Bugs-To: l10n@lists.remmina.org\n"
-"POT-Creation-Date: 2021-10-29 12:14+0000\n"
-"PO-Revision-Date: 2021-08-28 17:34+0000\n"
+"POT-Creation-Date: 2021-12-03 09:34+0000\n"
+"PO-Revision-Date: 2021-11-28 21:53+0000\n"
 "Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Bulgarian <https://hosted.weblate.org/projects/remmina/"
 "remmina/bg/>\n"
@@ -20,41 +20,47 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.8.1-dev\n"
+"X-Generator: Weblate 4.10-dev\n"
 "X-Launchpad-Export-Date: 2014-04-10 15:03+0000\n"
 
 #: src/remmina_sftp_plugin.c:310 src/remmina_sftp_plugin.c:354
-#: src/remmina_protocol_widget.c:1676 src/remmina_protocol_widget.c:1695
+#: src/remmina_protocol_widget.c:1677 src/remmina_protocol_widget.c:1696
 #: src/remmina_file_editor.c:1101 src/remmina_file_editor.c:1222
-#: src/remmina_ssh_plugin.c:1360 plugins/rdp/rdp_plugin.c:2680
-#: plugins/www/www_plugin.c:895 plugins/x2go/x2go_plugin.c:1596
+#: src/remmina_ssh_plugin.c:1360 plugins/rdp/rdp_plugin.c:2723
+#: plugins/www/www_plugin.c:895 plugins/x2go/x2go_plugin.c:2992
 #: data/ui/remmina_mpc.glade:236 data/ui/remmina_preferences.glade:1675
 #: data/ui/remmina_unlock.glade:116
+#, fuzzy
 msgid "Password"
 msgstr "Парола"
 
 #: src/remmina_sftp_plugin.c:311 src/remmina_sftp_plugin.c:356
 #: src/remmina_file_editor.c:1102 src/remmina_ssh_plugin.c:1361
 #: src/remmina_ssh_plugin.c:1472
+#, fuzzy
 msgid "SSH identity file"
 msgstr "Файл съдържащ SSH частен ключ"
 
 #: src/remmina_sftp_plugin.c:312 src/remmina_file_editor.c:1103
 #: src/remmina_ssh_plugin.c:1362
+#, fuzzy
 msgid "SSH agent"
 msgstr "SSH агент"
 
 #: src/remmina_sftp_plugin.c:313 src/remmina_file_editor.c:1104
 #: src/remmina_ssh_plugin.c:1363
+#, fuzzy
 msgid "Public key (automatic)"
 msgstr "Публичен ключ (Автоматично)"
 
 #: src/remmina_sftp_plugin.c:314 src/remmina_file_editor.c:1105
 #: src/remmina_ssh_plugin.c:1364
+#, fuzzy
 msgid "Kerberos (GSSAPI)"
 msgstr "Керберос (GSSAPI)"
 
 #: src/remmina_sftp_plugin.c:323
+#, fuzzy
 msgid "Show Hidden Files"
 msgstr "Показване на скрити файлове"
 
@@ -67,120 +73,147 @@ msgstr "Презапиши всички"
 msgid "Resume all file transfers"
 msgstr "Възобновяване на всички прехвърляния на файлове"
 
-#: src/remmina_sftp_plugin.c:328 src/remmina_protocol_widget.c:283
+#: src/remmina_sftp_plugin.c:328 src/remmina_protocol_widget.c:284
+#, fuzzy
 msgid "Connect via SSH from a new terminal"
 msgstr "Свързване посредством SSH от нов терминал"
 
 #: src/remmina_sftp_plugin.c:353 src/remmina_message_panel.c:330
 #: src/remmina_file_editor.c:1216 src/remmina_ssh_plugin.c:1470
-#: plugins/rdp/rdp_plugin.c:2679 plugins/vnc/vnc_plugin.c:1976
+#: plugins/rdp/rdp_plugin.c:2722 plugins/vnc/vnc_plugin.c:1976
 #: plugins/vnc/vnc_plugin.c:1988 plugins/www/www_plugin.c:894
-#: plugins/x2go/x2go_plugin.c:1595 data/ui/remmina_mpc.glade:144
+#: plugins/x2go/x2go_plugin.c:574 plugins/x2go/x2go_plugin.c:2991
+#: data/ui/remmina_mpc.glade:144
+#, fuzzy
 msgid "Username"
 msgstr "Потребителско име"
 
 #: src/remmina_sftp_plugin.c:355 src/remmina_file_editor.c:1207
 #: src/remmina_ssh_plugin.c:1469
+#, fuzzy
 msgid "Authentication type"
 msgstr "Вид идентификация"
 
 #: src/remmina_sftp_plugin.c:357 src/remmina_file_editor.c:1240
 #: src/remmina_ssh_plugin.c:1476
+#, fuzzy
 msgid "Password to unlock private key"
 msgstr "Парола за отключване на частният ключ"
 
-#: src/remmina_sftp_plugin.c:358 src/remmina_ssh_plugin.c:1506
+#: src/remmina_sftp_plugin.c:358 src/remmina_ssh_plugin.c:1507
+#, fuzzy
 msgid "SSH Proxy Command"
 msgstr "SSH Proxy команда за използване на сървър посредник(proxy)"
 
 #: src/remmina_sftp_plugin.c:367
+#, fuzzy
 msgid "SFTP - Secure File Transfer"
 msgstr "SFTP - Сигурен трансфер на файлове"
 
 #: src/remmina_plugin_manager.c:73 src/remmina_file_editor.c:1951
+#, fuzzy
 msgid "Protocol"
 msgstr "Протокол"
 
 #: src/remmina_plugin_manager.c:73
+#, fuzzy
 msgid "Entry"
 msgstr "Запис"
 
 #: src/remmina_plugin_manager.c:73
+#, fuzzy
 msgid "File"
 msgstr "Файл"
 
 #: src/remmina_plugin_manager.c:73
+#, fuzzy
 msgid "Tool"
 msgstr "Инструмент"
 
 #: src/remmina_plugin_manager.c:73
+#, fuzzy
 msgid "Preference"
 msgstr "Предпочитания"
 
 #: src/remmina_plugin_manager.c:73
+#, fuzzy
 msgid "Secret"
 msgstr "Ключ"
 
 #: src/remmina_plugin_manager.c:461 data/ui/remmina_main.glade:305
+#, fuzzy
 msgid "Plugins"
 msgstr "Приставки"
 
 #: src/remmina_plugin_manager.c:461 src/remmina_message_panel.c:452
 #: src/remmina_message_panel.c:621 src/remmina_file_editor.c:242
+#, fuzzy
 msgid "_OK"
 msgstr "_OK"
 
 #: src/remmina_plugin_manager.c:479 src/remmina_file_editor.c:1908
 #: data/ui/remmina_main.glade:442
+#, fuzzy
 msgid "Name"
 msgstr "Име"
 
 #: src/remmina_plugin_manager.c:485
+#, fuzzy
 msgid "Type"
-msgstr "Тип"
+msgstr "Вид"
 
 #: src/remmina_plugin_manager.c:491
+#, fuzzy
 msgid "Description"
 msgstr "Описание"
 
 #: src/remmina_plugin_manager.c:497
+#, fuzzy
 msgid "Version"
 msgstr "Версия"
 
 #: src/remmina_chat_window.c:178
-#, c-format
+#, fuzzy, c-format
 msgid "Chat with %s"
 msgstr "Чат с %s"
 
 #: src/remmina_chat_window.c:230
+#, fuzzy
 msgid "_Send"
 msgstr "Изпра_щане"
 
 #: src/remmina_chat_window.c:240
+#, fuzzy
 msgid "_Clear"
 msgstr "_Изчистване"
 
 #: src/remmina_applet_menu_item.c:121
+#, fuzzy
 msgid "Discovered"
 msgstr "Открити"
 
 #: src/remmina_applet_menu_item.c:126
+#, fuzzy
 msgid "New Connection"
 msgstr "Нова връзка"
 
 #: src/remmina_key_chooser.h:38
+#, fuzzy
 msgid "Shift+"
 msgstr "Shift+"
 
 #: src/remmina_key_chooser.h:39
+#, fuzzy
 msgid "Ctrl+"
 msgstr "Ctrl+"
 
 #: src/remmina_key_chooser.h:40
+#, fuzzy
 msgid "Alt+"
 msgstr "Alt+"
 
 #: src/remmina_key_chooser.h:41
+#, fuzzy
 msgid "Super+"
 msgstr "Super(Windows key)+"
 
@@ -193,32 +226,39 @@ msgid "Meta+"
 msgstr "Meta+"
 
 #: src/remmina_key_chooser.h:44
+#, fuzzy
 msgid "<None>"
 msgstr "<Празно>"
 
 #: src/remmina_pref_dialog.c:91 src/remmina_file_editor.c:528
+#, fuzzy
 msgid "Resolutions"
 msgstr "Разделителни способности"
 
 #: src/remmina_pref_dialog.c:91 src/remmina_file_editor.c:528
+#, fuzzy
 msgid "Configure the available resolutions"
 msgstr "Конфигуриране на наличните разделителни способности"
 
 #: src/remmina_pref_dialog.c:143
+#, fuzzy
 msgid "Recent lists cleared."
 msgstr "Списъците със скорошни връзки са изчистени"
 
 #: src/remmina_pref_dialog.c:154 src/rcw.c:2028
 #: data/ui/remmina_preferences.glade:169 data/ui/remmina_preferences.glade:179
+#, fuzzy
 msgid "Keystrokes"
 msgstr "Клавиши"
 
 #: src/remmina_pref_dialog.c:154
+#, fuzzy
 msgid "Configure the keystrokes"
 msgstr "Конфигуриране на клавишите"
 
 #. TRANSLATORS: Do not translate libsodium, is the name of a library
 #: src/remmina_pref_dialog.c:487
+#, fuzzy
 msgid "libsodium >= 1.9.0 is required to use master password"
 msgstr "libsodium >= 1.9.0 е нужна за използването на главна(master) парола"
 
@@ -235,35 +275,41 @@ msgid ""
 "the settings."
 msgstr ""
 "Този файл съдържа цветовата схема на терминала \"Custom\", която може да се "
-"избира от раздела \"Advanced\" (Разширени) на терминалните връзки и да се "
+"избере от раздела \"Advanced\" (Разширени) на терминалните връзки и да се "
 "редактира в раздела \"Terminal\" (Терминал) в настройките."
 
 #: src/remmina_message_panel.c:163 data/ui/remmina_mpc.glade:46
 #: data/ui/remmina_unlock.glade:46
+#, fuzzy
 msgid "Cancel"
-msgstr "Отказ"
+msgstr "Отмяна"
 
 #: src/remmina_message_panel.c:199 data/ui/remmina_snap_info_dialog.glade:28
 #: data/ui/remmina_string_list.glade:8 data/ui/remmina_string_list.glade:9
 #: data/ui/remmina_string_list.glade:63 data/ui/remmina_news.glade:33
 #: data/ui/remmina_preferences.glade:2622
+#, fuzzy
 msgid "Close"
 msgstr "Затваряне"
 
 #: src/remmina_message_panel.c:260
+#, fuzzy
 msgid "Yes"
-msgstr "Да"
+msgstr "Yes"
 
 #: src/remmina_message_panel.c:267
+#, fuzzy
 msgid "No"
-msgstr "Отказ"
+msgstr "No"
 
-#: src/remmina_message_panel.c:391 plugins/rdp/rdp_plugin.c:2681
+#: src/remmina_message_panel.c:391 plugins/rdp/rdp_plugin.c:2724
 #: data/ui/remmina_mpc.glade:172
+#, fuzzy
 msgid "Domain"
 msgstr "Домейн"
 
 #: src/remmina_message_panel.c:420
+#, fuzzy
 msgid "Save password"
 msgstr "Запазване на паролата"
 
@@ -272,26 +318,32 @@ msgstr "Запазване на паролата"
 #: src/remmina_file_editor.c:1783 plugins/spice/spice_plugin_file_transfer.c:84
 #: data/ui/remmina_key_chooser.glade:8 data/ui/remmina_key_chooser.glade:9
 #: data/ui/remmina_spinner.glade:8 data/ui/remmina_spinner.glade:9
+#, fuzzy
 msgid "_Cancel"
-msgstr "_Отмяна"
+msgstr "_Отказ"
 
 #: src/remmina_message_panel.c:513
+#, fuzzy
 msgid "Enter certificate authentication files"
 msgstr "Въведете файлове съдържащи сертификати"
 
 #: src/remmina_message_panel.c:525
+#, fuzzy
 msgid "CA Certificate File"
 msgstr "CA сертификат"
 
 #: src/remmina_message_panel.c:547
+#, fuzzy
 msgid "CA CRL File"
 msgstr "Файл съдържащ невалидни сертификати (CRL)"
 
 #: src/remmina_message_panel.c:569
+#, fuzzy
 msgid "Client Certificate File"
 msgstr "Файл с клиентски сертификат"
 
 #: src/remmina_message_panel.c:591
+#, fuzzy
 msgid "Client Certificate Key"
 msgstr "Клиентски сертификат"
 
@@ -304,14 +356,17 @@ msgstr ""
 "затворите?"
 
 #: src/rcw.c:1399
+#, fuzzy
 msgid "Viewport fullscreen mode"
 msgstr "Пълен екран"
 
 #: src/rcw.c:1407 data/ui/remmina_preferences.glade:607
+#, fuzzy
 msgid "Scrolled fullscreen"
 msgstr "Режим цял екран + скролиране"
 
 #: src/rcw.c:1493
+#, fuzzy
 msgid "Keep aspect ratio when scaled"
 msgstr "Запазване на пропорциите при промяна на размера на екрана"
 
@@ -326,11 +381,13 @@ msgid "Send clipboard content as keystrokes"
 msgstr "Изпращане на съдържанието на клипборда като натискане на клавиши"
 
 #: src/rcw.c:2155
+#, fuzzy
 msgid "Turn off scaling to avoid screenshot distortion."
 msgstr ""
 "Изключи оразмеряването за по-добро качество на екранната снимка(screenshot)."
 
 #: src/rcw.c:2215 plugins/www/www_plugin.c:855
+#, fuzzy
 msgid "Screenshot taken"
 msgstr "Направена екранна снимка"
 
@@ -351,16 +408,19 @@ msgid "Open the Remmina main window"
 msgstr "Отворете главния прозорец на Remmina"
 
 #: src/rcw.c:2318
+#, fuzzy
 msgid "Duplicate current connection"
 msgstr "Клониране на текущата връзка"
 
 #: src/rcw.c:2335
+#, fuzzy
 msgid "Resize the window to fit in remote resolution"
 msgstr ""
 "Преоразмерява прозореца така, че да пасне с отдалечената разделителна "
 "способност"
 
 #: src/rcw.c:2346
+#, fuzzy
 msgid "Toggle fullscreen mode"
 msgstr "Превключване на пълноекранен режим"
 
@@ -371,70 +431,114 @@ msgid "Multi monitor"
 msgstr "Многофункционален монитор"
 
 #: src/rcw.c:2408
+#, fuzzy
 msgid "Toggle dynamic resolution update"
 msgstr "Включи динамично обновяване на разделителната способност"
 
 #: src/rcw.c:2418
+#, fuzzy
 msgid "Toggle scaled mode"
 msgstr "Превключва в мащабиран режим"
 
 #: src/rcw.c:2458 data/ui/remmina_preferences.glade:1066
+#, fuzzy
 msgid "Switch tab pages"
 msgstr "Превключва подстраниците"
 
 #: src/rcw.c:2468
+#, fuzzy
 msgid "Grab all keyboard events"
 msgstr "Прихващане на входа от клавиатурата"
 
 #: src/rcw.c:2478
+#, fuzzy
 msgid "Preferences"
-msgstr "_Настройки"
+msgstr "Преференции"
 
 #: src/rcw.c:2487
+#, fuzzy
 msgid "_Tools"
-msgstr "Инструменти"
+msgstr "_Инструменти"
 
 #: src/rcw.c:2488 data/ui/remmina_main.glade:207
+#, fuzzy
 msgid "Tools"
 msgstr "Инструменти"
 
 #: src/rcw.c:2501 data/ui/remmina_preferences.glade:1267
 #: data/ui/remmina_preferences.glade:1277
+#, fuzzy
 msgid "Screenshot"
 msgstr "Екранна снимка"
 
 #: src/rcw.c:2515 data/ui/remmina_preferences.glade:1174
+#, fuzzy
 msgid "Minimize window"
 msgstr "Минимизиране на прозорец"
 
 #: src/rcw.c:2525 data/ui/remmina_preferences.glade:1205
+#, fuzzy
 msgid "Disconnect"
-msgstr "Прекъсване"
+msgstr "Разкачане"
 
 #: src/rcw.c:4297
 #, c-format
 msgid "The file “%s” is corrupted, unreadable, or could not be found."
 msgstr "Файлът \"%s\" е повреден, не може да бъде прочетен или не е открит."
 
-#: src/rcw.c:4466
-msgid "Warning: This plugin requires GtkSocket, but it’s not available."
+#. TRANSLATORS: This should be a link to the Remmina Wiki page:
+#. TRANSLATORS: 'GtkSocket feature is not available'.
+#: src/rcw.c:4372
+msgid ""
+"https://gitlab.com/Remmina/Remmina/-/wikis/GtkSocket-feature-is-not-"
+"available-in-a-Wayland-session"
+msgstr ""
+
+#: src/rcw.c:4509
+#, fuzzy
+#| msgid "Warning: This plugin requires GtkSocket, but it’s not available."
+msgid ""
+"Warning: This plugin requires GtkSocket, but this feature is unavailable in "
+"a Wayland session."
 msgstr "Предупреждение: Тази приставка изисква GtkSocket, но той не е наличен."
 
+#. TRANSLATORS: This should be a link to the Remmina Wiki page:
+#. 'GtkSocket feature is not available'.
+#: src/rcw.c:4515
+msgid ""
+"Plugins relying on GtkSocket can't run in a Wayland session.\n"
+"For more information and a possible workaround, please visit the Remmina "
+"Wiki at:\n"
+"\n"
+"https://gitlab.com/Remmina/Remmina/-/wikis/GtkSocket-feature-is-not-"
+"available-in-a-Wayland-session"
+msgstr ""
+
+#: src/rcw.c:4529
+#, fuzzy
+#| msgid "Open Main Window"
+msgid "Open in browser"
+msgstr "Отваряне в браузър"
+
 #: src/remmina_mpchange.c:234
+#, fuzzy
 msgid "The passwords do not match"
 msgstr "Паролите не съвпадат"
 
 #: src/remmina_mpchange.c:244
+#, fuzzy
 msgid "Resetting passwords, please wait…"
 msgstr "Рестартиране на паролите, моля изчакайте…"
 
 #: src/remmina_mpchange.c:327
+#, fuzzy
 msgid "The multi password changer requires a secrecy plugin.\n"
 msgstr ""
 "Промяната на множество пароли изисква инсталирането на „secrecy“ "
 "добавка(plugin).\n"
 
 #: src/remmina_mpchange.c:330
+#, fuzzy
 msgid "The multi password changer requires a secrecy service.\n"
 msgstr ""
 "Промяната на множество пароли изисква инсталирането на „secrecy“ "
@@ -449,6 +553,7 @@ msgstr[1] "%d паролите са променени."
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
 #: src/remmina.c:86
+#, fuzzy
 msgid "Show 'About'"
 msgstr "Относно Remmina"
 
@@ -468,24 +573,30 @@ msgstr "ФАЙЛ"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
 #: src/remmina.c:90
+#, fuzzy
+#| msgid ""
+#| "Connect to a desktop described in a file (.remmina or a type supported by "
+#| "a plugin)"
 msgid ""
-"Connect to a desktop described in a file (.remmina or a type supported by a "
-"plugin)"
+"Connect to a desktop described in a file (.remmina or a filetype supported "
+"by a plugin)"
 msgstr ""
 "Свързване към отдалечено работно място посредством конфигурация описана във "
 "файл (.remmina или друг вид файлове поддържани от приставки(plugins))"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
 #: src/remmina.c:92
+#, fuzzy
 msgid ""
-"Edit desktop connection described in file (.remmina or type supported by "
-"plugin)"
+"Edit desktop connection described in file (.remmina or a filetype supported "
+"by plugin)"
 msgstr ""
 "Промяна на конфигурация описана във файл (.remmina или друг вид файлове "
 "поддържани от приставки(plugins))"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
 #: src/remmina.c:95
+#, fuzzy
 msgid "Start in kiosk mode"
 msgstr "Стартиране в kiosk режим"
 
@@ -506,11 +617,13 @@ msgstr "ТАБЛИЦА"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
 #: src/remmina.c:106
+#, fuzzy
 msgid "Quit"
 msgstr "Изход"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
 #: src/remmina.c:108
+#, fuzzy
 msgid "Use default server name (for --new)"
 msgstr "Сървърно име по подразбиране ( използва се заедно с --new)"
 
@@ -521,6 +634,7 @@ msgstr "СЕРВЪР"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
 #: src/remmina.c:110
+#, fuzzy
 msgid "Use default protocol (for --new)"
 msgstr "Протокол по подразбиране ( използва се заедно с --new)"
 
@@ -531,26 +645,31 @@ msgstr "ПРОТОКОЛ"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
 #: src/remmina.c:112
+#, fuzzy
 msgid "Start in tray"
 msgstr "Започни изпълнение от tray на операционната система"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
 #: src/remmina.c:114
+#, fuzzy
 msgid "Show the application version"
 msgstr "Покажи версията на Remmina"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
 #: src/remmina.c:116
+#, fuzzy
 msgid "Show version of the application and its plugins"
 msgstr "Покажи версията на Remmina и инсталираните приставки(plugins)"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
 #: src/remmina.c:118
+#, fuzzy
 msgid "Modify connection profile (requires --set-option)"
 msgstr "Промяна на профил за връзка (изисква --set-option опцията)"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
 #: src/remmina.c:120
+#, fuzzy
 msgid "Set one or more profile settings, to be used with --update-profile"
 msgstr ""
 "Настройване на един или повече Remmina профили, да се използва заедно с --"
@@ -560,13 +679,25 @@ msgstr ""
 msgid "Encrypt a password"
 msgstr "Запазване на паролата"
 
+#. TRANSLATORS:
+#. * This link should point to a resource explaining how to get Remmina
+#. * to log more verbose statements.
+#.
+#: src/remmina.c:337
+msgid ""
+"Remmina does not log all output statements. Turn on more verbose output by "
+"using \"G_MESSAGES_DEBUG=all\" as an environment variable.\n"
+"More info available on the Remmina wiki at:\n"
+"https://gitlab.com/Remmina/Remmina/-/wikis/Usage/Remmina-debugging"
+msgstr ""
+
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:375
+#: src/remmina.c:391
 #, fuzzy
 msgid "- or protocol://username:encryptedpassword@host:port"
 msgstr "- или protocol://username:encryptedpassword@host:port"
 
-#: src/remmina.c:378
+#: src/remmina.c:394
 #, fuzzy
 msgid ""
 "Examples:\n"
@@ -650,6 +781,7 @@ msgid "Connecting to UNIX socket failed: %s"
 msgstr "Свързването с гнездо на UNIX се провали: %s"
 
 #: src/remmina_public.c:631
+#, fuzzy
 msgid "Please enter format 'widthxheight'."
 msgstr "Моля въведете формат 'ширинахвисочина'."
 
@@ -660,236 +792,271 @@ msgstr "Промяна на настройките за сигурност"
 
 #. TRANSLATORS: translator-credits should be replaced with a formatted list of translators in your own language
 #: src/remmina_about.c:54
+#, fuzzy
 msgid "translator-credits"
-msgstr ""
-"Launchpad Contributions:\n"
-"  Nikolay Ninkov https://launchpad.net/~nickypn\n"
-"  Svetoslav Stefanov https://launchpad.net/~svetlisashkov\n"
-"  Vic https://launchpad.net/~llyzs"
+msgstr "Росица Димова <pocu_at_bk.ru>"
 
 #: src/remmina_ftp_client.c:389
+#, fuzzy
 msgid "Choose download location"
 msgstr "Избор на местоположение за изтеглянето"
 
 #: src/remmina_ftp_client.c:529
+#, fuzzy
 msgid "Are you sure to delete the selected files on server?"
 msgstr "Сигурни ли сте, че желаете да изтриете избраните файлове на сървъра?"
 
 #: src/remmina_ftp_client.c:586
+#, fuzzy
 msgid "Choose a file to upload"
 msgstr "Избор на файл за качване"
 
 #: src/remmina_ftp_client.c:593
+#, fuzzy
 msgid "Upload folder"
 msgstr "Качване на папка"
 
 #: src/remmina_ftp_client.c:649 src/remmina_ftp_client.c:763
+#, fuzzy
 msgid "Download"
-msgstr "Изтегляне"
+msgstr "Download"
 
 #: src/remmina_ftp_client.c:656 src/remmina_ftp_client.c:770
+#, fuzzy
 msgid "Upload"
 msgstr "Качване"
 
 #: src/remmina_ftp_client.c:663
+#, fuzzy
 msgid "_Delete"
 msgstr "_Изтриване"
 
 #: src/remmina_ftp_client.c:748
+#, fuzzy
 msgid "Home"
-msgstr "Начало"
+msgstr "Home"
 
 #: src/remmina_ftp_client.c:749
+#, fuzzy
 msgid "Go to home folder"
 msgstr "Отиване в домашната папка"
 
 #: src/remmina_ftp_client.c:753
+#, fuzzy
 msgid "Up"
 msgstr "Нагоре"
 
 #: src/remmina_ftp_client.c:754
+#, fuzzy
 msgid "Go to parent folder"
 msgstr "Отиване в родителската папка"
 
-#: src/remmina_ftp_client.c:758 plugins/rdp/rdp_plugin.c:2770
+#: src/remmina_ftp_client.c:758 plugins/rdp/rdp_plugin.c:2813
 #: plugins/vnc/vnc_plugin.c:2027
+#, fuzzy
 msgid "Refresh"
-msgstr "Обновяване"
+msgstr "Опресняване"
 
 #: src/remmina_ftp_client.c:759
+#, fuzzy
 msgid "Refresh current folder"
 msgstr "Опресняване на текущата папка"
 
 #: src/remmina_ftp_client.c:764
+#, fuzzy
 msgid "Download from server"
 msgstr "Изтегляне от сървъра"
 
 #: src/remmina_ftp_client.c:771
+#, fuzzy
 msgid "Upload to server"
 msgstr "Качване на сървъра"
 
 #: src/remmina_ftp_client.c:775 data/ui/remmina_main.glade:197
+#, fuzzy
 msgid "Delete"
 msgstr "Изтриване"
 
 #: src/remmina_ftp_client.c:776
+#, fuzzy
 msgid "Delete files on server"
 msgstr "Изтриване на файлове от сървъра"
 
 #: src/remmina_ftp_client.c:905 src/remmina_ftp_client.c:974
+#, fuzzy
 msgid "Filename"
-msgstr "Име на файл"
+msgstr "Файлово име"
 
 #: src/remmina_ftp_client.c:918 src/remmina_ftp_client.c:1003
+#, fuzzy
 msgid "Size"
 msgstr "Размер"
 
 #: src/remmina_ftp_client.c:926
+#, fuzzy
 msgid "User"
 msgstr "Потребител"
 
 #: src/remmina_ftp_client.c:932 src/remmina_file_editor.c:1933
 #: data/ui/remmina_mpc.glade:115 data/ui/remmina_main.glade:464
+#, fuzzy
 msgid "Group"
-msgstr "Група"
+msgstr "Групи"
 
 #: src/remmina_ftp_client.c:938
+#, fuzzy
 msgid "Permission"
 msgstr "Право"
 
-#: src/remmina_ftp_client.c:990 plugins/rdp/rdp_plugin.c:2568
+#: src/remmina_ftp_client.c:990 plugins/rdp/rdp_plugin.c:2611
+#, fuzzy
 msgid "Remote"
 msgstr "Отдалечен"
 
-#: src/remmina_ftp_client.c:997 plugins/rdp/rdp_plugin.c:2567
+#: src/remmina_ftp_client.c:997 plugins/rdp/rdp_plugin.c:2610
+#, fuzzy
 msgid "Local"
-msgstr "Локален"
+msgstr "Local"
 
 #: src/remmina_ftp_client.c:1011
+#, fuzzy
 msgid "Progress"
-msgstr "Напредък"
+msgstr "Обработка"
 
-#: src/remmina_protocol_widget.c:290 src/remmina_ssh_plugin.c:829
+#: src/remmina_protocol_widget.c:291 src/remmina_ssh_plugin.c:829
 #: src/remmina_ssh_plugin.c:1445
+#, fuzzy
 msgid "Open SFTP transfer…"
 msgstr "Отваряне на сигурен трансфер(SFTP) на файлове…"
 
-#: src/remmina_protocol_widget.c:319
+#: src/remmina_protocol_widget.c:320
+#, fuzzy
 msgid "Executing external commands…"
 msgstr "Изпълняване на външни команди…"
 
 #. TRANSLATORS: “%s” is a placeholder for the connection profile name
-#: src/remmina_protocol_widget.c:327
+#: src/remmina_protocol_widget.c:328
 #, c-format
 msgid "Connecting to “%s”…"
 msgstr "Свързване към „%s“…"
 
 #. TRANSLATORS: “%s” is a placeholder for an hostname or an IP address.
-#: src/remmina_protocol_widget.c:915 src/remmina_protocol_widget.c:1100
+#: src/remmina_protocol_widget.c:916 src/remmina_protocol_widget.c:1101
 #, c-format
 msgid "Connecting to “%s” via SSH…"
 msgstr "Свързване към %s посредством SSH…"
 
 #. TRANSLATORS: “%i” is a placeholder for a TCP port number.
-#: src/remmina_protocol_widget.c:1164
+#: src/remmina_protocol_widget.c:1165
 #, c-format
 msgid "Awaiting incoming SSH connection on port %i…"
 msgstr "Изчакване за пристигащ SSH връзка на порт %i…"
 
-#: src/remmina_protocol_widget.c:1217
+#: src/remmina_protocol_widget.c:1218
 #, c-format
 msgid "The “%s” command is not available on the SSH server."
 msgstr "Командата \"%s\" не е открита на SSH сървъра"
 
-#: src/remmina_protocol_widget.c:1222
+#: src/remmina_protocol_widget.c:1223
 #, c-format
 msgid "Could not run the “%s” command on the SSH server (status = %i)."
 msgstr "Командата \"%s\" се провали на SSH сървъра (състояние = %i)."
 
 #. TRANSLATORS: %s is a placeholder for an error message
-#: src/remmina_protocol_widget.c:1230
-#, c-format
+#: src/remmina_protocol_widget.c:1231
+#, fuzzy, c-format
 msgid "Could not run command. %s"
 msgstr "Командата не може да бъде изпълнена : %s"
 
 #. TRANSLATORS: “%s” is a placeholder for a hostname or IP address.
-#: src/remmina_protocol_widget.c:1300
-#, c-format
+#: src/remmina_protocol_widget.c:1301
+#, fuzzy, c-format
 msgid "Connecting to %s via SSH…"
 msgstr "Свързване към %s посредством SSH…"
 
-#: src/remmina_protocol_widget.c:1694
+#: src/remmina_protocol_widget.c:1695
 msgid "Type in SSH username and password."
 msgstr "Въведете потребителско име и парола за SSH."
 
-#: src/remmina_protocol_widget.c:1749 src/remmina_protocol_widget.c:1781
+#: src/remmina_protocol_widget.c:1750 src/remmina_protocol_widget.c:1782
 #, fuzzy
 msgid "Fingerprint automatically accepted"
 msgstr "Автоматично приемане на пръстови отпечатъци"
 
 #. TRANSLATORS: The user is asked to verify a new SSL certificate.
-#: src/remmina_protocol_widget.c:1757
+#: src/remmina_protocol_widget.c:1758
+#, fuzzy
 msgid "Certificate details:"
 msgstr "Подробности за сертификата:"
 
 #. TRANSLATORS: An SSL certificate subject is usually the remote server the user connect to.
-#: src/remmina_protocol_widget.c:1759 src/remmina_protocol_widget.c:1791
+#: src/remmina_protocol_widget.c:1760 src/remmina_protocol_widget.c:1792
+#, fuzzy
 msgid "Subject:"
 msgstr "Издаден на:"
 
 #. TRANSLATORS: The name or email of the entity that have issued the SSL certificate
-#: src/remmina_protocol_widget.c:1761 src/remmina_protocol_widget.c:1793
+#: src/remmina_protocol_widget.c:1762 src/remmina_protocol_widget.c:1794
+#, fuzzy
 msgid "Issuer:"
 msgstr "Издател на сертификата:"
 
 #. TRANSLATORS: An SSL certificate fingerprint, is a hash of a certificate calculated on all certificate's data and its signature.
-#: src/remmina_protocol_widget.c:1763
+#: src/remmina_protocol_widget.c:1764
+#, fuzzy
 msgid "Fingerprint:"
-msgstr "Идентификатор(fingerprint):"
+msgstr "Пръстов отпечатък:"
 
 #. TRANSLATORS: The user is asked to accept or refuse a new SSL certificate.
-#: src/remmina_protocol_widget.c:1765
+#: src/remmina_protocol_widget.c:1766
+#, fuzzy
 msgid "Accept certificate?"
 msgstr "Приемане на сертификата?"
 
 #. TRANSLATORS: The user is asked to verify a new SSL certificate.
-#: src/remmina_protocol_widget.c:1789
+#: src/remmina_protocol_widget.c:1790
+#, fuzzy
 msgid "The certificate changed! Details:"
 msgstr "Сертификата е променен! Детайли:"
 
 #. TRANSLATORS: An SSL certificate fingerprint, is a hash of a certificate calculated on all certificate's data and its signature.
-#: src/remmina_protocol_widget.c:1795
+#: src/remmina_protocol_widget.c:1796
+#, fuzzy
 msgid "Old fingerprint:"
 msgstr "Стар идентификатор(fingerprint):"
 
 #. TRANSLATORS: An SSL certificate fingerprint, is a hash of a certificate calculated on all certificate's data and its signature.
-#: src/remmina_protocol_widget.c:1797
+#: src/remmina_protocol_widget.c:1798
+#, fuzzy
 msgid "New fingerprint:"
 msgstr "Нов идентификатор(fingerprint):"
 
 #. TRANSLATORS: The user is asked to accept or refuse a new SSL certificate.
-#: src/remmina_protocol_widget.c:1799
+#: src/remmina_protocol_widget.c:1800
+#, fuzzy
 msgid "Accept changed certificate?"
 msgstr "Приеми промененият сертификат?"
 
 #. TRANSLATORS: “%i” is a placeholder for a port number. “%s”  is a placeholder for a protocol name (VNC).
-#: src/remmina_protocol_widget.c:1942
-#, c-format
+#: src/remmina_protocol_widget.c:1943
+#, fuzzy, c-format
 msgid "Listening on port %i for an incoming %s connection…"
 msgstr "Слушане на Порт %i за пристигаща %s Връзка…"
 
-#: src/remmina_protocol_widget.c:1967
+#: src/remmina_protocol_widget.c:1968
+#, fuzzy
 msgid "Could not authenticate, attempting reconnection…"
 msgstr "Идентифицирането се провали. Опит за повторно свързване…"
 
-#: src/remmina_protocol_widget.c:2029 src/remmina_file_editor.c:436
+#: src/remmina_protocol_widget.c:2030 src/remmina_file_editor.c:436
 #: src/remmina_file_editor.c:1172 data/ui/remmina_main.glade:478
+#, fuzzy
 msgid "Server"
 msgstr "Сървър"
 
 #. TRANSLATORS: “%s” is a placeholder for a protocol name, like “RDP”.
-#: src/remmina_protocol_widget.c:2047
-#, c-format
+#: src/remmina_protocol_widget.c:2048
+#, fuzzy, c-format
 msgid "Install the %s protocol plugin first."
 msgstr "Инсталирайте добавката(plugin) за %s протокола."
 
@@ -912,7 +1079,7 @@ msgstr ""
 #. TRANSLATORS: The placeholder %s is an error message
 #: src/remmina_ssh.c:327 src/remmina_ssh.c:368 src/remmina_ssh.c:394
 #: src/remmina_ssh.c:433 src/remmina_ssh.c:746
-#, c-format
+#, fuzzy, c-format
 msgid "Could not authenticate with public SSH key. %s"
 msgstr "Невалидна идентификация с публичен SSH ключ. %s"
 
@@ -943,12 +1110,12 @@ msgstr "Файлът с SSH ключа все още не е зададен."
 
 #. TRANSLATORS: The placeholder %s is an error message
 #: src/remmina_ssh.c:380
-#, c-format
+#, fuzzy, c-format
 msgid "Public SSH key cannot be imported. %s"
 msgstr "Публичният SSH ключ не можа да бъде импортиран. %s"
 
 #: src/remmina_ssh.c:478
-#, c-format
+#, fuzzy, c-format
 msgid "Could not authenticate automatically with public SSH key. %s"
 msgstr "Не можа да се идентифицира автоматично с публичен SSH ключ. %s"
 
@@ -963,6 +1130,7 @@ msgid "Could not authenticate with SSH GSSAPI/Kerberos. %s"
 msgstr "Не можа да се идентифицира посредством Керберос/GSSAPI. %s"
 
 #: src/remmina_ssh.c:598
+#, fuzzy
 msgid "The public SSH key changed!"
 msgstr "Публичният SSH ключ е променен!"
 
@@ -978,7 +1146,7 @@ msgstr "Невалидна идентификация с публичен SSH к
 
 #. TRANSLATORS: The placeholder %s is an error message
 #: src/remmina_ssh.c:921
-#, c-format
+#, fuzzy, c-format
 msgid "Could not fetch the server's public SSH key. %s"
 msgstr "Сървърният SSH публичен ключ не можа да бъде получен. %s"
 
@@ -995,10 +1163,12 @@ msgid "Could not fetch checksum of the public SSH key. %s"
 msgstr "Стартирането на SSH сесия не успя: %s"
 
 #: src/remmina_ssh.c:949
+#, fuzzy
 msgid "The server is unknown. The public key fingerprint is:"
 msgstr "Сървъра е непознат. Идентификатора на публичният ключ е:"
 
 #: src/remmina_ssh.c:951 src/remmina_ssh.c:957
+#, fuzzy
 msgid "Do you trust the new public key?"
 msgstr "Доверявате ли се на новият публичен ключ?"
 
@@ -1019,14 +1189,17 @@ msgid "Could not check list of known SSH hosts. %s"
 msgstr "Стартирането на SSH сесия не успя: %s"
 
 #: src/remmina_ssh.c:988
+#, fuzzy
 msgid "SSH password"
 msgstr "SSH парола"
 
 #: src/remmina_ssh.c:995 src/remmina_ssh.c:1039
+#, fuzzy
 msgid "SSH private key passphrase"
 msgstr "Ключова дума за личния ключ на SSH"
 
 #: src/remmina_ssh.c:1000
+#, fuzzy
 msgid "SSH Kerberos/GSSAPI"
 msgstr "SSH Керберос/GSSAPI"
 
@@ -1075,11 +1248,12 @@ msgid "Could not request port forwarding. %s"
 msgstr "Заявката за пренасочване на портове не успя: %s"
 
 #: src/remmina_ssh.c:1876
+#, fuzzy
 msgid "The server did not respond."
 msgstr "Сървъра не отговаря."
 
 #: src/remmina_ssh.c:1916
-#, c-format
+#, fuzzy, c-format
 msgid "Cannot connect to local port %i."
 msgstr "Не може да се свърже с локален порт %i."
 
@@ -1114,23 +1288,28 @@ msgid "Could not send data to tunnel listening socket. %s"
 msgstr "Неуспех при свързването към целта на SSH тунела: %s"
 
 #: src/remmina_ssh.c:2120
+#, fuzzy
 msgid "Assign a destination port."
 msgstr "Задаване на отсрещен порт."
 
 #: src/remmina_ssh.c:2127
+#, fuzzy
 msgid "Could not create socket."
 msgstr "Мрежовият сокет не можа да бъде създаден."
 
 #: src/remmina_ssh.c:2137
+#, fuzzy
 msgid "Could not bind server socket to local port."
 msgstr "Сървърният сокет не може да оперира на локалният порт."
 
 #: src/remmina_ssh.c:2143
+#, fuzzy
 msgid "Could not listen to local port."
 msgstr "Не може да слуша на локален порт."
 
 #. TRANSLATORS: Do not translate pthread
 #: src/remmina_ssh.c:2153 src/remmina_ssh.c:2170 src/remmina_ssh.c:2188
+#, fuzzy
 msgid "Could not start pthread."
 msgstr "Не може да стартира pthread."
 
@@ -1147,29 +1326,31 @@ msgid "Could not start SFTP session. %s"
 msgstr "Стартирането на SSH сесия не успя: %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2378
+#: src/remmina_ssh.c:2379
 #, c-format
 msgid "Could not open channel. %s"
 msgstr "Създаването на SFTP сесия не успя: %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2393
+#: src/remmina_ssh.c:2394
 #, c-format
 msgid "Could not request shell. %s"
 msgstr "Създаването на SFTP сесия не успя: %s"
 
-#: src/remmina_ssh.c:2511
+#: src/remmina_ssh.c:2521
+#, fuzzy
 msgid "Could not create PTY device."
 msgstr "PTY устройство не можа да бъде създадено."
 
 #: src/remmina_exec.c:475
-#, c-format
+#, fuzzy, c-format
 msgid "Plugin %s is not registered."
 msgstr "Приставката %s не е регистрирана."
 
 #: src/remmina_main.c:669
+#, fuzzy
 msgid "The latest successful connection attempt, or a pre-computed date"
-msgstr ""
+msgstr "Последният успешен опит за свързване или предварително изчислена дата"
 
 #: src/remmina_main.c:671
 #, c-format
@@ -1184,7 +1365,7 @@ msgid "Are you sure you want to delete “%s”?"
 msgstr "Сигурни ли сте, че желаете да изтриете \"%s\"?"
 
 #: src/remmina_main.c:989
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "Unable to import:\n"
 "%s"
@@ -1193,18 +1374,22 @@ msgstr ""
 "%s"
 
 #: src/remmina_main.c:1015 data/ui/remmina_main.glade:285
+#, fuzzy
 msgid "Import"
-msgstr "Внасяне"
+msgstr "Внасяне на данни"
 
 #: src/remmina_main.c:1038 src/remmina_file_editor.c:1791
+#, fuzzy
 msgid "_Save"
-msgstr "_Запази"
+msgstr "_Запазване"
 
 #: src/remmina_main.c:1044
+#, fuzzy
 msgid "This protocol does not support exporting."
 msgstr "Този протокол не поддържа изнасяне"
 
 #: src/remmina_main.c:1361
+#, fuzzy
 msgid "Remmina Remote Desktop Client"
 msgstr "Клиент за отдалечен достъп Remmina"
 
@@ -1268,6 +1453,7 @@ msgid "Could not read from the folder. %s"
 msgstr "Създаването на SFTP сесия не успя: %s"
 
 #: src/remmina_sftp_client.c:823
+#, fuzzy
 msgid "Are you sure you want to cancel the file transfer in progress?"
 msgstr ""
 "Сигурни ли сте, че желаете да прекъснете текущото прехвърляне на файла ?"
@@ -1278,18 +1464,22 @@ msgid "Could not delete “%s”. %s"
 msgstr "Създаването на '%s' не успя. %s"
 
 #: src/remmina_sftp_client.c:942
+#, fuzzy
 msgid "The file exists already"
 msgstr "Файла вече съществува"
 
 #: src/remmina_sftp_client.c:945
+#, fuzzy
 msgid "Resume"
 msgstr "Продължи"
 
 #: src/remmina_sftp_client.c:946
+#, fuzzy
 msgid "Overwrite"
 msgstr "Презаписване"
 
 #: src/remmina_sftp_client.c:964
+#, fuzzy
 msgid "The following file already exists in the target folder:"
 msgstr "Този файл вече съществува в папката от отсрещната страна:"
 
@@ -1378,19 +1568,22 @@ msgstr ""
 "- username@server[:port] (само за SSH протокол)</big>"
 
 #: src/remmina_file_editor.c:162
+#, fuzzy
 msgid "Input is invalid."
-msgstr ""
+msgstr "Входът е невалиден."
 
 #: src/remmina_file_editor.c:239
+#, fuzzy
 msgid "Choose a Remote Desktop Server"
 msgstr "Избиране на сървър за отдалечен достъп"
 
 #: src/remmina_file_editor.c:460
-#, c-format
+#, fuzzy, c-format
 msgid "Browse the network to find a %s server"
 msgstr "Преглеждане на мрежата за откриване на %s сървър"
 
 #: src/remmina_file_editor.c:564
+#, fuzzy
 msgid "Resolution"
 msgstr "Разделителна способност"
 
@@ -1400,14 +1593,17 @@ msgid "Use initial window size"
 msgstr "Използване на първоначалния размер на прозореца"
 
 #: src/remmina_file_editor.c:575
+#, fuzzy
 msgid "Use client resolution"
 msgstr "Използване на разделителната способност на клиента"
 
 #: src/remmina_file_editor.c:586 src/remmina_file_editor.c:1152
+#, fuzzy
 msgid "Custom"
-msgstr "От потребителя"
+msgstr "Ръчно"
 
 #: src/remmina_file_editor.c:945
+#, fuzzy
 msgid "Keyboard mapping"
 msgstr "Клавиатурна подредба"
 
@@ -1447,27 +1643,31 @@ msgid "Auto-start this profile"
 msgstr "Включи \"Autostart\" за този профил"
 
 #: src/remmina_file_editor.c:1125
+#, fuzzy
 msgid "SSH Tunnel"
 msgstr "SSH тунел"
 
 #: src/remmina_file_editor.c:1126
+#, fuzzy
 msgid "Enable SSH tunnel"
 msgstr "Включване на SSH тунел"
 
 #: src/remmina_file_editor.c:1133
+#, fuzzy
 msgid "Tunnel via loopback address"
 msgstr "Тунел чрез локален адрес"
 
 #: src/remmina_file_editor.c:1143
-#, c-format
+#, fuzzy, c-format
 msgid "Same server at port %i"
 msgstr "Същият сървър на порт %i"
 
-#: src/remmina_file_editor.c:1193 plugins/rdp/rdp_plugin.c:2724
+#: src/remmina_file_editor.c:1193 plugins/rdp/rdp_plugin.c:2767
 msgid "Start-up path"
 msgstr "Път за стартиране"
 
 #: src/remmina_file_editor.c:1202
+#, fuzzy
 msgid "SSH Authentication"
 msgstr "SSH идентифициране"
 
@@ -1484,10 +1684,12 @@ msgid "SSH certificate file"
 msgstr "Файл със сертификат SSH"
 
 #: src/remmina_file_editor.c:1293
+#, fuzzy
 msgid "Basic"
 msgstr "Основни"
 
 #: src/remmina_file_editor.c:1299
+#, fuzzy
 msgid "Advanced"
 msgstr "Допълнителни"
 
@@ -1497,32 +1699,37 @@ msgid "Notes"
 msgstr "Бележки"
 
 #: src/remmina_file_editor.c:1438
-#, c-format
+#, fuzzy, c-format
 msgid "(%s: %i): Can't validate setting '%s' since 'value' or 'gfe' are NULL!"
 msgstr ""
+"(%s: %i): Не може да се валидира настройката '%s', тъй като 'value' или "
+"'gfe' са NULL!"
 
 #: src/remmina_file_editor.c:1441
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "(%s: %i): Can't validate user input since 'setting_name_to_validate', "
 "'value' or 'gfe' are NULL!"
 msgstr ""
+"(%s: %i): Не може да валидира потребителския вход, тъй като "
+"'setting_name_to_validate', 'value' или 'gfe' са NULL!"
 
 #. TRANSLATORS: Meta-error. Shouldn't be visible.
-#: src/remmina_file_editor.c:1445 plugins/x2go/x2go_plugin.c:856
-#: plugins/x2go/x2go_plugin.c:1440
+#: src/remmina_file_editor.c:1445 plugins/x2go/x2go_plugin.c:2188
+#: plugins/x2go/x2go_plugin.c:2817
 #, fuzzy
 msgid "Internal error."
-msgstr "Грешка при прехвърлянето"
+msgstr "Вътрешна грешка"
 
 #: src/remmina_file_editor.c:1667 src/remmina_file_editor.c:1703
 #: src/remmina_file_editor.c:1724 src/remmina_file_editor.c:1747
 #, fuzzy, c-format
 #| msgid "Could not create SFTP session. %s"
 msgid "Couldn't validate user input. %s"
-msgstr "Създаването на SFTP сесия не успя: %s"
+msgstr "Не можа да валидира потребителския вход. %s"
 
 #: src/remmina_file_editor.c:1691
+#, fuzzy
 msgid "Default settings saved."
 msgstr "Стандартните настройки са запазени."
 
@@ -1531,29 +1738,34 @@ msgid "Remote Connection Profile"
 msgstr "Нова връзка"
 
 #: src/remmina_file_editor.c:1787
+#, fuzzy
 msgid "Save as Default"
 msgstr "Запази по подразбиране"
 
 #: src/remmina_file_editor.c:1788
+#, fuzzy
 msgid "Use the current settings as the default for all new connection profiles"
 msgstr ""
 "Използване на текущите настройки по подразбиране за всички новосъздадени "
 "профили"
 
 #: src/remmina_file_editor.c:1796 data/ui/remmina_main.glade:160
+#, fuzzy
 msgid "Connect"
 msgstr "Свързване"
 
 #: src/remmina_file_editor.c:1799
+#, fuzzy
 msgid "_Save and Connect"
 msgstr "_Запазване и свързване"
 
 #: src/remmina_file_editor.c:1922
+#, fuzzy
 msgid "Quick Connect"
 msgstr "Бързо свързване"
 
 #: src/remmina_file_editor.c:1946
-#, c-format
+#, fuzzy, c-format
 msgid "Use '%s' as subgroup delimiter"
 msgstr "Използване на '%s' като разделител на подгрупа"
 
@@ -1565,97 +1777,113 @@ msgstr "Файлът с име \"%s\" не можа да бъде намерен
 #. TRANSLATORS: This is a message that pops up when an external Remmina plugin tries to set the window resolution using a legacy parameter.
 #. TRANSLATORS: This is a message that pop-up when an external Remmina plugin tries to set the windows resolution using a legacy parameter.
 #: src/remmina_file.c:451 src/remmina_file.c:497
+#, fuzzy
 msgid ""
 "Using the «resolution» parameter in the Remmina preferences file is "
 "deprecated.\n"
 msgstr ""
+"Използването на параметъра \"резолюция\" във файла с предпочитания на "
+"Remmina е отпаднало.\n"
 
 #: src/remmina_icon.c:136
+#, fuzzy
 msgid "Open Main Window"
 msgstr "Отваряне на основния прозорец"
 
 #: src/remmina_icon.c:141 data/ui/remmina_main.glade:254
+#, fuzzy
 msgid "_Preferences"
-msgstr "_Настройки"
+msgstr "_Настройки на адаптера"
 
 #: src/remmina_icon.c:146
+#, fuzzy
 msgid "_About"
-msgstr "_Относно Remmina"
+msgstr "_Относно"
 
 #: src/remmina_icon.c:156
+#, fuzzy
 msgid "Enable Service Discovery"
 msgstr "Включване на откриване на услуги"
 
 #: src/remmina_icon.c:168 data/ui/remmina_main.glade:404
+#, fuzzy
 msgid "_Quit"
 msgstr "_Изход"
 
 #. TRANSLATORS: Applet name as per the Freedesktop Desktop entry specification https://specifications.freedesktop.org/desktop-entry-spec/latest/
 #. TRANSLATORS: Applet Name as per the Freedesktop Desktop entry specification https://specifications.freedesktop.org/desktop-entry-spec/latest/
 #: src/remmina_icon.c:294 src/remmina_icon.c:450
+#, fuzzy
 msgid "Remmina Applet"
 msgstr "Аплет Remmina"
 
 #. TRANSLATORS: Applet comment/description as per the Freedesktop Desktop entry specification https://specifications.freedesktop.org/desktop-entry-spec/latest/
 #: src/remmina_icon.c:296 src/remmina_icon.c:452
+#, fuzzy
 msgid "Connect to remote desktops through the applet menu"
 msgstr "Свържете се към отдалечени работни места чрез менюто на аплета"
 
 #: src/remmina_icon.c:359
+#, fuzzy
 msgid "StatusNotifier/Appindicator support in “"
-msgstr ""
+msgstr "Поддръжка на StatusNotifier/Appindicator в \""
 
 #. TRANSLATORS: %s is a placeholder for "StatusNotifier/Appindicator suppor in “DESKTOP NAME”: "
 #: src/remmina_icon.c:366
-#, c-format
+#, fuzzy, c-format
 msgid "%s your desktop does support it"
-msgstr ""
+msgstr "%s Вашият десктоп го поддържа"
 
 #. TRANSLATORS: %s is a placeholder for "StatusNotifier/Appindicator suppor in “DESKTOP NAME”: "
 #: src/remmina_icon.c:368
-#, c-format
+#, fuzzy, c-format
 msgid "%s and Remmina has built-in (compiled) support for libappindicator."
-msgstr ""
+msgstr "%s и Remmina има вградена (компилирана) поддръжка за libappindicator."
 
 #. TRANSLATORS: %s is a placeholder for "StatusNotifier/Appindicator suppor in “DESKTOP NAME”: "
 #: src/remmina_icon.c:371
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "%s not supported natively by your Desktop Environment. libappindicator will "
 "try to fallback to GtkStatusIcon/xembed"
 msgstr ""
+"%s не се поддържа естествено от вашата среда за настолни компютри. "
+"libappindicator ще се опита да се върне към GtkStatusIcon/xembed"
 
 #. TRANSLATORS: %s is a placeholder for "StatusNotifier/Appindicator suppor in “DESKTOP NAME”: "
 #: src/remmina_icon.c:375
-#, c-format
+#, fuzzy, c-format
 msgid "%s You may need to install, and use XApp Status Applet"
-msgstr ""
+msgstr "%s Може да се наложи да инсталирате и използвате XApp Status Applet"
 
 #. TRANSLATORS: %s is a placeholder for "StatusNotifier/Appindicator suppor in “DESKTOP NAME”: "
 #: src/remmina_icon.c:378
-#, c-format
+#, fuzzy, c-format
 msgid "%s You may need to install, and use KStatusNotifierItem"
-msgstr ""
+msgstr "%s Може да се наложи да инсталирате и използвате KStatusNotifierItem"
 
 #. TRANSLATORS: %s is a placeholder for "StatusNotifier/Appindicator suppor in “DESKTOP NAME”: "
 #: src/remmina_icon.c:381
-#, c-format
+#, fuzzy, c-format
 msgid "%s You may need to install, and use XEmbed SNI Proxy"
-msgstr ""
+msgstr "%s Може да се наложи да инсталирате и използвате XEmbed SNI Proxy"
 
 #. TRANSLATORS: %s is a placeholder for "StatusNotifier/Appindicator suppor in “DESKTOP NAME”: "
 #: src/remmina_icon.c:384
-#, c-format
+#, fuzzy, c-format
 msgid "%s You may need to install, and use Gnome Shell Extension Appindicator"
 msgstr ""
+"%s Може да се наложи да инсталирате и използвате разширението Appindicator "
+"на Gnome Shell"
 
 #. TRANSLATORS: %s is a placeholder for an error message
 #: src/remmina_ssh_plugin.c:539
-#, c-format
+#, fuzzy, c-format
 msgid "Error: %s"
 msgstr "Грешка: %s"
 
 #: src/remmina_ssh_plugin.c:556
+#, fuzzy
 msgid "Terminal content saved in"
 msgstr "Съдържанието на терминала е запазено в/във"
 
@@ -1672,6 +1900,7 @@ msgid "Paste (host+V)"
 msgstr "Поставяне (host + V)"
 
 #: src/remmina_ssh_plugin.c:825
+#, fuzzy
 msgid "Save session to file"
 msgstr "Запазване на сесията във файл"
 
@@ -1690,26 +1919,32 @@ msgid "Find text (host+G)"
 msgstr "Поставяне (host + V)"
 
 #: src/remmina_ssh_plugin.c:1439 data/ui/remmina_main.glade:177
+#, fuzzy
 msgid "Copy"
-msgstr "Копиране"
+msgstr "Копирайте"
 
 #: src/remmina_ssh_plugin.c:1439
+#, fuzzy
 msgid "_Copy"
 msgstr "_Копиране"
 
 #: src/remmina_ssh_plugin.c:1440
+#, fuzzy
 msgid "Paste"
 msgstr "Поставяне"
 
 #: src/remmina_ssh_plugin.c:1440
+#, fuzzy
 msgid "_Paste"
 msgstr "_Поставяне"
 
 #: src/remmina_ssh_plugin.c:1441
+#, fuzzy
 msgid "Select all"
-msgstr "Маркирай всичко"
+msgstr "Избери всички"
 
 #: src/remmina_ssh_plugin.c:1441
+#, fuzzy
 msgid "_Select all"
 msgstr "_Маркирай всичко"
 
@@ -1736,7 +1971,7 @@ msgstr "_Намаляване на размера на шрифта"
 #: src/remmina_ssh_plugin.c:1444
 #, fuzzy
 msgid "Find text"
-msgstr "&Търсене на ноти"
+msgstr "Намиране на текст"
 
 #: src/remmina_ssh_plugin.c:1444
 #, fuzzy
@@ -1745,14 +1980,21 @@ msgstr "_Намерете текст"
 
 #: src/remmina_ssh_plugin.c:1471 plugins/spice/spice_plugin.c:674
 #: plugins/vnc/vnc_plugin.c:1977 plugins/vnc/vnc_plugin.c:1989
+#, fuzzy
 msgid "User password"
 msgstr "Парола"
 
-#: src/remmina_ssh_plugin.c:1477 plugins/rdp/rdp_plugin.c:2723
-msgid "Start-up program"
+#: src/remmina_ssh_plugin.c:1477
+msgid "Opening command"
+msgstr ""
+
+#: src/remmina_ssh_plugin.c:1478
+#, fuzzy
+#| msgid "Start-up program"
+msgid "Start-up background program"
 msgstr "Стартиране на програма при свързване"
 
-#: src/remmina_ssh_plugin.c:1482
+#: src/remmina_ssh_plugin.c:1483
 msgid ""
 "The filename can use the following placeholders:\n"
 "\n"
@@ -1776,69 +2018,81 @@ msgstr ""
 "профил\n"
 "  • %d се замества с локалните дата и час представени в iso8601 формат\n"
 
-#: src/remmina_ssh_plugin.c:1504
+#: src/remmina_ssh_plugin.c:1505
 #, fuzzy
 #| msgid "Terminal color scheme"
 msgid "Terminal colour scheme"
 msgstr "Цветова тема"
 
-#: src/remmina_ssh_plugin.c:1505
+#: src/remmina_ssh_plugin.c:1506
+#, fuzzy
 msgid "Character set"
 msgstr "Кодова таблица"
 
-#: src/remmina_ssh_plugin.c:1507
+#: src/remmina_ssh_plugin.c:1508
+#, fuzzy
 msgid "KEX (Key Exchange) algorithms"
 msgstr "Алгоритми за размяна на ключове KEX (Key Exchange)"
 
-#: src/remmina_ssh_plugin.c:1508
+#: src/remmina_ssh_plugin.c:1509
+#, fuzzy
 msgid "Symmetric cipher client to server"
 msgstr "Симетричен алгоритъм използвал от клиента към сървъра"
 
-#: src/remmina_ssh_plugin.c:1509
+#: src/remmina_ssh_plugin.c:1510
+#, fuzzy
 msgid "Preferred server host key types"
 msgstr "Предпочитани типове ключове от страна на сървъра (host key types)"
 
-#: src/remmina_ssh_plugin.c:1510
+#: src/remmina_ssh_plugin.c:1511
+#, fuzzy
 msgid "Folder for SSH session log"
 msgstr "Директория за запазване на SSH дневник(лог) от сесията"
 
-#: src/remmina_ssh_plugin.c:1511
+#: src/remmina_ssh_plugin.c:1512
+#, fuzzy
 msgid "Filename for SSH session log"
 msgstr "Име на файла за запазване на SSH дневник(лог)"
 
-#: src/remmina_ssh_plugin.c:1512
+#: src/remmina_ssh_plugin.c:1513
+#, fuzzy
 msgid "Log SSH session when exiting Remmina"
 msgstr "Запазване на SSH сесията при изход от Reminna"
 
-#: src/remmina_ssh_plugin.c:1513
+#: src/remmina_ssh_plugin.c:1514
 #, fuzzy
 msgid "Log SSH session asynchronously"
 msgstr "Асинхронно регистриране на SSH сесия"
 
-#: src/remmina_ssh_plugin.c:1513
+#: src/remmina_ssh_plugin.c:1514
 #, fuzzy
 msgid "Saving the session asynchronously may have a notable performance impact"
 msgstr ""
 "Асинхронното запазване на сесията може да има забележимо въздействие върху "
 "производителността"
 
-#: src/remmina_ssh_plugin.c:1514
+#: src/remmina_ssh_plugin.c:1515
+#, fuzzy
 msgid "Audible terminal bell"
 msgstr "Звънец в терминала"
 
-#: src/remmina_ssh_plugin.c:1515
+#: src/remmina_ssh_plugin.c:1516
+#, fuzzy
 msgid "SSH compression"
 msgstr "SSH компресиране"
 
-#: src/remmina_ssh_plugin.c:1516
+#: src/remmina_ssh_plugin.c:1517
+#, fuzzy
 msgid "Don't remember passwords"
 msgstr "Не запазвай паролата"
 
-#: src/remmina_ssh_plugin.c:1517
+#: src/remmina_ssh_plugin.c:1518
+#, fuzzy
 msgid "Strict host key checking"
 msgstr "Задълбочено проверяване на ключа предоставен от сървъра"
 
-#: src/remmina_ssh_plugin.c:1531
+#: src/remmina_ssh_plugin.c:1532
+#, fuzzy
 msgid "SSH - Secure Shell"
 msgstr "SSH - Сигурна обвивка"
 
@@ -1860,25 +2114,25 @@ msgstr "<Не е зададено>"
 msgid "<Choose a quality level to edit…>"
 msgstr "<Избор на ниво на качество за редактиране...>"
 
-#: plugins/rdp/rdp_settings.c:282 plugins/rdp/rdp_plugin.c:2542
+#: plugins/rdp/rdp_settings.c:282 plugins/rdp/rdp_plugin.c:2585
 #: plugins/vnc/vnc_plugin.c:1934
 #, fuzzy
 msgid "Poor (fastest)"
 msgstr "Беден (най-бърз)"
 
-#: plugins/rdp/rdp_settings.c:284 plugins/rdp/rdp_plugin.c:2543
+#: plugins/rdp/rdp_settings.c:284 plugins/rdp/rdp_plugin.c:2586
 #: plugins/vnc/vnc_plugin.c:1933
 #, fuzzy
 msgid "Medium"
-msgstr "Среден"
+msgstr "Обикновен"
 
-#: plugins/rdp/rdp_settings.c:286 plugins/rdp/rdp_plugin.c:2544
+#: plugins/rdp/rdp_settings.c:286 plugins/rdp/rdp_plugin.c:2587
 #: plugins/vnc/vnc_plugin.c:1931
 #, fuzzy
 msgid "Good"
 msgstr "Добро"
 
-#: plugins/rdp/rdp_settings.c:288 plugins/rdp/rdp_plugin.c:2545
+#: plugins/rdp/rdp_settings.c:288 plugins/rdp/rdp_plugin.c:2588
 #: plugins/vnc/vnc_plugin.c:1932
 #, fuzzy
 msgid "Best (slowest)"
@@ -1920,7 +2174,7 @@ msgstr "Настройки на качеството"
 #: plugins/rdp/rdp_settings.c:517
 #, fuzzy
 msgid "Wallpaper"
-msgstr "Тапет"
+msgstr "Тапети"
 
 #: plugins/rdp/rdp_settings.c:525
 #, fuzzy
@@ -1982,26 +2236,26 @@ msgstr "Ориентация на работния плот"
 msgid "Input device settings"
 msgstr "Настройки на входното устройство"
 
-#: plugins/rdp/rdp_settings.c:658 plugins/rdp/rdp_plugin.c:2686
+#: plugins/rdp/rdp_settings.c:658 plugins/rdp/rdp_plugin.c:2729
 #: plugins/vnc/vnc_plugin.c:2014
 #, fuzzy
 #| msgid "Turn on smooth scrolling"
 msgid "Disable smooth scrolling"
-msgstr "Изключване на плавното превъртане"
+msgstr "Деактивиране на плавното превъртане"
 
 #: plugins/rdp/rdp_settings.c:669
 #, fuzzy
 #| msgid "Default settings saved."
 msgid "General settings"
-msgstr "Общи условия"
+msgstr "Общи настройки"
 
-#: plugins/rdp/rdp_settings.c:676 plugins/rdp/rdp_plugin.c:2738
+#: plugins/rdp/rdp_settings.c:676 plugins/rdp/rdp_plugin.c:2781
 #, fuzzy
 #| msgid "Reconnection attempt %d of %d…"
 msgid "Reconnect attempts number"
 msgstr "Брой опити за повторно свързване"
 
-#: plugins/rdp/rdp_settings.c:689 plugins/rdp/rdp_plugin.c:2738
+#: plugins/rdp/rdp_settings.c:689 plugins/rdp/rdp_plugin.c:2781
 #, fuzzy
 msgid ""
 "The maximum number of reconnect attempts upon an RDP disconnect (default: 20)"
@@ -2009,18 +2263,18 @@ msgstr ""
 "Максималният брой опити за повторно свързване при прекъсване на RDP (по "
 "подразбиране: 20)"
 
-#: plugins/rdp/rdp_plugin.c:762 plugins/rdp/rdp_plugin.c:827
+#: plugins/rdp/rdp_plugin.c:769 plugins/rdp/rdp_plugin.c:834
 #, fuzzy
 msgid "Enter RDP authentication credentials"
 msgstr "Въведете идентификационните данни за удостоверяване на RDP"
 
-#: plugins/rdp/rdp_plugin.c:835
+#: plugins/rdp/rdp_plugin.c:842
 #, fuzzy
 msgid "Enter RDP gateway authentication credentials"
 msgstr "Въведете идентификационните данни за удостоверяване на шлюза RDP"
 
-#: plugins/rdp/rdp_plugin.c:2073
-#, c-format
+#: plugins/rdp/rdp_plugin.c:2116
+#, fuzzy, c-format
 msgid ""
 "Could not access the RDP server “%s”.\n"
 "Account locked out."
@@ -2028,8 +2282,8 @@ msgstr ""
 "Не може да осъществи достъп до RDP сървъра \"%s\".\n"
 "Сметката е заключена."
 
-#: plugins/rdp/rdp_plugin.c:2080
-#, c-format
+#: plugins/rdp/rdp_plugin.c:2123
+#, fuzzy, c-format
 msgid ""
 "Could not access the RDP server “%s”.\n"
 "Account expired."
@@ -2037,8 +2291,8 @@ msgstr ""
 "Не може да осъществи достъп до RDP сървъра \"%s\".\n"
 "Сметката е изтекла."
 
-#: plugins/rdp/rdp_plugin.c:2087
-#, c-format
+#: plugins/rdp/rdp_plugin.c:2130
+#, fuzzy, c-format
 msgid ""
 "Could not access the RDP server “%s”.\n"
 "Password expired."
@@ -2046,8 +2300,8 @@ msgstr ""
 "Не може да осъществи достъп до RDP сървъра \"%s\".\n"
 "Паролата е с изтекъл срок."
 
-#: plugins/rdp/rdp_plugin.c:2094
-#, c-format
+#: plugins/rdp/rdp_plugin.c:2137
+#, fuzzy, c-format
 msgid ""
 "Could not access the RDP server “%s”.\n"
 "Account disabled."
@@ -2055,8 +2309,8 @@ msgstr ""
 "Не може да осъществи достъп до RDP сървъра \"%s\".\n"
 "Профилът е деактивиран."
 
-#: plugins/rdp/rdp_plugin.c:2100
-#, c-format
+#: plugins/rdp/rdp_plugin.c:2143
+#, fuzzy, c-format
 msgid ""
 "Could not access the RDP server “%s”.\n"
 "Insufficient user privileges."
@@ -2064,8 +2318,8 @@ msgstr ""
 "Не можах да осъществя достъп до RDP сървъра „%s“.\n"
 "Недостатъчни привилегии на потребителя."
 
-#: plugins/rdp/rdp_plugin.c:2108
-#, c-format
+#: plugins/rdp/rdp_plugin.c:2151
+#, fuzzy, c-format
 msgid ""
 "Could not access the RDP server “%s”.\n"
 "Account restricted."
@@ -2073,8 +2327,8 @@ msgstr ""
 "Не можах да осъществя достъп до RDP сървъра „%s“.\n"
 "Профилът е ограничен."
 
-#: plugins/rdp/rdp_plugin.c:2116
-#, c-format
+#: plugins/rdp/rdp_plugin.c:2159
+#, fuzzy, c-format
 msgid ""
 "Could not access the RDP server “%s”.\n"
 "Change user password before connecting."
@@ -2082,17 +2336,17 @@ msgstr ""
 "Не може да осъществи достъп до RDP сървъра \"%s\".\n"
 "Променете потребителската парола, преди да се свържете."
 
-#: plugins/rdp/rdp_plugin.c:2121
+#: plugins/rdp/rdp_plugin.c:2164
 #, c-format
 msgid "Lost connection to the RDP server “%s”."
 msgstr "Неуспех при свързването към целта на SSH тунела: %s"
 
-#: plugins/rdp/rdp_plugin.c:2124
+#: plugins/rdp/rdp_plugin.c:2167
 #, c-format
 msgid "Could not find the address for the RDP server “%s”."
 msgstr "Командата %s не е открита на SSH сървъра"
 
-#: plugins/rdp/rdp_plugin.c:2128
+#: plugins/rdp/rdp_plugin.c:2171
 #, fuzzy, c-format
 msgid ""
 "Could not connect to the RDP server “%s” via TLS. Check that client and "
@@ -2102,7 +2356,7 @@ msgstr ""
 "и сървърът поддържат обща версия на TLS."
 
 #. TRANSLATORS: the placeholder may be either an IP/FQDN or a server hostname
-#: plugins/rdp/rdp_plugin.c:2132
+#: plugins/rdp/rdp_plugin.c:2175
 #, fuzzy, c-format
 #| msgid ""
 #| "Unable to establish a connection to the RDP server “%s”. Check \"Security "
@@ -2111,20 +2365,20 @@ msgid ""
 "Unable to establish a connection to the RDP server “%s”. Check “Security "
 "protocol negotiation”."
 msgstr ""
-"Не е възможно да се установи връзка с RDP сървъра \"%s\". Проверете "
+"Невъзможно е да се установи връзка с RDP сървъра \"%s\". Проверете "
 "\"Security protocol negotiation\"."
 
-#: plugins/rdp/rdp_plugin.c:2140
+#: plugins/rdp/rdp_plugin.c:2183
 #, c-format
 msgid "Cannot connect to the RDP server “%s”."
 msgstr "Неуспех при свързването към целта на SSH тунела: %s"
 
-#: plugins/rdp/rdp_plugin.c:2143
+#: plugins/rdp/rdp_plugin.c:2186
 #, fuzzy
 msgid "Could not start libfreerdp-gdi."
 msgstr "Не можа да стартира libfreerdp-gdi."
 
-#: plugins/rdp/rdp_plugin.c:2146
+#: plugins/rdp/rdp_plugin.c:2189
 #, fuzzy, c-format
 msgid ""
 "You requested a H.264 GFX mode for the server “%s”, but your libfreerdp does "
@@ -2134,12 +2388,12 @@ msgstr ""
 "поддържа H.264. Моля, използвайте настройка за дълбочина на цвета, различна "
 "от AVC."
 
-#: plugins/rdp/rdp_plugin.c:2153
+#: plugins/rdp/rdp_plugin.c:2196
 #, fuzzy, c-format
 msgid "The “%s” server refused the connection."
 msgstr "Сървърът \"%s\" отказа връзката."
 
-#: plugins/rdp/rdp_plugin.c:2158
+#: plugins/rdp/rdp_plugin.c:2201
 #, fuzzy, c-format
 msgid ""
 "The Remote Desktop Gateway “%s” denied the user “%s\\%s” access due to "
@@ -2148,139 +2402,140 @@ msgstr ""
 "Шлюзът за отдалечен работен плот \"%s\" отказва достъп на потребителя \"%s\\"
 "%s\" поради политика."
 
-#: plugins/rdp/rdp_plugin.c:2168
+#: plugins/rdp/rdp_plugin.c:2211
 #, c-format
 msgid "Cannot connect to the “%s” RDP server."
 msgstr "Неуспех при свързването към целта на SSH тунела: %s"
 
-#: plugins/rdp/rdp_plugin.c:2511
+#: plugins/rdp/rdp_plugin.c:2554
 #, fuzzy
 msgid "Automatic (32 bpp) (Server chooses its best format)"
 msgstr "Автоматично (32 bpp) (сървърът избира най-добрия формат)"
 
-#: plugins/rdp/rdp_plugin.c:2512
+#: plugins/rdp/rdp_plugin.c:2555
 #, fuzzy
 msgid "GFX AVC444 (32 bpp)"
 msgstr "GFX AVC444 (32 bpp)"
 
-#: plugins/rdp/rdp_plugin.c:2513
+#: plugins/rdp/rdp_plugin.c:2556
 #, fuzzy
 msgid "GFX AVC420 (32 bpp)"
 msgstr "GFX AVC420 (32 bpp)"
 
-#: plugins/rdp/rdp_plugin.c:2514
+#: plugins/rdp/rdp_plugin.c:2557
 #, fuzzy
 msgid "GFX RFX (32 bpp)"
 msgstr "GFX RFX (32 bpp)"
 
-#: plugins/rdp/rdp_plugin.c:2515
+#: plugins/rdp/rdp_plugin.c:2558
 #, fuzzy
 msgid "GFX RFX Progressive (32 bpp)"
 msgstr "GFX RFX Progressive (32 bpp)"
 
-#: plugins/rdp/rdp_plugin.c:2516
+#: plugins/rdp/rdp_plugin.c:2559
 #, fuzzy
 msgid "RemoteFX (32 bpp)"
 msgstr "RemoteFX (32 bpp)"
 
-#: plugins/rdp/rdp_plugin.c:2517 plugins/vnc/vnc_plugin.c:1922
+#: plugins/rdp/rdp_plugin.c:2560 plugins/vnc/vnc_plugin.c:1922
 #, fuzzy
 msgid "True colour (32 bpp)"
 msgstr "Истински цвят (32 bpp)"
 
-#: plugins/rdp/rdp_plugin.c:2518
+#: plugins/rdp/rdp_plugin.c:2561
 #, fuzzy
 msgid "True colour (24 bpp)"
 msgstr "Истински цвят (24 bpp)"
 
-#: plugins/rdp/rdp_plugin.c:2519 plugins/vnc/vnc_plugin.c:1923
+#: plugins/rdp/rdp_plugin.c:2562 plugins/vnc/vnc_plugin.c:1923
 #, fuzzy
 msgid "High colour (16 bpp)"
 msgstr "Висококачествен цвят (16 bpp)"
 
-#: plugins/rdp/rdp_plugin.c:2520
+#: plugins/rdp/rdp_plugin.c:2563
 #, fuzzy
 msgid "High colour (15 bpp)"
 msgstr "Висококачествен цвят (15 bpp)"
 
-#: plugins/rdp/rdp_plugin.c:2521 plugins/vnc/vnc_plugin.c:1924
+#: plugins/rdp/rdp_plugin.c:2564 plugins/vnc/vnc_plugin.c:1924
 #, fuzzy
 msgid "256 colours (8 bpp)"
 msgstr "256 цвята (8 bpp)"
 
-#: plugins/rdp/rdp_plugin.c:2552 data/ui/remmina_preferences.glade:641
+#: plugins/rdp/rdp_plugin.c:2595 data/ui/remmina_preferences.glade:641
+#, fuzzy
 msgid "None"
-msgstr "<Празно>"
+msgstr "Няма"
 
-#: plugins/rdp/rdp_plugin.c:2553
+#: plugins/rdp/rdp_plugin.c:2596
 msgid "Auto-detect"
 msgstr "Автоматично стартиране"
 
-#: plugins/rdp/rdp_plugin.c:2554
+#: plugins/rdp/rdp_plugin.c:2597
 #, fuzzy
 msgid "Modem"
 msgstr "Модем"
 
-#: plugins/rdp/rdp_plugin.c:2555
+#: plugins/rdp/rdp_plugin.c:2598
 #, fuzzy
 msgid "Low performance broadband"
 msgstr "Широколентова връзка с ниска производителност"
 
-#: plugins/rdp/rdp_plugin.c:2556
+#: plugins/rdp/rdp_plugin.c:2599
 #, fuzzy
 msgid "Satellite"
 msgstr "Сателит"
 
-#: plugins/rdp/rdp_plugin.c:2557
+#: plugins/rdp/rdp_plugin.c:2600
 #, fuzzy
 msgid "High performance broadband"
 msgstr "Широколентова връзка с висока производителност"
 
-#: plugins/rdp/rdp_plugin.c:2558
+#: plugins/rdp/rdp_plugin.c:2601
 #, fuzzy
 msgid "WAN"
 msgstr "WAN"
 
-#: plugins/rdp/rdp_plugin.c:2559
+#: plugins/rdp/rdp_plugin.c:2602
 #, fuzzy
 msgid "LAN"
 msgstr "Местна мрежа"
 
-#: plugins/rdp/rdp_plugin.c:2566 plugins/spice/spice_plugin.c:635
+#: plugins/rdp/rdp_plugin.c:2609 plugins/spice/spice_plugin.c:635
 #: data/ui/remmina_preferences.glade:677
 #, fuzzy
 msgid "Off"
-msgstr "Изключено"
+msgstr "Изкл."
 
-#: plugins/rdp/rdp_plugin.c:2575
+#: plugins/rdp/rdp_plugin.c:2618
 #, fuzzy
 msgid "Automatic negotiation"
 msgstr "Автоматично договаряне"
 
-#: plugins/rdp/rdp_plugin.c:2576
+#: plugins/rdp/rdp_plugin.c:2619
 msgid "NLA protocol security"
 msgstr "Протокол"
 
-#: plugins/rdp/rdp_plugin.c:2577
+#: plugins/rdp/rdp_plugin.c:2620
 msgid "TLS protocol security"
 msgstr "Протокол"
 
-#: plugins/rdp/rdp_plugin.c:2578
+#: plugins/rdp/rdp_plugin.c:2621
 msgid "RDP protocol security"
 msgstr "Протокол"
 
-#: plugins/rdp/rdp_plugin.c:2579
+#: plugins/rdp/rdp_plugin.c:2622
 #, fuzzy
 msgid "NLA extended protocol security"
 msgstr "Разширена сигурност на протокола NLA"
 
-#: plugins/rdp/rdp_plugin.c:2592
+#: plugins/rdp/rdp_plugin.c:2635
 #, fuzzy
 msgid "2600 (Windows XP), 7601 (Windows Vista/7), 9600 (Windows 8 and newer)"
 msgstr ""
 "2600 (Windows XP), 7601 (Windows Vista/7), 9600 (Windows 8 и по-нови версии)"
 
-#: plugins/rdp/rdp_plugin.c:2595
+#: plugins/rdp/rdp_plugin.c:2638
 #, fuzzy
 msgid ""
 "Used i.a. by terminal services in a smart card channel to distinguish client "
@@ -2299,7 +2554,7 @@ msgstr ""
 "  - >= 7065: Windows 8 и по-нови: SCardGetReaderIcon(),\n"
 "    SCardGetDeviceTypeId()"
 
-#: plugins/rdp/rdp_plugin.c:2603
+#: plugins/rdp/rdp_plugin.c:2646
 #, fuzzy
 msgid ""
 "Options for redirection of audio input:\n"
@@ -2318,7 +2573,7 @@ msgstr ""
 "  - sys:oss,dev:1,format:1\n"
 "  - sys:alsa"
 
-#: plugins/rdp/rdp_plugin.c:2612
+#: plugins/rdp/rdp_plugin.c:2655
 #, fuzzy
 msgid ""
 "Options for redirection of audio output:\n"
@@ -2337,7 +2592,7 @@ msgstr ""
 "  - sys:oss,dev:1,format:1\n"
 "  - sys:alsa"
 
-#: plugins/rdp/rdp_plugin.c:2622
+#: plugins/rdp/rdp_plugin.c:2665
 #, fuzzy
 msgid ""
 "Options for redirection of USB device:\n"
@@ -2350,7 +2605,7 @@ msgstr ""
 "  - auto\n"
 "  • id:054c:0268#4669:6e6b,addr:04:0c"
 
-#: plugins/rdp/rdp_plugin.c:2628
+#: plugins/rdp/rdp_plugin.c:2671
 #, fuzzy
 msgid ""
 "Advanced setting for high latency links:\n"
@@ -2361,7 +2616,7 @@ msgstr ""
 "Регулира времето за свързване. Използвайте, ако връзката ви прекъсва.\n"
 "Най-високата възможна стойност е 600000 ms (10 минути).\n"
 
-#: plugins/rdp/rdp_plugin.c:2633
+#: plugins/rdp/rdp_plugin.c:2676
 #, fuzzy
 msgid ""
 "Performance optimisations based on the network connection type:\n"
@@ -2374,7 +2629,7 @@ msgstr ""
 "Ако \"Auto-detect\" (Автоматично откриване) не успее, изберете най-"
 "подходящата опция от списъка.\n"
 
-#: plugins/rdp/rdp_plugin.c:2638
+#: plugins/rdp/rdp_plugin.c:2681
 #, fuzzy
 msgid ""
 "Comma-separated list of monitor IDs and desktop orientations:\n"
@@ -2400,7 +2655,7 @@ msgstr ""
 "  - 270 (обърнат портрет)\n"
 "\n"
 
-#: plugins/rdp/rdp_plugin.c:2650
+#: plugins/rdp/rdp_plugin.c:2693
 #, fuzzy
 msgid ""
 "Redirect directory <path> as named share <name>.\n"
@@ -2421,161 +2676,167 @@ msgstr ""
 "  - hotplug,*\n"
 "\n"
 
-#: plugins/rdp/rdp_plugin.c:2682 plugins/spice/spice_plugin.c:677
+#: plugins/rdp/rdp_plugin.c:2725 plugins/spice/spice_plugin.c:677
 #, fuzzy
 msgid "Share folder"
 msgstr "Папка за споделяне"
 
-#: plugins/rdp/rdp_plugin.c:2682
+#: plugins/rdp/rdp_plugin.c:2725
 #, fuzzy
 msgid "Use “Redirect directory” in the advanced tab for multiple directories"
 msgstr ""
 "Използвайте \"Пренасочване на директория\" в раздела за напреднали за "
 "множество директории"
 
-#: plugins/rdp/rdp_plugin.c:2683
+#: plugins/rdp/rdp_plugin.c:2726
+#, fuzzy
 msgid "Restricted admin mode"
-msgstr ""
+msgstr "Ограничен режим на администриране"
 
-#: plugins/rdp/rdp_plugin.c:2684
+#: plugins/rdp/rdp_plugin.c:2727
 #, fuzzy
 #| msgid "Password"
 msgid "Password hash"
-msgstr "Парола"
+msgstr "Хеш парола"
 
-#: plugins/rdp/rdp_plugin.c:2684
+#: plugins/rdp/rdp_plugin.c:2727
+#, fuzzy
 msgid "Restricted admin mode password hash"
-msgstr ""
+msgstr "Хеш на паролата за режим на ограничен администратор"
 
-#: plugins/rdp/rdp_plugin.c:2685
+#: plugins/rdp/rdp_plugin.c:2728
 #, fuzzy
 msgid "Left-handed mouse support"
 msgstr "Поддръжка на мишка за лява ръка"
 
-#: plugins/rdp/rdp_plugin.c:2685
+#: plugins/rdp/rdp_plugin.c:2728
 #, fuzzy
 msgid "Swap left and right mouse buttons for left-handed mouse support"
 msgstr ""
 "Размяна на левия и десния бутон на мишката за поддръжка на мишка за левичари"
 
-#: plugins/rdp/rdp_plugin.c:2687
+#: plugins/rdp/rdp_plugin.c:2730
 #, fuzzy
 msgid "Enable multi monitor"
 msgstr "Активиране на мултимонитор"
 
-#: plugins/rdp/rdp_plugin.c:2688
+#: plugins/rdp/rdp_plugin.c:2731
 #, fuzzy
 msgid "Span screen over multiple monitors"
 msgstr "Разширяване на екрана върху няколко монитора"
 
-#: plugins/rdp/rdp_plugin.c:2689
+#: plugins/rdp/rdp_plugin.c:2732
 #, fuzzy
 msgid "List monitor IDs"
 msgstr "Списък на идентификаторите на мониторите"
 
-#: plugins/rdp/rdp_plugin.c:2691 plugins/vnc/vnc_plugin.c:1978
+#: plugins/rdp/rdp_plugin.c:2734 plugins/vnc/vnc_plugin.c:1978
 #: plugins/vnc/vnc_plugin.c:1990 plugins/gvnc/gvnc_plugin.c:849
 #, fuzzy
 msgid "Colour depth"
 msgstr "Дълбочина на цвета"
 
-#: plugins/rdp/rdp_plugin.c:2692
+#: plugins/rdp/rdp_plugin.c:2735
 msgid "Network connection type"
 msgstr "Нова връзка"
 
-#: plugins/rdp/rdp_plugin.c:2707 plugins/vnc/vnc_plugin.c:1979
+#: plugins/rdp/rdp_plugin.c:2750 plugins/vnc/vnc_plugin.c:1979
 #: plugins/vnc/vnc_plugin.c:1991
 #, fuzzy
 msgid "Quality"
 msgstr "Качество"
 
-#: plugins/rdp/rdp_plugin.c:2708
+#: plugins/rdp/rdp_plugin.c:2751
 #, fuzzy
 msgid "Security protocol negotiation"
 msgstr "Договаряне на протокола за сигурност"
 
-#: plugins/rdp/rdp_plugin.c:2709
+#: plugins/rdp/rdp_plugin.c:2752
 #, fuzzy
 msgid "Gateway transport type"
 msgstr "Вид на транспорта на шлюза"
 
-#: plugins/rdp/rdp_plugin.c:2710
+#: plugins/rdp/rdp_plugin.c:2753
 #, fuzzy
 msgid "FreeRDP log level"
 msgstr "Ниво на дневника на FreeRDP"
 
-#: plugins/rdp/rdp_plugin.c:2711
+#: plugins/rdp/rdp_plugin.c:2754
 #, fuzzy
 msgid "FreeRDP log filters"
 msgstr "Филтри на дневника на FreeRDP"
 
-#: plugins/rdp/rdp_plugin.c:2711
+#: plugins/rdp/rdp_plugin.c:2754
 #, fuzzy
 msgid "tag:level[,tag:level[,…]]"
 msgstr "tag:level[,tag:level[,...]]"
 
-#: plugins/rdp/rdp_plugin.c:2712
+#: plugins/rdp/rdp_plugin.c:2755
 #, fuzzy
 msgid "Audio output mode"
 msgstr "Режим на аудиоизход"
 
-#: plugins/rdp/rdp_plugin.c:2713
+#: plugins/rdp/rdp_plugin.c:2756
 #, fuzzy
 msgid "Redirect local audio output"
 msgstr "Пренасочване на местния аудио изход"
 
-#: plugins/rdp/rdp_plugin.c:2714
+#: plugins/rdp/rdp_plugin.c:2757
 #, fuzzy
 msgid "Redirect local microphone"
 msgstr "Пренасочване на местен микрофон"
 
-#: plugins/rdp/rdp_plugin.c:2715
+#: plugins/rdp/rdp_plugin.c:2758
 msgid "Connection timeout in ms"
 msgstr "Свързване към „%s“…"
 
-#: plugins/rdp/rdp_plugin.c:2716
+#: plugins/rdp/rdp_plugin.c:2759
 msgid "Remote Desktop Gateway server"
 msgstr "Настройки на отдалечен достъп"
 
-#: plugins/rdp/rdp_plugin.c:2717
+#: plugins/rdp/rdp_plugin.c:2760
 msgid "Remote Desktop Gateway username"
 msgstr "Настройки на отдалечен достъп"
 
-#: plugins/rdp/rdp_plugin.c:2718
+#: plugins/rdp/rdp_plugin.c:2761
 msgid "Remote Desktop Gateway password"
 msgstr "Настройки на отдалечен достъп"
 
-#: plugins/rdp/rdp_plugin.c:2719
+#: plugins/rdp/rdp_plugin.c:2762
 msgid "Remote Desktop Gateway domain"
 msgstr "Настройки на отдалечен достъп"
 
-#: plugins/rdp/rdp_plugin.c:2720
+#: plugins/rdp/rdp_plugin.c:2763
 #, fuzzy
 msgid "Redirect directory"
 msgstr "Пренасочване на директория"
 
-#: plugins/rdp/rdp_plugin.c:2721
+#: plugins/rdp/rdp_plugin.c:2764
 #, fuzzy
 msgid "Client name"
 msgstr "Име на клиента"
 
-#: plugins/rdp/rdp_plugin.c:2722
+#: plugins/rdp/rdp_plugin.c:2765
 #, fuzzy
 msgid "Client build"
 msgstr "Изграждане на клиента"
 
-#: plugins/rdp/rdp_plugin.c:2725
+#: plugins/rdp/rdp_plugin.c:2766
+msgid "Start-up program"
+msgstr "Стартиране на програма при свързване"
+
+#: plugins/rdp/rdp_plugin.c:2768
 #, fuzzy
 msgid "Load balance info"
 msgstr "Информация за баланса на натоварването"
 
 #. TRANSLATORS: Do not use typographic quotation marks, these must stay as "double quote", also know as “Typewriter ("programmer's") quote, ambidextrous.”
-#: plugins/rdp/rdp_plugin.c:2727
+#: plugins/rdp/rdp_plugin.c:2770
 #, fuzzy
 msgid "Override printer drivers"
 msgstr "Отмяна на драйверите на принтера"
 
-#: plugins/rdp/rdp_plugin.c:2727
+#: plugins/rdp/rdp_plugin.c:2770
 #, fuzzy
 msgid ""
 "\"Samsung_CLX-3300_Series\":\"Samsung CLX-3300 Series PS\";\"Canon MF410\":"
@@ -2584,233 +2845,233 @@ msgstr ""
 "\"Samsung_CLX-3300_Series\": \"Samsung CLX-3300 Series PS\"; \"Canon "
 "MF410\": \"Canon MF410 Series UFR II\""
 
-#: plugins/rdp/rdp_plugin.c:2728
+#: plugins/rdp/rdp_plugin.c:2771
 #, fuzzy
 msgid "USB device redirection"
 msgstr "Пренасочване на USB устройство"
 
-#: plugins/rdp/rdp_plugin.c:2729
+#: plugins/rdp/rdp_plugin.c:2772
 #, fuzzy
 msgid "Local serial name"
 msgstr "Местно серийно име"
 
-#: plugins/rdp/rdp_plugin.c:2729
+#: plugins/rdp/rdp_plugin.c:2772
 #, fuzzy
 msgid "COM1, COM2, etc."
 msgstr "COM1, COM2 и т.н."
 
-#: plugins/rdp/rdp_plugin.c:2730
+#: plugins/rdp/rdp_plugin.c:2773
 #, fuzzy
 msgid "Local serial driver"
 msgstr "Местен сериен драйвер"
 
-#: plugins/rdp/rdp_plugin.c:2730
+#: plugins/rdp/rdp_plugin.c:2773
 #, fuzzy
 msgid "Serial"
-msgstr "Сериен №"
+msgstr "Сериен"
 
-#: plugins/rdp/rdp_plugin.c:2731
+#: plugins/rdp/rdp_plugin.c:2774
 #, fuzzy
 msgid "Local serial path"
 msgstr "Местен сериен път"
 
-#: plugins/rdp/rdp_plugin.c:2731
+#: plugins/rdp/rdp_plugin.c:2774
 #, fuzzy
 msgid "/dev/ttyS0, /dev/ttyS1, etc."
 msgstr "/dev/ttyS0, /dev/ttyS1 и т.н."
 
-#: plugins/rdp/rdp_plugin.c:2732
+#: plugins/rdp/rdp_plugin.c:2775
 #, fuzzy
 msgid "Local parallel name"
 msgstr "Местно паралелно име"
 
-#: plugins/rdp/rdp_plugin.c:2733
+#: plugins/rdp/rdp_plugin.c:2776
 #, fuzzy
 msgid "Local parallel device"
 msgstr "Местно паралелно устройство"
 
-#: plugins/rdp/rdp_plugin.c:2734
+#: plugins/rdp/rdp_plugin.c:2777
 #, fuzzy
 msgid "Name of smart card"
 msgstr "Име на смарт картата"
 
-#: plugins/rdp/rdp_plugin.c:2735
+#: plugins/rdp/rdp_plugin.c:2778
 #, fuzzy
 msgid "Dynamic virtual channel"
 msgstr "Динамичен виртуален канал"
 
-#: plugins/rdp/rdp_plugin.c:2735 plugins/rdp/rdp_plugin.c:2736
+#: plugins/rdp/rdp_plugin.c:2778 plugins/rdp/rdp_plugin.c:2779
 #, fuzzy
 msgid "<channel>[,<options>]"
 msgstr "<канал>[,<опции>]"
 
-#: plugins/rdp/rdp_plugin.c:2736
+#: plugins/rdp/rdp_plugin.c:2779
 #, fuzzy
 msgid "Static virtual channel"
 msgstr "Статичен виртуален канал"
 
-#: plugins/rdp/rdp_plugin.c:2737
+#: plugins/rdp/rdp_plugin.c:2780
 #, fuzzy
 #| msgid "Per connection"
 msgid "TCP redirection"
 msgstr "Пренасочване на TCP"
 
-#: plugins/rdp/rdp_plugin.c:2737
+#: plugins/rdp/rdp_plugin.c:2780
 #, fuzzy
 msgid "/PATH/TO/rdp2tcp"
 msgstr "/PATH/TO/rdp2tcp"
 
-#: plugins/rdp/rdp_plugin.c:2739
+#: plugins/rdp/rdp_plugin.c:2782
 #, fuzzy
 msgid "Prefer IPv6 AAAA record over IPv4 A record"
 msgstr "Предпочитане на IPv6 AAAA запис пред IPv4 A запис"
 
-#: plugins/rdp/rdp_plugin.c:2740
+#: plugins/rdp/rdp_plugin.c:2783
 #, fuzzy
 msgid "Share printers"
 msgstr "Споделяне на принтери"
 
-#: plugins/rdp/rdp_plugin.c:2741
+#: plugins/rdp/rdp_plugin.c:2784
 #, fuzzy
 msgid "Share serial ports"
 msgstr "Споделяне на серийни портове"
 
-#: plugins/rdp/rdp_plugin.c:2742
+#: plugins/rdp/rdp_plugin.c:2785
 #, fuzzy
 msgid "(SELinux) permissive mode for serial ports"
 msgstr "(SELinux) разрешителен режим за серийни портове"
 
-#: plugins/rdp/rdp_plugin.c:2743
+#: plugins/rdp/rdp_plugin.c:2786
 #, fuzzy
 msgid "Share parallel ports"
 msgstr "Споделяне на паралелни портове"
 
-#: plugins/rdp/rdp_plugin.c:2744
+#: plugins/rdp/rdp_plugin.c:2787
 #, fuzzy
 msgid "Share a smart card"
 msgstr "Споделяне на смарт карта"
 
-#: plugins/rdp/rdp_plugin.c:2745 plugins/vnc/vnc_plugin.c:2009
+#: plugins/rdp/rdp_plugin.c:2788 plugins/vnc/vnc_plugin.c:2009
 #, fuzzy
 msgid "Turn off clipboard sync"
 msgstr "Изключване на синхронизирането на клипборда"
 
-#: plugins/rdp/rdp_plugin.c:2746
+#: plugins/rdp/rdp_plugin.c:2789
 #, fuzzy
 msgid "Ignore certificate"
 msgstr "Игнориране на сертификат"
 
-#: plugins/rdp/rdp_plugin.c:2747
+#: plugins/rdp/rdp_plugin.c:2790
 #, fuzzy
 msgid "Use the old license workflow"
 msgstr "Използване на стария работен процес на лиценза"
 
-#: plugins/rdp/rdp_plugin.c:2747
+#: plugins/rdp/rdp_plugin.c:2790
 #, fuzzy
 msgid "It disables CAL and hwId is set to 0"
 msgstr "Той деактивира CAL и hwId се настройва на 0"
 
-#: plugins/rdp/rdp_plugin.c:2748 plugins/spice/spice_plugin.c:702
+#: plugins/rdp/rdp_plugin.c:2791 plugins/spice/spice_plugin.c:702
 #: plugins/vnc/vnc_plugin.c:2013 plugins/www/www_plugin.c:919
 #: plugins/gvnc/gvnc_plugin.c:867
 msgid "Forget passwords after use"
 msgstr "%s парола"
 
-#: plugins/rdp/rdp_plugin.c:2749
+#: plugins/rdp/rdp_plugin.c:2792
 #, fuzzy
 msgid "Attach to console (2003/2003 R2)"
 msgstr "Присъединяване към конзола (2003/2003 R2)"
 
-#: plugins/rdp/rdp_plugin.c:2750
+#: plugins/rdp/rdp_plugin.c:2793
 #, fuzzy
 msgid "Turn off fast-path"
 msgstr "Изключване на бързата пътека"
 
-#: plugins/rdp/rdp_plugin.c:2751
+#: plugins/rdp/rdp_plugin.c:2794
 #, fuzzy
 msgid "Server detection using Remote Desktop Gateway"
 msgstr "Откриване на сървъра с помощта на Remote Desktop Gateway"
 
-#: plugins/rdp/rdp_plugin.c:2753
+#: plugins/rdp/rdp_plugin.c:2796
 #, fuzzy
 msgid "Use system proxy settings"
 msgstr "Използване на системните настройки на прокси сървъра"
 
-#: plugins/rdp/rdp_plugin.c:2755
+#: plugins/rdp/rdp_plugin.c:2798
 #, fuzzy
 msgid "Turn off automatic reconnection"
 msgstr "Изключване на автоматичното повторно свързване"
 
-#: plugins/rdp/rdp_plugin.c:2756
+#: plugins/rdp/rdp_plugin.c:2799
 #, fuzzy
 msgid "Relax order checks"
 msgstr "Проверки за облекчаване на поръчките"
 
-#: plugins/rdp/rdp_plugin.c:2757
+#: plugins/rdp/rdp_plugin.c:2800
 #, fuzzy
 msgid "Glyph cache"
 msgstr "Кеш за глифи"
 
-#: plugins/rdp/rdp_plugin.c:2758
+#: plugins/rdp/rdp_plugin.c:2801
 #, fuzzy
 msgid "Enable multitransport protocol (UDP)"
 msgstr "Активиране на мултитранспортен протокол (UDP)"
 
-#: plugins/rdp/rdp_plugin.c:2758
+#: plugins/rdp/rdp_plugin.c:2801
 #, fuzzy
 msgid "Using the UDP protocol may improve performance"
 msgstr "Използването на протокола UDP може да подобри производителността"
 
-#: plugins/rdp/rdp_plugin.c:2759
+#: plugins/rdp/rdp_plugin.c:2802
 #, fuzzy
 msgid "Use base credentials for gateway too"
 msgstr "Използвайте базови пълномощия и за шлюза"
 
-#: plugins/rdp/rdp_plugin.c:2761
+#: plugins/rdp/rdp_plugin.c:2804
 #, fuzzy
 msgid "Enable Gateway websockets support"
 msgstr "Активиране на поддръжката на Gateway websockets"
 
-#: plugins/rdp/rdp_plugin.c:2774 plugins/spice/spice_plugin.c:715
+#: plugins/rdp/rdp_plugin.c:2817 plugins/spice/spice_plugin.c:715
 #: plugins/vnc/vnc_plugin.c:2029
 #, fuzzy
 msgid "Send Ctrl+Alt+Delete"
 msgstr "Изпращане Ctrl+Alt+Delete"
 
-#: plugins/rdp/rdp_plugin.c:2787
+#: plugins/rdp/rdp_plugin.c:2830
 #, fuzzy
 msgid "RDP - Remote Desktop Protocol"
 msgstr "RDP - Протокол за отдалечен работен плот"
 
-#: plugins/rdp/rdp_plugin.c:2812
+#: plugins/rdp/rdp_plugin.c:2855
 #, fuzzy
 msgid "RDP - RDP File Handler"
 msgstr "RDP - Обработчик на файлове RDP"
 
-#: plugins/rdp/rdp_plugin.c:2827
+#: plugins/rdp/rdp_plugin.c:2870
 #, fuzzy
 msgid "RDP - Preferences"
 msgstr "RDP - Предпочитания"
 
-#: plugins/rdp/rdp_plugin.c:2880
+#: plugins/rdp/rdp_plugin.c:2923
 #, fuzzy
 msgid "Export connection in Windows .rdp file format"
 msgstr "Експортиране на връзка в Windows .rdp файлов формат"
 
 #: plugins/rdp/rdp_event.c:344
-#, c-format
+#, fuzzy, c-format
 msgid "Reconnection attempt %d of %d…"
 msgstr "Повторен опит за свързване %d от %d…"
 
 #: plugins/spice/spice_plugin_file_transfer.c:82
 #, fuzzy
 msgid "File Transfers"
-msgstr "Трансфери на файлове"
+msgstr "Прехвърляне на Файл"
 
 #: plugins/spice/spice_plugin_file_transfer.c:219
 #, fuzzy
 msgid "Transfer error"
-msgstr "Грешка при прехвърлянето"
+msgstr "Грешка при прехвърляне"
 
 #: plugins/spice/spice_plugin_file_transfer.c:220
 #, fuzzy, c-format
@@ -2847,8 +3108,9 @@ msgid "Connection to the SPICE server dropped."
 msgstr "Връзката със сървъра SPICE е прекъсната."
 
 #: plugins/spice/spice_plugin.c:616 plugins/spice/spice_plugin.c:634
+#, fuzzy
 msgid "Default"
-msgstr "Стандартно"
+msgstr "Подразбиращ се"
 
 #: plugins/spice/spice_plugin.c:636
 #, fuzzy
@@ -2912,7 +3174,7 @@ msgstr "Споделяне на смарт карта"
 #: plugins/gvnc/gvnc_plugin.c:870 plugins/gvnc/gvnc_plugin.c:879
 #, fuzzy
 msgid "View only"
-msgstr "Само показване"
+msgstr "Преглед само"
 
 #: plugins/spice/spice_plugin.c:716 plugins/spice/spice_plugin_usb.c:51
 #, fuzzy
@@ -2951,7 +3213,7 @@ msgstr "Невъзможност за свързване с VNC сървър"
 #: plugins/vnc/vnc_plugin.c:937
 #, fuzzy, c-format
 msgid "Couldn’t convert '%s' to host address"
-msgstr "Не можах да преобразувам '%s' в адрес на хост"
+msgstr "Не можа да конвертира '%s' в адрес на хост"
 
 #: plugins/vnc/vnc_plugin.c:938
 #, fuzzy, c-format
@@ -2995,6 +3257,7 @@ msgstr ""
 "    x11vnc -connect repeater=ID:123456789+10.10.10.12:5500"
 
 #: plugins/vnc/vnc_plugin.c:1948
+#, fuzzy
 msgid ""
 "Listening for remote VNC connection:\n"
 "  • The \"Listen on port\" field is the port Remmina will listen to,\n"
@@ -3003,6 +3266,12 @@ msgid ""
 "    Remmina, e.g. with x11vnc:\n"
 "    x11vnc -display :0 -connect 192.168.1.36:8888"
 msgstr ""
+"Слушане за отдалечена VNC връзка:\n"
+"  - Полето \"Listen on port\" е портът, на който Remmina ще слуша,\n"
+"    напр. 8888\n"
+"  - От отдалечения VNC сървър ще се свържете към\n"
+"    Remmina, напр. с x11vnc:\n"
+"    x11vnc -display :0 -connect 192.168.1.36:8888"
 
 #: plugins/vnc/vnc_plugin.c:1975
 #, fuzzy
@@ -3055,6 +3324,7 @@ msgid "Remmina web-browser plugin"
 msgstr "Плъгин за уеб браузъра Remmina"
 
 #: plugins/www/www_plugin.c:98
+#, fuzzy
 msgid "File downloaded"
 msgstr "Файлът е изтеглен"
 
@@ -3089,10 +3359,12 @@ msgid "E.g. https://example.org, socks://mysocks:1080"
 msgstr "Например https://example.org, socks://mysocks:1080"
 
 #: plugins/www/www_plugin.c:912
+#, fuzzy
 msgid "Turn on Java support"
 msgstr "Включване на Java поддръжка"
 
 #: plugins/www/www_plugin.c:913
+#, fuzzy
 msgid "Turn on smooth scrolling"
 msgstr "Включване на плавно скролиране"
 
@@ -3102,6 +3374,7 @@ msgid "Turn on spatial navigation"
 msgstr "Включване на пространствената навигация"
 
 #: plugins/www/www_plugin.c:915
+#, fuzzy
 msgid "Turn on plugin support"
 msgstr "Включване на поддръжка за приставки(plugins)"
 
@@ -3126,10 +3399,12 @@ msgid "Turn on Web Inspector"
 msgstr "Включване на Web Inspector"
 
 #: plugins/exec/exec_plugin.c:160
+#, fuzzy
 msgid "You did not set any command to be executed"
 msgstr "Не сте задали команда за изпълнение"
 
 #: plugins/exec/exec_plugin.c:206
+#, fuzzy
 msgid ""
 "Warning: Running a command synchronously may cause Remmina not to respond.\n"
 "Do you really want to continue?"
@@ -3139,6 +3414,7 @@ msgstr ""
 "Наистина ли искате да продължите?"
 
 #: plugins/exec/exec_plugin.c:274
+#, fuzzy
 msgid "Command"
 msgstr "Команда"
 
@@ -3148,6 +3424,7 @@ msgid "Asynchronous execution"
 msgstr "Асинхронно изпълнение"
 
 #: plugins/exec/exec_plugin_config.h:41
+#, fuzzy
 msgid "Execute a command"
 msgstr "Изпълнение на команда"
 
@@ -3160,298 +3437,669 @@ msgstr "Hello, World!"
 msgid "Secured password storage in the GNOME keyring"
 msgstr "%s парола"
 
-#: plugins/x2go/x2go_plugin.c:275
+#: plugins/x2go/x2go_plugin.c:67
+#, fuzzy, c-format
+msgid ""
+"The command-line feature '%s' is not available! Attempting to start PyHoca-"
+"CLI without using this feature…"
+msgstr ""
+"Функцията на командния ред '%s' не е налична! Опитвате се да стартирате "
+"PyHoca-CLI, без да използвате тази функция…"
+
+#: plugins/x2go/x2go_plugin.c:287 plugins/x2go/x2go_plugin.c:419
+#: plugins/x2go/x2go_plugin.c:478 plugins/x2go/x2go_plugin.c:581
+#: plugins/x2go/x2go_plugin.c:656 plugins/x2go/x2go_plugin.c:668
+#: plugins/x2go/x2go_plugin.c:676 plugins/x2go/x2go_plugin.c:699
+#: plugins/x2go/x2go_plugin.c:708 plugins/x2go/x2go_plugin.c:724
+#: plugins/x2go/x2go_plugin.c:763 plugins/x2go/x2go_plugin.c:775
+#: plugins/x2go/x2go_plugin.c:806 plugins/x2go/x2go_plugin.c:817
+#: plugins/x2go/x2go_plugin.c:825 plugins/x2go/x2go_plugin.c:939
+#: plugins/x2go/x2go_plugin.c:966 plugins/x2go/x2go_plugin.c:980
+#: plugins/x2go/x2go_plugin.c:1077 plugins/x2go/x2go_plugin.c:1141
+#: plugins/x2go/x2go_plugin.c:1445 plugins/x2go/x2go_plugin.c:1479
+#: plugins/x2go/x2go_plugin.c:1575 plugins/x2go/x2go_plugin.c:1869
+#: plugins/x2go/x2go_plugin.c:2669 plugins/x2go/x2go_plugin.c:2882
+#: plugins/x2go/x2go_plugin.c:2887 plugins/x2go/x2go_plugin.c:2892
+#: plugins/x2go/x2go_plugin.c:2897 plugins/x2go/x2go_plugin.c:2912
+#: plugins/x2go/x2go_plugin.c:2917 plugins/x2go/x2go_plugin.c:2922
+#: plugins/x2go/x2go_plugin.c:2927
+#, fuzzy, c-format
+msgid "Internal error: %s"
+msgstr "Вътрешна грешка: %s"
+
+#: plugins/x2go/x2go_plugin.c:288 plugins/x2go/x2go_plugin.c:420
+#: plugins/x2go/x2go_plugin.c:479 plugins/x2go/x2go_plugin.c:1078
+#, fuzzy
+msgid "Parameter 'custom_data' is not initialized!"
+msgstr "Параметърът 'default_username' е неинициализиран."
+
+#: plugins/x2go/x2go_plugin.c:301
+#, fuzzy
 msgid "Broken `DialogData`! Aborting…"
-msgstr ""
+msgstr "Счупен `DialogData`! Прекъсване…"
 
-#: plugins/x2go/x2go_plugin.c:279
+#: plugins/x2go/x2go_plugin.c:305
+#, fuzzy
 msgid "Can't retrieve `DialogData`! Aborting…"
+msgstr "Не мога да извлека `DialogData`! Прекъсване…"
+
+#: plugins/x2go/x2go_plugin.c:488
+#, fuzzy
+msgid "Couldn't retrieve valid `DialogData` or `sessions_list`! Aborting…"
+msgstr ""
+"Не може да се извлече валиден `DialogData` или `sessions_list`! Прекъсване…"
+
+#. TRANSLATORS: Stick to x2goclient's translation for terminate.
+#: plugins/x2go/x2go_plugin.c:497
+#, fuzzy
+msgid "_Terminate"
+msgstr "Terminal"
+
+#. TRANSLATORS: Stick to x2goclient's translation for resume.
+#: plugins/x2go/x2go_plugin.c:500
+#, fuzzy
+#| msgid "Resume"
+msgid "_Resume"
+msgstr "_Подновяване"
+
+#: plugins/x2go/x2go_plugin.c:502
+#, fuzzy
+msgid "_New"
+msgstr "_Нов"
+
+#. TRANSLATORS: Tooltip for terminating button inside Session-Chooser-Dialog.
+#. TRANSLATORS: Please stick to X2GoClient's way of translating.
+#: plugins/x2go/x2go_plugin.c:511
+msgid "Terminating X2Go sessions can take a moment."
 msgstr ""
 
-#: plugins/x2go/x2go_plugin.c:505
+#: plugins/x2go/x2go_plugin.c:568
+#, fuzzy
+msgid "X Display"
+msgstr "Показване"
+
+#: plugins/x2go/x2go_plugin.c:569
+#, fuzzy
+msgid "Status"
+msgstr "Статус"
+
+#: plugins/x2go/x2go_plugin.c:570
+#, fuzzy
+#| msgid "Permission"
+msgid "Session ID"
+msgstr "Идентификатор на сесията"
+
+#: plugins/x2go/x2go_plugin.c:571
+#, fuzzy
+msgid "Create date"
+msgstr "Дата на създаване"
+
+#: plugins/x2go/x2go_plugin.c:572
+#, fuzzy
+msgid "Suspended since"
+msgstr "Временно преустановена от"
+
+#: plugins/x2go/x2go_plugin.c:573
+#, fuzzy
+msgid "Agent PID"
+msgstr "PID на агента"
+
+#: plugins/x2go/x2go_plugin.c:575
+#, fuzzy
+#| msgid "Username"
+msgid "Hostname"
+msgstr "Име на хоста"
+
+#: plugins/x2go/x2go_plugin.c:576
+#, fuzzy
+msgid "Cookie"
+msgstr "Бисквитки"
+
+#: plugins/x2go/x2go_plugin.c:577
+#, fuzzy
+msgid "Graphic port"
+msgstr "Графичен порт"
+
+#: plugins/x2go/x2go_plugin.c:578
+#, fuzzy
+msgid "SND port"
+msgstr "SND порт"
+
+#: plugins/x2go/x2go_plugin.c:579
+#, fuzzy
+msgid "SSHFS port"
+msgstr "SSHFS порт"
+
+#: plugins/x2go/x2go_plugin.c:582
+#, fuzzy
+msgid "Unknown property"
+msgstr "Неизвестна собственост"
+
+#: plugins/x2go/x2go_plugin.c:657 plugins/x2go/x2go_plugin.c:700
+#, fuzzy
+msgid "Couldn't find child GtkTreeView of session chooser dialog."
+msgstr ""
+"Не можах да намеря дъщерно GtkTreeView на диалогов прозорец за избор на "
+"сесия."
+
+#: plugins/x2go/x2go_plugin.c:669
+#, fuzzy
+msgid "Both parameters 'dialog' and 'treeview' are uninitialized!"
+msgstr "параметърът 'env' е невалиден или неинициализиран."
+
+#: plugins/x2go/x2go_plugin.c:677
+msgid ""
+"GtkTreeModel of session chooser dialog could not be obtained for an unknown "
+"reason."
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:709
+#, fuzzy
+msgid "Couldn't get currently selected row (session)!"
+msgstr "Не можах да получа ID на сесията от избрания ред."
+
+#: plugins/x2go/x2go_plugin.c:725
+#, fuzzy, c-format
+msgid ""
+"Exactly one session should be selectable but '%i' rows (sessions) are "
+"selected."
+msgstr "трябва да може да се избере само една сесия."
+
+#: plugins/x2go/x2go_plugin.c:764
+#, fuzzy
+msgid "Failed to fill 'GtkTreeIter'."
+msgstr "Неуспешно попълване на 'GtkTreeIter'."
+
+#: plugins/x2go/x2go_plugin.c:776
+#, fuzzy, c-format
+msgid "Couldn't get property with index '%i' out of selected row."
+msgstr "Не можах да получа ID на сесията от избрания ред."
+
+#: plugins/x2go/x2go_plugin.c:807
+#, fuzzy
+msgid "parameter 'argv' is 'NULL'."
+msgstr "параметърът 'argv' е 'NULL'."
+
+#: plugins/x2go/x2go_plugin.c:818
+#, fuzzy
+msgid "parameter 'error' is 'NULL'."
+msgstr "параметърът 'error' е 'NULL'."
+
+#: plugins/x2go/x2go_plugin.c:826
+#, fuzzy
+msgid "parameter 'env' is either invalid or uninitialized."
+msgstr "параметърът 'env' е невалиден или неинициализиран."
+
+#: plugins/x2go/x2go_plugin.c:842 plugins/x2go/x2go_plugin.c:2170
+#, fuzzy
+msgid "Started PyHoca-CLI with the following arguments:"
+msgstr "Стартирайте PyHoca-CLI със следните аргументи:"
+
+#: plugins/x2go/x2go_plugin.c:870
+#, fuzzy
+msgid ""
+"The necessary PyHoca-CLI process has encountered a internet connection "
+"problem."
+msgstr "Необходимият процес PyHoca-CLI е срещнал проблем с интернет връзката."
+
+#: plugins/x2go/x2go_plugin.c:880
+#, fuzzy
+msgid "An unknown error occured while trying to start PyHoca-CLI."
+msgstr "При опит за стартиране на PyHoca-CLI е възникнала неизвестна грешка."
+
+#: plugins/x2go/x2go_plugin.c:890
+#, fuzzy, c-format
+msgid ""
+"An unknown error occured while trying to start PyHoca-CLI. Exit code: %i"
+msgstr ""
+"При опит за стартиране на PyHoca-CLI е възникнала неизвестна грешка. Код на "
+"изхода: %i"
+
+#: plugins/x2go/x2go_plugin.c:897
+#, fuzzy, c-format
+msgid ""
+"An unknown error occured while trying to start PyHoca-CLI. Exit code: %i. "
+"Error: '%s'"
+msgstr ""
+"При опит за стартиране на PyHoca-CLI е възникнала неизвестна грешка. Код на "
+"изхода: %i. Грешка: \"%s"
+
+#: plugins/x2go/x2go_plugin.c:940
+#, fuzzy
+msgid "Parameter 'custom_data' is not fully initialized!"
+msgstr "Параметърът 'default_username' е неинициализиран."
+
+#: plugins/x2go/x2go_plugin.c:967 plugins/x2go/x2go_plugin.c:1576
+#: plugins/x2go/x2go_plugin.c:1870
+#, fuzzy
+#| msgid "Per connection"
+msgid "'Invalid connection data.'"
+msgstr "'Невалидни данни за връзката.'"
+
+#: plugins/x2go/x2go_plugin.c:981
+#, fuzzy
+msgid "Parameter 'session_id' is not initialized!"
+msgstr "Параметърът 'default_username' е неинициализиран."
+
+#: plugins/x2go/x2go_plugin.c:1047
+#, fuzzy, c-format
+msgid "An error occured while trying to terminate a X2Go session: %s"
+msgstr "При стартирането на сесия на X2Go е възникнала грешка…"
+
+#: plugins/x2go/x2go_plugin.c:1094 plugins/x2go/x2go_plugin.c:1118
+#, fuzzy
+msgid "Couldn't get session ID from session chooser dialog."
+msgstr ""
+"Не можах да получа ID на сесията от диалоговия прозорец за избор на сесия."
+
+#: plugins/x2go/x2go_plugin.c:1101
+#, fuzzy, c-format
+msgid "Resuming session: '%s'"
+msgstr "Възобновяване на сесията: '%s'"
+
+#: plugins/x2go/x2go_plugin.c:1125
+#, fuzzy, c-format
+msgid "Terminating session: '%s'"
+msgstr "Възобновяване на сесията: '%s'"
+
+#: plugins/x2go/x2go_plugin.c:1142
+msgid "GtkTreePath 'path' describes a non-existing row!"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:1380
+#, fuzzy
 msgid "PyHoca-CLI exited unexpectedly. This connection will now be closed."
-msgstr ""
+msgstr "PyHoca-CLI излезе неочаквано. Сега тази връзка ще бъде затворена."
 
-#: plugins/x2go/x2go_plugin.c:514
+#: plugins/x2go/x2go_plugin.c:1388
+#, fuzzy
 msgid "An error occured."
-msgstr ""
+msgstr "Възникна грешка."
 
-#: plugins/x2go/x2go_plugin.c:515
+#: plugins/x2go/x2go_plugin.c:1389
+#, fuzzy
 msgid ""
 "The necessary child process 'pyhoca-cli' stopped unexpectedly.\n"
 "Please check your profile settings and PyHoca-CLI's output for possible "
 "errors. Also ensure the remote server is reachable."
 msgstr ""
+"Необходимият подчинен процес 'pyhoca-cli' спря неочаквано.\n"
+"Моля, проверете настройките на профила си и изхода на PyHoca-CLI за възможни "
+"грешки. Също така се уверете, че отдалеченият сървър е достъпен."
 
-#: plugins/x2go/x2go_plugin.c:561
-msgid "Started PyHoca-CLI with the following arguments:"
-msgstr ""
-
-#: plugins/x2go/x2go_plugin.c:580
-#, c-format
-msgid "Could not retrieve PyHoca-CLI's command-line features! Exit code: %i"
-msgstr ""
-
-#: plugins/x2go/x2go_plugin.c:585
-#, fuzzy, c-format
-#| msgid "Error: %s"
-msgid "Error: '%s'"
-msgstr "Грешка: %s"
-
-#: plugins/x2go/x2go_plugin.c:609
+#: plugins/x2go/x2go_plugin.c:1432
+#, fuzzy
 msgid "Can't save empty username!"
-msgstr ""
+msgstr "Не мога да запазя празно потребителско име!"
 
-#: plugins/x2go/x2go_plugin.c:621
-msgid "Internal error: Could not save new credentials."
-msgstr ""
+#: plugins/x2go/x2go_plugin.c:1446
+#, fuzzy
+msgid "Could not save new credentials."
+msgstr "Не можах да запиша нови пълномощия."
 
-#: plugins/x2go/x2go_plugin.c:623
+#: plugins/x2go/x2go_plugin.c:1449
+#, fuzzy
 msgid ""
 "An error occured while trying to save new credentials: 's_password' or "
 "'s_username' strings were not set."
 msgstr ""
+"При опит за запазване на нови пълномощия възникна грешка: низовете "
+"'s_password' или 's_username' не са зададени."
 
-#: plugins/x2go/x2go_plugin.c:659
+#: plugins/x2go/x2go_plugin.c:1480
+#, fuzzy
+msgid "Parameter 'default_username' is uninitialized."
+msgstr "Параметърът 'default_username' е неинициализиран."
+
+#: plugins/x2go/x2go_plugin.c:1509
 #, fuzzy
 msgid "Enter X2Go credentials"
-msgstr "Въведете идентификационните данни за удостоверяване на RDP"
+msgstr "Въведете идентификационните данни на X2Go"
 
-#: plugins/x2go/x2go_plugin.c:818
+#: plugins/x2go/x2go_plugin.c:1706
+#, fuzzy
+msgid ""
+"Couldn't parse the output of PyHoca-CLI's --list-sessions option. Creating a "
+"new session now."
+msgstr ""
+"Не можа да анализира изхода на опцията --list-sessions на PyHoca-CLI. "
+"Създаване на нова сесия сега."
+
+#: plugins/x2go/x2go_plugin.c:1745
+#, fuzzy
+msgid "Couldn't allocate enough memory!"
+msgstr "Не може да се задели достатъчно памет!"
+
+#: plugins/x2go/x2go_plugin.c:1755
+#, fuzzy, c-format
+msgid "Found already existing X2Go session with ID: '%s'"
+msgstr "Намерена е вече съществуваща сесия на X2Go с ID: '%s'"
+
+#. TRANSLATORS: Please stick to X2GoClient's translation.
+#: plugins/x2go/x2go_plugin.c:1798
+#, fuzzy
+msgid "Suspended"
+msgstr "Временно преустановена от"
+
+#. TRANSLATORS: Please stick to X2GoClient's translation.
+#: plugins/x2go/x2go_plugin.c:1801
+msgid "Running"
+msgstr ""
+
+#. TRANSLATORS: Please stick to X2GoClient's translation.
+#: plugins/x2go/x2go_plugin.c:1804
+#, fuzzy
+msgid "Terminated"
+msgstr "Прекратен"
+
+#: plugins/x2go/x2go_plugin.c:1837
+#, fuzzy
+msgid ""
+"Could not find any sessions on remote machine. Creating a new session now."
+msgstr ""
+"Не можа да намери никакви сесии на отдалечената машина. Създава се нова "
+"сесия сега."
+
+#: plugins/x2go/x2go_plugin.c:1892
+#, fuzzy
+#| msgid "Choose a file to upload"
+msgid "Choose a session to resume:"
+msgstr "Изберете сесия, която да възобновите:"
+
+#: plugins/x2go/x2go_plugin.c:1935
+#, fuzzy
+msgid "Waiting for user to select a session…"
+msgstr "Изчаква се потребителят да избере сесия…"
+
+#: plugins/x2go/x2go_plugin.c:1943
+#, fuzzy
+msgid "No session was selected. Creating a new one."
+msgstr "Не е избрана сесия. Създаване на нова."
+
+#: plugins/x2go/x2go_plugin.c:1991
+#, fuzzy, c-format
+msgid "A non-critical error happened: %s"
+msgstr "Случи се некритична грешка: %s"
+
+#: plugins/x2go/x2go_plugin.c:1996
+#, fuzzy, c-format
+msgid "User chose to resume session with ID: '%s'"
+msgstr "Потребителят е избрал да възобнови сесията с ID: \"%s"
+
+#. TRANSLATORS: Please stick to X2GoClient's way of translating.
+#: plugins/x2go/x2go_plugin.c:2017
+#, fuzzy, c-format
+msgid "Resuming session '%s'…"
+msgstr "Възобновяване на сесията \"%s\"…"
+
+#: plugins/x2go/x2go_plugin.c:2148
+#, fuzzy
 msgid "DPI setting is out of bounds. Please adjust it in profile settings."
 msgstr ""
+"Настройката на DPI е извън границите. Моля, коригирайте я в настройките на "
+"профила."
 
-#: plugins/x2go/x2go_plugin.c:838
-msgid "Started pyhoca-cli with following arguments:"
-msgstr ""
-
-#: plugins/x2go/x2go_plugin.c:858
+#: plugins/x2go/x2go_plugin.c:2190
+#, fuzzy
 msgid "An error occured while starting an X2Go session…"
-msgstr ""
+msgstr "При стартирането на сесия на X2Go е възникнала грешка…"
 
-#: plugins/x2go/x2go_plugin.c:867
+#: plugins/x2go/x2go_plugin.c:2198
 #, fuzzy
 #| msgid "Could not start SSH session. %s"
 msgid "Could not start X2Go session."
-msgstr "Стартирането на SSH сесия не успя: %s"
+msgstr "Не можа да стартира сесия на X2Go."
 
-#: plugins/x2go/x2go_plugin.c:868
+#: plugins/x2go/x2go_plugin.c:2199
 #, fuzzy, c-format
 #| msgid "Could not start SSH session. %s"
 msgid "Could not start PyHoca-CLI (%i): '%s'"
-msgstr "Стартирането на SSH сесия не успя: %s"
+msgstr "Не може да се стартира PyHoca-CLI (%i): '%s'"
 
-#: plugins/x2go/x2go_plugin.c:945
+#: plugins/x2go/x2go_plugin.c:2314
+#, fuzzy
 msgid ""
 "Couldn't get PyHoca-CLI's command-line features. This indicates it is either "
 "too old, or not installed. An old limited set of features will be used for "
 "now."
 msgstr ""
+"Не успяхте да използвате функциите на командния ред на PyHoca-CLI. Това "
+"означава, че или е твърде стара, или не е инсталирана. Засега ще се използва "
+"стар ограничен набор от функции."
 
-#: plugins/x2go/x2go_plugin.c:956
+#: plugins/x2go/x2go_plugin.c:2323
+#, fuzzy
 msgid ""
 "Could not parse PyHoca-CLI's command-line features. Using a limited feature-"
 "set for now."
 msgstr ""
+"Не може да анализира функциите на командния ред на PyHoca-CLI. Засега се "
+"използва ограничен набор от функции."
 
-#: plugins/x2go/x2go_plugin.c:962
+#: plugins/x2go/x2go_plugin.c:2329
+#, fuzzy
 msgid "Retrieved the following PyHoca-CLI command-line features:"
-msgstr ""
+msgstr "Извлечени са следните функции на командния ред на PyHoca-CLI:"
 
-#: plugins/x2go/x2go_plugin.c:967
-#, c-format
+#: plugins/x2go/x2go_plugin.c:2337
+#, fuzzy, c-format
 msgid "Available feature[%i]: '%s'"
-msgstr ""
+msgstr "Налична функция[%i]: '%s'"
 
-#: plugins/x2go/x2go_plugin.c:1072
+#: plugins/x2go/x2go_plugin.c:2442
 #, fuzzy
 #| msgid "Could not open channel. %s"
 msgid "Could not open X11 DISPLAY."
-msgstr "Създаването на SFTP сесия не успя: %s"
+msgstr "Не може да се отвори X11 DISPLAY."
 
-#: plugins/x2go/x2go_plugin.c:1112
-msgid "Waiting for window of X2Go Agent to appear…"
-msgstr ""
-
-#: plugins/x2go/x2go_plugin.c:1138
-msgid "Waiting for PyHoca-CLI to show the session's window…"
-msgstr ""
-
-#: plugins/x2go/x2go_plugin.c:1189
-msgid "No X2Go session window appeared. Something went wrong…"
-msgstr ""
-
-#: plugins/x2go/x2go_plugin.c:1298
-msgid "Internal error: RemminaProtocolWidget* gp is NULL!"
-msgstr ""
-
-#: plugins/x2go/x2go_plugin.c:1319
-#, c-format
-msgid "The %s protocol is unavailable because GtkSocket only works under X.org"
-msgstr ""
-
-#: plugins/x2go/x2go_plugin.c:1327
-msgid "Could not initialize pthread. Falling back to non-threaded mode…"
-msgstr ""
-
-#. TRANSLATORS: Presumably you just want to translate 'and' into
-#. your language.
-#. (Except your listing-grammar differs from english.)
-#. 'value1', 'value2', 'valueN-1' and 'valueN'
-#. TRANSLATORS: Presumably you just want to translate 'and' into
-#. your language.
-#. (Except your listing-grammar differs from english.)
-#. 'value1' and 'value2'
-#: plugins/x2go/x2go_plugin.c:1370 plugins/x2go/x2go_plugin.c:1388
-#, c-format
-msgid "%sand '%s'"
-msgstr ""
-
-#. TRANSLATORS: Presumably you just want to leave it english.
-#. (Except your listing-grammar differs from english.)
-#. 'value1', 'value2', 'valueN-1' and 'valueN'
-#. TRANSLATORS: Presumably you just want to leave it english.
-#. (Except your listing-grammar differs from english.)
-#. 'value1' and 'value2'
-#: plugins/x2go/x2go_plugin.c:1375 plugins/x2go/x2go_plugin.c:1393
-#, c-format
-msgid "%s'%s' "
-msgstr ""
-
-#. TRANSLATORS: Presumably you just want to leave it english.
-#. (Except your listing-grammar differs from english.)
-#. 'value1', 'value2', 'valueN-1' and 'valueN'
-#: plugins/x2go/x2go_plugin.c:1380
-#, c-format
-msgid "%s'%s', "
-msgstr ""
-
-#: plugins/x2go/x2go_plugin.c:1418
-msgid "Invalid validation data in ProtocolSettings array!"
-msgstr ""
-
-#: plugins/x2go/x2go_plugin.c:1430 plugins/x2go/x2go_plugin.c:1492
-msgid "Validation data in ProtocolSettings array is invalid!"
-msgstr ""
-
-#: plugins/x2go/x2go_plugin.c:1457
-#, c-format
-msgid "Allowed values are %s."
-msgstr ""
-
-#: plugins/x2go/x2go_plugin.c:1459
-#, c-format
-msgid "The only allowed value is '%s'."
-msgstr ""
-
-#: plugins/x2go/x2go_plugin.c:1501
-msgid "The lower limit is not a valid integer!"
-msgstr ""
-
-#: plugins/x2go/x2go_plugin.c:1503
-msgid "The lower limit is too high!"
-msgstr ""
-
-#: plugins/x2go/x2go_plugin.c:1505
-msgid "The lower limit is too low!"
-msgstr ""
-
-#: plugins/x2go/x2go_plugin.c:1507 plugins/x2go/x2go_plugin.c:1533
-#: plugins/x2go/x2go_plugin.c:1552
-msgid "Something went wrong."
-msgstr ""
-
-#: plugins/x2go/x2go_plugin.c:1511 plugins/x2go/x2go_plugin.c:1537
-#: plugins/x2go/x2go_plugin.c:1556
-msgid "Please check the RemminaProtocolSetting array for possible errors."
-msgstr ""
-
-#: plugins/x2go/x2go_plugin.c:1520 plugins/x2go/x2go_plugin.c:1524
-#: plugins/x2go/x2go_plugin.c:1528 plugins/x2go/x2go_plugin.c:1532
+#: plugins/x2go/x2go_plugin.c:2482
 #, fuzzy
-msgid "Internal error: "
-msgstr "Грешка при прехвърлянето"
+msgid "Waiting for window of X2Go Agent to appear…"
+msgstr "Изчаквам да се появи прозорецът на X2Go Agent…"
 
-#: plugins/x2go/x2go_plugin.c:1521
+#: plugins/x2go/x2go_plugin.c:2508
+#, fuzzy
+msgid "Waiting for PyHoca-CLI to show the session's window…"
+msgstr "Изчакваме PyHoca-CLI да покаже прозореца на сесията…"
+
+#: plugins/x2go/x2go_plugin.c:2559
+#, fuzzy
+msgid "No X2Go session window appeared. Something went wrong…"
+msgstr "Не се появи прозорец на сесията X2Go. Нещо се е объркало…"
+
+#: plugins/x2go/x2go_plugin.c:2670
+#, fuzzy
+msgid "RemminaProtocolWidget* gp is 'NULL'!"
+msgstr "RemminaProtocolWidget* gp е 'NULL'!"
+
+#: plugins/x2go/x2go_plugin.c:2691
+#, fuzzy, c-format
+msgid "The %s protocol is unavailable because GtkSocket only works under X.org"
+msgstr "Протоколът %s не е наличен, защото GtkSocket работи само под X.org"
+
+#: plugins/x2go/x2go_plugin.c:2700
+#, fuzzy
+msgid "Could not initialize pthread. Falling back to non-threaded mode…"
+msgstr "Не можа да инициализира pthread. Връщаме се към режим без нишки…"
+
+#. TRANSLATORS: Presumably you just want to translate 'and' into
+#. your language.
+#. (Except your listing-grammar differs from english.)
+#. 'value1', 'value2', 'valueN-1' and 'valueN'
+#. TRANSLATORS: Presumably you just want to translate 'and' into
+#. your language.
+#. (Except your listing-grammar differs from english.)
+#. 'value1' and 'value2'
+#: plugins/x2go/x2go_plugin.c:2743 plugins/x2go/x2go_plugin.c:2761
+#, fuzzy, c-format
+msgid "%sand '%s'"
+msgstr "%sи \"%s"
+
+#. TRANSLATORS: Presumably you just want to leave it english.
+#. (Except your listing-grammar differs from english.)
+#. 'value1', 'value2', 'valueN-1' and 'valueN'
+#. TRANSLATORS: Presumably you just want to leave it english.
+#. (Except your listing-grammar differs from english.)
+#. 'value1' and 'value2'
+#: plugins/x2go/x2go_plugin.c:2748 plugins/x2go/x2go_plugin.c:2766
+#, fuzzy, c-format
+msgid "%s'%s' "
+msgstr "%s'%s' "
+
+#. TRANSLATORS: Presumably you just want to leave it english.
+#. (Except your listing-grammar differs from english.)
+#. 'value1', 'value2', 'valueN-1' and 'valueN'
+#: plugins/x2go/x2go_plugin.c:2753
+#, fuzzy, c-format
+msgid "%s'%s', "
+msgstr "%s'%s', "
+
+#: plugins/x2go/x2go_plugin.c:2792
+#, fuzzy
+msgid "Invalid validation data in ProtocolSettings array!"
+msgstr "Невалидни данни за валидиране в масива ProtocolSettings!"
+
+#: plugins/x2go/x2go_plugin.c:2807 plugins/x2go/x2go_plugin.c:2872
+#, fuzzy
+msgid "Validation data in ProtocolSettings array is invalid!"
+msgstr "Данните за валидиране в масива ProtocolSettings са невалидни!"
+
+#: plugins/x2go/x2go_plugin.c:2816
+#, fuzzy
+msgid "Parameters 'key' or 'value' are 'NULL'!"
+msgstr "Параметрите 'key' или 'value' са 'NULL'!"
+
+#: plugins/x2go/x2go_plugin.c:2834
+#, fuzzy, c-format
+msgid "Allowed values are %s."
+msgstr "Позволените стойности са %s."
+
+#: plugins/x2go/x2go_plugin.c:2836
+#, fuzzy, c-format
+msgid "The only allowed value is '%s'."
+msgstr "Единствената разрешена стойност е \"%s\"."
+
+#: plugins/x2go/x2go_plugin.c:2883
+#, fuzzy
+msgid "The lower limit is not a valid integer!"
+msgstr "Долната граница не е валидно цяло число!"
+
+#: plugins/x2go/x2go_plugin.c:2888
+#, fuzzy
+msgid "The lower limit is too high!"
+msgstr "Долната граница е твърде висока!"
+
+#: plugins/x2go/x2go_plugin.c:2893
+#, fuzzy
+msgid "The lower limit is too low!"
+msgstr "Долната граница е твърде ниска!"
+
+#: plugins/x2go/x2go_plugin.c:2898 plugins/x2go/x2go_plugin.c:2928
+#: plugins/x2go/x2go_plugin.c:2948
+#, fuzzy
+msgid "Something unknown went wrong."
+msgstr "Нещо неизвестно се е объркало."
+
+#: plugins/x2go/x2go_plugin.c:2903 plugins/x2go/x2go_plugin.c:2933
+#: plugins/x2go/x2go_plugin.c:2952
+#, fuzzy
+msgid "Please check the RemminaProtocolSetting array for possible errors."
+msgstr "Моля, проверете масива RemminaProtocolSetting за възможни грешки."
+
+#: plugins/x2go/x2go_plugin.c:2913
+#, fuzzy
 msgid "The upper limit is not a valid integer!"
-msgstr ""
+msgstr "Горната граница не е валидно цяло число!"
 
-#: plugins/x2go/x2go_plugin.c:1525
+#: plugins/x2go/x2go_plugin.c:2918
+#, fuzzy
 msgid "The upper limit is too high!"
-msgstr ""
+msgstr "Горната граница е твърде висока!"
 
-#: plugins/x2go/x2go_plugin.c:1529
+#: plugins/x2go/x2go_plugin.c:2923
+#, fuzzy
 msgid "The upper limit is too low!"
-msgstr ""
+msgstr "Горната граница е твърде ниска!"
 
-#: plugins/x2go/x2go_plugin.c:1547
+#: plugins/x2go/x2go_plugin.c:2943
+#, fuzzy
 msgid "The input is not a valid integer!"
-msgstr ""
+msgstr "Входът не е валидно цяло число!"
 
-#: plugins/x2go/x2go_plugin.c:1549 plugins/x2go/x2go_plugin.c:1568
-#, c-format
+#: plugins/x2go/x2go_plugin.c:2945 plugins/x2go/x2go_plugin.c:2964
+#, fuzzy, c-format
 msgid "Input must be a number between %i and %i."
-msgstr ""
+msgstr "Въведената стойност трябва да бъде число между %i и %i."
 
-#: plugins/x2go/x2go_plugin.c:1597
+#: plugins/x2go/x2go_plugin.c:2993
 #, fuzzy
 #| msgid "Start-up program"
 msgid "Startup program"
 msgstr "Стартиране на програма при свързване"
 
-#: plugins/x2go/x2go_plugin.c:1599
+#: plugins/x2go/x2go_plugin.c:2995
+#, fuzzy
 msgid "Which command should be executed after creating the X2Go session?"
-msgstr ""
+msgstr "Коя команда трябва да се изпълни след създаването на сесията X2Go?"
 
-#: plugins/x2go/x2go_plugin.c:1601
+#: plugins/x2go/x2go_plugin.c:2997
 #, fuzzy
 msgid "Keyboard Layout (auto)"
-msgstr "Клавиатурна подредба"
+msgstr "Разположение на клавиатурата (автоматично)"
 
-#: plugins/x2go/x2go_plugin.c:1602
+#: plugins/x2go/x2go_plugin.c:2998
 #, fuzzy
 msgid "Keyboard type (auto)"
-msgstr "Клавиатурна подредба"
+msgstr "Тип клавиатура (автоматична)"
 
-#: plugins/x2go/x2go_plugin.c:1603
+#: plugins/x2go/x2go_plugin.c:2999
 #, fuzzy
 #| msgid "Turn on Java support"
 msgid "Audio support"
-msgstr "Включване на Java поддръжка"
+msgstr "Аудио поддръжка"
 
-#: plugins/x2go/x2go_plugin.c:1605
+#: plugins/x2go/x2go_plugin.c:3001
+#, fuzzy
 msgid "The sound system of the X2Go server (default: 'pulse')."
-msgstr ""
+msgstr "Звуковата система на сървъра X2Go (по подразбиране: 'pulse')."
 
-#: plugins/x2go/x2go_plugin.c:1608
+#: plugins/x2go/x2go_plugin.c:3004
 #, fuzzy
 #| msgid "Per connection"
 msgid "Clipboard direction"
-msgstr "Пренасочване на TCP"
+msgstr "Посока на клипборда"
 
-#: plugins/x2go/x2go_plugin.c:1610
+#: plugins/x2go/x2go_plugin.c:3006
+#, fuzzy
 msgid "Which direction should clipboard content be copied? (default: 'both')."
 msgstr ""
+"В коя посока трябва да се копира съдържанието на клипборда? (по "
+"подразбиране: 'both')."
 
-#: plugins/x2go/x2go_plugin.c:1614
+#: plugins/x2go/x2go_plugin.c:3010
 #, fuzzy
 #| msgid "Resolution"
 msgid "DPI resolution"
-msgstr "Разделителна способност"
+msgstr "Резолюция DPI"
 
-#: plugins/x2go/x2go_plugin.c:1615
+#: plugins/x2go/x2go_plugin.c:3011
+#, fuzzy
 msgid ""
 "Launch session with a specific resolution (in dots per inch). Must be "
 "between 20 and 400."
 msgstr ""
+"Стартирайте сесия с определена разделителна способност (в точки на инч). "
+"Трябва да е между 20 и 400."
 
-#: plugins/x2go/x2go_plugin.c:1659
+#: plugins/x2go/x2go_plugin.c:3055
+#, fuzzy
 msgid "X2Go plugin loaded."
-msgstr ""
+msgstr "Заредена е приставката X2Go."
 
 #: plugins/x2go/x2go_plugin.h:43
+#, fuzzy
 msgid "X2Go - Launch an X2Go session"
-msgstr ""
+msgstr "X2Go - Стартиране на сесия X2Go"
 
 #: plugins/gvnc/gvnc_plugin_config.h:40
 #, fuzzy
@@ -3650,7 +4298,7 @@ msgstr ""
 "<big><b>Пакет Remmina Snap </b></big>\n"
 "\n"
 "<span>\n"
-"Remmina е стартирана на вашата система като пакет Snap.\n"
+"Remmina работи на вашата система като пакет Snap.\n"
 "Някои функции на Remmina трябва да бъдат настроени, за да работят правилно.\n"
 "</span>\n"
 
@@ -3668,6 +4316,7 @@ msgstr ""
 "въведете следните команди в терминален прозорец:"
 
 #: data/ui/remmina_snap_info_dialog.glade:167
+#, fuzzy
 msgid "<big>Permissions</big>"
 msgstr "<big>Право</big>"
 
@@ -3691,7 +4340,7 @@ msgstr "Промяна на мястото, където се съхранява
 #: data/ui/remmina_snap_info_dialog.glade:261
 #, fuzzy
 msgid "<big>Snap settings</big>"
-msgstr "<big>Настройки на снемане</big>"
+msgstr "<big>Настройки за прихващане</big>"
 
 #: data/ui/remmina_snap_info_dialog.glade:274
 #, fuzzy
@@ -3701,7 +4350,7 @@ msgstr "Не показвайте това съобщение отново"
 #: data/ui/remmina_search_popover.glade:56 data/ui/remmina_search.glade:61
 #, fuzzy
 msgid "Search"
-msgstr "Търси"
+msgstr "Търсене"
 
 #: data/ui/remmina_search_popover.glade:70 data/ui/remmina_search.glade:75
 #, fuzzy
@@ -3741,7 +4390,7 @@ msgstr "_Обгръщане"
 #: data/ui/remmina_about.glade:30 data/ui/remmina_main.glade:395
 #, fuzzy
 msgid "About"
-msgstr "За"
+msgstr "Относно"
 
 #: data/ui/remmina_about.glade:34
 #, fuzzy
@@ -3750,35 +4399,35 @@ msgid ""
 "Copyright © 2009–2014 Vic Lee\n"
 "More details in COPYING"
 msgstr ""
-"\n"
 "Copyright © 2014-2021 Antenore Gatta, Giovanni Panozzo.\n"
 "Copyright © 2009-2014 Vic Lee\n"
-"Повече подробности в Копиране\n"
-"    "
+"Повече подробности в Копиране"
 
 #: data/ui/remmina_about.glade:38
+#, fuzzy
 msgid "https://www.remmina.org/"
-msgstr ""
+msgstr "https://www.remmina.org/"
 
 #: data/ui/remmina_string_list.glade:14 data/ui/remmina_string_list.glade:158
+#, fuzzy
 msgid "Add"
-msgstr "Добавете"
+msgstr "Добави"
 
 #: data/ui/remmina_string_list.glade:20 data/ui/remmina_string_list.glade:137
 #: data/ui/remmina_key_chooser.glade:14 data/ui/remmina_key_chooser.glade:15
 #, fuzzy
 msgid "_Remove"
-msgstr "_Премахване"
+msgstr "_Отстраняване"
 
 #: data/ui/remmina_string_list.glade:26 data/ui/remmina_string_list.glade:116
 #, fuzzy
 msgid "Move up"
-msgstr "Премести нагоре"
+msgstr "Преместване нагоре"
 
 #: data/ui/remmina_string_list.glade:32 data/ui/remmina_string_list.glade:95
 #, fuzzy
 msgid "Move down"
-msgstr "Премести надолу"
+msgstr "Преместване надолу"
 
 #: data/ui/remmina_mpc.glade:14
 #, fuzzy
@@ -3798,7 +4447,7 @@ msgstr "Критерии за подбор"
 #: data/ui/remmina_mpc.glade:261
 #, fuzzy
 msgid "Confirm password"
-msgstr "Повторете паролата"
+msgstr "Потвърдете паролата"
 
 #: data/ui/remmina_mpc.glade:294
 msgid "Set new password"
@@ -3812,14 +4461,16 @@ msgid "Select"
 msgstr "Избери"
 
 #: data/ui/remmina_mpc.glade:343
+#, fuzzy
 msgctxt "Multi password changer table"
 msgid "Name"
 msgstr "Име"
 
 #: data/ui/remmina_mpc.glade:354
+#, fuzzy
 msgctxt "Multi password changer table"
 msgid "Group"
-msgstr "Група"
+msgstr "Групи"
 
 #: data/ui/remmina_mpc.glade:365
 #, fuzzy
@@ -3849,8 +4500,8 @@ msgstr ""
 "<big><b>Новините са изключени</b></big>\n"
 "\n"
 "<span>\n"
-"Включването на новините означава, че програмата се свързва със сървъра на "
-"Remmina, за да изтегли бележките към изданието.\n"
+"Включването на новините означава, че програмата се свързва със сървър на "
+"Remmina, за да изтегли бележките за изданието.\n"
 "</span>\n"
 "\n"
 "<span>\n"
@@ -3871,9 +4522,9 @@ msgid ""
 "remmina__stats_8c.html#details\" title=\"Remmina usage statistics"
 "\">anonymous</a></b> statistics. (*)"
 msgstr ""
-"Изпращане на <b><a href=\"https://remmina.gitlab.io/remminadoc.gitlab.io/"
+"Изпратете <b><a href=\"https://remmina.gitlab.io/remminadoc.gitlab.io/"
 "remmina__stats_8c.html#details\" title=\"Remmina usage statistics"
-"\">анонимни</a></b> статистически данни. (*)"
+"\">анонимна</a></b> статистика. (*)"
 
 #: data/ui/remmina_news.glade:142 data/ui/remmina_news.glade:195
 #, fuzzy
@@ -3910,13 +4561,13 @@ msgid ""
 "* By enabling statistics and/or news you consent to send and fetch data to/"
 "from remmina.org"
 msgstr ""
-"* С разрешаването на статистиката и/или новините вие се съгласявате да "
+"* С активирането на статистиката и/или новините вие се съгласявате да "
 "изпращате и извличате данни от/към remmina.org"
 
 #: data/ui/remmina_news.glade:231
 #, fuzzy
 msgid "<big>Take part</big>"
-msgstr "<big>Участвайте</big>"
+msgstr "<big>Вземете участие</big>"
 
 #. Pay attention to the quoting characters as they may break the pango layout. If in doubt and cannot test, copy and paste the symbols from the English string.
 #: data/ui/remmina_news.glade:257
@@ -3939,7 +4590,7 @@ msgstr ""
 #: data/ui/remmina_news.glade:277
 #, fuzzy
 msgid "<big>Contribute</big>"
-msgstr "<big>Принос</big>"
+msgstr "<big>Contribute</big>"
 
 #: data/ui/remmina_key_chooser.glade:23
 #, fuzzy
@@ -3989,12 +4640,12 @@ msgstr "Изчистване"
 #: data/ui/remmina_main.glade:187
 #, fuzzy
 msgid "Edit"
-msgstr "Редактиране"
+msgstr "Редакция"
 
 #: data/ui/remmina_main.glade:217
 #, fuzzy
 msgid "Collapse all"
-msgstr "Свиване на всичко"
+msgstr "Свиване на всички"
 
 #: data/ui/remmina_main.glade:227
 #, fuzzy
@@ -4012,8 +4663,9 @@ msgid "Debugging"
 msgstr "Отстраняване на грешки"
 
 #: data/ui/remmina_main.glade:295
+#, fuzzy
 msgid "Export"
-msgstr "Експортирай"
+msgstr "Експортиране"
 
 #: data/ui/remmina_main.glade:322
 msgid "Make Remmina your default remote desktop client"
@@ -4027,7 +4679,7 @@ msgstr "Новини"
 #: data/ui/remmina_main.glade:348
 #, fuzzy
 msgid "Homepage"
-msgstr "Официален сайт"
+msgstr "Начална страница"
 
 #: data/ui/remmina_main.glade:358
 #, fuzzy
@@ -4037,7 +4689,7 @@ msgstr "Дарения"
 #: data/ui/remmina_main.glade:368
 #, fuzzy
 msgid "Wiki"
-msgstr "Уикипедия"
+msgstr "Уики"
 
 #. Remmina community website
 #: data/ui/remmina_main.glade:378
@@ -4263,7 +4915,7 @@ msgstr "Стандартно"
 #: data/ui/remmina_preferences.glade:605
 #, fuzzy
 msgid "Automatic"
-msgstr "Автоматична"
+msgstr "Автоматично"
 
 #: data/ui/remmina_preferences.glade:606
 #, fuzzy
@@ -4361,7 +5013,7 @@ msgstr ""
 #: data/ui/remmina_preferences.glade:827
 #, fuzzy
 msgid "Appearance"
-msgstr "Външност"
+msgstr "Облик"
 
 #: data/ui/remmina_preferences.glade:853
 #, fuzzy
@@ -4729,7 +5381,7 @@ msgstr "Увеличаване и намаляване на размера на 
 #: data/ui/remmina_preferences.glade:2415
 #, fuzzy
 msgid "Search text shortcut"
-msgstr "Бърз достъп до текста за търсене"
+msgstr "Бърз достъп до текст за търсене"
 
 #: data/ui/remmina_preferences.glade:2446
 #: data/ui/remmina_preferences.glade:2461
@@ -4758,7 +5410,7 @@ msgstr "Преден цвят на курсора"
 #: data/ui/remmina_preferences.glade:2604
 #, fuzzy
 msgid "Terminal"
-msgstr "Терминал"
+msgstr "Terminal"
 
 #: data/ui/remmina_preferences.glade:2618
 #, fuzzy
@@ -4779,6 +5431,30 @@ msgstr "Отключване на Remmina"
 #, fuzzy
 msgid "Master password"
 msgstr "Основна парола"
+
+#, fuzzy
+#~ msgid "Started pyhoca-cli with following arguments:"
+#~ msgstr "Стартира pyhoca-cli със следните аргументи:"
+
+#, fuzzy
+#~| msgid "_Select all"
+#~ msgid "_Select session"
+#~ msgstr "_Изберете сесия"
+
+#, fuzzy
+#~ msgid "Started PyHoca-CLI with the following environment variables:"
+#~ msgstr "Стартирайте PyHoca-CLI със следните променливи на средата:"
+
+#, fuzzy, c-format
+#~ msgid "Could not retrieve PyHoca-CLI's command-line features! Exit code: %i"
+#~ msgstr ""
+#~ "Не можах да извлека функциите на командния ред на PyHoca-CLI! Код на "
+#~ "изхода: %i"
+
+#, fuzzy, c-format
+#~| msgid "Error: %s"
+#~ msgid "Error: '%s'"
+#~ msgstr "Грешка: \"%s"
 
 #, fuzzy
 #~ msgid "Website"

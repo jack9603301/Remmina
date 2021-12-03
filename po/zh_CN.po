@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: remmina\n"
 "Report-Msgid-Bugs-To: l10n@lists.remmina.org\n"
-"POT-Creation-Date: 2021-10-29 12:14+0000\n"
-"PO-Revision-Date: 2021-10-29 12:15+0000\n"
+"POT-Creation-Date: 2021-12-03 09:34+0000\n"
+"PO-Revision-Date: 2021-12-03 13:52+0000\n"
 "Last-Translator: Eric <spice2wolf@gmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "remmina/remmina/zh_Hans/>\n"
@@ -22,14 +22,14 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.9-dev\n"
+"X-Generator: Weblate 4.10-dev\n"
 "X-Launchpad-Export-Date: 2014-04-10 15:04+0000\n"
 
 #: src/remmina_sftp_plugin.c:310 src/remmina_sftp_plugin.c:354
-#: src/remmina_protocol_widget.c:1676 src/remmina_protocol_widget.c:1695
+#: src/remmina_protocol_widget.c:1677 src/remmina_protocol_widget.c:1696
 #: src/remmina_file_editor.c:1101 src/remmina_file_editor.c:1222
-#: src/remmina_ssh_plugin.c:1360 plugins/rdp/rdp_plugin.c:2680
-#: plugins/www/www_plugin.c:895 plugins/x2go/x2go_plugin.c:1596
+#: src/remmina_ssh_plugin.c:1360 plugins/rdp/rdp_plugin.c:2723
+#: plugins/www/www_plugin.c:895 plugins/x2go/x2go_plugin.c:2992
 #: data/ui/remmina_mpc.glade:236 data/ui/remmina_preferences.glade:1675
 #: data/ui/remmina_unlock.glade:116
 msgid "Password"
@@ -68,15 +68,16 @@ msgstr "覆盖所有文件"
 msgid "Resume all file transfers"
 msgstr "恢复所有文件传输"
 
-#: src/remmina_sftp_plugin.c:328 src/remmina_protocol_widget.c:283
+#: src/remmina_sftp_plugin.c:328 src/remmina_protocol_widget.c:284
 msgid "Connect via SSH from a new terminal"
 msgstr "通过 SSH 从新终端连接"
 
 #: src/remmina_sftp_plugin.c:353 src/remmina_message_panel.c:330
 #: src/remmina_file_editor.c:1216 src/remmina_ssh_plugin.c:1470
-#: plugins/rdp/rdp_plugin.c:2679 plugins/vnc/vnc_plugin.c:1976
+#: plugins/rdp/rdp_plugin.c:2722 plugins/vnc/vnc_plugin.c:1976
 #: plugins/vnc/vnc_plugin.c:1988 plugins/www/www_plugin.c:894
-#: plugins/x2go/x2go_plugin.c:1595 data/ui/remmina_mpc.glade:144
+#: plugins/x2go/x2go_plugin.c:574 plugins/x2go/x2go_plugin.c:2991
+#: data/ui/remmina_mpc.glade:144
 msgid "Username"
 msgstr "用户名"
 
@@ -90,7 +91,7 @@ msgstr "认证类型"
 msgid "Password to unlock private key"
 msgstr "解锁私钥的密码"
 
-#: src/remmina_sftp_plugin.c:358 src/remmina_ssh_plugin.c:1506
+#: src/remmina_sftp_plugin.c:358 src/remmina_ssh_plugin.c:1507
 msgid "SSH Proxy Command"
 msgstr "SSH 代理命令"
 
@@ -256,7 +257,7 @@ msgstr "是"
 msgid "No"
 msgstr "否"
 
-#: src/remmina_message_panel.c:391 plugins/rdp/rdp_plugin.c:2681
+#: src/remmina_message_panel.c:391 plugins/rdp/rdp_plugin.c:2724
 #: data/ui/remmina_mpc.glade:172
 msgid "Domain"
 msgstr "域"
@@ -402,9 +403,42 @@ msgstr "断开"
 msgid "The file “%s” is corrupted, unreadable, or could not be found."
 msgstr "文件“%s” 已损坏，无法读取或未找到。"
 
-#: src/rcw.c:4466
-msgid "Warning: This plugin requires GtkSocket, but it’s not available."
-msgstr "警告：此插件需要 GtkSocket，但它不可用。"
+#. TRANSLATORS: This should be a link to the Remmina Wiki page:
+#. TRANSLATORS: 'GtkSocket feature is not available'.
+#: src/rcw.c:4372
+msgid ""
+"https://gitlab.com/Remmina/Remmina/-/wikis/GtkSocket-feature-is-not-"
+"available-in-a-Wayland-session"
+msgstr ""
+"https://gitlab.com/Remmina/Remmina/-/wikis/GtkSocket-feature-is-not-"
+"available-in-a-Wayland-session"
+
+#: src/rcw.c:4509
+msgid ""
+"Warning: This plugin requires GtkSocket, but this feature is unavailable in "
+"a Wayland session."
+msgstr "警告：此插件需要 GtkSocket，但此功能在 Wayland 会话中不可用。"
+
+#. TRANSLATORS: This should be a link to the Remmina Wiki page:
+#. 'GtkSocket feature is not available'.
+#: src/rcw.c:4515
+msgid ""
+"Plugins relying on GtkSocket can't run in a Wayland session.\n"
+"For more information and a possible workaround, please visit the Remmina "
+"Wiki at:\n"
+"\n"
+"https://gitlab.com/Remmina/Remmina/-/wikis/GtkSocket-feature-is-not-"
+"available-in-a-Wayland-session"
+msgstr ""
+"依赖 GtkSocket 的插件无法在 Wayland 会话中运行。\n"
+"有关更多信息和可能的临时解决方法，请访问 Remmina Wiki，网址为：\n"
+"\n"
+"https://gitlab.com/Remmina/Remmina/-/wikis/GtkSocket-feature-is-not-"
+"available-in-a-Wayland-session"
+
+#: src/rcw.c:4529
+msgid "Open in browser"
+msgstr "在浏览器中打开"
 
 #: src/remmina_mpchange.c:234
 msgid "The passwords do not match"
@@ -449,16 +483,16 @@ msgstr "文件"
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
 #: src/remmina.c:90
 msgid ""
-"Connect to a desktop described in a file (.remmina or a type supported by a "
-"plugin)"
-msgstr "连接到文件描述的桌面（.remmina 或插件支持的类型）"
+"Connect to a desktop described in a file (.remmina or a filetype supported "
+"by a plugin)"
+msgstr "连接到文件描述的桌面（.remmina 或插件支持的文件类型）"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
 #: src/remmina.c:92
 msgid ""
-"Edit desktop connection described in file (.remmina or type supported by "
-"plugin)"
-msgstr "编辑文件描述的桌面连接（.remmina 或插件支持的类型）"
+"Edit desktop connection described in file (.remmina or a filetype supported "
+"by plugin)"
+msgstr "编辑文件描述的桌面连接（.remmina 或插件支持的文件类型）"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
 #: src/remmina.c:95
@@ -531,12 +565,27 @@ msgstr "设置一个或多个配置文件设置，用于 --update-profile"
 msgid "Encrypt a password"
 msgstr "加密一个密码"
 
+#. TRANSLATORS:
+#. * This link should point to a resource explaining how to get Remmina
+#. * to log more verbose statements.
+#.
+#: src/remmina.c:337
+msgid ""
+"Remmina does not log all output statements. Turn on more verbose output by "
+"using \"G_MESSAGES_DEBUG=all\" as an environment variable.\n"
+"More info available on the Remmina wiki at:\n"
+"https://gitlab.com/Remmina/Remmina/-/wikis/Usage/Remmina-debugging"
+msgstr ""
+"Remmina 不会记录所有输出语句。 要启用更详细的输出，请使用 \"G_MESSAGES_DEBUG=all\" 作为环境变量。\n"
+"更多信息，请访问 Remmina Wiki，地址为：\n"
+"https://gitlab.com/Remmina/Remmina/-/wikis/Usage/Remmina-debugging"
+
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:375
+#: src/remmina.c:391
 msgid "- or protocol://username:encryptedpassword@host:port"
 msgstr "- 或者 协议://用户名:加密密码@主机:端口"
 
-#: src/remmina.c:378
+#: src/remmina.c:394
 msgid ""
 "Examples:\n"
 "To connect using an existing connection profile, use:\n"
@@ -684,7 +733,7 @@ msgstr "向上"
 msgid "Go to parent folder"
 msgstr "跳到上一层目录"
 
-#: src/remmina_ftp_client.c:758 plugins/rdp/rdp_plugin.c:2770
+#: src/remmina_ftp_client.c:758 plugins/rdp/rdp_plugin.c:2813
 #: plugins/vnc/vnc_plugin.c:2027
 msgid "Refresh"
 msgstr "刷新"
@@ -730,11 +779,11 @@ msgstr "分组"
 msgid "Permission"
 msgstr "权限"
 
-#: src/remmina_ftp_client.c:990 plugins/rdp/rdp_plugin.c:2568
+#: src/remmina_ftp_client.c:990 plugins/rdp/rdp_plugin.c:2611
 msgid "Remote"
 msgstr "远程"
 
-#: src/remmina_ftp_client.c:997 plugins/rdp/rdp_plugin.c:2567
+#: src/remmina_ftp_client.c:997 plugins/rdp/rdp_plugin.c:2610
 msgid "Local"
 msgstr "本地"
 
@@ -742,125 +791,125 @@ msgstr "本地"
 msgid "Progress"
 msgstr "进度"
 
-#: src/remmina_protocol_widget.c:290 src/remmina_ssh_plugin.c:829
+#: src/remmina_protocol_widget.c:291 src/remmina_ssh_plugin.c:829
 #: src/remmina_ssh_plugin.c:1445
 msgid "Open SFTP transfer…"
 msgstr "打开 SFTP 传输…"
 
-#: src/remmina_protocol_widget.c:319
+#: src/remmina_protocol_widget.c:320
 msgid "Executing external commands…"
 msgstr "执行外部命令…"
 
 #. TRANSLATORS: “%s” is a placeholder for the connection profile name
-#: src/remmina_protocol_widget.c:327
+#: src/remmina_protocol_widget.c:328
 #, c-format
 msgid "Connecting to “%s”…"
 msgstr "正在连接到 “%s”…"
 
 #. TRANSLATORS: “%s” is a placeholder for an hostname or an IP address.
-#: src/remmina_protocol_widget.c:915 src/remmina_protocol_widget.c:1100
+#: src/remmina_protocol_widget.c:916 src/remmina_protocol_widget.c:1101
 #, c-format
 msgid "Connecting to “%s” via SSH…"
 msgstr "正在通过 SSH 连接到 “%s”…"
 
 #. TRANSLATORS: “%i” is a placeholder for a TCP port number.
-#: src/remmina_protocol_widget.c:1164
+#: src/remmina_protocol_widget.c:1165
 #, c-format
 msgid "Awaiting incoming SSH connection on port %i…"
 msgstr "在端口 %i 等待传入的 SSH 连接…"
 
-#: src/remmina_protocol_widget.c:1217
+#: src/remmina_protocol_widget.c:1218
 #, c-format
 msgid "The “%s” command is not available on the SSH server."
 msgstr "“%s”命令在 SSH 服务器上不可用。"
 
-#: src/remmina_protocol_widget.c:1222
+#: src/remmina_protocol_widget.c:1223
 #, c-format
 msgid "Could not run the “%s” command on the SSH server (status = %i)."
 msgstr "SSH 服务器运行命令 “%s” 失败（状态= %i）。"
 
 #. TRANSLATORS: %s is a placeholder for an error message
-#: src/remmina_protocol_widget.c:1230
+#: src/remmina_protocol_widget.c:1231
 #, c-format
 msgid "Could not run command. %s"
 msgstr "无法运行命令。%s"
 
 #. TRANSLATORS: “%s” is a placeholder for a hostname or IP address.
-#: src/remmina_protocol_widget.c:1300
+#: src/remmina_protocol_widget.c:1301
 #, c-format
 msgid "Connecting to %s via SSH…"
 msgstr "通过 SSH 连接到 %s …"
 
-#: src/remmina_protocol_widget.c:1694
+#: src/remmina_protocol_widget.c:1695
 msgid "Type in SSH username and password."
 msgstr "输入 SSH 的用户名和密码。"
 
-#: src/remmina_protocol_widget.c:1749 src/remmina_protocol_widget.c:1781
+#: src/remmina_protocol_widget.c:1750 src/remmina_protocol_widget.c:1782
 msgid "Fingerprint automatically accepted"
 msgstr "自动接受指纹"
 
 #. TRANSLATORS: The user is asked to verify a new SSL certificate.
-#: src/remmina_protocol_widget.c:1757
+#: src/remmina_protocol_widget.c:1758
 msgid "Certificate details:"
 msgstr "证书详情："
 
 #. TRANSLATORS: An SSL certificate subject is usually the remote server the user connect to.
-#: src/remmina_protocol_widget.c:1759 src/remmina_protocol_widget.c:1791
+#: src/remmina_protocol_widget.c:1760 src/remmina_protocol_widget.c:1792
 msgid "Subject:"
 msgstr "主题："
 
 #. TRANSLATORS: The name or email of the entity that have issued the SSL certificate
-#: src/remmina_protocol_widget.c:1761 src/remmina_protocol_widget.c:1793
+#: src/remmina_protocol_widget.c:1762 src/remmina_protocol_widget.c:1794
 msgid "Issuer:"
 msgstr "颁发者："
 
 #. TRANSLATORS: An SSL certificate fingerprint, is a hash of a certificate calculated on all certificate's data and its signature.
-#: src/remmina_protocol_widget.c:1763
+#: src/remmina_protocol_widget.c:1764
 msgid "Fingerprint:"
 msgstr "指纹："
 
 #. TRANSLATORS: The user is asked to accept or refuse a new SSL certificate.
-#: src/remmina_protocol_widget.c:1765
+#: src/remmina_protocol_widget.c:1766
 msgid "Accept certificate?"
 msgstr "接受证书吗？"
 
 #. TRANSLATORS: The user is asked to verify a new SSL certificate.
-#: src/remmina_protocol_widget.c:1789
+#: src/remmina_protocol_widget.c:1790
 msgid "The certificate changed! Details:"
 msgstr "证书已更改！详情："
 
 #. TRANSLATORS: An SSL certificate fingerprint, is a hash of a certificate calculated on all certificate's data and its signature.
-#: src/remmina_protocol_widget.c:1795
+#: src/remmina_protocol_widget.c:1796
 msgid "Old fingerprint:"
 msgstr "旧指纹："
 
 #. TRANSLATORS: An SSL certificate fingerprint, is a hash of a certificate calculated on all certificate's data and its signature.
-#: src/remmina_protocol_widget.c:1797
+#: src/remmina_protocol_widget.c:1798
 msgid "New fingerprint:"
 msgstr "新指纹："
 
 #. TRANSLATORS: The user is asked to accept or refuse a new SSL certificate.
-#: src/remmina_protocol_widget.c:1799
+#: src/remmina_protocol_widget.c:1800
 msgid "Accept changed certificate?"
 msgstr "接受更改的证书吗？"
 
 #. TRANSLATORS: “%i” is a placeholder for a port number. “%s”  is a placeholder for a protocol name (VNC).
-#: src/remmina_protocol_widget.c:1942
+#: src/remmina_protocol_widget.c:1943
 #, c-format
 msgid "Listening on port %i for an incoming %s connection…"
 msgstr "在 %i 端口监听传入的 %s 连接…"
 
-#: src/remmina_protocol_widget.c:1967
+#: src/remmina_protocol_widget.c:1968
 msgid "Could not authenticate, attempting reconnection…"
 msgstr "验证失败，重新连接…"
 
-#: src/remmina_protocol_widget.c:2029 src/remmina_file_editor.c:436
+#: src/remmina_protocol_widget.c:2030 src/remmina_file_editor.c:436
 #: src/remmina_file_editor.c:1172 data/ui/remmina_main.glade:478
 msgid "Server"
 msgstr "服务器"
 
 #. TRANSLATORS: “%s” is a placeholder for a protocol name, like “RDP”.
-#: src/remmina_protocol_widget.c:2047
+#: src/remmina_protocol_widget.c:2048
 #, c-format
 msgid "Install the %s protocol plugin first."
 msgstr "请先安装 %s 协议插件。"
@@ -1109,18 +1158,18 @@ msgid "Could not start SFTP session. %s"
 msgstr "无法启动 SFTP 会话。%s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2378
+#: src/remmina_ssh.c:2379
 #, c-format
 msgid "Could not open channel. %s"
 msgstr "打开通道失败。%s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2393
+#: src/remmina_ssh.c:2394
 #, c-format
 msgid "Could not request shell. %s"
 msgstr "无法请求 shell。%s"
 
-#: src/remmina_ssh.c:2511
+#: src/remmina_ssh.c:2521
 msgid "Could not create PTY device."
 msgstr "无法创建 PTY 设备。"
 
@@ -1389,7 +1438,7 @@ msgstr "通过 loopback 地址建立隧道"
 msgid "Same server at port %i"
 msgstr "相同主机上的 %i 端口"
 
-#: src/remmina_file_editor.c:1193 plugins/rdp/rdp_plugin.c:2724
+#: src/remmina_file_editor.c:1193 plugins/rdp/rdp_plugin.c:2767
 msgid "Start-up path"
 msgstr "启动路径"
 
@@ -1432,8 +1481,8 @@ msgstr ""
 "为 NULL！"
 
 #. TRANSLATORS: Meta-error. Shouldn't be visible.
-#: src/remmina_file_editor.c:1445 plugins/x2go/x2go_plugin.c:856
-#: plugins/x2go/x2go_plugin.c:1440
+#: src/remmina_file_editor.c:1445 plugins/x2go/x2go_plugin.c:2188
+#: plugins/x2go/x2go_plugin.c:2817
 msgid "Internal error."
 msgstr "内部错误。"
 
@@ -1660,11 +1709,15 @@ msgstr "查找文本(_F)"
 msgid "User password"
 msgstr "用户密码"
 
-#: src/remmina_ssh_plugin.c:1477 plugins/rdp/rdp_plugin.c:2723
-msgid "Start-up program"
-msgstr "启动程序"
+#: src/remmina_ssh_plugin.c:1477
+msgid "Opening command"
+msgstr "打开命令"
 
-#: src/remmina_ssh_plugin.c:1482
+#: src/remmina_ssh_plugin.c:1478
+msgid "Start-up background program"
+msgstr "启动后台程序"
+
+#: src/remmina_ssh_plugin.c:1483
 msgid ""
 "The filename can use the following placeholders:\n"
 "\n"
@@ -1686,63 +1739,63 @@ msgstr ""
 "  • %g 由 Remmina 配置组名组成\n"
 "  • %d 由 ISO 8601 格式的本地日期和时间组成\n"
 
-#: src/remmina_ssh_plugin.c:1504
+#: src/remmina_ssh_plugin.c:1505
 msgid "Terminal colour scheme"
 msgstr "终端配色方案"
 
-#: src/remmina_ssh_plugin.c:1505
+#: src/remmina_ssh_plugin.c:1506
 msgid "Character set"
 msgstr "字符集"
 
-#: src/remmina_ssh_plugin.c:1507
+#: src/remmina_ssh_plugin.c:1508
 msgid "KEX (Key Exchange) algorithms"
 msgstr "KEX（密钥交换）算法"
 
-#: src/remmina_ssh_plugin.c:1508
+#: src/remmina_ssh_plugin.c:1509
 msgid "Symmetric cipher client to server"
 msgstr "对称加密客户端到服务器"
 
-#: src/remmina_ssh_plugin.c:1509
+#: src/remmina_ssh_plugin.c:1510
 msgid "Preferred server host key types"
 msgstr "首选服务器主机密钥类型"
 
-#: src/remmina_ssh_plugin.c:1510
+#: src/remmina_ssh_plugin.c:1511
 msgid "Folder for SSH session log"
 msgstr "SSH 会话日志文件夹"
 
-#: src/remmina_ssh_plugin.c:1511
+#: src/remmina_ssh_plugin.c:1512
 msgid "Filename for SSH session log"
 msgstr "SSH 会话日志的文件名"
 
-#: src/remmina_ssh_plugin.c:1512
+#: src/remmina_ssh_plugin.c:1513
 msgid "Log SSH session when exiting Remmina"
 msgstr "退出 Remmina 时记录 SSH 会话"
 
-#: src/remmina_ssh_plugin.c:1513
+#: src/remmina_ssh_plugin.c:1514
 msgid "Log SSH session asynchronously"
 msgstr "异步记录 SSH 会话"
 
-#: src/remmina_ssh_plugin.c:1513
+#: src/remmina_ssh_plugin.c:1514
 msgid "Saving the session asynchronously may have a notable performance impact"
 msgstr "异步保存会话可能会对性能产生显著影响"
 
-#: src/remmina_ssh_plugin.c:1514
+#: src/remmina_ssh_plugin.c:1515
 msgid "Audible terminal bell"
 msgstr "有声终端铃"
 
-#: src/remmina_ssh_plugin.c:1515
+#: src/remmina_ssh_plugin.c:1516
 msgid "SSH compression"
 msgstr "SSH 压缩"
 
-#: src/remmina_ssh_plugin.c:1516
+#: src/remmina_ssh_plugin.c:1517
 msgid "Don't remember passwords"
 msgstr "忘记密码"
 
-#: src/remmina_ssh_plugin.c:1517
+#: src/remmina_ssh_plugin.c:1518
 msgid "Strict host key checking"
 msgstr "严格的主机密钥检查"
 
-#: src/remmina_ssh_plugin.c:1531
+#: src/remmina_ssh_plugin.c:1532
 msgid "SSH - Secure Shell"
 msgstr "SSH - 安全 Shell 连接"
 
@@ -1762,22 +1815,22 @@ msgstr "<未设置>"
 msgid "<Choose a quality level to edit…>"
 msgstr "<选择一个质量级别以编辑…>"
 
-#: plugins/rdp/rdp_settings.c:282 plugins/rdp/rdp_plugin.c:2542
+#: plugins/rdp/rdp_settings.c:282 plugins/rdp/rdp_plugin.c:2585
 #: plugins/vnc/vnc_plugin.c:1934
 msgid "Poor (fastest)"
 msgstr "差（最快）"
 
-#: plugins/rdp/rdp_settings.c:284 plugins/rdp/rdp_plugin.c:2543
+#: plugins/rdp/rdp_settings.c:284 plugins/rdp/rdp_plugin.c:2586
 #: plugins/vnc/vnc_plugin.c:1933
 msgid "Medium"
 msgstr "中等"
 
-#: plugins/rdp/rdp_settings.c:286 plugins/rdp/rdp_plugin.c:2544
+#: plugins/rdp/rdp_settings.c:286 plugins/rdp/rdp_plugin.c:2587
 #: plugins/vnc/vnc_plugin.c:1931
 msgid "Good"
 msgstr "良好"
 
-#: plugins/rdp/rdp_settings.c:288 plugins/rdp/rdp_plugin.c:2545
+#: plugins/rdp/rdp_settings.c:288 plugins/rdp/rdp_plugin.c:2588
 #: plugins/vnc/vnc_plugin.c:1932
 msgid "Best (slowest)"
 msgstr "最好（最慢）"
@@ -1858,7 +1911,7 @@ msgstr "桌面方向"
 msgid "Input device settings"
 msgstr "输入设备设置"
 
-#: plugins/rdp/rdp_settings.c:658 plugins/rdp/rdp_plugin.c:2686
+#: plugins/rdp/rdp_settings.c:658 plugins/rdp/rdp_plugin.c:2729
 #: plugins/vnc/vnc_plugin.c:2014
 msgid "Disable smooth scrolling"
 msgstr "禁用平滑滚动"
@@ -1867,24 +1920,24 @@ msgstr "禁用平滑滚动"
 msgid "General settings"
 msgstr "常规设置"
 
-#: plugins/rdp/rdp_settings.c:676 plugins/rdp/rdp_plugin.c:2738
+#: plugins/rdp/rdp_settings.c:676 plugins/rdp/rdp_plugin.c:2781
 msgid "Reconnect attempts number"
 msgstr "重连尝试次数"
 
-#: plugins/rdp/rdp_settings.c:689 plugins/rdp/rdp_plugin.c:2738
+#: plugins/rdp/rdp_settings.c:689 plugins/rdp/rdp_plugin.c:2781
 msgid ""
 "The maximum number of reconnect attempts upon an RDP disconnect (default: 20)"
 msgstr "RDP 断开连接时的最大重新连接尝试次数（默认值：20）"
 
-#: plugins/rdp/rdp_plugin.c:762 plugins/rdp/rdp_plugin.c:827
+#: plugins/rdp/rdp_plugin.c:769 plugins/rdp/rdp_plugin.c:834
 msgid "Enter RDP authentication credentials"
 msgstr "输入 RDP 身份验证凭据"
 
-#: plugins/rdp/rdp_plugin.c:835
+#: plugins/rdp/rdp_plugin.c:842
 msgid "Enter RDP gateway authentication credentials"
 msgstr "输入 RDP 网关验证凭据"
 
-#: plugins/rdp/rdp_plugin.c:2073
+#: plugins/rdp/rdp_plugin.c:2116
 #, c-format
 msgid ""
 "Could not access the RDP server “%s”.\n"
@@ -1893,7 +1946,7 @@ msgstr ""
 "RDP 服务器 “%s”访问失败。\n"
 "账户被锁。"
 
-#: plugins/rdp/rdp_plugin.c:2080
+#: plugins/rdp/rdp_plugin.c:2123
 #, c-format
 msgid ""
 "Could not access the RDP server “%s”.\n"
@@ -1902,7 +1955,7 @@ msgstr ""
 "RDP 服务器 “%s”访问失败。\n"
 "账户已过期。"
 
-#: plugins/rdp/rdp_plugin.c:2087
+#: plugins/rdp/rdp_plugin.c:2130
 #, c-format
 msgid ""
 "Could not access the RDP server “%s”.\n"
@@ -1911,7 +1964,7 @@ msgstr ""
 "RDP 服务器 “%s”访问失败。\n"
 "密码已过期。"
 
-#: plugins/rdp/rdp_plugin.c:2094
+#: plugins/rdp/rdp_plugin.c:2137
 #, c-format
 msgid ""
 "Could not access the RDP server “%s”.\n"
@@ -1920,7 +1973,7 @@ msgstr ""
 "RDP 服务器 “%s” 访问失败。\n"
 "账户已禁用。"
 
-#: plugins/rdp/rdp_plugin.c:2100
+#: plugins/rdp/rdp_plugin.c:2143
 #, c-format
 msgid ""
 "Could not access the RDP server “%s”.\n"
@@ -1929,7 +1982,7 @@ msgstr ""
 "访问 RDP 服务器 “%s”失败。\n"
 "用户权限不足。"
 
-#: plugins/rdp/rdp_plugin.c:2108
+#: plugins/rdp/rdp_plugin.c:2151
 #, c-format
 msgid ""
 "Could not access the RDP server “%s”.\n"
@@ -1938,7 +1991,7 @@ msgstr ""
 "RDP 服务器 “%s”访问失败。\n"
 "账户受限。"
 
-#: plugins/rdp/rdp_plugin.c:2116
+#: plugins/rdp/rdp_plugin.c:2159
 #, c-format
 msgid ""
 "Could not access the RDP server “%s”.\n"
@@ -1947,17 +2000,17 @@ msgstr ""
 "访问 RDP 服务器 “%s” 失败。\n"
 "用户必须在连接前更改密码。"
 
-#: plugins/rdp/rdp_plugin.c:2121
+#: plugins/rdp/rdp_plugin.c:2164
 #, c-format
 msgid "Lost connection to the RDP server “%s”."
 msgstr "失去到 RDP 服务器 “%s”的连接。"
 
-#: plugins/rdp/rdp_plugin.c:2124
+#: plugins/rdp/rdp_plugin.c:2167
 #, c-format
 msgid "Could not find the address for the RDP server “%s”."
 msgstr "无法找到 RDP 服务器 “%s”的地址。"
 
-#: plugins/rdp/rdp_plugin.c:2128
+#: plugins/rdp/rdp_plugin.c:2171
 #, c-format
 msgid ""
 "Could not connect to the RDP server “%s” via TLS. Check that client and "
@@ -1967,23 +2020,23 @@ msgstr ""
 "的 TLS 版本。"
 
 #. TRANSLATORS: the placeholder may be either an IP/FQDN or a server hostname
-#: plugins/rdp/rdp_plugin.c:2132
+#: plugins/rdp/rdp_plugin.c:2175
 #, c-format
 msgid ""
 "Unable to establish a connection to the RDP server “%s”. Check “Security "
 "protocol negotiation”."
 msgstr "无法建立到 RDP 服务器 “%s”的连接。检查“安全协议协商”。"
 
-#: plugins/rdp/rdp_plugin.c:2140
+#: plugins/rdp/rdp_plugin.c:2183
 #, c-format
 msgid "Cannot connect to the RDP server “%s”."
 msgstr "无法连接到 RDP 服务器 “%s”。"
 
-#: plugins/rdp/rdp_plugin.c:2143
+#: plugins/rdp/rdp_plugin.c:2186
 msgid "Could not start libfreerdp-gdi."
 msgstr "无法启动 libfreerdp-gdi。"
 
-#: plugins/rdp/rdp_plugin.c:2146
+#: plugins/rdp/rdp_plugin.c:2189
 #, c-format
 msgid ""
 "You requested a H.264 GFX mode for the server “%s”, but your libfreerdp does "
@@ -1992,129 +2045,129 @@ msgstr ""
 "您为服务器 “%s” 请求了 H.264 GFX 模式，但您的 libfreerdp 不支持 H.264。 请使"
 "用非AVC颜色深度设置。"
 
-#: plugins/rdp/rdp_plugin.c:2153
+#: plugins/rdp/rdp_plugin.c:2196
 #, c-format
 msgid "The “%s” server refused the connection."
 msgstr "服务器 “%s” 拒绝连接。"
 
-#: plugins/rdp/rdp_plugin.c:2158
+#: plugins/rdp/rdp_plugin.c:2201
 #, c-format
 msgid ""
 "The Remote Desktop Gateway “%s” denied the user “%s\\%s” access due to "
 "policy."
 msgstr "由于策略，远程桌面网关 “%s” 拒绝了用户 \"%s\\%s\" 的访问。"
 
-#: plugins/rdp/rdp_plugin.c:2168
+#: plugins/rdp/rdp_plugin.c:2211
 #, c-format
 msgid "Cannot connect to the “%s” RDP server."
 msgstr "无法连接到 RDP 服务器 “%s” 。"
 
-#: plugins/rdp/rdp_plugin.c:2511
+#: plugins/rdp/rdp_plugin.c:2554
 msgid "Automatic (32 bpp) (Server chooses its best format)"
 msgstr "自动 (32 bpp) (服务器选择其最佳格式)"
 
-#: plugins/rdp/rdp_plugin.c:2512
+#: plugins/rdp/rdp_plugin.c:2555
 msgid "GFX AVC444 (32 bpp)"
 msgstr "GFX AVC444（32 位）"
 
-#: plugins/rdp/rdp_plugin.c:2513
+#: plugins/rdp/rdp_plugin.c:2556
 msgid "GFX AVC420 (32 bpp)"
 msgstr "GFX AVC420（32 位）"
 
-#: plugins/rdp/rdp_plugin.c:2514
+#: plugins/rdp/rdp_plugin.c:2557
 msgid "GFX RFX (32 bpp)"
 msgstr "GFX RFX（32 位）"
 
-#: plugins/rdp/rdp_plugin.c:2515
+#: plugins/rdp/rdp_plugin.c:2558
 msgid "GFX RFX Progressive (32 bpp)"
 msgstr "GFX RFX Progressive (32 位)"
 
-#: plugins/rdp/rdp_plugin.c:2516
+#: plugins/rdp/rdp_plugin.c:2559
 msgid "RemoteFX (32 bpp)"
 msgstr "RemoteFX（32 位）"
 
-#: plugins/rdp/rdp_plugin.c:2517 plugins/vnc/vnc_plugin.c:1922
+#: plugins/rdp/rdp_plugin.c:2560 plugins/vnc/vnc_plugin.c:1922
 msgid "True colour (32 bpp)"
 msgstr "真彩色（32 位）"
 
-#: plugins/rdp/rdp_plugin.c:2518
+#: plugins/rdp/rdp_plugin.c:2561
 msgid "True colour (24 bpp)"
 msgstr "真彩色（24 位）"
 
-#: plugins/rdp/rdp_plugin.c:2519 plugins/vnc/vnc_plugin.c:1923
+#: plugins/rdp/rdp_plugin.c:2562 plugins/vnc/vnc_plugin.c:1923
 msgid "High colour (16 bpp)"
 msgstr "增强色（16 位）"
 
-#: plugins/rdp/rdp_plugin.c:2520
+#: plugins/rdp/rdp_plugin.c:2563
 msgid "High colour (15 bpp)"
 msgstr "增强色（15 位）"
 
-#: plugins/rdp/rdp_plugin.c:2521 plugins/vnc/vnc_plugin.c:1924
+#: plugins/rdp/rdp_plugin.c:2564 plugins/vnc/vnc_plugin.c:1924
 msgid "256 colours (8 bpp)"
 msgstr "256 色（8 位）"
 
-#: plugins/rdp/rdp_plugin.c:2552 data/ui/remmina_preferences.glade:641
+#: plugins/rdp/rdp_plugin.c:2595 data/ui/remmina_preferences.glade:641
 msgid "None"
 msgstr "无"
 
-#: plugins/rdp/rdp_plugin.c:2553
+#: plugins/rdp/rdp_plugin.c:2596
 msgid "Auto-detect"
 msgstr "自动检测"
 
-#: plugins/rdp/rdp_plugin.c:2554
+#: plugins/rdp/rdp_plugin.c:2597
 msgid "Modem"
 msgstr "调制解调器"
 
-#: plugins/rdp/rdp_plugin.c:2555
+#: plugins/rdp/rdp_plugin.c:2598
 msgid "Low performance broadband"
 msgstr "低性能宽带"
 
-#: plugins/rdp/rdp_plugin.c:2556
+#: plugins/rdp/rdp_plugin.c:2599
 msgid "Satellite"
 msgstr "卫星"
 
-#: plugins/rdp/rdp_plugin.c:2557
+#: plugins/rdp/rdp_plugin.c:2600
 msgid "High performance broadband"
 msgstr "高性能宽带"
 
-#: plugins/rdp/rdp_plugin.c:2558
+#: plugins/rdp/rdp_plugin.c:2601
 msgid "WAN"
 msgstr "WAN"
 
-#: plugins/rdp/rdp_plugin.c:2559
+#: plugins/rdp/rdp_plugin.c:2602
 msgid "LAN"
 msgstr "LAN"
 
-#: plugins/rdp/rdp_plugin.c:2566 plugins/spice/spice_plugin.c:635
+#: plugins/rdp/rdp_plugin.c:2609 plugins/spice/spice_plugin.c:635
 #: data/ui/remmina_preferences.glade:677
 msgid "Off"
 msgstr "关"
 
-#: plugins/rdp/rdp_plugin.c:2575
+#: plugins/rdp/rdp_plugin.c:2618
 msgid "Automatic negotiation"
 msgstr "自动协商"
 
-#: plugins/rdp/rdp_plugin.c:2576
+#: plugins/rdp/rdp_plugin.c:2619
 msgid "NLA protocol security"
 msgstr "NLA 协议安全"
 
-#: plugins/rdp/rdp_plugin.c:2577
+#: plugins/rdp/rdp_plugin.c:2620
 msgid "TLS protocol security"
 msgstr "TLS协议安全"
 
-#: plugins/rdp/rdp_plugin.c:2578
+#: plugins/rdp/rdp_plugin.c:2621
 msgid "RDP protocol security"
 msgstr "RDP协议安全"
 
-#: plugins/rdp/rdp_plugin.c:2579
+#: plugins/rdp/rdp_plugin.c:2622
 msgid "NLA extended protocol security"
 msgstr "NLA 扩展协议安全"
 
-#: plugins/rdp/rdp_plugin.c:2592
+#: plugins/rdp/rdp_plugin.c:2635
 msgid "2600 (Windows XP), 7601 (Windows Vista/7), 9600 (Windows 8 and newer)"
 msgstr "2600 (Windows XP),7601 (Windows Vista/7),9600 (Windows 8 及更高版本)"
 
-#: plugins/rdp/rdp_plugin.c:2595
+#: plugins/rdp/rdp_plugin.c:2638
 msgid ""
 "Used i.a. by terminal services in a smart card channel to distinguish client "
 "capabilities:\n"
@@ -2131,7 +2184,7 @@ msgstr ""
 "  • >= 7065: Windows 8 及更新: SCardGetReaderIcon(),\n"
 "    SCardGetDeviceTypeId()"
 
-#: plugins/rdp/rdp_plugin.c:2603
+#: plugins/rdp/rdp_plugin.c:2646
 msgid ""
 "Options for redirection of audio input:\n"
 "  • [sys:<sys>,][dev:<dev>,][format:<format>,][rate:<rate>,]\n"
@@ -2149,7 +2202,7 @@ msgstr ""
 "  • sys:oss,dev:1,format:1\n"
 "  • sys:alsa"
 
-#: plugins/rdp/rdp_plugin.c:2612
+#: plugins/rdp/rdp_plugin.c:2655
 msgid ""
 "Options for redirection of audio output:\n"
 "  • [sys:<sys>,][dev:<dev>,][format:<format>,][rate:<rate>,]\n"
@@ -2167,7 +2220,7 @@ msgstr ""
 "  • sys:oss,dev:1,format:1\n"
 "  • sys:alsa"
 
-#: plugins/rdp/rdp_plugin.c:2622
+#: plugins/rdp/rdp_plugin.c:2665
 msgid ""
 "Options for redirection of USB device:\n"
 "  • [dbg,][id:<vid>:<pid>#…,][addr:<bus>:<addr>#…,][auto]\n"
@@ -2179,7 +2232,7 @@ msgstr ""
 "  • auto\n"
 "  • id:054c:0268#4669:6e6b,addr:04:0c"
 
-#: plugins/rdp/rdp_plugin.c:2628
+#: plugins/rdp/rdp_plugin.c:2671
 msgid ""
 "Advanced setting for high latency links:\n"
 "Adjusts the connection timeout. Use if your connection times out.\n"
@@ -2189,7 +2242,7 @@ msgstr ""
 "调整连接超时。如果您的连接超时，请使用。\n"
 "可能的最高值为 600000 毫秒（10 分钟）。\n"
 
-#: plugins/rdp/rdp_plugin.c:2633
+#: plugins/rdp/rdp_plugin.c:2676
 msgid ""
 "Performance optimisations based on the network connection type:\n"
 "Using auto-detection is advised.\n"
@@ -2199,7 +2252,7 @@ msgstr ""
 "建议使用自动检测。\n"
 "如果“自动检测”失败，请在列表中选择最合适的选项。\n"
 
-#: plugins/rdp/rdp_plugin.c:2638
+#: plugins/rdp/rdp_plugin.c:2681
 msgid ""
 "Comma-separated list of monitor IDs and desktop orientations:\n"
 "  • [<id>:<orientation-in-degrees>,]\n"
@@ -2223,7 +2276,7 @@ msgstr ""
 "  • 270 (纵向翻转)\n"
 "\n"
 
-#: plugins/rdp/rdp_plugin.c:2650
+#: plugins/rdp/rdp_plugin.c:2693
 msgid ""
 "Redirect directory <path> as named share <name>.\n"
 "  • <name>,<fullpath>[;<name>,<fullpath>[;…]]\n"
@@ -2243,134 +2296,138 @@ msgstr ""
 "  • hotplug,*\n"
 "\n"
 
-#: plugins/rdp/rdp_plugin.c:2682 plugins/spice/spice_plugin.c:677
+#: plugins/rdp/rdp_plugin.c:2725 plugins/spice/spice_plugin.c:677
 msgid "Share folder"
 msgstr "共享目录"
 
-#: plugins/rdp/rdp_plugin.c:2682
+#: plugins/rdp/rdp_plugin.c:2725
 msgid "Use “Redirect directory” in the advanced tab for multiple directories"
 msgstr "对多个目录使用高级选项卡中的“重定向目录”"
 
-#: plugins/rdp/rdp_plugin.c:2683
+#: plugins/rdp/rdp_plugin.c:2726
 msgid "Restricted admin mode"
 msgstr "受限的管理员模式"
 
-#: plugins/rdp/rdp_plugin.c:2684
+#: plugins/rdp/rdp_plugin.c:2727
 msgid "Password hash"
 msgstr "密码哈希"
 
-#: plugins/rdp/rdp_plugin.c:2684
+#: plugins/rdp/rdp_plugin.c:2727
 msgid "Restricted admin mode password hash"
 msgstr "受限管理员模式的密码哈希"
 
-#: plugins/rdp/rdp_plugin.c:2685
+#: plugins/rdp/rdp_plugin.c:2728
 msgid "Left-handed mouse support"
 msgstr "左手鼠标支持"
 
-#: plugins/rdp/rdp_plugin.c:2685
+#: plugins/rdp/rdp_plugin.c:2728
 msgid "Swap left and right mouse buttons for left-handed mouse support"
 msgstr "交换鼠标左键和右键以支持左手鼠标"
 
-#: plugins/rdp/rdp_plugin.c:2687
+#: plugins/rdp/rdp_plugin.c:2730
 msgid "Enable multi monitor"
 msgstr "启用多显视器"
 
-#: plugins/rdp/rdp_plugin.c:2688
+#: plugins/rdp/rdp_plugin.c:2731
 msgid "Span screen over multiple monitors"
 msgstr "跨多个显示器的屏幕"
 
-#: plugins/rdp/rdp_plugin.c:2689
+#: plugins/rdp/rdp_plugin.c:2732
 msgid "List monitor IDs"
 msgstr "列出显示器 ID"
 
-#: plugins/rdp/rdp_plugin.c:2691 plugins/vnc/vnc_plugin.c:1978
+#: plugins/rdp/rdp_plugin.c:2734 plugins/vnc/vnc_plugin.c:1978
 #: plugins/vnc/vnc_plugin.c:1990 plugins/gvnc/gvnc_plugin.c:849
 msgid "Colour depth"
 msgstr "色深"
 
-#: plugins/rdp/rdp_plugin.c:2692
+#: plugins/rdp/rdp_plugin.c:2735
 msgid "Network connection type"
 msgstr "网络连接类型"
 
-#: plugins/rdp/rdp_plugin.c:2707 plugins/vnc/vnc_plugin.c:1979
+#: plugins/rdp/rdp_plugin.c:2750 plugins/vnc/vnc_plugin.c:1979
 #: plugins/vnc/vnc_plugin.c:1991
 msgid "Quality"
 msgstr "画质"
 
-#: plugins/rdp/rdp_plugin.c:2708
+#: plugins/rdp/rdp_plugin.c:2751
 msgid "Security protocol negotiation"
 msgstr "安全协议协商"
 
-#: plugins/rdp/rdp_plugin.c:2709
+#: plugins/rdp/rdp_plugin.c:2752
 msgid "Gateway transport type"
 msgstr "网关传输类型"
 
-#: plugins/rdp/rdp_plugin.c:2710
+#: plugins/rdp/rdp_plugin.c:2753
 msgid "FreeRDP log level"
 msgstr "FreeRDP 日志级别"
 
-#: plugins/rdp/rdp_plugin.c:2711
+#: plugins/rdp/rdp_plugin.c:2754
 msgid "FreeRDP log filters"
 msgstr "FreeRDP 日志过滤器"
 
-#: plugins/rdp/rdp_plugin.c:2711
+#: plugins/rdp/rdp_plugin.c:2754
 msgid "tag:level[,tag:level[,…]]"
 msgstr "tag:level[,tag:level[,…]]"
 
-#: plugins/rdp/rdp_plugin.c:2712
+#: plugins/rdp/rdp_plugin.c:2755
 msgid "Audio output mode"
 msgstr "音频输出模式"
 
-#: plugins/rdp/rdp_plugin.c:2713
+#: plugins/rdp/rdp_plugin.c:2756
 msgid "Redirect local audio output"
 msgstr "重定向本地音频输出"
 
-#: plugins/rdp/rdp_plugin.c:2714
+#: plugins/rdp/rdp_plugin.c:2757
 msgid "Redirect local microphone"
 msgstr "重定向本地麦克风"
 
-#: plugins/rdp/rdp_plugin.c:2715
+#: plugins/rdp/rdp_plugin.c:2758
 msgid "Connection timeout in ms"
 msgstr "连接超时（毫秒）"
 
-#: plugins/rdp/rdp_plugin.c:2716
+#: plugins/rdp/rdp_plugin.c:2759
 msgid "Remote Desktop Gateway server"
 msgstr "RD 网关服务器"
 
-#: plugins/rdp/rdp_plugin.c:2717
+#: plugins/rdp/rdp_plugin.c:2760
 msgid "Remote Desktop Gateway username"
 msgstr "RD 网关用户名"
 
-#: plugins/rdp/rdp_plugin.c:2718
+#: plugins/rdp/rdp_plugin.c:2761
 msgid "Remote Desktop Gateway password"
 msgstr "远程桌面网关密码"
 
-#: plugins/rdp/rdp_plugin.c:2719
+#: plugins/rdp/rdp_plugin.c:2762
 msgid "Remote Desktop Gateway domain"
 msgstr "RD 网关域"
 
-#: plugins/rdp/rdp_plugin.c:2720
+#: plugins/rdp/rdp_plugin.c:2763
 msgid "Redirect directory"
 msgstr "重定向目录"
 
-#: plugins/rdp/rdp_plugin.c:2721
+#: plugins/rdp/rdp_plugin.c:2764
 msgid "Client name"
 msgstr "客户端名称"
 
-#: plugins/rdp/rdp_plugin.c:2722
+#: plugins/rdp/rdp_plugin.c:2765
 msgid "Client build"
 msgstr "客户端构建"
 
-#: plugins/rdp/rdp_plugin.c:2725
+#: plugins/rdp/rdp_plugin.c:2766
+msgid "Start-up program"
+msgstr "启动程序"
+
+#: plugins/rdp/rdp_plugin.c:2768
 msgid "Load balance info"
 msgstr "负载平衡信息"
 
 #. TRANSLATORS: Do not use typographic quotation marks, these must stay as "double quote", also know as “Typewriter ("programmer's") quote, ambidextrous.”
-#: plugins/rdp/rdp_plugin.c:2727
+#: plugins/rdp/rdp_plugin.c:2770
 msgid "Override printer drivers"
 msgstr "覆盖打印机驱动程序"
 
-#: plugins/rdp/rdp_plugin.c:2727
+#: plugins/rdp/rdp_plugin.c:2770
 msgid ""
 "\"Samsung_CLX-3300_Series\":\"Samsung CLX-3300 Series PS\";\"Canon MF410\":"
 "\"Canon MF410 Series UFR II\""
@@ -2378,174 +2435,174 @@ msgstr ""
 "\"Samsung_CLX-3300_Series\":\"Samsung CLX-3300 Series PS\";\"Canon MF410\":"
 "\"Canon MF410 Series UFR II\""
 
-#: plugins/rdp/rdp_plugin.c:2728
+#: plugins/rdp/rdp_plugin.c:2771
 msgid "USB device redirection"
 msgstr "USB 设备转发"
 
-#: plugins/rdp/rdp_plugin.c:2729
+#: plugins/rdp/rdp_plugin.c:2772
 msgid "Local serial name"
 msgstr "本地串口名称"
 
-#: plugins/rdp/rdp_plugin.c:2729
+#: plugins/rdp/rdp_plugin.c:2772
 msgid "COM1, COM2, etc."
 msgstr "COM1，COM2，等等。"
 
-#: plugins/rdp/rdp_plugin.c:2730
+#: plugins/rdp/rdp_plugin.c:2773
 msgid "Local serial driver"
 msgstr "本地串口驱动"
 
-#: plugins/rdp/rdp_plugin.c:2730
+#: plugins/rdp/rdp_plugin.c:2773
 msgid "Serial"
 msgstr "串口"
 
-#: plugins/rdp/rdp_plugin.c:2731
+#: plugins/rdp/rdp_plugin.c:2774
 msgid "Local serial path"
 msgstr "本地串口路径"
 
-#: plugins/rdp/rdp_plugin.c:2731
+#: plugins/rdp/rdp_plugin.c:2774
 msgid "/dev/ttyS0, /dev/ttyS1, etc."
 msgstr "/dev/ttyS0，/dev/ttyS1， 等等。"
 
-#: plugins/rdp/rdp_plugin.c:2732
+#: plugins/rdp/rdp_plugin.c:2775
 msgid "Local parallel name"
 msgstr "本地并口名称"
 
-#: plugins/rdp/rdp_plugin.c:2733
+#: plugins/rdp/rdp_plugin.c:2776
 msgid "Local parallel device"
 msgstr "本地并口驱动"
 
-#: plugins/rdp/rdp_plugin.c:2734
+#: plugins/rdp/rdp_plugin.c:2777
 msgid "Name of smart card"
 msgstr "智能卡名称"
 
-#: plugins/rdp/rdp_plugin.c:2735
+#: plugins/rdp/rdp_plugin.c:2778
 msgid "Dynamic virtual channel"
 msgstr "动态虚拟通道"
 
-#: plugins/rdp/rdp_plugin.c:2735 plugins/rdp/rdp_plugin.c:2736
+#: plugins/rdp/rdp_plugin.c:2778 plugins/rdp/rdp_plugin.c:2779
 msgid "<channel>[,<options>]"
 msgstr "<通道>[,<参数>]"
 
-#: plugins/rdp/rdp_plugin.c:2736
+#: plugins/rdp/rdp_plugin.c:2779
 msgid "Static virtual channel"
 msgstr "静态虚拟通道"
 
-#: plugins/rdp/rdp_plugin.c:2737
+#: plugins/rdp/rdp_plugin.c:2780
 msgid "TCP redirection"
 msgstr "TCP 重定向"
 
-#: plugins/rdp/rdp_plugin.c:2737
+#: plugins/rdp/rdp_plugin.c:2780
 msgid "/PATH/TO/rdp2tcp"
 msgstr "/PATH/TO/rdp2tcp"
 
-#: plugins/rdp/rdp_plugin.c:2739
+#: plugins/rdp/rdp_plugin.c:2782
 msgid "Prefer IPv6 AAAA record over IPv4 A record"
 msgstr "优先使用 IPv6 AAAA 记录而不是 IPv4 A 记录"
 
-#: plugins/rdp/rdp_plugin.c:2740
+#: plugins/rdp/rdp_plugin.c:2783
 msgid "Share printers"
 msgstr "共享打印机"
 
-#: plugins/rdp/rdp_plugin.c:2741
+#: plugins/rdp/rdp_plugin.c:2784
 msgid "Share serial ports"
 msgstr "共享串口"
 
-#: plugins/rdp/rdp_plugin.c:2742
+#: plugins/rdp/rdp_plugin.c:2785
 msgid "(SELinux) permissive mode for serial ports"
 msgstr "(SELinux)串行端口许可模式"
 
-#: plugins/rdp/rdp_plugin.c:2743
+#: plugins/rdp/rdp_plugin.c:2786
 msgid "Share parallel ports"
 msgstr "共享并口"
 
-#: plugins/rdp/rdp_plugin.c:2744
+#: plugins/rdp/rdp_plugin.c:2787
 msgid "Share a smart card"
 msgstr "共享智能卡"
 
-#: plugins/rdp/rdp_plugin.c:2745 plugins/vnc/vnc_plugin.c:2009
+#: plugins/rdp/rdp_plugin.c:2788 plugins/vnc/vnc_plugin.c:2009
 msgid "Turn off clipboard sync"
 msgstr "禁用剪贴板同步"
 
-#: plugins/rdp/rdp_plugin.c:2746
+#: plugins/rdp/rdp_plugin.c:2789
 msgid "Ignore certificate"
 msgstr "忽略证书"
 
-#: plugins/rdp/rdp_plugin.c:2747
+#: plugins/rdp/rdp_plugin.c:2790
 msgid "Use the old license workflow"
 msgstr "使用旧的许可证工作流程"
 
-#: plugins/rdp/rdp_plugin.c:2747
+#: plugins/rdp/rdp_plugin.c:2790
 msgid "It disables CAL and hwId is set to 0"
 msgstr "它禁用 CAL，并将 hwId 设置为 0"
 
-#: plugins/rdp/rdp_plugin.c:2748 plugins/spice/spice_plugin.c:702
+#: plugins/rdp/rdp_plugin.c:2791 plugins/spice/spice_plugin.c:702
 #: plugins/vnc/vnc_plugin.c:2013 plugins/www/www_plugin.c:919
 #: plugins/gvnc/gvnc_plugin.c:867
 msgid "Forget passwords after use"
 msgstr "使用后忘记密码"
 
-#: plugins/rdp/rdp_plugin.c:2749
+#: plugins/rdp/rdp_plugin.c:2792
 msgid "Attach to console (2003/2003 R2)"
 msgstr "挂接到控制台（2003/2003 R2）"
 
-#: plugins/rdp/rdp_plugin.c:2750
+#: plugins/rdp/rdp_plugin.c:2793
 msgid "Turn off fast-path"
 msgstr "关闭快速路径"
 
-#: plugins/rdp/rdp_plugin.c:2751
+#: plugins/rdp/rdp_plugin.c:2794
 msgid "Server detection using Remote Desktop Gateway"
 msgstr "使用远程桌面网关检测服务器"
 
-#: plugins/rdp/rdp_plugin.c:2753
+#: plugins/rdp/rdp_plugin.c:2796
 msgid "Use system proxy settings"
 msgstr "使用系统代理设置"
 
-#: plugins/rdp/rdp_plugin.c:2755
+#: plugins/rdp/rdp_plugin.c:2798
 msgid "Turn off automatic reconnection"
 msgstr "禁用自动重连"
 
-#: plugins/rdp/rdp_plugin.c:2756
+#: plugins/rdp/rdp_plugin.c:2799
 msgid "Relax order checks"
 msgstr "Relax Order 检查"
 
-#: plugins/rdp/rdp_plugin.c:2757
+#: plugins/rdp/rdp_plugin.c:2800
 msgid "Glyph cache"
 msgstr "字形缓存"
 
-#: plugins/rdp/rdp_plugin.c:2758
+#: plugins/rdp/rdp_plugin.c:2801
 msgid "Enable multitransport protocol (UDP)"
 msgstr "启用多重传输协议 (UDP)"
 
-#: plugins/rdp/rdp_plugin.c:2758
+#: plugins/rdp/rdp_plugin.c:2801
 msgid "Using the UDP protocol may improve performance"
 msgstr "使用 UDP 协议可以提高性能"
 
-#: plugins/rdp/rdp_plugin.c:2759
+#: plugins/rdp/rdp_plugin.c:2802
 msgid "Use base credentials for gateway too"
 msgstr "也为网关使用提供基本凭据"
 
-#: plugins/rdp/rdp_plugin.c:2761
+#: plugins/rdp/rdp_plugin.c:2804
 msgid "Enable Gateway websockets support"
 msgstr "启用网关 websockets 支持"
 
-#: plugins/rdp/rdp_plugin.c:2774 plugins/spice/spice_plugin.c:715
+#: plugins/rdp/rdp_plugin.c:2817 plugins/spice/spice_plugin.c:715
 #: plugins/vnc/vnc_plugin.c:2029
 msgid "Send Ctrl+Alt+Delete"
 msgstr "发送 Ctrl+Alt+Delete"
 
-#: plugins/rdp/rdp_plugin.c:2787
+#: plugins/rdp/rdp_plugin.c:2830
 msgid "RDP - Remote Desktop Protocol"
 msgstr "RDP - 远程桌面协议"
 
-#: plugins/rdp/rdp_plugin.c:2812
+#: plugins/rdp/rdp_plugin.c:2855
 msgid "RDP - RDP File Handler"
 msgstr "RDP - RDP 文件处理器"
 
-#: plugins/rdp/rdp_plugin.c:2827
+#: plugins/rdp/rdp_plugin.c:2870
 msgid "RDP - Preferences"
 msgstr "RDP - 首选项"
 
-#: plugins/rdp/rdp_plugin.c:2880
+#: plugins/rdp/rdp_plugin.c:2923
 msgid "Export connection in Windows .rdp file format"
 msgstr "使用 Windows .rdp 文件格式导出连接"
 
@@ -2865,23 +2922,237 @@ msgstr "Hello World!"
 msgid "Secured password storage in the GNOME keyring"
 msgstr "存储在 GNOME 密钥环中的安全密码"
 
-#: plugins/x2go/x2go_plugin.c:275
+#: plugins/x2go/x2go_plugin.c:67
+#, c-format
+msgid ""
+"The command-line feature '%s' is not available! Attempting to start PyHoca-"
+"CLI without using this feature…"
+msgstr "命令行功能'%s'不可用！尝试在不使用此功能的情况下启动 PyHoca-CLI…"
+
+#: plugins/x2go/x2go_plugin.c:287 plugins/x2go/x2go_plugin.c:419
+#: plugins/x2go/x2go_plugin.c:478 plugins/x2go/x2go_plugin.c:581
+#: plugins/x2go/x2go_plugin.c:656 plugins/x2go/x2go_plugin.c:668
+#: plugins/x2go/x2go_plugin.c:676 plugins/x2go/x2go_plugin.c:699
+#: plugins/x2go/x2go_plugin.c:708 plugins/x2go/x2go_plugin.c:724
+#: plugins/x2go/x2go_plugin.c:763 plugins/x2go/x2go_plugin.c:775
+#: plugins/x2go/x2go_plugin.c:806 plugins/x2go/x2go_plugin.c:817
+#: plugins/x2go/x2go_plugin.c:825 plugins/x2go/x2go_plugin.c:939
+#: plugins/x2go/x2go_plugin.c:966 plugins/x2go/x2go_plugin.c:980
+#: plugins/x2go/x2go_plugin.c:1077 plugins/x2go/x2go_plugin.c:1141
+#: plugins/x2go/x2go_plugin.c:1445 plugins/x2go/x2go_plugin.c:1479
+#: plugins/x2go/x2go_plugin.c:1575 plugins/x2go/x2go_plugin.c:1869
+#: plugins/x2go/x2go_plugin.c:2669 plugins/x2go/x2go_plugin.c:2882
+#: plugins/x2go/x2go_plugin.c:2887 plugins/x2go/x2go_plugin.c:2892
+#: plugins/x2go/x2go_plugin.c:2897 plugins/x2go/x2go_plugin.c:2912
+#: plugins/x2go/x2go_plugin.c:2917 plugins/x2go/x2go_plugin.c:2922
+#: plugins/x2go/x2go_plugin.c:2927
+#, c-format
+msgid "Internal error: %s"
+msgstr "内部错误：%s"
+
+#: plugins/x2go/x2go_plugin.c:288 plugins/x2go/x2go_plugin.c:420
+#: plugins/x2go/x2go_plugin.c:479 plugins/x2go/x2go_plugin.c:1078
+msgid "Parameter 'custom_data' is not initialized!"
+msgstr "参数 'custom_data' 未被初始化！"
+
+#: plugins/x2go/x2go_plugin.c:301
 msgid "Broken `DialogData`! Aborting…"
 msgstr "损坏的 `DialogData`！终止中…"
 
-#: plugins/x2go/x2go_plugin.c:279
+#: plugins/x2go/x2go_plugin.c:305
 msgid "Can't retrieve `DialogData`! Aborting…"
 msgstr "无法取回 `DialogData`！终止中…"
 
-#: plugins/x2go/x2go_plugin.c:505
+#: plugins/x2go/x2go_plugin.c:488
+msgid "Couldn't retrieve valid `DialogData` or `sessions_list`! Aborting…"
+msgstr "无法获取有效的`DialogData`或`sessions_list`！正在中止…"
+
+#. TRANSLATORS: Stick to x2goclient's translation for terminate.
+#: plugins/x2go/x2go_plugin.c:497
+msgid "_Terminate"
+msgstr "终止(_T)"
+
+#. TRANSLATORS: Stick to x2goclient's translation for resume.
+#: plugins/x2go/x2go_plugin.c:500
+msgid "_Resume"
+msgstr "恢复(_R)"
+
+#: plugins/x2go/x2go_plugin.c:502
+msgid "_New"
+msgstr "新建(_N)"
+
+#. TRANSLATORS: Tooltip for terminating button inside Session-Chooser-Dialog.
+#. TRANSLATORS: Please stick to X2GoClient's way of translating.
+#: plugins/x2go/x2go_plugin.c:511
+msgid "Terminating X2Go sessions can take a moment."
+msgstr "终止 X2Go 会话可能需要一些时间。"
+
+#: plugins/x2go/x2go_plugin.c:568
+msgid "X Display"
+msgstr "X Display"
+
+#: plugins/x2go/x2go_plugin.c:569
+msgid "Status"
+msgstr "状态"
+
+#: plugins/x2go/x2go_plugin.c:570
+msgid "Session ID"
+msgstr "会话 ID"
+
+#: plugins/x2go/x2go_plugin.c:571
+msgid "Create date"
+msgstr "创建日期"
+
+#: plugins/x2go/x2go_plugin.c:572
+msgid "Suspended since"
+msgstr "自下列日期以来停用"
+
+#: plugins/x2go/x2go_plugin.c:573
+msgid "Agent PID"
+msgstr "代理 PID"
+
+#: plugins/x2go/x2go_plugin.c:575
+msgid "Hostname"
+msgstr "主机名"
+
+#: plugins/x2go/x2go_plugin.c:576
+msgid "Cookie"
+msgstr "Cookie"
+
+#: plugins/x2go/x2go_plugin.c:577
+msgid "Graphic port"
+msgstr "图形端口"
+
+#: plugins/x2go/x2go_plugin.c:578
+msgid "SND port"
+msgstr "SND 端口"
+
+#: plugins/x2go/x2go_plugin.c:579
+msgid "SSHFS port"
+msgstr "SSHFS 端口"
+
+#: plugins/x2go/x2go_plugin.c:582
+msgid "Unknown property"
+msgstr "未知属性"
+
+#: plugins/x2go/x2go_plugin.c:657 plugins/x2go/x2go_plugin.c:700
+msgid "Couldn't find child GtkTreeView of session chooser dialog."
+msgstr "找不到会话选择器对话框的子 GtkTreeView。"
+
+#: plugins/x2go/x2go_plugin.c:669
+msgid "Both parameters 'dialog' and 'treeview' are uninitialized!"
+msgstr "参数 'dialog' 和 'treeview' 均未初始化！"
+
+#: plugins/x2go/x2go_plugin.c:677
+msgid ""
+"GtkTreeModel of session chooser dialog could not be obtained for an unknown "
+"reason."
+msgstr "由于未知原因，无法获取会话选择器对话框的 GtkTreeModel。"
+
+#: plugins/x2go/x2go_plugin.c:709
+msgid "Couldn't get currently selected row (session)!"
+msgstr "无法获取当前选定的行（会话）！"
+
+#: plugins/x2go/x2go_plugin.c:725
+#, c-format
+msgid ""
+"Exactly one session should be selectable but '%i' rows (sessions) are "
+"selected."
+msgstr "应该只选择一个会话，但实际选中了“%i”行 (会话）。"
+
+#: plugins/x2go/x2go_plugin.c:764
+msgid "Failed to fill 'GtkTreeIter'."
+msgstr "填充 'GtkTreeIter' 失败。"
+
+#: plugins/x2go/x2go_plugin.c:776
+#, c-format
+msgid "Couldn't get property with index '%i' out of selected row."
+msgstr "无法从选定的行中获取索引 '%i'的属性。"
+
+#: plugins/x2go/x2go_plugin.c:807
+msgid "parameter 'argv' is 'NULL'."
+msgstr "参数 'argv' 为 'NULL'。"
+
+#: plugins/x2go/x2go_plugin.c:818
+msgid "parameter 'error' is 'NULL'."
+msgstr "参数 'error' 为 'NULL'。"
+
+#: plugins/x2go/x2go_plugin.c:826
+msgid "parameter 'env' is either invalid or uninitialized."
+msgstr "参数 'env' 无效或未被初始化。"
+
+#: plugins/x2go/x2go_plugin.c:842 plugins/x2go/x2go_plugin.c:2170
+msgid "Started PyHoca-CLI with the following arguments:"
+msgstr "使用以下参数启动了 PyHoca-CLI："
+
+#: plugins/x2go/x2go_plugin.c:870
+msgid ""
+"The necessary PyHoca-CLI process has encountered a internet connection "
+"problem."
+msgstr "必要的 PyHoca-CLI 进程遇到了一个互联网连接问题。"
+
+#: plugins/x2go/x2go_plugin.c:880
+msgid "An unknown error occured while trying to start PyHoca-CLI."
+msgstr "尝试启动 PyHoca-CLI 时发生了一个未知的错误。"
+
+#: plugins/x2go/x2go_plugin.c:890
+#, c-format
+msgid ""
+"An unknown error occured while trying to start PyHoca-CLI. Exit code: %i"
+msgstr "尝试启动 PyHoca-CLI 时发生了一个未知的错误。退出代码：%i"
+
+#: plugins/x2go/x2go_plugin.c:897
+#, c-format
+msgid ""
+"An unknown error occured while trying to start PyHoca-CLI. Exit code: %i. "
+"Error: '%s'"
+msgstr "尝试启动PyHoca-CLI时发生了一个未知的错误。退出代码：%i。错误：'%s'"
+
+#: plugins/x2go/x2go_plugin.c:940
+msgid "Parameter 'custom_data' is not fully initialized!"
+msgstr "参数 'custom_data' 未完全初始化！"
+
+#: plugins/x2go/x2go_plugin.c:967 plugins/x2go/x2go_plugin.c:1576
+#: plugins/x2go/x2go_plugin.c:1870
+msgid "'Invalid connection data.'"
+msgstr "'无效的连接数据'"
+
+#: plugins/x2go/x2go_plugin.c:981
+msgid "Parameter 'session_id' is not initialized!"
+msgstr "参数 'session_id' 未初始化！"
+
+#: plugins/x2go/x2go_plugin.c:1047
+#, c-format
+msgid "An error occured while trying to terminate a X2Go session: %s"
+msgstr "尝试终止 X2Go 会话时发生错误：%s"
+
+#: plugins/x2go/x2go_plugin.c:1094 plugins/x2go/x2go_plugin.c:1118
+msgid "Couldn't get session ID from session chooser dialog."
+msgstr "无法从会话选择器对话框中获得会话 ID。"
+
+#: plugins/x2go/x2go_plugin.c:1101
+#, c-format
+msgid "Resuming session: '%s'"
+msgstr "恢复会话：'%s'"
+
+#: plugins/x2go/x2go_plugin.c:1125
+#, c-format
+msgid "Terminating session: '%s'"
+msgstr "正在终止会话：'%s'"
+
+#: plugins/x2go/x2go_plugin.c:1142
+msgid "GtkTreePath 'path' describes a non-existing row!"
+msgstr "GtkTreePath 'path' 描述了一个不存在的行！"
+
+#: plugins/x2go/x2go_plugin.c:1380
 msgid "PyHoca-CLI exited unexpectedly. This connection will now be closed."
 msgstr "PyHoca-CLI 意外退出。此连接将被关闭。"
 
-#: plugins/x2go/x2go_plugin.c:514
+#: plugins/x2go/x2go_plugin.c:1388
 msgid "An error occured."
 msgstr "发生了一个错误。"
 
-#: plugins/x2go/x2go_plugin.c:515
+#: plugins/x2go/x2go_plugin.c:1389
 msgid ""
 "The necessary child process 'pyhoca-cli' stopped unexpectedly.\n"
 "Please check your profile settings and PyHoca-CLI's output for possible "
@@ -2891,60 +3162,110 @@ msgstr ""
 "请检查您的配置文件设置和 PyHoca-CLI 的输出是否存在错误，并确保远程服务器可访"
 "问。"
 
-#: plugins/x2go/x2go_plugin.c:561
-msgid "Started PyHoca-CLI with the following arguments:"
-msgstr "使用以下参数启动了 PyHoca-CLI："
-
-#: plugins/x2go/x2go_plugin.c:580
-#, c-format
-msgid "Could not retrieve PyHoca-CLI's command-line features! Exit code: %i"
-msgstr "无法获取 PyHoca-CLI 的命令行特性！退出代码：%i"
-
-#: plugins/x2go/x2go_plugin.c:585
-#, c-format
-msgid "Error: '%s'"
-msgstr "错误： '%s'"
-
-#: plugins/x2go/x2go_plugin.c:609
+#: plugins/x2go/x2go_plugin.c:1432
 msgid "Can't save empty username!"
 msgstr "无法保存空的用户名！"
 
-#: plugins/x2go/x2go_plugin.c:621
-msgid "Internal error: Could not save new credentials."
-msgstr "内部错误：无法保存新凭证。"
+#: plugins/x2go/x2go_plugin.c:1446
+msgid "Could not save new credentials."
+msgstr "无法保存新的凭证。"
 
-#: plugins/x2go/x2go_plugin.c:623
+#: plugins/x2go/x2go_plugin.c:1449
 msgid ""
 "An error occured while trying to save new credentials: 's_password' or "
 "'s_username' strings were not set."
 msgstr "尝试保存新凭据时发生错误：未设置's_password' 或 's_username' 字符串。"
 
-#: plugins/x2go/x2go_plugin.c:659
+#: plugins/x2go/x2go_plugin.c:1480
+msgid "Parameter 'default_username' is uninitialized."
+msgstr "参数 'default_username' 未被初始化。"
+
+#: plugins/x2go/x2go_plugin.c:1509
 msgid "Enter X2Go credentials"
 msgstr "输入 X2Go 凭据"
 
-#: plugins/x2go/x2go_plugin.c:818
+#: plugins/x2go/x2go_plugin.c:1706
+msgid ""
+"Couldn't parse the output of PyHoca-CLI's --list-sessions option. Creating a "
+"new session now."
+msgstr ""
+"无法解析 PyHoca-CLI 的--list-sessions 选项的输出。现在创建一个新的会话。"
+
+#: plugins/x2go/x2go_plugin.c:1745
+msgid "Couldn't allocate enough memory!"
+msgstr "无法分配足够的内存！"
+
+#: plugins/x2go/x2go_plugin.c:1755
+#, c-format
+msgid "Found already existing X2Go session with ID: '%s'"
+msgstr "发现已经存在的 X2Go 会话的ID：'%s'"
+
+#. TRANSLATORS: Please stick to X2GoClient's translation.
+#: plugins/x2go/x2go_plugin.c:1798
+msgid "Suspended"
+msgstr "已停用"
+
+#. TRANSLATORS: Please stick to X2GoClient's translation.
+#: plugins/x2go/x2go_plugin.c:1801
+msgid "Running"
+msgstr "运行中"
+
+#. TRANSLATORS: Please stick to X2GoClient's translation.
+#: plugins/x2go/x2go_plugin.c:1804
+msgid "Terminated"
+msgstr "已终止"
+
+#: plugins/x2go/x2go_plugin.c:1837
+msgid ""
+"Could not find any sessions on remote machine. Creating a new session now."
+msgstr "在远程机器上找不到任何会话。现在创建一个新的会话。"
+
+#: plugins/x2go/x2go_plugin.c:1892
+msgid "Choose a session to resume:"
+msgstr "选择一个会话来恢复："
+
+#: plugins/x2go/x2go_plugin.c:1935
+msgid "Waiting for user to select a session…"
+msgstr "等待用户选择一个会话…"
+
+#: plugins/x2go/x2go_plugin.c:1943
+msgid "No session was selected. Creating a new one."
+msgstr "没有选择会话。创建一个新的。"
+
+#: plugins/x2go/x2go_plugin.c:1991
+#, c-format
+msgid "A non-critical error happened: %s"
+msgstr "发生了一个非关键性的错误：%s"
+
+#: plugins/x2go/x2go_plugin.c:1996
+#, c-format
+msgid "User chose to resume session with ID: '%s'"
+msgstr "用户选择恢复以下 ID 的会话：'%s'"
+
+#. TRANSLATORS: Please stick to X2GoClient's way of translating.
+#: plugins/x2go/x2go_plugin.c:2017
+#, c-format
+msgid "Resuming session '%s'…"
+msgstr "正在恢复会话'%s'…"
+
+#: plugins/x2go/x2go_plugin.c:2148
 msgid "DPI setting is out of bounds. Please adjust it in profile settings."
 msgstr "DPI 设置越界。请在配置文件设置中进行调整。"
 
-#: plugins/x2go/x2go_plugin.c:838
-msgid "Started pyhoca-cli with following arguments:"
-msgstr "使用以下参数启动了pyhoca-cli："
-
-#: plugins/x2go/x2go_plugin.c:858
+#: plugins/x2go/x2go_plugin.c:2190
 msgid "An error occured while starting an X2Go session…"
 msgstr "启动 X2Go 会话时发生了一个错误…"
 
-#: plugins/x2go/x2go_plugin.c:867
+#: plugins/x2go/x2go_plugin.c:2198
 msgid "Could not start X2Go session."
 msgstr "无法启动 X2Go 会话。"
 
-#: plugins/x2go/x2go_plugin.c:868
+#: plugins/x2go/x2go_plugin.c:2199
 #, c-format
 msgid "Could not start PyHoca-CLI (%i): '%s'"
 msgstr "未能启动 PyHoca-CLI (%i): '%s'"
 
-#: plugins/x2go/x2go_plugin.c:945
+#: plugins/x2go/x2go_plugin.c:2314
 msgid ""
 "Couldn't get PyHoca-CLI's command-line features. This indicates it is either "
 "too old, or not installed. An old limited set of features will be used for "
@@ -2953,47 +3274,47 @@ msgstr ""
 "无法获得 PyHoca-CLI 的命令行功能。这表明您的 PyHoca-CLI 版本太旧或未安装 "
 "PyHoca-CLI！将暂时使用旧的有限的功能集。"
 
-#: plugins/x2go/x2go_plugin.c:956
+#: plugins/x2go/x2go_plugin.c:2323
 msgid ""
 "Could not parse PyHoca-CLI's command-line features. Using a limited feature-"
 "set for now."
 msgstr "无法解析 PyHoca-CLI 的命令行功能！暂时使用有限的功能集。"
 
-#: plugins/x2go/x2go_plugin.c:962
+#: plugins/x2go/x2go_plugin.c:2329
 msgid "Retrieved the following PyHoca-CLI command-line features:"
 msgstr "获取了以下 PyHoca-CLI 功能："
 
-#: plugins/x2go/x2go_plugin.c:967
+#: plugins/x2go/x2go_plugin.c:2337
 #, c-format
 msgid "Available feature[%i]: '%s'"
 msgstr "可用功能[%i]: '%s'"
 
-#: plugins/x2go/x2go_plugin.c:1072
+#: plugins/x2go/x2go_plugin.c:2442
 msgid "Could not open X11 DISPLAY."
 msgstr "无法打开 X11 DISPLAY。"
 
-#: plugins/x2go/x2go_plugin.c:1112
+#: plugins/x2go/x2go_plugin.c:2482
 msgid "Waiting for window of X2Go Agent to appear…"
 msgstr "等待 X2Go Agent 窗口出现…"
 
-#: plugins/x2go/x2go_plugin.c:1138
+#: plugins/x2go/x2go_plugin.c:2508
 msgid "Waiting for PyHoca-CLI to show the session's window…"
 msgstr "等待 PyHoca-CLI 显示会话窗口…"
 
-#: plugins/x2go/x2go_plugin.c:1189
+#: plugins/x2go/x2go_plugin.c:2559
 msgid "No X2Go session window appeared. Something went wrong…"
 msgstr "没有出现 X2Go 会话窗口。出了些问题…"
 
-#: plugins/x2go/x2go_plugin.c:1298
-msgid "Internal error: RemminaProtocolWidget* gp is NULL!"
-msgstr "内部错误：RemminaProtocolWidget* gp 为 NULL！"
+#: plugins/x2go/x2go_plugin.c:2670
+msgid "RemminaProtocolWidget* gp is 'NULL'!"
+msgstr "RemminaProtocolWidget* gp 是 'NULL'!"
 
-#: plugins/x2go/x2go_plugin.c:1319
+#: plugins/x2go/x2go_plugin.c:2691
 #, c-format
 msgid "The %s protocol is unavailable because GtkSocket only works under X.org"
 msgstr "%s 协议不可用，因为 GtkSocket 仅在 X.org 下工作"
 
-#: plugins/x2go/x2go_plugin.c:1327
+#: plugins/x2go/x2go_plugin.c:2700
 msgid "Could not initialize pthread. Falling back to non-threaded mode…"
 msgstr "无法初始化 pthread。退回到非线程模式…"
 
@@ -3005,7 +3326,7 @@ msgstr "无法初始化 pthread。退回到非线程模式…"
 #. your language.
 #. (Except your listing-grammar differs from english.)
 #. 'value1' and 'value2'
-#: plugins/x2go/x2go_plugin.c:1370 plugins/x2go/x2go_plugin.c:1388
+#: plugins/x2go/x2go_plugin.c:2743 plugins/x2go/x2go_plugin.c:2761
 #, c-format
 msgid "%sand '%s'"
 msgstr "%s及'%s'"
@@ -3016,7 +3337,7 @@ msgstr "%s及'%s'"
 #. TRANSLATORS: Presumably you just want to leave it english.
 #. (Except your listing-grammar differs from english.)
 #. 'value1' and 'value2'
-#: plugins/x2go/x2go_plugin.c:1375 plugins/x2go/x2go_plugin.c:1393
+#: plugins/x2go/x2go_plugin.c:2748 plugins/x2go/x2go_plugin.c:2766
 #, c-format
 msgid "%s'%s' "
 msgstr "%s'%s' "
@@ -3024,120 +3345,119 @@ msgstr "%s'%s' "
 #. TRANSLATORS: Presumably you just want to leave it english.
 #. (Except your listing-grammar differs from english.)
 #. 'value1', 'value2', 'valueN-1' and 'valueN'
-#: plugins/x2go/x2go_plugin.c:1380
+#: plugins/x2go/x2go_plugin.c:2753
 #, c-format
 msgid "%s'%s', "
 msgstr "%s'%s', "
 
-#: plugins/x2go/x2go_plugin.c:1418
+#: plugins/x2go/x2go_plugin.c:2792
 msgid "Invalid validation data in ProtocolSettings array!"
 msgstr "ProtocolSettings 数组中的验证数据无效！"
 
-#: plugins/x2go/x2go_plugin.c:1430 plugins/x2go/x2go_plugin.c:1492
+#: plugins/x2go/x2go_plugin.c:2807 plugins/x2go/x2go_plugin.c:2872
 msgid "Validation data in ProtocolSettings array is invalid!"
 msgstr "ProtocolSettings 数组中的验证数据无效！"
 
-#: plugins/x2go/x2go_plugin.c:1457
+#: plugins/x2go/x2go_plugin.c:2816
+msgid "Parameters 'key' or 'value' are 'NULL'!"
+msgstr "参数'key' 或 'value' 是 'NULL'！"
+
+#: plugins/x2go/x2go_plugin.c:2834
 #, c-format
 msgid "Allowed values are %s."
 msgstr "允许的值为 %s。"
 
-#: plugins/x2go/x2go_plugin.c:1459
+#: plugins/x2go/x2go_plugin.c:2836
 #, c-format
 msgid "The only allowed value is '%s'."
 msgstr "唯一允许的值为 '%s'。"
 
-#: plugins/x2go/x2go_plugin.c:1501
+#: plugins/x2go/x2go_plugin.c:2883
 msgid "The lower limit is not a valid integer!"
 msgstr "下限不是有效整数！"
 
-#: plugins/x2go/x2go_plugin.c:1503
+#: plugins/x2go/x2go_plugin.c:2888
 msgid "The lower limit is too high!"
 msgstr "下限过高！"
 
-#: plugins/x2go/x2go_plugin.c:1505
+#: plugins/x2go/x2go_plugin.c:2893
 msgid "The lower limit is too low!"
 msgstr "下限过低！"
 
-#: plugins/x2go/x2go_plugin.c:1507 plugins/x2go/x2go_plugin.c:1533
-#: plugins/x2go/x2go_plugin.c:1552
-msgid "Something went wrong."
-msgstr "出了些问题。"
+#: plugins/x2go/x2go_plugin.c:2898 plugins/x2go/x2go_plugin.c:2928
+#: plugins/x2go/x2go_plugin.c:2948
+msgid "Something unknown went wrong."
+msgstr "一些未知的东西出了问题。"
 
-#: plugins/x2go/x2go_plugin.c:1511 plugins/x2go/x2go_plugin.c:1537
-#: plugins/x2go/x2go_plugin.c:1556
+#: plugins/x2go/x2go_plugin.c:2903 plugins/x2go/x2go_plugin.c:2933
+#: plugins/x2go/x2go_plugin.c:2952
 msgid "Please check the RemminaProtocolSetting array for possible errors."
 msgstr "请检查 RemminaProtocolSetting 数组是否存在错误。"
 
-#: plugins/x2go/x2go_plugin.c:1520 plugins/x2go/x2go_plugin.c:1524
-#: plugins/x2go/x2go_plugin.c:1528 plugins/x2go/x2go_plugin.c:1532
-msgid "Internal error: "
-msgstr "内部错误： "
-
-#: plugins/x2go/x2go_plugin.c:1521
+#: plugins/x2go/x2go_plugin.c:2913
 msgid "The upper limit is not a valid integer!"
 msgstr "上限不是有效整数！"
 
-#: plugins/x2go/x2go_plugin.c:1525
+#: plugins/x2go/x2go_plugin.c:2918
 msgid "The upper limit is too high!"
 msgstr "上限过高！"
 
-#: plugins/x2go/x2go_plugin.c:1529
+#: plugins/x2go/x2go_plugin.c:2923
 msgid "The upper limit is too low!"
 msgstr "上限过低！"
 
-#: plugins/x2go/x2go_plugin.c:1547
+#: plugins/x2go/x2go_plugin.c:2943
 msgid "The input is not a valid integer!"
 msgstr "输入不是有效整数！"
 
-#: plugins/x2go/x2go_plugin.c:1549 plugins/x2go/x2go_plugin.c:1568
+#: plugins/x2go/x2go_plugin.c:2945 plugins/x2go/x2go_plugin.c:2964
 #, c-format
 msgid "Input must be a number between %i and %i."
 msgstr "输入值必须在 %i 和 %i 之间。"
 
-#: plugins/x2go/x2go_plugin.c:1597
+#: plugins/x2go/x2go_plugin.c:2993
 msgid "Startup program"
 msgstr "启动程序"
 
-#: plugins/x2go/x2go_plugin.c:1599
+#: plugins/x2go/x2go_plugin.c:2995
 msgid "Which command should be executed after creating the X2Go session?"
 msgstr "创建 X2Go 会话后应该执行哪个命令？"
 
-#: plugins/x2go/x2go_plugin.c:1601
+#: plugins/x2go/x2go_plugin.c:2997
 msgid "Keyboard Layout (auto)"
 msgstr "键盘布局 (自动)"
 
-#: plugins/x2go/x2go_plugin.c:1602
+#: plugins/x2go/x2go_plugin.c:2998
 msgid "Keyboard type (auto)"
 msgstr "键盘类型 (自动)"
 
-#: plugins/x2go/x2go_plugin.c:1603
+#: plugins/x2go/x2go_plugin.c:2999
 msgid "Audio support"
 msgstr "音频支持"
 
-#: plugins/x2go/x2go_plugin.c:1605
+#: plugins/x2go/x2go_plugin.c:3001
 msgid "The sound system of the X2Go server (default: 'pulse')."
 msgstr "X2Go 服务器的声音系统 (默认值：'pulse')。"
 
-#: plugins/x2go/x2go_plugin.c:1608
+#: plugins/x2go/x2go_plugin.c:3004
 msgid "Clipboard direction"
 msgstr "剪贴板方向"
 
-#: plugins/x2go/x2go_plugin.c:1610
+#: plugins/x2go/x2go_plugin.c:3006
 msgid "Which direction should clipboard content be copied? (default: 'both')."
 msgstr "应在哪个方向复制剪贴板内容？(默认:“both”)。"
 
-#: plugins/x2go/x2go_plugin.c:1614
+#: plugins/x2go/x2go_plugin.c:3010
 msgid "DPI resolution"
 msgstr "DPI 分辨率"
 
-#: plugins/x2go/x2go_plugin.c:1615
+#: plugins/x2go/x2go_plugin.c:3011
 msgid ""
 "Launch session with a specific resolution (in dots per inch). Must be "
 "between 20 and 400."
 msgstr "以特定的分辨率 (点每英寸) 启动会话。值必须在 20 到 400 之间。"
 
-#: plugins/x2go/x2go_plugin.c:1659
+#: plugins/x2go/x2go_plugin.c:3055
 msgid "X2Go plugin loaded."
 msgstr "已加载 X2Go 插件。"
 
@@ -4233,6 +4553,30 @@ msgstr "解锁 Remmina"
 msgid "Master password"
 msgstr "管控密码"
 
+#~ msgid "Started pyhoca-cli with following arguments:"
+#~ msgstr "使用以下参数启动了pyhoca-cli："
+
+#~ msgid ""
+#~ "For more information, please visit the Remmina Wiki:\n"
+#~ "https://gitlab.com/Remmina/Remmina/-/wikis/Usage/Remmina-debugging"
+#~ msgstr ""
+#~ "更多信息，请访问 Remmina Wiki：\n"
+#~ "https://gitlab.com/Remmina/Remmina/-/wikis/Usage/Remmina-debugging"
+
+#~ msgid "_Select session"
+#~ msgstr "选择会话(_S)"
+
+#~ msgid "Started PyHoca-CLI with the following environment variables:"
+#~ msgstr "使用以下环境变量启动 PyHoca-CLI："
+
+#, c-format
+#~ msgid "Could not retrieve PyHoca-CLI's command-line features! Exit code: %i"
+#~ msgstr "无法获取 PyHoca-CLI 的命令行特性！退出代码：%i"
+
+#, c-format
+#~ msgid "Error: '%s'"
+#~ msgstr "错误： '%s'"
+
 #~ msgid "Website"
 #~ msgstr "网站"
 
@@ -4318,15 +4662,6 @@ msgstr "管控密码"
 
 #~ msgid "Start"
 #~ msgstr "启动"
-
-#~ msgid "Terminate"
-#~ msgstr "终止"
-
-#~ msgid "Display"
-#~ msgstr "显示"
-
-#~ msgid "Status"
-#~ msgstr "状态"
 
 #~ msgid "Password for private SSH key"
 #~ msgstr "私人 SSH 密钥的密码"
@@ -4457,9 +4792,6 @@ msgstr "管控密码"
 
 #~ msgid "Autostart"
 #~ msgstr "自动启动"
-
-#~ msgid "Pre-command"
-#~ msgstr "连接前执行命令"
 
 #~ msgid "Post-command"
 #~ msgstr "连接后执行命令"

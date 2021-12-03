@@ -4170,8 +4170,12 @@ void rco_on_connect(RemminaProtocolWidget *gp, RemminaConnectionObject *cnnobj)
 	if (remmina_file_get_filename(cnnobj->remmina_file) == NULL)
 		remmina_pref_add_recent(remmina_file_get_string(cnnobj->remmina_file, "protocol"),
 					remmina_file_get_string(cnnobj->remmina_file, "server"));
-
-	remmina_file_state_last_success(cnnobj->remmina_file);
+	if (remmina_pref.periodic_usage_stats_permitted) {
+		REMMINA_DEBUG("Stats are allowed, we save the last successful connection date");
+		//remmina_file_set_string(cnnobj->remmina_file, "last_success", last_success);
+		remmina_file_state_last_success(cnnobj->remmina_file);
+		//REMMINA_DEBUG("Last connection made on %s.", last_success);
+	}
 
 	REMMINA_DEBUG("Saving credentials");
 	/* Save credentials */
@@ -4329,6 +4333,54 @@ void rcw_open_from_file(RemminaFile *remminafile)
 	rcw_open_from_file_full(remminafile, NULL, NULL, NULL);
 }
 
+static void set_label_selectable(gpointer data, gpointer user_data)
+{
+	TRACE_CALL(__func__);
+	GtkWidget *widget = GTK_WIDGET(data);
+
+	if (GTK_IS_LABEL(widget)) {
+		gtk_label_set_selectable(GTK_LABEL(widget), TRUE);
+	}
+}
+
+/**
+ * @brief These define the response id's of the
+ *	  gtksocket-is-not-available-warning-dialog buttons.
+ */
+enum GTKSOCKET_NOT_AVAIL_RESPONSE_TYPE {
+  GTKSOCKET_NOT_AVAIL_RESPONSE_OPEN_BROWSER = 0,
+  GTKSOCKET_NOT_AVAIL_RESPONSE_NUM
+};
+
+/**
+ * @brief Gets called if the user interacts with the
+ *	  gtksocket-is-not-available-warning-dialog
+ */
+static void rcw_gtksocket_not_available_dialog_response(GtkDialog* self,
+							gint response_id,
+							RemminaConnectionObject* cnnobj)
+{
+	TRACE_CALL(__func__);
+
+	GError* error = NULL;
+
+	if (response_id == GTKSOCKET_NOT_AVAIL_RESPONSE_OPEN_BROWSER) {
+		gtk_show_uri_on_window(
+			NULL,
+			// TRANSLATORS: This should be a link to the Remmina Wiki page:
+			// TRANSLATORS: 'GtkSocket feature is not available'.
+			_("https://gitlab.com/Remmina/Remmina/-/wikis/GtkSocket-feature-is-not-available-in-a-Wayland-session"),
+			GDK_CURRENT_TIME, &error
+		);
+	}
+
+	// Close the current page since it's useless without GtkSocket.
+	// The user would need to manually click the close button.
+	if (cnnobj) rco_disconnect_current_page(cnnobj);
+
+	gtk_widget_destroy(GTK_WIDGET(self));
+}
+
 GtkWidget *rcw_open_from_file_full(RemminaFile *remminafile, GCallback disconnect_cb, gpointer data, guint *handler)
 {
 	TRACE_CALL(__func__);
@@ -4454,14 +4506,47 @@ GtkWidget *rcw_open_from_file_full(RemminaFile *remminafile, GCallback disconnec
 							   remmina_file_get_string(remminafile, "protocol"),
 							   REMMINA_PROTOCOL_FEATURE_TYPE_GTKSOCKET);
 	if (ret && !remmina_gtksocket_available()) {
+		gchar* title = _("Warning: This plugin requires GtkSocket, but this "
+				 "feature is unavailable in a Wayland session.");
+
+		gchar* err_msg =
+			// TRANSLATORS: This should be a link to the Remmina Wiki page:
+			// 'GtkSocket feature is not available'.
+			_("Plugins relying on GtkSocket can't run in a "
+			  "Wayland session.\nFor more information and a possible "
+			  "workaround, please visit the Remmina Wiki at:\n\n"
+			  "https://gitlab.com/Remmina/Remmina/-/wikis/GtkSocket-feature-is-not-available-in-a-Wayland-session");
+
 		dialog = gtk_message_dialog_new(
 			GTK_WINDOW(cnnobj->cnnwin),
 			GTK_DIALOG_MODAL,
 			GTK_MESSAGE_WARNING,
 			GTK_BUTTONS_OK,
-			_("Warning: This plugin requires GtkSocket, but it’s not available."));
-		g_signal_connect(G_OBJECT(dialog), "response", G_CALLBACK(gtk_widget_destroy), NULL);
+			"%s", title);
+
+		gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(dialog), "%s",
+							 err_msg);
+		gtk_dialog_add_button(GTK_DIALOG(dialog), _("Open in browser"),
+				      GTKSOCKET_NOT_AVAIL_RESPONSE_OPEN_BROWSER);
+
+		REMMINA_CRITICAL(g_strdup_printf("%s\n%s", title, err_msg));
+
+		g_signal_connect(G_OBJECT(dialog),
+				 "response",
+				 G_CALLBACK(rcw_gtksocket_not_available_dialog_response),
+				 cnnobj);
+
+		// Make Text selectable. Usefull because of the link in the text.
+		GtkWidget *area = gtk_message_dialog_get_message_area(
+			GTK_MESSAGE_DIALOG(dialog));
+		GtkContainer *box = (GtkContainer *) area;
+
+		GList *children = gtk_container_get_children(box);
+		g_list_foreach(children, set_label_selectable, NULL);
+		g_list_free(children);
+
 		gtk_widget_show(dialog);
+
 		return NULL;    /* Should we destroy something before returning? */
 	}
 

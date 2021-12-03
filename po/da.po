@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: remmina\n"
 "Report-Msgid-Bugs-To: l10n@lists.remmina.org\n"
-"POT-Creation-Date: 2021-10-29 12:14+0000\n"
-"PO-Revision-Date: 2021-10-05 14:04+0000\n"
+"POT-Creation-Date: 2021-12-03 09:34+0000\n"
+"PO-Revision-Date: 2021-11-09 14:11+0000\n"
 "Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Danish <https://hosted.weblate.org/projects/remmina/remmina/"
 "da/>\n"
@@ -22,10 +22,10 @@ msgstr ""
 "X-Generator: Weblate 4.9-dev\n"
 
 #: src/remmina_sftp_plugin.c:310 src/remmina_sftp_plugin.c:354
-#: src/remmina_protocol_widget.c:1676 src/remmina_protocol_widget.c:1695
+#: src/remmina_protocol_widget.c:1677 src/remmina_protocol_widget.c:1696
 #: src/remmina_file_editor.c:1101 src/remmina_file_editor.c:1222
-#: src/remmina_ssh_plugin.c:1360 plugins/rdp/rdp_plugin.c:2680
-#: plugins/www/www_plugin.c:895 plugins/x2go/x2go_plugin.c:1596
+#: src/remmina_ssh_plugin.c:1360 plugins/rdp/rdp_plugin.c:2723
+#: plugins/www/www_plugin.c:895 plugins/x2go/x2go_plugin.c:2992
 #: data/ui/remmina_mpc.glade:236 data/ui/remmina_preferences.glade:1675
 #: data/ui/remmina_unlock.glade:116
 msgid "Password"
@@ -64,15 +64,16 @@ msgstr "Overskriv alle filer"
 msgid "Resume all file transfers"
 msgstr "Genoptag alle filoverførsler"
 
-#: src/remmina_sftp_plugin.c:328 src/remmina_protocol_widget.c:283
+#: src/remmina_sftp_plugin.c:328 src/remmina_protocol_widget.c:284
 msgid "Connect via SSH from a new terminal"
 msgstr "Opret forbindelse via SSH fra en ny terminal"
 
 #: src/remmina_sftp_plugin.c:353 src/remmina_message_panel.c:330
 #: src/remmina_file_editor.c:1216 src/remmina_ssh_plugin.c:1470
-#: plugins/rdp/rdp_plugin.c:2679 plugins/vnc/vnc_plugin.c:1976
+#: plugins/rdp/rdp_plugin.c:2722 plugins/vnc/vnc_plugin.c:1976
 #: plugins/vnc/vnc_plugin.c:1988 plugins/www/www_plugin.c:894
-#: plugins/x2go/x2go_plugin.c:1595 data/ui/remmina_mpc.glade:144
+#: plugins/x2go/x2go_plugin.c:574 plugins/x2go/x2go_plugin.c:2991
+#: data/ui/remmina_mpc.glade:144
 msgid "Username"
 msgstr "Brugernavn"
 
@@ -86,7 +87,7 @@ msgstr "Autentifikationstype"
 msgid "Password to unlock private key"
 msgstr "Adgangskode til at låse op for privat nøgle"
 
-#: src/remmina_sftp_plugin.c:358 src/remmina_ssh_plugin.c:1506
+#: src/remmina_sftp_plugin.c:358 src/remmina_ssh_plugin.c:1507
 msgid "SSH Proxy Command"
 msgstr "Kommando til SSH-proxy"
 
@@ -254,7 +255,7 @@ msgstr "Ja"
 msgid "No"
 msgstr "Nej"
 
-#: src/remmina_message_panel.c:391 plugins/rdp/rdp_plugin.c:2681
+#: src/remmina_message_panel.c:391 plugins/rdp/rdp_plugin.c:2724
 #: data/ui/remmina_mpc.glade:172
 msgid "Domain"
 msgstr "Domæne"
@@ -405,9 +406,39 @@ msgstr "Afbryd forbindelsen"
 msgid "The file “%s” is corrupted, unreadable, or could not be found."
 msgstr "Filen \"%s\" er korrupt, ulæselig eller blev ikke fundet."
 
-#: src/rcw.c:4466
-msgid "Warning: This plugin requires GtkSocket, but it’s not available."
+#. TRANSLATORS: This should be a link to the Remmina Wiki page:
+#. TRANSLATORS: 'GtkSocket feature is not available'.
+#: src/rcw.c:4372
+msgid ""
+"https://gitlab.com/Remmina/Remmina/-/wikis/GtkSocket-feature-is-not-"
+"available-in-a-Wayland-session"
+msgstr ""
+
+#: src/rcw.c:4509
+#, fuzzy
+#| msgid "Warning: This plugin requires GtkSocket, but it’s not available."
+msgid ""
+"Warning: This plugin requires GtkSocket, but this feature is unavailable in "
+"a Wayland session."
 msgstr "Advarsel: Pluginet kræver GtkSocket, men det er ikke tilgængeligt."
+
+#. TRANSLATORS: This should be a link to the Remmina Wiki page:
+#. 'GtkSocket feature is not available'.
+#: src/rcw.c:4515
+msgid ""
+"Plugins relying on GtkSocket can't run in a Wayland session.\n"
+"For more information and a possible workaround, please visit the Remmina "
+"Wiki at:\n"
+"\n"
+"https://gitlab.com/Remmina/Remmina/-/wikis/GtkSocket-feature-is-not-"
+"available-in-a-Wayland-session"
+msgstr ""
+
+#: src/rcw.c:4529
+#, fuzzy
+#| msgid "Open Main Window"
+msgid "Open in browser"
+msgstr "Åbn hovedvindue"
 
 #: src/remmina_mpchange.c:234
 msgid "The passwords do not match"
@@ -453,18 +484,26 @@ msgstr "FIL"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
 #: src/remmina.c:90
+#, fuzzy
+#| msgid ""
+#| "Connect to a desktop described in a file (.remmina or a type supported by "
+#| "a plugin)"
 msgid ""
-"Connect to a desktop described in a file (.remmina or a type supported by a "
-"plugin)"
+"Connect to a desktop described in a file (.remmina or a filetype supported "
+"by a plugin)"
 msgstr ""
 "Opret forbindelse til et skrivebord beskrevet i en fil (.remmina eller en "
 "type der understøttes af et plugin)"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
 #: src/remmina.c:92
+#, fuzzy
+#| msgid ""
+#| "Edit desktop connection described in file (.remmina or type supported by "
+#| "plugin)"
 msgid ""
-"Edit desktop connection described in file (.remmina or type supported by "
-"plugin)"
+"Edit desktop connection described in file (.remmina or a filetype supported "
+"by plugin)"
 msgstr ""
 "Rediger skrivebordsforbindelse beskrevet i fil (.remmina eller type der "
 "understøttes af plugin)"
@@ -542,12 +581,24 @@ msgstr ""
 msgid "Encrypt a password"
 msgstr "Krypter en adgangskode"
 
+#. TRANSLATORS:
+#. * This link should point to a resource explaining how to get Remmina
+#. * to log more verbose statements.
+#.
+#: src/remmina.c:337
+msgid ""
+"Remmina does not log all output statements. Turn on more verbose output by "
+"using \"G_MESSAGES_DEBUG=all\" as an environment variable.\n"
+"More info available on the Remmina wiki at:\n"
+"https://gitlab.com/Remmina/Remmina/-/wikis/Usage/Remmina-debugging"
+msgstr ""
+
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:375
+#: src/remmina.c:391
 msgid "- or protocol://username:encryptedpassword@host:port"
 msgstr "- eller protokoll://brugernavn:kryptertadgangskode@vært:port"
 
-#: src/remmina.c:378
+#: src/remmina.c:394
 #, fuzzy
 msgid ""
 "Examples:\n"
@@ -692,7 +743,7 @@ msgstr "Op"
 msgid "Go to parent folder"
 msgstr "Gå til overliggende mappe"
 
-#: src/remmina_ftp_client.c:758 plugins/rdp/rdp_plugin.c:2770
+#: src/remmina_ftp_client.c:758 plugins/rdp/rdp_plugin.c:2813
 #: plugins/vnc/vnc_plugin.c:2027
 msgid "Refresh"
 msgstr "Opdater"
@@ -738,11 +789,11 @@ msgstr "Gruppe"
 msgid "Permission"
 msgstr "Tilladelse"
 
-#: src/remmina_ftp_client.c:990 plugins/rdp/rdp_plugin.c:2568
+#: src/remmina_ftp_client.c:990 plugins/rdp/rdp_plugin.c:2611
 msgid "Remote"
 msgstr "Fjern"
 
-#: src/remmina_ftp_client.c:997 plugins/rdp/rdp_plugin.c:2567
+#: src/remmina_ftp_client.c:997 plugins/rdp/rdp_plugin.c:2610
 msgid "Local"
 msgstr "Lokal"
 
@@ -750,125 +801,125 @@ msgstr "Lokal"
 msgid "Progress"
 msgstr "Forløb"
 
-#: src/remmina_protocol_widget.c:290 src/remmina_ssh_plugin.c:829
+#: src/remmina_protocol_widget.c:291 src/remmina_ssh_plugin.c:829
 #: src/remmina_ssh_plugin.c:1445
 msgid "Open SFTP transfer…"
 msgstr "Åbn SFTP-overførsel …"
 
-#: src/remmina_protocol_widget.c:319
+#: src/remmina_protocol_widget.c:320
 msgid "Executing external commands…"
 msgstr "Udfører eksterne kommandoer …"
 
 #. TRANSLATORS: “%s” is a placeholder for the connection profile name
-#: src/remmina_protocol_widget.c:327
+#: src/remmina_protocol_widget.c:328
 #, c-format
 msgid "Connecting to “%s”…"
 msgstr "Opretter forbindelse til \"%s\" …"
 
 #. TRANSLATORS: “%s” is a placeholder for an hostname or an IP address.
-#: src/remmina_protocol_widget.c:915 src/remmina_protocol_widget.c:1100
+#: src/remmina_protocol_widget.c:916 src/remmina_protocol_widget.c:1101
 #, c-format
 msgid "Connecting to “%s” via SSH…"
 msgstr "Opretter forbindelse til %s via SSH …"
 
 #. TRANSLATORS: “%i” is a placeholder for a TCP port number.
-#: src/remmina_protocol_widget.c:1164
+#: src/remmina_protocol_widget.c:1165
 #, c-format
 msgid "Awaiting incoming SSH connection on port %i…"
 msgstr "Afventer indgående SSH-forbindelse på port %i …"
 
-#: src/remmina_protocol_widget.c:1217
+#: src/remmina_protocol_widget.c:1218
 #, c-format
 msgid "The “%s” command is not available on the SSH server."
 msgstr "Kommandoen \"%s\" er ikke tilgængelig på SSH-serveren."
 
-#: src/remmina_protocol_widget.c:1222
+#: src/remmina_protocol_widget.c:1223
 #, c-format
 msgid "Could not run the “%s” command on the SSH server (status = %i)."
 msgstr "Kommandoen \"%s\" kunne ikke køres på SSH-serveren (status = %i)."
 
 #. TRANSLATORS: %s is a placeholder for an error message
-#: src/remmina_protocol_widget.c:1230
+#: src/remmina_protocol_widget.c:1231
 #, c-format
 msgid "Could not run command. %s"
 msgstr "Kunne ikke køre kommando. %s"
 
 #. TRANSLATORS: “%s” is a placeholder for a hostname or IP address.
-#: src/remmina_protocol_widget.c:1300
+#: src/remmina_protocol_widget.c:1301
 #, c-format
 msgid "Connecting to %s via SSH…"
 msgstr "Opretter forbindelse til %s via SSH …"
 
-#: src/remmina_protocol_widget.c:1694
+#: src/remmina_protocol_widget.c:1695
 msgid "Type in SSH username and password."
 msgstr "Skriv brugernavn og adgangskode for SSH."
 
-#: src/remmina_protocol_widget.c:1749 src/remmina_protocol_widget.c:1781
+#: src/remmina_protocol_widget.c:1750 src/remmina_protocol_widget.c:1782
 msgid "Fingerprint automatically accepted"
 msgstr "Fingeraftryk automatisk accepteret"
 
 #. TRANSLATORS: The user is asked to verify a new SSL certificate.
-#: src/remmina_protocol_widget.c:1757
+#: src/remmina_protocol_widget.c:1758
 msgid "Certificate details:"
 msgstr "Certifikatdetaljer:"
 
 #. TRANSLATORS: An SSL certificate subject is usually the remote server the user connect to.
-#: src/remmina_protocol_widget.c:1759 src/remmina_protocol_widget.c:1791
+#: src/remmina_protocol_widget.c:1760 src/remmina_protocol_widget.c:1792
 msgid "Subject:"
 msgstr "Emne:"
 
 #. TRANSLATORS: The name or email of the entity that have issued the SSL certificate
-#: src/remmina_protocol_widget.c:1761 src/remmina_protocol_widget.c:1793
+#: src/remmina_protocol_widget.c:1762 src/remmina_protocol_widget.c:1794
 msgid "Issuer:"
 msgstr "Udsteder:"
 
 #. TRANSLATORS: An SSL certificate fingerprint, is a hash of a certificate calculated on all certificate's data and its signature.
-#: src/remmina_protocol_widget.c:1763
+#: src/remmina_protocol_widget.c:1764
 msgid "Fingerprint:"
 msgstr "Fingeraftryk:"
 
 #. TRANSLATORS: The user is asked to accept or refuse a new SSL certificate.
-#: src/remmina_protocol_widget.c:1765
+#: src/remmina_protocol_widget.c:1766
 msgid "Accept certificate?"
 msgstr "Accepter certifikat?"
 
 #. TRANSLATORS: The user is asked to verify a new SSL certificate.
-#: src/remmina_protocol_widget.c:1789
+#: src/remmina_protocol_widget.c:1790
 msgid "The certificate changed! Details:"
 msgstr "Certifikatet er blevet ændret! Detaljer:"
 
 #. TRANSLATORS: An SSL certificate fingerprint, is a hash of a certificate calculated on all certificate's data and its signature.
-#: src/remmina_protocol_widget.c:1795
+#: src/remmina_protocol_widget.c:1796
 msgid "Old fingerprint:"
 msgstr "Gammelt fingeraftryk:"
 
 #. TRANSLATORS: An SSL certificate fingerprint, is a hash of a certificate calculated on all certificate's data and its signature.
-#: src/remmina_protocol_widget.c:1797
+#: src/remmina_protocol_widget.c:1798
 msgid "New fingerprint:"
 msgstr "Nyt fingeraftryk:"
 
 #. TRANSLATORS: The user is asked to accept or refuse a new SSL certificate.
-#: src/remmina_protocol_widget.c:1799
+#: src/remmina_protocol_widget.c:1800
 msgid "Accept changed certificate?"
 msgstr "Accepter ændret certifikat?"
 
 #. TRANSLATORS: “%i” is a placeholder for a port number. “%s”  is a placeholder for a protocol name (VNC).
-#: src/remmina_protocol_widget.c:1942
+#: src/remmina_protocol_widget.c:1943
 #, c-format
 msgid "Listening on port %i for an incoming %s connection…"
 msgstr "Lytter på port %i efter en indgående %s-forbindelse …"
 
-#: src/remmina_protocol_widget.c:1967
+#: src/remmina_protocol_widget.c:1968
 msgid "Could not authenticate, attempting reconnection…"
 msgstr "Kunne ikke autentificere. Prøver at oprette forbindelse igen …"
 
-#: src/remmina_protocol_widget.c:2029 src/remmina_file_editor.c:436
+#: src/remmina_protocol_widget.c:2030 src/remmina_file_editor.c:436
 #: src/remmina_file_editor.c:1172 data/ui/remmina_main.glade:478
 msgid "Server"
 msgstr "Server"
 
 #. TRANSLATORS: “%s” is a placeholder for a protocol name, like “RDP”.
-#: src/remmina_protocol_widget.c:2047
+#: src/remmina_protocol_widget.c:2048
 #, c-format
 msgid "Install the %s protocol plugin first."
 msgstr "Installer først %s-protokolpluginet."
@@ -1123,18 +1174,18 @@ msgid "Could not start SFTP session. %s"
 msgstr "Kunne ikke starte SFTP-session. %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2378
+#: src/remmina_ssh.c:2379
 #, c-format
 msgid "Could not open channel. %s"
 msgstr "Kunne ikke åbne kanal. %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2393
+#: src/remmina_ssh.c:2394
 #, c-format
 msgid "Could not request shell. %s"
 msgstr "Kunne ikke anmode skallen. %s"
 
-#: src/remmina_ssh.c:2511
+#: src/remmina_ssh.c:2521
 msgid "Could not create PTY device."
 msgstr "Kunne ikke oprette PTY-enhed."
 
@@ -1144,8 +1195,9 @@ msgid "Plugin %s is not registered."
 msgstr "Pluginet %s er ikke registreret."
 
 #: src/remmina_main.c:669
+#, fuzzy
 msgid "The latest successful connection attempt, or a pre-computed date"
-msgstr ""
+msgstr "Det seneste vellykkede forbindelsesforsøg eller en forudberegnet dato"
 
 #: src/remmina_main.c:671
 #, c-format
@@ -1433,7 +1485,7 @@ msgstr "Tunnel via loopback-adresse"
 msgid "Same server at port %i"
 msgstr "Samme server på port %i"
 
-#: src/remmina_file_editor.c:1193 plugins/rdp/rdp_plugin.c:2724
+#: src/remmina_file_editor.c:1193 plugins/rdp/rdp_plugin.c:2767
 msgid "Start-up path"
 msgstr "Opstartssti"
 
@@ -1467,8 +1519,8 @@ msgstr "Noter"
 #, fuzzy, c-format
 msgid "(%s: %i): Can't validate setting '%s' since 'value' or 'gfe' are NULL!"
 msgstr ""
-"(%s: %i): Kan ikke validere indstillingen '%s', da 'value' eller 'gfe' er "
-"NULL!"
+"(%s: %i): Kan ikke validere indstillingen '%s', da \"value\" eller \"gfe\" "
+"er NULL!"
 
 #: src/remmina_file_editor.c:1441
 #, fuzzy, c-format
@@ -1480,8 +1532,8 @@ msgstr ""
 "'value' eller 'gfe' er NULL!"
 
 #. TRANSLATORS: Meta-error. Shouldn't be visible.
-#: src/remmina_file_editor.c:1445 plugins/x2go/x2go_plugin.c:856
-#: plugins/x2go/x2go_plugin.c:1440
+#: src/remmina_file_editor.c:1445 plugins/x2go/x2go_plugin.c:2188
+#: plugins/x2go/x2go_plugin.c:2817
 #, fuzzy
 #| msgid "Transfer error"
 msgid "Internal error."
@@ -1537,10 +1589,12 @@ msgstr "Kunne ikke finde filen \"%s\"."
 #. TRANSLATORS: This is a message that pops up when an external Remmina plugin tries to set the window resolution using a legacy parameter.
 #. TRANSLATORS: This is a message that pop-up when an external Remmina plugin tries to set the windows resolution using a legacy parameter.
 #: src/remmina_file.c:451 src/remmina_file.c:497
+#, fuzzy
 msgid ""
 "Using the «resolution» parameter in the Remmina preferences file is "
 "deprecated.\n"
 msgstr ""
+"Brugen af parameteren \"resolution\" i Remmina-indstillingerne er forældet.\n"
 
 #: src/remmina_icon.c:136
 msgid "Open Main Window"
@@ -1574,52 +1628,57 @@ msgid "Connect to remote desktops through the applet menu"
 msgstr "Opret forbindelse til fjernskriveborde gennem applet-menuen"
 
 #: src/remmina_icon.c:359
+#, fuzzy
 msgid "StatusNotifier/Appindicator support in “"
-msgstr ""
+msgstr "Understøttelse af StatusNotifier/Appindicator i \""
 
 #. TRANSLATORS: %s is a placeholder for "StatusNotifier/Appindicator suppor in “DESKTOP NAME”: "
 #: src/remmina_icon.c:366
-#, c-format
+#, fuzzy, c-format
 msgid "%s your desktop does support it"
-msgstr ""
+msgstr "%s dit skrivebord understøtter det"
 
 #. TRANSLATORS: %s is a placeholder for "StatusNotifier/Appindicator suppor in “DESKTOP NAME”: "
 #: src/remmina_icon.c:368
-#, c-format
+#, fuzzy, c-format
 msgid "%s and Remmina has built-in (compiled) support for libappindicator."
 msgstr ""
+"%s og Remmina har indbygget (kompileret) understøttelse for libappindicator."
 
 #. TRANSLATORS: %s is a placeholder for "StatusNotifier/Appindicator suppor in “DESKTOP NAME”: "
 #: src/remmina_icon.c:371
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "%s not supported natively by your Desktop Environment. libappindicator will "
 "try to fallback to GtkStatusIcon/xembed"
 msgstr ""
+"%s ikke understøttet nativt af dit skrivebordsmiljø. libappindicator vil "
+"forsøge at falde tilbage til GtkStatusIcon/xembed"
 
 #. TRANSLATORS: %s is a placeholder for "StatusNotifier/Appindicator suppor in “DESKTOP NAME”: "
 #: src/remmina_icon.c:375
-#, c-format
+#, fuzzy, c-format
 msgid "%s You may need to install, and use XApp Status Applet"
-msgstr ""
+msgstr "%s Du skal muligvis installere og bruge XApp Status Applet"
 
 #. TRANSLATORS: %s is a placeholder for "StatusNotifier/Appindicator suppor in “DESKTOP NAME”: "
 #: src/remmina_icon.c:378
-#, c-format
+#, fuzzy, c-format
 msgid "%s You may need to install, and use KStatusNotifierItem"
-msgstr ""
+msgstr "%s Du skal muligvis installere og bruge KStatusNotifierItem"
 
 #. TRANSLATORS: %s is a placeholder for "StatusNotifier/Appindicator suppor in “DESKTOP NAME”: "
 #: src/remmina_icon.c:381
-#, c-format
+#, fuzzy, c-format
 msgid "%s You may need to install, and use XEmbed SNI Proxy"
-msgstr ""
+msgstr "%s Du skal muligvis installere og bruge XEmbed SNI Proxy"
 
 #. TRANSLATORS: %s is a placeholder for "StatusNotifier/Appindicator suppor in “DESKTOP NAME”: "
 #: src/remmina_icon.c:384
-#, c-format
+#, fuzzy, c-format
 msgid "%s You may need to install, and use Gnome Shell Extension Appindicator"
 msgstr ""
+"%s Du skal muligvis installere og bruge Gnome Shell Extension Appindicator"
 
 #. TRANSLATORS: %s is a placeholder for an error message
 #: src/remmina_ssh_plugin.c:539
@@ -1712,11 +1771,19 @@ msgstr "_Find tekst"
 msgid "User password"
 msgstr "Brugerens adgangskode"
 
-#: src/remmina_ssh_plugin.c:1477 plugins/rdp/rdp_plugin.c:2723
-msgid "Start-up program"
+#: src/remmina_ssh_plugin.c:1477
+#, fuzzy
+#| msgid "Pre-command"
+msgid "Opening command"
+msgstr "Kommando før"
+
+#: src/remmina_ssh_plugin.c:1478
+#, fuzzy
+#| msgid "Start-up program"
+msgid "Start-up background program"
 msgstr "Opstartsprogram"
 
-#: src/remmina_ssh_plugin.c:1482
+#: src/remmina_ssh_plugin.c:1483
 msgid ""
 "The filename can use the following placeholders:\n"
 "\n"
@@ -1738,69 +1805,69 @@ msgstr ""
 "  • %g erstattes af Remmina-profilgruppenavn\n"
 "  • %d erstattes af lokal datetime i iso8601-format\n"
 
-#: src/remmina_ssh_plugin.c:1504
+#: src/remmina_ssh_plugin.c:1505
 #, fuzzy
 #| msgid "Terminal color scheme"
 msgid "Terminal colour scheme"
 msgstr "Terminalens farvetema"
 
-#: src/remmina_ssh_plugin.c:1505
+#: src/remmina_ssh_plugin.c:1506
 msgid "Character set"
 msgstr "Tegnsæt"
 
-#: src/remmina_ssh_plugin.c:1507
+#: src/remmina_ssh_plugin.c:1508
 msgid "KEX (Key Exchange) algorithms"
 msgstr "KEX-algoritmer (Key Exchange)"
 
-#: src/remmina_ssh_plugin.c:1508
+#: src/remmina_ssh_plugin.c:1509
 msgid "Symmetric cipher client to server"
 msgstr "Symmetrisk chiffer klient til server"
 
-#: src/remmina_ssh_plugin.c:1509
+#: src/remmina_ssh_plugin.c:1510
 msgid "Preferred server host key types"
 msgstr "Fortrukne nøgletyper til servervært"
 
-#: src/remmina_ssh_plugin.c:1510
+#: src/remmina_ssh_plugin.c:1511
 msgid "Folder for SSH session log"
 msgstr "Mappe til SSH-sessionens log"
 
-#: src/remmina_ssh_plugin.c:1511
+#: src/remmina_ssh_plugin.c:1512
 msgid "Filename for SSH session log"
 msgstr "Filnavn til SSH-sessionens log"
 
-#: src/remmina_ssh_plugin.c:1512
+#: src/remmina_ssh_plugin.c:1513
 msgid "Log SSH session when exiting Remmina"
 msgstr "Log SSH-session når Remmina afsluttes"
 
-#: src/remmina_ssh_plugin.c:1513
+#: src/remmina_ssh_plugin.c:1514
 #, fuzzy
 msgid "Log SSH session asynchronously"
 msgstr "Logge SSH-session asynkront"
 
-#: src/remmina_ssh_plugin.c:1513
+#: src/remmina_ssh_plugin.c:1514
 #, fuzzy
 msgid "Saving the session asynchronously may have a notable performance impact"
 msgstr ""
 "Hvis du gemmer sessionen asynkront, kan det have en betydelig indvirkning på "
 "ydeevnen"
 
-#: src/remmina_ssh_plugin.c:1514
+#: src/remmina_ssh_plugin.c:1515
 msgid "Audible terminal bell"
 msgstr "Klokke med lyd i terminalen"
 
-#: src/remmina_ssh_plugin.c:1515
+#: src/remmina_ssh_plugin.c:1516
 msgid "SSH compression"
 msgstr "SSH-komprimering"
 
-#: src/remmina_ssh_plugin.c:1516
+#: src/remmina_ssh_plugin.c:1517
 msgid "Don't remember passwords"
 msgstr "Husk ikke adgangskoder"
 
-#: src/remmina_ssh_plugin.c:1517
+#: src/remmina_ssh_plugin.c:1518
 msgid "Strict host key checking"
 msgstr "Striks tjek af værtsnøgle"
 
-#: src/remmina_ssh_plugin.c:1531
+#: src/remmina_ssh_plugin.c:1532
 msgid "SSH - Secure Shell"
 msgstr "SSH - Sikker skal"
 
@@ -1820,22 +1887,22 @@ msgstr "<ikke sat>"
 msgid "<Choose a quality level to edit…>"
 msgstr "<vælg et kvalitetsniveau for at redigere …>"
 
-#: plugins/rdp/rdp_settings.c:282 plugins/rdp/rdp_plugin.c:2542
+#: plugins/rdp/rdp_settings.c:282 plugins/rdp/rdp_plugin.c:2585
 #: plugins/vnc/vnc_plugin.c:1934
 msgid "Poor (fastest)"
 msgstr "Dårlig (hurtigst)"
 
-#: plugins/rdp/rdp_settings.c:284 plugins/rdp/rdp_plugin.c:2543
+#: plugins/rdp/rdp_settings.c:284 plugins/rdp/rdp_plugin.c:2586
 #: plugins/vnc/vnc_plugin.c:1933
 msgid "Medium"
 msgstr "Medium"
 
-#: plugins/rdp/rdp_settings.c:286 plugins/rdp/rdp_plugin.c:2544
+#: plugins/rdp/rdp_settings.c:286 plugins/rdp/rdp_plugin.c:2587
 #: plugins/vnc/vnc_plugin.c:1931
 msgid "Good"
 msgstr "God"
 
-#: plugins/rdp/rdp_settings.c:288 plugins/rdp/rdp_plugin.c:2545
+#: plugins/rdp/rdp_settings.c:288 plugins/rdp/rdp_plugin.c:2588
 #: plugins/vnc/vnc_plugin.c:1932
 msgid "Best (slowest)"
 msgstr "Bedste (langsomst)"
@@ -1924,26 +1991,26 @@ msgstr "Orientering af skrivebord"
 msgid "Input device settings"
 msgstr "Indstillinger for input-enheder"
 
-#: plugins/rdp/rdp_settings.c:658 plugins/rdp/rdp_plugin.c:2686
+#: plugins/rdp/rdp_settings.c:658 plugins/rdp/rdp_plugin.c:2729
 #: plugins/vnc/vnc_plugin.c:2014
 #, fuzzy
 #| msgid "Turn on smooth scrolling"
 msgid "Disable smooth scrolling"
-msgstr "Deaktivér Jævn Rulning"
+msgstr "Deaktiver glat rulning"
 
 #: plugins/rdp/rdp_settings.c:669
 #, fuzzy
 #| msgid "Quality settings"
 msgid "General settings"
-msgstr "Generel opsætning"
+msgstr "Generelle indstillinger"
 
-#: plugins/rdp/rdp_settings.c:676 plugins/rdp/rdp_plugin.c:2738
+#: plugins/rdp/rdp_settings.c:676 plugins/rdp/rdp_plugin.c:2781
 #, fuzzy
 #| msgid "Reconnection attempt %d of %d…"
 msgid "Reconnect attempts number"
 msgstr "Antal forsøg på at genoprette forbindelsen"
 
-#: plugins/rdp/rdp_settings.c:689 plugins/rdp/rdp_plugin.c:2738
+#: plugins/rdp/rdp_settings.c:689 plugins/rdp/rdp_plugin.c:2781
 #, fuzzy
 msgid ""
 "The maximum number of reconnect attempts upon an RDP disconnect (default: 20)"
@@ -1951,15 +2018,15 @@ msgstr ""
 "Det maksimale antal forsøg på at genoprette forbindelsen ved afbrydelse af "
 "RDP-forbindelsen (standard: 20)"
 
-#: plugins/rdp/rdp_plugin.c:762 plugins/rdp/rdp_plugin.c:827
+#: plugins/rdp/rdp_plugin.c:769 plugins/rdp/rdp_plugin.c:834
 msgid "Enter RDP authentication credentials"
 msgstr "Indtast loginoplysninger for RDP-autentifikation"
 
-#: plugins/rdp/rdp_plugin.c:835
+#: plugins/rdp/rdp_plugin.c:842
 msgid "Enter RDP gateway authentication credentials"
 msgstr "Indtast loginoplysninger for autentifikation af RDP-gateway"
 
-#: plugins/rdp/rdp_plugin.c:2073
+#: plugins/rdp/rdp_plugin.c:2116
 #, c-format
 msgid ""
 "Could not access the RDP server “%s”.\n"
@@ -1968,7 +2035,7 @@ msgstr ""
 "Kunne ikke få adgang til RDP-serveren \"%s\".\n"
 "Kontoen er låst."
 
-#: plugins/rdp/rdp_plugin.c:2080
+#: plugins/rdp/rdp_plugin.c:2123
 #, c-format
 msgid ""
 "Could not access the RDP server “%s”.\n"
@@ -1977,7 +2044,7 @@ msgstr ""
 "Kunne ikke få adgang til RDP-serveren \"%s\".\n"
 "Kontoen er udløbet."
 
-#: plugins/rdp/rdp_plugin.c:2087
+#: plugins/rdp/rdp_plugin.c:2130
 #, c-format
 msgid ""
 "Could not access the RDP server “%s”.\n"
@@ -1986,7 +2053,7 @@ msgstr ""
 "Kunne ikke få adgang til RDP-serveren \"%s\".\n"
 "Adgangskoden er udløbet."
 
-#: plugins/rdp/rdp_plugin.c:2094
+#: plugins/rdp/rdp_plugin.c:2137
 #, c-format
 msgid ""
 "Could not access the RDP server “%s”.\n"
@@ -1995,7 +2062,7 @@ msgstr ""
 "Kunne ikke få adgang til RDP-serveren \"%s\".\n"
 "Kontoen er deaktiveret."
 
-#: plugins/rdp/rdp_plugin.c:2100
+#: plugins/rdp/rdp_plugin.c:2143
 #, c-format
 msgid ""
 "Could not access the RDP server “%s”.\n"
@@ -2004,7 +2071,7 @@ msgstr ""
 "Kunne ikke få adgang til RDP-serveren \"%s\".\n"
 "Brugeren har ikke tilstrækkelige rettigheder."
 
-#: plugins/rdp/rdp_plugin.c:2108
+#: plugins/rdp/rdp_plugin.c:2151
 #, c-format
 msgid ""
 "Could not access the RDP server “%s”.\n"
@@ -2013,7 +2080,7 @@ msgstr ""
 "Kunne ikke få adgang til RDP-serveren \"%s\".\n"
 "Kontoen har begrænsninger."
 
-#: plugins/rdp/rdp_plugin.c:2116
+#: plugins/rdp/rdp_plugin.c:2159
 #, c-format
 msgid ""
 "Could not access the RDP server “%s”.\n"
@@ -2022,17 +2089,17 @@ msgstr ""
 "Kunne ikke få adgang til RDP-serveren \"%s\".\n"
 "Brugeren skal skifte adgangskode inden der oprettes forbindelse."
 
-#: plugins/rdp/rdp_plugin.c:2121
+#: plugins/rdp/rdp_plugin.c:2164
 #, c-format
 msgid "Lost connection to the RDP server “%s”."
 msgstr "Mistede forbindelse til RDP-serveren \"%s\"."
 
-#: plugins/rdp/rdp_plugin.c:2124
+#: plugins/rdp/rdp_plugin.c:2167
 #, c-format
 msgid "Could not find the address for the RDP server “%s”."
 msgstr "Kunne ikke finde adressen til RDP-serveren \"%s\"."
 
-#: plugins/rdp/rdp_plugin.c:2128
+#: plugins/rdp/rdp_plugin.c:2171
 #, c-format
 msgid ""
 "Could not connect to the RDP server “%s” via TLS. Check that client and "
@@ -2042,7 +2109,7 @@ msgstr ""
 "klienten og serveren understøtter den samme TLS-version."
 
 #. TRANSLATORS: the placeholder may be either an IP/FQDN or a server hostname
-#: plugins/rdp/rdp_plugin.c:2132
+#: plugins/rdp/rdp_plugin.c:2175
 #, fuzzy, c-format
 #| msgid ""
 #| "Unable to establish a connection to the RDP server “%s”. Check \"Security "
@@ -2054,16 +2121,16 @@ msgstr ""
 "Kan ikke oprette en forbindelse til RDP-serveren \"%s\". Kontroller "
 "\"Forhandling af sikkerhedsprotokol\"."
 
-#: plugins/rdp/rdp_plugin.c:2140
+#: plugins/rdp/rdp_plugin.c:2183
 #, c-format
 msgid "Cannot connect to the RDP server “%s”."
 msgstr "Kan ikke oprette forbindelse til RDP-serveren \"%s\"."
 
-#: plugins/rdp/rdp_plugin.c:2143
+#: plugins/rdp/rdp_plugin.c:2186
 msgid "Could not start libfreerdp-gdi."
 msgstr "Kunne ikke starte libfreerdp-gdi."
 
-#: plugins/rdp/rdp_plugin.c:2146
+#: plugins/rdp/rdp_plugin.c:2189
 #, c-format
 msgid ""
 "You requested a H.264 GFX mode for the server “%s”, but your libfreerdp does "
@@ -2073,12 +2140,12 @@ msgstr ""
 "understøtter ikke H.264. Brug venligst en farvedybdeindstilling som ikke er "
 "AVC."
 
-#: plugins/rdp/rdp_plugin.c:2153
+#: plugins/rdp/rdp_plugin.c:2196
 #, c-format
 msgid "The “%s” server refused the connection."
 msgstr "Serveren \"%s\" nægtede forbindelsen."
 
-#: plugins/rdp/rdp_plugin.c:2158
+#: plugins/rdp/rdp_plugin.c:2201
 #, fuzzy, c-format
 #| msgid ""
 #| "The Remote Desktop Gateway “%s” denied the user \"%s\\%s\" access due to "
@@ -2090,117 +2157,117 @@ msgstr ""
 "Fjernskrivebordsgatewayen \"%s\" nægtede brugeren \"%s\\%s\" adgang pga. "
 "regler."
 
-#: plugins/rdp/rdp_plugin.c:2168
+#: plugins/rdp/rdp_plugin.c:2211
 #, c-format
 msgid "Cannot connect to the “%s” RDP server."
 msgstr "Kan ikke oprette forbindelse til RDP-serveren \"%s\"."
 
-#: plugins/rdp/rdp_plugin.c:2511
+#: plugins/rdp/rdp_plugin.c:2554
 msgid "Automatic (32 bpp) (Server chooses its best format)"
 msgstr "Automatisk (32 bpp) (serveren vælger sit bedste format)"
 
-#: plugins/rdp/rdp_plugin.c:2512
+#: plugins/rdp/rdp_plugin.c:2555
 msgid "GFX AVC444 (32 bpp)"
 msgstr "GFX AVC444 (32 bpp)"
 
-#: plugins/rdp/rdp_plugin.c:2513
+#: plugins/rdp/rdp_plugin.c:2556
 msgid "GFX AVC420 (32 bpp)"
 msgstr "GFX AVC420 (32 bpp)"
 
-#: plugins/rdp/rdp_plugin.c:2514
+#: plugins/rdp/rdp_plugin.c:2557
 msgid "GFX RFX (32 bpp)"
 msgstr "GFX RFX (32 bpp)"
 
-#: plugins/rdp/rdp_plugin.c:2515
+#: plugins/rdp/rdp_plugin.c:2558
 msgid "GFX RFX Progressive (32 bpp)"
 msgstr "GFX RFX progressiv (32 bpp)"
 
-#: plugins/rdp/rdp_plugin.c:2516
+#: plugins/rdp/rdp_plugin.c:2559
 msgid "RemoteFX (32 bpp)"
 msgstr "RemoteFX (32 bpp)"
 
-#: plugins/rdp/rdp_plugin.c:2517 plugins/vnc/vnc_plugin.c:1922
+#: plugins/rdp/rdp_plugin.c:2560 plugins/vnc/vnc_plugin.c:1922
 msgid "True colour (32 bpp)"
 msgstr "Ægte farver (32 bpp)"
 
-#: plugins/rdp/rdp_plugin.c:2518
+#: plugins/rdp/rdp_plugin.c:2561
 msgid "True colour (24 bpp)"
 msgstr "Ægte farver (24 bpp)"
 
-#: plugins/rdp/rdp_plugin.c:2519 plugins/vnc/vnc_plugin.c:1923
+#: plugins/rdp/rdp_plugin.c:2562 plugins/vnc/vnc_plugin.c:1923
 msgid "High colour (16 bpp)"
 msgstr "Mange farver (16 bpp)"
 
-#: plugins/rdp/rdp_plugin.c:2520
+#: plugins/rdp/rdp_plugin.c:2563
 msgid "High colour (15 bpp)"
 msgstr "Mange farver (15 bpp)"
 
-#: plugins/rdp/rdp_plugin.c:2521 plugins/vnc/vnc_plugin.c:1924
+#: plugins/rdp/rdp_plugin.c:2564 plugins/vnc/vnc_plugin.c:1924
 msgid "256 colours (8 bpp)"
 msgstr "256 farver (8 bpp)"
 
-#: plugins/rdp/rdp_plugin.c:2552 data/ui/remmina_preferences.glade:641
+#: plugins/rdp/rdp_plugin.c:2595 data/ui/remmina_preferences.glade:641
 msgid "None"
 msgstr "Ingen"
 
-#: plugins/rdp/rdp_plugin.c:2553
+#: plugins/rdp/rdp_plugin.c:2596
 msgid "Auto-detect"
 msgstr "Automatisk registrering"
 
-#: plugins/rdp/rdp_plugin.c:2554
+#: plugins/rdp/rdp_plugin.c:2597
 msgid "Modem"
 msgstr "Modem"
 
-#: plugins/rdp/rdp_plugin.c:2555
+#: plugins/rdp/rdp_plugin.c:2598
 msgid "Low performance broadband"
 msgstr "Bredbånd med lav ydelse"
 
-#: plugins/rdp/rdp_plugin.c:2556
+#: plugins/rdp/rdp_plugin.c:2599
 msgid "Satellite"
 msgstr "Satellit"
 
-#: plugins/rdp/rdp_plugin.c:2557
+#: plugins/rdp/rdp_plugin.c:2600
 msgid "High performance broadband"
 msgstr "Bredbånd med høj ydelse"
 
-#: plugins/rdp/rdp_plugin.c:2558
+#: plugins/rdp/rdp_plugin.c:2601
 msgid "WAN"
 msgstr "WAN"
 
-#: plugins/rdp/rdp_plugin.c:2559
+#: plugins/rdp/rdp_plugin.c:2602
 msgid "LAN"
 msgstr "LAN"
 
-#: plugins/rdp/rdp_plugin.c:2566 plugins/spice/spice_plugin.c:635
+#: plugins/rdp/rdp_plugin.c:2609 plugins/spice/spice_plugin.c:635
 #: data/ui/remmina_preferences.glade:677
 msgid "Off"
 msgstr "Fra"
 
-#: plugins/rdp/rdp_plugin.c:2575
+#: plugins/rdp/rdp_plugin.c:2618
 msgid "Automatic negotiation"
 msgstr "Automatisk forhandling"
 
-#: plugins/rdp/rdp_plugin.c:2576
+#: plugins/rdp/rdp_plugin.c:2619
 msgid "NLA protocol security"
 msgstr "Sikkerhed for NLA-protokol"
 
-#: plugins/rdp/rdp_plugin.c:2577
+#: plugins/rdp/rdp_plugin.c:2620
 msgid "TLS protocol security"
 msgstr "Sikkerhed for TLS-protokol"
 
-#: plugins/rdp/rdp_plugin.c:2578
+#: plugins/rdp/rdp_plugin.c:2621
 msgid "RDP protocol security"
 msgstr "Sikkerhed for RDP-protokol"
 
-#: plugins/rdp/rdp_plugin.c:2579
+#: plugins/rdp/rdp_plugin.c:2622
 msgid "NLA extended protocol security"
 msgstr "Udvidet sikkerhed for NLA-protokol"
 
-#: plugins/rdp/rdp_plugin.c:2592
+#: plugins/rdp/rdp_plugin.c:2635
 msgid "2600 (Windows XP), 7601 (Windows Vista/7), 9600 (Windows 8 and newer)"
 msgstr "2600 (Windows XP), 7601 (Windows Vista/7), 9600 (Windows 8 og nyere)"
 
-#: plugins/rdp/rdp_plugin.c:2595
+#: plugins/rdp/rdp_plugin.c:2638
 msgid ""
 "Used i.a. by terminal services in a smart card channel to distinguish client "
 "capabilities:\n"
@@ -2218,7 +2285,7 @@ msgstr ""
 "  • >= 7065: Windows 8 og nyere: SCardGetReaderIcon(),\n"
 "    SCardGetDeviceTypeId()"
 
-#: plugins/rdp/rdp_plugin.c:2603
+#: plugins/rdp/rdp_plugin.c:2646
 msgid ""
 "Options for redirection of audio input:\n"
 "  • [sys:<sys>,][dev:<dev>,][format:<format>,][rate:<rate>,]\n"
@@ -2236,7 +2303,7 @@ msgstr ""
 "  • sys:oss,dev:1,format:1\n"
 "  • sys:alsa"
 
-#: plugins/rdp/rdp_plugin.c:2612
+#: plugins/rdp/rdp_plugin.c:2655
 #, fuzzy
 #| msgid ""
 #| "Options for redirection of audio ouput:\n"
@@ -2263,7 +2330,7 @@ msgstr ""
 "  • sys:oss,dev:1,format:1\n"
 "  • sys:alsa"
 
-#: plugins/rdp/rdp_plugin.c:2622
+#: plugins/rdp/rdp_plugin.c:2665
 msgid ""
 "Options for redirection of USB device:\n"
 "  • [dbg,][id:<vid>:<pid>#…,][addr:<bus>:<addr>#…,][auto]\n"
@@ -2275,7 +2342,7 @@ msgstr ""
 "  • auto\n"
 "  • id:054c:0268#4669:6e6b,addr:04:0c"
 
-#: plugins/rdp/rdp_plugin.c:2628
+#: plugins/rdp/rdp_plugin.c:2671
 msgid ""
 "Advanced setting for high latency links:\n"
 "Adjusts the connection timeout. Use if your connection times out.\n"
@@ -2286,7 +2353,7 @@ msgstr ""
 "din forbindelse.\n"
 "Den højeste mulige værdi er 600000 ms (10 minutter)\n"
 
-#: plugins/rdp/rdp_plugin.c:2633
+#: plugins/rdp/rdp_plugin.c:2676
 #, fuzzy
 msgid ""
 "Performance optimisations based on the network connection type:\n"
@@ -2298,7 +2365,7 @@ msgstr ""
 "Hvis \"Auto-detect\" ikke virker, skal du vælge den mest passende "
 "indstilling på listen.\n"
 
-#: plugins/rdp/rdp_plugin.c:2638
+#: plugins/rdp/rdp_plugin.c:2681
 #, fuzzy
 msgid ""
 "Comma-separated list of monitor IDs and desktop orientations:\n"
@@ -2323,7 +2390,7 @@ msgstr ""
 "  - 270 (portræt vendt)\n"
 "\n"
 
-#: plugins/rdp/rdp_plugin.c:2650
+#: plugins/rdp/rdp_plugin.c:2693
 #, fuzzy
 msgid ""
 "Redirect directory <path> as named share <name>.\n"
@@ -2344,150 +2411,154 @@ msgstr ""
 "  - hotplug,*\n"
 "\n"
 
-#: plugins/rdp/rdp_plugin.c:2682 plugins/spice/spice_plugin.c:677
+#: plugins/rdp/rdp_plugin.c:2725 plugins/spice/spice_plugin.c:677
 msgid "Share folder"
 msgstr "Delingsmappe"
 
-#: plugins/rdp/rdp_plugin.c:2682
+#: plugins/rdp/rdp_plugin.c:2725
 #, fuzzy
 msgid "Use “Redirect directory” in the advanced tab for multiple directories"
 msgstr "Brug \"Redirect directory\" i den avancerede fane til flere kataloger"
 
-#: plugins/rdp/rdp_plugin.c:2683
+#: plugins/rdp/rdp_plugin.c:2726
 #, fuzzy
 msgid "Restricted admin mode"
 msgstr "Begrænset administrationstilstand"
 
-#: plugins/rdp/rdp_plugin.c:2684
+#: plugins/rdp/rdp_plugin.c:2727
 #, fuzzy
 #| msgid "Password"
 msgid "Password hash"
 msgstr "Hash af kodeord"
 
-#: plugins/rdp/rdp_plugin.c:2684
+#: plugins/rdp/rdp_plugin.c:2727
 #, fuzzy
 msgid "Restricted admin mode password hash"
 msgstr "Hash af adgangskode for begrænset admintilstand"
 
-#: plugins/rdp/rdp_plugin.c:2685
+#: plugins/rdp/rdp_plugin.c:2728
 #, fuzzy
 msgid "Left-handed mouse support"
 msgstr "Understøttelse af venstrehåndsmus"
 
-#: plugins/rdp/rdp_plugin.c:2685
+#: plugins/rdp/rdp_plugin.c:2728
 #, fuzzy
 msgid "Swap left and right mouse buttons for left-handed mouse support"
 msgstr ""
 "Udskift venstre og højre museknap for at få understøttelse af venstrehåndede "
 "mus"
 
-#: plugins/rdp/rdp_plugin.c:2687
+#: plugins/rdp/rdp_plugin.c:2730
 #, fuzzy
 msgid "Enable multi monitor"
 msgstr "Aktiver multiskærm"
 
-#: plugins/rdp/rdp_plugin.c:2688
+#: plugins/rdp/rdp_plugin.c:2731
 #, fuzzy
 msgid "Span screen over multiple monitors"
 msgstr "Spænd skærmen over flere skærme"
 
-#: plugins/rdp/rdp_plugin.c:2689
+#: plugins/rdp/rdp_plugin.c:2732
 #, fuzzy
 #| msgid "Listen on port"
 msgid "List monitor IDs"
 msgstr "Liste over skærm-id'er"
 
-#: plugins/rdp/rdp_plugin.c:2691 plugins/vnc/vnc_plugin.c:1978
+#: plugins/rdp/rdp_plugin.c:2734 plugins/vnc/vnc_plugin.c:1978
 #: plugins/vnc/vnc_plugin.c:1990 plugins/gvnc/gvnc_plugin.c:849
 msgid "Colour depth"
 msgstr "Farvedybde"
 
-#: plugins/rdp/rdp_plugin.c:2692
+#: plugins/rdp/rdp_plugin.c:2735
 msgid "Network connection type"
 msgstr "Netværksforbindelsestype"
 
-#: plugins/rdp/rdp_plugin.c:2707 plugins/vnc/vnc_plugin.c:1979
+#: plugins/rdp/rdp_plugin.c:2750 plugins/vnc/vnc_plugin.c:1979
 #: plugins/vnc/vnc_plugin.c:1991
 msgid "Quality"
 msgstr "Kvalitet"
 
-#: plugins/rdp/rdp_plugin.c:2708
+#: plugins/rdp/rdp_plugin.c:2751
 msgid "Security protocol negotiation"
 msgstr "Forhandling af sikkerhedsprotokol"
 
-#: plugins/rdp/rdp_plugin.c:2709
+#: plugins/rdp/rdp_plugin.c:2752
 msgid "Gateway transport type"
 msgstr "Gateway transporttype"
 
-#: plugins/rdp/rdp_plugin.c:2710
+#: plugins/rdp/rdp_plugin.c:2753
 msgid "FreeRDP log level"
 msgstr "FreeRDP-logniveau"
 
-#: plugins/rdp/rdp_plugin.c:2711
+#: plugins/rdp/rdp_plugin.c:2754
 msgid "FreeRDP log filters"
 msgstr "FreeRDP-logfiltre"
 
-#: plugins/rdp/rdp_plugin.c:2711
+#: plugins/rdp/rdp_plugin.c:2754
 #, fuzzy
 msgid "tag:level[,tag:level[,…]]"
 msgstr "tag:level[,tag:level[,...]]]"
 
-#: plugins/rdp/rdp_plugin.c:2712
+#: plugins/rdp/rdp_plugin.c:2755
 #, fuzzy
 msgid "Audio output mode"
 msgstr "Audio output mode"
 
-#: plugins/rdp/rdp_plugin.c:2713
+#: plugins/rdp/rdp_plugin.c:2756
 msgid "Redirect local audio output"
 msgstr "Omdiriger lokal lydoutput"
 
-#: plugins/rdp/rdp_plugin.c:2714
+#: plugins/rdp/rdp_plugin.c:2757
 msgid "Redirect local microphone"
 msgstr "Omdiriger lokal mikrofon"
 
-#: plugins/rdp/rdp_plugin.c:2715
+#: plugins/rdp/rdp_plugin.c:2758
 msgid "Connection timeout in ms"
 msgstr "Forbindelsestimeout i ms"
 
-#: plugins/rdp/rdp_plugin.c:2716
+#: plugins/rdp/rdp_plugin.c:2759
 msgid "Remote Desktop Gateway server"
 msgstr "Gateway-server for fjernskrivebord"
 
-#: plugins/rdp/rdp_plugin.c:2717
+#: plugins/rdp/rdp_plugin.c:2760
 msgid "Remote Desktop Gateway username"
 msgstr "Gateway-brugernavn for fjernskrivebord"
 
-#: plugins/rdp/rdp_plugin.c:2718
+#: plugins/rdp/rdp_plugin.c:2761
 msgid "Remote Desktop Gateway password"
 msgstr "Gateway-adgangskode for fjernskrivebord"
 
-#: plugins/rdp/rdp_plugin.c:2719
+#: plugins/rdp/rdp_plugin.c:2762
 msgid "Remote Desktop Gateway domain"
 msgstr "Gateway-domæne for fjernskrivebord"
 
-#: plugins/rdp/rdp_plugin.c:2720
+#: plugins/rdp/rdp_plugin.c:2763
 #, fuzzy
 msgid "Redirect directory"
 msgstr "Omdirigering af mappe"
 
-#: plugins/rdp/rdp_plugin.c:2721
+#: plugins/rdp/rdp_plugin.c:2764
 msgid "Client name"
 msgstr "Klientnavn"
 
-#: plugins/rdp/rdp_plugin.c:2722
+#: plugins/rdp/rdp_plugin.c:2765
 msgid "Client build"
 msgstr "Klientbygning"
 
-#: plugins/rdp/rdp_plugin.c:2725
+#: plugins/rdp/rdp_plugin.c:2766
+msgid "Start-up program"
+msgstr "Opstartsprogram"
+
+#: plugins/rdp/rdp_plugin.c:2768
 msgid "Load balance info"
 msgstr "Information om belastning"
 
 #. TRANSLATORS: Do not use typographic quotation marks, these must stay as "double quote", also know as “Typewriter ("programmer's") quote, ambidextrous.”
-#: plugins/rdp/rdp_plugin.c:2727
+#: plugins/rdp/rdp_plugin.c:2770
 msgid "Override printer drivers"
 msgstr "Tilsidesæt printerdrivere"
 
-#: plugins/rdp/rdp_plugin.c:2727
+#: plugins/rdp/rdp_plugin.c:2770
 msgid ""
 "\"Samsung_CLX-3300_Series\":\"Samsung CLX-3300 Series PS\";\"Canon MF410\":"
 "\"Canon MF410 Series UFR II\""
@@ -2495,178 +2566,178 @@ msgstr ""
 "\"Samsung_CLX-3300_Series\":\"Samsung CLX-3300 Series PS\";\"Canon MF410\":"
 "\"Canon MF410 Series UFR II\""
 
-#: plugins/rdp/rdp_plugin.c:2728
+#: plugins/rdp/rdp_plugin.c:2771
 msgid "USB device redirection"
 msgstr "Viderestilling af USB-enhed"
 
-#: plugins/rdp/rdp_plugin.c:2729
+#: plugins/rdp/rdp_plugin.c:2772
 msgid "Local serial name"
 msgstr "Navn på lokal seriel"
 
-#: plugins/rdp/rdp_plugin.c:2729
+#: plugins/rdp/rdp_plugin.c:2772
 msgid "COM1, COM2, etc."
 msgstr "COM1, COM2 osv."
 
-#: plugins/rdp/rdp_plugin.c:2730
+#: plugins/rdp/rdp_plugin.c:2773
 msgid "Local serial driver"
 msgstr "Driver til lokal seriel"
 
-#: plugins/rdp/rdp_plugin.c:2730
+#: plugins/rdp/rdp_plugin.c:2773
 msgid "Serial"
 msgstr "Serienummer"
 
-#: plugins/rdp/rdp_plugin.c:2731
+#: plugins/rdp/rdp_plugin.c:2774
 msgid "Local serial path"
 msgstr "Sti til lokal seriel"
 
-#: plugins/rdp/rdp_plugin.c:2731
+#: plugins/rdp/rdp_plugin.c:2774
 msgid "/dev/ttyS0, /dev/ttyS1, etc."
 msgstr "/dev/ttyS0, /dev/ttyS1 osv."
 
-#: plugins/rdp/rdp_plugin.c:2732
+#: plugins/rdp/rdp_plugin.c:2775
 msgid "Local parallel name"
 msgstr "Navn på lokal parallel"
 
-#: plugins/rdp/rdp_plugin.c:2733
+#: plugins/rdp/rdp_plugin.c:2776
 msgid "Local parallel device"
 msgstr "Enhed for lokal parallel"
 
-#: plugins/rdp/rdp_plugin.c:2734
+#: plugins/rdp/rdp_plugin.c:2777
 msgid "Name of smart card"
 msgstr "Navn på smartcard"
 
-#: plugins/rdp/rdp_plugin.c:2735
+#: plugins/rdp/rdp_plugin.c:2778
 msgid "Dynamic virtual channel"
 msgstr "Dynamisk virtuel kanal"
 
-#: plugins/rdp/rdp_plugin.c:2735 plugins/rdp/rdp_plugin.c:2736
+#: plugins/rdp/rdp_plugin.c:2778 plugins/rdp/rdp_plugin.c:2779
 msgid "<channel>[,<options>]"
 msgstr "<kanal>[,<tilvalg>]"
 
-#: plugins/rdp/rdp_plugin.c:2736
+#: plugins/rdp/rdp_plugin.c:2779
 msgid "Static virtual channel"
 msgstr "Statisk virtuel kanal"
 
-#: plugins/rdp/rdp_plugin.c:2737
+#: plugins/rdp/rdp_plugin.c:2780
 #, fuzzy
 #| msgid "USB redirection error"
 msgid "TCP redirection"
 msgstr "TCP-omdirigering"
 
-#: plugins/rdp/rdp_plugin.c:2737
+#: plugins/rdp/rdp_plugin.c:2780
 #, fuzzy
 msgid "/PATH/TO/rdp2tcp"
 msgstr "/PATH/TO/rdp2tcp"
 
-#: plugins/rdp/rdp_plugin.c:2739
+#: plugins/rdp/rdp_plugin.c:2782
 msgid "Prefer IPv6 AAAA record over IPv4 A record"
 msgstr "Foretræk IPv6 AAAA-fortegnelse over IPv4-fortegnelse"
 
-#: plugins/rdp/rdp_plugin.c:2740
+#: plugins/rdp/rdp_plugin.c:2783
 msgid "Share printers"
 msgstr "Del printere"
 
-#: plugins/rdp/rdp_plugin.c:2741
+#: plugins/rdp/rdp_plugin.c:2784
 msgid "Share serial ports"
 msgstr "Del serielle porte"
 
-#: plugins/rdp/rdp_plugin.c:2742
+#: plugins/rdp/rdp_plugin.c:2785
 msgid "(SELinux) permissive mode for serial ports"
 msgstr "(SELinux) eftergivende tilstand til serielle porte"
 
-#: plugins/rdp/rdp_plugin.c:2743
+#: plugins/rdp/rdp_plugin.c:2786
 msgid "Share parallel ports"
 msgstr "Del parallelle porte"
 
-#: plugins/rdp/rdp_plugin.c:2744
+#: plugins/rdp/rdp_plugin.c:2787
 msgid "Share a smart card"
 msgstr "Del et smartcard"
 
-#: plugins/rdp/rdp_plugin.c:2745 plugins/vnc/vnc_plugin.c:2009
+#: plugins/rdp/rdp_plugin.c:2788 plugins/vnc/vnc_plugin.c:2009
 msgid "Turn off clipboard sync"
 msgstr "Deaktivér synkronisering af udklipsholder"
 
-#: plugins/rdp/rdp_plugin.c:2746
+#: plugins/rdp/rdp_plugin.c:2789
 msgid "Ignore certificate"
 msgstr "Ignorer certifikat"
 
-#: plugins/rdp/rdp_plugin.c:2747
+#: plugins/rdp/rdp_plugin.c:2790
 msgid "Use the old license workflow"
 msgstr "Brug workflowet fra den gamle licens"
 
-#: plugins/rdp/rdp_plugin.c:2747
+#: plugins/rdp/rdp_plugin.c:2790
 msgid "It disables CAL and hwId is set to 0"
 msgstr "Den deaktiverer CAL, og hwId indstilles til 0"
 
-#: plugins/rdp/rdp_plugin.c:2748 plugins/spice/spice_plugin.c:702
+#: plugins/rdp/rdp_plugin.c:2791 plugins/spice/spice_plugin.c:702
 #: plugins/vnc/vnc_plugin.c:2013 plugins/www/www_plugin.c:919
 #: plugins/gvnc/gvnc_plugin.c:867
 msgid "Forget passwords after use"
 msgstr "Gem adgangskoder efter anvendelse"
 
-#: plugins/rdp/rdp_plugin.c:2749
+#: plugins/rdp/rdp_plugin.c:2792
 msgid "Attach to console (2003/2003 R2)"
 msgstr "Tilkobl til konsol (2003/2003 R2)"
 
-#: plugins/rdp/rdp_plugin.c:2750
+#: plugins/rdp/rdp_plugin.c:2793
 msgid "Turn off fast-path"
 msgstr "Deaktivér fast-path"
 
-#: plugins/rdp/rdp_plugin.c:2751
+#: plugins/rdp/rdp_plugin.c:2794
 msgid "Server detection using Remote Desktop Gateway"
 msgstr "Serverregistrering med fjernskrivebordsgateway"
 
-#: plugins/rdp/rdp_plugin.c:2753
+#: plugins/rdp/rdp_plugin.c:2796
 msgid "Use system proxy settings"
 msgstr "Brug systemets proxyindstillinger"
 
-#: plugins/rdp/rdp_plugin.c:2755
+#: plugins/rdp/rdp_plugin.c:2798
 msgid "Turn off automatic reconnection"
 msgstr "Deaktivér automatisk genoprettelse af forbindelsen"
 
-#: plugins/rdp/rdp_plugin.c:2756
+#: plugins/rdp/rdp_plugin.c:2799
 msgid "Relax order checks"
 msgstr "Afslappet tjek af rækkefølge"
 
-#: plugins/rdp/rdp_plugin.c:2757
+#: plugins/rdp/rdp_plugin.c:2800
 msgid "Glyph cache"
 msgstr "Glyf-mellemlager"
 
-#: plugins/rdp/rdp_plugin.c:2758
+#: plugins/rdp/rdp_plugin.c:2801
 msgid "Enable multitransport protocol (UDP)"
 msgstr "Anvend multitransportprotokol"
 
-#: plugins/rdp/rdp_plugin.c:2758
+#: plugins/rdp/rdp_plugin.c:2801
 msgid "Using the UDP protocol may improve performance"
 msgstr "Brug af UDP-protokol kan forbedre ydelsen"
 
-#: plugins/rdp/rdp_plugin.c:2759
+#: plugins/rdp/rdp_plugin.c:2802
 msgid "Use base credentials for gateway too"
 msgstr "Brug også grundloginoplysninger til gateway"
 
-#: plugins/rdp/rdp_plugin.c:2761
+#: plugins/rdp/rdp_plugin.c:2804
 #, fuzzy
 msgid "Enable Gateway websockets support"
 msgstr "Aktiver understøttelse af Gateway websockets"
 
-#: plugins/rdp/rdp_plugin.c:2774 plugins/spice/spice_plugin.c:715
+#: plugins/rdp/rdp_plugin.c:2817 plugins/spice/spice_plugin.c:715
 #: plugins/vnc/vnc_plugin.c:2029
 msgid "Send Ctrl+Alt+Delete"
 msgstr "Send Ctrl+Alt+Delete"
 
-#: plugins/rdp/rdp_plugin.c:2787
+#: plugins/rdp/rdp_plugin.c:2830
 msgid "RDP - Remote Desktop Protocol"
 msgstr "RDP - Fjernskrivebordsprotokol"
 
-#: plugins/rdp/rdp_plugin.c:2812
+#: plugins/rdp/rdp_plugin.c:2855
 msgid "RDP - RDP File Handler"
 msgstr "RDP - RDP-filhåndterer"
 
-#: plugins/rdp/rdp_plugin.c:2827
+#: plugins/rdp/rdp_plugin.c:2870
 msgid "RDP - Preferences"
 msgstr "RDP - Præferencer"
 
-#: plugins/rdp/rdp_plugin.c:2880
+#: plugins/rdp/rdp_plugin.c:2923
 msgid "Export connection in Windows .rdp file format"
 msgstr "Eksportér forbindelse i Windows .rdp-filformat"
 
@@ -2995,27 +3066,259 @@ msgstr "Hello World!"
 msgid "Secured password storage in the GNOME keyring"
 msgstr "Sikret adgangskodeopbevaring i GNOME-nøgleringen"
 
-#: plugins/x2go/x2go_plugin.c:275
+#: plugins/x2go/x2go_plugin.c:67
+#, c-format
+msgid ""
+"The command-line feature '%s' is not available! Attempting to start PyHoca-"
+"CLI without using this feature…"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:287 plugins/x2go/x2go_plugin.c:419
+#: plugins/x2go/x2go_plugin.c:478 plugins/x2go/x2go_plugin.c:581
+#: plugins/x2go/x2go_plugin.c:656 plugins/x2go/x2go_plugin.c:668
+#: plugins/x2go/x2go_plugin.c:676 plugins/x2go/x2go_plugin.c:699
+#: plugins/x2go/x2go_plugin.c:708 plugins/x2go/x2go_plugin.c:724
+#: plugins/x2go/x2go_plugin.c:763 plugins/x2go/x2go_plugin.c:775
+#: plugins/x2go/x2go_plugin.c:806 plugins/x2go/x2go_plugin.c:817
+#: plugins/x2go/x2go_plugin.c:825 plugins/x2go/x2go_plugin.c:939
+#: plugins/x2go/x2go_plugin.c:966 plugins/x2go/x2go_plugin.c:980
+#: plugins/x2go/x2go_plugin.c:1077 plugins/x2go/x2go_plugin.c:1141
+#: plugins/x2go/x2go_plugin.c:1445 plugins/x2go/x2go_plugin.c:1479
+#: plugins/x2go/x2go_plugin.c:1575 plugins/x2go/x2go_plugin.c:1869
+#: plugins/x2go/x2go_plugin.c:2669 plugins/x2go/x2go_plugin.c:2882
+#: plugins/x2go/x2go_plugin.c:2887 plugins/x2go/x2go_plugin.c:2892
+#: plugins/x2go/x2go_plugin.c:2897 plugins/x2go/x2go_plugin.c:2912
+#: plugins/x2go/x2go_plugin.c:2917 plugins/x2go/x2go_plugin.c:2922
+#: plugins/x2go/x2go_plugin.c:2927
+#, fuzzy, c-format
+#| msgid "Transfer error"
+msgid "Internal error: %s"
+msgstr "Intern fejl: "
+
+#: plugins/x2go/x2go_plugin.c:288 plugins/x2go/x2go_plugin.c:420
+#: plugins/x2go/x2go_plugin.c:479 plugins/x2go/x2go_plugin.c:1078
+msgid "Parameter 'custom_data' is not initialized!"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:301
 #, fuzzy
 msgid "Broken `DialogData`! Aborting…"
 msgstr "Brudt `DialogData`! Afbryder…"
 
-#: plugins/x2go/x2go_plugin.c:279
+#: plugins/x2go/x2go_plugin.c:305
 #, fuzzy
 msgid "Can't retrieve `DialogData`! Aborting…"
 msgstr "Kan ikke hente `DialogData`! Afbryder…"
 
-#: plugins/x2go/x2go_plugin.c:505
+#: plugins/x2go/x2go_plugin.c:488
+#, fuzzy
+msgid "Couldn't retrieve valid `DialogData` or `sessions_list`! Aborting…"
+msgstr "Kan ikke hente `DialogData`! Afbryder…"
+
+#. TRANSLATORS: Stick to x2goclient's translation for terminate.
+#: plugins/x2go/x2go_plugin.c:497
+#, fuzzy
+#| msgid "Terminate"
+msgid "_Terminate"
+msgstr "Afslut"
+
+#. TRANSLATORS: Stick to x2goclient's translation for resume.
+#: plugins/x2go/x2go_plugin.c:500
+#, fuzzy
+#| msgid "Resume"
+msgid "_Resume"
+msgstr "Genoptag"
+
+#: plugins/x2go/x2go_plugin.c:502
+msgid "_New"
+msgstr ""
+
+#. TRANSLATORS: Tooltip for terminating button inside Session-Chooser-Dialog.
+#. TRANSLATORS: Please stick to X2GoClient's way of translating.
+#: plugins/x2go/x2go_plugin.c:511
+msgid "Terminating X2Go sessions can take a moment."
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:568
+#, fuzzy
+#| msgid "Display"
+msgid "X Display"
+msgstr "Vis"
+
+#: plugins/x2go/x2go_plugin.c:569
+msgid "Status"
+msgstr "Status"
+
+#: plugins/x2go/x2go_plugin.c:570
+#, fuzzy
+#| msgid "Permission"
+msgid "Session ID"
+msgstr "Tilladelse"
+
+#: plugins/x2go/x2go_plugin.c:571
+msgid "Create date"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:572
+msgid "Suspended since"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:573
+msgid "Agent PID"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:575
+#, fuzzy
+#| msgid "Username"
+msgid "Hostname"
+msgstr "Brugernavn"
+
+#: plugins/x2go/x2go_plugin.c:576
+msgid "Cookie"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:577
+msgid "Graphic port"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:578
+msgid "SND port"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:579
+#, fuzzy
+#| msgid "Local SSH port"
+msgid "SSHFS port"
+msgstr "Lokal SSH-port"
+
+#: plugins/x2go/x2go_plugin.c:582
+msgid "Unknown property"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:657 plugins/x2go/x2go_plugin.c:700
+msgid "Couldn't find child GtkTreeView of session chooser dialog."
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:669
+msgid "Both parameters 'dialog' and 'treeview' are uninitialized!"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:677
+msgid ""
+"GtkTreeModel of session chooser dialog could not be obtained for an unknown "
+"reason."
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:709
+msgid "Couldn't get currently selected row (session)!"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:725
+#, c-format
+msgid ""
+"Exactly one session should be selectable but '%i' rows (sessions) are "
+"selected."
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:764
+msgid "Failed to fill 'GtkTreeIter'."
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:776
+#, c-format
+msgid "Couldn't get property with index '%i' out of selected row."
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:807
+msgid "parameter 'argv' is 'NULL'."
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:818
+msgid "parameter 'error' is 'NULL'."
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:826
+msgid "parameter 'env' is either invalid or uninitialized."
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:842 plugins/x2go/x2go_plugin.c:2170
+#, fuzzy
+msgid "Started PyHoca-CLI with the following arguments:"
+msgstr "Startede PyHoca-CLI med følgende argumenter:"
+
+#: plugins/x2go/x2go_plugin.c:870
+msgid ""
+"The necessary PyHoca-CLI process has encountered a internet connection "
+"problem."
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:880
+#, fuzzy
+msgid "An unknown error occured while trying to start PyHoca-CLI."
+msgstr "Der opstod en fejl under start af en X2Go-session…"
+
+#: plugins/x2go/x2go_plugin.c:890
+#, c-format
+msgid ""
+"An unknown error occured while trying to start PyHoca-CLI. Exit code: %i"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:897
+#, c-format
+msgid ""
+"An unknown error occured while trying to start PyHoca-CLI. Exit code: %i. "
+"Error: '%s'"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:940
+msgid "Parameter 'custom_data' is not fully initialized!"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:967 plugins/x2go/x2go_plugin.c:1576
+#: plugins/x2go/x2go_plugin.c:1870
+#, fuzzy
+#| msgid "Shared connection"
+msgid "'Invalid connection data.'"
+msgstr "Delt forbindelse"
+
+#: plugins/x2go/x2go_plugin.c:981
+msgid "Parameter 'session_id' is not initialized!"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:1047
+#, fuzzy, c-format
+msgid "An error occured while trying to terminate a X2Go session: %s"
+msgstr "Der opstod en fejl under start af en X2Go-session…"
+
+#: plugins/x2go/x2go_plugin.c:1094 plugins/x2go/x2go_plugin.c:1118
+msgid "Couldn't get session ID from session chooser dialog."
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:1101
+#, c-format
+msgid "Resuming session: '%s'"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:1125
+#, c-format
+msgid "Terminating session: '%s'"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:1142
+msgid "GtkTreePath 'path' describes a non-existing row!"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:1380
 #, fuzzy
 msgid "PyHoca-CLI exited unexpectedly. This connection will now be closed."
-msgstr "pyhoca-cli afsluttedes uventet. Denne forbindelse vil nu blive lukket."
+msgstr "PyHoca-CLI afsluttedes uventet. Denne forbindelse vil nu blive lukket."
 
-#: plugins/x2go/x2go_plugin.c:514
+#: plugins/x2go/x2go_plugin.c:1388
 #, fuzzy
 msgid "An error occured."
-msgstr "Der er sket en fejl"
+msgstr "Der er opstået en fejl."
 
-#: plugins/x2go/x2go_plugin.c:515
+#: plugins/x2go/x2go_plugin.c:1389
 #, fuzzy
 msgid ""
 "The necessary child process 'pyhoca-cli' stopped unexpectedly.\n"
@@ -3023,36 +3326,20 @@ msgid ""
 "errors. Also ensure the remote server is reachable."
 msgstr ""
 "Den nødvendige underordnede proces \"pyhoca-cli\" blev uventet stoppet.\n"
-"Kontroller venligst dine profilindstillinger og pyhoca-cli's output for "
-"mulige fejl, og sørg for, at fjernserveren kan nås."
+"Kontroller venligst dine profilindstillinger og PyHoca-CLI's output for "
+"mulige fejl. Kontroller også, at fjernserveren kan nås."
 
-#: plugins/x2go/x2go_plugin.c:561
+#: plugins/x2go/x2go_plugin.c:1432
 #, fuzzy
-msgid "Started PyHoca-CLI with the following arguments:"
-msgstr "Startede pyhoca-cli med følgende argumenter:"
-
-#: plugins/x2go/x2go_plugin.c:580
-#, fuzzy, c-format
-msgid "Could not retrieve PyHoca-CLI's command-line features! Exit code: %i"
-msgstr ""
-"Der skete en ukendt fejl under hentning af pyhoca-cli's cmdline-funktioner! "
-"Afslutningskode: %i"
-
-#: plugins/x2go/x2go_plugin.c:585
-#, fuzzy, c-format
-#| msgid "Error: %s"
-msgid "Error: '%s'"
-msgstr "Fejl: \"%s"
-
-#: plugins/x2go/x2go_plugin.c:609
 msgid "Can't save empty username!"
-msgstr ""
+msgstr "Kan ikke gemme et tomt brugernavn!"
 
-#: plugins/x2go/x2go_plugin.c:621
-msgid "Internal error: Could not save new credentials."
-msgstr ""
+#: plugins/x2go/x2go_plugin.c:1446
+#, fuzzy
+msgid "Could not save new credentials."
+msgstr "Intern fejl: Kunne ikke gemme nye legitimationsoplysninger."
 
-#: plugins/x2go/x2go_plugin.c:623
+#: plugins/x2go/x2go_plugin.c:1449
 #, fuzzy
 msgid ""
 "An error occured while trying to save new credentials: 's_password' or "
@@ -3061,106 +3348,173 @@ msgstr ""
 "Der opstod en fejl under forsøget på at gemme nye legitimationsoplysninger: "
 "strings 's_password' eller 's_username' var ikke angivet."
 
-#: plugins/x2go/x2go_plugin.c:659
+#: plugins/x2go/x2go_plugin.c:1480
+msgid "Parameter 'default_username' is uninitialized."
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:1509
 #, fuzzy
 #| msgid "Enter NX authentication credentials"
 msgid "Enter X2Go credentials"
 msgstr "Indtast X2Go-legitimationsoplysninger"
 
-#: plugins/x2go/x2go_plugin.c:818
+#: plugins/x2go/x2go_plugin.c:1706
+msgid ""
+"Couldn't parse the output of PyHoca-CLI's --list-sessions option. Creating a "
+"new session now."
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:1745
+msgid "Couldn't allocate enough memory!"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:1755
+#, c-format
+msgid "Found already existing X2Go session with ID: '%s'"
+msgstr ""
+
+#. TRANSLATORS: Please stick to X2GoClient's translation.
+#: plugins/x2go/x2go_plugin.c:1798
+msgid "Suspended"
+msgstr ""
+
+#. TRANSLATORS: Please stick to X2GoClient's translation.
+#: plugins/x2go/x2go_plugin.c:1801
+msgid "Running"
+msgstr ""
+
+#. TRANSLATORS: Please stick to X2GoClient's translation.
+#: plugins/x2go/x2go_plugin.c:1804
+#, fuzzy
+#| msgid "Terminate"
+msgid "Terminated"
+msgstr "Afslut"
+
+#: plugins/x2go/x2go_plugin.c:1837
+msgid ""
+"Could not find any sessions on remote machine. Creating a new session now."
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:1892
+#, fuzzy
+#| msgid "Choose a file to upload"
+msgid "Choose a session to resume:"
+msgstr "Vælg en fil der skal uploades"
+
+#: plugins/x2go/x2go_plugin.c:1935
+#, fuzzy
+msgid "Waiting for user to select a session…"
+msgstr "Venter på at PyHoca-CLI viser sessionens vindue…"
+
+#: plugins/x2go/x2go_plugin.c:1943
+msgid "No session was selected. Creating a new one."
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:1991
+#, c-format
+msgid "A non-critical error happened: %s"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:1996
+#, c-format
+msgid "User chose to resume session with ID: '%s'"
+msgstr ""
+
+#. TRANSLATORS: Please stick to X2GoClient's way of translating.
+#: plugins/x2go/x2go_plugin.c:2017
+#, c-format
+msgid "Resuming session '%s'…"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:2148
 #, fuzzy
 msgid "DPI setting is out of bounds. Please adjust it in profile settings."
 msgstr ""
 "DPI-indstillingen er ude af grænserne. Juster den venligst i "
 "profilindstillingerne."
 
-#: plugins/x2go/x2go_plugin.c:838
-#, fuzzy
-msgid "Started pyhoca-cli with following arguments:"
-msgstr "Startede pyhoca-cli med følgende argumenter:"
-
-#: plugins/x2go/x2go_plugin.c:858
+#: plugins/x2go/x2go_plugin.c:2190
 #, fuzzy
 msgid "An error occured while starting an X2Go session…"
 msgstr "Der opstod en fejl under start af en X2Go-session…"
 
-#: plugins/x2go/x2go_plugin.c:867
+#: plugins/x2go/x2go_plugin.c:2198
 #, fuzzy
 #| msgid "Could not start SSH session. %s"
 msgid "Could not start X2Go session."
 msgstr "Kunne ikke starte X2Go-sessionen."
 
-#: plugins/x2go/x2go_plugin.c:868
+#: plugins/x2go/x2go_plugin.c:2199
 #, fuzzy, c-format
 #| msgid "Could not start SSH session. %s"
 msgid "Could not start PyHoca-CLI (%i): '%s'"
 msgstr "PyHoca-CLI (%i) kunne ikke startes: '%s'"
 
-#: plugins/x2go/x2go_plugin.c:945
+#: plugins/x2go/x2go_plugin.c:2314
 #, fuzzy
 msgid ""
 "Couldn't get PyHoca-CLI's command-line features. This indicates it is either "
 "too old, or not installed. An old limited set of features will be used for "
 "now."
 msgstr ""
-"Kunne ikke få pyhoca-cli's cmdline-funktioner. Dette indikerer enten at din "
-"pyhoca-cli-version er for gammel eller at pyhoca-cli ikke er installeret! Et "
-"gammelt begrænset sæt af funktioner vil blive brugt nu."
+"Kunne ikke få PyHoca-CLI's kommandolinjefunktioner. Dette indikerer, at den "
+"enten er for gammel eller ikke er installeret. Et gammelt begrænset sæt af "
+"funktioner vil blive brugt for nu."
 
-#: plugins/x2go/x2go_plugin.c:956
+#: plugins/x2go/x2go_plugin.c:2323
 #, fuzzy
 msgid ""
 "Could not parse PyHoca-CLI's command-line features. Using a limited feature-"
 "set for now."
 msgstr ""
-"Det var ikke muligt at analysere pyhoca-cli-funktionalitet! Brug af et "
+"Kunne ikke analysere PyHoca-CLI's kommandolinjefunktioner. Bruger et "
 "begrænset funktionssæt for nu."
 
-#: plugins/x2go/x2go_plugin.c:962
+#: plugins/x2go/x2go_plugin.c:2329
 #, fuzzy
 msgid "Retrieved the following PyHoca-CLI command-line features:"
-msgstr "Hentede følgende pyhoca-cli-funktioner:"
+msgstr "Hentede følgende PyHoca-CLI kommandolinjefunktioner:"
 
-#: plugins/x2go/x2go_plugin.c:967
+#: plugins/x2go/x2go_plugin.c:2337
 #, fuzzy, c-format
 msgid "Available feature[%i]: '%s'"
 msgstr "Tilgængelig funktion[%i]: '%s'"
 
-#: plugins/x2go/x2go_plugin.c:1072
+#: plugins/x2go/x2go_plugin.c:2442
 #, fuzzy
 #| msgid "Could not open channel. %s"
 msgid "Could not open X11 DISPLAY."
 msgstr "Kunne ikke åbne X11 DISPLAY."
 
-#: plugins/x2go/x2go_plugin.c:1112
+#: plugins/x2go/x2go_plugin.c:2482
 #, fuzzy
 msgid "Waiting for window of X2Go Agent to appear…"
-msgstr "Venter på, at vinduet X2Go Agent vises."
+msgstr "Venter på, at vinduet med X2Go Agent vises…"
 
-#: plugins/x2go/x2go_plugin.c:1138
+#: plugins/x2go/x2go_plugin.c:2508
 #, fuzzy
 msgid "Waiting for PyHoca-CLI to show the session's window…"
-msgstr "Venter på, at pyhoca-cli viser sessionens vindue."
+msgstr "Venter på at PyHoca-CLI viser sessionens vindue…"
 
-#: plugins/x2go/x2go_plugin.c:1189
+#: plugins/x2go/x2go_plugin.c:2559
 #, fuzzy
 msgid "No X2Go session window appeared. Something went wrong…"
 msgstr "Der blev ikke vist noget X2Go-sessionsvindue. Noget gik galt…"
 
-#: plugins/x2go/x2go_plugin.c:1298
+#: plugins/x2go/x2go_plugin.c:2670
 #, fuzzy
-msgid "Internal error: RemminaProtocolWidget* gp is NULL!"
+msgid "RemminaProtocolWidget* gp is 'NULL'!"
 msgstr "Intern fejl: RemminaProtocolWidget* gp er NULL!"
 
-#: plugins/x2go/x2go_plugin.c:1319
+#: plugins/x2go/x2go_plugin.c:2691
 #, fuzzy, c-format
 #| msgid ""
 #| "The protocol “%s” is unavailable because GtkSocket only works under X.Org."
 msgid "The %s protocol is unavailable because GtkSocket only works under X.org"
 msgstr ""
-"Protokollen \"%s\" er utilgængelig da GtkSocket kun virker under X.Org."
+"Protokollen %s er ikke tilgængelig, fordi GtkSocket kun fungerer under X.org"
 
-#: plugins/x2go/x2go_plugin.c:1327
+#: plugins/x2go/x2go_plugin.c:2700
 #, fuzzy
 msgid "Could not initialize pthread. Falling back to non-threaded mode…"
 msgstr ""
@@ -3174,7 +3528,7 @@ msgstr ""
 #. your language.
 #. (Except your listing-grammar differs from english.)
 #. 'value1' and 'value2'
-#: plugins/x2go/x2go_plugin.c:1370 plugins/x2go/x2go_plugin.c:1388
+#: plugins/x2go/x2go_plugin.c:2743 plugins/x2go/x2go_plugin.c:2761
 #, fuzzy, c-format
 msgid "%sand '%s'"
 msgstr "%sog \"%s\"."
@@ -3185,7 +3539,7 @@ msgstr "%sog \"%s\"."
 #. TRANSLATORS: Presumably you just want to leave it english.
 #. (Except your listing-grammar differs from english.)
 #. 'value1' and 'value2'
-#: plugins/x2go/x2go_plugin.c:1375 plugins/x2go/x2go_plugin.c:1393
+#: plugins/x2go/x2go_plugin.c:2748 plugins/x2go/x2go_plugin.c:2766
 #, fuzzy, c-format
 msgid "%s'%s' "
 msgstr "%s'%s'' "
@@ -3193,139 +3547,141 @@ msgstr "%s'%s'' "
 #. TRANSLATORS: Presumably you just want to leave it english.
 #. (Except your listing-grammar differs from english.)
 #. 'value1', 'value2', 'valueN-1' and 'valueN'
-#: plugins/x2go/x2go_plugin.c:1380
+#: plugins/x2go/x2go_plugin.c:2753
 #, fuzzy, c-format
 msgid "%s'%s', "
 msgstr "%s'%s', "
 
-#: plugins/x2go/x2go_plugin.c:1418
+#: plugins/x2go/x2go_plugin.c:2792
 #, fuzzy
 msgid "Invalid validation data in ProtocolSettings array!"
-msgstr "Valideringsdata i ProtocolSettings array er ugyldige!"
+msgstr "Ugyldige valideringsdata i ProtocolSettings array!"
 
-#: plugins/x2go/x2go_plugin.c:1430 plugins/x2go/x2go_plugin.c:1492
+#: plugins/x2go/x2go_plugin.c:2807 plugins/x2go/x2go_plugin.c:2872
 #, fuzzy
 msgid "Validation data in ProtocolSettings array is invalid!"
 msgstr "Valideringsdata i ProtocolSettings array er ugyldige!"
 
-#: plugins/x2go/x2go_plugin.c:1457
+#: plugins/x2go/x2go_plugin.c:2816
+msgid "Parameters 'key' or 'value' are 'NULL'!"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:2834
 #, fuzzy, c-format
 msgid "Allowed values are %s."
 msgstr "De tilladte værdier er %s."
 
-#: plugins/x2go/x2go_plugin.c:1459
+#: plugins/x2go/x2go_plugin.c:2836
 #, fuzzy, c-format
 msgid "The only allowed value is '%s'."
 msgstr "Den eneste tilladte værdi er \"%s\"."
 
-#: plugins/x2go/x2go_plugin.c:1501
+#: plugins/x2go/x2go_plugin.c:2883
 #, fuzzy
 msgid "The lower limit is not a valid integer!"
-msgstr "Grænse minimum er ikke et gyldigt heltal!"
+msgstr "Den nedre grænse er ikke et gyldigt heltal!"
 
-#: plugins/x2go/x2go_plugin.c:1503
+#: plugins/x2go/x2go_plugin.c:2888
+#, fuzzy
 msgid "The lower limit is too high!"
-msgstr ""
+msgstr "Den nedre grænse er for høj!"
 
-#: plugins/x2go/x2go_plugin.c:1505
+#: plugins/x2go/x2go_plugin.c:2893
+#, fuzzy
 msgid "The lower limit is too low!"
-msgstr ""
+msgstr "Den nedre grænse er for lav!"
 
-#: plugins/x2go/x2go_plugin.c:1507 plugins/x2go/x2go_plugin.c:1533
-#: plugins/x2go/x2go_plugin.c:1552
+#: plugins/x2go/x2go_plugin.c:2898 plugins/x2go/x2go_plugin.c:2928
+#: plugins/x2go/x2go_plugin.c:2948
 #, fuzzy
-msgid "Something went wrong."
-msgstr "Noget gik galt."
+msgid "Something unknown went wrong."
+msgstr "Noget gik galt"
 
-#: plugins/x2go/x2go_plugin.c:1511 plugins/x2go/x2go_plugin.c:1537
-#: plugins/x2go/x2go_plugin.c:1556
+#: plugins/x2go/x2go_plugin.c:2903 plugins/x2go/x2go_plugin.c:2933
+#: plugins/x2go/x2go_plugin.c:2952
+#, fuzzy
 msgid "Please check the RemminaProtocolSetting array for possible errors."
-msgstr ""
+msgstr "Kontroller RemminaProtocolSetting-arrayet for mulige fejl."
 
-#: plugins/x2go/x2go_plugin.c:1520 plugins/x2go/x2go_plugin.c:1524
-#: plugins/x2go/x2go_plugin.c:1528 plugins/x2go/x2go_plugin.c:1532
-#, fuzzy
-#| msgid "Transfer error"
-msgid "Internal error: "
-msgstr "Intern fejl"
-
-#: plugins/x2go/x2go_plugin.c:1521
+#: plugins/x2go/x2go_plugin.c:2913
 #, fuzzy
 msgid "The upper limit is not a valid integer!"
-msgstr "Input er ikke et gyldigt heltal!"
+msgstr "Den øvre grænse er ikke et gyldigt heltal!"
 
-#: plugins/x2go/x2go_plugin.c:1525
+#: plugins/x2go/x2go_plugin.c:2918
+#, fuzzy
 msgid "The upper limit is too high!"
-msgstr ""
+msgstr "Den øvre grænse er for høj!"
 
-#: plugins/x2go/x2go_plugin.c:1529
+#: plugins/x2go/x2go_plugin.c:2923
+#, fuzzy
 msgid "The upper limit is too low!"
-msgstr ""
+msgstr "Den øvre grænse er for lav!"
 
-#: plugins/x2go/x2go_plugin.c:1547
+#: plugins/x2go/x2go_plugin.c:2943
 #, fuzzy
 msgid "The input is not a valid integer!"
-msgstr "Input er ikke et gyldigt heltal!"
+msgstr "Indgangen er ikke et gyldigt heltal!"
 
-#: plugins/x2go/x2go_plugin.c:1549 plugins/x2go/x2go_plugin.c:1568
+#: plugins/x2go/x2go_plugin.c:2945 plugins/x2go/x2go_plugin.c:2964
 #, fuzzy, c-format
 msgid "Input must be a number between %i and %i."
 msgstr "Indtastningen skal være et tal mellem %i og %i."
 
-#: plugins/x2go/x2go_plugin.c:1597
+#: plugins/x2go/x2go_plugin.c:2993
 #, fuzzy
 #| msgid "Start-up program"
 msgid "Startup program"
 msgstr "Opstartsprogram"
 
-#: plugins/x2go/x2go_plugin.c:1599
+#: plugins/x2go/x2go_plugin.c:2995
 #, fuzzy
 msgid "Which command should be executed after creating the X2Go session?"
 msgstr "Hvilken kommando skal udføres efter oprettelse af X2Go-sessionen?"
 
-#: plugins/x2go/x2go_plugin.c:1601
+#: plugins/x2go/x2go_plugin.c:2997
 #, fuzzy
 #| msgid "Keyboard layout"
 msgid "Keyboard Layout (auto)"
 msgstr "Tastaturlayout (automatisk)"
 
-#: plugins/x2go/x2go_plugin.c:1602
+#: plugins/x2go/x2go_plugin.c:2998
 #, fuzzy
 #| msgid "Keyboard layout"
 msgid "Keyboard type (auto)"
 msgstr "Tastaturtype (automatisk)"
 
-#: plugins/x2go/x2go_plugin.c:1603
+#: plugins/x2go/x2go_plugin.c:2999
 #, fuzzy
 #| msgid "Turn on Java support"
 msgid "Audio support"
 msgstr "Lydunderstøttelse"
 
-#: plugins/x2go/x2go_plugin.c:1605
+#: plugins/x2go/x2go_plugin.c:3001
 #, fuzzy
 msgid "The sound system of the X2Go server (default: 'pulse')."
 msgstr "X2Go-serverens lydsystem (standard: \"pulse\")."
 
-#: plugins/x2go/x2go_plugin.c:1608
+#: plugins/x2go/x2go_plugin.c:3004
 #, fuzzy
 #| msgid "USB redirection error"
 msgid "Clipboard direction"
 msgstr "Retning af udklipsholder"
 
-#: plugins/x2go/x2go_plugin.c:1610
+#: plugins/x2go/x2go_plugin.c:3006
 #, fuzzy
 msgid "Which direction should clipboard content be copied? (default: 'both')."
 msgstr ""
 "Hvilken retning skal indholdet i udklipsholderen kopieres? (standard: \"begge"
 "\")."
 
-#: plugins/x2go/x2go_plugin.c:1614
+#: plugins/x2go/x2go_plugin.c:3010
 #, fuzzy
 #| msgid "Resolution"
 msgid "DPI resolution"
 msgstr "DPI-opløsning"
 
-#: plugins/x2go/x2go_plugin.c:1615
+#: plugins/x2go/x2go_plugin.c:3011
 #, fuzzy
 msgid ""
 "Launch session with a specific resolution (in dots per inch). Must be "
@@ -3334,7 +3690,7 @@ msgstr ""
 "Start en session med en bestemt opløsning (i punkter pr. tomme). Den skal "
 "være mellem 20 og 400."
 
-#: plugins/x2go/x2go_plugin.c:1659
+#: plugins/x2go/x2go_plugin.c:3055
 #, fuzzy
 msgid "X2Go plugin loaded."
 msgstr "X2Go plugin indlæst."
@@ -3613,15 +3969,14 @@ msgid ""
 "Copyright © 2009–2014 Vic Lee\n"
 "More details in COPYING"
 msgstr ""
-"\n"
 "Ophavsret © 2014–2021 Antenore Gatta, Giovanni Panozzo.\n"
 "Ophavsret © 2009–2014 Vic Lee\n"
-"Flere detaljer i COPYING\n"
-"    "
+"Flere detaljer i COPYING"
 
 #: data/ui/remmina_about.glade:38
+#, fuzzy
 msgid "https://www.remmina.org/"
-msgstr ""
+msgstr "https://www.remmina.org/"
 
 #: data/ui/remmina_string_list.glade:14 data/ui/remmina_string_list.glade:158
 msgid "Add"
@@ -4503,6 +4858,30 @@ msgstr "Lås op for Remmina"
 msgid "Master password"
 msgstr "Hovedadgangskode"
 
+#, fuzzy
+#~ msgid "Started pyhoca-cli with following arguments:"
+#~ msgstr "Startede pyhoca-cli med følgende argumenter:"
+
+#, fuzzy
+#~| msgid "_Select all"
+#~ msgid "_Select session"
+#~ msgstr "_Vælg alt"
+
+#, fuzzy
+#~ msgid "Started PyHoca-CLI with the following environment variables:"
+#~ msgstr "Startede PyHoca-CLI med følgende argumenter:"
+
+#, fuzzy, c-format
+#~ msgid "Could not retrieve PyHoca-CLI's command-line features! Exit code: %i"
+#~ msgstr ""
+#~ "PyHoca-CLI's kommandolinjefunktioner kunne ikke hentes! Afslutningskode: "
+#~ "%i"
+
+#, fuzzy, c-format
+#~| msgid "Error: %s"
+#~ msgid "Error: '%s'"
+#~ msgstr "Fejl: \"%s"
+
 #~ msgid "Website"
 #~ msgstr "Websted"
 
@@ -4591,15 +4970,6 @@ msgstr "Hovedadgangskode"
 
 #~ msgid "Start"
 #~ msgstr "Start"
-
-#~ msgid "Terminate"
-#~ msgstr "Afslut"
-
-#~ msgid "Display"
-#~ msgstr "Vis"
-
-#~ msgid "Status"
-#~ msgstr "Status"
 
 #~ msgid "Password for private SSH key"
 #~ msgstr "Adgangskode til privat SSH-nøgle"
@@ -4735,9 +5105,6 @@ msgstr "Hovedadgangskode"
 
 #~ msgid "Autostart"
 #~ msgstr "Automatisk start"
-
-#~ msgid "Pre-command"
-#~ msgstr "Kommando før"
 
 #~ msgid "Post-command"
 #~ msgstr "Kommando efter"

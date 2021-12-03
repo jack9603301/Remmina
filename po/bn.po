@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: remmina\n"
 "Report-Msgid-Bugs-To: l10n@lists.remmina.org\n"
-"POT-Creation-Date: 2021-10-29 12:14+0000\n"
-"PO-Revision-Date: 2021-10-22 03:52+0000\n"
+"POT-Creation-Date: 2021-12-03 09:34+0000\n"
+"PO-Revision-Date: 2021-11-23 19:51+0000\n"
 "Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Bengali <https://hosted.weblate.org/projects/remmina/remmina/"
 "bn/>\n"
@@ -18,14 +18,14 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Weblate 4.9-dev\n"
+"X-Generator: Weblate 4.10-dev\n"
 "X-Launchpad-Export-Date: 2014-09-20 14:24+0000\n"
 
 #: src/remmina_sftp_plugin.c:310 src/remmina_sftp_plugin.c:354
-#: src/remmina_protocol_widget.c:1676 src/remmina_protocol_widget.c:1695
+#: src/remmina_protocol_widget.c:1677 src/remmina_protocol_widget.c:1696
 #: src/remmina_file_editor.c:1101 src/remmina_file_editor.c:1222
-#: src/remmina_ssh_plugin.c:1360 plugins/rdp/rdp_plugin.c:2680
-#: plugins/www/www_plugin.c:895 plugins/x2go/x2go_plugin.c:1596
+#: src/remmina_ssh_plugin.c:1360 plugins/rdp/rdp_plugin.c:2723
+#: plugins/www/www_plugin.c:895 plugins/x2go/x2go_plugin.c:2992
 #: data/ui/remmina_mpc.glade:236 data/ui/remmina_preferences.glade:1675
 #: data/ui/remmina_unlock.glade:116
 #, fuzzy
@@ -72,16 +72,17 @@ msgstr "সমস্ত ফাইল ওভাররাইট করুন"
 msgid "Resume all file transfers"
 msgstr "সমস্ত ফাইল স্থানান্তর পুনরায় শুরু করুন"
 
-#: src/remmina_sftp_plugin.c:328 src/remmina_protocol_widget.c:283
+#: src/remmina_sftp_plugin.c:328 src/remmina_protocol_widget.c:284
 #, fuzzy
 msgid "Connect via SSH from a new terminal"
 msgstr "একটি নতুন টার্মিনাল থেকে এসএসএইচ-এর মাধ্যমে সংযোগ করুন"
 
 #: src/remmina_sftp_plugin.c:353 src/remmina_message_panel.c:330
 #: src/remmina_file_editor.c:1216 src/remmina_ssh_plugin.c:1470
-#: plugins/rdp/rdp_plugin.c:2679 plugins/vnc/vnc_plugin.c:1976
+#: plugins/rdp/rdp_plugin.c:2722 plugins/vnc/vnc_plugin.c:1976
 #: plugins/vnc/vnc_plugin.c:1988 plugins/www/www_plugin.c:894
-#: plugins/x2go/x2go_plugin.c:1595 data/ui/remmina_mpc.glade:144
+#: plugins/x2go/x2go_plugin.c:574 plugins/x2go/x2go_plugin.c:2991
+#: data/ui/remmina_mpc.glade:144
 #, fuzzy
 msgid "Username"
 msgstr "ব্যবহারকারীর নাম"
@@ -98,7 +99,7 @@ msgstr "প্রমাণীকরণের ধরন"
 msgid "Password to unlock private key"
 msgstr "ব্যক্তিগত কী আনলক করতে পাসওয়ার্ড"
 
-#: src/remmina_sftp_plugin.c:358 src/remmina_ssh_plugin.c:1506
+#: src/remmina_sftp_plugin.c:358 src/remmina_ssh_plugin.c:1507
 #, fuzzy
 msgid "SSH Proxy Command"
 msgstr "এসএসএইচ প্রক্সি কমান্ড"
@@ -141,7 +142,7 @@ msgstr "গোপন"
 #: src/remmina_plugin_manager.c:461 data/ui/remmina_main.glade:305
 #, fuzzy
 msgid "Plugins"
-msgstr "প্লাগইন-সমূহ"
+msgstr "প্লাগইন"
 
 #: src/remmina_plugin_manager.c:461 src/remmina_message_panel.c:452
 #: src/remmina_message_panel.c:621 src/remmina_file_editor.c:242
@@ -171,15 +172,17 @@ msgid "Version"
 msgstr "সংস্করণ"
 
 #: src/remmina_chat_window.c:178
-#, c-format
+#, fuzzy, c-format
 msgid "Chat with %s"
 msgstr "%s এর সাথে কথোপকথন"
 
 #: src/remmina_chat_window.c:230
+#, fuzzy
 msgid "_Send"
 msgstr "প্রেরণ (_S)"
 
 #: src/remmina_chat_window.c:240
+#, fuzzy
 msgid "_Clear"
 msgstr "অপসারণ (_C)"
 
@@ -189,6 +192,7 @@ msgid "Discovered"
 msgstr "আবিষ্কার"
 
 #: src/remmina_applet_menu_item.c:126
+#, fuzzy
 msgid "New Connection"
 msgstr "নতুন সংযোগ"
 
@@ -289,14 +293,16 @@ msgid "Close"
 msgstr "বন্ধ করুন"
 
 #: src/remmina_message_panel.c:260
+#, fuzzy
 msgid "Yes"
-msgstr "হ্য"
+msgstr "হ্যাঁ"
 
 #: src/remmina_message_panel.c:267
+#, fuzzy
 msgid "No"
 msgstr "না"
 
-#: src/remmina_message_panel.c:391 plugins/rdp/rdp_plugin.c:2681
+#: src/remmina_message_panel.c:391 plugins/rdp/rdp_plugin.c:2724
 #: data/ui/remmina_mpc.glade:172
 #, fuzzy
 msgid "Domain"
@@ -391,7 +397,7 @@ msgstr "_Menu"
 #: src/rcw.c:2299
 #, fuzzy
 msgid "Menu"
-msgstr "তালিকা"
+msgstr "মেনু"
 
 #: src/rcw.c:2308
 #, fuzzy
@@ -452,13 +458,13 @@ msgstr "_Tools"
 #: src/rcw.c:2488 data/ui/remmina_main.glade:207
 #, fuzzy
 msgid "Tools"
-msgstr "সরঞ্জাম-সমূহ"
+msgstr "সরঞ্জাম"
 
 #: src/rcw.c:2501 data/ui/remmina_preferences.glade:1267
 #: data/ui/remmina_preferences.glade:1277
 #, fuzzy
 msgid "Screenshot"
-msgstr "পর্দাচিত্র"
+msgstr "স্ক্রিনশট"
 
 #: src/rcw.c:2515 data/ui/remmina_preferences.glade:1174
 #, fuzzy
@@ -468,17 +474,44 @@ msgstr "উইন্ডো টি ছোট করুন"
 #: src/rcw.c:2525 data/ui/remmina_preferences.glade:1205
 #, fuzzy
 msgid "Disconnect"
-msgstr "সংযোগ বিচ্ছিন্ন করুন"
+msgstr "বিচ্ছিন্ন"
 
 #: src/rcw.c:4297
 #, fuzzy, c-format
 msgid "The file “%s” is corrupted, unreadable, or could not be found."
 msgstr "ফাইলটি \"[এক্স১০এক্স]\" দূষিত, অপঠিত বা খুঁজে পাওয়া যায়নি।"
 
-#: src/rcw.c:4466
+#. TRANSLATORS: This should be a link to the Remmina Wiki page:
+#. TRANSLATORS: 'GtkSocket feature is not available'.
+#: src/rcw.c:4372
+msgid ""
+"https://gitlab.com/Remmina/Remmina/-/wikis/GtkSocket-feature-is-not-"
+"available-in-a-Wayland-session"
+msgstr ""
+
+#: src/rcw.c:4509
 #, fuzzy
-msgid "Warning: This plugin requires GtkSocket, but it’s not available."
+msgid ""
+"Warning: This plugin requires GtkSocket, but this feature is unavailable in "
+"a Wayland session."
 msgstr "সতর্কীকরণ: এই প্লাগইনের জন্য জিটিকেসকেট প্রয়োজন, কিন্তু এটি উপলব্ধ নয়।"
+
+#. TRANSLATORS: This should be a link to the Remmina Wiki page:
+#. 'GtkSocket feature is not available'.
+#: src/rcw.c:4515
+msgid ""
+"Plugins relying on GtkSocket can't run in a Wayland session.\n"
+"For more information and a possible workaround, please visit the Remmina "
+"Wiki at:\n"
+"\n"
+"https://gitlab.com/Remmina/Remmina/-/wikis/GtkSocket-feature-is-not-"
+"available-in-a-Wayland-session"
+msgstr ""
+
+#: src/rcw.c:4529
+#, fuzzy
+msgid "Open in browser"
+msgstr "ব্রাউজারে খুলুন"
 
 #: src/remmina_mpchange.c:234
 #, fuzzy
@@ -532,8 +565,8 @@ msgstr "ফাইল"
 #: src/remmina.c:90
 #, fuzzy
 msgid ""
-"Connect to a desktop described in a file (.remmina or a type supported by a "
-"plugin)"
+"Connect to a desktop described in a file (.remmina or a filetype supported "
+"by a plugin)"
 msgstr ""
 "একটি ফাইলে বর্ণিত ডেস্কটপের সাথে সংযোগ করুন (.রেমিনা বা প্লাগইন দ্বারা সমর্থিত "
 "একটি প্রকার)"
@@ -542,8 +575,8 @@ msgstr ""
 #: src/remmina.c:92
 #, fuzzy
 msgid ""
-"Edit desktop connection described in file (.remmina or type supported by "
-"plugin)"
+"Edit desktop connection described in file (.remmina or a filetype supported "
+"by plugin)"
 msgstr ""
 "ফাইলে বর্ণিত ডেস্কটপ সংযোগ সম্পাদনা করুন (.রেমিনা বা প্লাগইন দ্বারা সমর্থিত টাইপ)"
 
@@ -571,8 +604,9 @@ msgstr "ট্যাবইনডেক্স"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
 #: src/remmina.c:106
+#, fuzzy
 msgid "Quit"
-msgstr "করুন"
+msgstr "প্রস্থান করো"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
 #: src/remmina.c:108
@@ -631,13 +665,25 @@ msgstr "এক বা একাধিক প্রোফাইল সেটি�
 msgid "Encrypt a password"
 msgstr "একটি পাসওয়ার্ড এনক্রিপ্ট করুন"
 
+#. TRANSLATORS:
+#. * This link should point to a resource explaining how to get Remmina
+#. * to log more verbose statements.
+#.
+#: src/remmina.c:337
+msgid ""
+"Remmina does not log all output statements. Turn on more verbose output by "
+"using \"G_MESSAGES_DEBUG=all\" as an environment variable.\n"
+"More info available on the Remmina wiki at:\n"
+"https://gitlab.com/Remmina/Remmina/-/wikis/Usage/Remmina-debugging"
+msgstr ""
+
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:375
+#: src/remmina.c:391
 #, fuzzy
 msgid "- or protocol://username:encryptedpassword@host:port"
 msgstr "- অথবা প্রোটোকল:/ব্যবহারকারীর নাম:encryptedpassword@host:পোর্ট"
 
-#: src/remmina.c:378
+#: src/remmina.c:394
 #, fuzzy
 msgid ""
 "Examples:\n"
@@ -731,12 +777,9 @@ msgstr "নিরাপত্তা সেটিংস পরিবর্তন 
 
 #. TRANSLATORS: translator-credits should be replaced with a formatted list of translators in your own language
 #: src/remmina_about.c:54
+#, fuzzy
 msgid "translator-credits"
-msgstr ""
-"Launchpad Contributions:\n"
-"  Aniruddha Adhikary https://launchpad.net/~tuxboy\n"
-"  Fahim al Islam https://launchpad.net/~fahimalislam-t\n"
-"  রাব্বি হোসেন https://launchpad.net/~rabbihossain"
+msgstr "অনুবাদকারি-কৃতিত্ব"
 
 #: src/remmina_ftp_client.c:389
 #, fuzzy
@@ -786,14 +829,14 @@ msgstr "হোম ফোল্ডারে যান"
 #: src/remmina_ftp_client.c:753
 #, fuzzy
 msgid "Up"
-msgstr "উপরে"
+msgstr "আপ"
 
 #: src/remmina_ftp_client.c:754
 #, fuzzy
 msgid "Go to parent folder"
 msgstr "মূল ফোল্ডারে যান"
 
-#: src/remmina_ftp_client.c:758 plugins/rdp/rdp_plugin.c:2770
+#: src/remmina_ftp_client.c:758 plugins/rdp/rdp_plugin.c:2813
 #: plugins/vnc/vnc_plugin.c:2027
 #, fuzzy
 msgid "Refresh"
@@ -815,8 +858,9 @@ msgid "Upload to server"
 msgstr "সার্ভারে আপলোড করুন"
 
 #: src/remmina_ftp_client.c:775 data/ui/remmina_main.glade:197
+#, fuzzy
 msgid "Delete"
-msgstr "ডিলিট করুন"
+msgstr "মুছে ফেলুন"
 
 #: src/remmina_ftp_client.c:776
 #, fuzzy
@@ -849,12 +893,12 @@ msgstr "গোষ্ঠী"
 msgid "Permission"
 msgstr "অনুমতি"
 
-#: src/remmina_ftp_client.c:990 plugins/rdp/rdp_plugin.c:2568
+#: src/remmina_ftp_client.c:990 plugins/rdp/rdp_plugin.c:2611
 #, fuzzy
 msgid "Remote"
 msgstr "দূরবর্তী"
 
-#: src/remmina_ftp_client.c:997 plugins/rdp/rdp_plugin.c:2567
+#: src/remmina_ftp_client.c:997 plugins/rdp/rdp_plugin.c:2610
 #, fuzzy
 msgid "Local"
 msgstr "স্থানীয়"
@@ -864,141 +908,141 @@ msgstr "স্থানীয়"
 msgid "Progress"
 msgstr "অগ্রগতি"
 
-#: src/remmina_protocol_widget.c:290 src/remmina_ssh_plugin.c:829
+#: src/remmina_protocol_widget.c:291 src/remmina_ssh_plugin.c:829
 #: src/remmina_ssh_plugin.c:1445
 #, fuzzy
 msgid "Open SFTP transfer…"
 msgstr "খোলা এসএফটিপি স্থানান্তর…"
 
-#: src/remmina_protocol_widget.c:319
+#: src/remmina_protocol_widget.c:320
 #, fuzzy
 msgid "Executing external commands…"
 msgstr "বাহ্যিক আদেশগুলি কার্যকর করা হচ্ছে…"
 
 #. TRANSLATORS: “%s” is a placeholder for the connection profile name
-#: src/remmina_protocol_widget.c:327
+#: src/remmina_protocol_widget.c:328
 #, fuzzy, c-format
 msgid "Connecting to “%s”…"
 msgstr "\"[এক্স১৫এক্স]\"-এর সাথে সংযোগ করা হচ্ছে…"
 
 #. TRANSLATORS: “%s” is a placeholder for an hostname or an IP address.
-#: src/remmina_protocol_widget.c:915 src/remmina_protocol_widget.c:1100
+#: src/remmina_protocol_widget.c:916 src/remmina_protocol_widget.c:1101
 #, fuzzy, c-format
 msgid "Connecting to “%s” via SSH…"
 msgstr "এসএসএইচ-এর মাধ্যমে \"[এক্স১৫এক্স]\" এর সাথে সংযোগ করা হচ্ছে…"
 
 #. TRANSLATORS: “%i” is a placeholder for a TCP port number.
-#: src/remmina_protocol_widget.c:1164
+#: src/remmina_protocol_widget.c:1165
 #, fuzzy, c-format
 msgid "Awaiting incoming SSH connection on port %i…"
 msgstr "বন্দরে আগত এসএসএইচ সংযোগের অপেক্ষায় [এক্স৪১এক্স]…"
 
-#: src/remmina_protocol_widget.c:1217
+#: src/remmina_protocol_widget.c:1218
 #, fuzzy, c-format
 msgid "The “%s” command is not available on the SSH server."
 msgstr "\"[এক্স৫এক্স]\" কমান্ডটি এসএসএইচ সার্ভারে উপলব্ধ নয়।"
 
-#: src/remmina_protocol_widget.c:1222
+#: src/remmina_protocol_widget.c:1223
 #, fuzzy, c-format
 msgid "Could not run the “%s” command on the SSH server (status = %i)."
 msgstr ""
 "এসএসএইচ সার্ভারে (স্থিতি = [এক্স৫৯এক্স]) \"[এক্স১৯এক্স]\" কমান্ড চালানো যায়নি।"
 
 #. TRANSLATORS: %s is a placeholder for an error message
-#: src/remmina_protocol_widget.c:1230
+#: src/remmina_protocol_widget.c:1231
 #, fuzzy, c-format
 msgid "Could not run command. %s"
 msgstr "কমান্ড চালানো যায়নি। [এক্স২৩এক্স]"
 
 #. TRANSLATORS: “%s” is a placeholder for a hostname or IP address.
-#: src/remmina_protocol_widget.c:1300
+#: src/remmina_protocol_widget.c:1301
 #, fuzzy, c-format
 msgid "Connecting to %s via SSH…"
 msgstr "এসএসএইচ-এর মাধ্যমে [এক্স১৪এক্স] এর সাথে সংযোগ করা হচ্ছে…"
 
-#: src/remmina_protocol_widget.c:1694
+#: src/remmina_protocol_widget.c:1695
 #, fuzzy
 msgid "Type in SSH username and password."
 msgstr "এসএসএইচ ব্যবহারকারীর নাম এবং পাসওয়ার্ড টাইপ করুন।"
 
-#: src/remmina_protocol_widget.c:1749 src/remmina_protocol_widget.c:1781
+#: src/remmina_protocol_widget.c:1750 src/remmina_protocol_widget.c:1782
 #, fuzzy
 msgid "Fingerprint automatically accepted"
 msgstr "আঙুলের ছাপ স্বয়ংক্রিয়ভাবে গৃহীত হয়েছে"
 
 #. TRANSLATORS: The user is asked to verify a new SSL certificate.
-#: src/remmina_protocol_widget.c:1757
+#: src/remmina_protocol_widget.c:1758
 #, fuzzy
 msgid "Certificate details:"
 msgstr "সার্টিফিকেটের বিবরণ:"
 
 #. TRANSLATORS: An SSL certificate subject is usually the remote server the user connect to.
-#: src/remmina_protocol_widget.c:1759 src/remmina_protocol_widget.c:1791
+#: src/remmina_protocol_widget.c:1760 src/remmina_protocol_widget.c:1792
 #, fuzzy
 msgid "Subject:"
-msgstr "বিষয়:"
+msgstr "বিষয়শ্রেণী:"
 
 #. TRANSLATORS: The name or email of the entity that have issued the SSL certificate
-#: src/remmina_protocol_widget.c:1761 src/remmina_protocol_widget.c:1793
+#: src/remmina_protocol_widget.c:1762 src/remmina_protocol_widget.c:1794
 #, fuzzy
 msgid "Issuer:"
 msgstr "প্রদানকারী:"
 
 #. TRANSLATORS: An SSL certificate fingerprint, is a hash of a certificate calculated on all certificate's data and its signature.
-#: src/remmina_protocol_widget.c:1763
+#: src/remmina_protocol_widget.c:1764
 #, fuzzy
 msgid "Fingerprint:"
 msgstr "আঙুলের ছাপ:"
 
 #. TRANSLATORS: The user is asked to accept or refuse a new SSL certificate.
-#: src/remmina_protocol_widget.c:1765
+#: src/remmina_protocol_widget.c:1766
 #, fuzzy
 msgid "Accept certificate?"
 msgstr "শংসাপত্র গ্রহণ করবেন?"
 
 #. TRANSLATORS: The user is asked to verify a new SSL certificate.
-#: src/remmina_protocol_widget.c:1789
+#: src/remmina_protocol_widget.c:1790
 #, fuzzy
 msgid "The certificate changed! Details:"
 msgstr "শংসাপত্র টি পরিবর্তিত হয়েছে! বিস্তারিত:"
 
 #. TRANSLATORS: An SSL certificate fingerprint, is a hash of a certificate calculated on all certificate's data and its signature.
-#: src/remmina_protocol_widget.c:1795
+#: src/remmina_protocol_widget.c:1796
 #, fuzzy
 msgid "Old fingerprint:"
 msgstr "পুরানো আঙুলের ছাপ:"
 
 #. TRANSLATORS: An SSL certificate fingerprint, is a hash of a certificate calculated on all certificate's data and its signature.
-#: src/remmina_protocol_widget.c:1797
+#: src/remmina_protocol_widget.c:1798
 #, fuzzy
 msgid "New fingerprint:"
 msgstr "নতুন আঙুলের ছাপ:"
 
 #. TRANSLATORS: The user is asked to accept or refuse a new SSL certificate.
-#: src/remmina_protocol_widget.c:1799
+#: src/remmina_protocol_widget.c:1800
 #, fuzzy
 msgid "Accept changed certificate?"
 msgstr "পরিবর্তিত শংসাপত্র গ্রহণ করবেন?"
 
 #. TRANSLATORS: “%i” is a placeholder for a port number. “%s”  is a placeholder for a protocol name (VNC).
-#: src/remmina_protocol_widget.c:1942
+#: src/remmina_protocol_widget.c:1943
 #, fuzzy, c-format
 msgid "Listening on port %i for an incoming %s connection…"
 msgstr "একটি আগত [এক্স37এক্স] সংযোগের জন্য পোর্ট [এক্স18এক্স] এ শোনা…"
 
-#: src/remmina_protocol_widget.c:1967
+#: src/remmina_protocol_widget.c:1968
 #, fuzzy
 msgid "Could not authenticate, attempting reconnection…"
 msgstr "প্রমাণীকরণ করা যায়নি, পুনরায় সংযোগের চেষ্টা করা হচ্ছে…"
 
-#: src/remmina_protocol_widget.c:2029 src/remmina_file_editor.c:436
+#: src/remmina_protocol_widget.c:2030 src/remmina_file_editor.c:436
 #: src/remmina_file_editor.c:1172 data/ui/remmina_main.glade:478
 #, fuzzy
 msgid "Server"
 msgstr "সার্ভার"
 
 #. TRANSLATORS: “%s” is a placeholder for a protocol name, like “RDP”.
-#: src/remmina_protocol_widget.c:2047
+#: src/remmina_protocol_widget.c:2048
 #, fuzzy, c-format
 msgid "Install the %s protocol plugin first."
 msgstr "প্রথমে [এক্স12এক্স] প্রোটোকল প্লাগইন ইনস্টল করুন।"
@@ -1269,18 +1313,18 @@ msgid "Could not start SFTP session. %s"
 msgstr "এসএফটিপি সেশন শুরু করা যায়নি। [এক্স৩০এক্স]"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2378
+#: src/remmina_ssh.c:2379
 #, fuzzy, c-format
 msgid "Could not open channel. %s"
 msgstr "চ্যানেল খোলা যায়নি। [এক্স২৪এক্স]"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2393
+#: src/remmina_ssh.c:2394
 #, fuzzy, c-format
 msgid "Could not request shell. %s"
 msgstr "শেলের অনুরোধ করা যায়নি। [এক্স২৫এক্স]"
 
-#: src/remmina_ssh.c:2511
+#: src/remmina_ssh.c:2521
 #, fuzzy
 msgid "Could not create PTY device."
 msgstr "পিটিওয়াই ডিভাইস তৈরি করা যায়নি।"
@@ -1291,8 +1335,9 @@ msgid "Plugin %s is not registered."
 msgstr "প্লাগইন [এক্স৭এক্স] নিবন্ধিত নয়।"
 
 #: src/remmina_main.c:669
+#, fuzzy
 msgid "The latest successful connection attempt, or a pre-computed date"
-msgstr ""
+msgstr "সর্বশেষ সফল সংযোগ প্রচেষ্টা, বা একটি প্রাক-গণনা তারিখ"
 
 #: src/remmina_main.c:671
 #, fuzzy, c-format
@@ -1332,6 +1377,7 @@ msgid "This protocol does not support exporting."
 msgstr "এই প্রোটোকল রপ্তানি সমর্থন করে না।"
 
 #: src/remmina_main.c:1361
+#, fuzzy
 msgid "Remmina Remote Desktop Client"
 msgstr "Remmina দূরবর্তী ডেস্কটপ ক্লায়েন্ট"
 
@@ -1580,7 +1626,7 @@ msgstr "লুপব্যাক ঠিকানার মাধ্যমে ট
 msgid "Same server at port %i"
 msgstr "পোর্টে একই সার্ভার [এক্স২০এক্স]"
 
-#: src/remmina_file_editor.c:1193 plugins/rdp/rdp_plugin.c:2724
+#: src/remmina_file_editor.c:1193 plugins/rdp/rdp_plugin.c:2767
 #, fuzzy
 msgid "Start-up path"
 msgstr "স্টার্ট-আপ পথ"
@@ -1632,8 +1678,8 @@ msgstr ""
 "হওয়ার পর থেকে ব্যবহারকারীর ইনপুট যাচাই করা যাচ্ছে না!"
 
 #. TRANSLATORS: Meta-error. Shouldn't be visible.
-#: src/remmina_file_editor.c:1445 plugins/x2go/x2go_plugin.c:856
-#: plugins/x2go/x2go_plugin.c:1440
+#: src/remmina_file_editor.c:1445 plugins/x2go/x2go_plugin.c:2188
+#: plugins/x2go/x2go_plugin.c:2817
 #, fuzzy
 msgid "Internal error."
 msgstr "অভ্যন্তরীণ ত্রুটি।"
@@ -1666,7 +1712,7 @@ msgstr "সমস্ত নতুন সংযোগ প্রোফাইলে
 #: src/remmina_file_editor.c:1796 data/ui/remmina_main.glade:160
 #, fuzzy
 msgid "Connect"
-msgstr "যুক্ত করুন"
+msgstr "সংযুক্ত হোন"
 
 #: src/remmina_file_editor.c:1799
 #, fuzzy
@@ -1691,10 +1737,11 @@ msgstr "ফাইলটি খুঁজে পাওয়া যায়নি
 #. TRANSLATORS: This is a message that pops up when an external Remmina plugin tries to set the window resolution using a legacy parameter.
 #. TRANSLATORS: This is a message that pop-up when an external Remmina plugin tries to set the windows resolution using a legacy parameter.
 #: src/remmina_file.c:451 src/remmina_file.c:497
+#, fuzzy
 msgid ""
 "Using the «resolution» parameter in the Remmina preferences file is "
 "deprecated.\n"
-msgstr ""
+msgstr "রেমিনা পছন্দফাইলে «রেজোলিউশন» প্যারামিটার ব্যবহার করা অবমূল্যায়ন করা হয়।\n"
 
 #: src/remmina_icon.c:136
 #, fuzzy
@@ -1704,7 +1751,7 @@ msgstr "প্রধান উইন্ডো খুলুন"
 #: src/remmina_icon.c:141 data/ui/remmina_main.glade:254
 #, fuzzy
 msgid "_Preferences"
-msgstr "_পছন্দসমূহ"
+msgstr "পছন্দগুলি"
 
 #: src/remmina_icon.c:146
 #, fuzzy
@@ -1735,58 +1782,63 @@ msgid "Connect to remote desktops through the applet menu"
 msgstr "অ্যাপলেট মেনুর মাধ্যমে দূরবর্তী ডেস্কটপগুলিতে সংযোগ করুন"
 
 #: src/remmina_icon.c:359
+#, fuzzy
 msgid "StatusNotifier/Appindicator support in “"
-msgstr ""
+msgstr "স্ট্যাটাসনোটিফার/অ্যাপইন্ডিকেটর সাপোর্ট ইন \""
 
 #. TRANSLATORS: %s is a placeholder for "StatusNotifier/Appindicator suppor in “DESKTOP NAME”: "
 #: src/remmina_icon.c:366
-#, c-format
+#, fuzzy, c-format
 msgid "%s your desktop does support it"
-msgstr ""
+msgstr "[এক্স০এক্স] আপনার ডেস্কটপ এটি সমর্থন করে"
 
 #. TRANSLATORS: %s is a placeholder for "StatusNotifier/Appindicator suppor in “DESKTOP NAME”: "
 #: src/remmina_icon.c:368
-#, c-format
+#, fuzzy, c-format
 msgid "%s and Remmina has built-in (compiled) support for libappindicator."
-msgstr ""
+msgstr "[এক্স০এক্স] এবং রেমিনা লিবাপইন্ডিকেটরের জন্য বিল্ট-ইন (সংকলিত) সমর্থন করেছে।"
 
 #. TRANSLATORS: %s is a placeholder for "StatusNotifier/Appindicator suppor in “DESKTOP NAME”: "
 #: src/remmina_icon.c:371
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "%s not supported natively by your Desktop Environment. libappindicator will "
 "try to fallback to GtkStatusIcon/xembed"
 msgstr ""
+"[এক্স০এক্স] আপনার ডেস্কটপ পরিবেশ দ্বারা স্থানীয়ভাবে সমর্থিত নয়। লিবাপইন্ডিকেটর "
+"GTGTTTTTআইকন/এক্সএম্বেড-এ ফিরে যাওয়ার চেষ্টা করবে"
 
 #. TRANSLATORS: %s is a placeholder for "StatusNotifier/Appindicator suppor in “DESKTOP NAME”: "
 #: src/remmina_icon.c:375
-#, c-format
+#, fuzzy, c-format
 msgid "%s You may need to install, and use XApp Status Applet"
 msgstr ""
+"[এক্স০এক্স] আপনাকে এক্সঅ্যাপ স্ট্যাটাস অ্যাপলেট ইনস্টল এবং ব্যবহার করতে হতে পারে"
 
 #. TRANSLATORS: %s is a placeholder for "StatusNotifier/Appindicator suppor in “DESKTOP NAME”: "
 #: src/remmina_icon.c:378
-#, c-format
+#, fuzzy, c-format
 msgid "%s You may need to install, and use KStatusNotifierItem"
 msgstr ""
+"[এক্স০এক্স] আপনাকে কেস্ট্যাটাসনোটিটারআইটেম ইনস্টল করতে এবং ব্যবহার করতে হতে পারে"
 
 #. TRANSLATORS: %s is a placeholder for "StatusNotifier/Appindicator suppor in “DESKTOP NAME”: "
 #: src/remmina_icon.c:381
-#, c-format
+#, fuzzy, c-format
 msgid "%s You may need to install, and use XEmbed SNI Proxy"
-msgstr ""
+msgstr "[এক্স০এক্স] আপনাকে এক্সএম্বেড এসএনআই প্রক্সি ইনস্টল এবং ব্যবহার করতে হতে পারে"
 
 #. TRANSLATORS: %s is a placeholder for "StatusNotifier/Appindicator suppor in “DESKTOP NAME”: "
 #: src/remmina_icon.c:384
-#, c-format
+#, fuzzy, c-format
 msgid "%s You may need to install, and use Gnome Shell Extension Appindicator"
-msgstr ""
+msgstr "[এক্স০এক্স] আপনাকে Gt"
 
 #. TRANSLATORS: %s is a placeholder for an error message
 #: src/remmina_ssh_plugin.c:539
 #, fuzzy, c-format
 msgid "Error: %s"
-msgstr "সমস্যা:"
+msgstr "ত্রুটি: [এক্স৭এক্স]"
 
 #: src/remmina_ssh_plugin.c:556
 #, fuzzy
@@ -1894,12 +1946,16 @@ msgstr "_Find লেখা"
 msgid "User password"
 msgstr "ব্যবহারকারীর পাসওয়ার্ড"
 
-#: src/remmina_ssh_plugin.c:1477 plugins/rdp/rdp_plugin.c:2723
+#: src/remmina_ssh_plugin.c:1477
+msgid "Opening command"
+msgstr ""
+
+#: src/remmina_ssh_plugin.c:1478
 #, fuzzy
-msgid "Start-up program"
+msgid "Start-up background program"
 msgstr "স্টার্ট-আপ প্রোগ্রাম"
 
-#: src/remmina_ssh_plugin.c:1482
+#: src/remmina_ssh_plugin.c:1483
 #, fuzzy
 msgid ""
 "The filename can use the following placeholders:\n"
@@ -1922,78 +1978,78 @@ msgstr ""
 "  • %g রেমিনা প্রোফাইল গ্রুপের নামের সাথে প্রতিস্থাপিত\n"
 "  • %1$%-এর পরিবর্তে আইএসও 8601 বিন্যাসে স্থানীয় তারিখ ও সময় দেওয়া হয়েছে\n"
 
-#: src/remmina_ssh_plugin.c:1504
+#: src/remmina_ssh_plugin.c:1505
 #, fuzzy
 msgid "Terminal colour scheme"
 msgstr "টার্মিনাল রঙের স্কিম"
 
-#: src/remmina_ssh_plugin.c:1505
+#: src/remmina_ssh_plugin.c:1506
 #, fuzzy
 msgid "Character set"
 msgstr "অক্ষর সেট"
 
-#: src/remmina_ssh_plugin.c:1507
+#: src/remmina_ssh_plugin.c:1508
 #, fuzzy
 msgid "KEX (Key Exchange) algorithms"
 msgstr "কেইএক্স (কী এক্সচেঞ্জ) অ্যালগরিদম"
 
-#: src/remmina_ssh_plugin.c:1508
+#: src/remmina_ssh_plugin.c:1509
 #, fuzzy
 msgid "Symmetric cipher client to server"
 msgstr "সার্ভারে প্রতিসাম্য সাইফার ক্লায়েন্ট"
 
-#: src/remmina_ssh_plugin.c:1509
+#: src/remmina_ssh_plugin.c:1510
 #, fuzzy
 msgid "Preferred server host key types"
 msgstr "পছন্দসই সার্ভার হোস্ট কী প্রকার"
 
-#: src/remmina_ssh_plugin.c:1510
+#: src/remmina_ssh_plugin.c:1511
 #, fuzzy
 msgid "Folder for SSH session log"
 msgstr "এসএসএইচ সেশন লগের জন্য ফোল্ডার"
 
-#: src/remmina_ssh_plugin.c:1511
+#: src/remmina_ssh_plugin.c:1512
 #, fuzzy
 msgid "Filename for SSH session log"
 msgstr "এসএসএইচ সেশন লগের জন্য ফাইলনাম"
 
-#: src/remmina_ssh_plugin.c:1512
+#: src/remmina_ssh_plugin.c:1513
 #, fuzzy
 msgid "Log SSH session when exiting Remmina"
 msgstr "রেমিনা থেকে প্রস্থান করার সময় লগ এসএসএইচ সেশন"
 
-#: src/remmina_ssh_plugin.c:1513
+#: src/remmina_ssh_plugin.c:1514
 #, fuzzy
 msgid "Log SSH session asynchronously"
 msgstr "লগ এসএসএইচ সেশন টি এককালবর্তীভাবে"
 
-#: src/remmina_ssh_plugin.c:1513
+#: src/remmina_ssh_plugin.c:1514
 #, fuzzy
 msgid "Saving the session asynchronously may have a notable performance impact"
 msgstr ""
 "সেশনটি অসিঙ্ক্রোনাসভাবে সংরক্ষণ করা একটি উল্লেখযোগ্য কর্মক্ষমতার প্রভাব ফেলতে পারে"
 
-#: src/remmina_ssh_plugin.c:1514
+#: src/remmina_ssh_plugin.c:1515
 #, fuzzy
 msgid "Audible terminal bell"
 msgstr "শ্রবণযোগ্য টার্মিনাল ঘন্টা"
 
-#: src/remmina_ssh_plugin.c:1515
+#: src/remmina_ssh_plugin.c:1516
 #, fuzzy
 msgid "SSH compression"
 msgstr "এসএসএইচ কম্প্রেশন"
 
-#: src/remmina_ssh_plugin.c:1516
+#: src/remmina_ssh_plugin.c:1517
 #, fuzzy
 msgid "Don't remember passwords"
 msgstr "পাসওয়ার্ড মনে নেই"
 
-#: src/remmina_ssh_plugin.c:1517
+#: src/remmina_ssh_plugin.c:1518
 #, fuzzy
 msgid "Strict host key checking"
 msgstr "কঠোর হোস্ট কী চেকিং"
 
-#: src/remmina_ssh_plugin.c:1531
+#: src/remmina_ssh_plugin.c:1532
 #, fuzzy
 msgid "SSH - Secure Shell"
 msgstr "এসএসএইচ - নিরাপদ শেল"
@@ -2018,25 +2074,25 @@ msgstr "<সেট নয়>"
 msgid "<Choose a quality level to edit…>"
 msgstr "< সম্পাদনা করার জন্য একটি গুণমানের স্তর চয়ন করুন... >"
 
-#: plugins/rdp/rdp_settings.c:282 plugins/rdp/rdp_plugin.c:2542
+#: plugins/rdp/rdp_settings.c:282 plugins/rdp/rdp_plugin.c:2585
 #: plugins/vnc/vnc_plugin.c:1934
 #, fuzzy
 msgid "Poor (fastest)"
 msgstr "দরিদ্র (দ্রুততম)"
 
-#: plugins/rdp/rdp_settings.c:284 plugins/rdp/rdp_plugin.c:2543
+#: plugins/rdp/rdp_settings.c:284 plugins/rdp/rdp_plugin.c:2586
 #: plugins/vnc/vnc_plugin.c:1933
 #, fuzzy
 msgid "Medium"
 msgstr "মাঝারি"
 
-#: plugins/rdp/rdp_settings.c:286 plugins/rdp/rdp_plugin.c:2544
+#: plugins/rdp/rdp_settings.c:286 plugins/rdp/rdp_plugin.c:2587
 #: plugins/vnc/vnc_plugin.c:1931
 #, fuzzy
 msgid "Good"
 msgstr "ভালো"
 
-#: plugins/rdp/rdp_settings.c:288 plugins/rdp/rdp_plugin.c:2545
+#: plugins/rdp/rdp_settings.c:288 plugins/rdp/rdp_plugin.c:2588
 #: plugins/vnc/vnc_plugin.c:1932
 #, fuzzy
 msgid "Best (slowest)"
@@ -2045,7 +2101,7 @@ msgstr "সেরা (ধীরগতির)"
 #: plugins/rdp/rdp_settings.c:427
 #, fuzzy
 msgid "Keyboard layout"
-msgstr "কীবোর্ড লেআউট"
+msgstr "কীবোর্ড বিন্যাস (Layout)"
 
 #: plugins/rdp/rdp_settings.c:457
 #, fuzzy
@@ -2138,7 +2194,7 @@ msgstr "ডেস্কটপ অভিমুখিতা"
 msgid "Input device settings"
 msgstr "ইনপুট ডিভাইস সেটিংস"
 
-#: plugins/rdp/rdp_settings.c:658 plugins/rdp/rdp_plugin.c:2686
+#: plugins/rdp/rdp_settings.c:658 plugins/rdp/rdp_plugin.c:2729
 #: plugins/vnc/vnc_plugin.c:2014
 #, fuzzy
 msgid "Disable smooth scrolling"
@@ -2149,29 +2205,29 @@ msgstr "মসৃণ স্ক্রোলিং অক্ষম করুন"
 msgid "General settings"
 msgstr "সাধারণ সেটিংস"
 
-#: plugins/rdp/rdp_settings.c:676 plugins/rdp/rdp_plugin.c:2738
+#: plugins/rdp/rdp_settings.c:676 plugins/rdp/rdp_plugin.c:2781
 #, fuzzy
 msgid "Reconnect attempts number"
 msgstr "প্রয়াস নম্বর পুনঃসংযোগ করুন"
 
-#: plugins/rdp/rdp_settings.c:689 plugins/rdp/rdp_plugin.c:2738
+#: plugins/rdp/rdp_settings.c:689 plugins/rdp/rdp_plugin.c:2781
 #, fuzzy
 msgid ""
 "The maximum number of reconnect attempts upon an RDP disconnect (default: 20)"
 msgstr ""
 "আরডিপি সংযোগ বিচ্ছিন্ন করার সময় পুনঃসংযোগ প্রচেষ্টার সর্বাধিক সংখ্যা (ডিফল্ট: 20)"
 
-#: plugins/rdp/rdp_plugin.c:762 plugins/rdp/rdp_plugin.c:827
+#: plugins/rdp/rdp_plugin.c:769 plugins/rdp/rdp_plugin.c:834
 #, fuzzy
 msgid "Enter RDP authentication credentials"
 msgstr "আরডিপি প্রমাণীকরণ প্রমাণপত্রাদি লিখুন"
 
-#: plugins/rdp/rdp_plugin.c:835
+#: plugins/rdp/rdp_plugin.c:842
 #, fuzzy
 msgid "Enter RDP gateway authentication credentials"
 msgstr "আরডিপি গেটওয়ে প্রমাণীকরণ প্রমাণপত্রাদি লিখুন"
 
-#: plugins/rdp/rdp_plugin.c:2073
+#: plugins/rdp/rdp_plugin.c:2116
 #, fuzzy, c-format
 msgid ""
 "Could not access the RDP server “%s”.\n"
@@ -2180,7 +2236,7 @@ msgstr ""
 "আরডিপি সার্ভারে প্রবেশ করা যায়নি \"[এক্স৩৩এক্স]\"।\n"
 "অ্যাকাউন্ট লক আউট হয়েছে।"
 
-#: plugins/rdp/rdp_plugin.c:2080
+#: plugins/rdp/rdp_plugin.c:2123
 #, fuzzy, c-format
 msgid ""
 "Could not access the RDP server “%s”.\n"
@@ -2189,7 +2245,7 @@ msgstr ""
 "আরডিপি সার্ভারে প্রবেশ করা যায়নি \"[এক্স৩৩এক্স]\"।\n"
 "অ্যাকাউন্টের মেয়াদ শেষ হয়েছে।"
 
-#: plugins/rdp/rdp_plugin.c:2087
+#: plugins/rdp/rdp_plugin.c:2130
 #, fuzzy, c-format
 msgid ""
 "Could not access the RDP server “%s”.\n"
@@ -2198,7 +2254,7 @@ msgstr ""
 "আরডিপি সার্ভারে প্রবেশ করা যায়নি \"[এক্স৩৩এক্স]\"।\n"
 "পাসওয়ার্ডের মেয়াদ শেষ হয়েছে।"
 
-#: plugins/rdp/rdp_plugin.c:2094
+#: plugins/rdp/rdp_plugin.c:2137
 #, fuzzy, c-format
 msgid ""
 "Could not access the RDP server “%s”.\n"
@@ -2207,7 +2263,7 @@ msgstr ""
 "আরডিপি সার্ভারে প্রবেশ করা যায়নি \"[এক্স৩৩এক্স]\"।\n"
 "অ্যাকাউন্ট অক্ষম হয়েছে।"
 
-#: plugins/rdp/rdp_plugin.c:2100
+#: plugins/rdp/rdp_plugin.c:2143
 #, fuzzy, c-format
 msgid ""
 "Could not access the RDP server “%s”.\n"
@@ -2216,7 +2272,7 @@ msgstr ""
 "আরডিপি সার্ভারে প্রবেশ করা যায়নি \"[এক্স৩৩এক্স]\"।\n"
 "অপর্যাপ্ত ব্যবহারকারীর সুবিধা।"
 
-#: plugins/rdp/rdp_plugin.c:2108
+#: plugins/rdp/rdp_plugin.c:2151
 #, fuzzy, c-format
 msgid ""
 "Could not access the RDP server “%s”.\n"
@@ -2225,7 +2281,7 @@ msgstr ""
 "আরডিপি সার্ভারে প্রবেশ করা যায়নি \"[এক্স৩৩এক্স]\"।\n"
 "অ্যাকাউন্ট সীমাবদ্ধ।"
 
-#: plugins/rdp/rdp_plugin.c:2116
+#: plugins/rdp/rdp_plugin.c:2159
 #, fuzzy, c-format
 msgid ""
 "Could not access the RDP server “%s”.\n"
@@ -2234,17 +2290,17 @@ msgstr ""
 "আরডিপি সার্ভারে প্রবেশ করা যায়নি \"[এক্স৩৩এক্স]\"।\n"
 "সংযোগ করার আগে ব্যবহারকারীর পাসওয়ার্ড পরিবর্তন করুন।"
 
-#: plugins/rdp/rdp_plugin.c:2121
+#: plugins/rdp/rdp_plugin.c:2164
 #, fuzzy, c-format
 msgid "Lost connection to the RDP server “%s”."
 msgstr "আরডিপি সার্ভারের সাথে সংযোগ বিচ্ছিন্ন হয়েছে \"[এক্স৩৫এক্স]\"।"
 
-#: plugins/rdp/rdp_plugin.c:2124
+#: plugins/rdp/rdp_plugin.c:2167
 #, fuzzy, c-format
 msgid "Could not find the address for the RDP server “%s”."
 msgstr "আরডিপি সার্ভারের ঠিকানা খুঁজে পাওয়া যায়নি \"[এক্স৪৭এক্স]\"।"
 
-#: plugins/rdp/rdp_plugin.c:2128
+#: plugins/rdp/rdp_plugin.c:2171
 #, fuzzy, c-format
 msgid ""
 "Could not connect to the RDP server “%s” via TLS. Check that client and "
@@ -2254,7 +2310,7 @@ msgstr ""
 "এবং সার্ভার একটি সাধারণ টিএলএস সংস্করণ সমর্থন করে কিনা তা পরীক্ষা করুন।"
 
 #. TRANSLATORS: the placeholder may be either an IP/FQDN or a server hostname
-#: plugins/rdp/rdp_plugin.c:2132
+#: plugins/rdp/rdp_plugin.c:2175
 #, fuzzy, c-format
 msgid ""
 "Unable to establish a connection to the RDP server “%s”. Check “Security "
@@ -2263,17 +2319,17 @@ msgstr ""
 "আরডিপি সার্ভারে সংযোগ স্থাপন করতে অক্ষম \"[এক্স৫২এক্স]\"। \"নিরাপত্তা প্রোটোকল "
 "আলোচনা\" পরীক্ষা করুন।"
 
-#: plugins/rdp/rdp_plugin.c:2140
+#: plugins/rdp/rdp_plugin.c:2183
 #, fuzzy, c-format
 msgid "Cannot connect to the RDP server “%s”."
 msgstr "আরডিপি সার্ভারে সংযোগ করা যাচ্ছে না \"[এক্স৩৪এক্স]\"।"
 
-#: plugins/rdp/rdp_plugin.c:2143
+#: plugins/rdp/rdp_plugin.c:2186
 #, fuzzy
 msgid "Could not start libfreerdp-gdi."
 msgstr "লিব্ফ্রির্ডপ-জিডি শুরু করা যায়নি।"
 
-#: plugins/rdp/rdp_plugin.c:2146
+#: plugins/rdp/rdp_plugin.c:2189
 #, fuzzy, c-format
 msgid ""
 "You requested a H.264 GFX mode for the server “%s”, but your libfreerdp does "
@@ -2283,12 +2339,12 @@ msgstr ""
 "কিন্তু আপনার লিব্ফ্রির্ডপ এইচ.264 সমর্থন করে না। অনুগ্রহ করে একটি অ-এভিসি রঙের "
 "গভীরতা সেটিং ব্যবহার করুন।"
 
-#: plugins/rdp/rdp_plugin.c:2153
+#: plugins/rdp/rdp_plugin.c:2196
 #, fuzzy, c-format
 msgid "The “%s” server refused the connection."
 msgstr "\"[এক্স৫এক্স]\" সার্ভার সংযোগটি প্রত্যাখ্যান করেছে।"
 
-#: plugins/rdp/rdp_plugin.c:2158
+#: plugins/rdp/rdp_plugin.c:2201
 #, fuzzy, c-format
 msgid ""
 "The Remote Desktop Gateway “%s” denied the user “%s\\%s” access due to "
@@ -2297,143 +2353,143 @@ msgstr ""
 "রিমোট ডেস্কটপ গেটওয়ে \"[এক্স২৮এক্স]\" ব্যবহারকারীকে অস্বীকার করেছে "
 "\"[এক্স৪৯এক্স]\\[এক্স৫২এক্স]\" নীতির কারণে অ্যাক্সেস।"
 
-#: plugins/rdp/rdp_plugin.c:2168
+#: plugins/rdp/rdp_plugin.c:2211
 #, fuzzy, c-format
 msgid "Cannot connect to the “%s” RDP server."
 msgstr "\"[এক্স২৩এক্স]\" আরডিপি সার্ভারে সংযোগ করা যাচ্ছে না।"
 
-#: plugins/rdp/rdp_plugin.c:2511
+#: plugins/rdp/rdp_plugin.c:2554
 #, fuzzy
 msgid "Automatic (32 bpp) (Server chooses its best format)"
 msgstr "স্বয়ংক্রিয় (32 বিপিপি) (সার্ভার তার সেরা বিন্যাস বেছে নেয়)"
 
-#: plugins/rdp/rdp_plugin.c:2512
+#: plugins/rdp/rdp_plugin.c:2555
 #, fuzzy
 msgid "GFX AVC444 (32 bpp)"
 msgstr "জিএফএক্স এভিসি৪৪৪ (৩২ বিপিপি)"
 
-#: plugins/rdp/rdp_plugin.c:2513
+#: plugins/rdp/rdp_plugin.c:2556
 #, fuzzy
 msgid "GFX AVC420 (32 bpp)"
 msgstr "জিএফএক্স এভিসি৪২০ (৩২ বিপিপি)"
 
-#: plugins/rdp/rdp_plugin.c:2514
+#: plugins/rdp/rdp_plugin.c:2557
 #, fuzzy
 msgid "GFX RFX (32 bpp)"
 msgstr "জিএফএক্স আরএফএক্স (32 বিপিপি)"
 
-#: plugins/rdp/rdp_plugin.c:2515
+#: plugins/rdp/rdp_plugin.c:2558
 #, fuzzy
 msgid "GFX RFX Progressive (32 bpp)"
 msgstr "জিএফএক্স আরএফএক্স প্রোগ্রেসিভ (৩২ বিপিপি)"
 
-#: plugins/rdp/rdp_plugin.c:2516
+#: plugins/rdp/rdp_plugin.c:2559
 #, fuzzy
 msgid "RemoteFX (32 bpp)"
 msgstr "রিমোটএফএক্স (32 বিপিপি)"
 
-#: plugins/rdp/rdp_plugin.c:2517 plugins/vnc/vnc_plugin.c:1922
+#: plugins/rdp/rdp_plugin.c:2560 plugins/vnc/vnc_plugin.c:1922
 #, fuzzy
 msgid "True colour (32 bpp)"
 msgstr "আসল রঙ (32 বিপিপি)"
 
-#: plugins/rdp/rdp_plugin.c:2518
+#: plugins/rdp/rdp_plugin.c:2561
 #, fuzzy
 msgid "True colour (24 bpp)"
 msgstr "আসল রঙ (24 বিপিপি)"
 
-#: plugins/rdp/rdp_plugin.c:2519 plugins/vnc/vnc_plugin.c:1923
+#: plugins/rdp/rdp_plugin.c:2562 plugins/vnc/vnc_plugin.c:1923
 #, fuzzy
 msgid "High colour (16 bpp)"
 msgstr "উচ্চ রঙ (16 বিপিপি)"
 
-#: plugins/rdp/rdp_plugin.c:2520
+#: plugins/rdp/rdp_plugin.c:2563
 #, fuzzy
 msgid "High colour (15 bpp)"
 msgstr "উচ্চ রঙ (15 বিপিপি)"
 
-#: plugins/rdp/rdp_plugin.c:2521 plugins/vnc/vnc_plugin.c:1924
+#: plugins/rdp/rdp_plugin.c:2564 plugins/vnc/vnc_plugin.c:1924
 #, fuzzy
 msgid "256 colours (8 bpp)"
 msgstr "256 রঙ (8 বিপিপি)"
 
-#: plugins/rdp/rdp_plugin.c:2552 data/ui/remmina_preferences.glade:641
+#: plugins/rdp/rdp_plugin.c:2595 data/ui/remmina_preferences.glade:641
 #, fuzzy
 msgid "None"
 msgstr "শূন্য"
 
-#: plugins/rdp/rdp_plugin.c:2553
+#: plugins/rdp/rdp_plugin.c:2596
 #, fuzzy
 msgid "Auto-detect"
 msgstr "স্বতঃ-শনাক্তকরণ"
 
-#: plugins/rdp/rdp_plugin.c:2554
+#: plugins/rdp/rdp_plugin.c:2597
 #, fuzzy
 msgid "Modem"
 msgstr "মোডেম"
 
-#: plugins/rdp/rdp_plugin.c:2555
+#: plugins/rdp/rdp_plugin.c:2598
 #, fuzzy
 msgid "Low performance broadband"
 msgstr "কম কর্মক্ষমতা ব্রডব্যান্ড"
 
-#: plugins/rdp/rdp_plugin.c:2556
+#: plugins/rdp/rdp_plugin.c:2599
 #, fuzzy
 msgid "Satellite"
 msgstr "স্যাটেলাইট"
 
-#: plugins/rdp/rdp_plugin.c:2557
+#: plugins/rdp/rdp_plugin.c:2600
 #, fuzzy
 msgid "High performance broadband"
 msgstr "উচ্চ কর্মক্ষমতা ব্রডব্যান্ড"
 
-#: plugins/rdp/rdp_plugin.c:2558
+#: plugins/rdp/rdp_plugin.c:2601
 #, fuzzy
 msgid "WAN"
 msgstr "ওয়ান"
 
-#: plugins/rdp/rdp_plugin.c:2559
+#: plugins/rdp/rdp_plugin.c:2602
 #, fuzzy
 msgid "LAN"
 msgstr "ল্যান"
 
-#: plugins/rdp/rdp_plugin.c:2566 plugins/spice/spice_plugin.c:635
+#: plugins/rdp/rdp_plugin.c:2609 plugins/spice/spice_plugin.c:635
 #: data/ui/remmina_preferences.glade:677
 #, fuzzy
 msgid "Off"
 msgstr "বন্ধ"
 
-#: plugins/rdp/rdp_plugin.c:2575
+#: plugins/rdp/rdp_plugin.c:2618
 #, fuzzy
 msgid "Automatic negotiation"
 msgstr "স্বয়ংক্রিয় সমঝোতা"
 
-#: plugins/rdp/rdp_plugin.c:2576
+#: plugins/rdp/rdp_plugin.c:2619
 #, fuzzy
 msgid "NLA protocol security"
 msgstr "এনএলএ প্রোটোকল নিরাপত্তা"
 
-#: plugins/rdp/rdp_plugin.c:2577
+#: plugins/rdp/rdp_plugin.c:2620
 #, fuzzy
 msgid "TLS protocol security"
 msgstr "টিএলএস প্রোটোকল নিরাপত্তা"
 
-#: plugins/rdp/rdp_plugin.c:2578
+#: plugins/rdp/rdp_plugin.c:2621
 #, fuzzy
 msgid "RDP protocol security"
 msgstr "আরডিপি প্রোটোকল নিরাপত্তা"
 
-#: plugins/rdp/rdp_plugin.c:2579
+#: plugins/rdp/rdp_plugin.c:2622
 #, fuzzy
 msgid "NLA extended protocol security"
 msgstr "এনএলএ বর্ধিত প্রোটোকল নিরাপত্তা"
 
-#: plugins/rdp/rdp_plugin.c:2592
+#: plugins/rdp/rdp_plugin.c:2635
 #, fuzzy
 msgid "2600 (Windows XP), 7601 (Windows Vista/7), 9600 (Windows 8 and newer)"
 msgstr "2600 (উইন্ডোজ এক্সপি), 7601 (উইন্ডোজ ভিস্তা/7), 9600 (উইন্ডোজ 8 এবং নতুন)"
 
-#: plugins/rdp/rdp_plugin.c:2595
+#: plugins/rdp/rdp_plugin.c:2638
 #, fuzzy
 msgid ""
 "Used i.a. by terminal services in a smart card channel to distinguish client "
@@ -2451,7 +2507,7 @@ msgstr ""
 "উইন্ডোজ 8 এবং নতুন: স্কার্ডগেটরিডারআইকন(),\n"
 "    স্কার্ডগেটডিভাইসটাইপআইডি()"
 
-#: plugins/rdp/rdp_plugin.c:2603
+#: plugins/rdp/rdp_plugin.c:2646
 #, fuzzy
 msgid ""
 "Options for redirection of audio input:\n"
@@ -2470,7 +2526,7 @@ msgstr ""
 "  •: ওএসএস, দেব:1,বিন্যাস:1\n"
 "  • স:আলসা"
 
-#: plugins/rdp/rdp_plugin.c:2612
+#: plugins/rdp/rdp_plugin.c:2655
 #, fuzzy
 msgid ""
 "Options for redirection of audio output:\n"
@@ -2489,7 +2545,7 @@ msgstr ""
 "  •: ওএসএস, দেব:1,বিন্যাস:1\n"
 "  • স:আলসা"
 
-#: plugins/rdp/rdp_plugin.c:2622
+#: plugins/rdp/rdp_plugin.c:2665
 #, fuzzy
 msgid ""
 "Options for redirection of USB device:\n"
@@ -2502,7 +2558,7 @@ msgstr ""
 "  • অটো\n"
 "  • আইডি:054সি:0268#4669:6ই6বি,অ্যাডর:04:0সি"
 
-#: plugins/rdp/rdp_plugin.c:2628
+#: plugins/rdp/rdp_plugin.c:2671
 #, fuzzy
 msgid ""
 "Advanced setting for high latency links:\n"
@@ -2513,7 +2569,7 @@ msgstr ""
 "সংযোগ ের সময়সীমা নির্ধারণ করে। আপনার সংযোগের সময় শেষ হলে ব্যবহার করুন।\n"
 "সর্বোচ্চ সম্ভাব্য মান 600000 এমএস (10 মিনিট)।\n"
 
-#: plugins/rdp/rdp_plugin.c:2633
+#: plugins/rdp/rdp_plugin.c:2676
 #, fuzzy
 msgid ""
 "Performance optimisations based on the network connection type:\n"
@@ -2524,7 +2580,7 @@ msgstr ""
 "স্বতঃ-সনাক্তকরণ ব্যবহার করার পরামর্শ দেওয়া হচ্ছে।\n"
 "যদি \"স্বতঃ-শনাক্ত\" ব্যর্থ হয় তবে তালিকার সবচেয়ে উপযুক্ত বিকল্পটি চয়ন করুন।\n"
 
-#: plugins/rdp/rdp_plugin.c:2638
+#: plugins/rdp/rdp_plugin.c:2681
 #, fuzzy
 msgid ""
 "Comma-separated list of monitor IDs and desktop orientations:\n"
@@ -2549,7 +2605,7 @@ msgstr ""
 "  • 270 (পোর্ট্রেট ফ্লিপ)\n"
 "\n"
 
-#: plugins/rdp/rdp_plugin.c:2650
+#: plugins/rdp/rdp_plugin.c:2693
 #, fuzzy
 msgid ""
 "Redirect directory <path> as named share <name>.\n"
@@ -2570,164 +2626,169 @@ msgstr ""
 "  • হটপ্লাগ,*\n"
 "\n"
 
-#: plugins/rdp/rdp_plugin.c:2682 plugins/spice/spice_plugin.c:677
+#: plugins/rdp/rdp_plugin.c:2725 plugins/spice/spice_plugin.c:677
 #, fuzzy
 msgid "Share folder"
 msgstr "ফোল্ডার শেয়ার করুন"
 
-#: plugins/rdp/rdp_plugin.c:2682
+#: plugins/rdp/rdp_plugin.c:2725
 #, fuzzy
 msgid "Use “Redirect directory” in the advanced tab for multiple directories"
 msgstr "একাধিক ডিরেক্টরির জন্য উন্নত ট্যাবে \"পুনঃনির্দেশনির্দেশিকা\" ব্যবহার করুন"
 
-#: plugins/rdp/rdp_plugin.c:2683
+#: plugins/rdp/rdp_plugin.c:2726
 #, fuzzy
 msgid "Restricted admin mode"
 msgstr "সীমাবদ্ধ অ্যাডমিন মোড"
 
-#: plugins/rdp/rdp_plugin.c:2684
+#: plugins/rdp/rdp_plugin.c:2727
 #, fuzzy
 msgid "Password hash"
 msgstr "পাসওয়ার্ড হ্যাশ"
 
-#: plugins/rdp/rdp_plugin.c:2684
+#: plugins/rdp/rdp_plugin.c:2727
 #, fuzzy
 msgid "Restricted admin mode password hash"
 msgstr "সীমাবদ্ধ অ্যাডমিন মোড পাসওয়ার্ড হ্যাশ"
 
-#: plugins/rdp/rdp_plugin.c:2685
+#: plugins/rdp/rdp_plugin.c:2728
 #, fuzzy
 msgid "Left-handed mouse support"
 msgstr "বাঁ হাতি মাউস সমর্থন"
 
-#: plugins/rdp/rdp_plugin.c:2685
+#: plugins/rdp/rdp_plugin.c:2728
 #, fuzzy
 msgid "Swap left and right mouse buttons for left-handed mouse support"
 msgstr "বাম-হাতে মাউস সমর্থনের জন্য বাম এবং ডান মাউস বোতামগুলি অদলবদল করুন"
 
-#: plugins/rdp/rdp_plugin.c:2687
+#: plugins/rdp/rdp_plugin.c:2730
 #, fuzzy
 msgid "Enable multi monitor"
 msgstr "মাল্টি মনিটর সক্ষম করুন"
 
-#: plugins/rdp/rdp_plugin.c:2688
+#: plugins/rdp/rdp_plugin.c:2731
 #, fuzzy
 msgid "Span screen over multiple monitors"
 msgstr "একাধিক মনিটরের উপর স্প্যান স্ক্রিন"
 
-#: plugins/rdp/rdp_plugin.c:2689
+#: plugins/rdp/rdp_plugin.c:2732
 #, fuzzy
 msgid "List monitor IDs"
 msgstr "মনিটর আইডি তালিকা"
 
-#: plugins/rdp/rdp_plugin.c:2691 plugins/vnc/vnc_plugin.c:1978
+#: plugins/rdp/rdp_plugin.c:2734 plugins/vnc/vnc_plugin.c:1978
 #: plugins/vnc/vnc_plugin.c:1990 plugins/gvnc/gvnc_plugin.c:849
 #, fuzzy
 msgid "Colour depth"
 msgstr "রঙ গভীরতা"
 
-#: plugins/rdp/rdp_plugin.c:2692
+#: plugins/rdp/rdp_plugin.c:2735
 msgid "Network connection type"
 msgstr "নতুন সংযোগ"
 
-#: plugins/rdp/rdp_plugin.c:2707 plugins/vnc/vnc_plugin.c:1979
+#: plugins/rdp/rdp_plugin.c:2750 plugins/vnc/vnc_plugin.c:1979
 #: plugins/vnc/vnc_plugin.c:1991
 #, fuzzy
 msgid "Quality"
 msgstr "কোয়ালিটি"
 
-#: plugins/rdp/rdp_plugin.c:2708
+#: plugins/rdp/rdp_plugin.c:2751
 #, fuzzy
 msgid "Security protocol negotiation"
 msgstr "নিরাপত্তা প্রোটোকল আলোচনা"
 
-#: plugins/rdp/rdp_plugin.c:2709
+#: plugins/rdp/rdp_plugin.c:2752
 #, fuzzy
 msgid "Gateway transport type"
 msgstr "গেটওয়ে পরিবহন প্রকার"
 
-#: plugins/rdp/rdp_plugin.c:2710
+#: plugins/rdp/rdp_plugin.c:2753
 #, fuzzy
 msgid "FreeRDP log level"
 msgstr "ফ্রিআরডিপি লগ স্তর"
 
-#: plugins/rdp/rdp_plugin.c:2711
+#: plugins/rdp/rdp_plugin.c:2754
 #, fuzzy
 msgid "FreeRDP log filters"
 msgstr "ফ্রিআরডিপি লগ ফিল্টার"
 
-#: plugins/rdp/rdp_plugin.c:2711
+#: plugins/rdp/rdp_plugin.c:2754
 #, fuzzy
 msgid "tag:level[,tag:level[,…]]"
 msgstr "ট্যাগ:স্তর[,ট্যাগ:স্তর[,...]]"
 
-#: plugins/rdp/rdp_plugin.c:2712
+#: plugins/rdp/rdp_plugin.c:2755
 #, fuzzy
 msgid "Audio output mode"
 msgstr "অডিও আউটপুট মোড"
 
-#: plugins/rdp/rdp_plugin.c:2713
+#: plugins/rdp/rdp_plugin.c:2756
 #, fuzzy
 msgid "Redirect local audio output"
 msgstr "স্থানীয় অডিও আউটপুট পুনঃনির্দেশ করুন"
 
-#: plugins/rdp/rdp_plugin.c:2714
+#: plugins/rdp/rdp_plugin.c:2757
 #, fuzzy
 msgid "Redirect local microphone"
 msgstr "স্থানীয় মাইক্রোফোন পুনঃনির্দেশ করুন"
 
-#: plugins/rdp/rdp_plugin.c:2715
+#: plugins/rdp/rdp_plugin.c:2758
 #, fuzzy
 msgid "Connection timeout in ms"
 msgstr "সংযোগ ের সময় শেষ হয়ে যায়"
 
-#: plugins/rdp/rdp_plugin.c:2716
+#: plugins/rdp/rdp_plugin.c:2759
 #, fuzzy
 msgid "Remote Desktop Gateway server"
 msgstr "দূরবর্তী ডেস্কটপ গেটওয়ে সার্ভার"
 
-#: plugins/rdp/rdp_plugin.c:2717
+#: plugins/rdp/rdp_plugin.c:2760
 #, fuzzy
 msgid "Remote Desktop Gateway username"
 msgstr "দূরবর্তী ডেস্কটপ গেটওয়ে ব্যবহারকারীনাম"
 
-#: plugins/rdp/rdp_plugin.c:2718
+#: plugins/rdp/rdp_plugin.c:2761
 #, fuzzy
 msgid "Remote Desktop Gateway password"
 msgstr "দূরবর্তী ডেস্কটপ গেটওয়ে পাসওয়ার্ড"
 
-#: plugins/rdp/rdp_plugin.c:2719
+#: plugins/rdp/rdp_plugin.c:2762
 #, fuzzy
 msgid "Remote Desktop Gateway domain"
 msgstr "দূরবর্তী ডেস্কটপ গেটওয়ে ডোমেইন"
 
-#: plugins/rdp/rdp_plugin.c:2720
+#: plugins/rdp/rdp_plugin.c:2763
 #, fuzzy
 msgid "Redirect directory"
 msgstr "পুনঃনির্দেশনির্দেশিকা"
 
-#: plugins/rdp/rdp_plugin.c:2721
+#: plugins/rdp/rdp_plugin.c:2764
 #, fuzzy
 msgid "Client name"
 msgstr "ক্লায়েন্টের নাম"
 
-#: plugins/rdp/rdp_plugin.c:2722
+#: plugins/rdp/rdp_plugin.c:2765
 #, fuzzy
 msgid "Client build"
 msgstr "ক্লায়েন্ট বিল্ড"
 
-#: plugins/rdp/rdp_plugin.c:2725
+#: plugins/rdp/rdp_plugin.c:2766
+#, fuzzy
+msgid "Start-up program"
+msgstr "স্টার্ট-আপ প্রোগ্রাম"
+
+#: plugins/rdp/rdp_plugin.c:2768
 #, fuzzy
 msgid "Load balance info"
 msgstr "ব্যালেন্স তথ্য লোড করুন"
 
 #. TRANSLATORS: Do not use typographic quotation marks, these must stay as "double quote", also know as “Typewriter ("programmer's") quote, ambidextrous.”
-#: plugins/rdp/rdp_plugin.c:2727
+#: plugins/rdp/rdp_plugin.c:2770
 #, fuzzy
 msgid "Override printer drivers"
 msgstr "প্রিন্টার (প্রিন্টার) ড্রাইভারওভাররাইড করুন"
 
-#: plugins/rdp/rdp_plugin.c:2727
+#: plugins/rdp/rdp_plugin.c:2770
 #, fuzzy
 msgid ""
 "\"Samsung_CLX-3300_Series\":\"Samsung CLX-3300 Series PS\";\"Canon MF410\":"
@@ -2736,216 +2797,216 @@ msgstr ""
 "\"Samsung_CLX-3300_Series\",স্যামসাং সিএলএক্স-3300 সিরিজ পিএস\";\" ক্যানন "
 "এমএফ৪১০\"ক্যানন এমএফ৪১০ সিরিজ ইউএফআর ২\""
 
-#: plugins/rdp/rdp_plugin.c:2728
+#: plugins/rdp/rdp_plugin.c:2771
 #, fuzzy
 msgid "USB device redirection"
 msgstr "ইউএসবি ডিভাইস পুনঃনির্দেশ"
 
-#: plugins/rdp/rdp_plugin.c:2729
+#: plugins/rdp/rdp_plugin.c:2772
 #, fuzzy
 msgid "Local serial name"
 msgstr "স্থানীয় ক্রমিক নাম"
 
-#: plugins/rdp/rdp_plugin.c:2729
+#: plugins/rdp/rdp_plugin.c:2772
 #, fuzzy
 msgid "COM1, COM2, etc."
 msgstr "কম1, কম2, ইত্যাদি"
 
-#: plugins/rdp/rdp_plugin.c:2730
+#: plugins/rdp/rdp_plugin.c:2773
 #, fuzzy
 msgid "Local serial driver"
 msgstr "স্থানীয় সিরিয়াল ড্রাইভার"
 
-#: plugins/rdp/rdp_plugin.c:2730
+#: plugins/rdp/rdp_plugin.c:2773
 #, fuzzy
 msgid "Serial"
 msgstr "ধারাবাহিক"
 
-#: plugins/rdp/rdp_plugin.c:2731
+#: plugins/rdp/rdp_plugin.c:2774
 #, fuzzy
 msgid "Local serial path"
 msgstr "স্থানীয় সিরিয়াল পথ"
 
-#: plugins/rdp/rdp_plugin.c:2731
+#: plugins/rdp/rdp_plugin.c:2774
 #, fuzzy
 msgid "/dev/ttyS0, /dev/ttyS1, etc."
 msgstr "/দেব/টিটিএস০, /দেব/টিটিএস১ ইত্যাদি।"
 
-#: plugins/rdp/rdp_plugin.c:2732
+#: plugins/rdp/rdp_plugin.c:2775
 #, fuzzy
 msgid "Local parallel name"
 msgstr "স্থানীয় সমান্তরাল নাম"
 
-#: plugins/rdp/rdp_plugin.c:2733
+#: plugins/rdp/rdp_plugin.c:2776
 #, fuzzy
 msgid "Local parallel device"
 msgstr "স্থানীয় সমান্তরাল ডিভাইস"
 
-#: plugins/rdp/rdp_plugin.c:2734
+#: plugins/rdp/rdp_plugin.c:2777
 #, fuzzy
 msgid "Name of smart card"
 msgstr "স্মার্ট কার্ডের নাম"
 
-#: plugins/rdp/rdp_plugin.c:2735
+#: plugins/rdp/rdp_plugin.c:2778
 #, fuzzy
 msgid "Dynamic virtual channel"
 msgstr "ডায়নামিক ভার্চুয়াল চ্যানেল"
 
-#: plugins/rdp/rdp_plugin.c:2735 plugins/rdp/rdp_plugin.c:2736
+#: plugins/rdp/rdp_plugin.c:2778 plugins/rdp/rdp_plugin.c:2779
 #, fuzzy
 msgid "<channel>[,<options>]"
 msgstr "<channel>[,<options>]"
 
-#: plugins/rdp/rdp_plugin.c:2736
+#: plugins/rdp/rdp_plugin.c:2779
 #, fuzzy
 msgid "Static virtual channel"
 msgstr "স্ট্যাটিক ভার্চুয়াল চ্যানেল"
 
-#: plugins/rdp/rdp_plugin.c:2737
+#: plugins/rdp/rdp_plugin.c:2780
 #, fuzzy
 #| msgid "Per connection"
 msgid "TCP redirection"
 msgstr "টিসিপি পুনঃনির্দেশনা"
 
-#: plugins/rdp/rdp_plugin.c:2737
+#: plugins/rdp/rdp_plugin.c:2780
 #, fuzzy
 msgid "/PATH/TO/rdp2tcp"
 msgstr "/পিএএইচটি/টিও/আরডিপি২টিসিপি"
 
-#: plugins/rdp/rdp_plugin.c:2739
+#: plugins/rdp/rdp_plugin.c:2782
 #, fuzzy
 msgid "Prefer IPv6 AAAA record over IPv4 A record"
 msgstr "আইপিভি4 একটি রেকর্ডের চেয়ে আইপিভি6 এএএএ রেকর্ড পছন্দ"
 
-#: plugins/rdp/rdp_plugin.c:2740
+#: plugins/rdp/rdp_plugin.c:2783
 #, fuzzy
 msgid "Share printers"
 msgstr "মুদ্রকশেয়ার করুন"
 
-#: plugins/rdp/rdp_plugin.c:2741
+#: plugins/rdp/rdp_plugin.c:2784
 #, fuzzy
 msgid "Share serial ports"
 msgstr "সিরিয়াল পোর্টগুলি শেয়ার করুন"
 
-#: plugins/rdp/rdp_plugin.c:2742
+#: plugins/rdp/rdp_plugin.c:2785
 #, fuzzy
 msgid "(SELinux) permissive mode for serial ports"
 msgstr "সিরিয়াল পোর্টের জন্য (এসইলিনাক্স) অনুমোদিত মোড"
 
-#: plugins/rdp/rdp_plugin.c:2743
+#: plugins/rdp/rdp_plugin.c:2786
 #, fuzzy
 msgid "Share parallel ports"
 msgstr "সমান্তরাল পোর্টগুলি শেয়ার করুন"
 
-#: plugins/rdp/rdp_plugin.c:2744
+#: plugins/rdp/rdp_plugin.c:2787
 #, fuzzy
 msgid "Share a smart card"
 msgstr "একটি স্মার্ট কার্ড শেয়ার করুন"
 
-#: plugins/rdp/rdp_plugin.c:2745 plugins/vnc/vnc_plugin.c:2009
+#: plugins/rdp/rdp_plugin.c:2788 plugins/vnc/vnc_plugin.c:2009
 #, fuzzy
 msgid "Turn off clipboard sync"
 msgstr "ক্লিপবোর্ড সিঙ্ক বন্ধ করুন"
 
-#: plugins/rdp/rdp_plugin.c:2746
+#: plugins/rdp/rdp_plugin.c:2789
 #, fuzzy
 msgid "Ignore certificate"
 msgstr "শংসাপত্র উপেক্ষা করুন"
 
-#: plugins/rdp/rdp_plugin.c:2747
+#: plugins/rdp/rdp_plugin.c:2790
 #, fuzzy
 msgid "Use the old license workflow"
 msgstr "পুরানো লাইসেন্স ওয়ার্কফ্লো ব্যবহার করুন"
 
-#: plugins/rdp/rdp_plugin.c:2747
+#: plugins/rdp/rdp_plugin.c:2790
 #, fuzzy
 msgid "It disables CAL and hwId is set to 0"
 msgstr "এটি সিএএল অক্ষম করে এবং এইচডব্লিউআইডি 0-এ সেট করা হয়"
 
-#: plugins/rdp/rdp_plugin.c:2748 plugins/spice/spice_plugin.c:702
+#: plugins/rdp/rdp_plugin.c:2791 plugins/spice/spice_plugin.c:702
 #: plugins/vnc/vnc_plugin.c:2013 plugins/www/www_plugin.c:919
 #: plugins/gvnc/gvnc_plugin.c:867
 #, fuzzy
 msgid "Forget passwords after use"
 msgstr "ব্যবহারের পরে পাসওয়ার্ডগুলি ভুলে যান"
 
-#: plugins/rdp/rdp_plugin.c:2749
+#: plugins/rdp/rdp_plugin.c:2792
 #, fuzzy
 msgid "Attach to console (2003/2003 R2)"
 msgstr "কনসোলের সাথে সংযুক্ত করুন (২০০৩/২০০৩ আর২)"
 
-#: plugins/rdp/rdp_plugin.c:2750
+#: plugins/rdp/rdp_plugin.c:2793
 #, fuzzy
 msgid "Turn off fast-path"
 msgstr "দ্রুত-পথ বন্ধ করুন"
 
-#: plugins/rdp/rdp_plugin.c:2751
+#: plugins/rdp/rdp_plugin.c:2794
 #, fuzzy
 msgid "Server detection using Remote Desktop Gateway"
 msgstr "দূরবর্তী ডেস্কটপ গেটওয়ে ব্যবহার করে সার্ভার সনাক্তকরণ"
 
-#: plugins/rdp/rdp_plugin.c:2753
+#: plugins/rdp/rdp_plugin.c:2796
 #, fuzzy
 msgid "Use system proxy settings"
 msgstr "সিস্টেম প্রক্সি সেটিংস ব্যবহার করুন"
 
-#: plugins/rdp/rdp_plugin.c:2755
+#: plugins/rdp/rdp_plugin.c:2798
 #, fuzzy
 msgid "Turn off automatic reconnection"
 msgstr "স্বয়ংক্রিয় পুনঃসংযোগ বন্ধ করুন"
 
-#: plugins/rdp/rdp_plugin.c:2756
+#: plugins/rdp/rdp_plugin.c:2799
 #, fuzzy
 msgid "Relax order checks"
 msgstr "অর্ডার চেক শিথিল করুন"
 
-#: plugins/rdp/rdp_plugin.c:2757
+#: plugins/rdp/rdp_plugin.c:2800
 #, fuzzy
 msgid "Glyph cache"
 msgstr "গ্লিফ ক্যাশে"
 
-#: plugins/rdp/rdp_plugin.c:2758
+#: plugins/rdp/rdp_plugin.c:2801
 #, fuzzy
 msgid "Enable multitransport protocol (UDP)"
 msgstr "মাল্টিট্রান্সপোর্ট প্রোটোকল (ইউডিপি) সক্ষম করুন"
 
-#: plugins/rdp/rdp_plugin.c:2758
+#: plugins/rdp/rdp_plugin.c:2801
 #, fuzzy
 msgid "Using the UDP protocol may improve performance"
 msgstr "ইউডিপি প্রোটোকল ব্যবহার করা কর্মক্ষমতা উন্নত করতে পারে"
 
-#: plugins/rdp/rdp_plugin.c:2759
+#: plugins/rdp/rdp_plugin.c:2802
 #, fuzzy
 msgid "Use base credentials for gateway too"
 msgstr "গেটওয়ের জন্যও বেস প্রমাণপত্রাদি ব্যবহার করুন"
 
-#: plugins/rdp/rdp_plugin.c:2761
+#: plugins/rdp/rdp_plugin.c:2804
 #, fuzzy
 msgid "Enable Gateway websockets support"
 msgstr "গেটওয়ে ওয়েবসকেট সমর্থন সক্ষম করুন"
 
-#: plugins/rdp/rdp_plugin.c:2774 plugins/spice/spice_plugin.c:715
+#: plugins/rdp/rdp_plugin.c:2817 plugins/spice/spice_plugin.c:715
 #: plugins/vnc/vnc_plugin.c:2029
 #, fuzzy
 msgid "Send Ctrl+Alt+Delete"
 msgstr "Tttআরএল+অল্ট+মুছুন পাঠান"
 
-#: plugins/rdp/rdp_plugin.c:2787
+#: plugins/rdp/rdp_plugin.c:2830
 #, fuzzy
 msgid "RDP - Remote Desktop Protocol"
 msgstr "আরডিপি - দূরবর্তী ডেস্কটপ প্রোটোকল"
 
-#: plugins/rdp/rdp_plugin.c:2812
+#: plugins/rdp/rdp_plugin.c:2855
 #, fuzzy
 msgid "RDP - RDP File Handler"
 msgstr "আরডিপি - আরডিপি ফাইল হ্যান্ডলার"
 
-#: plugins/rdp/rdp_plugin.c:2827
+#: plugins/rdp/rdp_plugin.c:2870
 #, fuzzy
 msgid "RDP - Preferences"
 msgstr "আরডিপি - পছন্দ"
 
-#: plugins/rdp/rdp_plugin.c:2880
+#: plugins/rdp/rdp_plugin.c:2923
 #, fuzzy
 msgid "Export connection in Windows .rdp file format"
 msgstr "উইন্ডোজ .আরডিপি ফাইল ফরম্যাটে সংযোগ রপ্তানি করুন"
@@ -3001,8 +3062,9 @@ msgid "Connection to the SPICE server dropped."
 msgstr "স্পাইস সার্ভারের সংযোগ বাদ দেওয়া হয়েছে।"
 
 #: plugins/spice/spice_plugin.c:616 plugins/spice/spice_plugin.c:634
+#, fuzzy
 msgid "Default"
-msgstr "ডিফল্ট"
+msgstr "সাধারণ"
 
 #: plugins/spice/spice_plugin.c:636
 #, fuzzy
@@ -3065,7 +3127,7 @@ msgstr "স্মার্ট কার্ড শেয়ার করুন"
 #: plugins/gvnc/gvnc_plugin.c:870 plugins/gvnc/gvnc_plugin.c:879
 #, fuzzy
 msgid "View only"
-msgstr "শুধু দেখার জন্য"
+msgstr "শুধুমাত্র দেখুন"
 
 #: plugins/spice/spice_plugin.c:716 plugins/spice/spice_plugin_usb.c:51
 #, fuzzy
@@ -3236,7 +3298,7 @@ msgstr "http://address বা https://address"
 #: plugins/www/www_plugin.c:910
 #, fuzzy
 msgid "User agent"
-msgstr "ব্যবহারকারীর এজেন্ট"
+msgstr "ব্যবহারকারী এজেন্ট"
 
 #: plugins/www/www_plugin.c:911
 #, fuzzy
@@ -3305,7 +3367,7 @@ msgstr ""
 #: plugins/exec/exec_plugin.c:274
 #, fuzzy
 msgid "Command"
-msgstr "কমান্ড"
+msgstr "আদেশ"
 
 #: plugins/exec/exec_plugin.c:275
 #, fuzzy
@@ -3327,27 +3389,281 @@ msgstr "হ্যালো ওয়ার্ল্ড!"
 msgid "Secured password storage in the GNOME keyring"
 msgstr "GTTTT"
 
-#: plugins/x2go/x2go_plugin.c:275
+#: plugins/x2go/x2go_plugin.c:67
+#, fuzzy, c-format
+msgid ""
+"The command-line feature '%s' is not available! Attempting to start PyHoca-"
+"CLI without using this feature…"
+msgstr ""
+"কমান্ড-লাইন বৈশিষ্ট্য '[এক্স২৬এক্স]' উপলব্ধ নয়! এই বৈশিষ্ট্যটি ব্যবহার না করে পাইহোকা-"
+"সিএলআই শুরু করার চেষ্টা করা হচ্ছে…"
+
+#: plugins/x2go/x2go_plugin.c:287 plugins/x2go/x2go_plugin.c:419
+#: plugins/x2go/x2go_plugin.c:478 plugins/x2go/x2go_plugin.c:581
+#: plugins/x2go/x2go_plugin.c:656 plugins/x2go/x2go_plugin.c:668
+#: plugins/x2go/x2go_plugin.c:676 plugins/x2go/x2go_plugin.c:699
+#: plugins/x2go/x2go_plugin.c:708 plugins/x2go/x2go_plugin.c:724
+#: plugins/x2go/x2go_plugin.c:763 plugins/x2go/x2go_plugin.c:775
+#: plugins/x2go/x2go_plugin.c:806 plugins/x2go/x2go_plugin.c:817
+#: plugins/x2go/x2go_plugin.c:825 plugins/x2go/x2go_plugin.c:939
+#: plugins/x2go/x2go_plugin.c:966 plugins/x2go/x2go_plugin.c:980
+#: plugins/x2go/x2go_plugin.c:1077 plugins/x2go/x2go_plugin.c:1141
+#: plugins/x2go/x2go_plugin.c:1445 plugins/x2go/x2go_plugin.c:1479
+#: plugins/x2go/x2go_plugin.c:1575 plugins/x2go/x2go_plugin.c:1869
+#: plugins/x2go/x2go_plugin.c:2669 plugins/x2go/x2go_plugin.c:2882
+#: plugins/x2go/x2go_plugin.c:2887 plugins/x2go/x2go_plugin.c:2892
+#: plugins/x2go/x2go_plugin.c:2897 plugins/x2go/x2go_plugin.c:2912
+#: plugins/x2go/x2go_plugin.c:2917 plugins/x2go/x2go_plugin.c:2922
+#: plugins/x2go/x2go_plugin.c:2927
+#, fuzzy, c-format
+msgid "Internal error: %s"
+msgstr "অভ্যন্তরীণ ত্রুটি: [এক্স16এক্স]"
+
+#: plugins/x2go/x2go_plugin.c:288 plugins/x2go/x2go_plugin.c:420
+#: plugins/x2go/x2go_plugin.c:479 plugins/x2go/x2go_plugin.c:1078
+#, fuzzy
+msgid "Parameter 'custom_data' is not initialized!"
+msgstr "প্যারামিটার 'default_username' অপ্রাথমিক।"
+
+#: plugins/x2go/x2go_plugin.c:301
 #, fuzzy
 msgid "Broken `DialogData`! Aborting…"
 msgstr "ভাঙা 'ডায়ালগডাটা'! গর্ভপাত করা হচ্ছে…"
 
-#: plugins/x2go/x2go_plugin.c:279
+#: plugins/x2go/x2go_plugin.c:305
 #, fuzzy
 msgid "Can't retrieve `DialogData`! Aborting…"
 msgstr "'ডায়ালগডাটা' পুনরুদ্ধার করা যায়নি! গর্ভপাত করা হচ্ছে…"
 
-#: plugins/x2go/x2go_plugin.c:505
+#: plugins/x2go/x2go_plugin.c:488
+#, fuzzy
+msgid "Couldn't retrieve valid `DialogData` or `sessions_list`! Aborting…"
+msgstr ""
+"বৈধ 'ডায়ালগডাটা' বা 'sessions_list' পুনরুদ্ধার করা যায়নি! গর্ভপাত করা হচ্ছে…"
+
+#. TRANSLATORS: Stick to x2goclient's translation for terminate.
+#: plugins/x2go/x2go_plugin.c:497
+#, fuzzy
+msgid "_Terminate"
+msgstr "টার্মিনাল"
+
+#. TRANSLATORS: Stick to x2goclient's translation for resume.
+#: plugins/x2go/x2go_plugin.c:500
+#, fuzzy
+msgid "_Resume"
+msgstr "পুনরারম্ভ"
+
+#: plugins/x2go/x2go_plugin.c:502
+#, fuzzy
+msgid "_New"
+msgstr "_New"
+
+#. TRANSLATORS: Tooltip for terminating button inside Session-Chooser-Dialog.
+#. TRANSLATORS: Please stick to X2GoClient's way of translating.
+#: plugins/x2go/x2go_plugin.c:511
+msgid "Terminating X2Go sessions can take a moment."
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:568
+#, fuzzy
+msgid "X Display"
+msgstr "প্রদর্শন"
+
+#: plugins/x2go/x2go_plugin.c:569
+#, fuzzy
+msgid "Status"
+msgstr "স্থিতি"
+
+#: plugins/x2go/x2go_plugin.c:570
+#, fuzzy
+msgid "Session ID"
+msgstr "সেশন আইডি"
+
+#: plugins/x2go/x2go_plugin.c:571
+#, fuzzy
+msgid "Create date"
+msgstr "তারিখ তৈরি করুন"
+
+#: plugins/x2go/x2go_plugin.c:572
+#, fuzzy
+msgid "Suspended since"
+msgstr "তারপর থেকে স্থগিত করা হয়েছে"
+
+#: plugins/x2go/x2go_plugin.c:573
+#, fuzzy
+msgid "Agent PID"
+msgstr "এজেন্ট পিআইডি"
+
+#: plugins/x2go/x2go_plugin.c:575
+#, fuzzy
+msgid "Hostname"
+msgstr "হোস্ট নাম"
+
+#: plugins/x2go/x2go_plugin.c:576
+#, fuzzy
+msgid "Cookie"
+msgstr "কুকি"
+
+#: plugins/x2go/x2go_plugin.c:577
+#, fuzzy
+msgid "Graphic port"
+msgstr "গ্রাফিক পোর্ট"
+
+#: plugins/x2go/x2go_plugin.c:578
+#, fuzzy
+msgid "SND port"
+msgstr "এসএনডি বন্দর"
+
+#: plugins/x2go/x2go_plugin.c:579
+#, fuzzy
+msgid "SSHFS port"
+msgstr "এসএসএইচএফএস বন্দর"
+
+#: plugins/x2go/x2go_plugin.c:582
+#, fuzzy
+msgid "Unknown property"
+msgstr "অজানা সম্পত্তি"
+
+#: plugins/x2go/x2go_plugin.c:657 plugins/x2go/x2go_plugin.c:700
+#, fuzzy
+msgid "Couldn't find child GtkTreeView of session chooser dialog."
+msgstr "সেশন চয়নকারী ডায়ালগের শিশু Gtt.g t খুঁজে পাওয়া যায়নি।"
+
+#: plugins/x2go/x2go_plugin.c:669
+#, fuzzy
+msgid "Both parameters 'dialog' and 'treeview' are uninitialized!"
+msgstr "প্যারামিটার 'এনভি' হয় অবৈধ অথবা অপ্রাথমিক।"
+
+#: plugins/x2go/x2go_plugin.c:677
+msgid ""
+"GtkTreeModel of session chooser dialog could not be obtained for an unknown "
+"reason."
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:709
+#, fuzzy
+msgid "Couldn't get currently selected row (session)!"
+msgstr "নির্বাচিত সারি থেকে সেশন আইডি পাওয়া যায়নি।"
+
+#: plugins/x2go/x2go_plugin.c:725
+#, fuzzy, c-format
+msgid ""
+"Exactly one session should be selectable but '%i' rows (sessions) are "
+"selected."
+msgstr "শুধুমাত্র একটি সেশন নির্বাচন করতে সক্ষম হওয়া উচিত।"
+
+#: plugins/x2go/x2go_plugin.c:764
+#, fuzzy
+msgid "Failed to fill 'GtkTreeIter'."
+msgstr "'GTTTTt'পূরণ করতে ব্যর্থ হয়েছে।"
+
+#: plugins/x2go/x2go_plugin.c:776
+#, fuzzy, c-format
+msgid "Couldn't get property with index '%i' out of selected row."
+msgstr "নির্বাচিত সারি থেকে সেশন আইডি পাওয়া যায়নি।"
+
+#: plugins/x2go/x2go_plugin.c:807
+#, fuzzy
+msgid "parameter 'argv' is 'NULL'."
+msgstr "প্যারামিটার 'আর্গভ' হল 'এনইউএল'।"
+
+#: plugins/x2go/x2go_plugin.c:818
+#, fuzzy
+msgid "parameter 'error' is 'NULL'."
+msgstr "প্যারামিটার 'ত্রুটি' হল 'এনইউএল'।"
+
+#: plugins/x2go/x2go_plugin.c:826
+#, fuzzy
+msgid "parameter 'env' is either invalid or uninitialized."
+msgstr "প্যারামিটার 'এনভি' হয় অবৈধ অথবা অপ্রাথমিক।"
+
+#: plugins/x2go/x2go_plugin.c:842 plugins/x2go/x2go_plugin.c:2170
+#, fuzzy
+msgid "Started PyHoca-CLI with the following arguments:"
+msgstr "নিম্নলিখিত যুক্তিদিয়ে পাইহোকা-সিএলআই শুরু করেছেন:"
+
+#: plugins/x2go/x2go_plugin.c:870
+#, fuzzy
+msgid ""
+"The necessary PyHoca-CLI process has encountered a internet connection "
+"problem."
+msgstr ""
+"প্রয়োজনীয় পাইহোকা-সিএলআই প্রক্রিয়াটি একটি ইন্টারনেট সংযোগ সমস্যার সম্মুখীন হয়েছে।"
+
+#: plugins/x2go/x2go_plugin.c:880
+#, fuzzy
+msgid "An unknown error occured while trying to start PyHoca-CLI."
+msgstr "পাইহোকা-সিএলআই শুরু করার চেষ্টা করার সময় একটি অজানা ত্রুটি ঘটেছে।"
+
+#: plugins/x2go/x2go_plugin.c:890
+#, fuzzy, c-format
+msgid ""
+"An unknown error occured while trying to start PyHoca-CLI. Exit code: %i"
+msgstr ""
+"পাইহোকা-সিএলআই শুরু করার চেষ্টা করার সময় একটি অজানা ত্রুটি ঘটেছে। প্রস্থান কোড: "
+"[এক্স৭০এক্স]"
+
+#: plugins/x2go/x2go_plugin.c:897
+#, fuzzy, c-format
+msgid ""
+"An unknown error occured while trying to start PyHoca-CLI. Exit code: %i. "
+"Error: '%s'"
+msgstr ""
+"পাইহোকা-সিএলআই শুরু করার চেষ্টা করার সময় একটি অজানা ত্রুটি ঘটেছে। প্রস্থান কোড: "
+"[এক্স70এক্স]। ত্রুটি: '[এক্স৮২এক্স]'"
+
+#: plugins/x2go/x2go_plugin.c:940
+#, fuzzy
+msgid "Parameter 'custom_data' is not fully initialized!"
+msgstr "প্যারামিটার 'default_username' অপ্রাথমিক।"
+
+#: plugins/x2go/x2go_plugin.c:967 plugins/x2go/x2go_plugin.c:1576
+#: plugins/x2go/x2go_plugin.c:1870
+#, fuzzy
+#| msgid "Per connection"
+msgid "'Invalid connection data.'"
+msgstr "'সংযোগের তথ্য অবৈধ।'"
+
+#: plugins/x2go/x2go_plugin.c:981
+#, fuzzy
+msgid "Parameter 'session_id' is not initialized!"
+msgstr "প্যারামিটার 'default_username' অপ্রাথমিক।"
+
+#: plugins/x2go/x2go_plugin.c:1047
+#, fuzzy, c-format
+msgid "An error occured while trying to terminate a X2Go session: %s"
+msgstr "একটি এক্স২গো সেশন শুরু করার সময় একটি ত্রুটি ঘটেছে…"
+
+#: plugins/x2go/x2go_plugin.c:1094 plugins/x2go/x2go_plugin.c:1118
+#, fuzzy
+msgid "Couldn't get session ID from session chooser dialog."
+msgstr "সেশন চয়নকারী ডায়ালগ থেকে সেশন আইডি পাওয়া যায়নি।"
+
+#: plugins/x2go/x2go_plugin.c:1101
+#, fuzzy, c-format
+msgid "Resuming session: '%s'"
+msgstr "সেশন পুনরায় শুরু করা: '[এক্স১৯এক্স]'"
+
+#: plugins/x2go/x2go_plugin.c:1125
+#, fuzzy, c-format
+msgid "Terminating session: '%s'"
+msgstr "সেশন পুনরায় শুরু করা: '[এক্স১৯এক্স]'"
+
+#: plugins/x2go/x2go_plugin.c:1142
+msgid "GtkTreePath 'path' describes a non-existing row!"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:1380
 #, fuzzy
 msgid "PyHoca-CLI exited unexpectedly. This connection will now be closed."
 msgstr "পাইহোকা-সিএলআই অপ্রত্যাশিতভাবে প্রস্থান করে। এই সংযোগটি এখন বন্ধ হবে।"
 
-#: plugins/x2go/x2go_plugin.c:514
+#: plugins/x2go/x2go_plugin.c:1388
 #, fuzzy
 msgid "An error occured."
 msgstr "একটি ত্রুটি ঘটেছে।"
 
-#: plugins/x2go/x2go_plugin.c:515
+#: plugins/x2go/x2go_plugin.c:1389
 #, fuzzy
 msgid ""
 "The necessary child process 'pyhoca-cli' stopped unexpectedly.\n"
@@ -3358,34 +3674,17 @@ msgstr ""
 "সম্ভাব্য ত্রুটিগুলির জন্য অনুগ্রহ করে আপনার প্রোফাইল সেটিংস এবং পাইহোকা-সিএলআই-এর "
 "আউটপুট পরীক্ষা করুন। দূরবর্তী সার্ভারটি পৌঁছানো যায় তা নিশ্চিত করুন।"
 
-#: plugins/x2go/x2go_plugin.c:561
-#, fuzzy
-msgid "Started PyHoca-CLI with the following arguments:"
-msgstr "নিম্নলিখিত যুক্তিদিয়ে পাইহোকা-সিএলআই শুরু করেছেন:"
-
-#: plugins/x2go/x2go_plugin.c:580
-#, fuzzy, c-format
-msgid "Could not retrieve PyHoca-CLI's command-line features! Exit code: %i"
-msgstr ""
-"পাইহোকা-সিএলআই-এর কমান্ড-লাইন বৈশিষ্ট্যগুলি পুনরুদ্ধার করা যায়নি! প্রস্থান কোড: "
-"[এক্স66এক্স]"
-
-#: plugins/x2go/x2go_plugin.c:585
-#, fuzzy, c-format
-msgid "Error: '%s'"
-msgstr "ত্রুটি: '[এক্স৮এক্স]'"
-
-#: plugins/x2go/x2go_plugin.c:609
+#: plugins/x2go/x2go_plugin.c:1432
 #, fuzzy
 msgid "Can't save empty username!"
 msgstr "খালি ব্যবহারকারীর নাম সংরক্ষণ করা যাবে না!"
 
-#: plugins/x2go/x2go_plugin.c:621
+#: plugins/x2go/x2go_plugin.c:1446
 #, fuzzy
-msgid "Internal error: Could not save new credentials."
-msgstr "অভ্যন্তরীণ ত্রুটি: নতুন প্রমাণপত্রাদি সংরক্ষণ করা যায়নি।"
+msgid "Could not save new credentials."
+msgstr "নতুন প্রমাণপত্রাদি সংরক্ষণ করা যায়নি।"
 
-#: plugins/x2go/x2go_plugin.c:623
+#: plugins/x2go/x2go_plugin.c:1449
 #, fuzzy
 msgid ""
 "An error occured while trying to save new credentials: 's_password' or "
@@ -3394,37 +3693,111 @@ msgstr ""
 "নতুন প্রমাণপত্রাদি সংরক্ষণ করার চেষ্টা করার সময় একটি ত্রুটি ঘটেছিল: 's_password' বা "
 "'s_username' স্ট্রিংগুলি সেট করা হয়নি।"
 
-#: plugins/x2go/x2go_plugin.c:659
+#: plugins/x2go/x2go_plugin.c:1480
+#, fuzzy
+msgid "Parameter 'default_username' is uninitialized."
+msgstr "প্যারামিটার 'default_username' অপ্রাথমিক।"
+
+#: plugins/x2go/x2go_plugin.c:1509
 #, fuzzy
 msgid "Enter X2Go credentials"
 msgstr "এক্স২গো প্রমাণপত্রাদি লিখুন"
 
-#: plugins/x2go/x2go_plugin.c:818
+#: plugins/x2go/x2go_plugin.c:1706
+#, fuzzy
+msgid ""
+"Couldn't parse the output of PyHoca-CLI's --list-sessions option. Creating a "
+"new session now."
+msgstr ""
+"পাইহোকা-সিএলআই-এর --তালিকা-সেশন বিকল্পের আউটপুট পার্স করা যায়নি। এখন একটি নতুন "
+"সেশন তৈরি করা হচ্ছে।"
+
+#: plugins/x2go/x2go_plugin.c:1745
+#, fuzzy
+msgid "Couldn't allocate enough memory!"
+msgstr "পর্যাপ্ত মেমরি বরাদ্দ করা যায়নি!"
+
+#: plugins/x2go/x2go_plugin.c:1755
+#, fuzzy, c-format
+msgid "Found already existing X2Go session with ID: '%s'"
+msgstr "আইডি সহ ইতিমধ্যে বিদ্যমান এক্স২গো সেশন পাওয়া গেছে: '[এক্স৪৬এক্স]'"
+
+#. TRANSLATORS: Please stick to X2GoClient's translation.
+#: plugins/x2go/x2go_plugin.c:1798
+#, fuzzy
+msgid "Suspended"
+msgstr "তারপর থেকে স্থগিত করা হয়েছে"
+
+#. TRANSLATORS: Please stick to X2GoClient's translation.
+#: plugins/x2go/x2go_plugin.c:1801
+msgid "Running"
+msgstr ""
+
+#. TRANSLATORS: Please stick to X2GoClient's translation.
+#: plugins/x2go/x2go_plugin.c:1804
+#, fuzzy
+msgid "Terminated"
+msgstr "টার্মিনাল"
+
+#: plugins/x2go/x2go_plugin.c:1837
+#, fuzzy
+msgid ""
+"Could not find any sessions on remote machine. Creating a new session now."
+msgstr ""
+"রিমোট মেশিনে কোনও সেশন খুঁজে পাওয়া যায়নি। এখন একটি নতুন সেশন তৈরি করা হচ্ছে।"
+
+#: plugins/x2go/x2go_plugin.c:1892
+#, fuzzy
+msgid "Choose a session to resume:"
+msgstr "পুনরায় শুরু করতে একটি সেশন চয়ন করুন:"
+
+#: plugins/x2go/x2go_plugin.c:1935
+#, fuzzy
+msgid "Waiting for user to select a session…"
+msgstr "ব্যবহারকারীএকটি সেশন নির্বাচন করার জন্য অপেক্ষা করছে…"
+
+#: plugins/x2go/x2go_plugin.c:1943
+#, fuzzy
+msgid "No session was selected. Creating a new one."
+msgstr "কোনও সেশন নির্বাচন করা হয়নি। একটি নতুন তৈরি করা হচ্ছে।"
+
+#: plugins/x2go/x2go_plugin.c:1991
+#, fuzzy, c-format
+msgid "A non-critical error happened: %s"
+msgstr "একটি অ-সমালোচনামূলক ত্রুটি ঘটেছে: [এক্স31এক্স]"
+
+#: plugins/x2go/x2go_plugin.c:1996
+#, fuzzy, c-format
+msgid "User chose to resume session with ID: '%s'"
+msgstr "ব্যবহারকারী আইডি দিয়ে সেশন পুনরায় শুরু করার সিদ্ধান্ত নিয়েছে: '[এক্স৩৯এক্স]'"
+
+#. TRANSLATORS: Please stick to X2GoClient's way of translating.
+#: plugins/x2go/x2go_plugin.c:2017
+#, fuzzy, c-format
+msgid "Resuming session '%s'…"
+msgstr "সেশন '[এক্স১৮এক্স]' পুনরায় শুরু করা হচ্ছে…"
+
+#: plugins/x2go/x2go_plugin.c:2148
 #, fuzzy
 msgid "DPI setting is out of bounds. Please adjust it in profile settings."
 msgstr "ডিপিআই সেটিং সীমার বাইরে। অনুগ্রহ করে প্রোফাইল সেটিংসে এটি সামঞ্জস্য করুন।"
 
-#: plugins/x2go/x2go_plugin.c:838
-#, fuzzy
-msgid "Started pyhoca-cli with following arguments:"
-msgstr "নিম্নলিখিত যুক্তিসহ পাইহোকা-ক্লি শুরু করেছেন:"
-
-#: plugins/x2go/x2go_plugin.c:858
+#: plugins/x2go/x2go_plugin.c:2190
 #, fuzzy
 msgid "An error occured while starting an X2Go session…"
 msgstr "একটি এক্স২গো সেশন শুরু করার সময় একটি ত্রুটি ঘটেছে…"
 
-#: plugins/x2go/x2go_plugin.c:867
+#: plugins/x2go/x2go_plugin.c:2198
 #, fuzzy
 msgid "Could not start X2Go session."
 msgstr "এক্স২গো সেশন শুরু করা যায়নি।"
 
-#: plugins/x2go/x2go_plugin.c:868
+#: plugins/x2go/x2go_plugin.c:2199
 #, fuzzy, c-format
 msgid "Could not start PyHoca-CLI (%i): '%s'"
 msgstr "পাইহোকা-সিএলআই ([এক্স২৮এক্স]) শুরু করা যায়নি: '[এক্স৩৪এক্স]'"
 
-#: plugins/x2go/x2go_plugin.c:945
+#: plugins/x2go/x2go_plugin.c:2314
 #, fuzzy
 msgid ""
 "Couldn't get PyHoca-CLI's command-line features. This indicates it is either "
@@ -3435,7 +3808,7 @@ msgstr ""
 "খুব পুরানো, অথবা ইনস্টল করা হয়নি। বৈশিষ্ট্যগুলির একটি পুরানো সীমিত সেট আপাতত ব্যবহার "
 "করা হবে।"
 
-#: plugins/x2go/x2go_plugin.c:956
+#: plugins/x2go/x2go_plugin.c:2323
 #, fuzzy
 msgid ""
 "Could not parse PyHoca-CLI's command-line features. Using a limited feature-"
@@ -3444,47 +3817,47 @@ msgstr ""
 "পাইহোকা-সিএলআই-এর কমান্ড-লাইন বৈশিষ্ট্যগুলি পার্স করা যায়নি। আপাতত একটি সীমিত "
 "বৈশিষ্ট্য-সেট ব্যবহার করা হচ্ছে।"
 
-#: plugins/x2go/x2go_plugin.c:962
+#: plugins/x2go/x2go_plugin.c:2329
 #, fuzzy
 msgid "Retrieved the following PyHoca-CLI command-line features:"
 msgstr "নিম্নলিখিত পাইহোকা-সিএলআই কমান্ড-লাইন বৈশিষ্ট্যগুলি পুনরুদ্ধার করা হয়েছে:"
 
-#: plugins/x2go/x2go_plugin.c:967
+#: plugins/x2go/x2go_plugin.c:2337
 #, fuzzy, c-format
 msgid "Available feature[%i]: '%s'"
 msgstr "উপলব্ধ বৈশিষ্ট্য[এক্স১৮এক্স]] :[এক্স২৪এক্স]'"
 
-#: plugins/x2go/x2go_plugin.c:1072
+#: plugins/x2go/x2go_plugin.c:2442
 #, fuzzy
 msgid "Could not open X11 DISPLAY."
 msgstr "এক্স11 ডিসপ্লে খোলা যায়নি।"
 
-#: plugins/x2go/x2go_plugin.c:1112
+#: plugins/x2go/x2go_plugin.c:2482
 #, fuzzy
 msgid "Waiting for window of X2Go Agent to appear…"
 msgstr "এক্স২গো এজেন্টের উইন্ডো উপস্থিত হওয়ার জন্য অপেক্ষা করা হচ্ছে…"
 
-#: plugins/x2go/x2go_plugin.c:1138
+#: plugins/x2go/x2go_plugin.c:2508
 #, fuzzy
 msgid "Waiting for PyHoca-CLI to show the session's window…"
 msgstr "সেশনের উইন্ডো দেখানোর জন্য পাইহোকা-সিএলআই-এর জন্য অপেক্ষা করছি…"
 
-#: plugins/x2go/x2go_plugin.c:1189
+#: plugins/x2go/x2go_plugin.c:2559
 #, fuzzy
 msgid "No X2Go session window appeared. Something went wrong…"
 msgstr "কোনও এক্স২গো সেশন উইন্ডো উপস্থিত হয়নি। কিছু ভুল হয়েছে…"
 
-#: plugins/x2go/x2go_plugin.c:1298
+#: plugins/x2go/x2go_plugin.c:2670
 #, fuzzy
-msgid "Internal error: RemminaProtocolWidget* gp is NULL!"
-msgstr "অভ্যন্তরীণ ত্রুটি: রেমিনাপ্রোটোকলউইজেট* জিপি এনইউএল!"
+msgid "RemminaProtocolWidget* gp is 'NULL'!"
+msgstr "রেমিনাপ্রোটোকলউইজেট* জিপি 'এনইউএল'!"
 
-#: plugins/x2go/x2go_plugin.c:1319
+#: plugins/x2go/x2go_plugin.c:2691
 #, fuzzy, c-format
 msgid "The %s protocol is unavailable because GtkSocket only works under X.org"
 msgstr "[এক্স4এক্স] প্রোটোকল টি অনুপলব্ধ কারণ জিটিকেসকেট কেবল X.org অধীনে কাজ করে"
 
-#: plugins/x2go/x2go_plugin.c:1327
+#: plugins/x2go/x2go_plugin.c:2700
 #, fuzzy
 msgid "Could not initialize pthread. Falling back to non-threaded mode…"
 msgstr "থ্রেড টি শুরু করা যায়নি। অ-থ্রেড মোডে ফিরে যাওয়া…"
@@ -3497,7 +3870,7 @@ msgstr "থ্রেড টি শুরু করা যায়নি। অ-
 #. your language.
 #. (Except your listing-grammar differs from english.)
 #. 'value1' and 'value2'
-#: plugins/x2go/x2go_plugin.c:1370 plugins/x2go/x2go_plugin.c:1388
+#: plugins/x2go/x2go_plugin.c:2743 plugins/x2go/x2go_plugin.c:2761
 #, fuzzy, c-format
 msgid "%sand '%s'"
 msgstr "[এক্স০এক্স]এবং '[এক্স৭এক্স]'"
@@ -3508,7 +3881,7 @@ msgstr "[এক্স০এক্স]এবং '[এক্স৭এক্স]'"
 #. TRANSLATORS: Presumably you just want to leave it english.
 #. (Except your listing-grammar differs from english.)
 #. 'value1' and 'value2'
-#: plugins/x2go/x2go_plugin.c:1375 plugins/x2go/x2go_plugin.c:1393
+#: plugins/x2go/x2go_plugin.c:2748 plugins/x2go/x2go_plugin.c:2766
 #, fuzzy, c-format
 msgid "%s'%s' "
 msgstr "[এক্স০এক্স]'[এক্স৩এক্স]' "
@@ -3516,136 +3889,135 @@ msgstr "[এক্স০এক্স]'[এক্স৩এক্স]' "
 #. TRANSLATORS: Presumably you just want to leave it english.
 #. (Except your listing-grammar differs from english.)
 #. 'value1', 'value2', 'valueN-1' and 'valueN'
-#: plugins/x2go/x2go_plugin.c:1380
+#: plugins/x2go/x2go_plugin.c:2753
 #, fuzzy, c-format
 msgid "%s'%s', "
 msgstr "[এক্স০এক্স]'[এক্স৩এক্স]', "
 
-#: plugins/x2go/x2go_plugin.c:1418
+#: plugins/x2go/x2go_plugin.c:2792
 #, fuzzy
 msgid "Invalid validation data in ProtocolSettings array!"
 msgstr "প্রোটোকলসেটিংস অ্যারেতে অবৈধ বৈধতা তথ্য!"
 
-#: plugins/x2go/x2go_plugin.c:1430 plugins/x2go/x2go_plugin.c:1492
+#: plugins/x2go/x2go_plugin.c:2807 plugins/x2go/x2go_plugin.c:2872
 #, fuzzy
 msgid "Validation data in ProtocolSettings array is invalid!"
 msgstr "প্রোটোকলসেটিংস অ্যারেতে বৈধতা তথ্য অবৈধ!"
 
-#: plugins/x2go/x2go_plugin.c:1457
+#: plugins/x2go/x2go_plugin.c:2816
+#, fuzzy
+msgid "Parameters 'key' or 'value' are 'NULL'!"
+msgstr "প্যারামিটার 'কী' বা 'মান' 'এনইউএসইউ' !"
+
+#: plugins/x2go/x2go_plugin.c:2834
 #, fuzzy, c-format
 msgid "Allowed values are %s."
 msgstr "অনুমোদিত মানগুলি হল [এক্স১৯এক্স]।"
 
-#: plugins/x2go/x2go_plugin.c:1459
+#: plugins/x2go/x2go_plugin.c:2836
 #, fuzzy, c-format
 msgid "The only allowed value is '%s'."
 msgstr "একমাত্র অনুমোদিত মান হল '[এক্স২৭এক্স]'।"
 
-#: plugins/x2go/x2go_plugin.c:1501
+#: plugins/x2go/x2go_plugin.c:2883
 #, fuzzy
 msgid "The lower limit is not a valid integer!"
 msgstr "নিম্ন সীমাটি বৈধ ইন্টেগার নয়!"
 
-#: plugins/x2go/x2go_plugin.c:1503
+#: plugins/x2go/x2go_plugin.c:2888
 #, fuzzy
 msgid "The lower limit is too high!"
 msgstr "নিম্ন সীমা খুব বেশি!"
 
-#: plugins/x2go/x2go_plugin.c:1505
+#: plugins/x2go/x2go_plugin.c:2893
 #, fuzzy
 msgid "The lower limit is too low!"
 msgstr "নিম্ন সীমা খুব কম!"
 
-#: plugins/x2go/x2go_plugin.c:1507 plugins/x2go/x2go_plugin.c:1533
-#: plugins/x2go/x2go_plugin.c:1552
+#: plugins/x2go/x2go_plugin.c:2898 plugins/x2go/x2go_plugin.c:2928
+#: plugins/x2go/x2go_plugin.c:2948
 #, fuzzy
-msgid "Something went wrong."
-msgstr "কিছু একটা ভুল হয়েছে।"
+msgid "Something unknown went wrong."
+msgstr "অজানা কিছু ভুল হয়েছে।"
 
-#: plugins/x2go/x2go_plugin.c:1511 plugins/x2go/x2go_plugin.c:1537
-#: plugins/x2go/x2go_plugin.c:1556
+#: plugins/x2go/x2go_plugin.c:2903 plugins/x2go/x2go_plugin.c:2933
+#: plugins/x2go/x2go_plugin.c:2952
 #, fuzzy
 msgid "Please check the RemminaProtocolSetting array for possible errors."
 msgstr "সম্ভাব্য ত্রুটিগুলির জন্য দয়া করে রেমিনাপ্রোটোকলসেটিং অ্যারে পরীক্ষা করুন।"
 
-#: plugins/x2go/x2go_plugin.c:1520 plugins/x2go/x2go_plugin.c:1524
-#: plugins/x2go/x2go_plugin.c:1528 plugins/x2go/x2go_plugin.c:1532
-#, fuzzy
-msgid "Internal error: "
-msgstr "অভ্যন্তরীণ ত্রুটি: "
-
-#: plugins/x2go/x2go_plugin.c:1521
+#: plugins/x2go/x2go_plugin.c:2913
 #, fuzzy
 msgid "The upper limit is not a valid integer!"
 msgstr "উপরের সীমাটি বৈধ ইন্টেগার নয়!"
 
-#: plugins/x2go/x2go_plugin.c:1525
+#: plugins/x2go/x2go_plugin.c:2918
 #, fuzzy
 msgid "The upper limit is too high!"
 msgstr "ঊর্ধ্বসীমা খুব বেশি!"
 
-#: plugins/x2go/x2go_plugin.c:1529
+#: plugins/x2go/x2go_plugin.c:2923
 #, fuzzy
 msgid "The upper limit is too low!"
 msgstr "ঊর্ধ্বসীমা খুব কম!"
 
-#: plugins/x2go/x2go_plugin.c:1547
+#: plugins/x2go/x2go_plugin.c:2943
 #, fuzzy
 msgid "The input is not a valid integer!"
 msgstr "ইনপুটটি বৈধ ইন্টেগার নয়!"
 
-#: plugins/x2go/x2go_plugin.c:1549 plugins/x2go/x2go_plugin.c:1568
+#: plugins/x2go/x2go_plugin.c:2945 plugins/x2go/x2go_plugin.c:2964
 #, fuzzy, c-format
 msgid "Input must be a number between %i and %i."
 msgstr "ইনপুট অবশ্যই [এক্স৩১এক্স] এবং [এক্স৩৮এক্স] এর মধ্যে একটি সংখ্যা হতে হবে।"
 
-#: plugins/x2go/x2go_plugin.c:1597
+#: plugins/x2go/x2go_plugin.c:2993
 #, fuzzy
 msgid "Startup program"
 msgstr "স্টার্টআপ প্রোগ্রাম"
 
-#: plugins/x2go/x2go_plugin.c:1599
+#: plugins/x2go/x2go_plugin.c:2995
 #, fuzzy
 msgid "Which command should be executed after creating the X2Go session?"
 msgstr "এক্স২গো সেশন তৈরি করার পরে কোন কমান্ডটি কার্যকর করা উচিত?"
 
-#: plugins/x2go/x2go_plugin.c:1601
+#: plugins/x2go/x2go_plugin.c:2997
 #, fuzzy
 msgid "Keyboard Layout (auto)"
 msgstr "কীবোর্ড বিন্যাস (স্বয়ংক্রিয়)"
 
-#: plugins/x2go/x2go_plugin.c:1602
+#: plugins/x2go/x2go_plugin.c:2998
 #, fuzzy
 msgid "Keyboard type (auto)"
 msgstr "কীবোর্ডের ধরন (স্বয়ংক্রিয়)"
 
-#: plugins/x2go/x2go_plugin.c:1603
+#: plugins/x2go/x2go_plugin.c:2999
 #, fuzzy
 msgid "Audio support"
 msgstr "অডিও সমর্থন"
 
-#: plugins/x2go/x2go_plugin.c:1605
+#: plugins/x2go/x2go_plugin.c:3001
 #, fuzzy
 msgid "The sound system of the X2Go server (default: 'pulse')."
 msgstr "এক্স২গো সার্ভারের সাউন্ড সিস্টেম (ডিফল্ট: 'পালস')।"
 
-#: plugins/x2go/x2go_plugin.c:1608
+#: plugins/x2go/x2go_plugin.c:3004
 #, fuzzy
 #| msgid "Per connection"
 msgid "Clipboard direction"
 msgstr "ক্লিপবোর্ড দিকনির্দেশনা"
 
-#: plugins/x2go/x2go_plugin.c:1610
+#: plugins/x2go/x2go_plugin.c:3006
 #, fuzzy
 msgid "Which direction should clipboard content be copied? (default: 'both')."
 msgstr "ক্লিপবোর্ডের বিষয়বস্তু কোন দিকে অনুলিপি করা উচিত? (ডিফল্ট: 'উভয়')।"
 
-#: plugins/x2go/x2go_plugin.c:1614
+#: plugins/x2go/x2go_plugin.c:3010
 #, fuzzy
 msgid "DPI resolution"
 msgstr "ডিপিআই রেজোলিউশন"
 
-#: plugins/x2go/x2go_plugin.c:1615
+#: plugins/x2go/x2go_plugin.c:3011
 #, fuzzy
 msgid ""
 "Launch session with a specific resolution (in dots per inch). Must be "
@@ -3654,7 +4026,7 @@ msgstr ""
 "একটি নির্দিষ্ট রেজোলিউশন (প্রতি ইঞ্চিবিন্দুতে) দিয়ে সেশন চালু করুন। অবশ্যই 20 থেকে "
 "400 এর মধ্যে হতে হবে।"
 
-#: plugins/x2go/x2go_plugin.c:1659
+#: plugins/x2go/x2go_plugin.c:3055
 #, fuzzy
 msgid "X2Go plugin loaded."
 msgstr "এক্স২গো প্লাগইন লোড করা হয়েছে।"
@@ -3946,7 +4318,7 @@ msgstr "চারপাশে _Wrap"
 #: data/ui/remmina_about.glade:30 data/ui/remmina_main.glade:395
 #, fuzzy
 msgid "About"
-msgstr "সম্পর্কে"
+msgstr "পরিচয়"
 
 #: data/ui/remmina_about.glade:34
 #, fuzzy
@@ -3965,6 +4337,7 @@ msgid "https://www.remmina.org/"
 msgstr "https://www.remmina.org/"
 
 #: data/ui/remmina_string_list.glade:14 data/ui/remmina_string_list.glade:158
+#, fuzzy
 msgid "Add"
 msgstr "যোগ করুন"
 
@@ -3992,7 +4365,7 @@ msgstr "[এক্স০এক্স] মাল্টি পাসওয়া�
 #: data/ui/remmina_mpc.glade:32
 #, fuzzy
 msgid "Change"
-msgstr "পাল্টান"
+msgstr "পরিবর্তন"
 
 #: data/ui/remmina_mpc.glade:201
 #, fuzzy
@@ -4002,7 +4375,7 @@ msgstr "নির্বাচনের মানদণ্ড"
 #: data/ui/remmina_mpc.glade:261
 #, fuzzy
 msgid "Confirm password"
-msgstr "পাসওয়ার্ড নিশ্চিত করুন"
+msgstr "পাসওয়ার্ড নিশ্চিত করুন"
 
 #: data/ui/remmina_mpc.glade:294
 #, fuzzy
@@ -4629,7 +5002,7 @@ msgstr "শুধুমাত্র প্রদর্শন মোড"
 #: data/ui/remmina_preferences.glade:1372
 #, fuzzy
 msgid "Keyboard"
-msgstr "কী-বোর্ড"
+msgstr "কীবোর্ড"
 
 #: data/ui/remmina_preferences.glade:1403
 #, fuzzy
@@ -4981,6 +5354,28 @@ msgstr "রেমিনা আনলক করুন"
 #, fuzzy
 msgid "Master password"
 msgstr "মাস্টার পাসওয়ার্ড"
+
+#, fuzzy
+#~ msgid "Started pyhoca-cli with following arguments:"
+#~ msgstr "নিম্নলিখিত যুক্তিসহ পাইহোকা-ক্লি শুরু করেছেন:"
+
+#, fuzzy
+#~ msgid "_Select session"
+#~ msgstr "_Select অধিবেশন"
+
+#, fuzzy
+#~ msgid "Started PyHoca-CLI with the following environment variables:"
+#~ msgstr "নিম্নলিখিত পরিবেশ পরিবর্তনশীলদিয়ে পাইহোকা-সিএলআই শুরু:"
+
+#, fuzzy, c-format
+#~ msgid "Could not retrieve PyHoca-CLI's command-line features! Exit code: %i"
+#~ msgstr ""
+#~ "পাইহোকা-সিএলআই-এর কমান্ড-লাইন বৈশিষ্ট্যগুলি পুনরুদ্ধার করা যায়নি! প্রস্থান কোড: "
+#~ "[এক্স66এক্স]"
+
+#, fuzzy, c-format
+#~ msgid "Error: '%s'"
+#~ msgstr "ত্রুটি: '[এক্স৮এক্স]'"
 
 #, fuzzy
 #~ msgid "Website"
