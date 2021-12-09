@@ -4526,7 +4526,7 @@ GtkWidget *rcw_open_from_file_full(RemminaFile *remminafile, GCallback disconnec
 
 		gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(dialog), "%s",
 							 err_msg);
-		gtk_dialog_add_button(GTK_DIALOG(dialog), _("Open in file browser"),
+		gtk_dialog_add_button(GTK_DIALOG(dialog), _("Open in web browser"),
 				      GTKSOCKET_NOT_AVAIL_RESPONSE_OPEN_BROWSER);
 
 		REMMINA_CRITICAL(g_strdup_printf("%s\n%s", title, err_msg));
