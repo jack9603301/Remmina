@@ -438,6 +438,37 @@
                 }
             ]
         },
+            "pyhoca-deps.json",
+        {
+            "name": "python-x2go",
+            "build-system": "simple",
+            "build-commands": [
+                "python3 setup.py install --prefix=${FLATPAK_DEST} --root=/ --optimize=1"
+            ],
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "git://code.x2go.org/python-x2go",
+                    "branch": "master"
+                }
+            ]
+
+        },
+        {
+            "name": "pyhoca-cli",
+            "build-system": "simple",
+            "build-commands": [
+                "python3 setup.py install --prefix=${FLATPAK_DEST} --root=/ --optimize=1"
+            ],
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "git://code.x2go.org/pyhoca-cli",
+                    "branch": "master"
+                }
+            ]
+
+        },
         {
             "name": "freerdp",
             "buildsystem": "cmake-ninja",
@@ -489,6 +520,7 @@
                 "-DCMAKE_INSTALL_LIBDIR:PATH=lib",
                 "-DWITH_FREERDP3:BOOL=OFF",
                 "-DWITH_GVNC:BOOL=ON",
+                "-DWITH_X2GO:BOOL=ON",
                 "-DWITH_CUPS:BOOL=ON",
                 "-DWITH_MANPAGES:BOOL=OFF"
             ],
