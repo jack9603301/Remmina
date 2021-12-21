@@ -1,4 +1,4 @@
-**Test on the latest [![remmina](https://snapcraft.io//remmina/badge.svg)](https://snapcraft.io/remmina) version before submitting a bug-report, and keep trying to reproduce it on any later versions**
+**Test on the latest [![Remmina](https://snapcraft.io//remmina/badge.svg)](https://snapcraft.io/remmina) version before submitting a bug-report, and keep trying to reproduce it on any later versions**
 * Reporting back greatly increases the attention and hope of fixing your issue.
 
 You can also ask questions via
@@ -14,7 +14,7 @@ Check the wiki at https://gitlab.com/Remmina/Remmina/-/wikis/Usage/Remmina-debug
 
 * Client (OS name and version):
 * Remmina version ( ```remmina --version``` ):
-* Installation:
+* Installation(s):
   - [X] Distribution package.
   - [ ] PPA.
   - [ ] Snap.
@@ -22,7 +22,7 @@ Check the wiki at https://gitlab.com/Remmina/Remmina/-/wikis/Usage/Remmina-debug
   - [ ] Compiled from sources.
   - [ ] Other - detail:
 * Desktop environment (GNOME, Unity, KDE, ..):
-* Plugin:
+* Plugin(s):
   - [X] RDP - freerdp version ( ```xfreerdp --version``` ):
   - [ ] VNC
   - [ ] SSH
@@ -72,5 +72,12 @@ Write a detailed description of the problem.
 ### Relevant logs and/or screenshots
 
 <!-- (Paste any relevant logs - please use code blocks (```) to format ```console output, logs, and code``` as it's very hard to read otherwise.) -->
+
+### Contributions
+To fix this issue:
+
+ - [ ] I'd be willing to fix this myself.
+ - [ ] I have donated ___ and/or will donate ___ towards fixing it.
+ - [ ] I'd take a donation of ___ to fix this issue. 
 
 /label ~bug
