@@ -77,7 +77,7 @@ Write a detailed description of the problem.
 To fix this issue:
 
  - [ ] I'd be willing to fix this myself.
- - [ ] I have donated ___ and/or will donate ___ towards fixing it.
+ - [ ] I have donated ___ and/or will [donate](https://remmina.org/donations/) ___ towards fixing it.
  - [ ] I'd take a donation of ___ to fix this issue. 
 
 /label ~bug
