@@ -22,6 +22,19 @@ This is not to reduce the importance of smaller donations, as we all give what w
 - MARCELO
 - L.Adigard
 - Antoni Aloy Torrens
+- Raphael Schweikert sabberworm 
+- Marwan Yassin Marware 
+- dpirly
+- Brendan Long brendanlong
+- Gabriel Einsdorf gab1one 
+- Malcolm Smith mds08011
+- Vektor Prime vektorprime 
+- theschitz theschitz
+- Matthew Mattox mattmattox 
+- Yoann YoannMourot 
+
+Coporates:
+- Babiel GmbH
 
 ### Year 2020 donors
 
