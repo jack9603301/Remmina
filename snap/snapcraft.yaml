@@ -227,6 +227,7 @@ parts:
       - libgtk-vnc-2.0-dev
       - libgvnc-1.0-dev
       - libjson-glib-dev
+      - libkf5wallet-dev
       - libsodium-dev
       - libsoup2.4-dev
       - libspice-client-gtk-3.0-dev
@@ -240,24 +241,35 @@ parts:
       - python3-dev
       - pyhoca-cli
     stage-packages:
+      - libdouble-conversion3
       - libgpm2
-      - libgvnc-1.0-0
       - libgtk-vnc-2.0-0
+      - libgvnc-1.0-0
+      - libkf5configcore5
+      - libkf5wallet5
+      - libkf5windowsystem5
+      - libqt5core5a
+      - libqt5dbus5
+      - libqt5gui5
+      - libqt5widgets5
+      - libqt5x11extras5
       - libssh-4
       - libusb-1.0-0
       - libvte-2.91-0
+      - libxcb-keysyms1
       - libzvbi0
+      - openssh-client
+      - pyhoca-cli
       - spice-client-glib-usb-acl-helper
       - suckless-tools
       - vim
       - xauth
       - xterm
-      - openssh-client
-      - pyhoca-cli
     cmake-parameters:
       - -DCMAKE_BUILD_TYPE=Release
       - -DWITH_NEWS:BOOL=ON
       - -DWITH_FREERDP3=OFF
+      - -DWITH_KF5WALLET=ON
       - -DWITH_GVNC=ON
       - -DWITH_X2GO=ON
       - -DCMAKE_PREFIX_PATH=$SNAPCRAFT_STAGE/usr
