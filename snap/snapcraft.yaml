@@ -104,19 +104,6 @@ apps:
     command: usr/bin/xprop
 
 parts:
-  pulse-utils:
-    plugin: nil
-    stage-packages:
-      - libsndfile1
-      - libxcb1
-      - libasyncns0
-      - libflac8
-      - libvorbisenc2
-      - libxau6
-      - libxdmcp6
-      - libogg0
-      - libvorbis0a
-      - libpulse0
 
   tools:
     plugin: nil
@@ -129,8 +116,6 @@ parts:
       - pyhoca-cli
 
   freerdp:
-    after:
-      - pulse-utils
     plugin: cmake
     source: https://github.com/FreeRDP/FreeRDP.git
     source-tag: 2.4.1
@@ -373,13 +358,13 @@ parts:
       - dbus-x11
       - xdg-user-dirs
   cleanup:
-    after: [pulse-utils, freerdp, remmina, app]  # Make this part run last; list all your other parts here
+    after: [freerdp, remmina, app]  # Make this part run last; list all your other parts here
     plugin: nil
     build-snaps: [core20, gnome-3-38-2004, gtk-common-themes]  # List all content-snaps you're using here
     override-prime: |
       set -eux
       for snap in "core20" "gnome-3-38-2004" "gtk-common-themes"; do  # List all content-snaps you're using here
-        cd "/snap/$snap/current" && find . -type f,l -exec rm -f "$SNAPCRAFT_PRIME/{}" \;
+        cd "/snap/$snap/current" && find . -type f,l -name *.so.* -exec rm -f "$SNAPCRAFT_PRIME/{}" \;
       done
       for CRUFT in bug lintian man; do
         rm -rf $SNAPCRAFT_PRIME/usr/share/$CRUFT
