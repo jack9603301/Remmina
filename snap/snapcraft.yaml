@@ -143,7 +143,6 @@ parts:
     #   cd "$current_dir"
     #   snapcraftctl build
     build-packages:
-      - build-essential
       - libasound2-dev
       - libavcodec-dev
       - libavutil-dev
@@ -270,7 +269,7 @@ parts:
     organize:
       snap/remmina/current: .
     stage:
-      - -./usr/share/fonts/**
+      - -usr/share/fonts/**
 
     override-build: |
       set -eu
