@@ -185,7 +185,6 @@ parts:
       - libvncserver-dev
       - libvte-2.91-dev
       - libxkbfile-dev
-      - libpcre2-dev
       - python3-dev
       - pyhoca-cli
       - xdg-utils
@@ -254,7 +253,6 @@ parts:
   app:
     plugin: nil
     stage-packages:
-      - gtk-3-examples
       - libappindicator3-1
       - libindicator3-7
       - libgdbm6
@@ -309,7 +307,6 @@ parts:
       - libxdmcp6
       - libogg0
       - libvorbis0a
-      - libpcre2-8-0
   cleanup:
     after: [freerdp, remmina, app]  # Make this part run last; list all your other parts here
     plugin: nil
