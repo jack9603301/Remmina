@@ -81,7 +81,7 @@ class Plugin:
     def init(self, gp):
         print("[PyVNC.init]: Called!")
         file = remmina.protocol_plugin_get_file(gp)
-        disable_smooth_scrolling = file.get_setting("disablesmoothscrolling", False)
+        disable_smooth_scrolling = remmina.file_get_setting(file, "disablesmoothscrolling", False)
         remmina.debug("Disable smooth scrolling is set to %d" % disable_smooth_scrolling)
         self.gpdata.drawing_area = gtk.DrawingArea()
         print(self.gpdata.drawing_area);

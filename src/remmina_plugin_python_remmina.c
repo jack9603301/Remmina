@@ -714,7 +714,7 @@ static PyObject* remmina_file_get_setting_wrapper(PyObject* self, PyObject* args
 {
     TRACE_CALL(__func__);
     PyObject* pygp = NULL;
-    if (!PyArg_ParseTuple(args, "O", &pygp) || !pygp)
+    if (!PyArg_ParseTuple(args, "OsO", &pygp) || !pygp)
     {
         g_printerr("Please provide the Remmina protocol widget instance!");
         return Py_None;
