@@ -94,7 +94,7 @@ parts:
   freerdp:
     plugin: cmake
     source: https://github.com/FreeRDP/FreeRDP.git
-    source-tag: 2.6.0
+    source-tag: 2.6.1
     source-depth: 1
     # override-build: |
     #   current_dir=$PWD
@@ -111,12 +111,12 @@ parts:
       - libffi-dev
       - libnacl-dev
       - libpcsclite-dev
+      - libpulse-dev
       - libsecret-1-dev
       - libssl-dev
       - libx11-dev
       - libusb-1.0-0-dev
       - libxkbfile-dev
-      - libxtst-dev
       - libxv-dev
       - libavresample-dev
     stage-packages:
@@ -185,7 +185,6 @@ parts:
       - libvncserver-dev
       - libvte-2.91-dev
       - libxkbfile-dev
-      - python3-dev
       - pyhoca-cli
       - xdg-utils
     stage-packages:
@@ -216,7 +215,6 @@ parts:
       - suckless-tools
       - vim
       - xauth
-      - xdg-user-dirs
       - xterm
     cmake-parameters:
       - -DCMAKE_BUILD_TYPE=Release
@@ -291,7 +289,6 @@ parts:
       - libgsm1
       - libvdpau1
       - libva-x11-2
-      - libthai0
       - libsoxr0
       - libva-drm2
       - libnuma1
@@ -299,14 +296,6 @@ parts:
       - libsodium23
       - libusb-1.0-0
       - python3
-      - libsndfile1
-      - libasyncns0
-      - libflac8
-      - libvorbisenc2
-      - libxau6
-      - libxdmcp6
-      - libogg0
-      - libvorbis0a
   cleanup:
     after: [freerdp, remmina, app]  # Make this part run last; list all your other parts here
     plugin: nil
