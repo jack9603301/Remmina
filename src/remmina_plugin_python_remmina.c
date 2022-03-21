@@ -713,15 +713,8 @@ static void print_all_settings (gpointer key,
 static PyObject* remmina_file_get_setting_wrapper(PyObject* self, PyObject* args, PyObject* kwargs)
 {
     TRACE_CALL(__func__);
-    PyObject* pygp = NULL;
-    if (!PyArg_ParseTuple(args, "OsO", &pygp) || !pygp)
-    {
-        g_printerr("Please provide the Remmina protocol widget instance!");
-        return Py_None;
-    }
-
-    RemminaProtocolWidget* gp = ((PyRemminaProtocolWidget*)pygp)->gp;
-
+    RemminaProtocolWidget* gp = ((PyRemminaProtocolWidget*)self)->gp;
+    remmina_plugin_manager_service.protocol_plugin_get_file(gp->plugin);
     return Py_None;
 }
 
@@ -989,6 +982,8 @@ void remmina_plugin_python_to_protocol_setting(RemminaProtocolSetting* dest, PyO
 	dest->label = src->label;
 	dest->compact = src->compact;
 	dest->type = src->settingType;
+    dest->validator = NULL;
+    dest->validator_data = NULL;
 	to_generic(src->opt1, &dest->opt1);
 	to_generic(src->opt2, &dest->opt2);
 }

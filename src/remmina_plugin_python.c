@@ -110,8 +110,6 @@ void remmina_plugin_python_init(void)
 {
 	TRACE_CALL(__func__);
 
-	assert(python_init_commands);
-
 	remmina_plugin_python_module_init();
 	Py_Initialize();
 

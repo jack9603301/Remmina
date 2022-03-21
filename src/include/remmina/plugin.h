@@ -69,8 +69,8 @@ typedef struct _RemminaProtocolPlugin {
 
 	const gchar *			icon_name;
 	const gchar *			icon_name_ssh;
-	const RemminaProtocolSetting *	basic_settings;
-	const RemminaProtocolSetting *	advanced_settings;
+	RemminaProtocolSetting *	basic_settings;
+	RemminaProtocolSetting *	advanced_settings;
 	RemminaProtocolSSHSetting	ssh_setting;
 	const RemminaProtocolFeature *	features;
 
