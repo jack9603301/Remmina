@@ -1,0 +1,361 @@
+{
+	"artifacts" : 
+	[
+		{
+			"path" : "plugins/vnc/remmina-plugin-vnc.so"
+		}
+	],
+	"backtrace" : 1,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_library",
+			"install",
+			"target_link_libraries",
+			"add_definitions",
+			"include_directories"
+		],
+		"files" : 
+		[
+			"plugins/vnc/CMakeLists.txt",
+			"CMakeLists.txt",
+			"plugins/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 43,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 50,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 48,
+				"parent" : 0
+			},
+			{
+				"file" : 1
+			},
+			{
+				"command" : 3,
+				"file" : 1,
+				"line" : 155,
+				"parent" : 4
+			},
+			{
+				"file" : 2
+			},
+			{
+				"command" : 3,
+				"file" : 2,
+				"line" : 47,
+				"parent" : 6
+			},
+			{
+				"command" : 3,
+				"file" : 1,
+				"line" : 528,
+				"parent" : 4
+			},
+			{
+				"command" : 3,
+				"file" : 1,
+				"line" : 505,
+				"parent" : 4
+			},
+			{
+				"command" : 3,
+				"file" : 1,
+				"line" : 495,
+				"parent" : 4
+			},
+			{
+				"command" : 3,
+				"file" : 1,
+				"line" : 547,
+				"parent" : 4
+			},
+			{
+				"command" : 4,
+				"file" : 1,
+				"line" : 282,
+				"parent" : 4
+			},
+			{
+				"command" : 4,
+				"file" : 1,
+				"line" : 283,
+				"parent" : 4
+			},
+			{
+				"command" : 4,
+				"file" : 1,
+				"line" : 403,
+				"parent" : 4
+			},
+			{
+				"command" : 4,
+				"file" : 1,
+				"line" : 410,
+				"parent" : 4
+			},
+			{
+				"command" : 4,
+				"file" : 1,
+				"line" : 565,
+				"parent" : 4
+			},
+			{
+				"command" : 4,
+				"file" : 2,
+				"line" : 38,
+				"parent" : 6
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : " -fPIC -Wall -msse2 -Wunused-result -Wunused-but-set-variable -Wdeprecated-declarations -Wimplicit-function-declaration -Wredundant-decls -g -g -fPIC"
+				}
+			],
+			"defines" : 
+			[
+				{
+					"backtrace" : 5,
+					"define" : "DEBUG"
+				},
+				{
+					"backtrace" : 7,
+					"define" : "HAVE_LIBSSH"
+				},
+				{
+					"backtrace" : 8,
+					"define" : "WITH_ICON_CACHE"
+				},
+				{
+					"backtrace" : 9,
+					"define" : "WITH_MANPAGES"
+				},
+				{
+					"backtrace" : 10,
+					"define" : "WITH_NEWS"
+				},
+				{
+					"backtrace" : 11,
+					"define" : "WITH_UPDATE_DESKTOP_DB"
+				},
+				{
+					"define" : "remmina_plugin_vnc_EXPORTS"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 12,
+					"path" : "/home/mathias/Projects/Remmina/."
+				},
+				{
+					"backtrace" : 13,
+					"path" : "/home/mathias/Projects/Remmina/src/include"
+				},
+				{
+					"backtrace" : 14,
+					"path" : "/usr/include/glib-2.0"
+				},
+				{
+					"backtrace" : 14,
+					"path" : "/usr/lib/x86_64-linux-gnu/glib-2.0/include"
+				},
+				{
+					"backtrace" : 15,
+					"path" : "/usr/include/gtk-3.0"
+				},
+				{
+					"backtrace" : 15,
+					"path" : "/usr/include/gio-unix-2.0"
+				},
+				{
+					"backtrace" : 15,
+					"path" : "/usr/include/atk-1.0"
+				},
+				{
+					"backtrace" : 15,
+					"path" : "/usr/include/harfbuzz"
+				},
+				{
+					"backtrace" : 15,
+					"path" : "/usr/include/freetype2"
+				},
+				{
+					"backtrace" : 15,
+					"path" : "/usr/include/libpng16"
+				},
+				{
+					"backtrace" : 15,
+					"path" : "/usr/include/pango-1.0"
+				},
+				{
+					"backtrace" : 15,
+					"path" : "/usr/include/cairo"
+				},
+				{
+					"backtrace" : 15,
+					"path" : "/usr/include/gdk-pixbuf-2.0"
+				},
+				{
+					"backtrace" : 16,
+					"path" : "/home/mathias/Projects/Remmina/cmake-build-debug/generated"
+				},
+				{
+					"backtrace" : 17,
+					"path" : "/home/mathias/Projects/Remmina/plugins"
+				}
+			],
+			"language" : "C",
+			"sourceIndexes" : 
+			[
+				0
+			]
+		}
+	],
+	"id" : "remmina-plugin-vnc::@903610c95c43c983c5b4",
+	"install" : 
+	{
+		"destinations" : 
+		[
+			{
+				"backtrace" : 2,
+				"path" : "/usr/local/lib/remmina/plugins"
+			}
+		],
+		"prefix" : 
+		{
+			"path" : "/usr/local"
+		}
+	},
+	"link" : 
+	{
+		"commandFragments" : 
+		[
+			{
+				"fragment" : "",
+				"role" : "flags"
+			},
+			{
+				"fragment" : "-Wl,-rpath,:::::::::::::::::::::::::",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libgtk-3.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libgdk-3.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libgdk_pixbuf-2.0.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libpango-1.0.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libcairo.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libgobject-2.0.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libglib-2.0.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libgio-2.0.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libgmodule-2.0.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-lwayland-client",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-lvncclient",
+				"role" : "libraries"
+			}
+		],
+		"language" : "C"
+	},
+	"name" : "remmina-plugin-vnc",
+	"nameOnDisk" : "remmina-plugin-vnc.so",
+	"paths" : 
+	{
+		"build" : "plugins/vnc",
+		"source" : "plugins/vnc"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				0
+			]
+		},
+		{
+			"name" : "Header Files",
+			"sourceIndexes" : 
+			[
+				1
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "plugins/vnc/vnc_plugin.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "plugins/vnc/vnc_plugin.h",
+			"sourceGroupIndex" : 1
+		}
+	],
+	"type" : "MODULE_LIBRARY"
+}

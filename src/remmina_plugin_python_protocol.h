@@ -50,6 +50,18 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 G_BEGIN_DECLS
+/**
+ * Wrapper for a Python object that contains a pointer to an instance of RemminaProtocolFeature.
+ */
+typedef struct
+{
+    PyObject_HEAD
+    RemminaProtocolFeatureType type;
+    gint id;
+    PyGeneric* opt1;
+    PyGeneric* opt2;
+    PyGeneric* opt3;
+} PyRemminaProtocolFeature;
 
 /**
  * Initializes the Python plugin specialisation for protocol plugins.
@@ -64,6 +76,9 @@ void remmina_plugin_python_protocol_init(void);
  *
  * @return	Returns a new instance of the RemminaPlugin (must be freed!).
  */
-RemminaPlugin* remmina_plugin_python_create_protocol_plugin(PyPlugin* plugin);
+RemminaPlugin *remmina_plugin_python_create_protocol_plugin(PyPlugin *plugin);
+
+
+PyRemminaProtocolFeature* remmina_plugin_python_protocol_feature_new(void);
 
 G_END_DECLS

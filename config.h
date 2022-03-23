@@ -3,7 +3,7 @@
 
 
 #pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wmacro-redefined"
+#pragma GCC diagnostic ignored "-Wbuiltin-macro-redefined"
 
 #define HAVE_SYS_SOCKET_H
 #define HAVE_ARPA_INET_H

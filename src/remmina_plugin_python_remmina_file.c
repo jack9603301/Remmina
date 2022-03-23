@@ -51,7 +51,7 @@ static PyMethodDef python_remmina_file_type_methods[] = {
 	{ "set_setting", (PyCFunction)file_set_setting, METH_VARARGS | METH_KEYWORDS, "Set file setting" },
 	{ "get_setting", (PyCFunction)file_get_setting, METH_VARARGS | METH_KEYWORDS, "Get file setting" },
 	{ "get_secret", (PyCFunction)file_get_secret, METH_VARARGS, "Get secret file setting" },
-	{ "unsave_passwords", (PyCFunction)file_unsave_passwords },
+	{ "unsave_passwords", (PyCFunction)file_unsave_passwords, METH_NOARGS, "" },
 	{ NULL }
 };
 
@@ -95,11 +95,12 @@ static PyObject* file_set_setting(PyRemminaFile* self, PyObject* args, PyObject*
 {
 	TRACE_CALL(__func__);
 
-	static gchar* keyword_list[] = { "key", "value" };
+	static char* keyword_list[] = { "key", "value", NULL };
 	gchar* key;
 	PyObject* value;
 
-	if (PyArg_ParseTupleAndKeywords(args, kwds, "sO", keyword_list, &key, &value))
+
+	if (PyArg_ParseTupleAndKeywords(args, kwds, "s|O", keyword_list, &key, &value))
 	{
 		if (PyUnicode_Check(value))
 		{
@@ -137,6 +138,10 @@ static PyObject* file_get_setting(PyRemminaFile* self, PyObject* args, PyObject*
 		{
 			return Py_BuildValue("s", remmina_file_get_string(self->file, key));
 		}
+        else if (PyBool_Check(def))
+        {
+            return remmina_file_get_int(self->file, key, (gint)PyLong_AsLong(def)) ? Py_True : Py_False;
+        }
 		else if (PyLong_Check(def))
 		{
 			return Py_BuildValue("i", remmina_file_get_int(self->file, key, (gint)PyLong_AsLong(def)));
@@ -151,15 +156,13 @@ static PyObject* file_get_setting(PyRemminaFile* self, PyObject* args, PyObject*
 	{
 		g_printerr("file.get_setting(key, default): Error parsing arguments!\n");
 		PyErr_Print();
-		return NULL;
+		return Py_None;
 	}
 }
 
 static PyObject* file_get_secret(PyRemminaFile* self, PyObject* key)
 {
 	TRACE_CALL(__func__);
-
-	static const gchar* keyword_list[] = { "key", "default" };
 
 	if (key && PyUnicode_Check(key))
 	{

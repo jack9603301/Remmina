@@ -82,6 +82,68 @@ const gchar* ATTR_INIT_ORDER = "init_order";
  */
 static const int REASONABLE_LIMIT_FOR_MALLOC = 1024 * 1024;
 
+static PyObject* remmina_plugin_python_generic_to_int(PyGeneric* self, PyObject* args);
+static PyObject* remmina_plugin_python_generic_to_bool(PyGeneric* self, PyObject* args);
+static PyObject* remmina_plugin_python_generic_to_string(PyGeneric* self, PyObject* args);
+
+static void remmina_plugin_python_generic_dealloc(PyObject* self)
+{
+    PyObject_Del(self);
+}
+
+static PyMethodDef remmina_plugin_python_generic_members[] = {
+        { "to_int", (PyCFunction)remmina_plugin_python_generic_to_int, METH_NOARGS, "" },
+        { "to_bool", (PyCFunction)remmina_plugin_python_generic_to_bool, METH_NOARGS, "" },
+        { "to_string", (PyCFunction)remmina_plugin_python_generic_to_string, METH_NOARGS, "" },
+        { NULL }
+};
+
+static PyObject* remmina_plugin_python_generic_to_int(PyGeneric* self, PyObject* args)
+{
+    SELF_CHECK();
+    return Py_BuildValue("i", *(gint*)self->raw);
+}
+static PyObject* remmina_plugin_python_generic_to_bool(PyGeneric* self, PyObject* args)
+{
+    SELF_CHECK();
+    return *(gint*)self->raw ? Py_True : Py_False;
+}
+static PyObject* remmina_plugin_python_generic_to_string(PyGeneric* self, PyObject* args)
+{
+    SELF_CHECK();
+    // Representing the content as string is a bit tricky. If the pointer does not point into a null terminated string,
+    // we need to make sure that we do not return unterminated random data.
+#define REMMINA_PYTHON_TO_STRING_LIMIT 1024
+    const char* ptr = (const char*)self->raw;
+    gint len = 0;
+    while (*(ptr++) && len < REMMINA_PYTHON_TO_STRING_LIMIT) ++len;
+    if (len < REMMINA_PYTHON_TO_STRING_LIMIT)
+        return PyUnicode_FromString(ptr);
+#undef REMMINA_PYTON_TO_STRING_LIMIT
+
+    return Py_None;
+}
+
+/**
+ * @brief The definition of the Python module 'remmina'.
+ */
+static PyTypeObject remmina_plugin_python_generic_type = {
+        PyVarObject_HEAD_INIT(NULL, 0)
+        .tp_name = "remmina.Generic",
+        .tp_doc = "",
+        .tp_basicsize = sizeof(PyGeneric),
+        .tp_itemsize = 0,
+        .tp_flags = Py_TPFLAGS_DEFAULT,
+        .tp_dealloc = remmina_plugin_python_generic_dealloc
+};
+
+PyGeneric* remmina_plugin_python_generic_new(void)
+{
+    PyGeneric* generic = (PyGeneric*)PyObject_New(PyGeneric, &remmina_plugin_python_generic_type);
+    generic->raw = NULL;
+    return generic;
+}
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // A P I
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -209,6 +271,58 @@ void remmina_plugin_python_add_plugin(PyPlugin* plugin)
   }
   g_ptr_array_add(plugin_map, plugin);
 }
+
+void remmina_plugin_python_to_generic(PyObject* field, gpointer* target)
+{
+    TRACE_CALL(__func__);
+
+    if (!field || field == Py_None)
+    {
+        *target = NULL;
+        return;
+    }
+
+    Py_INCREF(field);
+    if (PyUnicode_Check(field))
+    {
+        Py_ssize_t len = PyUnicode_GetLength(field);
+
+        if (len == 0)
+        {
+            *target = "";
+        }
+        else
+        {
+            *target = remmina_plugin_python_copy_string_from_python(field, len);
+        }
+
+    }
+    else if (PyLong_Check(field))
+    {
+        *target = malloc(sizeof(long));
+        long* long_target = (long*)target;
+        *long_target = PyLong_AsLong(field);
+    }
+    else if (PyTuple_Check(field))
+    {
+        Py_ssize_t len = PyTuple_Size(field);
+        if (len)
+        {
+            gpointer * dest = (gpointer*)malloc(sizeof(gpointer) * (len + 1));
+            memset(dest, 0, sizeof(gpointer) * (len + 1));
+
+            for (Py_ssize_t i = 0; i < len; ++i)
+            {
+                PyObject* item = PyTuple_GetItem(field, i);
+                remmina_plugin_python_to_generic(item, dest + i);
+            }
+
+            *target = dest;
+        }
+    }
+    Py_DECREF(field);
+}
+
 
 PyPlugin* remmina_plugin_python_get_plugin(RemminaPlugin* instance)
 {

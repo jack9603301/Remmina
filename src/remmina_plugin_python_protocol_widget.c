@@ -149,7 +149,7 @@ static struct PyMethodDef python_protocol_widget_type_methods[] = {
 	{ "has_error", (PyCFunction)protocol_widget_has_error, METH_VARARGS, "" },
 	{ "set_error", (PyCFunction)protocol_widget_set_error, METH_VARARGS, "" },
 	{ "is_closed", (PyCFunction)protocol_widget_is_closed, METH_VARARGS, "" },
-	{ "get_file", (PyCFunction)protocol_widget_get_file, METH_VARARGS, "" },
+	{ "get_file", (PyCFunction)protocol_widget_get_file, METH_NOARGS, "" },
 	{ "emit_signal", (PyCFunction)protocol_widget_emit_signal, METH_VARARGS, "" },
 	{ "register_hostkey", (PyCFunction)protocol_widget_register_hostkey, METH_VARARGS, "" },
 	{ "start_direct_tunnel", (PyCFunction)protocol_widget_start_direct_tunnel, METH_VARARGS | METH_KEYWORDS,
@@ -219,13 +219,8 @@ static PyTypeObject python_protocol_widget_type = {
 	.tp_methods = python_protocol_widget_type_methods
 };
 
-#define SELF_CHECK() if (!self) { \
-        g_printerr("[%s:%d]: self is null!\n", __FILE__, __LINE__); \
-        PyErr_SetString(PyExc_RuntimeError, "Method is not called from an instance (self is null)!"); \
-        return NULL; \
-    }
 
-PyRemminaProtocolWidget* remmina_plugin_python_protocol_widget_create()
+PyRemminaProtocolWidget* remmina_plugin_python_protocol_widget_create(void)
 {
 	PyRemminaProtocolWidget* result = PyObject_NEW(PyRemminaProtocolWidget, &python_protocol_widget_type);
 	PyErr_Print();

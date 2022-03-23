@@ -363,15 +363,6 @@ static PyTypeObject python_protocol_setting_type = {
 
 // -- Python Type -> Feature
 
-typedef struct
-{
-	PyObject_HEAD
-	RemminaProtocolFeatureType type;
-	gint id;
-	PyObject* opt1;
-	PyObject* opt2;
-	PyObject* opt3;
-} PyRemminaProtocolFeature;
 
 static PyMemberDef python_protocol_feature_members[] = {
 	{ "type", offsetof(PyRemminaProtocolFeature, type), T_INT, 0, NULL },
@@ -382,7 +373,7 @@ static PyMemberDef python_protocol_feature_members[] = {
 	{ NULL }
 };
 
-static PyObject* python_protocol_feature_new(PyTypeObject* type, PyObject* kws, PyObject* args)
+PyObject* python_protocol_feature_new(PyTypeObject* type, PyObject* kws, PyObject* args)
 {
 	TRACE_CALL(__func__);
 
@@ -424,6 +415,17 @@ static PyTypeObject python_protocol_feature_type = {
 	.tp_init = (initproc)python_protocol_feature_init,
 	.tp_members = python_protocol_feature_members
 };
+
+PyRemminaProtocolFeature* remmina_plugin_python_protocol_feature_new(void)
+{
+    PyRemminaProtocolFeature* feature = (PyRemminaProtocolFeature*) PyObject_New(PyRemminaProtocolFeature, &python_protocol_feature_type);
+    feature->id = 0;
+    feature->opt1 = Py_None;
+    feature->opt2 = Py_None;
+    feature->opt3 = Py_None;
+    feature->type = 0;
+    return feature;
+}
 
 /**
  * Is called from the Python engine when it initializes the 'remmina' module.
@@ -921,57 +923,6 @@ static gboolean remmina_plugin_equal(gconstpointer lhs, gconstpointer rhs)
 	}
 }
 
-static void to_generic(PyObject* field, gpointer* target)
-{
-	TRACE_CALL(__func__);
-
-	if (!field || field == Py_None)
-	{
-		*target = NULL;
-		return;
-	}
-
-	Py_INCREF(field);
-	if (PyUnicode_Check(field))
-	{
-		Py_ssize_t len = PyUnicode_GetLength(field);
-
-		if (len == 0)
-		{
-			*target = "";
-		}
-		else
-		{
-			*target = remmina_plugin_python_copy_string_from_python(field, len);
-		}
-
-	}
-	else if (PyLong_Check(field))
-	{
-		*target = malloc(sizeof(long));
-		long* long_target = (long*)target;
-		*long_target = PyLong_AsLong(field);
-	}
-	else if (PyTuple_Check(field))
-	{
-		Py_ssize_t len = PyTuple_Size(field);
-		if (len)
-		{
-			gpointer * dest = (gpointer*)malloc(sizeof(gpointer) * (len + 1));
-			memset(dest, 0, sizeof(gpointer) * (len + 1));
-
-			for (Py_ssize_t i = 0; i < len; ++i)
-			{
-				PyObject* item = PyTuple_GetItem(field, i);
-				to_generic(item, dest + i);
-			}
-
-			*target = dest;
-		}
-	}
-	Py_DECREF(field);
-}
-
 void remmina_plugin_python_to_protocol_setting(RemminaProtocolSetting* dest, PyObject* setting)
 {
 	TRACE_CALL(__func__);
@@ -984,8 +935,8 @@ void remmina_plugin_python_to_protocol_setting(RemminaProtocolSetting* dest, PyO
 	dest->type = src->settingType;
     dest->validator = NULL;
     dest->validator_data = NULL;
-	to_generic(src->opt1, &dest->opt1);
-	to_generic(src->opt2, &dest->opt2);
+	remmina_plugin_python_to_generic(src->opt1, &dest->opt1);
+	remmina_plugin_python_to_generic(src->opt2, &dest->opt2);
 }
 
 void remmina_plugin_python_to_protocol_feature(RemminaProtocolFeature* dest, PyObject* feature)
@@ -996,9 +947,9 @@ void remmina_plugin_python_to_protocol_feature(RemminaProtocolFeature* dest, PyO
 	Py_INCREF(feature);
 	dest->id = src->id;
 	dest->type = src->type;
-	to_generic(src->opt1, &dest->opt1);
-	to_generic(src->opt2, &dest->opt2);
-	to_generic(src->opt3, &dest->opt3);
+	remmina_plugin_python_to_generic(src->opt1, &dest->opt1);
+	remmina_plugin_python_to_generic(src->opt2, &dest->opt2);
+	remmina_plugin_python_to_generic(src->opt3, &dest->opt3);
 }
 
 PyObject* remmina_plugin_python_show_dialog_wrapper(PyObject* self, PyObject* args, PyObject* kwargs)
@@ -1072,8 +1023,8 @@ static PyObject* remmina_protocol_plugin_init_auth_wrapper(PyObject* module, PyO
 	}
 	else
 	{
-	  remmina_protocol_widget_panel_auth(self
-											 ->gp, pflags, title, default_username, default_password, default_domain, password_prompt);
+	  return Py_BuildValue("i", remmina_protocol_widget_panel_auth(self
+											 ->gp, pflags, title, default_username, default_password, default_domain, password_prompt));
 	}
   }
   else

@@ -81,7 +81,7 @@ extern const gchar* ATTR_INIT_ORDER;
 #define WITH_PYTHON_TRACE_CALLS
 
 /**
- * If WITH_PYTHON_TRACE_CALLS is defined, it logs the calls to the Python code and logs errors in case.
+ * If WITH_PYTHON_TRACE_CALLS is defined, it logs the calls to the Python code and errors in case.
  */
 #ifdef WITH_PYTHON_TRACE_CALLS
 #define CallPythonMethod(instance, name, params, ...)                             \
@@ -133,14 +133,28 @@ typedef struct
 	PyObject* instance;
 } PyPlugin;
 
+typedef struct
+{
+    PyObject_HEAD;
+    gpointer* raw;
+} PyGeneric;
+
+#define SELF_CHECK() if (!self) { \
+        g_printerr("[%s:%d]: self is null!\n", __FILE__, __LINE__); \
+        PyErr_SetString(PyExc_RuntimeError, "Method is not called from an instance (self is null)!"); \
+        return NULL; \
+    }
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // A P I
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void remmina_plugin_python_add_plugin(PyPlugin* plugin);
+PyGeneric* remmina_plugin_python_generic_new(void);
 
+void remmina_plugin_python_add_plugin(PyPlugin* plugin);
 void remmina_plugin_python_set_service(RemminaPluginService* service);
 RemminaPluginService* remmina_plugin_python_get_service(void);
+void remmina_plugin_python_to_generic(PyObject* field, gpointer* target);
 
 /**
  * Gets the result of the last python method call.

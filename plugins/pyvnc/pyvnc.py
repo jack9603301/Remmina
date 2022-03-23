@@ -1,9 +1,9 @@
 
-import pyVNC
 import sys
 import remmina
 import enum
 import gi
+import inspect
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk, GLib
 import psutil
@@ -28,9 +28,15 @@ class VncData:
         self.vnc_buffer = False
         self.rgb_buffer = False
 
+def expose(area, context):
+    context.scale(200, 200)
+    context.set_source_rgb(0.5, 0.5, 0.7)
+    context.fill()
+    context.paint()
 
 class Plugin:
     def __init__(self):
+        self.button = None
         self.name = "PyVNC"
         self.type = "protocol"
         self.description = "VNC but in Python!"
@@ -75,43 +81,49 @@ class Plugin:
             , remmina.Setting(remmina.PROTOCOL_SETTING_TYPE_CHECK, "disableencryption",      "Disable encryption",       False, None, None)
             , remmina.Setting(remmina.PROTOCOL_SETTING_TYPE_CHECK, "disableserverinput",     "Disable server input",     True,  None, None)
             , remmina.Setting(remmina.PROTOCOL_SETTING_TYPE_CHECK, "disablepasswordstoring", "Disable password storing", True, None, None)
-            , remmina.Setting(remmina.PROTOCOL_SETTING_TYPE_CHECK, "disablesmoothscrolling", "Disable smooth scrolling", False, None, None)
+            , remmina.Setting(remmina.PROTOCOL_SETTING_TYPE_CHECK, "disablesmoothscrolling", "Disable smooth scrolling", True, None, None)
         ]
 
     def init(self, gp):
         print("[PyVNC.init]: Called!")
-        file = remmina.protocol_plugin_get_file(gp)
-        disable_smooth_scrolling = remmina.file_get_setting(file, "disablesmoothscrolling", False)
-        remmina.debug("Disable smooth scrolling is set to %d" % disable_smooth_scrolling)
-        self.gpdata.drawing_area = gtk.DrawingArea()
-        print(self.gpdata.drawing_area);
+        cfile = gp.get_file()
+        self.gpdata.disable_smooth_scrolling = cfile.get_setting(key="disablesmoothscrolling", default=False)
+        self.gpdata.drawing_area = gp.get_viewport()
         return True
 
     def open_connection(self, gp):
         print("[PyVNC.open_connection]: Called!")
         print("Conect to %s" % remmina.pref_get_value("password"))
         connection_file = gp.get_file()
+        print(connection_file.get_setting("disablepasswordstoring", False))
         password = None
 
+        dont_save_passwords = connection_file.get_setting("disablepasswordstoring", False)
+        ret = remmina.protocol_plugin_init_auth(widget=gp,
+                                                flags=0, #if dont_save_passwords else remmina.REMMINA_MESSAGE_PANEL_FLAG_SAVEPASSWORD,
+                                                title="Enter VNC password",
+                                                default_username="",
+                                                default_password="", #connection_file.get_setting("password", None),
+                                                default_domain="",
+                                                password_prompt="Enter VNC password")
 
-        if password == None:
-            #dont_save_passwords = connection_file.get_setting("disablepasswordstoring", False)
-            ret = remmina.protocol_plugin_init_auth(widget=gp,
-                                                    flags=0, #if dont_save_passwords else remmina.REMMINA_MESSAGE_PANEL_FLAG_SAVEPASSWORD,
-                                                    title="Enter VNC password",
-                                                    default_username="",
-                                                    default_password="", #connection_file.get_setting("password", None),
-                                                    default_domain="",
-                                                    password_prompt="Enter VNC password")
+        if ret == Gtk.ResponseType.CANCEL:
+            print("Cancelled password prompt. Exiting...")
+            return False
+        elif ret == Gtk.ResponseType.OK:
+            print("Password: %s" % gp.get_password())
+            remmina.protocol_plugin_signal_connection_opened(gp)
 
-            print("ret: %s" % "None" if ret is None else str(ret))
+        return True
 
     def close_connection(self, gp):
         print("[PyVNC.close_connection]: Called!")
-        pass
+        remmina.protocol_plugin_signal_connection_closed(gp)
 
-    def query_feature(self, gp):
+
+    def query_feature(self, gp, feature):
         print("[PyVNC.query_feature]: Called!")
+        print("Feature: %d %d" % (feature.type, feature.id))
         pass
 
     def map_event(self, gp):
@@ -124,8 +136,7 @@ class Plugin:
 
     def call_feature(self, gp, feature):
         print("[PyVNC.call_feature]: Called!")
-        if self.vnc == None:
-            return;
+        print("Feature: %d %d" % (feature.type, feature.id))
 
     def keystroke(self, gp):
         print("[PyVNC.keystroke]: Called!")

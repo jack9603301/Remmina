@@ -97,7 +97,17 @@ gboolean remmina_protocol_query_feature_wrapper(RemminaProtocolWidget* gp,
 {
 	TRACE_CALL(__func__);
 	PyPlugin* py_plugin = remmina_plugin_python_get_plugin((RemminaPlugin*)gp->plugin);
-	PyObject* result = CallPythonMethod(py_plugin->instance, "query_feature", "O", py_plugin->gp);
+    PyRemminaProtocolFeature* pyFeature = remmina_plugin_python_protocol_feature_new();
+    pyFeature->type = (gint)feature->type;
+    pyFeature->id = feature->id;
+    pyFeature->opt1 = remmina_plugin_python_generic_new();
+    pyFeature->opt1->raw = feature->opt1;
+    pyFeature->opt2 = remmina_plugin_python_generic_new();
+    pyFeature->opt2->raw = feature->opt2;
+    pyFeature->opt3 = remmina_plugin_python_generic_new();
+    pyFeature->opt3->raw = feature->opt3;
+
+	PyObject* result = CallPythonMethod(py_plugin->instance, "query_feature", "OO", py_plugin->gp, pyFeature);
 	return result == Py_True;
 }
 
@@ -105,7 +115,17 @@ void remmina_protocol_call_feature_wrapper(RemminaProtocolWidget* gp, const Remm
 {
 	TRACE_CALL(__func__);
 	PyPlugin* py_plugin = remmina_plugin_python_get_plugin((RemminaPlugin*)gp->plugin);
-	PyObject* result = CallPythonMethod(py_plugin->instance, "call_feature", "O", py_plugin->gp);
+    PyRemminaProtocolFeature* pyFeature = remmina_plugin_python_protocol_feature_new();
+    pyFeature->type = (gint)feature->type;
+    pyFeature->id = feature->id;
+    pyFeature->opt1 = remmina_plugin_python_generic_new();
+    pyFeature->opt1->raw = feature->opt1;
+    pyFeature->opt2 = remmina_plugin_python_generic_new();
+    pyFeature->opt2->raw = feature->opt2;
+    pyFeature->opt3 = remmina_plugin_python_generic_new();
+    pyFeature->opt3->raw = feature->opt3;
+
+    PyObject* result = CallPythonMethod(py_plugin->instance, "call_feature", "OO", py_plugin->gp, pyFeature);
 }
 
 void remmina_protocol_send_keytrokes_wrapper(RemminaProtocolWidget* gp,
