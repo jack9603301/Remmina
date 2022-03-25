@@ -57,12 +57,26 @@ typedef enum {
 #define REMMINA_PROTOCOL_FEATURE_PREF_RADIO 1
 #define REMMINA_PROTOCOL_FEATURE_PREF_CHECK 2
 
+typedef enum
+{
+    REMMINA_TYPEHINT_STRING,
+    REMMINA_TYPEHINT_SIGNED,
+    REMMINA_TYPEHINT_UNSIGNED,
+    REMMINA_TYPEHINT_BOOLEAN,
+    REMMINA_TYPEHINT_CPOINTER,
+    REMMINA_TYPEHINT_RAW,
+    REMMINA_TYPEHINT_UNDEFINED,
+} RemminaTypeHint;
+
 typedef struct _RemminaProtocolFeature {
 	RemminaProtocolFeatureType	type;
 	gint				id;
 	gpointer			opt1;
 	gpointer			opt2;
 	gpointer			opt3;
+    RemminaTypeHint     opt1_type_hint;
+    RemminaTypeHint     opt2_type_hint;
+    RemminaTypeHint     opt3_type_hint;
 } RemminaProtocolFeature;
 
 typedef struct _RemminaPluginScreenshotData {

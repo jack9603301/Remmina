@@ -281,7 +281,6 @@ static PyObject* python_protocol_setting_new(PyTypeObject* type, PyObject* args,
 	self->label = "";
 	self->compact = FALSE;
 	self->opt1 = NULL;
-	self->opt1 = NULL;
 	self->opt2 = NULL;
 	self->settingType = 0;
 
@@ -365,11 +364,11 @@ static PyTypeObject python_protocol_setting_type = {
 
 
 static PyMemberDef python_protocol_feature_members[] = {
-	{ "type", offsetof(PyRemminaProtocolFeature, type), T_INT, 0, NULL },
-	{ "id", offsetof(PyRemminaProtocolFeature, id), T_STRING, 0, NULL },
-	{ "opt1", offsetof(PyRemminaProtocolFeature, opt1), T_OBJECT, 0, NULL },
-	{ "opt2", offsetof(PyRemminaProtocolFeature, opt2), T_OBJECT, 0, NULL },
-	{ "opt3", offsetof(PyRemminaProtocolFeature, opt3), T_OBJECT, 0, NULL },
+	{ "type", T_INT, offsetof(PyRemminaProtocolFeature, type), 0, NULL },
+	{ "id", T_INT, offsetof(PyRemminaProtocolFeature, id), 0, NULL },
+	{ "opt1", T_OBJECT, offsetof(PyRemminaProtocolFeature, opt1), 0, NULL },
+	{ "opt2", T_OBJECT, offsetof(PyRemminaProtocolFeature, opt2), 0, NULL },
+	{ "opt3", T_OBJECT, offsetof(PyRemminaProtocolFeature, opt3), 0, NULL },
 	{ NULL }
 };
 
@@ -384,9 +383,9 @@ PyObject* python_protocol_feature_new(PyTypeObject* type, PyObject* kws, PyObjec
 
 	self->id = 0;
 	self->type = 0;
-	self->opt1 = NULL;
-	self->opt2 = NULL;
-	self->opt3 = NULL;
+	self->opt1 = Py_None;
+	self->opt2 = Py_None;
+	self->opt3 = Py_None;
 
 	return (PyObject*)self;
 }
@@ -406,7 +405,7 @@ static int python_protocol_feature_init(PyRemminaProtocolFeature* self, PyObject
 
 static PyTypeObject python_protocol_feature_type = {
 	PyVarObject_HEAD_INIT(NULL, 0)
-	.tp_name = "remmina.Feature",
+	.tp_name = "remmina.ProtocolFeature",
 	.tp_doc = "Remmina Setting information",
 	.tp_basicsize = sizeof(PyRemminaProtocolFeature),
 	.tp_itemsize = 0,
@@ -421,9 +420,16 @@ PyRemminaProtocolFeature* remmina_plugin_python_protocol_feature_new(void)
     PyRemminaProtocolFeature* feature = (PyRemminaProtocolFeature*) PyObject_New(PyRemminaProtocolFeature, &python_protocol_feature_type);
     feature->id = 0;
     feature->opt1 = Py_None;
+	feature->opt1->raw = NULL;
+	feature->opt1->type_hint = REMMINA_TYPEHINT_UNDEFINED;
     feature->opt2 = Py_None;
+	feature->opt2->raw = NULL;
+	feature->opt2->type_hint = REMMINA_TYPEHINT_UNDEFINED;
     feature->opt3 = Py_None;
+	feature->opt3->raw = NULL;
+	feature->opt3->type_hint = REMMINA_TYPEHINT_UNDEFINED;
     feature->type = 0;
+	Py_IncRef(feature);
     return feature;
 }
 
@@ -474,6 +480,15 @@ static PyMODINIT_FUNC remmina_plugin_python_module_initialize(void)
 	PyModule_AddIntConstant(module, "MESSAGE_ERROR", (long)GTK_MESSAGE_ERROR);
 	PyModule_AddIntConstant(module, "MESSAGE_OTHER", (long)GTK_MESSAGE_OTHER);
 
+	PyModule_AddIntConstant(module, "REMMINA_PROTOCOL_FEATURE_TYPE_END", (long)REMMINA_PROTOCOL_FEATURE_TYPE_END);
+	PyModule_AddIntConstant(module, "REMMINA_PROTOCOL_FEATURE_TYPE_PREF", (long)REMMINA_PROTOCOL_FEATURE_TYPE_PREF);
+	PyModule_AddIntConstant(module, "REMMINA_PROTOCOL_FEATURE_TYPE_TOOL", (long)REMMINA_PROTOCOL_FEATURE_TYPE_TOOL);
+	PyModule_AddIntConstant(module, "REMMINA_PROTOCOL_FEATURE_TYPE_UNFOCUS", (long)REMMINA_PROTOCOL_FEATURE_TYPE_UNFOCUS);
+	PyModule_AddIntConstant(module, "REMMINA_PROTOCOL_FEATURE_TYPE_SCALE", (long)REMMINA_PROTOCOL_FEATURE_TYPE_SCALE);
+	PyModule_AddIntConstant(module, "REMMINA_PROTOCOL_FEATURE_TYPE_DYNRESUPDATE", (long)REMMINA_PROTOCOL_FEATURE_TYPE_DYNRESUPDATE);
+	PyModule_AddIntConstant(module, "REMMINA_PROTOCOL_FEATURE_TYPE_MULTIMON", (long)REMMINA_PROTOCOL_FEATURE_TYPE_MULTIMON);
+	PyModule_AddIntConstant(module, "REMMINA_PROTOCOL_FEATURE_TYPE_GTKSOCKET", (long)REMMINA_PROTOCOL_FEATURE_TYPE_GTKSOCKET);
+
 	PyModule_AddIntConstant(module, "PROTOCOL_SETTING_TYPE_SERVER", (long)REMMINA_PROTOCOL_SETTING_TYPE_SERVER);
 	PyModule_AddIntConstant(module, "PROTOCOL_SETTING_TYPE_PASSWORD", (long)REMMINA_PROTOCOL_SETTING_TYPE_PASSWORD);
 	PyModule_AddIntConstant(module, "PROTOCOL_SETTING_TYPE_RESOLUTION", (long)REMMINA_PROTOCOL_SETTING_TYPE_RESOLUTION);
@@ -497,6 +512,14 @@ static PyMODINIT_FUNC remmina_plugin_python_module_initialize(void)
 	PyModule_AddIntConstant(module, "PROTOCOL_SSH_SETTING_SSH", (long)REMMINA_PROTOCOL_SSH_SETTING_SSH);
 	PyModule_AddIntConstant(module, "PROTOCOL_SSH_SETTING_REVERSE_TUNNEL", (long)REMMINA_PROTOCOL_SSH_SETTING_REVERSE_TUNNEL);
 	PyModule_AddIntConstant(module, "PROTOCOL_SSH_SETTING_SFTP", (long)REMMINA_PROTOCOL_SSH_SETTING_SFTP);
+
+	PyModule_AddIntConstant(module, "REMMINA_TYPEHINT_STRING", (long)REMMINA_TYPEHINT_STRING);
+	PyModule_AddIntConstant(module, "REMMINA_TYPEHINT_SIGNED", (long)REMMINA_TYPEHINT_SIGNED);
+	PyModule_AddIntConstant(module, "REMMINA_TYPEHINT_UNSIGNED", (long)REMMINA_TYPEHINT_UNSIGNED);
+	PyModule_AddIntConstant(module, "REMMINA_TYPEHINT_BOOLEAN", (long)REMMINA_TYPEHINT_BOOLEAN);
+	PyModule_AddIntConstant(module, "REMMINA_TYPEHINT_CPOINTER", (long)REMMINA_TYPEHINT_CPOINTER);
+	PyModule_AddIntConstant(module, "REMMINA_TYPEHINT_RAW", (long)REMMINA_TYPEHINT_RAW);
+	PyModule_AddIntConstant(module, "REMMINA_TYPEHINT_UNDEFINED", (long)REMMINA_TYPEHINT_UNDEFINED);
 
 	PyModule_AddIntConstant(module, "PROTOCOL_FEATURE_PREF_RADIO", (long)REMMINA_PROTOCOL_FEATURE_PREF_RADIO);
 	PyModule_AddIntConstant(module, "PROTOCOL_FEATURE_PREF_CHECK", (long)REMMINA_PROTOCOL_FEATURE_PREF_CHECK);

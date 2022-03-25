@@ -120,10 +120,13 @@ void remmina_protocol_call_feature_wrapper(RemminaProtocolWidget* gp, const Remm
     pyFeature->id = feature->id;
     pyFeature->opt1 = remmina_plugin_python_generic_new();
     pyFeature->opt1->raw = feature->opt1;
+    pyFeature->opt1->type_hint = feature->opt1_type_hint;
     pyFeature->opt2 = remmina_plugin_python_generic_new();
     pyFeature->opt2->raw = feature->opt2;
+    pyFeature->opt2->type_hint = feature->opt2_type_hint;
     pyFeature->opt3 = remmina_plugin_python_generic_new();
     pyFeature->opt3->raw = feature->opt3;
+    pyFeature->opt3->type_hint = feature->opt3_type_hint;
 
     PyObject* result = CallPythonMethod(py_plugin->instance, "call_feature", "OO", py_plugin->gp, pyFeature);
 }
@@ -134,7 +137,8 @@ void remmina_protocol_send_keytrokes_wrapper(RemminaProtocolWidget* gp,
 {
 	TRACE_CALL(__func__);
 	PyPlugin* py_plugin = remmina_plugin_python_get_plugin((RemminaPlugin*)gp->plugin);
-	PyObject* result = CallPythonMethod(py_plugin->instance, "send_keystrokes", "O", py_plugin->gp);
+	PyObject* result = CallPythonMethod(py_plugin->instance, "send_keystrokes", "Oll", py_plugin->gp, PyLong_FromLong(keystrokes),
+                                        PyLong_FromLong(keylen));
 }
 
 gboolean remmina_protocol_get_plugin_screenshot_wrapper(RemminaProtocolWidget* gp,
@@ -143,7 +147,7 @@ gboolean remmina_protocol_get_plugin_screenshot_wrapper(RemminaProtocolWidget* g
 	TRACE_CALL(__func__);
 	PyPlugin* py_plugin = remmina_plugin_python_get_plugin((RemminaPlugin*)gp->plugin);
 	PyObject* result = CallPythonMethod(py_plugin->instance, "get_plugin_screenshot", "O", py_plugin->gp);
-	return result == Py_True;
+	return result == Py_False;
 }
 
 gboolean remmina_protocol_map_event_wrapper(RemminaProtocolWidget* gp)

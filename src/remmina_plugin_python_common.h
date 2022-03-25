@@ -136,7 +136,8 @@ typedef struct
 typedef struct
 {
     PyObject_HEAD;
-    gpointer* raw;
+    RemminaTypeHint type_hint;
+    gpointer raw;
 } PyGeneric;
 
 #define SELF_CHECK() if (!self) { \

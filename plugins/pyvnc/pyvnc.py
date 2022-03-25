@@ -45,13 +45,14 @@ class Plugin:
         self.icon_name_ssh = "org.remmina.Remmina-vnc-ssh-symbolic"
         self.ssh_setting = remmina.PROTOCOL_SSH_SETTING_TUNNEL
         self.gpdata = VncData()
+        qualities = ("0", "Poor Pixelmess", "1","Mhh kayy", "2","Nice", "9","hot sh*t")
         self.features = [
             remmina.Feature(
                 type=remmina.PROTOCOL_FEATURE_TYPE_PREF,
                 id=VncFeature.PrefQuality,
                 opt1=remmina.PROTOCOL_FEATURE_PREF_RADIO,
                 opt2="quality",
-                opt3=None)
+                opt3=qualities)
             ,remmina.Feature(remmina.PROTOCOL_FEATURE_TYPE_PREF, VncFeature.PrefViewonly, remmina.PROTOCOL_FEATURE_PREF_CHECK, "viewonly", None)
             ,remmina.Feature(remmina.PROTOCOL_FEATURE_TYPE_PREF, VncFeature.PrefDisableserverinput, remmina.PROTOCOL_SETTING_TYPE_CHECK, "disableserverinput", "Disable server input")
             ,remmina.Feature(remmina.PROTOCOL_FEATURE_TYPE_TOOL, VncFeature.ToolRefresh, "Refresh", None, None)
@@ -62,9 +63,7 @@ class Plugin:
         ]
 
         colordepths = ("8", "256 colors (8 bpp)", "16", "High color (16 bpp)", "32", "True color (32 bpp)")
-        print(type(colordepths))
         qualities = ("0", "Poor (fastest)", "1","Medium", "2","Good", "9","Best (slowest)")
-        print(type(qualities))
         self.basic_settings = [
             remmina.Setting(type=remmina.PROTOCOL_SETTING_TYPE_SERVER,  name="server",    label="",             compact=False, opt1="_rfb._tcp",opt2=None)
             , remmina.Setting(type=remmina.PROTOCOL_SETTING_TYPE_TEXT,    name="proxy",     label="Repeater",     compact=False, opt1=None,       opt2=None)
@@ -123,8 +122,26 @@ class Plugin:
 
     def query_feature(self, gp, feature):
         print("[PyVNC.query_feature]: Called!")
-        print("Feature: %d %d" % (feature.type, feature.id))
-        pass
+        print("Feature-Id: %d" % feature.id)
+        if feature.type == remmina.REMMINA_PROTOCOL_FEATURE_TYPE_END:
+            print("REMMINA_PROTOCOL_FEATURE_TYPE_END")
+        elif feature.type == remmina.REMMINA_PROTOCOL_FEATURE_TYPE_PREF:
+            print("REMMINA_PROTOCOL_FEATURE_TYPE_PREF")
+        elif feature.type == remmina.REMMINA_PROTOCOL_FEATURE_TYPE_TOOL:
+            print("REMMINA_PROTOCOL_FEATURE_TYPE_TOOL")
+        elif feature.type == remmina.REMMINA_PROTOCOL_FEATURE_TYPE_UNFOCUS:
+            print("REMMINA_PROTOCOL_FEATURE_TYPE_UNFOCUS")
+        elif feature.type == remmina.REMMINA_PROTOCOL_FEATURE_TYPE_SCALE:
+            print("REMMINA_PROTOCOL_FEATURE_TYPE_SCALE")
+        elif feature.type == remmina.REMMINA_PROTOCOL_FEATURE_TYPE_DYNRESUPDATE:
+            print("REMMINA_PROTOCOL_FEATURE_TYPE_DYNRESUPDATE")
+        elif feature.type == remmina.REMMINA_PROTOCOL_FEATURE_TYPE_MULTIMON:
+            print("REMMINA_PROTOCOL_FEATURE_TYPE_MULTIMON")
+        elif feature.type == remmina.REMMINA_PROTOCOL_FEATURE_TYPE_GTKSOCKET:
+            print("REMMINA_PROTOCOL_FEATURE_TYPE_GTKSOCKET")
+        print(feature.opt1.to_int())
+
+        return True
 
     def map_event(self, gp):
         print("[PyVNC.map_event]: Called!")
@@ -136,13 +153,34 @@ class Plugin:
 
     def call_feature(self, gp, feature):
         print("[PyVNC.call_feature]: Called!")
-        print("Feature: %d %d" % (feature.type, feature.id))
+        print("Feature-Id: %d" % feature.id)
+        if feature.type == remmina.REMMINA_PROTOCOL_FEATURE_TYPE_END:
+            print("REMMINA_PROTOCOL_FEATURE_TYPE_END")
+        elif feature.type == remmina.REMMINA_PROTOCOL_FEATURE_TYPE_PREF:
+            print("REMMINA_PROTOCOL_FEATURE_TYPE_PREF")
+        elif feature.type == remmina.REMMINA_PROTOCOL_FEATURE_TYPE_TOOL:
+            print("REMMINA_PROTOCOL_FEATURE_TYPE_TOOL")
+        elif feature.type == remmina.REMMINA_PROTOCOL_FEATURE_TYPE_UNFOCUS:
+            print("REMMINA_PROTOCOL_FEATURE_TYPE_UNFOCUS")
+        elif feature.type == remmina.REMMINA_PROTOCOL_FEATURE_TYPE_SCALE:
+            print("REMMINA_PROTOCOL_FEATURE_TYPE_SCALE")
+        elif feature.type == remmina.REMMINA_PROTOCOL_FEATURE_TYPE_DYNRESUPDATE:
+            print("REMMINA_PROTOCOL_FEATURE_TYPE_DYNRESUPDATE")
+        elif feature.type == remmina.REMMINA_PROTOCOL_FEATURE_TYPE_MULTIMON:
+            print("REMMINA_PROTOCOL_FEATURE_TYPE_MULTIMON")
+        elif feature.type == remmina.REMMINA_PROTOCOL_FEATURE_TYPE_GTKSOCKET:
+            print("REMMINA_PROTOCOL_FEATURETYPE_GTKSOCKET")
 
-    def keystroke(self, gp):
+        print(feature.opt1.to_int())
+        #print("Feature: %d %d" % (feature.type, feature.id))
+
+    def send_keystrokes(self, gp, strokes, len):
         print("[PyVNC.keystroke]: Called!")
+        print(strokes)
+        print(len)
         pass
 
-    def screenshot(self, gp):
+    def get_plugin_screenshot(self, gp):
         print("[PyVNC.screenshot]: Called!")
         pass
 

@@ -152,7 +152,7 @@ if(CMAKE_COMPILER_IS_GNUCC)
   endif()
 
   if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-    add_definitions(-DDEBUG)
+    add_definitions(-DDEBUG -DG_ENABLE_DEBUG)
     check_c_compiler_flag(-Wunused-result Wunused-result)
     if(Wunused-result)
       set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wunused-result")
