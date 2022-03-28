@@ -433,6 +433,119 @@ PyRemminaProtocolFeature* remmina_plugin_python_protocol_feature_new(void)
     return feature;
 }
 
+
+static PyObject* remmina_plugin_python_generic_to_int(PyGeneric* self, PyObject* args);
+static PyObject* remmina_plugin_python_generic_to_bool(PyGeneric* self, PyObject* args);
+static PyObject* remmina_plugin_python_generic_to_string(PyGeneric* self, PyObject* args);
+
+static void remmina_plugin_python_generic_dealloc(PyObject* self)
+{
+    PyObject_Del(self);
+}
+
+static PyMethodDef remmina_plugin_python_generic_methods[] = {
+        { "to_int", (PyCFunction)remmina_plugin_python_generic_to_int, METH_NOARGS, "" },
+        { "to_bool", (PyCFunction)remmina_plugin_python_generic_to_bool, METH_NOARGS, "" },
+        { "to_string", (PyCFunction)remmina_plugin_python_generic_to_string, METH_NOARGS, "" },
+        { NULL }
+};
+
+static PyMemberDef remmina_plugin_python_generic_members[] = {
+        {"raw", T_OBJECT, offsetof(PyGeneric, raw), 0, ""},
+        {NULL}
+};
+
+PyObject* remmina_plugin_python_generic_type_new(PyTypeObject* type, PyObject* kws, PyObject* args)
+{
+    TRACE_CALL(__func__);
+
+    PyGeneric* self;
+    self = (PyGeneric*)type->tp_alloc(type, 0);
+    if (!self)
+        return NULL;
+
+    self->raw = Py_None;
+
+    return (PyObject*)self;
+}
+
+static int remmina_plugin_python_generic_init(PyGeneric* self, PyObject* args, PyObject* kwargs)
+{
+    TRACE_CALL(__func__);
+
+    static char* kwlist[] = { "raw", NULL };
+
+    if (!PyArg_ParseTupleAndKeywords(args, kwargs, "|O", kwlist, &self->raw))
+        return -1;
+
+    return 0;
+}
+
+static PyTypeObject python_generic_type = {
+        PyVarObject_HEAD_INIT(NULL, 0)
+        .tp_name = "remmina.Generic",
+        .tp_doc = "",
+        .tp_basicsize = sizeof(PyGeneric),
+        .tp_itemsize = 0,
+        .tp_dealloc = remmina_plugin_python_generic_dealloc,
+        .tp_flags = Py_TPFLAGS_DEFAULT,
+        .tp_new = remmina_plugin_python_generic_type_new,
+        .tp_init = (initproc)remmina_plugin_python_generic_init,
+        .tp_members = remmina_plugin_python_generic_members,
+        .tp_methods = remmina_plugin_python_generic_methods,
+};
+
+PyGeneric* remmina_plugin_python_generic_new(void)
+{
+    PyGeneric* generic = (PyGeneric*) PyObject_New(PyGeneric, &python_generic_type);
+    generic->raw = PyLong_FromLongLong(0LL);
+    Py_IncRef(generic);
+    return generic;
+}
+
+
+static PyObject* remmina_plugin_python_generic_to_int(PyGeneric* self, PyObject* args)
+{
+    SELF_CHECK();
+
+    if (self->raw == NULL)
+    {
+        return Py_None;
+    } else if (self->type_hint == self->type_hint != REMMINA_TYPEHINT_SIGNED) {
+        return PyLong_FromLongLong(*(long long*)self->raw);
+    } else if (self->type_hint == self->type_hint != REMMINA_TYPEHINT_SIGNED) {
+        return PyLong_FromUnsignedLongLong(*(unsigned long long *) self->raw);
+    }
+
+    return Py_None;
+}
+static PyObject* remmina_plugin_python_generic_to_bool(PyGeneric* self, PyObject* args)
+{
+    SELF_CHECK();
+
+    if (self->raw == NULL)
+    {
+        return Py_None;
+    } else if (self->type_hint == REMMINA_TYPEHINT_BOOLEAN) {
+        return PyBool_FromLong(*(long*)self->raw);
+    }
+
+    return Py_None;
+}
+static PyObject* remmina_plugin_python_generic_to_string(PyGeneric* self, PyObject* args)
+{
+    SELF_CHECK();
+
+    if (self->raw == NULL)
+    {
+        return Py_None;
+    } else if (self->type_hint == REMMINA_TYPEHINT_STRING) {
+        return PyUnicode_FromString((const char *) self->raw);
+    }
+
+    return Py_None;
+}
+
 /**
  * Is called from the Python engine when it initializes the 'remmina' module.
  * @details This function is only called by the Python engine!
@@ -440,6 +553,13 @@ PyRemminaProtocolFeature* remmina_plugin_python_protocol_feature_new(void)
 static PyMODINIT_FUNC remmina_plugin_python_module_initialize(void)
 {
 	TRACE_CALL(__func__);
+
+    if (PyType_Ready(&python_generic_type) < 0)
+    {
+        g_printerr("Error initializing remmina.Generic!\n");
+        PyErr_Print();
+        return NULL;
+    }
 
 	if (PyType_Ready(&python_protocol_setting_type) < 0)
 	{
@@ -512,14 +632,6 @@ static PyMODINIT_FUNC remmina_plugin_python_module_initialize(void)
 	PyModule_AddIntConstant(module, "PROTOCOL_SSH_SETTING_SSH", (long)REMMINA_PROTOCOL_SSH_SETTING_SSH);
 	PyModule_AddIntConstant(module, "PROTOCOL_SSH_SETTING_REVERSE_TUNNEL", (long)REMMINA_PROTOCOL_SSH_SETTING_REVERSE_TUNNEL);
 	PyModule_AddIntConstant(module, "PROTOCOL_SSH_SETTING_SFTP", (long)REMMINA_PROTOCOL_SSH_SETTING_SFTP);
-
-	PyModule_AddIntConstant(module, "REMMINA_TYPEHINT_STRING", (long)REMMINA_TYPEHINT_STRING);
-	PyModule_AddIntConstant(module, "REMMINA_TYPEHINT_SIGNED", (long)REMMINA_TYPEHINT_SIGNED);
-	PyModule_AddIntConstant(module, "REMMINA_TYPEHINT_UNSIGNED", (long)REMMINA_TYPEHINT_UNSIGNED);
-	PyModule_AddIntConstant(module, "REMMINA_TYPEHINT_BOOLEAN", (long)REMMINA_TYPEHINT_BOOLEAN);
-	PyModule_AddIntConstant(module, "REMMINA_TYPEHINT_CPOINTER", (long)REMMINA_TYPEHINT_CPOINTER);
-	PyModule_AddIntConstant(module, "REMMINA_TYPEHINT_RAW", (long)REMMINA_TYPEHINT_RAW);
-	PyModule_AddIntConstant(module, "REMMINA_TYPEHINT_UNDEFINED", (long)REMMINA_TYPEHINT_UNDEFINED);
 
 	PyModule_AddIntConstant(module, "PROTOCOL_FEATURE_PREF_RADIO", (long)REMMINA_PROTOCOL_FEATURE_PREF_RADIO);
 	PyModule_AddIntConstant(module, "PROTOCOL_FEATURE_PREF_CHECK", (long)REMMINA_PROTOCOL_FEATURE_PREF_CHECK);

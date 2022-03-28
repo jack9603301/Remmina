@@ -55,7 +55,7 @@ class Plugin:
                 opt3=qualities)
             ,remmina.Feature(remmina.PROTOCOL_FEATURE_TYPE_PREF, VncFeature.PrefViewonly, remmina.PROTOCOL_FEATURE_PREF_CHECK, "viewonly", None)
             ,remmina.Feature(remmina.PROTOCOL_FEATURE_TYPE_PREF, VncFeature.PrefDisableserverinput, remmina.PROTOCOL_SETTING_TYPE_CHECK, "disableserverinput", "Disable server input")
-            ,remmina.Feature(remmina.PROTOCOL_FEATURE_TYPE_TOOL, VncFeature.ToolRefresh, "Refresh", None, None)
+            ,remmina.Feature(remmina.PROTOCOL_FEATURE_TYPE_TOOL, VncFeature.ToolRefresh, "Refresh", "face-smile", None)
             ,remmina.Feature(remmina.PROTOCOL_FEATURE_TYPE_TOOL, VncFeature.ToolChat, "Open Chat…", "face-smile", None)
             ,remmina.Feature(remmina.PROTOCOL_FEATURE_TYPE_TOOL, VncFeature.ToolSendCtrlAltDel,     "Send Ctrl+Alt+Delete", None, None)
             ,remmina.Feature(remmina.PROTOCOL_FEATURE_TYPE_SCALE, VncFeature.Scale, None, None, None)
@@ -140,6 +140,14 @@ class Plugin:
         elif feature.type == remmina.REMMINA_PROTOCOL_FEATURE_TYPE_GTKSOCKET:
             print("REMMINA_PROTOCOL_FEATURE_TYPE_GTKSOCKET")
         print(feature.opt1.to_int())
+        print(feature.opt1.to_bool())
+        print(feature.opt1.to_string())
+        print(feature.opt2.to_int())
+        print(feature.opt2.to_bool())
+        print(feature.opt2.to_string())
+        print(feature.opt3.to_int())
+        print(feature.opt3.to_bool())
+        print(feature.opt3.to_string())
 
         return True
 
@@ -170,8 +178,15 @@ class Plugin:
             print("REMMINA_PROTOCOL_FEATURE_TYPE_MULTIMON")
         elif feature.type == remmina.REMMINA_PROTOCOL_FEATURE_TYPE_GTKSOCKET:
             print("REMMINA_PROTOCOL_FEATURETYPE_GTKSOCKET")
-
         print(feature.opt1.to_int())
+        print(feature.opt1.to_bool())
+        print(feature.opt1.to_string())
+        print(feature.opt2.to_int())
+        print(feature.opt2.to_bool())
+        print(feature.opt2.to_string())
+        print(feature.opt3.to_int())
+        print(feature.opt3.to_bool())
+        print(feature.opt3.to_string())
         #print("Feature: %d %d" % (feature.type, feature.id))
 
     def send_keystrokes(self, gp, strokes, len):

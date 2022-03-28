@@ -108,6 +108,10 @@ gboolean remmina_protocol_query_feature_wrapper(RemminaProtocolWidget* gp,
     pyFeature->opt3->raw = feature->opt3;
 
 	PyObject* result = CallPythonMethod(py_plugin->instance, "query_feature", "OO", py_plugin->gp, pyFeature);
+    Py_DecRef(pyFeature);
+    Py_DecRef(pyFeature->opt1);
+    Py_DecRef(pyFeature->opt2);
+    Py_DecRef(pyFeature->opt3);
 	return result == Py_True;
 }
 
@@ -129,6 +133,10 @@ void remmina_protocol_call_feature_wrapper(RemminaProtocolWidget* gp, const Remm
     pyFeature->opt3->type_hint = feature->opt3_type_hint;
 
     PyObject* result = CallPythonMethod(py_plugin->instance, "call_feature", "OO", py_plugin->gp, pyFeature);
+    Py_DecRef(pyFeature);
+    Py_DecRef(pyFeature->opt1);
+    Py_DecRef(pyFeature->opt2);
+    Py_DecRef(pyFeature->opt3);
 }
 
 void remmina_protocol_send_keytrokes_wrapper(RemminaProtocolWidget* gp,

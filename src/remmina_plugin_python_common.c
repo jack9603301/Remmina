@@ -82,127 +82,13 @@ const gchar* ATTR_INIT_ORDER = "init_order";
  */
 static const int REASONABLE_LIMIT_FOR_MALLOC = 1024 * 1024;
 
-static PyObject* remmina_plugin_python_generic_to_int(PyGeneric* self, PyObject* args);
-static PyObject* remmina_plugin_python_generic_to_bool(PyGeneric* self, PyObject* args);
-static PyObject* remmina_plugin_python_generic_to_string(PyGeneric* self, PyObject* args);
 
-static void remmina_plugin_python_generic_dealloc(PyObject* self)
-{
-    PyObject_Del(self);
-}
-
-static PyMethodDef remmina_plugin_python_generic_methods[] = {
-        { "to_int", (PyCFunction)remmina_plugin_python_generic_to_int, METH_NOARGS, "" },
-        { "to_bool", (PyCFunction)remmina_plugin_python_generic_to_bool, METH_NOARGS, "" },
-        { "to_string", (PyCFunction)remmina_plugin_python_generic_to_string, METH_NOARGS, "" },
-        { NULL }
-};
-
-static PyMemberDef remmina_plugin_python_generic_members[] = {
-        {"raw", T_OBJECT, offsetof(PyGeneric, raw), 0, ""},
-        {NULL}
-};
-
-PyObject* remmina_plugin_python_generic_type_new(PyTypeObject* type, PyObject* kws, PyObject* args)
-{
-    TRACE_CALL(__func__);
-
-    PyGeneric* self;
-    self = (PyGeneric*)type->tp_alloc(type, 0);
-    if (!self)
-        return NULL;
-
-    self->raw = Py_None;
-
-    return (PyObject*)self;
-}
-
-static int remmina_plugin_python_generic_init(PyGeneric* self, PyObject* args, PyObject* kwargs)
-{
-    TRACE_CALL(__func__);
-
-    static char* kwlist[] = { "raw", NULL };
-
-    if (!PyArg_ParseTupleAndKeywords(args, kwargs, "|O", kwlist, &self->raw))
-        return -1;
-
-    return 0;
-}
-
-static PyTypeObject python_protocol_feature_type = {
-        PyVarObject_HEAD_INIT(NULL, 0)
-        .tp_name = "remmina.Generic",
-        .tp_doc = "",
-        .tp_basicsize = sizeof(PyGeneric),
-        .tp_itemsize = 0,
-        .tp_dealloc = remmina_plugin_python_generic_dealloc,
-        .tp_flags = Py_TPFLAGS_DEFAULT,
-        .tp_new = remmina_plugin_python_generic_type_new,
-        .tp_init = (initproc)remmina_plugin_python_generic_init,
-        .tp_members = remmina_plugin_python_generic_members,
-        .tp_methods = remmina_plugin_python_generic_methods,
-};
-
-
-static PyObject* remmina_plugin_python_generic_to_int(PyGeneric* self, PyObject* args)
-{
-    SELF_CHECK();
-
-    if (self->raw == NULL)
-    {
-        return Py_None;
-    }
-
-    // TODO: Make it safer!
-    return PyLong_FromLong(0);
-}
-static PyObject* remmina_plugin_python_generic_to_bool(PyGeneric* self, PyObject* args)
-{
-    SELF_CHECK();
-
-    if (self->raw == NULL)
-    {
-        return Py_None;
-    }
-
-    return Py_True;
-}
-static PyObject* remmina_plugin_python_generic_to_string(PyGeneric* self, PyObject* args)
-{
-    SELF_CHECK();
-
-    return Py_None;
-
-    if (self->raw == NULL)
-    {
-        return Py_None;
-    }
-
-    // Representing the content as string is a bit tricky. If the pointer does not point into a null terminated string,
-    // we need to make sure that we do not return unterminated random data.
-#define REMMINA_PYTHON_TO_STRING_LIMIT 1024
-    const char* ptr = (const char*)self->raw;
-    gint len = 0;
-    while (*(ptr++) && len < REMMINA_PYTHON_TO_STRING_LIMIT) ++len;
-    if (len < REMMINA_PYTHON_TO_STRING_LIMIT)
-        return PyUnicode_FromString(ptr);
-#undef REMMINA_PYTON_TO_STRING_LIMIT
-
-    return Py_None;
-}
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // A P I
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-PyGeneric* remmina_plugin_python_generic_new(void)
-{
-    PyGeneric* generic = (PyGeneric*) PyObject_New(PyGeneric, &python_protocol_feature_type);
-    generic->raw = PyLong_FromLongLong(0LL);
-    Py_IncRef(generic);
-    return generic;
-}
 
 PyObject* remmina_plugin_python_last_result(void)
 {
