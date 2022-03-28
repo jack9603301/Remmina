@@ -2418,11 +2418,12 @@ remmina_ssh_x11_callback(ssh_session session, const char *originator_address, in
 
 	REMMINA_DEBUG("Opening the X11 channel");
 	ssh_channel channel = ssh_channel_new(session);
-	REMMINA_DEBUG("X11 channel opened");
+	REMMINA_DEBUG("X11 channel created");
 
 	rc = connect(sock, (struct sockaddr *) &addr, sizeof(addr));
 	if (rc != -1) {
 		/* Connection Successfull */
+		REMMINA_DEBUG("Successfully connected to the socket %s", g_strdup(addr.sun_path));
 		if(gp_x11_chan == NULL) {
 			/* Calloc ensure that gp_X11_chan is full of 0 */
 			gp_x11_chan = (struct chan_X11_list *) calloc(1, sizeof(struct chan_X11_list));
@@ -2441,6 +2442,7 @@ remmina_ssh_x11_callback(ssh_session session, const char *originator_address, in
 			chan_iter->next = new;
 		}
 	} else {
+		REMMINA_DEBUG("Error connecting to the socket: %s", g_strdup(addr.sun_path));
 		close(sock);
 		return NULL;
 	}
@@ -2475,7 +2477,9 @@ remmina_ssh_x11_send_receive(ssh_channel channel, int sock, RemminaSSHShell *she
 		nbytes = read(sock, buffer, sizeof(buffer));
 		if (nbytes < 0) return SSH_ERROR;
 		if (nbytes > 0) {
+			LOCK_SSH(shell)
 			nwritten = ssh_channel_write(channel, buffer, nbytes);
+			UNLOCK_SSH(shell)
 			if (nwritten != nbytes) return SSH_ERROR;
 		}
 	}
@@ -2575,7 +2579,7 @@ remmina_ssh_shell_thread(gpointer data)
 
 	UNLOCK_SSH(shell)
 
-	buf_len = 1000;
+	buf_len = 8192;
 	buf = g_malloc(buf_len + 1);
 
 	ch[0] = channel;

@@ -395,7 +395,7 @@ BREAK:
 	remmina_plugin_ssh_vte_terminal_set_encoding_and_pty(VTE_TERMINAL(gpdata->vte), charset, shell->master, shell->slave);
 
 	/* TODO: The following call should be moved on the main thread, or something weird could happen */
-	remmina_plugin_ssh_on_size_allocate(GTK_WIDGET(gpdata->vte), NULL, gp);
+	//remmina_plugin_ssh_on_size_allocate(GTK_WIDGET(gpdata->vte), NULL, gp);
 
 	remmina_plugin_service->protocol_plugin_signal_connection_opened(gp);
 
