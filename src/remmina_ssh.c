@@ -2406,19 +2406,23 @@ remmina_ssh_x11_callback(ssh_session session, const char *originator_address, in
 	int rc;
 
 	const gchar *display = gdk_display_get_name(gdk_display_get_default());
-	if (display == NULL)
+	if (display == NULL) {
+		REMMINA_DEBUG("Cannot get the Display name");
 		return NULL;
+	}
 	REMMINA_DEBUG("DISPLAY NAME is: %s", display);
 
 	temp_buff = g_strsplit(display, ":", -1);
-	size_t n = sizeof(temp_buff)/sizeof(gchar **);
-	REMMINA_DEBUG("DISPLAY PORT is: %s", temp_buff[n]);
-	display_port = atoi(temp_buff[n]);
+	temp_buff = g_strsplit(temp_buff[1], ".", -1);
+	REMMINA_DEBUG("DISPLAY PORT is: %s", temp_buff[0]);
+	display_port = atoi(temp_buff[0]);
 	g_strfreev(temp_buff);
 
 	sock = socket(AF_UNIX, SOCK_STREAM, 0);
-	if(sock < 0)
+	if(sock < 0) {
+		REMMINA_DEBUG("Cannot create the socket");
 		return NULL;
+	}
 
 	memset(&addr, 0, sizeof(addr));
 	addr.sun_family = AF_UNIX;
@@ -2550,20 +2554,23 @@ remmina_ssh_shell_thread(gpointer data)
 		return NULL;
 	}
 
-	struct ssh_callbacks_struct cb = {
-		.userdata = NULL,
-		.channel_open_request_x11_function = remmina_ssh_x11_callback
-	};
+	if (remmina_file_get_int (remminafile, "ssh_forward_x11", FALSE)) {
+		struct ssh_callbacks_struct cb = {
+			.userdata = NULL,
+			.channel_open_request_x11_function = remmina_ssh_x11_callback
+		};
 
-	ssh_callbacks_init(&cb);
-	ssh_set_callbacks(REMMINA_SSH(shell)->session, &cb);
+		ssh_callbacks_init(&cb);
+		ssh_set_callbacks(REMMINA_SSH(shell)->session, &cb);
+	}
 
 	ssh_channel_request_pty(channel);
 
-	/* X11, here we should first check if the user allowed it */
-	int rc = ssh_channel_request_x11(channel, 0, NULL, NULL, 0);
-	if (rc != SSH_OK)
-		REMMINA_DEBUG ("Cannot open X11 channel");
+	if (remmina_file_get_int (remminafile, "ssh_forward_x11", FALSE)) {
+		int rc = ssh_channel_request_x11(channel, 0, NULL, NULL, 0);
+		if (rc != SSH_OK)
+			REMMINA_DEBUG ("Cannot open X11 channel");
+	}
 
 	if (shell->exec && shell->exec[0]) {
 		REMMINA_DEBUG ("Requesting an SSH exec channel");
@@ -2674,26 +2681,27 @@ remmina_ssh_shell_thread(gpointer data)
 				len -= ret;
 			}
 		}
-		/* Looping on X clients */
-		if (gp_x11_chan != NULL) {
-			current_node = gp_x11_chan;
-		} else {
-			current_node = NULL;
-		}
-
-		while (current_node != NULL) {
-			struct chan_X11_list *next_node;
-			rc = remmina_ssh_x11_send_receive(current_node->chan,
-					current_node->sock, shell);
-			next_node = current_node->next;
-			if (rc != 0) {
-				shutdown(current_node->sock, SHUT_RDWR);
-				close(current_node->sock);
-				remove_node(current_node);
+		if (remmina_file_get_int (remminafile, "ssh_forward_x11", FALSE)) {
+			/* Looping on X clients */
+			if (gp_x11_chan != NULL) {
+				current_node = gp_x11_chan;
+			} else {
+				current_node = NULL;
 			}
-			current_node = next_node;
-		}
 
+			while (current_node != NULL) {
+				struct chan_X11_list *next_node;
+				int rc = remmina_ssh_x11_send_receive(current_node->chan,
+						current_node->sock, shell);
+				next_node = current_node->next;
+				if (rc != 0) {
+					shutdown(current_node->sock, SHUT_RDWR);
+					close(current_node->sock);
+					remove_node(current_node);
+				}
+				current_node = next_node;
+			}
+		}
 	}
 
 	LOCK_SSH(shell)
