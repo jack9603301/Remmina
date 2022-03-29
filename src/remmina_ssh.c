@@ -2431,6 +2431,7 @@ remmina_ssh_x11_callback(ssh_session session, const char *originator_address, in
 	rc = connect(sock, (struct sockaddr *) &addr, sizeof(addr));
 	if (rc != -1) {
 		/* Connection Successfull */
+		fcntl(sock, F_SETFL, O_NONBLOCK | fcntl(sock, F_GETFL, 0));
 		REMMINA_DEBUG("Successfully connected to the socket %s", g_strdup(addr.sun_path));
 		if(gp_x11_chan == NULL) {
 			/* Calloc ensure that gp_X11_chan is full of 0 */
