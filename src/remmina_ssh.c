@@ -880,6 +880,7 @@ remmina_ssh_auth_gui(RemminaSSH *ssh, RemminaProtocolWidget *gp, RemminaFile *re
 {
 	TRACE_CALL(__func__);
 	gchar *keyname;
+	gchar *authtitle = NULL;
 	gchar *pwdfkey = NULL;
 	gchar *message;
 	gchar *current_pwd;
@@ -991,23 +992,31 @@ remmina_ssh_auth_gui(RemminaSSH *ssh, RemminaProtocolWidget *gp, RemminaFile *re
 		return REMMINA_SSH_AUTH_FATAL_ERROR;
 	}
 
-	enum { REMMINA_SSH_AUTH_PASSWORD, REMMINA_SSH_AUTH_PKPASSPHRASE, REMMINA_SSH_AUTH_KRBTOKEN, REMMINA_SSH_AUTH_KBDINTERACTIVE } remmina_ssh_auth_type;
+	enum {
+		REMMINA_SSH_AUTH_PASSWORD,
+		REMMINA_SSH_AUTH_PKPASSPHRASE,
+		REMMINA_SSH_AUTH_KRBTOKEN,
+		REMMINA_SSH_AUTH_KBDINTERACTIVE
+	} remmina_ssh_auth_type;
 
+	/* authtitle is to be used in the message panel as a title
+	 * ToDo: Add ssh->is_tunnel ? "when is a tunnel" : "all other cases"
+	 */
 	switch (ssh->auth) {
 	case SSH_AUTH_PASSWORD:
-		keyname = _("SSH password");
+		authtitle = _("SSH username & password");
 		pwdfkey = ssh->is_tunnel ? "ssh_tunnel_password" : "password";
 		remmina_ssh_auth_type = REMMINA_SSH_AUTH_PASSWORD;
 		break;
 	case SSH_AUTH_PUBLICKEY:
 	case SSH_AUTH_AGENT:
 	case SSH_AUTH_AUTO_PUBLICKEY:
-		keyname = _("SSH private key passphrase");
+		authtitle = _("SSH private key passphrase");
 		pwdfkey = ssh->is_tunnel ? "ssh_tunnel_passphrase" : "ssh_passphrase";
 		remmina_ssh_auth_type = REMMINA_SSH_AUTH_PKPASSPHRASE;
 		break;
 	case SSH_AUTH_GSSAPI:
-		keyname = _("SSH Kerberos/GSSAPI");
+		authtitle = _("SSH Kerberos/GSSAPI");
 		pwdfkey = ssh->is_tunnel ? "ssh_tunnel_kerberos_token" : "ssh_kerberos_token";
 		remmina_ssh_auth_type = REMMINA_SSH_AUTH_KRBTOKEN;
 		break;
@@ -1020,7 +1029,6 @@ remmina_ssh_auth_gui(RemminaSSH *ssh, RemminaProtocolWidget *gp, RemminaFile *re
 	}
 
 	disablepasswordstoring = remmina_file_get_int(remminafile, "disablepasswordstoring", FALSE);
-
 
 	current_pwd = g_strdup(remmina_file_get_string(remminafile, pwdfkey));
 
