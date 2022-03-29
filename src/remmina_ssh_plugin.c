@@ -1702,7 +1702,11 @@ remmina_ssh_plugin_register(void)
 	RemminaProtocolSettingOpt *settings;
 
 	// preset new settings with (old) static remmina_ssh_advanced_settings data
+#if GLIB_CHECK_VERSION(2,68,0)
+	settings = g_memdup2(remmina_ssh_advanced_settings, sizeof(remmina_ssh_advanced_settings));
+#else
 	settings = g_memdup(remmina_ssh_advanced_settings, sizeof(remmina_ssh_advanced_settings));
+#endif
 
 	// create dynamic advanced settings to made replacing of ssh_terminal_palette possible
 	gpointer ssh_terminal_palette_new = NULL;
