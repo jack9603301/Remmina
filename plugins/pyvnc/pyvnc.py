@@ -45,14 +45,14 @@ class Plugin:
         self.icon_name_ssh = "org.remmina.Remmina-vnc-ssh-symbolic"
         self.ssh_setting = remmina.PROTOCOL_SSH_SETTING_TUNNEL
         self.gpdata = VncData()
-        qualities = ("0", "Poor Pixelmess", "1","Mhh kayy", "2","Nice", "9","hot sh*t")
+        self.qualities = ("0", "Poor Pixelmess", "1","Mhh kayy", "2","Nice", "9","hot sh*t")
         self.features = [
             remmina.Feature(
                 type=remmina.PROTOCOL_FEATURE_TYPE_PREF,
                 id=VncFeature.PrefQuality,
                 opt1=remmina.PROTOCOL_FEATURE_PREF_RADIO,
                 opt2="quality",
-                opt3=qualities)
+                opt3=self.qualities)
             ,remmina.Feature(remmina.PROTOCOL_FEATURE_TYPE_PREF, VncFeature.PrefViewonly, remmina.PROTOCOL_FEATURE_PREF_CHECK, "viewonly", None)
             ,remmina.Feature(remmina.PROTOCOL_FEATURE_TYPE_PREF, VncFeature.PrefDisableserverinput, remmina.PROTOCOL_SETTING_TYPE_CHECK, "disableserverinput", "Disable server input")
             ,remmina.Feature(remmina.PROTOCOL_FEATURE_TYPE_TOOL, VncFeature.ToolRefresh, "Refresh", "face-smile", None)
@@ -63,14 +63,13 @@ class Plugin:
         ]
 
         colordepths = ("8", "256 colors (8 bpp)", "16", "High color (16 bpp)", "32", "True color (32 bpp)")
-        qualities = ("0", "Poor (fastest)", "1","Medium", "2","Good", "9","Best (slowest)")
         self.basic_settings = [
             remmina.Setting(type=remmina.PROTOCOL_SETTING_TYPE_SERVER,  name="server",    label="",             compact=False, opt1="_rfb._tcp",opt2=None)
             , remmina.Setting(type=remmina.PROTOCOL_SETTING_TYPE_TEXT,    name="proxy",     label="Repeater",     compact=False, opt1=None,       opt2=None)
             , remmina.Setting(type=remmina.PROTOCOL_SETTING_TYPE_TEXT,    name="username",  label="Username",     compact=False, opt1=None,       opt2=None)
             , remmina.Setting(type=remmina.PROTOCOL_SETTING_TYPE_PASSWORD,name="password",  label="User password",compact=False, opt1=None,       opt2=None)
             , remmina.Setting(type=remmina.PROTOCOL_SETTING_TYPE_SELECT,  name="colordepth",label="Color depth",  compact=False, opt1=colordepths,opt2=None)
-            , remmina.Setting(type=remmina.PROTOCOL_SETTING_TYPE_SELECT,  name="quality",   label="Quality",      compact=False, opt1=qualities,opt2=None)
+            , remmina.Setting(type=remmina.PROTOCOL_SETTING_TYPE_SELECT,  name="quality",   label="Quality",      compact=False, opt1=self.qualities, opt2=None)
             , remmina.Setting(type=remmina.PROTOCOL_SETTING_TYPE_KEYMAP,  name="keymap",    label="",             compact=False, opt1=None,       opt2=None)
         ]
         self.advanced_settings = [
@@ -84,14 +83,14 @@ class Plugin:
         ]
 
     def init(self, gp):
-        print("[PyVNC.init]: Called!")
+        #print("[PyVNC.init]: Called!")
         cfile = gp.get_file()
         self.gpdata.disable_smooth_scrolling = cfile.get_setting(key="disablesmoothscrolling", default=False)
         self.gpdata.drawing_area = gp.get_viewport()
         return True
 
     def open_connection(self, gp):
-        print("[PyVNC.open_connection]: Called!")
+        #print("[PyVNC.open_connection]: Called!")
         print("Conect to %s" % remmina.pref_get_value("password"))
         connection_file = gp.get_file()
         print(connection_file.get_setting("disablepasswordstoring", False))
@@ -116,87 +115,45 @@ class Plugin:
         return True
 
     def close_connection(self, gp):
-        print("[PyVNC.close_connection]: Called!")
+        #print("[PyVNC.close_connection]: Called!")
         remmina.protocol_plugin_signal_connection_closed(gp)
 
 
     def query_feature(self, gp, feature):
-        print("[PyVNC.query_feature]: Called!")
-        print("Feature-Id: %d" % feature.id)
-        if feature.type == remmina.REMMINA_PROTOCOL_FEATURE_TYPE_END:
-            print("REMMINA_PROTOCOL_FEATURE_TYPE_END")
-        elif feature.type == remmina.REMMINA_PROTOCOL_FEATURE_TYPE_PREF:
-            print("REMMINA_PROTOCOL_FEATURE_TYPE_PREF")
-        elif feature.type == remmina.REMMINA_PROTOCOL_FEATURE_TYPE_TOOL:
-            print("REMMINA_PROTOCOL_FEATURE_TYPE_TOOL")
-        elif feature.type == remmina.REMMINA_PROTOCOL_FEATURE_TYPE_UNFOCUS:
-            print("REMMINA_PROTOCOL_FEATURE_TYPE_UNFOCUS")
-        elif feature.type == remmina.REMMINA_PROTOCOL_FEATURE_TYPE_SCALE:
-            print("REMMINA_PROTOCOL_FEATURE_TYPE_SCALE")
-        elif feature.type == remmina.REMMINA_PROTOCOL_FEATURE_TYPE_DYNRESUPDATE:
-            print("REMMINA_PROTOCOL_FEATURE_TYPE_DYNRESUPDATE")
-        elif feature.type == remmina.REMMINA_PROTOCOL_FEATURE_TYPE_MULTIMON:
-            print("REMMINA_PROTOCOL_FEATURE_TYPE_MULTIMON")
-        elif feature.type == remmina.REMMINA_PROTOCOL_FEATURE_TYPE_GTKSOCKET:
-            print("REMMINA_PROTOCOL_FEATURE_TYPE_GTKSOCKET")
-        print(feature.opt1.to_int())
-        print(feature.opt1.to_bool())
-        print(feature.opt1.to_string())
-        print(feature.opt2.to_int())
-        print(feature.opt2.to_bool())
-        print(feature.opt2.to_string())
-        print(feature.opt3.to_int())
-        print(feature.opt3.to_bool())
-        print(feature.opt3.to_string())
-
+        #print("[PyVNC.query_feature]: Called!")
         return True
 
     def map_event(self, gp):
-        print("[PyVNC.map_event]: Called!")
+        #print("[PyVNC.map_event]: Called!")
         return True
 
     def unmap_event(self, gp):
-        print("[PyVNC.unmap_event]: Called!")
+        #print("[PyVNC.unmap_event]: Called!")
         return True
 
     def call_feature(self, gp, feature):
-        print("[PyVNC.call_feature]: Called!")
-        print("Feature-Id: %d" % feature.id)
-        if feature.type == remmina.REMMINA_PROTOCOL_FEATURE_TYPE_END:
-            print("REMMINA_PROTOCOL_FEATURE_TYPE_END")
-        elif feature.type == remmina.REMMINA_PROTOCOL_FEATURE_TYPE_PREF:
-            print("REMMINA_PROTOCOL_FEATURE_TYPE_PREF")
-        elif feature.type == remmina.REMMINA_PROTOCOL_FEATURE_TYPE_TOOL:
-            print("REMMINA_PROTOCOL_FEATURE_TYPE_TOOL")
-        elif feature.type == remmina.REMMINA_PROTOCOL_FEATURE_TYPE_UNFOCUS:
-            print("REMMINA_PROTOCOL_FEATURE_TYPE_UNFOCUS")
-        elif feature.type == remmina.REMMINA_PROTOCOL_FEATURE_TYPE_SCALE:
-            print("REMMINA_PROTOCOL_FEATURE_TYPE_SCALE")
-        elif feature.type == remmina.REMMINA_PROTOCOL_FEATURE_TYPE_DYNRESUPDATE:
-            print("REMMINA_PROTOCOL_FEATURE_TYPE_DYNRESUPDATE")
-        elif feature.type == remmina.REMMINA_PROTOCOL_FEATURE_TYPE_MULTIMON:
-            print("REMMINA_PROTOCOL_FEATURE_TYPE_MULTIMON")
-        elif feature.type == remmina.REMMINA_PROTOCOL_FEATURE_TYPE_GTKSOCKET:
-            print("REMMINA_PROTOCOL_FEATURETYPE_GTKSOCKET")
-        print(feature.opt1.to_int())
-        print(feature.opt1.to_bool())
-        print(feature.opt1.to_string())
-        print(feature.opt2.to_int())
-        print(feature.opt2.to_bool())
-        print(feature.opt2.to_string())
-        print(feature.opt3.to_int())
-        print(feature.opt3.to_bool())
-        print(feature.opt3.to_string())
-        #print("Feature: %d %d" % (feature.type, feature.id))
+        #print("[PyVNC.call_feature]: Called!")
+
+        if feature.type == remmina.REMMINA_PROTOCOL_FEATURE_TYPE_PREF and feature.id is VncFeature.PrefQuality:
+            file = gp.get_file()
+            quality = file.get_setting("quality", 0)
+            if quality == 9:
+                print("Ramping up graphics. Enjoy!")
+            if quality == 0:
+                print("Squeezing image into a few pixels...")
+            if quality == 1:
+                print("More the average guy, eh?")
+            if quality == 2:
+                print("Not great, not terrible. Just good...")
 
     def send_keystrokes(self, gp, strokes, len):
-        print("[PyVNC.keystroke]: Called!")
+        #print("[PyVNC.keystroke]: Called!")
         print(strokes)
         print(len)
         pass
 
     def get_plugin_screenshot(self, gp):
-        print("[PyVNC.screenshot]: Called!")
+        #print("[PyVNC.screenshot]: Called!")
         pass
 
 myPlugin = Plugin()

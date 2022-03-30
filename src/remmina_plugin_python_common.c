@@ -82,13 +82,9 @@ const gchar* ATTR_INIT_ORDER = "init_order";
  */
 static const int REASONABLE_LIMIT_FOR_MALLOC = 1024 * 1024;
 
-
-
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // A P I
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 
 PyObject* remmina_plugin_python_last_result(void)
 {
@@ -214,14 +210,14 @@ void remmina_plugin_python_add_plugin(PyPlugin* plugin)
   g_ptr_array_add(plugin_map, plugin);
 }
 
-void remmina_plugin_python_to_generic(PyObject* field, gpointer* target)
+RemminaTypeHint remmina_plugin_python_to_generic(PyObject* field, gpointer* target)
 {
     TRACE_CALL(__func__);
 
     if (!field || field == Py_None)
     {
         *target = NULL;
-        return;
+        return REMMINA_TYPEHINT_UNDEFINED;
     }
 
     Py_INCREF(field);
@@ -237,13 +233,21 @@ void remmina_plugin_python_to_generic(PyObject* field, gpointer* target)
         {
             *target = remmina_plugin_python_copy_string_from_python(field, len);
         }
-
+        return REMMINA_TYPEHINT_STRING;
+    }
+    else if (PyBool_Check(field))
+    {
+        *target = malloc(sizeof(long));
+        long* long_target = (long*)target;
+        *long_target = PyBool_FromLong(PyLong_AsLong(field));
+        return REMMINA_TYPEHINT_BOOLEAN;
     }
     else if (PyLong_Check(field))
     {
         *target = malloc(sizeof(long));
         long* long_target = (long*)target;
         *long_target = PyLong_AsLong(field);
+        return REMMINA_TYPEHINT_SIGNED;
     }
     else if (PyTuple_Check(field))
     {

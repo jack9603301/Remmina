@@ -78,7 +78,7 @@ extern const gchar* ATTR_EXPORT_HINTS;
 extern const gchar* ATTR_PREF_LABEL;
 extern const gchar* ATTR_INIT_ORDER;
 
-#define WITH_PYTHON_TRACE_CALLS
+//#define WITH_PYTHON_TRACE_CALLS
 
 /**
  * If WITH_PYTHON_TRACE_CALLS is defined, it logs the calls to the Python code and errors in case.
@@ -155,7 +155,7 @@ PyGeneric* remmina_plugin_python_generic_new(void);
 void remmina_plugin_python_add_plugin(PyPlugin* plugin);
 void remmina_plugin_python_set_service(RemminaPluginService* service);
 RemminaPluginService* remmina_plugin_python_get_service(void);
-void remmina_plugin_python_to_generic(PyObject* field, gpointer* target);
+RemminaTypeHint remmina_plugin_python_to_generic(PyObject* field, gpointer* target);
 
 /**
  * Gets the result of the last python method call.

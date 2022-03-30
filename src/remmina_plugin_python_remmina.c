@@ -419,13 +419,13 @@ PyRemminaProtocolFeature* remmina_plugin_python_protocol_feature_new(void)
 {
     PyRemminaProtocolFeature* feature = (PyRemminaProtocolFeature*) PyObject_New(PyRemminaProtocolFeature, &python_protocol_feature_type);
     feature->id = 0;
-    feature->opt1 = Py_None;
+    feature->opt1 = remmina_plugin_python_generic_new();
 	feature->opt1->raw = NULL;
 	feature->opt1->type_hint = REMMINA_TYPEHINT_UNDEFINED;
-    feature->opt2 = Py_None;
+    feature->opt2 = remmina_plugin_python_generic_new();
 	feature->opt2->raw = NULL;
 	feature->opt2->type_hint = REMMINA_TYPEHINT_UNDEFINED;
-    feature->opt3 = Py_None;
+    feature->opt3 = remmina_plugin_python_generic_new();
 	feature->opt3->raw = NULL;
 	feature->opt3->type_hint = REMMINA_TYPEHINT_UNDEFINED;
     feature->type = 0;
@@ -511,10 +511,10 @@ static PyObject* remmina_plugin_python_generic_to_int(PyGeneric* self, PyObject*
     if (self->raw == NULL)
     {
         return Py_None;
-    } else if (self->type_hint == self->type_hint != REMMINA_TYPEHINT_SIGNED) {
-        return PyLong_FromLongLong(*(long long*)self->raw);
-    } else if (self->type_hint == self->type_hint != REMMINA_TYPEHINT_SIGNED) {
-        return PyLong_FromUnsignedLongLong(*(unsigned long long *) self->raw);
+    } else if (self->type_hint == REMMINA_TYPEHINT_SIGNED) {
+        return PyLong_FromLongLong((long long)self->raw);
+    } else if (self->type_hint == REMMINA_TYPEHINT_UNSIGNED) {
+        return PyLong_FromUnsignedLongLong((unsigned long long) self->raw);
     }
 
     return Py_None;
@@ -527,7 +527,7 @@ static PyObject* remmina_plugin_python_generic_to_bool(PyGeneric* self, PyObject
     {
         return Py_None;
     } else if (self->type_hint == REMMINA_TYPEHINT_BOOLEAN) {
-        return PyBool_FromLong(*(long*)self->raw);
+        return PyBool_FromLong((long)self->raw);
     }
 
     return Py_None;
@@ -1082,9 +1082,9 @@ void remmina_plugin_python_to_protocol_feature(RemminaProtocolFeature* dest, PyO
 	Py_INCREF(feature);
 	dest->id = src->id;
 	dest->type = src->type;
-	remmina_plugin_python_to_generic(src->opt1, &dest->opt1);
-	remmina_plugin_python_to_generic(src->opt2, &dest->opt2);
-	remmina_plugin_python_to_generic(src->opt3, &dest->opt3);
+	dest->opt1_type_hint = remmina_plugin_python_to_generic(src->opt1, &dest->opt1);
+    dest->opt2_type_hint = remmina_plugin_python_to_generic(src->opt2, &dest->opt2);
+    dest->opt3_type_hint = remmina_plugin_python_to_generic(src->opt3, &dest->opt3);
 }
 
 PyObject* remmina_plugin_python_show_dialog_wrapper(PyObject* self, PyObject* args, PyObject* kwargs)
