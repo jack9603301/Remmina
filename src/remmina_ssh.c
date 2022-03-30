@@ -1776,7 +1776,7 @@ remmina_ssh_tunnel_main_thread_proc(gpointer data)
 	gchar *ptr;
 	ssize_t len = 0, lenw = 0;
 	fd_set set;
-	struct timeval timeout;
+	struct timeval tv = { 0L, 10L };
 	g_autoptr(GDateTime) t1 = NULL;
 	g_autoptr(GDateTime) t2 = NULL;
 	GTimeSpan diff;                                                 // microseconds
@@ -1953,9 +1953,6 @@ remmina_ssh_tunnel_main_thread_proc(gpointer data)
 			/* No more connections. We should quit */
 			break;
 
-		timeout.tv_sec = 0;
-		timeout.tv_usec = 200000;
-
 		FD_ZERO(&set);
 		maxfd = 0;
 		for (i = 0; i < tunnel->num_channels; i++) {
@@ -1964,7 +1961,7 @@ remmina_ssh_tunnel_main_thread_proc(gpointer data)
 			FD_SET(tunnel->sockets[i], &set);
 		}
 
-		ret = ssh_select(tunnel->channels, tunnel->channels_out, maxfd + 1, &set, &timeout);
+		ret = ssh_select(tunnel->channels, tunnel->channels_out, maxfd + 1, &set, &tv);
 		if (!tunnel->running) break;
 		if (ret == SSH_EINTR) continue;
 		if (ret == -1) break;
@@ -2484,16 +2481,26 @@ remmina_ssh_x11_send_receive(ssh_channel channel, int sock, RemminaSSHShell *she
 	ch[1] = NULL;
 
 	rc = ssh_select(ch, chout, sock + 1, &fds, &tv);
-	if (rc != SSH_NO_ERROR) return SSH_ERROR;
+	if (rc != SSH_NO_ERROR) {
+		REMMINA_DEBUG ("SSH select return an error");
+		return SSH_ERROR;
+	}
 
 	if (FD_ISSET(sock, &fds)) {
+
 		nbytes = read(sock, buffer, sizeof(buffer));
-		if (nbytes < 0) return SSH_ERROR;
+		if (nbytes < 0) {
+			REMMINA_DEBUG ("Reading from socket error, no bytes to read");
+			return SSH_ERROR;
+		}
 		if (nbytes > 0) {
 			LOCK_SSH(shell)
 			nwritten = ssh_channel_write(channel, buffer, nbytes);
 			UNLOCK_SSH(shell)
-			if (nwritten != nbytes) return SSH_ERROR;
+			if (nwritten != nbytes) {
+				REMMINA_DEBUG ("Writing to channel error");
+				return SSH_ERROR;
+			}
 		}
 	}
 
@@ -2505,10 +2512,16 @@ remmina_ssh_x11_send_receive(ssh_channel channel, int sock, RemminaSSHShell *she
 			LOCK_SSH(shell);
 			nbytes = ssh_channel_read_nonblocking(channel, buffer, sizeof(buffer), i);
 			UNLOCK_SSH(shell);
-			if (nbytes < 0) return SSH_ERROR;
+			if (nbytes < 0) {
+				REMMINA_DEBUG ("Reading from channel error, no bytes to read");
+				return SSH_ERROR;
+			}
 			if (nbytes > 0) {
 				nwritten = write(sock, buffer, nbytes);
-				if (nwritten != nbytes) return SSH_ERROR;
+				if (nwritten != nbytes) {
+					REMMINA_DEBUG ("Writing error");
+					return SSH_ERROR;
+				}
 			}
 		}
 	}
@@ -2529,7 +2542,7 @@ remmina_ssh_shell_thread(gpointer data)
 	RemminaFile *remminafile;
 	remminafile = remmina_protocol_widget_get_file(gp);
 	fd_set fds;
-	struct timeval timeout;
+	struct timeval tv = {0L, 10L };
 	ssh_channel channel = NULL;
 	ssh_channel ch[2], chout[2];
 	gchar *buf = NULL;
@@ -2632,13 +2645,11 @@ remmina_ssh_shell_thread(gpointer data)
 		REMMINA_DEBUG("Run_line written to channel");
 	}
 	while (!shell->closed) {
-		timeout.tv_sec = 1;
-		timeout.tv_usec = 0;
 
 		FD_ZERO(&fds);
 		FD_SET(shell->slave, &fds);
 
-		ret = ssh_select(ch, chout, shell->slave + 1, &fds, &timeout);
+		ret = ssh_select(ch, chout, shell->slave + 1, &fds, &tv);
 		if (ret == SSH_EINTR) continue;
 		if (ret == -1) break;
 
@@ -2691,10 +2702,10 @@ remmina_ssh_shell_thread(gpointer data)
 
 			while (current_node != NULL) {
 				struct chan_X11_list *next_node;
-				int rc = remmina_ssh_x11_send_receive(current_node->chan,
+				ret = remmina_ssh_x11_send_receive(current_node->chan,
 						current_node->sock, shell);
 				next_node = current_node->next;
-				if (rc != 0) {
+				if (ret != 0) {
 					shutdown(current_node->sock, SHUT_RDWR);
 					close(current_node->sock);
 					remove_node(current_node);
