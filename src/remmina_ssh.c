@@ -1175,6 +1175,173 @@ remmina_ssh_log_callback(ssh_session session, int priority, const char *message,
 	REMMINA_DEBUG(message);
 }
 
+static void remove_node(struct chan_X11_list *elem)
+{
+	struct chan_X11_list *current_node = NULL;
+
+	current_node = gp_x11_chan;
+
+	if (gp_x11_chan == elem) {
+		gp_x11_chan = gp_x11_chan->next;
+		free(current_node);
+		return;
+	}
+
+	while (current_node->next != NULL) {
+		if (current_node->next == elem) {
+			current_node->next = current_node->next->next;
+			current_node = current_node->next;
+			free(current_node);
+			break;
+		}
+	}
+}
+
+static ssh_channel
+remmina_ssh_x11_callback(ssh_session session, const char *originator_address, int originator_port, void *userdata)
+{
+	TRACE_CALL(__func__);
+	struct sockaddr_un addr;
+	struct chan_X11_list *new;
+	struct chan_X11_list *chan_iter;
+
+	gchar **temp_buff = NULL;
+
+	int display_port;
+	int sock;
+	int rc;
+
+	const gchar *display = gdk_display_get_name(gdk_display_get_default());
+
+	if (display == NULL) {
+		REMMINA_DEBUG("Cannot get the Display name");
+		return NULL;
+	}
+	REMMINA_DEBUG("DISPLAY NAME is: %s", display);
+
+	temp_buff = g_strsplit(display, ":", -1);
+	temp_buff = g_strsplit(temp_buff[1], ".", -1);
+	REMMINA_DEBUG("DISPLAY PORT is: %s", temp_buff[0]);
+	display_port = atoi(temp_buff[0]);
+	g_strfreev(temp_buff);
+
+	sock = socket(AF_UNIX, SOCK_STREAM, 0);
+	if (sock < 0) {
+		REMMINA_DEBUG("Cannot create the socket");
+		return NULL;
+	}
+
+	memset(&addr, 0, sizeof(addr));
+	addr.sun_family = AF_UNIX;
+	snprintf(addr.sun_path, sizeof(addr.sun_path), _PATH_UNIX_X, display_port);
+
+	REMMINA_DEBUG("Opening the X11 channel");
+	ssh_channel channel = ssh_channel_new(session);
+
+	REMMINA_DEBUG("X11 channel created");
+
+	rc = connect(sock, (struct sockaddr *)&addr, sizeof(addr));
+	if (rc != -1) {
+		/* Connection Successfull */
+		fcntl(sock, F_SETFL, O_NONBLOCK | fcntl(sock, F_GETFL, 0));
+		REMMINA_DEBUG("Successfully connected to the socket %s", g_strdup(addr.sun_path));
+		if (gp_x11_chan == NULL) {
+			/* Calloc ensure that gp_X11_chan is full of 0 */
+			gp_x11_chan = (struct chan_X11_list *)calloc(1, sizeof(struct chan_X11_list));
+			gp_x11_chan->sock = sock;
+			gp_x11_chan->chan = channel;
+			gp_x11_chan->next = NULL;
+		} else {
+			chan_iter = gp_x11_chan;
+			while (chan_iter->next != NULL)
+				chan_iter = chan_iter->next;
+			/* Create the new Node */
+			new = (struct chan_X11_list *)malloc(sizeof(struct chan_X11_list));
+			new->sock = sock;
+			new->chan = channel;
+			new->next = NULL;
+			chan_iter->next = new;
+		}
+	} else {
+		REMMINA_DEBUG("Error connecting to the socket: %s", g_strdup(addr.sun_path));
+		close(sock);
+		return NULL;
+	}
+
+	return channel;
+}
+
+static int
+remmina_ssh_x11_send_receive(ssh_channel channel, int sock, RemminaSSHShell *shell)
+{
+	TRACE_CALL(__func__);
+	struct timeval tv = { 0L, 1000L };
+	fd_set fds;
+
+	char buffer[8192];
+	int nbytes, nwritten;
+
+	ssh_channel ch[2], chout[2];
+
+	int rc;
+
+	FD_ZERO(&fds);
+	FD_SET(sock, &fds);
+
+	ch[0] = channel;
+	ch[1] = NULL;
+
+	rc = ssh_select(ch, chout, sock + 1, &fds, &tv);
+	if (rc != SSH_NO_ERROR) {
+		REMMINA_DEBUG("SSH select return an error");
+		return SSH_ERROR;
+	}
+
+	if (FD_ISSET(sock, &fds)) {
+		nbytes = read(sock, buffer, sizeof(buffer));
+		if (nbytes < 0) {
+			REMMINA_DEBUG("Reading from socket error, no bytes to read");
+			return SSH_ERROR;
+		}
+		if (nbytes > 0) {
+			LOCK_SSH(shell)
+			nwritten = ssh_channel_write(channel, buffer, nbytes);
+			UNLOCK_SSH(shell)
+			if (nwritten != nbytes) {
+				REMMINA_DEBUG("Writing to channel error");
+				return SSH_ERROR;
+			}
+		}
+	}
+
+	for (int i = 0; i < 2; i++) {
+		LOCK_SSH(shell);
+		rc = ssh_channel_poll(channel, i);
+		UNLOCK_SSH(shell);
+		if (rc > 0) {
+			LOCK_SSH(shell);
+			nbytes = ssh_channel_read_nonblocking(channel, buffer, sizeof(buffer), i);
+			UNLOCK_SSH(shell);
+			if (nbytes < 0) {
+				REMMINA_DEBUG("Reading from channel error, no bytes to read");
+				return SSH_ERROR;
+			}
+			if (nbytes > 0) {
+				nwritten = write(sock, buffer, nbytes);
+				if (nwritten != nbytes) {
+					REMMINA_DEBUG("Writing error");
+					return SSH_ERROR;
+				}
+			}
+		}
+	}
+
+	if (ssh_channel_is_eof(channel))
+		return SSH_EOF;
+
+	return SSH_OK;
+}
+
 gboolean
 remmina_ssh_init_session(RemminaSSH *ssh)
 {
@@ -1233,7 +1400,6 @@ remmina_ssh_init_session(RemminaSSH *ssh)
 #ifdef SNAP_BUILD
 	ssh_options_set(ssh->session, SSH_OPTIONS_SSH_DIR, g_strdup_printf("%s/.ssh", g_getenv("SNAP_USER_COMMON")));
 #endif
-	ssh_callbacks_init(ssh->callback);
 	if (remmina_log_running()) {
 		verbosity = remmina_pref.ssh_loglevel;
 		ssh_options_set(ssh->session, SSH_OPTIONS_LOG_VERBOSITY, &verbosity);
@@ -1242,6 +1408,8 @@ remmina_ssh_init_session(RemminaSSH *ssh)
 		ssh_set_log_userdata(ssh->session);
 	}
 	ssh->callback->userdata = ssh;
+	ssh->callback->channel_open_request_x11_function = remmina_ssh_x11_callback;
+	ssh_callbacks_init(ssh->callback);
 	ssh_set_callbacks(ssh->session, ssh->callback);
 
 	/* As the latest parse the ~/.ssh/config file */
@@ -1782,7 +1950,7 @@ remmina_ssh_tunnel_main_thread_proc(gpointer data)
 	gchar *ptr;
 	ssize_t len = 0, lenw = 0;
 	fd_set set;
-	struct timeval tv = { 0L, 10L };
+	struct timeval tv = { 0L, 1000L };
 
 	g_autoptr(GDateTime) t1 = NULL;
 	g_autoptr(GDateTime) t2 = NULL;
@@ -2375,173 +2543,6 @@ remmina_ssh_call_exit_callback_on_main_thread(gpointer data)
 	return FALSE;
 }
 
-static void remove_node(struct chan_X11_list *elem)
-{
-	struct chan_X11_list *current_node = NULL;
-
-	current_node = gp_x11_chan;
-
-	if (gp_x11_chan == elem) {
-		gp_x11_chan = gp_x11_chan->next;
-		free(current_node);
-		return;
-	}
-
-	while (current_node->next != NULL) {
-		if (current_node->next == elem) {
-			current_node->next = current_node->next->next;
-			current_node = current_node->next;
-			free(current_node);
-			break;
-		}
-	}
-}
-
-static ssh_channel
-remmina_ssh_x11_callback(ssh_session session, const char *originator_address, int originator_port, void *userdata)
-{
-	TRACE_CALL(__func__);
-	struct sockaddr_un addr;
-	struct chan_X11_list *new;
-	struct chan_X11_list *chan_iter;
-
-	gchar **temp_buff = NULL;
-
-	int display_port;
-	int sock;
-	int rc;
-
-	const gchar *display = gdk_display_get_name(gdk_display_get_default());
-
-	if (display == NULL) {
-		REMMINA_DEBUG("Cannot get the Display name");
-		return NULL;
-	}
-	REMMINA_DEBUG("DISPLAY NAME is: %s", display);
-
-	temp_buff = g_strsplit(display, ":", -1);
-	temp_buff = g_strsplit(temp_buff[1], ".", -1);
-	REMMINA_DEBUG("DISPLAY PORT is: %s", temp_buff[0]);
-	display_port = atoi(temp_buff[0]);
-	g_strfreev(temp_buff);
-
-	sock = socket(AF_UNIX, SOCK_STREAM, 0);
-	if (sock < 0) {
-		REMMINA_DEBUG("Cannot create the socket");
-		return NULL;
-	}
-
-	memset(&addr, 0, sizeof(addr));
-	addr.sun_family = AF_UNIX;
-	snprintf(addr.sun_path, sizeof(addr.sun_path), _PATH_UNIX_X, display_port);
-
-	REMMINA_DEBUG("Opening the X11 channel");
-	ssh_channel channel = ssh_channel_new(session);
-
-	REMMINA_DEBUG("X11 channel created");
-
-	rc = connect(sock, (struct sockaddr *)&addr, sizeof(addr));
-	if (rc != -1) {
-		/* Connection Successfull */
-		fcntl(sock, F_SETFL, O_NONBLOCK | fcntl(sock, F_GETFL, 0));
-		REMMINA_DEBUG("Successfully connected to the socket %s", g_strdup(addr.sun_path));
-		if (gp_x11_chan == NULL) {
-			/* Calloc ensure that gp_X11_chan is full of 0 */
-			gp_x11_chan = (struct chan_X11_list *)calloc(1, sizeof(struct chan_X11_list));
-			gp_x11_chan->sock = sock;
-			gp_x11_chan->chan = channel;
-			gp_x11_chan->next = NULL;
-		} else {
-			chan_iter = gp_x11_chan;
-			while (chan_iter->next != NULL)
-				chan_iter = chan_iter->next;
-			/* Create the new Node */
-			new = (struct chan_X11_list *)malloc(sizeof(struct chan_X11_list));
-			new->sock = sock;
-			new->chan = channel;
-			new->next = NULL;
-			chan_iter->next = new;
-		}
-	} else {
-		REMMINA_DEBUG("Error connecting to the socket: %s", g_strdup(addr.sun_path));
-		close(sock);
-		return NULL;
-	}
-
-	return channel;
-}
-
-static int
-remmina_ssh_x11_send_receive(ssh_channel channel, int sock, RemminaSSHShell *shell)
-{
-	TRACE_CALL(__func__);
-	struct timeval tv = { 0L, 10L };
-	fd_set fds;
-
-	char buffer[8192];
-	int nbytes, nwritten;
-
-	ssh_channel ch[2], chout[2];
-
-	int rc;
-
-	FD_ZERO(&fds);
-	FD_SET(sock, &fds);
-
-	ch[0] = channel;
-	ch[1] = NULL;
-
-	rc = ssh_select(ch, chout, sock + 1, &fds, &tv);
-	if (rc != SSH_NO_ERROR) {
-		REMMINA_DEBUG("SSH select return an error");
-		return SSH_ERROR;
-	}
-
-	if (FD_ISSET(sock, &fds)) {
-		nbytes = read(sock, buffer, sizeof(buffer));
-		if (nbytes < 0) {
-			REMMINA_DEBUG("Reading from socket error, no bytes to read");
-			return SSH_ERROR;
-		}
-		if (nbytes > 0) {
-			LOCK_SSH(shell)
-			nwritten = ssh_channel_write(channel, buffer, nbytes);
-			UNLOCK_SSH(shell)
-			if (nwritten != nbytes) {
-				REMMINA_DEBUG("Writing to channel error");
-				return SSH_ERROR;
-			}
-		}
-	}
-
-	for (int i = 0; i < 2; i++) {
-		LOCK_SSH(shell);
-		rc = ssh_channel_poll(channel, i);
-		UNLOCK_SSH(shell);
-		if (rc > 0) {
-			LOCK_SSH(shell);
-			nbytes = ssh_channel_read_nonblocking(channel, buffer, sizeof(buffer), i);
-			UNLOCK_SSH(shell);
-			if (nbytes < 0) {
-				REMMINA_DEBUG("Reading from channel error, no bytes to read");
-				return SSH_ERROR;
-			}
-			if (nbytes > 0) {
-				nwritten = write(sock, buffer, nbytes);
-				if (nwritten != nbytes) {
-					REMMINA_DEBUG("Writing error");
-					return SSH_ERROR;
-				}
-			}
-		}
-	}
-
-	if (ssh_channel_is_eof(channel))
-		return SSH_EOF;
-
-	return SSH_OK;
-}
-
 static gpointer
 remmina_ssh_shell_thread(gpointer data)
 {
@@ -2552,7 +2553,7 @@ remmina_ssh_shell_thread(gpointer data)
 
 	remminafile = remmina_protocol_widget_get_file(gp);
 	fd_set fds;
-	struct timeval tv = { 0L, 10L };
+	struct timeval tv = { 0L, 1000L };
 	ssh_channel channel = NULL;
 	ssh_channel ch[2], chout[2];
 	gchar *buf = NULL;
@@ -2575,16 +2576,6 @@ remmina_ssh_shell_thread(gpointer data)
 		if (channel) ssh_channel_free(channel);
 		shell->thread = 0;
 		return NULL;
-	}
-
-	if (remmina_file_get_int(remminafile, "ssh_forward_x11", FALSE)) {
-		struct ssh_callbacks_struct cb = {
-			.userdata				= NULL,
-			.channel_open_request_x11_function	= remmina_ssh_x11_callback
-		};
-
-		ssh_callbacks_init(&cb);
-		ssh_set_callbacks(REMMINA_SSH(shell)->session, &cb);
 	}
 
 	ssh_channel_request_pty(channel);
