@@ -400,12 +400,22 @@ BOOL rf_auto_reconnect(rfContext *rfi)
 	rfi->is_reconnecting = TRUE;
 	rfi->stop_reconnecting_requested = FALSE;
 
-	maxattempts = FreeRDP_AutoReconnectMaxRetries;
+	/* Get the value set in FreeRDP_AutoReconnectMaxRetries (20) */
+	maxattempts = freerdp_settings_get_uint32(settings, FreeRDP_AutoReconnectMaxRetries);
+	REMMINA_PLUGIN_DEBUG("maxattempts from default: %d", maxattempts);
+	/* Get the value from the global preferences if any */
 	if ((cval = remmina_plugin_service->pref_get_value("rdp_reconnect_attempts")) != NULL)
 		maxattempts = atoi(cval);
+	REMMINA_PLUGIN_DEBUG("maxattempts from general preferences: %d", maxattempts);
+	/* Get the value from the profile if any, otherwise uses the value of maxattempts */
 	maxattempts = remmina_plugin_service->file_get_int(remminafile, "rdp_reconnect_attempts", maxattempts);
+	REMMINA_PLUGIN_DEBUG("maxattempts from general plugin: %d", maxattempts);
+	/* If maxattemps is <= 0, we get the value from FreeRDP_AutoReconnectMaxRetries (20) */
 	if (maxattempts <= 0)
 		maxattempts = freerdp_settings_get_uint32(settings, FreeRDP_AutoReconnectMaxRetries);
+	freerdp_settings_set_uint32(settings, FreeRDP_AutoReconnectMaxRetries, maxattempts);
+	REMMINA_PLUGIN_DEBUG("maxattempts set to: %d", maxattempts);
+
 	rfi->reconnect_maxattempts = maxattempts;
 	rfi->reconnect_nattempt = 0;
 
@@ -440,7 +450,6 @@ BOOL rf_auto_reconnect(rfContext *rfi)
 	 *  - processing of the UI event we just pushed on the queue
 	 *  - better network conditions
 	 *  Remember: We hare on a thread, so the main gui won’t lock */
-
 	usleep(500000);
 
 	/* Perform an auto-reconnect. */
@@ -663,7 +672,7 @@ static BOOL remmina_rdp_pre_connect(freerdp *instance)
 	freerdp_settings_set_uint32(settings, FreeRDP_OsMajorType, OSMAJORTYPE_UNIX);
 	freerdp_settings_set_uint32(settings, FreeRDP_OsMinorType, OSMINORTYPE_UNSPECIFIED);
 	freerdp_settings_set_bool(settings, FreeRDP_BitmapCacheEnabled, TRUE);
-	freerdp_settings_set_bool(settings, FreeRDP_OffscreenSupportLevel, TRUE);
+	freerdp_settings_set_uint32(settings, FreeRDP_OffscreenSupportLevel, 1);
 
 	PubSub_SubscribeChannelConnected(instance->context->pubSub,
 					 (pChannelConnectedEventHandler)remmina_rdp_OnChannelConnectedEventHandler);
@@ -2010,7 +2019,9 @@ static gboolean remmina_rdp_main(RemminaProtocolWidget *gp)
 		remmina_plugin_service->protocol_plugin_set_height(gp, freerdp_settings_get_uint32(rfi->settings, FreeRDP_DesktopHeight));
 	}
 
-	if (remmina_plugin_service->file_get_int(remminafile, "sharesmartcard", FALSE)) {
+	const gchar *sn = remmina_plugin_service->file_get_string(remminafile, "smartcardname");
+	if (remmina_plugin_service->file_get_int(remminafile, "sharesmartcard", FALSE) ||
+			(sn != NULL && sn[0] != '\0')) {
 		RDPDR_SMARTCARD *smartcard;
 		smartcard = (RDPDR_SMARTCARD *)calloc(1, sizeof(RDPDR_SMARTCARD));
 
@@ -2026,7 +2037,6 @@ static gboolean remmina_rdp_main(RemminaProtocolWidget *gp)
 
 		freerdp_settings_set_bool(rfi->settings, FreeRDP_DeviceRedirection, TRUE);
 
-		const gchar *sn = remmina_plugin_service->file_get_string(remminafile, "smartcardname");
 		if (sn != NULL && sn[0] != '\0')
 			sdev->Name = _strdup(sn);
 

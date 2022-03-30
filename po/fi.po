@@ -2,7 +2,7 @@
 # Copyright © 2012 Rosetta Contributors and Canonical Ltd 2012
 # This file is distributed under the same license as the remmina package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
-# Tuomas Lähteenmäki <lahtis@gmail.com>, 2019, 2020, 2021.
+# Tuomas Lähteenmäki <lahtis@gmail.com>, 2019, 2020, 2021, 2022.
 # Jeannette L <j.lavoie@net-c.ca>, 2020.
 # Jiri Grönroos <jiri.gronroos@iki.fi>, 2020, 2021, 2022.
 # Allan Nordhøy <epost@anotheragency.no>, 2020, 2021.
@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: remmina\n"
 "Report-Msgid-Bugs-To: l10n@lists.remmina.org\n"
-"POT-Creation-Date: 2022-03-04 16:16+0000\n"
-"PO-Revision-Date: 2022-02-12 15:55+0000\n"
-"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>\n"
+"POT-Creation-Date: 2022-03-10 14:39+0000\n"
+"PO-Revision-Date: 2022-03-11 17:58+0000\n"
+"Last-Translator: Tuomas Lähteenmäki <lahtis@gmail.com>\n"
 "Language-Team: Finnish <https://hosted.weblate.org/projects/remmina/remmina/"
 "fi/>\n"
 "Language: fi\n"
@@ -23,13 +23,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.11-dev\n"
+"X-Generator: Weblate 4.12-dev\n"
 "X-Launchpad-Export-Date: 2014-09-20 14:24+0000\n"
 
 #: src/remmina_sftp_plugin.c:310 src/remmina_sftp_plugin.c:354
 #: src/remmina_protocol_widget.c:1680 src/remmina_protocol_widget.c:1699
 #: src/remmina_file_editor.c:1109 src/remmina_file_editor.c:1231
-#: src/remmina_ssh_plugin.c:1389 plugins/rdp/rdp_plugin.c:2764
+#: src/remmina_ssh_plugin.c:1389 plugins/rdp/rdp_plugin.c:2774
 #: plugins/www/www_plugin.c:895 plugins/x2go/x2go_plugin.c:3227
 #: data/ui/remmina_mpc.glade:236 data/ui/remmina_passwd.glade:84
 #: data/ui/remmina_unlock.glade:109
@@ -59,15 +59,15 @@ msgstr "Kerberos (GSSAPI)"
 
 #: src/remmina_sftp_plugin.c:323
 msgid "Show Hidden Files"
-msgstr "Näytä piilotiedostot"
+msgstr "Näytä piilotetut tiedostot"
 
 #: src/remmina_sftp_plugin.c:325
 msgid "Overwrite all files"
-msgstr "Korvaa kaikki"
+msgstr "Korvaa kaikki tiedostot"
 
 #: src/remmina_sftp_plugin.c:327
 msgid "Resume all file transfers"
-msgstr "Tiedostosiirrot"
+msgstr "Jatka kaikkia tiedostosiirtoja"
 
 #: src/remmina_sftp_plugin.c:328 src/remmina_protocol_widget.c:284
 msgid "Connect via SSH from a new terminal"
@@ -75,12 +75,12 @@ msgstr "Yhdistä SSH:n kautta uudesta päätteestä"
 
 #: src/remmina_sftp_plugin.c:353 src/remmina_message_panel.c:330
 #: src/remmina_file_editor.c:1225 src/remmina_ssh_plugin.c:1499
-#: plugins/rdp/rdp_plugin.c:2763 plugins/vnc/vnc_plugin.c:2019
+#: plugins/rdp/rdp_plugin.c:2773 plugins/vnc/vnc_plugin.c:2019
 #: plugins/vnc/vnc_plugin.c:2031 plugins/www/www_plugin.c:894
 #: plugins/x2go/x2go_plugin.c:478 plugins/x2go/x2go_plugin.c:3226
 #: data/ui/remmina_mpc.glade:144
 msgid "Username"
-msgstr "Käyttäjänimi"
+msgstr "Käyttäjätunnus"
 
 #: src/remmina_sftp_plugin.c:355 src/remmina_file_editor.c:1216
 #: src/remmina_ssh_plugin.c:1498
@@ -90,11 +90,11 @@ msgstr "Todennustyyppi"
 #: src/remmina_sftp_plugin.c:357 src/remmina_file_editor.c:1249
 #: src/remmina_ssh_plugin.c:1505
 msgid "Password to unlock private key"
-msgstr "Salasana avataksesi yksityisen avaimen"
+msgstr "Salasana avaa yksityisen avaimen"
 
 #: src/remmina_sftp_plugin.c:358 src/remmina_ssh_plugin.c:1536
 msgid "SSH Proxy Command"
-msgstr "SSH Proxy -komento"
+msgstr "SSH-välityskomento"
 
 #: src/remmina_sftp_plugin.c:367
 msgid "SFTP - Secure File Transfer"
@@ -102,7 +102,7 @@ msgstr "SFTP - Suojattu tiedostonsiirto"
 
 #: src/remmina_log.c:130
 msgid "Remmina debugging window"
-msgstr "Remmina-vianjäljitysikkuna"
+msgstr "Remmina virheenkorjausikkuna"
 
 #: src/remmina_log.c:134
 #, fuzzy
@@ -146,7 +146,7 @@ msgstr "Salainen"
 
 #: src/remmina_plugin_manager.c:463 data/ui/remmina_main.glade:305
 msgid "Plugins"
-msgstr "Liitännäiset"
+msgstr "Laajennukset"
 
 #: src/remmina_plugin_manager.c:463 src/remmina_message_panel.c:452
 #: src/remmina_message_panel.c:621 src/remmina_file_editor.c:242
@@ -173,7 +173,7 @@ msgstr "Versio"
 #: src/remmina_chat_window.c:178
 #, c-format
 msgid "Chat with %s"
-msgstr "Juttele %s"
+msgstr "Keskustele %s:n kanssa"
 
 #: src/remmina_chat_window.c:230
 msgid "_Send"
@@ -185,7 +185,7 @@ msgstr "_Tyhjennä"
 
 #: src/remmina_applet_menu_item.c:121
 msgid "Discovered"
-msgstr "Löydetty"
+msgstr "Löytyi"
 
 #: src/remmina_applet_menu_item.c:126
 msgid "New Connection"
@@ -229,12 +229,12 @@ msgstr "Määritä käytettävissä olevat tarkkuudet"
 
 #: src/remmina_pref_dialog.c:144
 msgid "Recent lists cleared."
-msgstr "Viimeaikaisten luettelo tyhjennetty."
+msgstr "Viimeisimmät listat tyhjennetty."
 
 #: src/remmina_pref_dialog.c:156 src/rcw.c:2040
 #: data/ui/remmina_preferences.glade:169 data/ui/remmina_preferences.glade:179
 msgid "Keystrokes"
-msgstr "Painalluksia"
+msgstr "Näppäinpainallukset"
 
 #: src/remmina_pref_dialog.c:156
 msgid "Configure the keystrokes"
@@ -258,8 +258,8 @@ msgid ""
 "the settings."
 msgstr ""
 "Tämä tiedosto sisältää \"Mukautetun\" päätelaitteen värimaailman, joka "
-"voidaan valita päätelaiteyhteyksien \"Lisäasetukset\"-välilehdeltä ja jota "
-"voidaan muokata asetusten \"Pääte\"-välilehdellä."
+"voidaan valita pääteyhteyksien \"Lisäasetukset\" -välilehdeltä ja jota "
+"voidaan muokata asetusten Pääte-välilehdeltä."
 
 #: src/remmina_message_panel.c:163 data/ui/remmina_mpc.glade:46
 #: data/ui/remmina_passwd.glade:19 data/ui/remmina_unlock.glade:43
@@ -281,10 +281,10 @@ msgstr "Kyllä"
 msgid "No"
 msgstr "Ei"
 
-#: src/remmina_message_panel.c:391 plugins/rdp/rdp_plugin.c:2765
+#: src/remmina_message_panel.c:391 plugins/rdp/rdp_plugin.c:2775
 #: data/ui/remmina_mpc.glade:172
 msgid "Domain"
-msgstr "Verkkoalue"
+msgstr "Verkkotunnus"
 
 #: src/remmina_message_panel.c:420
 msgid "Save password"
@@ -300,7 +300,7 @@ msgstr "_Peru"
 
 #: src/remmina_message_panel.c:513
 msgid "Enter certificate authentication files"
-msgstr "Kirjoita varmenteen todennustiedostot"
+msgstr "Syötä varmenteen todennustiedostot"
 
 #: src/remmina_message_panel.c:525
 msgid "CA Certificate File"
@@ -338,15 +338,15 @@ msgstr "Näytä kokonäytön tilassa"
 
 #: src/rcw.c:1419 data/ui/remmina_preferences.glade:608
 msgid "Scrolled fullscreen"
-msgstr "Vieritetty koko näyttö"
+msgstr "Vieritetty kokonäyttö"
 
 #: src/rcw.c:1505
 msgid "Keep aspect ratio when scaled"
-msgstr "Säilytä kuvasuhde skaalatessa"
+msgstr "Säilytä kuvasuhde skaalattuna"
 
 #: src/rcw.c:1513
 msgid "Fill client window when scaled"
-msgstr "Täytä asiakasikkuna, kun skaalataan"
+msgstr "Täytä asiakasikkuna skaalattuna"
 
 #: src/rcw.c:2061
 #, fuzzy
@@ -355,7 +355,7 @@ msgstr "Lähetä leikepöydän sisältö näppäinpainalluksina"
 
 #: src/rcw.c:2167
 msgid "Turn off scaling to avoid screenshot distortion."
-msgstr "Poista skaalaus käytöstä kuvakaappauksen vääristymien välttämiseksi."
+msgstr "Poista skaalaus käytöstä kuvakaappauksen vääristymisen välttämiseksi."
 
 #: src/rcw.c:2227 plugins/www/www_plugin.c:855
 msgid "Screenshot taken"
@@ -371,7 +371,7 @@ msgstr "Valikko"
 
 #: src/rcw.c:2320
 msgid "Open the Remmina main window"
-msgstr "Avaa Remminan pääikkuna"
+msgstr "Avaa Remmina-pääikkuna"
 
 #: src/rcw.c:2330
 msgid "Duplicate current connection"
@@ -379,36 +379,36 @@ msgstr "Kahdenna nykyinen yhteys"
 
 #: src/rcw.c:2347
 msgid "Resize the window to fit in remote resolution"
-msgstr "Muuta ikkunan koko vastaamaan etäpään resoluutiota"
+msgstr "Ikkunan koon muuttaminen etätarkkuuteen sopivaksi"
 
 #: src/rcw.c:2358
 msgid "Toggle fullscreen mode"
-msgstr "Koko näytön tila päälle/pois"
+msgstr "Vaihda kokonäytön tilaan"
 
 #: src/rcw.c:2404 data/ui/remmina_preferences.glade:1331
 #: data/ui/remmina_preferences.glade:1341
 msgid "Multi monitor"
-msgstr "Moninäyttö"
+msgstr "Useampi näyttö"
 
 #: src/rcw.c:2420
 msgid "Toggle dynamic resolution update"
-msgstr "Vaihda dynaamisen resoluution päivitystä"
+msgstr "Dynaamisen resoluution päivityksen vaihtaminen"
 
 #: src/rcw.c:2430
 msgid "Toggle scaled mode"
-msgstr "Skaalattu tila päällä/pois"
+msgstr "Vaihda skaalattua tilaa"
 
 #: src/rcw.c:2470 data/ui/remmina_preferences.glade:1065
 msgid "Switch tab pages"
-msgstr "Vaihtaa välilehtien sivuja"
+msgstr "Vaihda välilehtiä"
 
 #: src/rcw.c:2480
 msgid "Grab all keyboard events"
-msgstr "Kaappaa kaikki näppäimistön tapahtumat"
+msgstr "Kaappaa kaikki näppäimistötapahtumat"
 
 #: src/rcw.c:2490
 msgid "Preferences"
-msgstr "_Asetukset"
+msgstr "Asetukset"
 
 #: src/rcw.c:2499
 msgid "_Tools"
@@ -434,7 +434,7 @@ msgstr "Katkaise yhteys"
 #: src/rcw.c:4314
 #, c-format
 msgid "The file “%s” is corrupted, unreadable, or could not be found."
-msgstr "Tiedosto \"%s\" on vioittunut, lukukelvoton tai sitä ei löytynyt."
+msgstr "Tiedosto \"%s\" on vioittunut, sitä ei voi lukea tai sitä ei löydy."
 
 #. TRANSLATORS: This should be a link to the Remmina wiki page:
 #. TRANSLATORS: 'GtkSocket feature is not available'.
@@ -452,8 +452,8 @@ msgid ""
 "Warning: This plugin requires GtkSocket, but this feature is unavailable in "
 "a Wayland session."
 msgstr ""
-"Varoitus: Tämä liitännäinen vaatii GtkSocketin, mutta se ei ole saatavilla "
-"Wayland-istunnossa."
+"Varoitus: Tämä laajennus vaatii GtkSocketin, mutta tämä ominaisuus ei ole "
+"käytettävissä Wayland-istunnossa."
 
 #. TRANSLATORS: This should be a link to the Remmina wiki page:
 #. 'GtkSocket feature is not available'.
@@ -476,15 +476,15 @@ msgstr "Salasanat eivät täsmää"
 
 #: src/remmina_mpchange.c:244
 msgid "Resetting passwords, please wait…"
-msgstr "Salasanoja nollataan, odota hetki…"
+msgstr "Nollataan salasanoja, odota…"
 
 #: src/remmina_mpchange.c:327
 msgid "The multi password changer requires a secrecy plugin.\n"
-msgstr "Salasanojen monivaihdin vaatii secrecy-liitännäisen.\n"
+msgstr "Monisalasananvaihtaja vaatii salauslisäosan.\n"
 
 #: src/remmina_mpchange.c:330
 msgid "The multi password changer requires a secrecy service.\n"
-msgstr "Salasanojen monivaihdin vaatii secrecy-palvelun.\n"
+msgstr "Monisalasananvaihtaja vaatii salassapitopalvelun.\n"
 
 #: src/remmina_mpchange.c:409
 #, c-format
@@ -504,8 +504,8 @@ msgid ""
 "Connect either to a desktop described in a file (.remmina or a filetype "
 "supported by a plugin) or a supported URI (RDP, VNC, SSH or SPICE)"
 msgstr ""
-"Yhteyden muodostaminen työpöydälle kuvattu tiedostossa (.remmina tai "
-"liitännäisen tukema tyyppi)"
+"Yhteys joko tiedostossa (.remmina tai pluginin tukemassa tiedostotyypissä) "
+"tai tuetussa URI:ssä (RDP, VNC, SSH tai SPICE) kuvattuun työpöytään"
 
 #: src/remmina.c:90 src/remmina.c:92 src/remmina.c:94
 msgid "FILE"
@@ -540,7 +540,7 @@ msgstr ""
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
 #: src/remmina.c:97
 msgid "Start in kiosk mode"
-msgstr "Käynnistä kioskitilassa"
+msgstr "Käynnistä kioskitila"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
 #: src/remmina.c:99
@@ -554,7 +554,7 @@ msgstr "Näytä asetukset"
 
 #: src/remmina.c:101
 msgid "TABINDEX"
-msgstr "TAB-INDEKSI"
+msgstr "TABINDEX"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
 #: src/remmina.c:108
@@ -564,7 +564,7 @@ msgstr "Lopeta"
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
 #: src/remmina.c:110
 msgid "Use default server name (for --new)"
-msgstr "Käytä palvelimen oletusnimeä (for --new)"
+msgstr "Käytä oletuspalvelimen nimeä (jos --new)"
 
 #: src/remmina.c:110
 msgid "SERVER"
@@ -573,7 +573,7 @@ msgstr "PALVELIN"
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
 #: src/remmina.c:112
 msgid "Use default protocol (for --new)"
-msgstr "Käytä oletusprotokollaa (for --new)"
+msgstr "Käytä oletusprotokollaa (jos --new)"
 
 #: src/remmina.c:112
 msgid "PROTOCOL"
@@ -592,7 +592,7 @@ msgstr "Näytä sovelluksen versio"
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
 #: src/remmina.c:118
 msgid "Show version of the application and its plugins"
-msgstr "Näytä sovelluksen versio ja sen liitännäiset"
+msgstr "Näytä sovelluksen ja sen laajennusten versio"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
 #: src/remmina.c:120
@@ -603,7 +603,8 @@ msgstr "Muokkaa yhteysprofiilia (vaatii --set-option)"
 #: src/remmina.c:122
 msgid "Set one or more profile settings, to be used with --update-profile"
 msgstr ""
-"Aseta yksi tai useampi profiiliasetus, jota käytetään --update-profile kanssa"
+"Aseta yksi tai useampi profiiliasetus, jota käytetään --update-profile "
+"option kanssa"
 
 #: src/remmina.c:123
 msgid "Encrypt a password"
@@ -713,7 +714,7 @@ msgstr "Syötä muodossa 'widthxheight'."
 
 #: src/remmina_public.c:653
 msgid "Change security settings"
-msgstr "Laatuasetukset"
+msgstr "Muuta suojausasetuksia"
 
 #. TRANSLATORS: translator-credits should be replaced with a formatted list of translators in your own language
 #: src/remmina_about.c:54
@@ -722,7 +723,8 @@ msgstr ""
 "Launchpad Contributions:\n"
 "  Jiri Grönroos https://launchpad.net/~jiri-gronroos\n"
 "  Joonas Kylmälä https://launchpad.net/~j.kylmala\n"
-"  Timo Jyrinki https://launchpad.net/~timo-jyrinki"
+"  Timo Jyrinki https://launchpad.net/~timo-jyrinki\n"
+"  Tuomas Lähteenmäki https://launchpad.net/~lahtis"
 
 #: src/remmina_ftp_client.c:392
 msgid "Choose download location"
@@ -734,7 +736,7 @@ msgstr "Haluatko varmasti poistaa valitut tiedostot palvelimelta?"
 
 #: src/remmina_ftp_client.c:589
 msgid "Choose a file to upload"
-msgstr "Valitse lähetettävä tiedosto"
+msgstr "Valitse ladattava tiedosto"
 
 #: src/remmina_ftp_client.c:596
 msgid "Upload folder"
@@ -768,7 +770,7 @@ msgstr "Ylös"
 msgid "Go to parent folder"
 msgstr "Siirry yläkansioon"
 
-#: src/remmina_ftp_client.c:764 plugins/rdp/rdp_plugin.c:2855
+#: src/remmina_ftp_client.c:764 plugins/rdp/rdp_plugin.c:2865
 #: plugins/vnc/vnc_plugin.c:2072
 msgid "Refresh"
 msgstr "Päivitä"
@@ -814,11 +816,11 @@ msgstr "Ryhmä"
 msgid "Permission"
 msgstr "Oikeudet"
 
-#: src/remmina_ftp_client.c:996 plugins/rdp/rdp_plugin.c:2652
+#: src/remmina_ftp_client.c:996 plugins/rdp/rdp_plugin.c:2662
 msgid "Remote"
 msgstr "Etä"
 
-#: src/remmina_ftp_client.c:1003 plugins/rdp/rdp_plugin.c:2651
+#: src/remmina_ftp_client.c:1003 plugins/rdp/rdp_plugin.c:2661
 msgid "Local"
 msgstr "Paikallinen"
 
@@ -845,7 +847,7 @@ msgstr "Yhdistetään kohteeseen \"%s\"…"
 #: src/remmina_protocol_widget.c:916 src/remmina_protocol_widget.c:1101
 #, c-format
 msgid "Connecting to “%s” via SSH…"
-msgstr "Yhdistetään kohteeseen ”%s”…"
+msgstr "Yhdistetään kohteeseen SSH:n kautta ”%s”…"
 
 #. TRANSLATORS: “%i” is a placeholder for a TCP port number.
 #: src/remmina_protocol_widget.c:1165
@@ -861,8 +863,7 @@ msgstr "Komento \"%s\" ei ole käytettävissä SSH-palvelimessa."
 #: src/remmina_protocol_widget.c:1223
 #, c-format
 msgid "Could not run the “%s” command on the SSH server (status = %i)."
-msgstr ""
-"Komennon \"%s\" suorittaminen SSH-palvelimessa ei onnistunut (tila = %i)."
+msgstr "Komentoa \"%s\" ei voitu suorittaa SSH-palvelimella (tila = %i)."
 
 #. TRANSLATORS: %s is a placeholder for an error message
 #: src/remmina_protocol_widget.c:1231
@@ -874,15 +875,15 @@ msgstr "Komentoa ei voitu suorittaa. %s"
 #: src/remmina_protocol_widget.c:1301
 #, c-format
 msgid "Connecting to %s via SSH…"
-msgstr "Yhdistetään kohteeseen ”%s”…"
+msgstr "Yhdistetään kohteeseen ”%s” SSH-kautta…"
 
 #: src/remmina_protocol_widget.c:1698
 msgid "Type in SSH username and password."
-msgstr "Kirjoita käyttäjänimi ja salasana SSH:lle."
+msgstr "Kirjoita käyttäjätunnus ja salasana SSH:lle."
 
 #: src/remmina_protocol_widget.c:1753 src/remmina_protocol_widget.c:1785
 msgid "Fingerprint automatically accepted"
-msgstr "Sormenjälki hyväksytty automaattisesti"
+msgstr "Sormenjälki hyväksyttiin automaattisesti"
 
 #. TRANSLATORS: The user is asked to verify a new SSL certificate.
 #: src/remmina_protocol_widget.c:1761
@@ -933,7 +934,7 @@ msgstr "Hyväksytäänkö muuttunut varmenne?"
 #: src/remmina_protocol_widget.c:1946
 #, c-format
 msgid "Listening on port %i for an incoming %s connection…"
-msgstr "Kuunnellaan porttia %i saapuvan %s-yhteyden varalta…"
+msgstr "Kuunnellaan portista %i saapuvaa %s-yhteyttä…"
 
 #: src/remmina_protocol_widget.c:1971
 msgid "Could not authenticate, attempting reconnection…"
@@ -948,22 +949,21 @@ msgstr "Palvelin"
 #: src/remmina_protocol_widget.c:2051
 #, c-format
 msgid "Install the %s protocol plugin first."
-msgstr "Asenna %s-protokollan liitännäinen ensin."
+msgstr "Asenna ensin %s-protokollalaajennus."
 
 #: src/remmina_ssh.c:236
 #, c-format
 msgid "Could not authenticate with TOTP/OTP/2FA. %s"
-msgstr "Ei voitu todentaa SSH-salasanaa. %s"
+msgstr "TOTP/OTP/2FA:lla ei voitu todentaa. %s"
 
 #: src/remmina_ssh.c:295 src/remmina_ssh.c:676
 #, c-format
 msgid "Could not authenticate with SSH password. %s"
-msgstr "Ei voitu todentaa SSH-salasanaa. %s"
+msgstr "Ei voitu todentaa SSH-salasanalla. %s"
 
 #: src/remmina_ssh.c:322 src/remmina_ssh.c:389
 msgid "No saved SSH passphrase supplied. Asking user to enter it."
-msgstr ""
-"Tallennettua SSH-salasanaa ei toimiteta. Pyydetään käyttäjää syöttämään se."
+msgstr "Ei tallennettua SSH-salalausetta. Käyttäjää pyydetään syöttämään se."
 
 #. TRANSLATORS: The placeholder %s is an error message
 #: src/remmina_ssh.c:327 src/remmina_ssh.c:368 src/remmina_ssh.c:394
@@ -976,7 +976,7 @@ msgstr "Todennus ei onnistunut julkisen SSH-avaimen avulla. %s"
 #: src/remmina_ssh.c:336
 #, c-format
 msgid "SSH certificate cannot be imported. %s"
-msgstr "SSH-varmennetta ei voi tuoda. %s"
+msgstr "SSH-varmenteen tuonti ei onnistu. %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
 #: src/remmina_ssh.c:345
@@ -992,7 +992,7 @@ msgstr "Todennus ei onnistunut SSH-varmenteen avulla. %s"
 
 #: src/remmina_ssh.c:369
 msgid "SSH identity file not selected."
-msgstr "SSH-avaintiedostoa ei ole asetettu."
+msgstr "SSH-identiteettitiedostoa ei ole valittu."
 
 #. TRANSLATORS: The placeholder %s is an error message
 #: src/remmina_ssh.c:380
@@ -1009,8 +1009,7 @@ msgstr ""
 #: src/remmina_ssh.c:523
 #, c-format
 msgid "Could not authenticate automatically with SSH agent. %s"
-msgstr ""
-"Automaattista todentamista julkisen SSH-avaimen avulla ei voitu suorittaa. %s"
+msgstr "Ei voitu todentaa automaattisesti SSH-agentilla. %s"
 
 #: src/remmina_ssh.c:569 src/remmina_ssh.c:856
 #, c-format
@@ -1020,12 +1019,12 @@ msgstr ""
 
 #: src/remmina_ssh.c:598
 msgid "The public SSH key changed!"
-msgstr "Julkinen SSH-avain on muutettu!"
+msgstr "Julkinen SSH-avain on muuttunut!"
 
 #: src/remmina_ssh.c:711
 #, c-format
 msgid "Could not authenticate with keyboard-interactive. %s"
-msgstr "Todennus ei onnistunut julkisen SSH-avaimen avulla. %s"
+msgstr "Todentaminen ei onnistunut vuorovaikutteisella näppäimistöllä. %s"
 
 #: src/remmina_ssh.c:813
 #, c-format
@@ -1036,23 +1035,23 @@ msgstr "Todennus ei onnistunut julkisen SSH-avaimen avulla. %s"
 #: src/remmina_ssh.c:921
 #, c-format
 msgid "Could not fetch the server's public SSH key. %s"
-msgstr "Palvelimen julkisen SSH-avaimen hakeminen ei onnistunut. %s"
+msgstr "Palvelimen julkista SSH-avainta ei voitu noutaa. %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
 #: src/remmina_ssh.c:928
 #, c-format
 msgid "Could not fetch public SSH key. %s"
-msgstr "Julkisen SSH-avaimen hakeminen ei onnistunut. %s"
+msgstr "Julkisen SSH-avaimen noutaminen ei onnistunut. %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
 #: src/remmina_ssh.c:936
 #, c-format
 msgid "Could not fetch checksum of the public SSH key. %s"
-msgstr "Julkisen SSH-avaimen tarkistussumman hakeminen ei onnistunut. %s"
+msgstr "Julkisen SSH-avaimen tarkistussummaa ei voitu noutaa. %s"
 
 #: src/remmina_ssh.c:949
 msgid "The server is unknown. The public key fingerprint is:"
-msgstr "Palvelin on tuntematon. Julkisen avaimen sormenjälki:"
+msgstr "Palvelin on tuntematon. Julkisen avaimen sormenjälki on:"
 
 #: src/remmina_ssh.c:951 src/remmina_ssh.c:957
 msgid "Do you trust the new public key?"
@@ -1064,8 +1063,8 @@ msgid ""
 "under attack,\n"
 "or the administrator has changed the key. The new public key fingerprint is:"
 msgstr ""
-"VAROITUS: Palvelimen julkinen avain on muuttunut. Tämä tarkoittaa, että joko "
-"kyseessä on tietoturvahyökkäys\n"
+"Varoitus: Palvelin on muuttanut julkista avaintaan. Tämä tarkoittaa, että "
+"joko kyseessä on tietoturvahyökkäys \n"
 "tai palvelimen ylläpitäjä on muuttanut avaimen. Uuden julkisen avaimen "
 "sormenjälki:"
 
@@ -1073,7 +1072,7 @@ msgstr ""
 #: src/remmina_ssh.c:979
 #, c-format
 msgid "Could not check list of known SSH hosts. %s"
-msgstr "Tunnettujen SSH-koneiden luetteloa ei voitu tarkistaa. %s"
+msgstr "Tunnettujen SSH-isäntien luetteloa ei voitu tarkistaa. %s"
 
 #: src/remmina_ssh.c:988
 msgid "SSH password"
@@ -1081,7 +1080,7 @@ msgstr "SSH-salasana"
 
 #: src/remmina_ssh.c:995 src/remmina_ssh.c:1039
 msgid "SSH private key passphrase"
-msgstr "Yksityisen SSH-avaimen salalause"
+msgstr "SSH:n yksityisen avaimen tunnuslause"
 
 #: src/remmina_ssh.c:1000
 msgid "SSH Kerberos/GSSAPI"
@@ -1089,7 +1088,7 @@ msgstr "SSH Kerberos/GSSAPI"
 
 #: src/remmina_ssh.c:1005
 msgid "Enter TOTP/OTP/2FA code"
-msgstr "Kirjoita TOTP-/OTP-/2FA-koodi"
+msgstr "Syötä TOTP/OTP/2FA-koodi"
 
 #: src/remmina_ssh.c:1035 src/remmina_ssh.c:1061
 msgid "SSH tunnel credentials"
@@ -1501,7 +1500,7 @@ msgstr "Tunneli loopback-osoitteen kautta"
 msgid "Same server at port %i"
 msgstr "Sama palvelin portissa %i"
 
-#: src/remmina_file_editor.c:1202 plugins/rdp/rdp_plugin.c:2809
+#: src/remmina_file_editor.c:1202 plugins/rdp/rdp_plugin.c:2819
 msgid "Start-up path"
 msgstr "Käynnistyspolku"
 
@@ -1907,22 +1906,22 @@ msgstr "< Ei määritetty >"
 msgid "<Choose a quality level to edit…>"
 msgstr "<Valitse muokattava laatutaso…>"
 
-#: plugins/rdp/rdp_settings.c:282 plugins/rdp/rdp_plugin.c:2626
+#: plugins/rdp/rdp_settings.c:282 plugins/rdp/rdp_plugin.c:2636
 #: plugins/vnc/vnc_plugin.c:1969
 msgid "Poor (fastest)"
 msgstr "Heikko (nopein)"
 
-#: plugins/rdp/rdp_settings.c:284 plugins/rdp/rdp_plugin.c:2627
+#: plugins/rdp/rdp_settings.c:284 plugins/rdp/rdp_plugin.c:2637
 #: plugins/vnc/vnc_plugin.c:1968
 msgid "Medium"
 msgstr "Keskitaso"
 
-#: plugins/rdp/rdp_settings.c:286 plugins/rdp/rdp_plugin.c:2628
+#: plugins/rdp/rdp_settings.c:286 plugins/rdp/rdp_plugin.c:2638
 #: plugins/vnc/vnc_plugin.c:1966
 msgid "Good"
 msgstr "Hyvä"
 
-#: plugins/rdp/rdp_settings.c:288 plugins/rdp/rdp_plugin.c:2629
+#: plugins/rdp/rdp_settings.c:288 plugins/rdp/rdp_plugin.c:2639
 #: plugins/vnc/vnc_plugin.c:1967
 msgid "Best (slowest)"
 msgstr "Paras (hitain)"
@@ -2006,7 +2005,7 @@ msgstr "Työpöydän suunta"
 msgid "Input device settings"
 msgstr "Syöttölaitteen asetukset"
 
-#: plugins/rdp/rdp_settings.c:658 plugins/rdp/rdp_plugin.c:2770
+#: plugins/rdp/rdp_settings.c:658 plugins/rdp/rdp_plugin.c:2780
 #: plugins/vnc/vnc_plugin.c:2052
 msgid "Disable smooth scrolling"
 msgstr "Poista tasainen vieritys käytöstä"
@@ -2015,32 +2014,32 @@ msgstr "Poista tasainen vieritys käytöstä"
 msgid "General settings"
 msgstr "Yleiset asetukset"
 
-#: plugins/rdp/rdp_settings.c:676 plugins/rdp/rdp_plugin.c:2823
+#: plugins/rdp/rdp_settings.c:676 plugins/rdp/rdp_plugin.c:2833
 msgid "Reconnect attempts number"
 msgstr "Yhteyden uudelleen muodostamisyritysten määrä"
 
-#: plugins/rdp/rdp_settings.c:689 plugins/rdp/rdp_plugin.c:2823
+#: plugins/rdp/rdp_settings.c:689 plugins/rdp/rdp_plugin.c:2833
 msgid ""
 "The maximum number of reconnect attempts upon an RDP disconnect (default: 20)"
 msgstr ""
 "RDP-yhteyden katkaisun yhteydessä tehtävien uudelleenyhdistysyritysten "
 "enimmäismäärä (oletusarvo: 20)"
 
-#: plugins/rdp/rdp_plugin.c:772 plugins/rdp/rdp_plugin.c:837
+#: plugins/rdp/rdp_plugin.c:781 plugins/rdp/rdp_plugin.c:846
 msgid "Enter RDP authentication credentials"
 msgstr "Syötä RDP-kirjautumistiedot"
 
-#: plugins/rdp/rdp_plugin.c:845
+#: plugins/rdp/rdp_plugin.c:854
 msgid "Enter RDP gateway authentication credentials"
 msgstr "Syötä RDP-yhdyskäytävän kirjautumistiedot"
 
 #. TRANSLATORS: the placeholder may be either an IP/FQDN or a server hostname
-#: plugins/rdp/rdp_plugin.c:1028
+#: plugins/rdp/rdp_plugin.c:1037
 #, c-format
 msgid "Disconnected from %s via RDP"
 msgstr ""
 
-#: plugins/rdp/rdp_plugin.c:2157
+#: plugins/rdp/rdp_plugin.c:2167
 #, c-format
 msgid ""
 "Could not access the RDP server “%s”.\n"
@@ -2049,7 +2048,7 @@ msgstr ""
 "Pääsy RDP-palvelimeen \"%s\" epäonnistui.\n"
 "Tili on lukittu."
 
-#: plugins/rdp/rdp_plugin.c:2164
+#: plugins/rdp/rdp_plugin.c:2174
 #, c-format
 msgid ""
 "Could not access the RDP server “%s”.\n"
@@ -2058,7 +2057,7 @@ msgstr ""
 "Pääsy RDP-palvelimeen \"%s\" epäonnistui.\n"
 "Tili on vanhentunut."
 
-#: plugins/rdp/rdp_plugin.c:2171
+#: plugins/rdp/rdp_plugin.c:2181
 #, c-format
 msgid ""
 "Could not access the RDP server “%s”.\n"
@@ -2067,7 +2066,7 @@ msgstr ""
 "Pääsy RDP-palvelimeen \"%s\" epäonnistui.\n"
 "Salasana on vanhentunut."
 
-#: plugins/rdp/rdp_plugin.c:2178
+#: plugins/rdp/rdp_plugin.c:2188
 #, c-format
 msgid ""
 "Could not access the RDP server “%s”.\n"
@@ -2076,7 +2075,7 @@ msgstr ""
 "Pääsy RDP-palvelimeen \"%s\" epäonnistui.\n"
 "Tili on poistettu käytöstä."
 
-#: plugins/rdp/rdp_plugin.c:2184
+#: plugins/rdp/rdp_plugin.c:2194
 #, c-format
 msgid ""
 "Could not access the RDP server “%s”.\n"
@@ -2085,7 +2084,7 @@ msgstr ""
 "Pääsy RDP-palvelimeen \"%s\" epäonnistui. \n"
 "Käyttäjällä ei ole riittävästi oikeuksia."
 
-#: plugins/rdp/rdp_plugin.c:2192
+#: plugins/rdp/rdp_plugin.c:2202
 #, c-format
 msgid ""
 "Could not access the RDP server “%s”.\n"
@@ -2094,7 +2093,7 @@ msgstr ""
 "Pääsy RDP-palvelimeen \"%s\" epäonnistui.\n"
 "Tilillä on rajoituksia."
 
-#: plugins/rdp/rdp_plugin.c:2200
+#: plugins/rdp/rdp_plugin.c:2210
 #, c-format
 msgid ""
 "Could not access the RDP server “%s”.\n"
@@ -2103,17 +2102,17 @@ msgstr ""
 "Pääsy RDP-palvelimeen \"%s\" epäonnistui.\n"
 "Käyttäjän on vaihdettava salasana ennen yhteyden muodostamista."
 
-#: plugins/rdp/rdp_plugin.c:2205
+#: plugins/rdp/rdp_plugin.c:2215
 #, c-format
 msgid "Lost connection to the RDP server “%s”."
 msgstr "Yhteyden muodostaminen RDP-palvelimeen \"%s\" ei onnistunut."
 
-#: plugins/rdp/rdp_plugin.c:2208
+#: plugins/rdp/rdp_plugin.c:2218
 #, c-format
 msgid "Could not find the address for the RDP server “%s”."
 msgstr "RDP-palvelimen osoitetta \"%s\" ei löytynyt."
 
-#: plugins/rdp/rdp_plugin.c:2212
+#: plugins/rdp/rdp_plugin.c:2222
 #, fuzzy, c-format
 #| msgid ""
 #| "Could not connect to the RDP server “%s” via TLS. Check that client and "
@@ -2126,7 +2125,7 @@ msgstr ""
 "asiakas ja palvelin tukevat yhteistä TLS-versiota."
 
 #. TRANSLATORS: the placeholder may be either an IP/FQDN or a server hostname
-#: plugins/rdp/rdp_plugin.c:2216
+#: plugins/rdp/rdp_plugin.c:2226
 #, c-format
 msgid ""
 "Unable to establish a connection to the RDP server “%s”. Check “Security "
@@ -2135,16 +2134,16 @@ msgstr ""
 "Yhteyttä RDP-palvelimeen \"%s\" ei pystytä muodostamaan. Tarkista "
 "\"Tietoturvaprotokollan neuvottelu\"."
 
-#: plugins/rdp/rdp_plugin.c:2224
+#: plugins/rdp/rdp_plugin.c:2234
 #, c-format
 msgid "Cannot connect to the RDP server “%s”."
 msgstr "Yhteyden muodostaminen RDP-palvelimeen \"%s\" ei onnistunut."
 
-#: plugins/rdp/rdp_plugin.c:2227
+#: plugins/rdp/rdp_plugin.c:2237
 msgid "Could not start libfreerdp-gdi."
 msgstr "Ei voitu käynnistää libfreerdp-gdi:tä."
 
-#: plugins/rdp/rdp_plugin.c:2230
+#: plugins/rdp/rdp_plugin.c:2240
 #, c-format
 msgid ""
 "You requested a H.264 GFX mode for the server “%s”, but your libfreerdp does "
@@ -2153,12 +2152,12 @@ msgstr ""
 "Pyysit H.264 GFX -tilaa palvelimelle \"%s\", mutta käytössäsi oleva "
 "libfreerdp ei tue H.264:aa. Käytä muuta kuin AVC-värisyvyysasetusta."
 
-#: plugins/rdp/rdp_plugin.c:2237
+#: plugins/rdp/rdp_plugin.c:2247
 #, c-format
 msgid "The “%s” server refused the connection."
 msgstr "Palvelin \"%s\" esti yhteyden."
 
-#: plugins/rdp/rdp_plugin.c:2242
+#: plugins/rdp/rdp_plugin.c:2252
 #, c-format
 msgid ""
 "The Remote Desktop Gateway “%s” denied the user “%s\\%s” access due to "
@@ -2167,117 +2166,117 @@ msgstr ""
 "Etätyöpöytäyhdyskäytävä \"%s\" esti käyttäjän \"%s\\%s\" pääsyn policy-"
 "käytännön vuoksi."
 
-#: plugins/rdp/rdp_plugin.c:2252
+#: plugins/rdp/rdp_plugin.c:2262
 #, c-format
 msgid "Cannot connect to the “%s” RDP server."
 msgstr "Yhteyden muodostaminen RDP-palvelimeen \"%s\" ei onnistu."
 
-#: plugins/rdp/rdp_plugin.c:2595
+#: plugins/rdp/rdp_plugin.c:2605
 msgid "Automatic (32 bpp) (Server chooses its best format)"
 msgstr "Automaattinen (32 bpp) (Palvelin valitsee parhaan muodon)"
 
-#: plugins/rdp/rdp_plugin.c:2596
+#: plugins/rdp/rdp_plugin.c:2606
 msgid "GFX AVC444 (32 bpp)"
 msgstr "GFX AVC444 (32 bpp)"
 
-#: plugins/rdp/rdp_plugin.c:2597
+#: plugins/rdp/rdp_plugin.c:2607
 msgid "GFX AVC420 (32 bpp)"
 msgstr "GFX AVC420 (32 bpp)"
 
-#: plugins/rdp/rdp_plugin.c:2598
+#: plugins/rdp/rdp_plugin.c:2608
 msgid "GFX RFX (32 bpp)"
 msgstr "GFX RFX (32 bpp)"
 
-#: plugins/rdp/rdp_plugin.c:2599
+#: plugins/rdp/rdp_plugin.c:2609
 msgid "GFX RFX Progressive (32 bpp)"
 msgstr "GFX RFX (32 bpp)"
 
-#: plugins/rdp/rdp_plugin.c:2600
+#: plugins/rdp/rdp_plugin.c:2610
 msgid "RemoteFX (32 bpp)"
 msgstr "RemoteFX (32 bpp)"
 
-#: plugins/rdp/rdp_plugin.c:2601 plugins/vnc/vnc_plugin.c:1957
+#: plugins/rdp/rdp_plugin.c:2611 plugins/vnc/vnc_plugin.c:1957
 msgid "True colour (32 bpp)"
 msgstr "True colour (32 bpp)"
 
-#: plugins/rdp/rdp_plugin.c:2602
+#: plugins/rdp/rdp_plugin.c:2612
 msgid "True colour (24 bpp)"
 msgstr "True colour (24 bpp)"
 
-#: plugins/rdp/rdp_plugin.c:2603 plugins/vnc/vnc_plugin.c:1958
+#: plugins/rdp/rdp_plugin.c:2613 plugins/vnc/vnc_plugin.c:1958
 msgid "High colour (16 bpp)"
 msgstr "High colour (16 bpp)"
 
-#: plugins/rdp/rdp_plugin.c:2604
+#: plugins/rdp/rdp_plugin.c:2614
 msgid "High colour (15 bpp)"
 msgstr "High colour (15 bpp)"
 
-#: plugins/rdp/rdp_plugin.c:2605 plugins/vnc/vnc_plugin.c:1959
+#: plugins/rdp/rdp_plugin.c:2615 plugins/vnc/vnc_plugin.c:1959
 msgid "256 colours (8 bpp)"
 msgstr "256 väriä (8 bpp)"
 
-#: plugins/rdp/rdp_plugin.c:2636 data/ui/remmina_preferences.glade:640
+#: plugins/rdp/rdp_plugin.c:2646 data/ui/remmina_preferences.glade:640
 msgid "None"
 msgstr "Ei mitään"
 
-#: plugins/rdp/rdp_plugin.c:2637
+#: plugins/rdp/rdp_plugin.c:2647
 msgid "Auto-detect"
 msgstr "<Havaitse automaattisesti>"
 
-#: plugins/rdp/rdp_plugin.c:2638
+#: plugins/rdp/rdp_plugin.c:2648
 msgid "Modem"
 msgstr "Modeemi"
 
-#: plugins/rdp/rdp_plugin.c:2639
+#: plugins/rdp/rdp_plugin.c:2649
 msgid "Low performance broadband"
 msgstr "Matala suorituskykyinen laajakaista"
 
-#: plugins/rdp/rdp_plugin.c:2640
+#: plugins/rdp/rdp_plugin.c:2650
 msgid "Satellite"
 msgstr "Satelliitti"
 
-#: plugins/rdp/rdp_plugin.c:2641
+#: plugins/rdp/rdp_plugin.c:2651
 msgid "High performance broadband"
 msgstr "Korkea suorituskykyinen laajakaista"
 
-#: plugins/rdp/rdp_plugin.c:2642
+#: plugins/rdp/rdp_plugin.c:2652
 msgid "WAN"
 msgstr "WAN"
 
-#: plugins/rdp/rdp_plugin.c:2643
+#: plugins/rdp/rdp_plugin.c:2653
 msgid "LAN"
 msgstr "LAN"
 
-#: plugins/rdp/rdp_plugin.c:2650 plugins/spice/spice_plugin.c:637
+#: plugins/rdp/rdp_plugin.c:2660 plugins/spice/spice_plugin.c:637
 #: data/ui/remmina_preferences.glade:676
 msgid "Off"
 msgstr "Pois"
 
-#: plugins/rdp/rdp_plugin.c:2659
+#: plugins/rdp/rdp_plugin.c:2669
 msgid "Automatic negotiation"
 msgstr "Neuvottele automaattisesti"
 
-#: plugins/rdp/rdp_plugin.c:2660
+#: plugins/rdp/rdp_plugin.c:2670
 msgid "NLA protocol security"
 msgstr "NLA-protokollan turvallisuus"
 
-#: plugins/rdp/rdp_plugin.c:2661
+#: plugins/rdp/rdp_plugin.c:2671
 msgid "TLS protocol security"
 msgstr "TLS-protokollan turvallisuus"
 
-#: plugins/rdp/rdp_plugin.c:2662
+#: plugins/rdp/rdp_plugin.c:2672
 msgid "RDP protocol security"
 msgstr "RDP-protokollan turvallisuus"
 
-#: plugins/rdp/rdp_plugin.c:2663
+#: plugins/rdp/rdp_plugin.c:2673
 msgid "NLA extended protocol security"
 msgstr "NLA:n laajennetun protokollan turvallisuus"
 
-#: plugins/rdp/rdp_plugin.c:2676
+#: plugins/rdp/rdp_plugin.c:2686
 msgid "2600 (Windows XP), 7601 (Windows Vista/7), 9600 (Windows 8 and newer)"
 msgstr "2600 (Windows XP), 7601 (Windows Vista/7), 9600 (Windows 8 ja uudempi)"
 
-#: plugins/rdp/rdp_plugin.c:2679
+#: plugins/rdp/rdp_plugin.c:2689
 msgid ""
 "Used i.a. by terminal services in a smart card channel to distinguish client "
 "capabilities:\n"
@@ -2295,7 +2294,7 @@ msgstr ""
 "  • >= 7065: Windows 8 ja uudempi: SCardGetReaderIcon(), "
 "SCardGetDeviceTypeId()"
 
-#: plugins/rdp/rdp_plugin.c:2687
+#: plugins/rdp/rdp_plugin.c:2697
 msgid ""
 "Options for redirection of audio input:\n"
 "  • [sys:<sys>,][dev:<dev>,][format:<format>,][rate:<rate>,]\n"
@@ -2313,7 +2312,7 @@ msgstr ""
 "  • sys:oss,dev:1,format:1\n"
 "  • sys:alsa"
 
-#: plugins/rdp/rdp_plugin.c:2696
+#: plugins/rdp/rdp_plugin.c:2706
 msgid ""
 "Options for redirection of audio output:\n"
 "  • [sys:<sys>,][dev:<dev>,][format:<format>,][rate:<rate>,]\n"
@@ -2331,7 +2330,7 @@ msgstr ""
 "  • sys:oss,dev:1,format:1\n"
 "  • sys:alsa"
 
-#: plugins/rdp/rdp_plugin.c:2706
+#: plugins/rdp/rdp_plugin.c:2716
 msgid ""
 "Options for redirection of USB device:\n"
 "  • [dbg,][id:<vid>:<pid>#…,][addr:<bus>:<addr>#…,][auto]\n"
@@ -2343,7 +2342,7 @@ msgstr ""
 "  • auto\n"
 "  • id:054c:0268#4669:6e6b,addr:04:0c"
 
-#: plugins/rdp/rdp_plugin.c:2712
+#: plugins/rdp/rdp_plugin.c:2722
 msgid ""
 "Advanced setting for high latency links:\n"
 "Adjusts the connection timeout. Use if your connection times out.\n"
@@ -2353,7 +2352,7 @@ msgstr ""
 "Säätää yhteyden aikakatkaisua. Käytä, jos yhteys katkeaa.\n"
 "Suurin mahdollinen arvo on 600000 ms (kymmenen minuuttia).\n"
 
-#: plugins/rdp/rdp_plugin.c:2717
+#: plugins/rdp/rdp_plugin.c:2727
 msgid ""
 "Performance optimisations based on the network connection type:\n"
 "Using auto-detection is advised.\n"
@@ -2364,7 +2363,7 @@ msgstr ""
 "Jos automaattinen tunnistus ei onnistu, valitse sopivin vaihtoehto "
 "luettelosta.\n"
 
-#: plugins/rdp/rdp_plugin.c:2722
+#: plugins/rdp/rdp_plugin.c:2732
 msgid ""
 "Comma-separated list of monitor IDs and desktop orientations:\n"
 "  • [<id>:<orientation-in-degrees>,]\n"
@@ -2388,7 +2387,7 @@ msgstr ""
 "  - 270 (muotokuva käännettynä)\n"
 "\n"
 
-#: plugins/rdp/rdp_plugin.c:2734
+#: plugins/rdp/rdp_plugin.c:2744
 msgid ""
 "Redirect directory <path> as named share <name>.\n"
 "  • <name>,<fullpath>[;<name>,<fullpath>[;…]]\n"
@@ -2408,142 +2407,142 @@ msgstr ""
 "  - hotplug,*\n"
 "\n"
 
-#: plugins/rdp/rdp_plugin.c:2766 plugins/spice/spice_plugin.c:679
+#: plugins/rdp/rdp_plugin.c:2776 plugins/spice/spice_plugin.c:679
 msgid "Share folder"
 msgstr "Jaa kansio"
 
-#: plugins/rdp/rdp_plugin.c:2766
+#: plugins/rdp/rdp_plugin.c:2776
 msgid "Use “Redirect directory” in the advanced tab for multiple directories"
 msgstr ""
 "Käytä \"Ohjaa hakemisto uudelleen\" lisäasetukset-välilehdellä useita "
 "hakemistoja varten."
 
-#: plugins/rdp/rdp_plugin.c:2767
+#: plugins/rdp/rdp_plugin.c:2777
 #, fuzzy
 msgid "Restricted admin mode"
 msgstr "Rajoitettu hallintatila"
 
-#: plugins/rdp/rdp_plugin.c:2768
+#: plugins/rdp/rdp_plugin.c:2778
 msgid "Password hash"
 msgstr "Salasanan tiiviste"
 
-#: plugins/rdp/rdp_plugin.c:2768
+#: plugins/rdp/rdp_plugin.c:2778
 #, fuzzy
 msgid "Restricted admin mode password hash"
 msgstr "Rajoitetun hallintatilan salasanan hash"
 
-#: plugins/rdp/rdp_plugin.c:2769
+#: plugins/rdp/rdp_plugin.c:2779
 msgid "Left-handed mouse support"
 msgstr "Vasemman käden hiirituki"
 
-#: plugins/rdp/rdp_plugin.c:2769
+#: plugins/rdp/rdp_plugin.c:2779
 msgid "Swap left and right mouse buttons for left-handed mouse support"
 msgstr "Vaihda vasen ja oikea hiiren painike vasenkätisen hiiren tueksi"
 
-#: plugins/rdp/rdp_plugin.c:2771
+#: plugins/rdp/rdp_plugin.c:2781
 msgid "Enable multi monitor"
 msgstr "Ota moninäyttö käyttöön"
 
-#: plugins/rdp/rdp_plugin.c:2772
+#: plugins/rdp/rdp_plugin.c:2782
 msgid "Span screen over multiple monitors"
 msgstr "Jatka näyttöä useiden näyttöjen yli"
 
-#: plugins/rdp/rdp_plugin.c:2773
+#: plugins/rdp/rdp_plugin.c:2783
 msgid "List monitor IDs"
 msgstr "Luettelo monitorin tunnuksista"
 
-#: plugins/rdp/rdp_plugin.c:2775 plugins/vnc/vnc_plugin.c:2021
+#: plugins/rdp/rdp_plugin.c:2785 plugins/vnc/vnc_plugin.c:2021
 #: plugins/vnc/vnc_plugin.c:2033 plugins/gvnc/gvnc_plugin.c:849
 msgid "Colour depth"
 msgstr "Värisyvyys"
 
-#: plugins/rdp/rdp_plugin.c:2776
+#: plugins/rdp/rdp_plugin.c:2786
 msgid "Network connection type"
 msgstr "Uusi yhteysprofiili"
 
-#: plugins/rdp/rdp_plugin.c:2792 plugins/vnc/vnc_plugin.c:2022
+#: plugins/rdp/rdp_plugin.c:2802 plugins/vnc/vnc_plugin.c:2022
 #: plugins/vnc/vnc_plugin.c:2034
 msgid "Quality"
 msgstr "Laatu"
 
-#: plugins/rdp/rdp_plugin.c:2793
+#: plugins/rdp/rdp_plugin.c:2803
 msgid "Security protocol negotiation"
 msgstr "Turvallisuusprotokollan neuvottelut"
 
-#: plugins/rdp/rdp_plugin.c:2794
+#: plugins/rdp/rdp_plugin.c:2804
 msgid "Gateway transport type"
 msgstr "Yhdyskäytävän liikenteen tyyppi"
 
-#: plugins/rdp/rdp_plugin.c:2795
+#: plugins/rdp/rdp_plugin.c:2805
 msgid "FreeRDP log level"
 msgstr "FreeRDP-lokitaso"
 
-#: plugins/rdp/rdp_plugin.c:2796
+#: plugins/rdp/rdp_plugin.c:2806
 msgid "FreeRDP log filters"
 msgstr "FreeRDP-lokitaso"
 
-#: plugins/rdp/rdp_plugin.c:2796
+#: plugins/rdp/rdp_plugin.c:2806
 msgid "tag:level[,tag:level[,…]]"
 msgstr "tag:level[,tag:level[,…]]"
 
-#: plugins/rdp/rdp_plugin.c:2797
+#: plugins/rdp/rdp_plugin.c:2807
 msgid "Audio output mode"
 msgstr "Äänilähtötila"
 
-#: plugins/rdp/rdp_plugin.c:2798
+#: plugins/rdp/rdp_plugin.c:2808
 msgid "Redirect local audio output"
 msgstr "Ohjaa paikallinen mikrofoni"
 
-#: plugins/rdp/rdp_plugin.c:2799
+#: plugins/rdp/rdp_plugin.c:2809
 msgid "Redirect local microphone"
 msgstr "Ohjaa paikallinen mikrofoni"
 
-#: plugins/rdp/rdp_plugin.c:2800
+#: plugins/rdp/rdp_plugin.c:2810
 msgid "Connection timeout in ms"
 msgstr "Yhteyden aikakatkaisu ms:na"
 
-#: plugins/rdp/rdp_plugin.c:2801
+#: plugins/rdp/rdp_plugin.c:2811
 msgid "Remote Desktop Gateway server"
 msgstr "Etätyöpöydän yhdyskäytäväpalvelin"
 
-#: plugins/rdp/rdp_plugin.c:2802
+#: plugins/rdp/rdp_plugin.c:2812
 msgid "Remote Desktop Gateway username"
 msgstr "Etätyöpöydän yhdyskäytävän käyttäjätunnus"
 
-#: plugins/rdp/rdp_plugin.c:2803
+#: plugins/rdp/rdp_plugin.c:2813
 msgid "Remote Desktop Gateway password"
 msgstr "Etätyöpöydän yhdyskäytävän salasana"
 
-#: plugins/rdp/rdp_plugin.c:2804
+#: plugins/rdp/rdp_plugin.c:2814
 msgid "Remote Desktop Gateway domain"
 msgstr "Etätyöpöydän yhdyskäytävän verkkotunnus"
 
-#: plugins/rdp/rdp_plugin.c:2805
+#: plugins/rdp/rdp_plugin.c:2815
 msgid "Redirect directory"
 msgstr "Uudelleenohjaushakemisto"
 
-#: plugins/rdp/rdp_plugin.c:2806
+#: plugins/rdp/rdp_plugin.c:2816
 msgid "Client name"
 msgstr "Asiakkaan nimi"
 
-#: plugins/rdp/rdp_plugin.c:2807
+#: plugins/rdp/rdp_plugin.c:2817
 msgid "Client build"
 msgstr "Asiakkaan koontiversio"
 
-#: plugins/rdp/rdp_plugin.c:2808
+#: plugins/rdp/rdp_plugin.c:2818
 msgid "Start-up program"
 msgstr "Käynnistettävä ohjelma"
 
-#: plugins/rdp/rdp_plugin.c:2810
+#: plugins/rdp/rdp_plugin.c:2820
 msgid "Load balance info"
 msgstr "Kuormitustiedot"
 
 #. TRANSLATORS: Do not use typographic quotation marks, these must stay as "double quote", also know as “Typewriter ("programmer's") quote, ambidextrous.”
-#: plugins/rdp/rdp_plugin.c:2812
+#: plugins/rdp/rdp_plugin.c:2822
 msgid "Override printer drivers"
 msgstr "Ohita tulostinajurit"
 
-#: plugins/rdp/rdp_plugin.c:2812
+#: plugins/rdp/rdp_plugin.c:2822
 msgid ""
 "\"Samsung_CLX-3300_Series\":\"Samsung CLX-3300 Series PS\";\"Canon MF410\":"
 "\"Canon MF410 Series UFR II\""
@@ -2551,174 +2550,174 @@ msgstr ""
 "\"Samsung_CLX-3300_Series\":\"Samsung CLX-3300 Series PS\";\"Canon MF410\":"
 "\"Canon MF410 Series UFR II\""
 
-#: plugins/rdp/rdp_plugin.c:2813
+#: plugins/rdp/rdp_plugin.c:2823
 msgid "USB device redirection"
 msgstr "Valitse USB-laitteet uudelleenohjausta varten"
 
-#: plugins/rdp/rdp_plugin.c:2814
+#: plugins/rdp/rdp_plugin.c:2824
 msgid "Local serial name"
 msgstr "Paikallinen sarjanimi"
 
-#: plugins/rdp/rdp_plugin.c:2814
+#: plugins/rdp/rdp_plugin.c:2824
 msgid "COM1, COM2, etc."
 msgstr "COM1, COM2 jne."
 
-#: plugins/rdp/rdp_plugin.c:2815
+#: plugins/rdp/rdp_plugin.c:2825
 msgid "Local serial driver"
 msgstr "Paikallinen sarjaohjain"
 
-#: plugins/rdp/rdp_plugin.c:2815
+#: plugins/rdp/rdp_plugin.c:2825
 msgid "Serial"
 msgstr "Sarja"
 
-#: plugins/rdp/rdp_plugin.c:2816
+#: plugins/rdp/rdp_plugin.c:2826
 msgid "Local serial path"
 msgstr "Paikallinen sarjapolku"
 
-#: plugins/rdp/rdp_plugin.c:2816
+#: plugins/rdp/rdp_plugin.c:2826
 msgid "/dev/ttyS0, /dev/ttyS1, etc."
 msgstr "/dev/ttyS0,/dev/ttyS1, jne."
 
-#: plugins/rdp/rdp_plugin.c:2817
+#: plugins/rdp/rdp_plugin.c:2827
 msgid "Local parallel name"
 msgstr "Paikallinen rinnakkaisnimi"
 
-#: plugins/rdp/rdp_plugin.c:2818
+#: plugins/rdp/rdp_plugin.c:2828
 msgid "Local parallel device"
 msgstr "Paikallinen rinnakkaislaite"
 
-#: plugins/rdp/rdp_plugin.c:2819
+#: plugins/rdp/rdp_plugin.c:2829
 msgid "Name of smart card"
 msgstr "Älykortin nimi"
 
-#: plugins/rdp/rdp_plugin.c:2820
+#: plugins/rdp/rdp_plugin.c:2830
 msgid "Dynamic virtual channel"
 msgstr "Dynaaminen virtuaalikanava"
 
-#: plugins/rdp/rdp_plugin.c:2820 plugins/rdp/rdp_plugin.c:2821
+#: plugins/rdp/rdp_plugin.c:2830 plugins/rdp/rdp_plugin.c:2831
 msgid "<channel>[,<options>]"
 msgstr "<channel>[,<options>]"
 
-#: plugins/rdp/rdp_plugin.c:2821
+#: plugins/rdp/rdp_plugin.c:2831
 msgid "Static virtual channel"
 msgstr "Staattinen virtuaalikanava"
 
-#: plugins/rdp/rdp_plugin.c:2822
+#: plugins/rdp/rdp_plugin.c:2832
 msgid "TCP redirection"
 msgstr "TCP-uudelleenohjaus"
 
-#: plugins/rdp/rdp_plugin.c:2822
+#: plugins/rdp/rdp_plugin.c:2832
 msgid "/PATH/TO/rdp2tcp"
 msgstr "/PATH/TO/rdp2tcp"
 
-#: plugins/rdp/rdp_plugin.c:2824
+#: plugins/rdp/rdp_plugin.c:2834
 msgid "Prefer IPv6 AAAA record over IPv4 A record"
 msgstr "Suosi IPv6 AAAA -tietuetta IPv4 A -tietueen sijaan"
 
-#: plugins/rdp/rdp_plugin.c:2825
+#: plugins/rdp/rdp_plugin.c:2835
 msgid "Share printers"
 msgstr "Jaa tulostimet"
 
-#: plugins/rdp/rdp_plugin.c:2826
+#: plugins/rdp/rdp_plugin.c:2836
 msgid "Share serial ports"
 msgstr "Jaa sarjaportit"
 
-#: plugins/rdp/rdp_plugin.c:2827
+#: plugins/rdp/rdp_plugin.c:2837
 msgid "(SELinux) permissive mode for serial ports"
 msgstr "(SELinux) - sarjaportit salliva tila"
 
-#: plugins/rdp/rdp_plugin.c:2828
+#: plugins/rdp/rdp_plugin.c:2838
 msgid "Share parallel ports"
 msgstr "Jaa rinnakkaisportit"
 
-#: plugins/rdp/rdp_plugin.c:2829
+#: plugins/rdp/rdp_plugin.c:2839
 msgid "Share a smart card"
 msgstr "Jaa älykortti"
 
-#: plugins/rdp/rdp_plugin.c:2830 plugins/vnc/vnc_plugin.c:2057
+#: plugins/rdp/rdp_plugin.c:2840 plugins/vnc/vnc_plugin.c:2057
 msgid "Turn off clipboard sync"
 msgstr "Estä leikepöytien synkronointi"
 
-#: plugins/rdp/rdp_plugin.c:2831
+#: plugins/rdp/rdp_plugin.c:2841
 msgid "Ignore certificate"
 msgstr "Ohita varmenne"
 
-#: plugins/rdp/rdp_plugin.c:2832
+#: plugins/rdp/rdp_plugin.c:2842
 msgid "Use the old license workflow"
 msgstr "Käytä vanhaa lisenssin työnkulkua"
 
-#: plugins/rdp/rdp_plugin.c:2832
+#: plugins/rdp/rdp_plugin.c:2842
 msgid "It disables CAL and hwId is set to 0"
 msgstr "Poistaa CAL:in käytöstä ja asettaa hwId:n arvoon 0"
 
-#: plugins/rdp/rdp_plugin.c:2833 plugins/spice/spice_plugin.c:704
+#: plugins/rdp/rdp_plugin.c:2843 plugins/spice/spice_plugin.c:704
 #: plugins/vnc/vnc_plugin.c:2053 plugins/www/www_plugin.c:919
 #: plugins/gvnc/gvnc_plugin.c:867
 msgid "Forget passwords after use"
 msgstr "Unohda salasanat käytön jälkeen"
 
-#: plugins/rdp/rdp_plugin.c:2834
+#: plugins/rdp/rdp_plugin.c:2844
 msgid "Attach to console (2003/2003 R2)"
 msgstr "Kiinnitä konsoliin (Windows 2003 / 2003 R2)"
 
-#: plugins/rdp/rdp_plugin.c:2835
+#: plugins/rdp/rdp_plugin.c:2845
 msgid "Turn off fast-path"
 msgstr "Poista fast-path käytöstä"
 
-#: plugins/rdp/rdp_plugin.c:2836
+#: plugins/rdp/rdp_plugin.c:2846
 msgid "Server detection using Remote Desktop Gateway"
 msgstr "Palvelimen tunnistus etätyöpöytäyhdyskäytävän avulla"
 
-#: plugins/rdp/rdp_plugin.c:2838
+#: plugins/rdp/rdp_plugin.c:2848
 msgid "Use system proxy settings"
 msgstr "Käytä järjestelmän välityspalvelimen asetuksia"
 
-#: plugins/rdp/rdp_plugin.c:2840
+#: plugins/rdp/rdp_plugin.c:2850
 msgid "Turn off automatic reconnection"
 msgstr "Älä käytä automaattista uudelleenyhdistämistä"
 
-#: plugins/rdp/rdp_plugin.c:2841
+#: plugins/rdp/rdp_plugin.c:2851
 msgid "Relax order checks"
 msgstr "Rentoudu, tilaustarkistukset"
 
-#: plugins/rdp/rdp_plugin.c:2842
+#: plugins/rdp/rdp_plugin.c:2852
 msgid "Glyph cache"
 msgstr "Glyph-välimuisti"
 
-#: plugins/rdp/rdp_plugin.c:2843
+#: plugins/rdp/rdp_plugin.c:2853
 msgid "Enable multitransport protocol (UDP)"
 msgstr "Ota monikuljetusprotokolla (UDP) käyttöön"
 
-#: plugins/rdp/rdp_plugin.c:2843
+#: plugins/rdp/rdp_plugin.c:2853
 msgid "Using the UDP protocol may improve performance"
 msgstr "UDP-protokollan käyttö voi parantaa suorituskykyä"
 
-#: plugins/rdp/rdp_plugin.c:2844
+#: plugins/rdp/rdp_plugin.c:2854
 msgid "Use base credentials for gateway too"
 msgstr "Käytä myös yhdyskäytävän perustietoja"
 
-#: plugins/rdp/rdp_plugin.c:2846
+#: plugins/rdp/rdp_plugin.c:2856
 msgid "Enable Gateway websockets support"
 msgstr "Ota käyttöön Gateway websockets -tuki"
 
-#: plugins/rdp/rdp_plugin.c:2859 plugins/spice/spice_plugin.c:717
+#: plugins/rdp/rdp_plugin.c:2869 plugins/spice/spice_plugin.c:717
 #: plugins/vnc/vnc_plugin.c:2074
 msgid "Send Ctrl+Alt+Delete"
 msgstr "Lähetä Ctrl+Alt+Delete"
 
-#: plugins/rdp/rdp_plugin.c:2872
+#: plugins/rdp/rdp_plugin.c:2882
 msgid "RDP - Remote Desktop Protocol"
 msgstr "RDP - Etätyöpöytäprotokolla"
 
-#: plugins/rdp/rdp_plugin.c:2897
+#: plugins/rdp/rdp_plugin.c:2907
 msgid "RDP - RDP File Handler"
 msgstr "RDP - RDP-tiedostonkäsittelijä"
 
-#: plugins/rdp/rdp_plugin.c:2912
+#: plugins/rdp/rdp_plugin.c:2922
 msgid "RDP - Preferences"
 msgstr "RDP-asetukset"
 
-#: plugins/rdp/rdp_plugin.c:2965
+#: plugins/rdp/rdp_plugin.c:2975
 msgid "Export connection in Windows .rdp file format"
 msgstr "Vie yhteys Windowsin .rdp-tiedostomuotoon"
 
