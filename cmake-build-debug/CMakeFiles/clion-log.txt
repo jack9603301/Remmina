@@ -1,14 +1,91 @@
-/home/mathias/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/213.7172.20/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/home/mathias/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/213.7172.20/bin/ninja/linux/ninja -DWITH_GCRYPT=OFF -DWITH_PYTHONLIBS=On -G Ninja /home/mathias/Projects/Remmina
--- Checking for module 'libpcre2-8-0'
---   No package 'libpcre2-8-0' found
--- Found pcre2 headers at /usr/include
--- Found pcre2 libraries at /usr/lib/x86_64-linux-gnu/libpcre2-8.so
--- Remmina version: 1.4.24
--- Git Revision: 43fe0a8fb
+/home/mathias/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/213.7172.20/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/home/mathias/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/213.7172.20/bin/ninja/linux/ninja -DWITH_GCRYPT=OFF -DWITH_PYTHONLIBS=On -DWITH_WEBKIT2GTK=Off -G Ninja /home/mathias/Projects/Remmina
+-- The C compiler identification is GNU 11.2.0
+-- The CXX compiler identification is GNU 11.2.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found PkgConfig: /usr/bin/pkg-config (found version "0.29.2") 
+-- Checking for module 'libpcre2-8'
+--   Found libpcre2-8, version 10.37
+-- PCRE2-Libs: /usr/lib/x86_64-linux-gnu/libpcre.so
+-- PCRE2-Include-Dirs: /usr/include
+-- Found Intl: built in to C library  
+-- Looking for __x86_64__
+-- Looking for __x86_64__ - found
+-- Performing Test Wunused-result
+-- Performing Test Wunused-result - Success
+-- Performing Test Wunused-but-set-variable
+-- Performing Test Wunused-but-set-variable - Success
+-- Performing Test Wdeprecated-declarations
+-- Performing Test Wdeprecated-declarations - Success
+-- Performing Test Wimplicit-function-declaration
+-- Performing Test Wimplicit-function-declaration - Success
+-- Performing Test Wredundant-decls
+-- Performing Test Wredundant-decls - Success
+-- Looking for include file sys/socket.h
+-- Looking for include file sys/socket.h - found
+-- Looking for include file arpa/inet.h
+-- Looking for include file arpa/inet.h - found
+-- Looking for include file netinet/in.h
+-- Looking for include file netinet/in.h - found
+-- Looking for include file netinet/tcp.h
+-- Looking for include file netinet/tcp.h - found
+-- Looking for include file termios.h
+-- Looking for include file termios.h - found
+-- Looking for include file netdb.h
+-- Looking for include file netdb.h - found
+-- Looking for include file fcntl.h
+-- Looking for include file fcntl.h - found
+-- Looking for include file unistd.h
+-- Looking for include file unistd.h - found
+-- Looking for include file sys/un.h
+-- Looking for include file sys/un.h - found
+-- Looking for include file errno.h
+-- Looking for include file errno.h - found
+-- Remmina version: 1.4.25
+-- Git Revision: 932796674
 -- Folders won't be removed during uninstall target
+-- Checking for one of the modules 'glib-2.0'
+-- Checking for module 'gmodule-2.0'
+--   Found gmodule-2.0, version 2.68.4
+-- Found GLib: /usr/lib/x86_64-linux-gnu/libglib-2.0.so (found version "2.68.4") 
+-- Checking for one of the modules 'gio-2.0'
+-- Checking for module 'gio-unix-2.0'
+--   Found gio-unix-2.0, version 2.68.4
+-- Checking for one of the modules 'gobject-2.0'
+-- Found GObject: /usr/lib/x86_64-linux-gnu/libgobject-2.0.so (found version "2.68.4") 
+-- Found GIO: /usr/lib/x86_64-linux-gnu/libgio-2.0.so (found version "2.68.4") 
+-- Checking for one of the modules 'atk'
+-- Found ATK: /usr/lib/x86_64-linux-gnu/libatk-1.0.so (found version "2.36.0") 
+-- Checking for one of the modules 'gdk-3.0'
+-- Checking for module 'harfbuzz'
+--   Found harfbuzz, version 2.7.4
+-- Checking for one of the modules 'pango'
 -- Found Pango: /usr/lib/x86_64-linux-gnu/libpango-1.0.so (found version "1.48.10") 
+-- Found GDK3: /usr/lib/x86_64-linux-gnu/libgdk-3.so (found version "3.24.30") 
 -- Found Pango: /usr/lib/x86_64-linux-gnu/libpango-1.0.so (found version "1.48.10") 
+-- Checking for one of the modules 'cairo'
+-- Found Cairo: /usr/lib/x86_64-linux-gnu/libcairo.so (found version "1.16.0") 
+-- Checking for one of the modules 'gdk-pixbuf-2.0'
+-- Found GDKPixbuf: /usr/lib/x86_64-linux-gnu/libgdk_pixbuf-2.0.so (found version "") 
+-- Found GTK3: /usr/lib/x86_64-linux-gnu/libgtk-3.so (found suitable version "3.24.30", minimum required is "3.14.0") 
+-- Checking for module 'wayland-client'
+--   Found wayland-client, version 1.19.0
 -- Wayland library found.
+-- Looking for pthread.h
+-- Looking for pthread.h - found
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "1.1.1l")  
+-- Found sodium: /usr/lib/x86_64-linux-gnu/libsodium.so  
 -- sodium_LIBRARY_RELEASE: /usr/lib/x86_64-linux-gnu/libsodium.so
 -- sodium_INCLUDE_DIR: /usr/include
 -- sodium_LIBRARY_DEBUG: /usr/lib/x86_64-linux-gnu/libsodium.so
@@ -24,23 +101,49 @@
 -- Python plugins support enabled
 -- Finding suggested package PythonLibs.
 --   Disable this using "-DWITH_PYTHONLIBS=OFF".
+-- Found PythonLibs: /usr/lib/x86_64-linux-gnu/libpython3.9.so (found version "3.9.7") 
 -- Python libs found, Python support enabled
+-- Found X11: /usr/include   
+-- Looking for XOpenDisplay in /usr/lib/x86_64-linux-gnu/libX11.so;/usr/lib/x86_64-linux-gnu/libXext.so
+-- Looking for XOpenDisplay in /usr/lib/x86_64-linux-gnu/libX11.so;/usr/lib/x86_64-linux-gnu/libXext.so - found
+-- Looking for gethostbyname
+-- Looking for gethostbyname - found
+-- Looking for connect
+-- Looking for connect - found
+-- Looking for remove
+-- Looking for remove - found
+-- Looking for shmat
+-- Looking for shmat - found
+-- Looking for IceConnectionNumber in ICE
+-- Looking for IceConnectionNumber in ICE - found
 -- Linux detected, building with Intl
 -- Finding suggested package LIBSSH.
 --   Disable this using "-DWITH_LIBSSH=OFF".
+-- Found LIBSSH: /usr/lib/x86_64-linux-gnu/libssh.so  
 -- Finding suggested package VTE.
 --   Disable this using "-DWITH_VTE=OFF".
+-- Checking for module 'vte-2.91'
+--   Found vte-2.91, version 0.64.2
+-- Found VTE: /usr/lib/x86_64-linux-gnu/libvte-2.91.so  
 -- Sodium found
 -- Sodium include dirs /usr/include
 -- Checking for module 'ayatana-appindicator3-0.1'
 --   No package 'ayatana-appindicator3-0.1' found
+-- Checking for module 'appindicator3-0.1'
+--   Found appindicator3-0.1, version 12.10.0
+-- Found APPINDICATOR: /usr/lib/x86_64-linux-gnu/libappindicator3.so  
 -- AppIndicator library dirs /usr/lib/x86_64-linux-gnu/libappindicator3.so
 -- AppIndicator include dirs /usr/include/libappindicator3-0.1
--- Checking for module 'libpcre2-8-0'
---   No package 'libpcre2-8-0' found
--- Found pcre2 headers at /usr/include
--- Found pcre2 libraries at /usr/lib/x86_64-linux-gnu/libpcre2-8.so
+-- Checking for module 'json-glib-1.0'
+--   Found json-glib-1.0, version 1.6.2
+-- Found JSONGLIB: /usr/lib/x86_64-linux-gnu/libjson-glib-1.0.so  
+-- Checking for module 'libsoup-2.4'
+--   Found libsoup-2.4, version 2.72.0
+-- Found LIBSOUP24: /usr/lib/x86_64-linux-gnu/libsoup-2.4.so  
+-- PCRE2-Libs: /usr/lib/x86_64-linux-gnu/libpcre.so
+-- PCRE2-Include-Dirs: /usr/include
 -- Kiosk desktop session files won't be installed
+-- Found shared-mime-info version: 2.1
 -- Finding suggested package LIBSSH.
 --   Disable this using "-DWITH_LIBSSH=OFF".
 -- Checking for module 'freerdp3>=3.0.0'
@@ -52,21 +155,23 @@
 -- Disabling X2Go plugin.
 -- Finding suggested package LIBVNCSERVER.
 --   Disable this using "-DWITH_LIBVNCSERVER=OFF".
+-- Checking for module 'libvncserver'
+--   Found libvncserver, version 0.9.13
+-- Found LIBVNCSERVER: /usr/lib/x86_64-linux-gnu/libvncserver.so  
 -- Disabling GVNC plugin.
 -- Finding suggested package Spice.
 --   Disable this using "-DWITH_SPICE=OFF".
 -- Checking for module 'spice-client-gtk-3.0'
 --   No package 'spice-client-gtk-3.0' found
 -- Enabling WWW plugin.
--- Checking for one of the modules 'webkit2gtk-4.0;webkit2gtk-3.0;libwebkit2gtk-4.0;libwebkit2gtk-3.0'
-CMake Warning at plugins/CMakeLists.txt:115 (message):
-  WEBKIT not found
-
-
 -- Finding suggested package Libsecret.
 --   Disable this using "-DWITH_LIBSECRET=OFF".
+-- Checking for module 'libsecret-1'
+--   Found libsecret-1, version 0.20.4
+-- Found Libsecret: /usr/include/libsecret-1;/usr/include/libmount;/usr/include/blkid;/usr/include/glib-2.0;/usr/lib/x86_64-linux-gnu/glib-2.0/include  
 -- Finding suggested package Gettext.
 --   Disable this using "-DWITH_GETTEXT=OFF".
+-- Found Gettext: /usr/bin/msgmerge (found version "0.21") 
 -- Configuring done
 -- Generating done
 -- Build files have been written to: /home/mathias/Projects/Remmina/cmake-build-debug

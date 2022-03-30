@@ -434,6 +434,66 @@ PyRemminaProtocolFeature* remmina_plugin_python_protocol_feature_new(void)
 }
 
 
+// -- Python Type -> Screenshot Data
+
+static PyMemberDef python_screenshot_data_members[] = {
+        { "buffer", T_OBJECT, offsetof(PyRemminaPluginScreenshotData, buffer), 0, NULL },
+        { "width", T_INT, offsetof(PyRemminaPluginScreenshotData, width), 0, NULL },
+        { "height", T_INT, offsetof(PyRemminaPluginScreenshotData, height), 0, NULL },
+        { "bitsPerPixel", T_INT, offsetof(PyRemminaPluginScreenshotData, bitsPerPixel), 0, NULL },
+        { "bytesPerPixel", T_INT, offsetof(PyRemminaPluginScreenshotData, bytesPerPixel), 0, NULL },
+        { NULL }
+};
+
+PyObject* python_screenshot_data_new(PyTypeObject* type, PyObject* kws, PyObject* args)
+{
+    TRACE_CALL(__func__);
+
+    PyRemminaPluginScreenshotData* self;
+    self = (PyRemminaPluginScreenshotData*)type->tp_alloc(type, 0);
+    if (!self)
+        return NULL;
+
+    self->buffer = (PyByteArrayObject*)PyObject_New(PyByteArrayObject, &PyByteArray_Type);
+    self->height = 0;
+    self->width = 0;
+    self->bitsPerPixel = 0;
+    self->bytesPerPixel = 0;
+
+    return (PyObject*)self;
+}
+
+static int python_screenshot_data_init(PyRemminaPluginScreenshotData* self, PyObject* args, PyObject* kwargs)
+{
+    TRACE_CALL(__func__);
+
+    g_printerr("Not to be initialized within Python!");
+    return -1;
+}
+
+static PyTypeObject python_screenshot_data_type = {
+        PyVarObject_HEAD_INIT(NULL, 0)
+        .tp_name = "remmina.RemminaScreenshotData",
+        .tp_doc = "Remmina Screenshot Data",
+        .tp_basicsize = sizeof(PyRemminaPluginScreenshotData),
+        .tp_itemsize = 0,
+        .tp_flags = Py_TPFLAGS_DEFAULT,
+        .tp_new = python_screenshot_data_new,
+        .tp_init = (initproc)python_screenshot_data_init,
+        .tp_members = python_screenshot_data_members
+};
+PyRemminaPluginScreenshotData* remmina_plugin_python_screenshot_data_new(void)
+{
+    PyRemminaPluginScreenshotData* data = (PyRemminaPluginScreenshotData*) PyObject_New(PyRemminaPluginScreenshotData, &python_screenshot_data_type);
+    data->buffer = PyObject_New(PyByteArrayObject, &PyByteArray_Type);
+    Py_IncRef(data->buffer);
+    data->height = 0;
+    data->width = 0;
+    data->bitsPerPixel = 0;
+    data->bytesPerPixel = 0;
+    return data;
+}
+
 static PyObject* remmina_plugin_python_generic_to_int(PyGeneric* self, PyObject* args);
 static PyObject* remmina_plugin_python_generic_to_bool(PyGeneric* self, PyObject* args);
 static PyObject* remmina_plugin_python_generic_to_string(PyGeneric* self, PyObject* args);
@@ -553,6 +613,13 @@ static PyObject* remmina_plugin_python_generic_to_string(PyGeneric* self, PyObje
 static PyMODINIT_FUNC remmina_plugin_python_module_initialize(void)
 {
 	TRACE_CALL(__func__);
+
+    if (PyType_Ready(&python_screenshot_data_type) < 0)
+    {
+        g_printerr("Error initializing remmina.RemminaScreenshotData!\n");
+        PyErr_Print();
+        return NULL;
+    }
 
     if (PyType_Ready(&python_generic_type) < 0)
     {

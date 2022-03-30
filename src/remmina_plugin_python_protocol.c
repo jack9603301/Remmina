@@ -145,17 +145,48 @@ void remmina_protocol_send_keytrokes_wrapper(RemminaProtocolWidget* gp,
 {
 	TRACE_CALL(__func__);
 	PyPlugin* py_plugin = remmina_plugin_python_get_plugin((RemminaPlugin*)gp->plugin);
-	PyObject* result = CallPythonMethod(py_plugin->instance, "send_keystrokes", "Oll", py_plugin->gp, PyLong_FromLong(keystrokes),
-                                        PyLong_FromLong(keylen));
+    PyListObject* obj = PyList_New(keylen);
+    Py_IncRef(obj);
+    for (int i = 0; i < keylen; ++i)
+    {
+        PyList_SetItem(obj, i, PyLong_FromLong(keystrokes[i]));
+    }
+	PyObject* result = CallPythonMethod(py_plugin->instance, "send_keystrokes", "OO", py_plugin->gp, obj);
+    Py_DecRef(obj);
 }
 
 gboolean remmina_protocol_get_plugin_screenshot_wrapper(RemminaProtocolWidget* gp,
 	RemminaPluginScreenshotData* rpsd)
 {
 	TRACE_CALL(__func__);
+
 	PyPlugin* py_plugin = remmina_plugin_python_get_plugin((RemminaPlugin*)gp->plugin);
-	PyObject* result = CallPythonMethod(py_plugin->instance, "get_plugin_screenshot", "O", py_plugin->gp);
-	return result == Py_False;
+    PyRemminaPluginScreenshotData* data = remmina_plugin_python_screenshot_data_new();
+    Py_IncRef(data);
+	PyObject* result = CallPythonMethod(py_plugin->instance, "get_plugin_screenshot", "OO", py_plugin->gp, data);
+    if (result == Py_True) {
+        if (!PyByteArray_Check(data->buffer))
+        {
+            g_printerr("Unable to parse screenshot data. 'buffer' needs to be an byte array!");
+            return 0;
+        }
+        Py_ssize_t buffer_len = PyByteArray_Size(data->buffer);
+
+        // Is being freed by Remmina!
+        rpsd->buffer = (unsigned char *) remmina_plugin_python_malloc(sizeof(unsigned char) * buffer_len);
+        if (!rpsd->buffer)
+        {
+            return 0;
+        }
+        memcpy(rpsd->buffer, PyByteArray_AsString(data->buffer), sizeof(unsigned char) * buffer_len);
+        rpsd->bytesPerPixel = data->bytesPerPixel;
+        rpsd->bitsPerPixel = data->bitsPerPixel;
+        rpsd->height = data->height;
+        rpsd->width = data->width;
+    }
+    Py_DecRef(data->buffer);
+    Py_DecRef(data);
+	return result == Py_True;
 }
 
 gboolean remmina_protocol_map_event_wrapper(RemminaProtocolWidget* gp)

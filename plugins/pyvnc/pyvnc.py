@@ -7,6 +7,8 @@ import inspect
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk, GLib
 import psutil
+from PIL import Image
+
 
 class VncFeature:
     PrefQuality = 1
@@ -115,20 +117,19 @@ class Plugin:
         return True
 
     def close_connection(self, gp):
-        #print("[PyVNC.close_connection]: Called!")
+        print("[PyVNC.close_connection]: Called!")
         remmina.protocol_plugin_signal_connection_closed(gp)
 
-
     def query_feature(self, gp, feature):
-        #print("[PyVNC.query_feature]: Called!")
+        print("[PyVNC.query_feature]: Called!")
         return True
 
     def map_event(self, gp):
-        #print("[PyVNC.map_event]: Called!")
+        print("[PyVNC.map_event]: Called!")
         return True
 
     def unmap_event(self, gp):
-        #print("[PyVNC.unmap_event]: Called!")
+        print("[PyVNC.unmap_event]: Called!")
         return True
 
     def call_feature(self, gp, feature):
@@ -146,15 +147,12 @@ class Plugin:
             if quality == 2:
                 print("Not great, not terrible. Just good...")
 
-    def send_keystrokes(self, gp, strokes, len):
-        #print("[PyVNC.keystroke]: Called!")
-        print(strokes)
-        print(len)
-        pass
+    def send_keystrokes(self, gp, strokes):
+        print("[PyVNC.keystroke]: Called!")
+        return True
 
-    def get_plugin_screenshot(self, gp):
-        #print("[PyVNC.screenshot]: Called!")
-        pass
+    def get_plugin_screenshot(self, gp, data):
+        return False
 
 myPlugin = Plugin()
 remmina.register_plugin(myPlugin)

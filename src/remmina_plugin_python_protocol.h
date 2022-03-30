@@ -63,6 +63,16 @@ typedef struct
     PyGeneric* opt3;
 } PyRemminaProtocolFeature;
 
+typedef struct
+{
+    PyObject_HEAD
+    PyByteArrayObject* buffer;
+    int bitsPerPixel;
+    int bytesPerPixel;
+    int width;
+    int height;
+} PyRemminaPluginScreenshotData;
+
 /**
  * Initializes the Python plugin specialisation for protocol plugins.
  */
@@ -80,5 +90,7 @@ RemminaPlugin *remmina_plugin_python_create_protocol_plugin(PyPlugin *plugin);
 
 
 PyRemminaProtocolFeature* remmina_plugin_python_protocol_feature_new(void);
+
+PyRemminaPluginScreenshotData* remmina_plugin_python_screenshot_data_new(void);
 
 G_END_DECLS
