@@ -102,8 +102,6 @@ gboolean remmina_ssh_init_from_file(RemminaSSH *ssh, RemminaFile *remminafile, g
 gboolean remmina_ssh_init_session(RemminaSSH *ssh);
 
 /* Authenticate SSH session */
-
-
 enum remmina_ssh_auth_result {
 	REMMINA_SSH_AUTH_NULL,
 	REMMINA_SSH_AUTH_SUCCESS,

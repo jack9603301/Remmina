@@ -61,6 +61,7 @@
 #include <netinet/in.h>
 #endif
 #ifdef HAVE_SYS_SOCKET_H
+#include <sys/un.h>
 #include <sys/socket.h>
 #endif
 #ifdef HAVE_FCNTL_H
@@ -106,6 +107,15 @@
 
 #define LOCK_SSH(ssh) pthread_mutex_lock(&REMMINA_SSH(ssh)->ssh_mutex);
 #define UNLOCK_SSH(ssh) pthread_mutex_unlock(&REMMINA_SSH(ssh)->ssh_mutex);
+
+/* X11*/
+#define _PATH_UNIX_X "/tmp/.X11-unix/X%d"
+struct chan_X11_list {
+	ssh_channel		chan;
+	int			sock;
+	struct chan_X11_list *	next;
+};
+struct chan_X11_list *gp_x11_chan = NULL;
 
 static const gchar *common_identities[] =
 {
@@ -170,6 +180,7 @@ remmina_ssh_auth_interactive(RemminaSSH *ssh)
 	gint n;
 	gint i;
 	const gchar *name, *instruction = NULL;
+
 	//gchar *prompt,*ptr;
 
 	ret = SSH_AUTH_ERROR;
@@ -327,39 +338,39 @@ remmina_ssh_auth_pubkey(RemminaSSH *ssh, RemminaProtocolWidget *gp, RemminaFile 
 			remmina_ssh_set_error(ssh, _("Could not authenticate with public SSH key. %s"));
 			return REMMINA_SSH_AUTH_AUTHFAILED_RETRY_AFTER_PROMPT;
 		}
-		REMMINA_DEBUG ("Imported private SSH key file");
+		REMMINA_DEBUG("Imported private SSH key file");
 		/* First we import the certificate */
-		ret = ssh_pki_import_cert_file(ssh->certfile, &cert );
+		ret = ssh_pki_import_cert_file(ssh->certfile, &cert);
 		if (ret != SSH_OK) {
-			REMMINA_DEBUG ("Certificate import returned: %d", ret);
+			REMMINA_DEBUG("Certificate import returned: %d", ret);
 			// TRANSLATORS: The placeholder %s is an error message
 			remmina_ssh_set_error(ssh, _("SSH certificate cannot be imported. %s"));
 			return REMMINA_SSH_AUTH_FATAL_ERROR;
 		}
-		REMMINA_DEBUG ("certificate imported correctly");
+		REMMINA_DEBUG("certificate imported correctly");
 		/* We copy th certificate in the private key */
 		ret = ssh_pki_copy_cert_to_privkey(cert, key);
 		if (ret != SSH_OK) {
-			REMMINA_DEBUG ("Copy certificate into a key returned: %d", ret);
+			REMMINA_DEBUG("Copy certificate into a key returned: %d", ret);
 			// TRANSLATORS: The placeholder %s is an error message
 			remmina_ssh_set_error(ssh, _("SSH certificate cannot be copied into the private SSH key. %s"));
 			ssh_key_free(cert);
 			return REMMINA_SSH_AUTH_FATAL_ERROR;
 		}
-		REMMINA_DEBUG ("%s certificate copied into the private SSH key", ssh->certfile);
+		REMMINA_DEBUG("%s certificate copied into the private SSH key", ssh->certfile);
 		/* We try to authenticate */
 		ret = ssh_userauth_try_publickey(ssh->session, NULL, cert);
-		if (ret != SSH_AUTH_SUCCESS && ret != SSH_AUTH_AGAIN ) {
-			REMMINA_DEBUG ("Trying to authenticate with the new key returned: %d", ret);
+		if (ret != SSH_AUTH_SUCCESS && ret != SSH_AUTH_AGAIN) {
+			REMMINA_DEBUG("Trying to authenticate with the new key returned: %d", ret);
 			// TRANSLATORS: The placeholder %s is an error message
 			remmina_ssh_set_error(ssh, _("Could not authenticate using SSH certificate. %s"));
 			ssh_key_free(key);
 			ssh_key_free(cert);
 			return REMMINA_SSH_AUTH_FATAL_ERROR;
 		}
-		REMMINA_DEBUG ("Authentication with a certificate file works, we can authenticate");
+		REMMINA_DEBUG("Authentication with a certificate file works, we can authenticate");
 #else
-		REMMINA_DEBUG ("lbssh >= 0.9.0 is required to authenticate with certificate file");
+		REMMINA_DEBUG("lbssh >= 0.9.0 is required to authenticate with certificate file");
 #endif
 		/* if it goes well we authenticate (later on) with the key, not the cert*/
 	} else {
@@ -442,6 +453,7 @@ remmina_ssh_auth_auto_pubkey(RemminaSSH *ssh, RemminaProtocolWidget *gp, Remmina
 	TRACE_CALL(__func__);
 
 	gint ret;
+
 	ret = ssh_userauth_publickey_auto(ssh->session, NULL, (ssh->passphrase ? ssh->passphrase : NULL));
 
 	REMMINA_DEBUG("Authentication with public SSH key returned: %d", ret);
@@ -487,6 +499,7 @@ remmina_ssh_auth_agent(RemminaSSH *ssh)
 {
 	TRACE_CALL(__func__);
 	gint ret;
+
 	ret = ssh_userauth_agent(ssh->session, NULL);
 
 	REMMINA_DEBUG("Authentication with SSH agent returned: %d", ret);
@@ -525,7 +538,6 @@ remmina_ssh_auth_agent(RemminaSSH *ssh)
 	}
 	ssh->authenticated = FALSE;
 	return REMMINA_SSH_AUTH_FATAL_ERROR;
-
 }
 
 static enum remmina_ssh_auth_result
@@ -654,23 +666,23 @@ remmina_ssh_auth(RemminaSSH *ssh, const gchar *password, RemminaProtocolWidget *
 				ssh->password = NULL;
 			}
 			switch (ssh_userauth_list(ssh->session, NULL)) {
-				case SSH_AUTH_METHOD_PASSWORD:
-					ssh->auth = SSH_AUTH_PASSWORD;
-					break;
-				case SSH_AUTH_METHOD_PUBLICKEY:
-					ssh->auth = SSH_AUTH_PUBLICKEY;
-					break;
-				case SSH_AUTH_METHOD_HOSTBASED:
-					REMMINA_DEBUG("Host based auth method not implemented: %d", ssh->auth);
-					break;
-				case SSH_AUTH_METHOD_INTERACTIVE:
-					ssh->auth = SSH_AUTH_KBDINTERACTIVE;
-					//REMMINA_DEBUG("Interactive auth method not implemented: %d", ssh->auth);
-					break;
-				case SSH_AUTH_METHOD_UNKNOWN:
-				default:
-					REMMINA_DEBUG("User auth method not supported: %d", ssh->auth);
-					return REMMINA_SSH_AUTH_FATAL_ERROR;
+			case SSH_AUTH_METHOD_PASSWORD:
+				ssh->auth = SSH_AUTH_PASSWORD;
+				break;
+			case SSH_AUTH_METHOD_PUBLICKEY:
+				ssh->auth = SSH_AUTH_PUBLICKEY;
+				break;
+			case SSH_AUTH_METHOD_HOSTBASED:
+				REMMINA_DEBUG("Host based auth method not implemented: %d", ssh->auth);
+				break;
+			case SSH_AUTH_METHOD_INTERACTIVE:
+				ssh->auth = SSH_AUTH_KBDINTERACTIVE;
+				//REMMINA_DEBUG("Interactive auth method not implemented: %d", ssh->auth);
+				break;
+			case SSH_AUTH_METHOD_UNKNOWN:
+			default:
+				REMMINA_DEBUG("User auth method not supported: %d", ssh->auth);
+				return REMMINA_SSH_AUTH_FATAL_ERROR;
 			}
 		}
 		ssh->error = g_strdup_printf(_("Could not authenticate with SSH password. %s"), "");
@@ -755,6 +767,39 @@ remmina_ssh_auth(RemminaSSH *ssh, const gchar *password, RemminaProtocolWidget *
 				ssh->password = NULL;
 			}
 			switch (ssh_userauth_list(ssh->session, NULL)) {
+			case SSH_AUTH_METHOD_PASSWORD:
+				ssh->auth = SSH_AUTH_PASSWORD;
+				break;
+			case SSH_AUTH_METHOD_PUBLICKEY:
+				ssh->auth = SSH_AUTH_PUBLICKEY;
+				break;
+			case SSH_AUTH_METHOD_HOSTBASED:
+				REMMINA_DEBUG("Host based auth method not implemented: %d", ssh->auth);
+				break;
+			case SSH_AUTH_METHOD_INTERACTIVE:
+				ssh->auth = SSH_AUTH_KBDINTERACTIVE;
+				//REMMINA_DEBUG("Interactive auth method not implemented: %d", ssh->auth);
+				break;
+			case SSH_AUTH_METHOD_UNKNOWN:
+			default:
+				REMMINA_DEBUG("User auth method not supported: %d", ssh->auth);
+				return REMMINA_SSH_AUTH_FATAL_ERROR;
+			}
+		}
+		return rv;
+		break;
+
+	case SSH_AUTH_AUTO_PUBLICKEY:
+		REMMINA_DEBUG("SSH_AUTH_AUTO_PUBLICKEY (%d)", ssh->auth);
+		rv = remmina_ssh_auth_auto_pubkey(ssh, gp, remminafile);
+		/* ssh_agent or none */
+		if (method & SSH_AUTH_METHOD_PUBLICKEY) {
+			if (rv == REMMINA_SSH_AUTH_PARTIAL) {
+				if (ssh->password) {
+					g_free(ssh->password);
+					ssh->password = NULL;
+				}
+				switch (ssh_userauth_list(ssh->session, NULL)) {
 				case SSH_AUTH_METHOD_PASSWORD:
 					ssh->auth = SSH_AUTH_PASSWORD;
 					break;
@@ -772,39 +817,6 @@ remmina_ssh_auth(RemminaSSH *ssh, const gchar *password, RemminaProtocolWidget *
 				default:
 					REMMINA_DEBUG("User auth method not supported: %d", ssh->auth);
 					return REMMINA_SSH_AUTH_FATAL_ERROR;
-			}
-		}
-		return rv;
-		break;
-
-	case SSH_AUTH_AUTO_PUBLICKEY:
-		REMMINA_DEBUG("SSH_AUTH_AUTO_PUBLICKEY (%d)", ssh->auth);
-		rv = remmina_ssh_auth_auto_pubkey(ssh, gp, remminafile);
-		/* ssh_agent or none */
-		if (method & SSH_AUTH_METHOD_PUBLICKEY) {
-			if (rv == REMMINA_SSH_AUTH_PARTIAL) {
-				if (ssh->password) {
-					g_free(ssh->password);
-					ssh->password = NULL;
-				}
-				switch (ssh_userauth_list(ssh->session, NULL)) {
-					case SSH_AUTH_METHOD_PASSWORD:
-						ssh->auth = SSH_AUTH_PASSWORD;
-						break;
-					case SSH_AUTH_METHOD_PUBLICKEY:
-						ssh->auth = SSH_AUTH_PUBLICKEY;
-						break;
-					case SSH_AUTH_METHOD_HOSTBASED:
-						REMMINA_DEBUG("Host based auth method not implemented: %d", ssh->auth);
-						break;
-					case SSH_AUTH_METHOD_INTERACTIVE:
-						ssh->auth = SSH_AUTH_KBDINTERACTIVE;
-						//REMMINA_DEBUG("Interactive auth method not implemented: %d", ssh->auth);
-						break;
-					case SSH_AUTH_METHOD_UNKNOWN:
-					default:
-						REMMINA_DEBUG("User auth method not supported: %d", ssh->auth);
-						return REMMINA_SSH_AUTH_FATAL_ERROR;
 				}
 			}
 			return rv;
@@ -870,6 +882,7 @@ remmina_ssh_auth_gui(RemminaSSH *ssh, RemminaProtocolWidget *gp, RemminaFile *re
 {
 	TRACE_CALL(__func__);
 	gchar *keyname;
+	gchar *authtitle = NULL;
 	gchar *pwdfkey = NULL;
 	gchar *message;
 	gchar *current_pwd;
@@ -981,23 +994,31 @@ remmina_ssh_auth_gui(RemminaSSH *ssh, RemminaProtocolWidget *gp, RemminaFile *re
 		return REMMINA_SSH_AUTH_FATAL_ERROR;
 	}
 
-	enum { REMMINA_SSH_AUTH_PASSWORD, REMMINA_SSH_AUTH_PKPASSPHRASE, REMMINA_SSH_AUTH_KRBTOKEN, REMMINA_SSH_AUTH_KBDINTERACTIVE } remmina_ssh_auth_type;
+	enum {
+		REMMINA_SSH_AUTH_PASSWORD,
+		REMMINA_SSH_AUTH_PKPASSPHRASE,
+		REMMINA_SSH_AUTH_KRBTOKEN,
+		REMMINA_SSH_AUTH_KBDINTERACTIVE
+	} remmina_ssh_auth_type;
 
+	/* authtitle is to be used in the message panel as a title
+	 * ToDo: Add ssh->is_tunnel ? "when is a tunnel" : "all other cases"
+	 */
 	switch (ssh->auth) {
 	case SSH_AUTH_PASSWORD:
-		keyname = _("SSH password");
+		authtitle = _("SSH username & password");
 		pwdfkey = ssh->is_tunnel ? "ssh_tunnel_password" : "password";
 		remmina_ssh_auth_type = REMMINA_SSH_AUTH_PASSWORD;
 		break;
 	case SSH_AUTH_PUBLICKEY:
 	case SSH_AUTH_AGENT:
 	case SSH_AUTH_AUTO_PUBLICKEY:
-		keyname = _("SSH private key passphrase");
+		authtitle = _("SSH private key passphrase");
 		pwdfkey = ssh->is_tunnel ? "ssh_tunnel_passphrase" : "ssh_passphrase";
 		remmina_ssh_auth_type = REMMINA_SSH_AUTH_PKPASSPHRASE;
 		break;
 	case SSH_AUTH_GSSAPI:
-		keyname = _("SSH Kerberos/GSSAPI");
+		authtitle = _("SSH Kerberos/GSSAPI");
 		pwdfkey = ssh->is_tunnel ? "ssh_tunnel_kerberos_token" : "ssh_kerberos_token";
 		remmina_ssh_auth_type = REMMINA_SSH_AUTH_KRBTOKEN;
 		break;
@@ -1008,9 +1029,10 @@ remmina_ssh_auth_gui(RemminaSSH *ssh, RemminaProtocolWidget *gp, RemminaFile *re
 	default:
 		return REMMINA_SSH_AUTH_FATAL_ERROR;
 	}
+	if (authtitle)
+		REMMINA_DEBUG("Panel auth description set to: %s", authtitle);
 
 	disablepasswordstoring = remmina_file_get_int(remminafile, "disablepasswordstoring", FALSE);
-
 
 	current_pwd = g_strdup(remmina_file_get_string(remminafile, pwdfkey));
 
@@ -1153,6 +1175,173 @@ remmina_ssh_log_callback(ssh_session session, int priority, const char *message,
 	REMMINA_DEBUG(message);
 }
 
+static void remove_node(struct chan_X11_list *elem)
+{
+	struct chan_X11_list *current_node = NULL;
+
+	current_node = gp_x11_chan;
+
+	if (gp_x11_chan == elem) {
+		gp_x11_chan = gp_x11_chan->next;
+		free(current_node);
+		return;
+	}
+
+	while (current_node->next != NULL) {
+		if (current_node->next == elem) {
+			current_node->next = current_node->next->next;
+			current_node = current_node->next;
+			free(current_node);
+			break;
+		}
+	}
+}
+
+static ssh_channel
+remmina_ssh_x11_callback(ssh_session session, const char *originator_address, int originator_port, void *userdata)
+{
+	TRACE_CALL(__func__);
+	struct sockaddr_un addr;
+	struct chan_X11_list *new;
+	struct chan_X11_list *chan_iter;
+
+	gchar **temp_buff = NULL;
+
+	int display_port;
+	int sock;
+	int rc;
+
+	const gchar *display = gdk_display_get_name(gdk_display_get_default());
+
+	if (display == NULL) {
+		REMMINA_DEBUG("Cannot get the Display name");
+		return NULL;
+	}
+	REMMINA_DEBUG("DISPLAY NAME is: %s", display);
+
+	temp_buff = g_strsplit(display, ":", -1);
+	temp_buff = g_strsplit(temp_buff[1], ".", -1);
+	REMMINA_DEBUG("DISPLAY PORT is: %s", temp_buff[0]);
+	display_port = atoi(temp_buff[0]);
+	g_strfreev(temp_buff);
+
+	sock = socket(AF_UNIX, SOCK_STREAM, 0);
+	if (sock < 0) {
+		REMMINA_DEBUG("Cannot create the socket");
+		return NULL;
+	}
+
+	memset(&addr, 0, sizeof(addr));
+	addr.sun_family = AF_UNIX;
+	snprintf(addr.sun_path, sizeof(addr.sun_path), _PATH_UNIX_X, display_port);
+
+	REMMINA_DEBUG("Opening the X11 channel");
+	ssh_channel channel = ssh_channel_new(session);
+
+	REMMINA_DEBUG("X11 channel created");
+
+	rc = connect(sock, (struct sockaddr *)&addr, sizeof(addr));
+	if (rc != -1) {
+		/* Connection Successfull */
+		fcntl(sock, F_SETFL, O_NONBLOCK | fcntl(sock, F_GETFL, 0));
+		REMMINA_DEBUG("Successfully connected to the socket %s", g_strdup(addr.sun_path));
+		if (gp_x11_chan == NULL) {
+			/* Calloc ensure that gp_X11_chan is full of 0 */
+			gp_x11_chan = (struct chan_X11_list *)calloc(1, sizeof(struct chan_X11_list));
+			gp_x11_chan->sock = sock;
+			gp_x11_chan->chan = channel;
+			gp_x11_chan->next = NULL;
+		} else {
+			chan_iter = gp_x11_chan;
+			while (chan_iter->next != NULL)
+				chan_iter = chan_iter->next;
+			/* Create the new Node */
+			new = (struct chan_X11_list *)malloc(sizeof(struct chan_X11_list));
+			new->sock = sock;
+			new->chan = channel;
+			new->next = NULL;
+			chan_iter->next = new;
+		}
+	} else {
+		REMMINA_DEBUG("Error connecting to the socket: %s", g_strdup(addr.sun_path));
+		close(sock);
+		return NULL;
+	}
+
+	return channel;
+}
+
+static int
+remmina_ssh_x11_send_receive(ssh_channel channel, int sock, RemminaSSHShell *shell)
+{
+	TRACE_CALL(__func__);
+	struct timeval tv = { 0L, 1000L };
+	fd_set fds;
+
+	char buffer[8192];
+	int nbytes, nwritten;
+
+	ssh_channel ch[2], chout[2];
+
+	int rc;
+
+	FD_ZERO(&fds);
+	FD_SET(sock, &fds);
+
+	ch[0] = channel;
+	ch[1] = NULL;
+
+	rc = ssh_select(ch, chout, sock + 1, &fds, &tv);
+	if (rc != SSH_NO_ERROR) {
+		REMMINA_DEBUG("SSH select return an error");
+		return SSH_ERROR;
+	}
+
+	if (FD_ISSET(sock, &fds)) {
+		nbytes = read(sock, buffer, sizeof(buffer));
+		if (nbytes < 0) {
+			REMMINA_DEBUG("Reading from socket error, no bytes to read");
+			return SSH_ERROR;
+		}
+		if (nbytes > 0) {
+			LOCK_SSH(shell)
+			nwritten = ssh_channel_write(channel, buffer, nbytes);
+			UNLOCK_SSH(shell)
+			if (nwritten != nbytes) {
+				REMMINA_DEBUG("Writing to channel error");
+				return SSH_ERROR;
+			}
+		}
+	}
+
+	for (int i = 0; i < 2; i++) {
+		LOCK_SSH(shell);
+		rc = ssh_channel_poll(channel, i);
+		UNLOCK_SSH(shell);
+		if (rc > 0) {
+			LOCK_SSH(shell);
+			nbytes = ssh_channel_read_nonblocking(channel, buffer, sizeof(buffer), i);
+			UNLOCK_SSH(shell);
+			if (nbytes < 0) {
+				REMMINA_DEBUG("Reading from channel error, no bytes to read");
+				return SSH_ERROR;
+			}
+			if (nbytes > 0) {
+				nwritten = write(sock, buffer, nbytes);
+				if (nwritten != nbytes) {
+					REMMINA_DEBUG("Writing error");
+					return SSH_ERROR;
+				}
+			}
+		}
+	}
+
+	if (ssh_channel_is_eof(channel))
+		return SSH_EOF;
+
+	return SSH_OK;
+}
+
 gboolean
 remmina_ssh_init_session(RemminaSSH *ssh)
 {
@@ -1160,6 +1349,7 @@ remmina_ssh_init_session(RemminaSSH *ssh)
 	gint verbosity;
 	gint rc;
 	gchar *parsed_config;
+
 #ifdef HAVE_NETINET_TCP_H
 	socket_t sshsock;
 	gint optval;
@@ -1210,7 +1400,6 @@ remmina_ssh_init_session(RemminaSSH *ssh)
 #ifdef SNAP_BUILD
 	ssh_options_set(ssh->session, SSH_OPTIONS_SSH_DIR, g_strdup_printf("%s/.ssh", g_getenv("SNAP_USER_COMMON")));
 #endif
-	ssh_callbacks_init(ssh->callback);
 	if (remmina_log_running()) {
 		verbosity = remmina_pref.ssh_loglevel;
 		ssh_options_set(ssh->session, SSH_OPTIONS_LOG_VERBOSITY, &verbosity);
@@ -1219,6 +1408,8 @@ remmina_ssh_init_session(RemminaSSH *ssh)
 		ssh_set_log_userdata(ssh->session);
 	}
 	ssh->callback->userdata = ssh;
+	ssh->callback->channel_open_request_x11_function = remmina_ssh_x11_callback;
+	ssh_callbacks_init(ssh->callback);
 	ssh_set_callbacks(ssh->session, ssh->callback);
 
 	/* As the latest parse the ~/.ssh/config file */
@@ -1237,17 +1428,17 @@ remmina_ssh_init_session(RemminaSSH *ssh)
 		ssh_options_set(ssh->session, SSH_OPTIONS_HOST, ssh->tunnel_entrance_host);
 	}
 	if (!ssh->user || *ssh->user == 0) {
-    rc = ssh_options_get(ssh->session, SSH_OPTIONS_USER, &parsed_config);
-    if (rc == SSH_OK) {
-      if (ssh->user)
-        g_free(ssh->user);
-      ssh->user = g_strdup(parsed_config);
-      ssh_string_free_char(parsed_config);
-    } else {
-      REMMINA_DEBUG("Parsing ssh_config for SSH_OPTIONS_USER returned an error: %s", ssh_get_error(ssh->session));
-    }
-  }
-  ssh_options_set(ssh->session, SSH_OPTIONS_USER, ssh->user);
+		rc = ssh_options_get(ssh->session, SSH_OPTIONS_USER, &parsed_config);
+		if (rc == SSH_OK) {
+			if (ssh->user)
+				g_free(ssh->user);
+			ssh->user = g_strdup(parsed_config);
+			ssh_string_free_char(parsed_config);
+		} else {
+			REMMINA_DEBUG("Parsing ssh_config for SSH_OPTIONS_USER returned an error: %s", ssh_get_error(ssh->session));
+		}
+	}
+	ssh_options_set(ssh->session, SSH_OPTIONS_USER, ssh->user);
 	REMMINA_DEBUG("SSH_OPTIONS_USER is now %s", ssh->user);
 
 	/* SSH_OPTIONS_PROXYCOMMAND */
@@ -1460,6 +1651,7 @@ remmina_ssh_init_from_file(RemminaSSH *ssh, RemminaFile *remminafile, gboolean i
 	ssh->proxycommand = g_strdup(remmina_file_get_string(remminafile, is_tunnel ? "ssh_tunnel_proxycommand" : "ssh_proxycommand"));
 	ssh->stricthostkeycheck = remmina_file_get_int(remminafile, is_tunnel ? "ssh_tunnel_stricthostkeycheck" : "ssh_stricthostkeycheck", 0);
 	gint c = remmina_file_get_int(remminafile, is_tunnel ? "ssh_tunnel_compression" : "ssh_compression", 0);
+
 	ssh->compression = (c == 1) ? "yes" : "no";
 
 	REMMINA_DEBUG("ssh->user: %s", ssh->user);
@@ -1758,7 +1950,8 @@ remmina_ssh_tunnel_main_thread_proc(gpointer data)
 	gchar *ptr;
 	ssize_t len = 0, lenw = 0;
 	fd_set set;
-	struct timeval timeout;
+	struct timeval tv = { 0L, 1000L };
+
 	g_autoptr(GDateTime) t1 = NULL;
 	g_autoptr(GDateTime) t2 = NULL;
 	GTimeSpan diff;                                                 // microseconds
@@ -1897,7 +2090,7 @@ remmina_ssh_tunnel_main_thread_proc(gpointer data)
 				       + g_date_time_difference(t1, t2) / 100000;
 				if (diff > 1) {
 					REMMINA_DEBUG("Polling tunnel channels");
-						channel = ssh_channel_accept_forward(REMMINA_SSH(tunnel)->session, 0, &tunnel->port);
+					channel = ssh_channel_accept_forward(REMMINA_SSH(tunnel)->session, 0, &tunnel->port);
 					if (channel == NULL)
 						t2 = t1;
 				}
@@ -1917,11 +2110,12 @@ remmina_ssh_tunnel_main_thread_proc(gpointer data)
 						close(sock);
 						sock = -1;
 					}
-				} else
+				} else {
 					sock = remmina_public_open_xdisplay(tunnel->localdisplay);
-				if (sock >= 0)
+				}
+				if (sock >= 0) {
 					remmina_ssh_tunnel_add_channel(tunnel, channel, sock);
-				else {
+				} else {
 					/* Failed to create unix socket. Will this happen? */
 					ssh_channel_close(channel);
 					ssh_channel_send_eof(channel);
@@ -1935,9 +2129,6 @@ remmina_ssh_tunnel_main_thread_proc(gpointer data)
 			/* No more connections. We should quit */
 			break;
 
-		timeout.tv_sec = 0;
-		timeout.tv_usec = 200000;
-
 		FD_ZERO(&set);
 		maxfd = 0;
 		for (i = 0; i < tunnel->num_channels; i++) {
@@ -1946,7 +2137,7 @@ remmina_ssh_tunnel_main_thread_proc(gpointer data)
 			FD_SET(tunnel->sockets[i], &set);
 		}
 
-		ret = ssh_select(tunnel->channels, tunnel->channels_out, maxfd + 1, &set, &timeout);
+		ret = ssh_select(tunnel->channels, tunnel->channels_out, maxfd + 1, &set, &tv);
 		if (!tunnel->running) break;
 		if (ret == SSH_EINTR) continue;
 		if (ret == -1) break;
@@ -2342,6 +2533,7 @@ remmina_ssh_call_exit_callback_on_main_thread(gpointer data)
 	TRACE_CALL(__func__);
 
 	RemminaSSHShell *shell = (RemminaSSHShell *)data;
+
 	if (shell->exit_callback)
 		shell->exit_callback(shell->user_data);
 	if (shell) {
@@ -2358,9 +2550,10 @@ remmina_ssh_shell_thread(gpointer data)
 	RemminaSSHShell *shell = (RemminaSSHShell *)data;
 	RemminaProtocolWidget *gp = (RemminaProtocolWidget *)shell->user_data;
 	RemminaFile *remminafile;
+
 	remminafile = remmina_protocol_widget_get_file(gp);
 	fd_set fds;
-	struct timeval timeout;
+	struct timeval tv = { 0L, 1000L };
 	ssh_channel channel = NULL;
 	ssh_channel ch[2], chout[2];
 	gchar *buf = NULL;
@@ -2371,8 +2564,7 @@ remmina_ssh_shell_thread(gpointer data)
 	const gchar *dir;
 	const gchar *sshlogname;
 	FILE *fp = NULL;
-
-	//gint screen;
+	struct chan_X11_list *current_node = NULL;
 
 	LOCK_SSH(shell)
 
@@ -2388,16 +2580,22 @@ remmina_ssh_shell_thread(gpointer data)
 
 	ssh_channel_request_pty(channel);
 
+	if (remmina_file_get_int(remminafile, "ssh_forward_x11", FALSE)) {
+		int rc = ssh_channel_request_x11(channel, 0, NULL, NULL, 0);
+		if (rc != SSH_OK)
+			REMMINA_DEBUG("Cannot open X11 channel");
+	}
+
 	if (shell->exec && shell->exec[0]) {
-		REMMINA_DEBUG ("Requesting an SSH exec channel");
+		REMMINA_DEBUG("Requesting an SSH exec channel");
 		ret = ssh_channel_request_exec(channel, shell->exec);
 	} else {
-		REMMINA_DEBUG ("Requesting an SSH shell channel");
+		REMMINA_DEBUG("Requesting an SSH shell channel");
 		ret = ssh_channel_request_shell(channel);
 	}
 	if (ret != SSH_OK) {
 		UNLOCK_SSH(shell)
-		REMMINA_WARNING ("Could not request shell");
+		REMMINA_WARNING("Could not request shell");
 		// TRANSLATORS: The placeholder %s is an error message
 		remmina_ssh_set_error(REMMINA_SSH(shell), _("Could not request shell. %s"));
 		ssh_channel_close(channel);
@@ -2411,7 +2609,7 @@ remmina_ssh_shell_thread(gpointer data)
 
 	UNLOCK_SSH(shell)
 
-	buf_len = 1000;
+	buf_len = 8192;
 	buf = g_malloc(buf_len + 1);
 
 	ch[0] = channel;
@@ -2431,7 +2629,7 @@ remmina_ssh_shell_thread(gpointer data)
 	sshlogname = remmina_file_format_properties(remminafile, sshlogname);
 	filename = g_strconcat(dir, "/", sshlogname, NULL);
 
-	if (remmina_file_get_int (remminafile, "sshsavesession", FALSE)) {
+	if (remmina_file_get_int(remminafile, "sshsavesession", FALSE)) {
 		REMMINA_DEBUG("Saving session log to %s", filename);
 		fp = fopen(filename, "w");
 	}
@@ -2448,13 +2646,10 @@ remmina_ssh_shell_thread(gpointer data)
 		REMMINA_DEBUG("Run_line written to channel");
 	}
 	while (!shell->closed) {
-		timeout.tv_sec = 1;
-		timeout.tv_usec = 0;
-
 		FD_ZERO(&fds);
 		FD_SET(shell->slave, &fds);
 
-		ret = ssh_select(ch, chout, shell->slave + 1, &fds, &timeout);
+		ret = ssh_select(ch, chout, shell->slave + 1, &fds, &tv);
 		if (ret == SSH_EINTR) continue;
 		if (ret == -1) break;
 
@@ -2472,7 +2667,7 @@ remmina_ssh_shell_thread(gpointer data)
 			UNLOCK_SSH(shell)
 			if (len == SSH_ERROR || len == SSH_EOF) {
 				REMMINA_DEBUG("SSH shell error or EOF, closing the channel");
-				shell->closed=TRUE;
+				shell->closed = TRUE;
 				break;
 			}
 			if (len <= 0) continue;
@@ -2484,23 +2679,43 @@ remmina_ssh_shell_thread(gpointer data)
 			len = ssh_channel_read_nonblocking(channel, buf, len, i);
 			UNLOCK_SSH(shell)
 			if (len <= 0) {
-				shell->closed=TRUE;
+				shell->closed = TRUE;
 				break;
 			}
 			while (len > 0) {
 				ret = write(shell->slave, buf, len);
 				if (fp != NULL) {
-					fwrite(buf, ret, 1, fp );
+					fwrite(buf, ret, 1, fp);
 					fflush(fp);
 				}
 				if (ret <= 0) break;
 				len -= ret;
 			}
 		}
+		if (remmina_file_get_int(remminafile, "ssh_forward_x11", FALSE)) {
+			/* Looping on X clients */
+			if (gp_x11_chan != NULL)
+				current_node = gp_x11_chan;
+			else
+				current_node = NULL;
+
+			while (current_node != NULL) {
+				struct chan_X11_list *next_node;
+				ret = remmina_ssh_x11_send_receive(current_node->chan,
+								   current_node->sock, shell);
+				next_node = current_node->next;
+				if (ret != 0) {
+					shutdown(current_node->sock, SHUT_RDWR);
+					close(current_node->sock);
+					remove_node(current_node);
+				}
+				current_node = next_node;
+			}
+		}
 	}
 
 	LOCK_SSH(shell)
-	if (remmina_file_get_int (remminafile, "sshsavesession", FALSE))
+	if (remmina_file_get_int(remminafile, "sshsavesession", FALSE))
 		fclose(fp);
 	shell->channel = NULL;
 	ssh_channel_close(channel);
