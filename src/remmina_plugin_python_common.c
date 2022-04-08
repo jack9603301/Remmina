@@ -204,9 +204,11 @@ RemminaPluginService* remmina_plugin_python_get_service(void)
 void remmina_plugin_python_add_plugin(PyPlugin* plugin)
 {
   TRACE_CALL(__func__);
+
   if (!plugin_map) {
 	plugin_map = g_ptr_array_new();
   }
+
   g_ptr_array_add(plugin_map, plugin);
 }
 

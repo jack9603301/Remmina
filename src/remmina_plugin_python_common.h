@@ -78,7 +78,7 @@ extern const gchar* ATTR_EXPORT_HINTS;
 extern const gchar* ATTR_PREF_LABEL;
 extern const gchar* ATTR_INIT_ORDER;
 
-//#define WITH_PYTHON_TRACE_CALLS
+#define WITH_PYTHON_TRACE_CALLS
 
 /**
  * If WITH_PYTHON_TRACE_CALLS is defined, it logs the calls to the Python code and errors in case.

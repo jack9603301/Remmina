@@ -75,11 +75,13 @@ RemminaPlugin* remmina_plugin_python_create_entry_plugin(PyPlugin* plugin)
 
 	PyObject* instance = plugin->instance;
 
-	if (!remmina_plugin_python_check_attribute(instance, ATTR_NAME))
-	{
-		g_printerr("Unable to create entry plugin. Aborting!\n");
-		return NULL;
-	}
+    if (!remmina_plugin_python_check_attribute(instance, ATTR_NAME)
+        || !remmina_plugin_python_check_attribute(instance, ATTR_VERSION)
+        || !remmina_plugin_python_check_attribute(instance, ATTR_DESCRIPTION))
+    {
+        g_printerr("Unable to create entry plugin. Aborting!\n");
+        return NULL;
+    }
 
 	RemminaEntryPlugin* remmina_plugin = (RemminaEntryPlugin*)remmina_plugin_python_malloc(sizeof(RemminaEntryPlugin));
 

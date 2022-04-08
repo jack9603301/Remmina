@@ -42,7 +42,7 @@ void remmina_plugin_python_tool_init(void)
 	TRACE_CALL(__func__);
 }
 
-void remmina_plugin_python_tool_exec_func_wrapper(RemminaToolPlugin* instance)
+void remmina_plugin_python_tool_exec_func_wrapper(GtkMenuItem* self, RemminaToolPlugin* instance)
 {
 	TRACE_CALL(__func__);
 

@@ -156,3 +156,72 @@ class Plugin:
 
 myPlugin = Plugin()
 remmina.register_plugin(myPlugin)
+
+
+class PluginTool:
+    def __init__(self):
+        self.button = None
+        self.name = "Python Tool Plugin"
+        self.type = "tool"
+        self.description = "Press me!"
+        self.version  = "1.0"
+
+    def exec_func(self):
+        print("exec_func has been called!")
+
+myToolPlugin = PluginTool()
+remmina.register_plugin(myToolPlugin)
+
+class Pluginpref:
+    def __init__(self):
+        self.button = None
+        self.name = "Python pref Plugin"
+        self.pref_label = "Preference Label"
+        self.type = "pref"
+        self.description = "Press me!"
+        self.version  = "1.0"
+        self.button = Gtk.Button(label="Click Here")
+        self.button.connect("clicked", self.on_button_clicked)
+
+    def get_pref_body(self):
+        return self.button
+
+    def on_button_clicked(self):
+        print("Click! :)")
+
+
+myprefPlugin = Pluginpref()
+remmina.register_plugin(myprefPlugin)
+
+
+class Pluginfile:
+    def __init__(self):
+        self.button = None
+        self.name = "Python pref Plugin"
+        self.pref_label = "Preference Label"
+        self.type = "pref"
+        self.description = "Press me!"
+        self.version  = "1.0"
+        self.export_hints = ".ttf"
+        print("Pluginfile")
+
+
+    def import_test_func(self, file):
+        print("import_test_func! {}" % file)
+        return True
+
+    def import_func(self, file):
+        print("import_func! {}" % file)
+        return remmina.file_new()
+
+    def export_test_func(self, file):
+        print("export_test_func! :)")
+        return True
+
+    def export_func(self, file):
+        print("export_func! :)")
+        return None
+
+
+myfilePlugin = Pluginfile()
+remmina.register_plugin(myfilePlugin)
