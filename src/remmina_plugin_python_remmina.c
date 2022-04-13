@@ -703,6 +703,11 @@ static PyMODINIT_FUNC remmina_plugin_python_module_initialize(void)
 	PyModule_AddIntConstant(module, "PROTOCOL_FEATURE_PREF_RADIO", (long)REMMINA_PROTOCOL_FEATURE_PREF_RADIO);
 	PyModule_AddIntConstant(module, "PROTOCOL_FEATURE_PREF_CHECK", (long)REMMINA_PROTOCOL_FEATURE_PREF_CHECK);
 
+    PyModule_AddIntConstant(module, "REMMINA_MESSAGE_PANEL_FLAG_USERNAME", REMMINA_MESSAGE_PANEL_FLAG_USERNAME);
+    PyModule_AddIntConstant(module, "REMMINA_MESSAGE_PANEL_FLAG_USERNAME_READONLY", REMMINA_MESSAGE_PANEL_FLAG_USERNAME_READONLY);
+    PyModule_AddIntConstant(module, "REMMINA_MESSAGE_PANEL_FLAG_DOMAIN", REMMINA_MESSAGE_PANEL_FLAG_DOMAIN);
+    PyModule_AddIntConstant(module, "REMMINA_MESSAGE_PANEL_FLAG_SAVEPASSWORD", REMMINA_MESSAGE_PANEL_FLAG_SAVEPASSWORD);
+
 	if (PyModule_AddObject(module, "Setting", (PyObject*)&python_protocol_setting_type) < 0)
 	{
 		Py_DECREF(&python_protocol_setting_type);
@@ -848,15 +853,14 @@ static PyObject* remmina_file_new_wrapper(PyObject* self, PyObject* args, PyObje
 {
 	TRACE_CALL(__func__);
 
-	PyObject* result = Py_None;
 	RemminaFile* file = remmina_file_new();
-	if (file)
+    if (file)
 	{
-		result = (PyObject*)file;
+      return remmina_plugin_python_remmina_file_to_python(file);
 	}
 
 	remmina_plugin_python_check_error();
-	return result;
+	return Py_None;
 }
 
 static PyObject* remmina_pref_set_value_wrapper(PyObject* self, PyObject* args, PyObject* kwargs)

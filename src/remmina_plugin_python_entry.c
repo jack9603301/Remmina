@@ -62,7 +62,7 @@ void remmina_plugin_python_entry_entry_func_wrapper(RemminaEntryPlugin* instance
 {
 	TRACE_CALL(__func__);
 
-	PyPlugin* plugin = remmina_plugin_python_get_plugin((RemminaPlugin*)instance);
+	PyPlugin* plugin = remmina_plugin_python_get_plugin(instance->name);
 	if (plugin)
 	{
 		CallPythonMethod(plugin->instance, "entry_func", NULL);

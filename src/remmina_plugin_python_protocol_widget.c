@@ -453,7 +453,7 @@ static PyObject* protocol_widget_start_reverse_tunnel(PyRemminaProtocolWidget* s
 
 static gboolean xport_tunnel_init(RemminaProtocolWidget* gp, gint remotedisplay, const gchar* server, gint port)
 {
-	PyPlugin* plugin = remmina_plugin_python_get_plugin((RemminaPlugin*)gp->plugin);
+	PyPlugin* plugin = remmina_plugin_python_get_plugin(gp->plugin->name);
 	PyObject* result = PyObject_CallMethod(plugin
 		->instance, "xport_tunnel_init", "Oisi", gp, remotedisplay, server, port);
 	return PyObject_IsTrue(result);
@@ -713,13 +713,13 @@ static PyObject* protocol_widget_ssh_exec(PyRemminaProtocolWidget* self, PyObjec
 
 static void _on_send_callback_wrapper(RemminaProtocolWidget* gp, const gchar* text)
 {
-	PyPlugin* plugin = remmina_plugin_python_get_plugin((RemminaPlugin*)gp->plugin);
+	PyPlugin* plugin = remmina_plugin_python_get_plugin(gp->plugin->name);
 	PyObject_CallMethod(plugin->instance, "on_send", "Os", gp, text);
 }
 
 static void _on_destroy_callback_wrapper(RemminaProtocolWidget* gp)
 {
-	PyPlugin* plugin = remmina_plugin_python_get_plugin((RemminaPlugin*)gp->plugin);
+	PyPlugin* plugin = remmina_plugin_python_get_plugin(gp->plugin->name);
 	PyObject_CallMethod(plugin->instance, "on_destroy", "O", gp);
 }
 

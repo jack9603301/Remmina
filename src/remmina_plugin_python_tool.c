@@ -46,7 +46,7 @@ void remmina_plugin_python_tool_exec_func_wrapper(GtkMenuItem* self, RemminaTool
 {
 	TRACE_CALL(__func__);
 
-	PyPlugin* plugin = remmina_plugin_python_get_plugin((RemminaPlugin*)instance);
+	PyPlugin* plugin = remmina_plugin_python_get_plugin(instance->name);
 	CallPythonMethod(plugin->instance, "exec_func", NULL);
 }
 

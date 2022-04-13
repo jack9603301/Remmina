@@ -42,7 +42,7 @@ class Plugin:
         self.name = "PyVNC"
         self.type = "protocol"
         self.description = "VNC but in Python!"
-        self.version  = "1.0"
+        self.version = "1.0"
         self.icon_name = "org.remmina.Remmina-vnc-symbolic"
         self.icon_name_ssh = "org.remmina.Remmina-vnc-ssh-symbolic"
         self.ssh_setting = remmina.PROTOCOL_SSH_SETTING_TUNNEL
@@ -95,17 +95,17 @@ class Plugin:
         #print("[PyVNC.open_connection]: Called!")
         print("Conect to %s" % remmina.pref_get_value("password"))
         connection_file = gp.get_file()
-        print(connection_file.get_setting("disablepasswordstoring", False))
+        connection_file.set_setting("disablepasswordstoring", False)
         password = None
 
         dont_save_passwords = connection_file.get_setting("disablepasswordstoring", False)
         ret = remmina.protocol_plugin_init_auth(widget=gp,
-                                                flags=0, #if dont_save_passwords else remmina.REMMINA_MESSAGE_PANEL_FLAG_SAVEPASSWORD,
-                                                title="Enter VNC password",
+                                                flags= remmina.REMMINA_MESSAGE_PANEL_FLAG_USERNAME | remmina.REMMINA_MESSAGE_PANEL_FLAG_USERNAME_READONLY | remmina.REMMINA_MESSAGE_PANEL_FLAG_DOMAIN | remmina.REMMINA_MESSAGE_PANEL_FLAG_SAVEPASSWORD,
+                                                title="Python Rocks!",
                                                 default_username="",
-                                                default_password="", #connection_file.get_setting("password", None),
+                                                default_password=connection_file.get_setting("password", ""),
                                                 default_domain="",
-                                                password_prompt="Enter VNC password")
+                                                password_prompt="Your Password Rocks!")
 
         if ret == Gtk.ResponseType.CANCEL:
             print("Cancelled password prompt. Exiting...")
@@ -186,7 +186,7 @@ class Pluginpref:
     def get_pref_body(self):
         return self.button
 
-    def on_button_clicked(self):
+    def on_button_clicked(self, btn):
         print("Click! :)")
 
 
@@ -197,22 +197,26 @@ remmina.register_plugin(myprefPlugin)
 class Pluginfile:
     def __init__(self):
         self.button = None
-        self.name = "Python pref Plugin"
+        self.name = "Python file Plugin"
         self.pref_label = "Preference Label"
-        self.type = "pref"
+        self.type = "file"
         self.description = "Press me!"
         self.version  = "1.0"
         self.export_hints = ".ttf"
-        print("Pluginfile")
-
 
     def import_test_func(self, file):
-        print("import_test_func! {}" % file)
+        print("import_test_func! %s" % file)
         return True
 
-    def import_func(self, file):
-        print("import_func! {}" % file)
-        return remmina.file_new()
+    def import_func(self, path):
+        print("import_func! %s" % path)
+        file = remmina.file_new()
+        print(file)
+        print(file.set_setting)
+        file.set_setting("name", path)
+        file.set_setting("protocol", "PyVNC")
+
+        return file
 
     def export_test_func(self, file):
         print("export_test_func! :)")
@@ -225,3 +229,36 @@ class Pluginfile:
 
 myfilePlugin = Pluginfile()
 remmina.register_plugin(myfilePlugin)
+
+
+class PluginSecret:
+    def __init__(self):
+        self.button = None
+        self.name = "Python Secret Plugin"
+        self.pref_label = "Preference Label"
+        self.type = "secret"
+        self.description = "Press me!"
+        self.version  = "1.0"
+        self.export_hints = ".ttf"
+        self.keys = {}
+
+    def init(self):
+        print("[PluginSecret.init]: Called!")
+        return True
+
+    def is_service_available(self):
+        return True
+
+    def store_password(self, file, key, pwd):
+        print("[PluginSecret]: store_password! %s, %s, %s" % file, key, pwd)
+        self.keys[key] = pwd
+
+    def get_password(self, file, key):
+        print("[PluginSecret]: get_password! :)")
+        return self.keys[key] if key in self.keys else ""
+
+    def delete_password(self, file, key):
+        self.keys[key] = None
+
+mySecretPlugin = PluginSecret()
+remmina.register_plugin(mySecretPlugin)

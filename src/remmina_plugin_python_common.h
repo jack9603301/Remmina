@@ -234,7 +234,7 @@ gchar* remmina_plugin_python_copy_string_from_python(PyObject* string, Py_ssize_
  *
  * @return	A pointer to a PyPlugin instance if successful. Otherwise NULL is returned.
  */
-PyPlugin* remmina_plugin_python_get_plugin(RemminaPlugin* instance);
+PyPlugin* remmina_plugin_python_get_plugin(const char* name);
 
 
 GtkWidget* new_pywidget(GObject* obj);

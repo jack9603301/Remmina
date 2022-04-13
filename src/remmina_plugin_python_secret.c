@@ -47,7 +47,7 @@ gboolean remmina_plugin_python_secret_init_wrapper(RemminaSecretPlugin* instance
 {
 	TRACE_CALL(__func__);
 
-	PyPlugin* plugin = remmina_plugin_python_get_plugin((RemminaPlugin*)instance);
+	PyPlugin* plugin = remmina_plugin_python_get_plugin(instance->name);
 	PyObject* result = CallPythonMethod(plugin->instance, "init", NULL);
 	return result == Py_None || result != Py_False;
 }
@@ -56,7 +56,7 @@ gboolean remmina_plugin_python_secret_is_service_available_wrapper(RemminaSecret
 {
 	TRACE_CALL(__func__);
 
-	PyPlugin* plugin = remmina_plugin_python_get_plugin((RemminaPlugin*)instance);
+	PyPlugin* plugin = remmina_plugin_python_get_plugin(instance->name);
 	PyObject* result = CallPythonMethod(plugin->instance, "is_service_available", NULL);
 	return result == Py_None || result != Py_False;
 }
@@ -66,7 +66,7 @@ remmina_plugin_python_secret_store_password_wrapper(RemminaSecretPlugin* instanc
 {
 	TRACE_CALL(__func__);
 
-	PyPlugin* plugin = remmina_plugin_python_get_plugin((RemminaPlugin*)instance);
+	PyPlugin* plugin = remmina_plugin_python_get_plugin(instance->name);
 	CallPythonMethod(plugin
 		->instance, "store_password", "Oss", (PyObject*)remmina_plugin_python_remmina_file_to_python(file), key, password);
 }
@@ -76,7 +76,7 @@ remmina_plugin_python_secret_get_password_wrapper(RemminaSecretPlugin* instance,
 {
 	TRACE_CALL(__func__);
 
-	PyPlugin* plugin = remmina_plugin_python_get_plugin((RemminaPlugin*)instance);
+	PyPlugin* plugin = remmina_plugin_python_get_plugin(instance->name);
 	PyObject* result = CallPythonMethod(plugin
 		->instance, "get_password", "Os", (PyObject*)remmina_plugin_python_remmina_file_to_python(file), key);
 	Py_ssize_t len = PyUnicode_GetLength(result);
@@ -84,10 +84,8 @@ remmina_plugin_python_secret_get_password_wrapper(RemminaSecretPlugin* instance,
 	{
 		return NULL;
 	}
-	else
-	{
-		return remmina_plugin_python_copy_string_from_python(result, len);
-	}
+
+    return remmina_plugin_python_copy_string_from_python(result, len);
 }
 
 void
@@ -95,7 +93,7 @@ remmina_plugin_python_secret_delete_password_wrapper(RemminaSecretPlugin* instan
 {
 	TRACE_CALL(__func__);
 
-	PyPlugin* plugin = remmina_plugin_python_get_plugin((RemminaPlugin*)instance);
+	PyPlugin* plugin = remmina_plugin_python_get_plugin(instance->name);
 	CallPythonMethod(plugin
 		->instance, "delete_password", "Os", (PyObject*)remmina_plugin_python_remmina_file_to_python(file), key);
 }

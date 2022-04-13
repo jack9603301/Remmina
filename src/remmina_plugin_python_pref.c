@@ -49,7 +49,7 @@ void remmina_plugin_python_pref_init(void) {
 GtkWidget *remmina_plugin_python_pref_get_pref_body_wrapper(RemminaPrefPlugin *instance) {
     TRACE_CALL(__func__);
 
-    PyPlugin *plugin = remmina_plugin_python_get_plugin((RemminaPlugin *) instance);
+    PyPlugin *plugin = remmina_plugin_python_get_plugin(instance->name);
 
     PyObject *result = CallPythonMethod(plugin->instance, "get_pref_body", NULL, NULL);
     if (result == Py_None || result == NULL) {

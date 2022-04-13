@@ -209,7 +209,12 @@ void remmina_plugin_python_add_plugin(PyPlugin* plugin)
 	plugin_map = g_ptr_array_new();
   }
 
-  g_ptr_array_add(plugin_map, plugin);
+  PyPlugin* test = remmina_plugin_python_get_plugin(plugin->generic_plugin->name);
+  if (test) {
+    g_printerr("A plugin with name '%s' has already been registered! Skipping...", plugin->generic_plugin->name);
+  } else {
+    g_ptr_array_add(plugin_map, plugin);
+  }
 }
 
 RemminaTypeHint remmina_plugin_python_to_generic(PyObject* field, gpointer* target)
@@ -241,7 +246,7 @@ RemminaTypeHint remmina_plugin_python_to_generic(PyObject* field, gpointer* targ
     {
         *target = malloc(sizeof(long));
         long* long_target = (long*)target;
-        *long_target = PyBool_FromLong(PyLong_AsLong(field));
+        *long_target = PyLong_AsLong(field);
         return REMMINA_TYPEHINT_BOOLEAN;
     }
     else if (PyLong_Check(field))
@@ -256,7 +261,7 @@ RemminaTypeHint remmina_plugin_python_to_generic(PyObject* field, gpointer* targ
         Py_ssize_t len = PyTuple_Size(field);
         if (len)
         {
-            gpointer * dest = (gpointer*)malloc(sizeof(gpointer) * (len + 1));
+            gpointer* dest = (gpointer*)malloc(sizeof(gpointer) * (len + 1));
             memset(dest, 0, sizeof(gpointer) * (len + 1));
 
             for (Py_ssize_t i = 0; i < len; ++i)
@@ -269,27 +274,26 @@ RemminaTypeHint remmina_plugin_python_to_generic(PyObject* field, gpointer* targ
         }
     }
     Py_DECREF(field);
+    return REMMINA_TYPEHINT_UNDEFINED;
 }
 
 
-PyPlugin* remmina_plugin_python_get_plugin(RemminaPlugin* instance)
+PyPlugin* remmina_plugin_python_get_plugin(const char* name)
 {
 	TRACE_CALL(__func__);
 
 	assert(plugin_map);
-	assert(instance);
+	assert(name);
 
 	for (gint i = 0; i < plugin_map->len; ++i)
 	{
 		PyPlugin* plugin = (PyPlugin*)g_ptr_array_index(plugin_map, i);
 		if (plugin->generic_plugin && plugin->generic_plugin->name
-			&& g_str_equal(instance->name, plugin->generic_plugin->name))
+			&& g_str_equal(name, plugin->generic_plugin->name))
 		{
 			return plugin;
 		}
 	}
-
-	g_printerr(PLUGIN_NOT_FOUND_FMT, __FILE__, __LINE__, instance->name);
 
 	return NULL;
 }
@@ -301,7 +305,7 @@ void init_pygobject()
 
 GtkWidget* new_pywidget(GObject* obj)
 {
-  return pygobject_new(obj);
+  return (GtkWidget*)pygobject_new(obj);
 }
 
 GtkWidget* get_pywidget(PyObject* obj)

@@ -55,7 +55,7 @@ gboolean remmina_plugin_python_file_import_test_func_wrapper(RemminaFilePlugin* 
 
 	PyObject* result = NULL;
 
-	PyPlugin* plugin = remmina_plugin_python_get_plugin((RemminaPlugin*)instance);
+	PyPlugin* plugin = remmina_plugin_python_get_plugin(instance->name);
 
 	if (plugin)
 	{
@@ -71,8 +71,8 @@ RemminaFile* remmina_plugin_python_file_import_func_wrapper(RemminaFilePlugin* i
 
 	PyObject* result = NULL;
 
-	PyPlugin* plugin = remmina_plugin_python_get_plugin((RemminaPlugin*)instance);
-	if (plugin)
+	PyPlugin* plugin = remmina_plugin_python_get_plugin(instance->name);
+	if (!plugin)
 	{
 		return NULL;
 	}
@@ -84,7 +84,7 @@ RemminaFile* remmina_plugin_python_file_import_func_wrapper(RemminaFilePlugin* i
 		return NULL;
 	}
 
-	return (RemminaFile*)result;
+	return ((PyRemminaFile*)result)->file;
 }
 
 gboolean remmina_plugin_python_file_export_test_func_wrapper(RemminaFilePlugin* instance, RemminaFile* file)
@@ -93,7 +93,7 @@ gboolean remmina_plugin_python_file_export_test_func_wrapper(RemminaFilePlugin* 
 
 	PyObject* result = NULL;
 
-	PyPlugin* plugin = remmina_plugin_python_get_plugin((RemminaPlugin*)instance);
+	PyPlugin* plugin = remmina_plugin_python_get_plugin(instance->name);
 	if (plugin)
 	{
 		result = CallPythonMethod(plugin->instance,
@@ -112,7 +112,7 @@ remmina_plugin_python_file_export_func_wrapper(RemminaFilePlugin* instance, Remm
 
 	PyObject* result = NULL;
 
-	PyPlugin* plugin = remmina_plugin_python_get_plugin((RemminaPlugin*)instance);
+	PyPlugin* plugin = remmina_plugin_python_get_plugin(instance->name);
 	if (plugin)
 	{
 		result = CallPythonMethod(plugin->instance, "export_func", "s", to_file);
@@ -126,6 +126,7 @@ RemminaPlugin* remmina_plugin_python_create_file_plugin(PyPlugin* plugin)
 	TRACE_CALL(__func__);
 
 	PyObject* instance = plugin->instance;
+  Py_IncRef(instance);
 
 	if (!remmina_plugin_python_check_attribute(instance, ATTR_NAME))
 	{

@@ -987,7 +987,9 @@ void remmina_main_on_action_application_preferences(GSimpleAction *action, GVari
 	gtk_widget_show_all(widget);
 	/* Switch to a dark theme if the user enabled it */
 	settings = gtk_settings_get_default();
-	g_object_set(settings, "gtk-application-prefer-dark-theme", remmina_pref.dark_theme, NULL);
+    if (remmina_pref.dark_theme) {
+	  g_object_set(settings, "gtk-application-prefer-dark-theme", remmina_pref.dark_theme, NULL);
+    }
 }
 
 void remmina_main_on_action_application_default(GSimpleAction *action, GVariant *param, gpointer data)

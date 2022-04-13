@@ -64,7 +64,7 @@ void remmina_plugin_python_protocol_init(void)
 void remmina_protocol_init_wrapper(RemminaProtocolWidget* gp)
 {
 	TRACE_CALL(__func__);
-	PyPlugin* py_plugin = remmina_plugin_python_get_plugin((RemminaPlugin*)gp->plugin);
+	PyPlugin* py_plugin = remmina_plugin_python_get_plugin(gp->plugin->name);
 	py_plugin->gp->gp = gp;
 	CallPythonMethod(py_plugin->instance, "init", "O", py_plugin->gp);
 }
@@ -72,7 +72,7 @@ void remmina_protocol_init_wrapper(RemminaProtocolWidget* gp)
 gboolean remmina_protocol_open_connection_wrapper(RemminaProtocolWidget* gp)
 {
 	TRACE_CALL(__func__);
-	PyPlugin* py_plugin = remmina_plugin_python_get_plugin((RemminaPlugin*)gp->plugin);
+	PyPlugin* py_plugin = remmina_plugin_python_get_plugin(gp->plugin->name);
 	if (py_plugin)
 	{
 		PyObject* result = CallPythonMethod(py_plugin->instance, "open_connection", "O", py_plugin->gp);
@@ -87,7 +87,7 @@ gboolean remmina_protocol_open_connection_wrapper(RemminaProtocolWidget* gp)
 gboolean remmina_protocol_close_connection_wrapper(RemminaProtocolWidget* gp)
 {
 	TRACE_CALL(__func__);
-	PyPlugin* py_plugin = remmina_plugin_python_get_plugin((RemminaPlugin*)gp->plugin);
+	PyPlugin* py_plugin = remmina_plugin_python_get_plugin(gp->plugin->name);
 	PyObject* result = CallPythonMethod(py_plugin->instance, "close_connection", "O", py_plugin->gp);
 	return result == Py_True;
 }
@@ -96,7 +96,7 @@ gboolean remmina_protocol_query_feature_wrapper(RemminaProtocolWidget* gp,
 	const RemminaProtocolFeature* feature)
 {
 	TRACE_CALL(__func__);
-	PyPlugin* py_plugin = remmina_plugin_python_get_plugin((RemminaPlugin*)gp->plugin);
+	PyPlugin* py_plugin = remmina_plugin_python_get_plugin(gp->plugin->name);
     PyRemminaProtocolFeature* pyFeature = remmina_plugin_python_protocol_feature_new();
     pyFeature->type = (gint)feature->type;
     pyFeature->id = feature->id;
@@ -118,7 +118,7 @@ gboolean remmina_protocol_query_feature_wrapper(RemminaProtocolWidget* gp,
 void remmina_protocol_call_feature_wrapper(RemminaProtocolWidget* gp, const RemminaProtocolFeature* feature)
 {
 	TRACE_CALL(__func__);
-	PyPlugin* py_plugin = remmina_plugin_python_get_plugin((RemminaPlugin*)gp->plugin);
+	PyPlugin* py_plugin = remmina_plugin_python_get_plugin(gp->plugin->name);
     PyRemminaProtocolFeature* pyFeature = remmina_plugin_python_protocol_feature_new();
     pyFeature->type = (gint)feature->type;
     pyFeature->id = feature->id;
@@ -144,7 +144,7 @@ void remmina_protocol_send_keytrokes_wrapper(RemminaProtocolWidget* gp,
 	const gint keylen)
 {
 	TRACE_CALL(__func__);
-	PyPlugin* py_plugin = remmina_plugin_python_get_plugin((RemminaPlugin*)gp->plugin);
+	PyPlugin* py_plugin = remmina_plugin_python_get_plugin(gp->plugin->name);
     PyListObject* obj = PyList_New(keylen);
     Py_IncRef(obj);
     for (int i = 0; i < keylen; ++i)
@@ -160,7 +160,7 @@ gboolean remmina_protocol_get_plugin_screenshot_wrapper(RemminaProtocolWidget* g
 {
 	TRACE_CALL(__func__);
 
-	PyPlugin* py_plugin = remmina_plugin_python_get_plugin((RemminaPlugin*)gp->plugin);
+	PyPlugin* py_plugin = remmina_plugin_python_get_plugin(gp->plugin->name);
     PyRemminaPluginScreenshotData* data = remmina_plugin_python_screenshot_data_new();
     Py_IncRef(data);
 	PyObject* result = CallPythonMethod(py_plugin->instance, "get_plugin_screenshot", "OO", py_plugin->gp, data);
@@ -191,14 +191,14 @@ gboolean remmina_protocol_get_plugin_screenshot_wrapper(RemminaProtocolWidget* g
 
 gboolean remmina_protocol_map_event_wrapper(RemminaProtocolWidget* gp)
 {
-	PyPlugin* plugin = remmina_plugin_python_get_plugin((RemminaPlugin*)gp->plugin);
+	PyPlugin* plugin = remmina_plugin_python_get_plugin(gp->plugin->name);
 	PyObject* result = CallPythonMethod(plugin->instance, "map_event", "O", plugin->gp);
 	return PyBool_Check(result) && result == Py_True;
 }
 
 gboolean remmina_protocol_unmap_event_wrapper(RemminaProtocolWidget* gp)
 {
-	PyPlugin* plugin = remmina_plugin_python_get_plugin((RemminaPlugin*)gp->plugin);
+	PyPlugin* plugin = remmina_plugin_python_get_plugin(gp->plugin->name);
 	PyObject* result = CallPythonMethod(plugin->instance, "unmap_event", "O", plugin->gp);
 	return PyBool_Check(result) && result == Py_True;
 }
