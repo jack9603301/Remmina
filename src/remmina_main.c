@@ -1437,8 +1437,8 @@ static void remmina_main_init(void)
 
 	REMMINA_DEBUG("Initializing the Remmina main window");
 	/* Switch to a dark theme if the user enabled it */
-	//settings = gtk_settings_get_default();
-	//g_object_set(settings, "gtk-application-prefer-dark-theme", remmina_pref.dark_theme, NULL);
+	settings = gtk_settings_get_default();
+	g_object_set(settings, "gtk-application-prefer-dark-theme", &remmina_pref.dark_theme, NULL);
 
 	REMMINA_DEBUG ("Initializing monitor");
 	remminamain->monitor = remmina_network_monitor_new();

@@ -46,7 +46,7 @@
 G_BEGIN_DECLS
 
 /**
- * Initializes the Python plugin specialisation for entr plugins.
+ * Initializes the Python plugin specialisation for entry plugins.
  */
 void remmina_plugin_python_entry_init(void);
 

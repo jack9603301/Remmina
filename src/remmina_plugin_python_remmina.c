@@ -69,15 +69,14 @@
 // D E C L A R A T I O N S
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+
 /**
  * Util function to check if a specific member is define in a Python object.
  */
 gboolean remmina_plugin_python_check_mandatory_member(PyObject* instance, const gchar* member);
 
-static PyObject* remmina_plugin_python_log_printf_wrapper(PyObject* self, PyObject* msg);
 static PyObject* remmina_plugin_python_debug_wrapper(PyObject* self, PyObject* msg);
 static PyObject* remmina_register_plugin_wrapper(PyObject* self, PyObject* plugin);
-static PyObject* remmina_plugin_python_get_viewport(PyObject* self, PyObject* handle);
 static PyObject* remmina_file_get_datadir_wrapper(PyObject* self, PyObject* plugin);
 static PyObject* remmina_file_new_wrapper(PyObject* self, PyObject* args, PyObject* kwargs);
 static PyObject* remmina_pref_set_value_wrapper(PyObject* self, PyObject* args, PyObject* kwargs);
@@ -383,9 +382,15 @@ PyObject* python_protocol_feature_new(PyTypeObject* type, PyObject* kws, PyObjec
 
 	self->id = 0;
 	self->type = 0;
-	self->opt1 = Py_None;
-	self->opt2 = Py_None;
-	self->opt3 = Py_None;
+    self->opt1 = (PyGeneric*)Py_None;
+    self->opt1->raw = NULL;
+    self->opt1->type_hint = REMMINA_TYPEHINT_UNDEFINED;
+	self->opt2 = (PyGeneric*)Py_None;
+    self->opt2->raw = NULL;
+    self->opt2->type_hint = REMMINA_TYPEHINT_UNDEFINED;
+	self->opt3 = (PyGeneric*)Py_None;
+    self->opt3->raw = NULL;
+    self->opt3->type_hint = REMMINA_TYPEHINT_UNDEFINED;
 
 	return (PyObject*)self;
 }
@@ -429,7 +434,7 @@ PyRemminaProtocolFeature* remmina_plugin_python_protocol_feature_new(void)
 	feature->opt3->raw = NULL;
 	feature->opt3->type_hint = REMMINA_TYPEHINT_UNDEFINED;
     feature->type = 0;
-	Py_IncRef(feature);
+	Py_IncRef((PyObject*)feature);
     return feature;
 }
 
@@ -486,7 +491,7 @@ PyRemminaPluginScreenshotData* remmina_plugin_python_screenshot_data_new(void)
 {
     PyRemminaPluginScreenshotData* data = (PyRemminaPluginScreenshotData*) PyObject_New(PyRemminaPluginScreenshotData, &python_screenshot_data_type);
     data->buffer = PyObject_New(PyByteArrayObject, &PyByteArray_Type);
-    Py_IncRef(data->buffer);
+    Py_IncRef((PyObject*)data->buffer);
     data->height = 0;
     data->width = 0;
     data->bitsPerPixel = 0;
@@ -559,7 +564,7 @@ PyGeneric* remmina_plugin_python_generic_new(void)
 {
     PyGeneric* generic = (PyGeneric*) PyObject_New(PyGeneric, &python_generic_type);
     generic->raw = PyLong_FromLongLong(0LL);
-    Py_IncRef(generic);
+    Py_IncRef((PyObject*)generic);
     return generic;
 }
 
@@ -610,34 +615,29 @@ static PyObject* remmina_plugin_python_generic_to_string(PyGeneric* self, PyObje
  * Is called from the Python engine when it initializes the 'remmina' module.
  * @details This function is only called by the Python engine!
  */
-static PyMODINIT_FUNC remmina_plugin_python_module_initialize(void)
-{
+PyMODINIT_FUNC remmina_plugin_python_module_initialize(void) {
 	TRACE_CALL(__func__);
 
     if (PyType_Ready(&python_screenshot_data_type) < 0)
     {
-        g_printerr("Error initializing remmina.RemminaScreenshotData!\n");
         PyErr_Print();
         return NULL;
     }
 
     if (PyType_Ready(&python_generic_type) < 0)
     {
-        g_printerr("Error initializing remmina.Generic!\n");
         PyErr_Print();
         return NULL;
     }
 
 	if (PyType_Ready(&python_protocol_setting_type) < 0)
 	{
-		g_printerr("Error initializing remmina.Setting!\n");
 		PyErr_Print();
 		return NULL;
 	}
 
 	if (PyType_Ready(&python_protocol_feature_type) < 0)
 	{
-		g_printerr("Error initializing remmina.Feature!\n");
 		PyErr_Print();
 		return NULL;
 	}
@@ -648,7 +648,6 @@ static PyMODINIT_FUNC remmina_plugin_python_module_initialize(void)
 	PyObject* module = PyModule_Create(&remmina_python_module_type);
 	if (!module)
 	{
-		g_printerr("Error creating module 'remmina'!\n");
 		PyErr_Print();
 		return NULL;
 	}
@@ -739,8 +738,8 @@ void remmina_plugin_python_module_init(void)
 
 	if (PyImport_AppendInittab("remmina", remmina_plugin_python_module_initialize))
 	{
-		g_print("Error initializing remmina module for python!\n");
 		PyErr_Print();
+        exit(1);
 	}
 
 	remmina_plugin_python_entry_init();
@@ -755,10 +754,11 @@ gboolean remmina_plugin_python_check_mandatory_member(PyObject* instance, const 
 {
 	TRACE_CALL(__func__);
 
-	if (PyObject_HasAttrString(instance, member))
-		return TRUE;
+	if (PyObject_HasAttrString(instance, member)) {
+      return TRUE;
+    }
 
-	g_printerr("Missing mandatory member in Python plugin instance: %s\n", member);
+	g_printerr("Missing mandatory member '%s' in Python plugin instance!\n", member);
 	return FALSE;
 }
 
@@ -779,7 +779,7 @@ static PyObject* remmina_register_plugin_wrapper(PyObject* self, PyObject* plugi
 
 		RemminaPlugin* remmina_plugin = NULL;
 
-		PyPlugin* plugin = (PyPlugin*)malloc(sizeof(PyPlugin));
+		PyPlugin* plugin = (PyPlugin*)remmina_plugin_python_malloc(sizeof(PyPlugin));
 		plugin->instance = plugin_instance;
 		Py_INCREF(plugin_instance);
 		plugin->protocol_plugin = NULL;
@@ -856,7 +856,7 @@ static PyObject* remmina_file_new_wrapper(PyObject* self, PyObject* args, PyObje
 	RemminaFile* file = remmina_file_new();
     if (file)
 	{
-      return remmina_plugin_python_remmina_file_to_python(file);
+      return (PyObject*)remmina_plugin_python_remmina_file_to_python(file);
 	}
 
 	remmina_plugin_python_check_error();
@@ -910,19 +910,11 @@ static PyObject* remmina_pref_get_value_wrapper(PyObject* self, PyObject* args, 
 	return result;
 }
 
-static void print_all_settings (gpointer key,
-                                gpointer value,
-                                gpointer user_data) {
-    if (key) {
-        g_print("%s: %s\n", (const gchar*)key, value ? (const gchar*)value : "NULL");
-    }
-}
-
 static PyObject* remmina_file_get_setting_wrapper(PyObject* self, PyObject* args, PyObject* kwargs)
 {
     TRACE_CALL(__func__);
     RemminaProtocolWidget* gp = ((PyRemminaProtocolWidget*)self)->gp;
-    remmina_plugin_manager_service.protocol_plugin_get_file(gp->plugin);
+    remmina_plugin_manager_service.protocol_plugin_get_file(gp);
     return Py_None;
 }
 
@@ -1115,20 +1107,6 @@ remmina_protocol_widget_get_profile_remote_width_wrapper(PyObject* self, PyObjec
 	return Py_None;
 }
 
-static gboolean remmina_plugin_equal(gconstpointer lhs, gconstpointer rhs)
-{
-	TRACE_CALL(__func__);
-
-	if (lhs && ((PyPlugin*)lhs)->generic_plugin && rhs)
-	{
-		return g_str_equal(((PyPlugin*)lhs)->generic_plugin->name, ((gchar*)rhs));
-	}
-	else
-	{
-		return lhs == rhs;
-	}
-}
-
 void remmina_plugin_python_to_protocol_setting(RemminaProtocolSetting* dest, PyObject* setting)
 {
 	TRACE_CALL(__func__);
@@ -1153,9 +1131,12 @@ void remmina_plugin_python_to_protocol_feature(RemminaProtocolFeature* dest, PyO
 	Py_INCREF(feature);
 	dest->id = src->id;
 	dest->type = src->type;
-	dest->opt1_type_hint = remmina_plugin_python_to_generic(src->opt1, &dest->opt1);
-    dest->opt2_type_hint = remmina_plugin_python_to_generic(src->opt2, &dest->opt2);
-    dest->opt3_type_hint = remmina_plugin_python_to_generic(src->opt3, &dest->opt3);
+    dest->opt1 = src->opt1->raw;
+    dest->opt1_type_hint = src->opt1->type_hint;
+    dest->opt2 = src->opt2->raw;
+    dest->opt2_type_hint = src->opt2->type_hint;
+    dest->opt3 = src->opt3->raw;
+    dest->opt3_type_hint = src->opt3->type_hint;
 }
 
 PyObject* remmina_plugin_python_show_dialog_wrapper(PyObject* self, PyObject* args, PyObject* kwargs)
@@ -1188,7 +1169,7 @@ PyObject* remmina_plugin_python_get_mainwindow_wrapper(PyObject* self, PyObject*
 		return Py_None;
 	}
 
-	return new_pywidget((GObject*)result);
+	return (PyObject*)new_pywidget((GObject*)result);
 }
 
 static PyObject* remmina_protocol_plugin_signal_connection_closed_wrapper(PyObject* self, PyObject* args)

@@ -50,6 +50,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 G_BEGIN_DECLS
+
 /**
  * Wrapper for a Python object that contains a pointer to an instance of RemminaProtocolFeature.
  */
@@ -63,6 +64,9 @@ typedef struct
     PyGeneric* opt3;
 } PyRemminaProtocolFeature;
 
+/**
+ *
+ */
 typedef struct
 {
     PyObject_HEAD
@@ -88,9 +92,16 @@ void remmina_plugin_python_protocol_init(void);
  */
 RemminaPlugin *remmina_plugin_python_create_protocol_plugin(PyPlugin *plugin);
 
-
+/**
+ *
+ * @return
+ */
 PyRemminaProtocolFeature* remmina_plugin_python_protocol_feature_new(void);
 
+/**
+ *
+ * @return
+ */
 PyRemminaPluginScreenshotData* remmina_plugin_python_screenshot_data_new(void);
 
 G_END_DECLS

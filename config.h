@@ -5,16 +5,47 @@
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wbuiltin-macro-redefined"
 
+
+#ifndef HAVE_SYS_SOCKET_H
 #define HAVE_SYS_SOCKET_H
+#endif // HAVE_SYS_SOCKET_H
+
+#ifndef HAVE_ARPA_INET_H
 #define HAVE_ARPA_INET_H
+#endif // HAVE_ARPA_INET_H
+
+#ifndef HAVE_NETINET_IN_H
 #define HAVE_NETINET_IN_H
+#endif // HAVE_NETINET_IN_H
+
+#ifndef HAVE_NETINET_TCP_H
 #define HAVE_NETINET_TCP_H
+#endif // HAVE_NETINET_TCP_H
+
+#ifndef HAVE_TERMIOS_H
 #define HAVE_TERMIOS_H
+#endif // HAVE_TERMIOS_H
+
+#ifndef HAVE_NETDB_H
 #define HAVE_NETDB_H
+#endif // HAVE_NETDB_H
+
+#ifndef HAVE_FCNTL_H
 #define HAVE_FCNTL_H
+#endif // HAVE_FCNTL_H
+
+#ifndef HAVE_UNISTD_H
 #define HAVE_UNISTD_H
+#endif // HAVE_UNISTD_H
+
+#ifndef HAVE_SYS_UN_H
 #define HAVE_SYS_UN_H
+#endif // HAVE_SYS_UN_H
+
+#ifndef HAVE_ERRNO_H
 #define HAVE_ERRNO_H
+#endif // HAVE_ERRNO_H
+
 
 #pragma GCC diagnostic pop
 

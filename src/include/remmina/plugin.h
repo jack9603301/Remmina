@@ -69,8 +69,8 @@ typedef struct _RemminaProtocolPlugin {
 
 	const gchar *			icon_name;
 	const gchar *			icon_name_ssh;
-	RemminaProtocolSetting *	basic_settings;
-	RemminaProtocolSetting *	advanced_settings;
+	const RemminaProtocolSetting *	basic_settings;
+    const RemminaProtocolSetting *	advanced_settings;
 	RemminaProtocolSSHSetting	ssh_setting;
 	const RemminaProtocolFeature *	features;
 
@@ -116,7 +116,7 @@ typedef struct _RemminaToolPlugin {
 	const gchar *		domain;
 	const gchar *		version;
 
-	void (*exec_func)(struct _RemminaToolPlugin* instance);
+	void (*exec_func)(GtkMenuItem* item, struct _RemminaToolPlugin* instance);
 } RemminaToolPlugin;
 
 typedef struct _RemminaPrefPlugin {

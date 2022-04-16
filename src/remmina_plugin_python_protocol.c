@@ -108,10 +108,10 @@ gboolean remmina_protocol_query_feature_wrapper(RemminaProtocolWidget* gp,
     pyFeature->opt3->raw = feature->opt3;
 
 	PyObject* result = CallPythonMethod(py_plugin->instance, "query_feature", "OO", py_plugin->gp, pyFeature);
-    Py_DecRef(pyFeature);
-    Py_DecRef(pyFeature->opt1);
-    Py_DecRef(pyFeature->opt2);
-    Py_DecRef(pyFeature->opt3);
+    Py_DecRef((PyObject*)pyFeature);
+    Py_DecRef((PyObject*)pyFeature->opt1);
+    Py_DecRef((PyObject*)pyFeature->opt2);
+    Py_DecRef((PyObject*)pyFeature->opt3);
 	return result == Py_True;
 }
 
@@ -132,11 +132,11 @@ void remmina_protocol_call_feature_wrapper(RemminaProtocolWidget* gp, const Remm
     pyFeature->opt3->raw = feature->opt3;
     pyFeature->opt3->type_hint = feature->opt3_type_hint;
 
-    PyObject* result = CallPythonMethod(py_plugin->instance, "call_feature", "OO", py_plugin->gp, pyFeature);
-    Py_DecRef(pyFeature);
-    Py_DecRef(pyFeature->opt1);
-    Py_DecRef(pyFeature->opt2);
-    Py_DecRef(pyFeature->opt3);
+    CallPythonMethod(py_plugin->instance, "call_feature", "OO", py_plugin->gp, pyFeature);
+    Py_DecRef((PyObject*)pyFeature);
+    Py_DecRef((PyObject*)pyFeature->opt1);
+    Py_DecRef((PyObject*)pyFeature->opt2);
+    Py_DecRef((PyObject*)pyFeature->opt3);
 }
 
 void remmina_protocol_send_keytrokes_wrapper(RemminaProtocolWidget* gp,
@@ -145,13 +145,13 @@ void remmina_protocol_send_keytrokes_wrapper(RemminaProtocolWidget* gp,
 {
 	TRACE_CALL(__func__);
 	PyPlugin* py_plugin = remmina_plugin_python_get_plugin(gp->plugin->name);
-    PyListObject* obj = PyList_New(keylen);
+    PyObject* obj = PyList_New(keylen);
     Py_IncRef(obj);
     for (int i = 0; i < keylen; ++i)
     {
         PyList_SetItem(obj, i, PyLong_FromLong(keystrokes[i]));
     }
-	PyObject* result = CallPythonMethod(py_plugin->instance, "send_keystrokes", "OO", py_plugin->gp, obj);
+	CallPythonMethod(py_plugin->instance, "send_keystrokes", "OO", py_plugin->gp, obj);
     Py_DecRef(obj);
 }
 
@@ -162,15 +162,15 @@ gboolean remmina_protocol_get_plugin_screenshot_wrapper(RemminaProtocolWidget* g
 
 	PyPlugin* py_plugin = remmina_plugin_python_get_plugin(gp->plugin->name);
     PyRemminaPluginScreenshotData* data = remmina_plugin_python_screenshot_data_new();
-    Py_IncRef(data);
+    Py_IncRef((PyObject*)data);
 	PyObject* result = CallPythonMethod(py_plugin->instance, "get_plugin_screenshot", "OO", py_plugin->gp, data);
     if (result == Py_True) {
-        if (!PyByteArray_Check(data->buffer))
+        if (!PyByteArray_Check((PyObject*)data->buffer))
         {
             g_printerr("Unable to parse screenshot data. 'buffer' needs to be an byte array!");
             return 0;
         }
-        Py_ssize_t buffer_len = PyByteArray_Size(data->buffer);
+        Py_ssize_t buffer_len = PyByteArray_Size((PyObject*)data->buffer);
 
         // Is being freed by Remmina!
         rpsd->buffer = (unsigned char *) remmina_plugin_python_malloc(sizeof(unsigned char) * buffer_len);
@@ -178,14 +178,14 @@ gboolean remmina_protocol_get_plugin_screenshot_wrapper(RemminaProtocolWidget* g
         {
             return 0;
         }
-        memcpy(rpsd->buffer, PyByteArray_AsString(data->buffer), sizeof(unsigned char) * buffer_len);
+        memcpy(rpsd->buffer, PyByteArray_AsString((PyObject*)data->buffer), sizeof(unsigned char) * buffer_len);
         rpsd->bytesPerPixel = data->bytesPerPixel;
         rpsd->bitsPerPixel = data->bitsPerPixel;
         rpsd->height = data->height;
         rpsd->width = data->width;
     }
-    Py_DecRef(data->buffer);
-    Py_DecRef(data);
+    Py_DecRef((PyObject*)data->buffer);
+    Py_DecRef((PyObject*)data);
 	return result == Py_True;
 }
 
@@ -214,10 +214,11 @@ RemminaPlugin* remmina_plugin_python_create_protocol_plugin(PyPlugin* plugin)
 		|| !remmina_plugin_python_check_attribute(instance, ATTR_ADVANCED_SETTINGS)
 		|| !remmina_plugin_python_check_attribute(instance, ATTR_SSH_SETTING))
 	{
+        g_printerr("Unable to create protocol plugin. Aborting!\n");
 		return NULL;
 	}
 
-	RemminaProtocolPlugin* remmina_plugin = (RemminaProtocolPlugin*)malloc(sizeof(RemminaProtocolPlugin));
+	RemminaProtocolPlugin* remmina_plugin = (RemminaProtocolPlugin*)remmina_plugin_python_malloc(sizeof(RemminaProtocolPlugin));
 
 	remmina_plugin->type = REMMINA_PLUGIN_TYPE_PROTOCOL;
 	remmina_plugin->domain = GETTEXT_PACKAGE;
@@ -235,7 +236,7 @@ RemminaPlugin* remmina_plugin_python_create_protocol_plugin(PyPlugin* plugin)
 	Py_ssize_t len = PyList_Size(list);
 	if (len)
 	{
-		RemminaProtocolSetting* basic_settings = (RemminaProtocolSetting*)malloc(sizeof(RemminaProtocolSetting) * len);
+		RemminaProtocolSetting* basic_settings = (RemminaProtocolSetting*)remmina_plugin_python_malloc(sizeof(RemminaProtocolSetting) * len);
 		memset(&basic_settings[len], 0, sizeof(RemminaProtocolSetting));
 
 		for (Py_ssize_t i = 0; i < len; ++i)
@@ -251,7 +252,7 @@ RemminaPlugin* remmina_plugin_python_create_protocol_plugin(PyPlugin* plugin)
 	len = PyList_Size(list);
 	if (len)
 	{
-		RemminaProtocolSetting* advanced_settings = (RemminaProtocolSetting*)malloc(
+		RemminaProtocolSetting* advanced_settings = (RemminaProtocolSetting*)remmina_plugin_python_malloc(
 			sizeof(RemminaProtocolSetting) * (len + 1));
 		memset(&advanced_settings[len], 0, sizeof(RemminaProtocolSetting));
 
@@ -268,7 +269,7 @@ RemminaPlugin* remmina_plugin_python_create_protocol_plugin(PyPlugin* plugin)
 	len = PyList_Size(list);
 	if (len)
 	{
-		RemminaProtocolFeature* features = (RemminaProtocolFeature*)malloc(sizeof(RemminaProtocolFeature) * (len + 1));
+		RemminaProtocolFeature* features = (RemminaProtocolFeature*)remmina_plugin_python_malloc(sizeof(RemminaProtocolFeature) * (len + 1));
 		memset(&features[len], 0, sizeof(RemminaProtocolFeature));
 
 		for (Py_ssize_t i = 0; i < len; ++i)
