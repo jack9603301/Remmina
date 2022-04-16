@@ -236,15 +236,16 @@ RemminaPlugin* remmina_plugin_python_create_protocol_plugin(PyPlugin* plugin)
 	Py_ssize_t len = PyList_Size(list);
 	if (len)
 	{
-		RemminaProtocolSetting* basic_settings = (RemminaProtocolSetting*)remmina_plugin_python_malloc(sizeof(RemminaProtocolSetting) * len);
-		memset(&basic_settings[len], 0, sizeof(RemminaProtocolSetting));
+		RemminaProtocolSetting* basic_settings = (RemminaProtocolSetting*)remmina_plugin_python_malloc(sizeof(RemminaProtocolSetting) * (len+1));
+		memset(basic_settings, 0, sizeof(RemminaProtocolSetting) * (len+1));
 
 		for (Py_ssize_t i = 0; i < len; ++i)
 		{
 			RemminaProtocolSetting* dest = basic_settings + i;
 			remmina_plugin_python_to_protocol_setting(dest, PyList_GetItem(list, i));
 		}
-
+        RemminaProtocolSetting* dest = basic_settings + len;
+        dest->type = REMMINA_PROTOCOL_SETTING_TYPE_END;
 		remmina_plugin->basic_settings = basic_settings;
 	}
 
@@ -254,13 +255,16 @@ RemminaPlugin* remmina_plugin_python_create_protocol_plugin(PyPlugin* plugin)
 	{
 		RemminaProtocolSetting* advanced_settings = (RemminaProtocolSetting*)remmina_plugin_python_malloc(
 			sizeof(RemminaProtocolSetting) * (len + 1));
-		memset(&advanced_settings[len], 0, sizeof(RemminaProtocolSetting));
+		memset(advanced_settings, 0, sizeof(RemminaProtocolSetting) * (len+1));
 
 		for (Py_ssize_t i = 0; i < len; ++i)
 		{
 			RemminaProtocolSetting* dest = advanced_settings + i;
 			remmina_plugin_python_to_protocol_setting(dest, PyList_GetItem(list, i));
 		}
+
+        RemminaProtocolSetting* dest = advanced_settings + len;
+        dest->type = REMMINA_PROTOCOL_SETTING_TYPE_END;
 
 		remmina_plugin->advanced_settings = advanced_settings;
 	}
@@ -270,13 +274,16 @@ RemminaPlugin* remmina_plugin_python_create_protocol_plugin(PyPlugin* plugin)
 	if (len)
 	{
 		RemminaProtocolFeature* features = (RemminaProtocolFeature*)remmina_plugin_python_malloc(sizeof(RemminaProtocolFeature) * (len + 1));
-		memset(&features[len], 0, sizeof(RemminaProtocolFeature));
+		memset(features, 0, sizeof(RemminaProtocolFeature) * (len+1));
 
 		for (Py_ssize_t i = 0; i < len; ++i)
 		{
 			RemminaProtocolFeature* dest = features + i;
 			remmina_plugin_python_to_protocol_feature(dest, PyList_GetItem(list, i));
 		}
+
+        RemminaProtocolFeature* dest = features + len;
+        dest->type = REMMINA_PROTOCOL_FEATURE_TYPE_END;
 
 		remmina_plugin->features = features;
 	}
