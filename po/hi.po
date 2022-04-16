@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Remmina v1.3.9\n"
 "Report-Msgid-Bugs-To: l10n@lists.remmina.org\n"
-"POT-Creation-Date: 2022-03-10 14:39+0000\n"
+"POT-Creation-Date: 2022-04-11 14:17+0000\n"
 "PO-Revision-Date: 2021-12-17 08:53+0000\n"
 "Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Hindi <https://hosted.weblate.org/projects/remmina/remmina/hi/"
@@ -21,7 +21,7 @@ msgstr ""
 #: src/remmina_sftp_plugin.c:310 src/remmina_sftp_plugin.c:354
 #: src/remmina_protocol_widget.c:1680 src/remmina_protocol_widget.c:1699
 #: src/remmina_file_editor.c:1109 src/remmina_file_editor.c:1231
-#: src/remmina_ssh_plugin.c:1389 plugins/rdp/rdp_plugin.c:2774
+#: src/remmina_ssh_plugin.c:1391 plugins/rdp/rdp_plugin.c:2774
 #: plugins/www/www_plugin.c:895 plugins/x2go/x2go_plugin.c:3227
 #: data/ui/remmina_mpc.glade:236 data/ui/remmina_passwd.glade:84
 #: data/ui/remmina_unlock.glade:109
@@ -30,26 +30,26 @@ msgid "Password"
 msgstr "पासवर्ड"
 
 #: src/remmina_sftp_plugin.c:311 src/remmina_sftp_plugin.c:356
-#: src/remmina_file_editor.c:1110 src/remmina_ssh_plugin.c:1390
-#: src/remmina_ssh_plugin.c:1501
+#: src/remmina_file_editor.c:1110 src/remmina_ssh_plugin.c:1392
+#: src/remmina_ssh_plugin.c:1503
 #, fuzzy
 msgid "SSH identity file"
 msgstr "एसएसएच पहचान फ़ाइल"
 
 #: src/remmina_sftp_plugin.c:312 src/remmina_file_editor.c:1111
-#: src/remmina_ssh_plugin.c:1391
+#: src/remmina_ssh_plugin.c:1393
 #, fuzzy
 msgid "SSH agent"
 msgstr "एसएसएच एजेंट"
 
 #: src/remmina_sftp_plugin.c:313 src/remmina_file_editor.c:1112
-#: src/remmina_ssh_plugin.c:1392
+#: src/remmina_ssh_plugin.c:1394
 #, fuzzy
 msgid "Public key (automatic)"
 msgstr "सार्वजनिक कुंजी (स्वचालित)"
 
 #: src/remmina_sftp_plugin.c:314 src/remmina_file_editor.c:1113
-#: src/remmina_ssh_plugin.c:1393
+#: src/remmina_ssh_plugin.c:1395
 #, fuzzy
 msgid "Kerberos (GSSAPI)"
 msgstr "केरबेरोस (जीएसएसएपीआई)"
@@ -75,9 +75,9 @@ msgid "Connect via SSH from a new terminal"
 msgstr "एक नए टर्मिनल से एसएसएच के माध्यम से कनेक्ट"
 
 #: src/remmina_sftp_plugin.c:353 src/remmina_message_panel.c:330
-#: src/remmina_file_editor.c:1225 src/remmina_ssh_plugin.c:1499
-#: plugins/rdp/rdp_plugin.c:2773 plugins/vnc/vnc_plugin.c:2019
-#: plugins/vnc/vnc_plugin.c:2031 plugins/www/www_plugin.c:894
+#: src/remmina_file_editor.c:1225 src/remmina_ssh_plugin.c:1501
+#: plugins/rdp/rdp_plugin.c:2773 plugins/vnc/vnc_plugin.c:2027
+#: plugins/vnc/vnc_plugin.c:2039 plugins/www/www_plugin.c:894
 #: plugins/x2go/x2go_plugin.c:478 plugins/x2go/x2go_plugin.c:3226
 #: data/ui/remmina_mpc.glade:144
 #, fuzzy
@@ -85,18 +85,18 @@ msgid "Username"
 msgstr "उपयोगकर्ता नाम"
 
 #: src/remmina_sftp_plugin.c:355 src/remmina_file_editor.c:1216
-#: src/remmina_ssh_plugin.c:1498
+#: src/remmina_ssh_plugin.c:1500
 #, fuzzy
 msgid "Authentication type"
 msgstr "प्रमाणीकरण पद्धति का उपयोग"
 
 #: src/remmina_sftp_plugin.c:357 src/remmina_file_editor.c:1249
-#: src/remmina_ssh_plugin.c:1505
+#: src/remmina_ssh_plugin.c:1507
 #, fuzzy
 msgid "Password to unlock private key"
 msgstr "निजी कुंजी अनलॉक करने के लिए पासवर्ड"
 
-#: src/remmina_sftp_plugin.c:358 src/remmina_ssh_plugin.c:1536
+#: src/remmina_sftp_plugin.c:358 src/remmina_ssh_plugin.c:1538
 #, fuzzy
 msgid "SSH Proxy Command"
 msgstr "एसएसएच प्रॉक्सी कमांड"
@@ -113,7 +113,7 @@ msgstr "रेम्मीना मुख्य खिड़की खोले
 
 #: src/remmina_log.c:134
 #, fuzzy
-msgid "Paste sytem info in the Remmina debugging window"
+msgid "Paste system info in the Remmina debugging window"
 msgstr "रेम्मीना मुख्य खिड़की खोलें"
 
 #: src/remmina_log.c:154
@@ -495,20 +495,20 @@ msgstr "खिड़की को कम से कम करें"
 msgid "Disconnect"
 msgstr "विलगन"
 
-#: src/rcw.c:4314
+#: src/rcw.c:4318
 #, fuzzy, c-format
 msgid "The file “%s” is corrupted, unreadable, or could not be found."
 msgstr "फ़ाइल \"%s\" भ्रष्ट, अपठनीय है, या नहीं पाया जा सकता है ।"
 
 #. TRANSLATORS: This should be a link to the Remmina wiki page:
 #. TRANSLATORS: 'GtkSocket feature is not available'.
-#: src/rcw.c:4388
+#: src/rcw.c:4392
 msgid ""
 "https://gitlab.com/Remmina/Remmina/-/wikis/GtkSocket-feature-is-not-"
 "available-in-a-Wayland-session"
 msgstr ""
 
-#: src/rcw.c:4525
+#: src/rcw.c:4532
 #, fuzzy
 msgid ""
 "Warning: This plugin requires GtkSocket, but this feature is unavailable in "
@@ -518,7 +518,7 @@ msgstr ""
 
 #. TRANSLATORS: This should be a link to the Remmina wiki page:
 #. 'GtkSocket feature is not available'.
-#: src/rcw.c:4531
+#: src/rcw.c:4538
 msgid ""
 "Plugins relying on GtkSocket can't run in a Wayland session.\n"
 "For more info and a possible workaround, please visit the Remmina wiki at:\n"
@@ -527,7 +527,7 @@ msgid ""
 "available-in-a-Wayland-session"
 msgstr ""
 
-#: src/rcw.c:4545
+#: src/rcw.c:4552
 #, fuzzy
 msgid "Open in web browser"
 msgstr "मुख्य खिड़की खोलें"
@@ -560,13 +560,13 @@ msgstr[0] "%d पासवर्ड बदल गया।"
 msgstr[1] ""
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:88
+#: src/remmina.c:93
 #, fuzzy
 msgid "Show 'About'"
 msgstr "'के बारे में' दिखाएं"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:90
+#: src/remmina.c:95
 #, fuzzy
 msgid ""
 "Connect either to a desktop described in a file (.remmina or a filetype "
@@ -575,13 +575,13 @@ msgstr ""
 "या तो किसी फ़ाइल में वर्णित डेस्कटॉप से कनेक्ट करें (.रेममिना या प्लगइन द्वारा समर्थित "
 "फाइलटाइप) या समर्थित उड़ी (आरडीपी, वीएनसी, एसएसएच या स्पाइस)"
 
-#: src/remmina.c:90 src/remmina.c:92 src/remmina.c:94
+#: src/remmina.c:95 src/remmina.c:97 src/remmina.c:99
 #, fuzzy
 msgid "FILE"
 msgstr "रेती"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:92
+#: src/remmina.c:97
 #, fuzzy
 msgid ""
 "Connect to a desktop described in a file (.remmina or a filetype supported "
@@ -589,7 +589,7 @@ msgid ""
 msgstr "फ़ाइल में वर्णित डेस्कटॉप से कनेक्ट करें (.रेममिना या प्लगइन द्वारा समर्थित एक प्रकार)"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:94
+#: src/remmina.c:99
 #, fuzzy
 msgid ""
 "Edit desktop connection described in file (.remmina or a filetype supported "
@@ -598,97 +598,122 @@ msgstr ""
 "फ़ाइल में वर्णित डेस्कटॉप कनेक्शन को संपादित करें (.रेममिना या प्लगइन द्वारा समर्थित प्रकार)"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:97
+#: src/remmina.c:102
 #, fuzzy
 msgid "Start in kiosk mode"
 msgstr "कियोस्क मोड में शुरू करें"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:99
+#: src/remmina.c:104
 #, fuzzy
 msgid "Create new connection profile"
 msgstr "नया कनेक्शन प्रोफाइल बनाएं"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:101
+#: src/remmina.c:106
 #, fuzzy
 msgid "Show preferences"
 msgstr "प्राथमिकताएं दिखाएं"
 
-#: src/remmina.c:101
+#: src/remmina.c:106
 #, fuzzy
 msgid "TABINDEX"
 msgstr "ताबिंदेस"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:108
+#: src/remmina.c:113
 #, fuzzy
 msgid "Quit"
 msgstr "बंद करें"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:110
+#: src/remmina.c:115
 #, fuzzy
 msgid "Use default server name (for --new)"
 msgstr "डिफ़ॉल्ट सर्वर नाम का उपयोग करें (--नए के लिए)"
 
-#: src/remmina.c:110
+#: src/remmina.c:115
 #, fuzzy
 msgid "SERVER"
 msgstr "सर्वर"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:112
+#: src/remmina.c:117
 #, fuzzy
 msgid "Use default protocol (for --new)"
 msgstr "डिफ़ॉल्ट प्रोटोकॉल का उपयोग करें (--नए के लिए)"
 
-#: src/remmina.c:112
+#: src/remmina.c:117
 #, fuzzy
 msgid "PROTOCOL"
 msgstr "प्रोटोकॉल"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:114
+#: src/remmina.c:119
 #, fuzzy
 msgid "Start in tray"
 msgstr "ट्रे में शुरू करें"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:116
+#: src/remmina.c:121
 #, fuzzy
 msgid "Show the application version"
 msgstr "आवेदन संस्करण दिखाएं"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:118
+#: src/remmina.c:123
 #, fuzzy
 msgid "Show version of the application and its plugins"
 msgstr "आवेदन और उसके प्लगइन्स का संस्करण दिखाएं"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:120
+#: src/remmina.c:125
 #, fuzzy
 msgid "Modify connection profile (requires --set-option)"
 msgstr "कनेक्शन प्रोफ़ाइल को संशोधित करें (--सेट-विकल्प की आवश्यकता है)"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:122
+#: src/remmina.c:127
 #, fuzzy
 msgid "Set one or more profile settings, to be used with --update-profile"
 msgstr ""
 "एक या एक से अधिक प्रोफ़ाइल सेटिंग्स सेट करें, --अपडेट-प्रोफाइल के साथ उपयोग की जाने वाली"
 
-#: src/remmina.c:123
+#: src/remmina.c:128
 #, fuzzy
 msgid "Encrypt a password"
 msgstr "पासवर्ड को एन्क्रिप्ट करना"
+
+#: src/remmina.c:129
+msgid "Disable news notification"
+msgstr ""
+
+#: src/remmina.c:130
+#, fuzzy
+msgid "Disable toolbar"
+msgstr "टूलबार दिखाएं/छिपाएं"
+
+#: src/remmina.c:131
+#, fuzzy
+msgid "Enable fullscreen"
+msgstr "स्क्रॉल फुलस्क्रीन"
+
+#: src/remmina.c:132
+msgid ""
+"Enable extra hardening (disable closing confirmation, disable unsafe "
+"shortcut keys, hide tabs, hide search bar)"
+msgstr ""
+
+#: src/remmina.c:133
+#, fuzzy
+msgid "Disable tray icon"
+msgstr "कोई ट्रे आइकन नहीं"
 
 #. TRANSLATORS:
 #. * This link should point to a resource explaining how to get Remmina
 #. * to log more verbose statements.
 #.
-#: src/remmina.c:338
+#: src/remmina.c:368
 msgid ""
 "Remmina does not log all output statements. Turn on more verbose output by "
 "using \"G_MESSAGES_DEBUG=all\" as an environment variable.\n"
@@ -697,12 +722,12 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:392
+#: src/remmina.c:422
 #, fuzzy
 msgid "- or protocol://username:encryptedpassword@host:port"
 msgstr "- या प्रोटोकॉल://उपयोगकर्ता नाम: encryptedpassword@host: पोर्ट"
 
-#: src/remmina.c:395
+#: src/remmina.c:425
 #, fuzzy
 msgid ""
 "Examples:\n"
@@ -855,7 +880,7 @@ msgid "Go to parent folder"
 msgstr "मूल फ़ोल्डर पे जाय."
 
 #: src/remmina_ftp_client.c:764 plugins/rdp/rdp_plugin.c:2865
-#: plugins/vnc/vnc_plugin.c:2072
+#: plugins/vnc/vnc_plugin.c:2080
 #, fuzzy
 msgid "Refresh"
 msgstr "रीफ़्रेश करें"
@@ -927,7 +952,7 @@ msgid "Progress"
 msgstr "प्रगति"
 
 #: src/remmina_protocol_widget.c:291 src/remmina_ssh_plugin.c:840
-#: src/remmina_ssh_plugin.c:1474
+#: src/remmina_ssh_plugin.c:1476
 #, fuzzy
 msgid "Open SFTP transfer…"
 msgstr "खुला एसएफटीपी ट्रांसफर…"
@@ -1064,117 +1089,117 @@ msgstr "सर्वर"
 msgid "Install the %s protocol plugin first."
 msgstr "पहले %s प्रोटोकॉल प्लगइन स्थापित करें।"
 
-#: src/remmina_ssh.c:236
+#: src/remmina_ssh.c:732
 #, fuzzy, c-format
 msgid "Could not authenticate with TOTP/OTP/2FA. %s"
 msgstr "TOTP/OTP/2FA के साथ प्रमाणित नहीं कर सका । %s"
 
-#: src/remmina_ssh.c:295 src/remmina_ssh.c:676
+#: src/remmina_ssh.c:791 src/remmina_ssh.c:1172
 #, fuzzy, c-format
 msgid "Could not authenticate with SSH password. %s"
 msgstr "एसएसएच पासवर्ड से प्रमाणित नहीं कर सका। %s"
 
-#: src/remmina_ssh.c:322 src/remmina_ssh.c:389
+#: src/remmina_ssh.c:818 src/remmina_ssh.c:885
 #, fuzzy
 msgid "No saved SSH passphrase supplied. Asking user to enter it."
 msgstr ""
 "कोई बचाया एसएसएच पासवाधे की आपूर्ति की । उपयोगकर्ता को इसे दर्ज करने के लिए कह रहे हैं।"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:327 src/remmina_ssh.c:368 src/remmina_ssh.c:394
-#: src/remmina_ssh.c:433 src/remmina_ssh.c:746
+#: src/remmina_ssh.c:823 src/remmina_ssh.c:864 src/remmina_ssh.c:890
+#: src/remmina_ssh.c:929 src/remmina_ssh.c:1242
 #, fuzzy, c-format
 msgid "Could not authenticate with public SSH key. %s"
 msgstr "सार्वजनिक एसएसएच कुंजी के साथ प्रमाणित नहीं कर सका। %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:336
+#: src/remmina_ssh.c:832
 #, fuzzy, c-format
 msgid "SSH certificate cannot be imported. %s"
 msgstr "एसएसएच प्रमाण पत्र आयात नहीं किया जा सकता है। %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:345
+#: src/remmina_ssh.c:841
 #, fuzzy, c-format
 msgid "SSH certificate cannot be copied into the private SSH key. %s"
 msgstr "एसएसएच प्रमाण पत्र को निजी एसएसएच कुंजी में कॉपी नहीं किया जा सकता है। %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:355
+#: src/remmina_ssh.c:851
 #, fuzzy, c-format
 msgid "Could not authenticate using SSH certificate. %s"
 msgstr "एसएसएच प्रमाण पत्र का उपयोग कर प्रमाणित नहीं कर सका। %s"
 
-#: src/remmina_ssh.c:369
+#: src/remmina_ssh.c:865
 #, fuzzy
 msgid "SSH identity file not selected."
 msgstr "एसएसएच पहचान फ़ाइल का चयन नहीं किया गया है।"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:380
+#: src/remmina_ssh.c:876
 #, fuzzy, c-format
 msgid "Public SSH key cannot be imported. %s"
 msgstr "सार्वजनिक एसएसएच कुंजी का आयात नहीं किया जा सकता है। %s"
 
-#: src/remmina_ssh.c:478
+#: src/remmina_ssh.c:974
 #, fuzzy, c-format
 msgid "Could not authenticate automatically with public SSH key. %s"
 msgstr "सार्वजनिक एसएसएच कुंजी के साथ स्वचालित रूप से प्रमाणित नहीं कर सका। %s"
 
-#: src/remmina_ssh.c:523
+#: src/remmina_ssh.c:1019
 #, fuzzy, c-format
 msgid "Could not authenticate automatically with SSH agent. %s"
 msgstr "एसएसएच एजेंट के साथ स्वचालित रूप से प्रमाणित नहीं कर सका। %s"
 
-#: src/remmina_ssh.c:569 src/remmina_ssh.c:856
+#: src/remmina_ssh.c:1065 src/remmina_ssh.c:1352
 #, fuzzy, c-format
 msgid "Could not authenticate with SSH GSSAPI/Kerberos. %s"
 msgstr "एसएसएच जीएसएसएपीआई/केर्बेरोस के साथ प्रमाणित नहीं कर सका । %s"
 
-#: src/remmina_ssh.c:598
+#: src/remmina_ssh.c:1094
 #, fuzzy
 msgid "The public SSH key changed!"
 msgstr "सार्वजनिक एसएसएच कुंजी बदल गया!"
 
-#: src/remmina_ssh.c:711
+#: src/remmina_ssh.c:1207
 #, fuzzy, c-format
 msgid "Could not authenticate with keyboard-interactive. %s"
 msgstr "कीबोर्ड-इंटरेक्टिव के साथ प्रमाणित नहीं कर सका। %s"
 
-#: src/remmina_ssh.c:813
+#: src/remmina_ssh.c:1309
 #, fuzzy, c-format
 msgid "Could not authenticate with automatic public SSH key. %s"
 msgstr "स्वचालित सार्वजनिक एसएसएच कुंजी के साथ प्रमाणित नहीं कर सका। %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:921
+#: src/remmina_ssh.c:1417
 #, fuzzy, c-format
 msgid "Could not fetch the server's public SSH key. %s"
 msgstr "सर्वर की पब्लिक एसएसएच की चाबी नहीं ला सके। %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:928
+#: src/remmina_ssh.c:1424
 #, fuzzy, c-format
 msgid "Could not fetch public SSH key. %s"
 msgstr "सार्वजनिक एसएसएच चाबी नहीं ला सके। %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:936
+#: src/remmina_ssh.c:1432
 #, fuzzy, c-format
 msgid "Could not fetch checksum of the public SSH key. %s"
 msgstr "सार्वजनिक एसएसएच कुंजी का चेकसम नहीं ला सका। %s"
 
-#: src/remmina_ssh.c:949
+#: src/remmina_ssh.c:1445
 #, fuzzy
 msgid "The server is unknown. The public key fingerprint is:"
 msgstr "सर्वर अज्ञात है। सार्वजनिक कुंजी फिंगरप्रिंट है:"
 
-#: src/remmina_ssh.c:951 src/remmina_ssh.c:957
+#: src/remmina_ssh.c:1447 src/remmina_ssh.c:1453
 #, fuzzy
 msgid "Do you trust the new public key?"
 msgstr "क्या आप नई सार्वजनिक कुंजी पर भरोसा करते हैं?"
 
-#: src/remmina_ssh.c:954
+#: src/remmina_ssh.c:1450
 #, fuzzy
 msgid ""
 "Warning: The server has changed its public key. This means you are either "
@@ -1186,161 +1211,161 @@ msgstr ""
 "या प्रशासक ने चाबी बदल दी है। नई सार्वजनिक कुंजी फिंगरप्रिंट है:"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:979
+#: src/remmina_ssh.c:1475
 #, fuzzy, c-format
 msgid "Could not check list of known SSH hosts. %s"
 msgstr "ज्ञात एसएसएच मेजबानों की सूची की जांच नहीं कर सका। %s"
 
-#: src/remmina_ssh.c:988
+#: src/remmina_ssh.c:1484
 #, fuzzy
 msgid "SSH password"
 msgstr "एसएसएच पासवर्ड"
 
-#: src/remmina_ssh.c:995 src/remmina_ssh.c:1039
+#: src/remmina_ssh.c:1491 src/remmina_ssh.c:1535
 #, fuzzy
 msgid "SSH private key passphrase"
 msgstr "एसएसएच प्राइवेट की पासवानेस"
 
-#: src/remmina_ssh.c:1000
+#: src/remmina_ssh.c:1496
 #, fuzzy
 msgid "SSH Kerberos/GSSAPI"
 msgstr "एसएसएच केर्बेरोस/जीएसएसएपीआई"
 
-#: src/remmina_ssh.c:1005
+#: src/remmina_ssh.c:1501
 #, fuzzy
 msgid "Enter TOTP/OTP/2FA code"
 msgstr "TOTP/OTP/2FA कोड दर्ज करें"
 
-#: src/remmina_ssh.c:1035 src/remmina_ssh.c:1061
+#: src/remmina_ssh.c:1531 src/remmina_ssh.c:1557
 #, fuzzy
 msgid "SSH tunnel credentials"
 msgstr "एसएसएच सुरंग साख"
 
-#: src/remmina_ssh.c:1035 src/remmina_ssh.c:1061
+#: src/remmina_ssh.c:1531 src/remmina_ssh.c:1557
 #, fuzzy
 msgid "SSH credentials"
 msgstr "एसएसएच क्रेडेंशियल्स"
 
-#: src/remmina_ssh.c:1112
+#: src/remmina_ssh.c:1608
 #, fuzzy
 msgid "Keyboard interactive login, TOTP/OTP/2FA"
 msgstr "कीबोर्ड इंटरैक्टिव लॉगिन, TOTP/OTP/2FA"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:1337
+#: src/remmina_ssh.c:1833
 #, fuzzy, c-format
 msgid "Could not start SSH session. %s"
 msgstr "एसएसएच सत्र शुरू नहीं कर सका। %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:1735
+#: src/remmina_ssh.c:2232
 #, fuzzy, c-format
 msgid "Could not create channel. %s"
 msgstr "चैनल नहीं बना सके। %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:1746
+#: src/remmina_ssh.c:2243
 #, fuzzy, c-format
 msgid "Could not connect to SSH tunnel. %s"
 msgstr "एसएसएच टनल से नहीं जुड़ सके। %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:1816 src/remmina_ssh.c:1837 src/remmina_ssh.c:1846
+#: src/remmina_ssh.c:2313 src/remmina_ssh.c:2334 src/remmina_ssh.c:2343
 #, fuzzy, c-format
 msgid "Could not request port forwarding. %s"
 msgstr "पोर्ट फॉरवर्डिंग का अनुरोध नहीं कर सके। %s"
 
-#: src/remmina_ssh.c:1876
+#: src/remmina_ssh.c:2373
 #, fuzzy
 msgid "The server did not respond."
 msgstr "सर्वर ने कोई जवाब नहीं दिया।"
 
-#: src/remmina_ssh.c:1916
+#: src/remmina_ssh.c:2413
 #, fuzzy, c-format
 msgid "Cannot connect to local port %i."
 msgstr "स्थानीय बंदरगाह %i से कनेक्ट नहीं कर सकते।"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:1965
+#: src/remmina_ssh.c:2462
 #, fuzzy, c-format
 msgid "Could not write to SSH channel. %s"
 msgstr "एसएसएच चैनल को नहीं लिख सके। %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:1972
+#: src/remmina_ssh.c:2469
 #, fuzzy, c-format
 msgid "Could not read from tunnel listening socket. %s"
 msgstr "टनल से सॉकेट सुन नहीं पढ़ सके। %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:1992
+#: src/remmina_ssh.c:2489
 #, fuzzy, c-format
 msgid "Could not poll SSH channel. %s"
 msgstr "एसएसएच चैनल का चुनाव नहीं कर सके। %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:1999
+#: src/remmina_ssh.c:2496
 #, fuzzy, c-format
 msgid "Could not read SSH channel in a non-blocking way. %s"
 msgstr "एसएसएच चैनल को नॉन ब्लॉकिंग तरीके से नहीं पढ़ सके। %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2018
+#: src/remmina_ssh.c:2515
 #, fuzzy, c-format
 msgid "Could not send data to tunnel listening socket. %s"
 msgstr "टनल सुन सॉकेट को डाटा नहीं भेज सके। %s"
 
-#: src/remmina_ssh.c:2120
+#: src/remmina_ssh.c:2617
 #, fuzzy
 msgid "Assign a destination port."
 msgstr "एक गंतव्य बंदरगाह आवंटित करें।"
 
-#: src/remmina_ssh.c:2127
+#: src/remmina_ssh.c:2624
 #, fuzzy
 msgid "Could not create socket."
 msgstr "सॉकेट नहीं बना सके।"
 
-#: src/remmina_ssh.c:2137
+#: src/remmina_ssh.c:2634
 #, fuzzy
 msgid "Could not bind server socket to local port."
 msgstr "सर्वर सॉकेट को स्थानीय बंदरगाह पर नहीं बांध सके।"
 
-#: src/remmina_ssh.c:2143
+#: src/remmina_ssh.c:2640
 #, fuzzy
 msgid "Could not listen to local port."
 msgstr "लोकल पोर्ट की बात नहीं सुन सके।"
 
 #. TRANSLATORS: Do not translate pthread
-#: src/remmina_ssh.c:2153 src/remmina_ssh.c:2170 src/remmina_ssh.c:2188
+#: src/remmina_ssh.c:2650 src/remmina_ssh.c:2667 src/remmina_ssh.c:2685
 #, fuzzy
 msgid "Could not start pthread."
 msgstr "पीटीरेड शुरू नहीं कर सके।"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2280
+#: src/remmina_ssh.c:2777
 #, fuzzy, c-format
 msgid "Could not create SFTP session. %s"
 msgstr "एसएफटीपी सत्र नहीं बना सके। %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2285
+#: src/remmina_ssh.c:2782
 #, fuzzy, c-format
 msgid "Could not start SFTP session. %s"
 msgstr "एसएफटीपी सत्र शुरू नहीं कर सका। %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2383
+#: src/remmina_ssh.c:2874
 #, fuzzy, c-format
 msgid "Could not open channel. %s"
 msgstr "चैनल नहीं खोल सके। %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2402
+#: src/remmina_ssh.c:2917
 #, fuzzy, c-format
 msgid "Could not request shell. %s"
 msgstr "खोल का अनुरोध नहीं कर सका। %s"
 
-#: src/remmina_ssh.c:2532
+#: src/remmina_ssh.c:3047
 #, fuzzy
 msgid "Could not create PTY device."
 msgstr "पीटीवाई डिवाइस नहीं बना सके।"
@@ -1674,7 +1699,7 @@ msgstr "एसएसएच प्रमाणीकरण"
 msgid "SSH private key file"
 msgstr "एसएसएच प्राइवेट कुंजी फाइल"
 
-#: src/remmina_file_editor.c:1244 src/remmina_ssh_plugin.c:1503
+#: src/remmina_file_editor.c:1244 src/remmina_ssh_plugin.c:1505
 #, fuzzy
 msgid "SSH certificate file"
 msgstr "एसएसएच प्रमाण पत्र फाइल"
@@ -1911,87 +1936,87 @@ msgstr "फ़ॉन्ट आकार में कमी (होस्ट + �
 msgid "Find text (host+G)"
 msgstr "पाठ खोजें (मेजबान +जी)"
 
-#: src/remmina_ssh_plugin.c:921
+#: src/remmina_ssh_plugin.c:895
 #, fuzzy, c-format
 msgid "Disconnected from %s:%d via SSH"
 msgstr "एसएसएच के माध्यम से %s से कनेक्ट करना …"
 
-#: src/remmina_ssh_plugin.c:1468 data/ui/remmina_main.glade:177
+#: src/remmina_ssh_plugin.c:1470 data/ui/remmina_main.glade:177
 #, fuzzy
 msgid "Copy"
 msgstr "कॉपी"
 
-#: src/remmina_ssh_plugin.c:1468
+#: src/remmina_ssh_plugin.c:1470
 #, fuzzy
 msgid "_Copy"
 msgstr "_कॉपी करें"
 
-#: src/remmina_ssh_plugin.c:1469
+#: src/remmina_ssh_plugin.c:1471
 #, fuzzy
 msgid "Paste"
 msgstr "पेस्ट"
 
-#: src/remmina_ssh_plugin.c:1469
+#: src/remmina_ssh_plugin.c:1471
 #, fuzzy
 msgid "_Paste"
 msgstr "_पेस्ट"
 
-#: src/remmina_ssh_plugin.c:1470
+#: src/remmina_ssh_plugin.c:1472
 #, fuzzy
 msgid "Select all"
 msgstr "सभी का चयन करे"
 
-#: src/remmina_ssh_plugin.c:1470
+#: src/remmina_ssh_plugin.c:1472
 #, fuzzy
 msgid "_Select all"
 msgstr "सभी का चयन करें"
 
-#: src/remmina_ssh_plugin.c:1471
+#: src/remmina_ssh_plugin.c:1473
 #, fuzzy
 msgid "Increase font size"
 msgstr "फ़ॉन्ट का आकार बढ़ाएं"
 
-#: src/remmina_ssh_plugin.c:1471
+#: src/remmina_ssh_plugin.c:1473
 #, fuzzy
 msgid "_Increase font size"
 msgstr "_Increase फ़ॉन्ट आकार"
 
-#: src/remmina_ssh_plugin.c:1472
+#: src/remmina_ssh_plugin.c:1474
 #, fuzzy
 msgid "Decrease font size"
 msgstr "फ़ॉन्ट आकार में कमी"
 
-#: src/remmina_ssh_plugin.c:1472
+#: src/remmina_ssh_plugin.c:1474
 #, fuzzy
 msgid "_Decrease font size"
 msgstr "_Decrease फ़ॉन्ट आकार"
 
-#: src/remmina_ssh_plugin.c:1473
+#: src/remmina_ssh_plugin.c:1475
 #, fuzzy
 msgid "Find text"
 msgstr "शब्द ढूंढें"
 
-#: src/remmina_ssh_plugin.c:1473
+#: src/remmina_ssh_plugin.c:1475
 #, fuzzy
 msgid "_Find text"
 msgstr "शब्द ढूंढें"
 
-#: src/remmina_ssh_plugin.c:1500 plugins/spice/spice_plugin.c:676
-#: plugins/vnc/vnc_plugin.c:2020 plugins/vnc/vnc_plugin.c:2032
+#: src/remmina_ssh_plugin.c:1502 plugins/spice/spice_plugin.c:676
+#: plugins/vnc/vnc_plugin.c:2028 plugins/vnc/vnc_plugin.c:2040
 #, fuzzy
 msgid "User password"
 msgstr "यूजर पासवर्ड"
 
-#: src/remmina_ssh_plugin.c:1506
+#: src/remmina_ssh_plugin.c:1508
 msgid "Opening command"
 msgstr ""
 
-#: src/remmina_ssh_plugin.c:1507
+#: src/remmina_ssh_plugin.c:1509
 #, fuzzy
 msgid "Start-up background program"
 msgstr "स्टार्ट-अप कार्यक्रम"
 
-#: src/remmina_ssh_plugin.c:1512
+#: src/remmina_ssh_plugin.c:1514
 #, fuzzy
 msgid ""
 "The filename can use the following placeholders:\n"
@@ -2014,77 +2039,81 @@ msgstr ""
 "  • % जी को रेममिना प्रोफाइल ग्रुप नाम के साथ प्रतिस्थापित किया गया है\n"
 "  आईएसओ 8601 प्रारूप में स्थानीय तिथि और समय के साथ प्रतिस्थापित किया गया है\n"
 
-#: src/remmina_ssh_plugin.c:1534
+#: src/remmina_ssh_plugin.c:1536
 #, fuzzy
 msgid "Terminal colour scheme"
 msgstr "टर्मिनल कलर स्कीम"
 
-#: src/remmina_ssh_plugin.c:1535
+#: src/remmina_ssh_plugin.c:1537
 #, fuzzy
 msgid "Character set"
 msgstr "चरित्र सेट"
 
-#: src/remmina_ssh_plugin.c:1537
+#: src/remmina_ssh_plugin.c:1539
 #, fuzzy
 msgid "KEX (Key Exchange) algorithms"
 msgstr "केईएक्स (कुंजी एक्सचेंज) एल्गोरिदम"
 
-#: src/remmina_ssh_plugin.c:1538
+#: src/remmina_ssh_plugin.c:1540
 #, fuzzy
 msgid "Symmetric cipher client to server"
 msgstr "सर्वर के लिए सममित सिफर क्लाइंट"
 
-#: src/remmina_ssh_plugin.c:1539
+#: src/remmina_ssh_plugin.c:1541
 #, fuzzy
 msgid "Preferred server host key types"
 msgstr "पसंदीदा सर्वर होस्ट कुंजी प्रकार"
 
-#: src/remmina_ssh_plugin.c:1540
+#: src/remmina_ssh_plugin.c:1542
 #, fuzzy
 msgid "Folder for SSH session log"
 msgstr "एसएसएच सत्र लॉग के लिए फ़ोल्डर"
 
-#: src/remmina_ssh_plugin.c:1541
+#: src/remmina_ssh_plugin.c:1543
 #, fuzzy
 msgid "Filename for SSH session log"
 msgstr "एसएसएच सत्र लॉग के लिए फाइलनेम"
 
-#: src/remmina_ssh_plugin.c:1542
+#: src/remmina_ssh_plugin.c:1544
 #, fuzzy
 msgid "Log SSH session when exiting Remmina"
 msgstr "रेम्मीना से बाहर निकलते समय एसएसएच सत्र लॉग करें"
 
-#: src/remmina_ssh_plugin.c:1543
+#: src/remmina_ssh_plugin.c:1545
 #, fuzzy
 msgid "Log SSH session asynchronously"
 msgstr "एसएसएच सत्र को अतुलित रूप से लॉग इन करें"
 
-#: src/remmina_ssh_plugin.c:1543
+#: src/remmina_ssh_plugin.c:1545
 #, fuzzy
 msgid "Saving the session asynchronously may have a notable performance impact"
 msgstr "सत्र को बचाने के लिए एक उल्लेखनीय प्रदर्शन प्रभाव हो सकता है"
 
-#: src/remmina_ssh_plugin.c:1544
+#: src/remmina_ssh_plugin.c:1546
 #, fuzzy
 msgid "Audible terminal bell"
 msgstr "श्रव्य टर्मिनल बेल"
 
-#: src/remmina_ssh_plugin.c:1545
+#: src/remmina_ssh_plugin.c:1547
+msgid "SSH X11 Forwarding"
+msgstr ""
+
+#: src/remmina_ssh_plugin.c:1548
 #, fuzzy
 msgid "SSH compression"
 msgstr "एसएसएच संपीड़न"
 
-#: src/remmina_ssh_plugin.c:1546
+#: src/remmina_ssh_plugin.c:1549
 #, fuzzy
 msgid "Don't remember passwords"
 msgstr "पासवर्ड याद नहीं है"
 
-#: src/remmina_ssh_plugin.c:1547
+#: src/remmina_ssh_plugin.c:1550
 #, fuzzy
 msgid "Strict host key checking"
 msgstr "सख्त मेजबान कुंजी जांच"
 
-#: src/remmina_ssh_plugin.c:1561
+#: src/remmina_ssh_plugin.c:1564
 #, fuzzy
 msgid "SSH - Secure Shell"
 msgstr "एसएसएच - सुरक्षित खोल"
@@ -2110,25 +2139,25 @@ msgid "<Choose a quality level to edit…>"
 msgstr "< संपादित करने के लिए एक गुणवत्ता स्तर को कूस... >"
 
 #: plugins/rdp/rdp_settings.c:282 plugins/rdp/rdp_plugin.c:2636
-#: plugins/vnc/vnc_plugin.c:1969
+#: plugins/vnc/vnc_plugin.c:1977
 #, fuzzy
 msgid "Poor (fastest)"
 msgstr "गरीब (सबसे तेज)"
 
 #: plugins/rdp/rdp_settings.c:284 plugins/rdp/rdp_plugin.c:2637
-#: plugins/vnc/vnc_plugin.c:1968
+#: plugins/vnc/vnc_plugin.c:1976
 #, fuzzy
 msgid "Medium"
 msgstr "मध्य"
 
 #: plugins/rdp/rdp_settings.c:286 plugins/rdp/rdp_plugin.c:2638
-#: plugins/vnc/vnc_plugin.c:1966
+#: plugins/vnc/vnc_plugin.c:1974
 #, fuzzy
 msgid "Good"
 msgstr "अच्छा"
 
 #: plugins/rdp/rdp_settings.c:288 plugins/rdp/rdp_plugin.c:2639
-#: plugins/vnc/vnc_plugin.c:1967
+#: plugins/vnc/vnc_plugin.c:1975
 #, fuzzy
 msgid "Best (slowest)"
 msgstr "सबसे अच्छा (सबसे धीमा)"
@@ -2231,7 +2260,7 @@ msgid "Input device settings"
 msgstr "इनपुट डिवाइस सेटिंग्स"
 
 #: plugins/rdp/rdp_settings.c:658 plugins/rdp/rdp_plugin.c:2780
-#: plugins/vnc/vnc_plugin.c:2052
+#: plugins/vnc/vnc_plugin.c:2060
 #, fuzzy
 msgid "Disable smooth scrolling"
 msgstr "चिकनी स्क्रॉल को अक्षम करें"
@@ -2428,7 +2457,7 @@ msgstr "जीएफएक्स आरएफएक्स प्रोग्र�
 msgid "RemoteFX (32 bpp)"
 msgstr "रिमोटएफएक्स (32 बीपीपी)"
 
-#: plugins/rdp/rdp_plugin.c:2611 plugins/vnc/vnc_plugin.c:1957
+#: plugins/rdp/rdp_plugin.c:2611 plugins/vnc/vnc_plugin.c:1965
 #, fuzzy
 msgid "True colour (32 bpp)"
 msgstr "असली रंग (32 बीपीपी)"
@@ -2438,7 +2467,7 @@ msgstr "असली रंग (32 बीपीपी)"
 msgid "True colour (24 bpp)"
 msgstr "असली रंग (24 बीपीपी)"
 
-#: plugins/rdp/rdp_plugin.c:2613 plugins/vnc/vnc_plugin.c:1958
+#: plugins/rdp/rdp_plugin.c:2613 plugins/vnc/vnc_plugin.c:1966
 #, fuzzy
 msgid "High colour (16 bpp)"
 msgstr "उच्च रंग (16 बीपीपी)"
@@ -2448,7 +2477,7 @@ msgstr "उच्च रंग (16 बीपीपी)"
 msgid "High colour (15 bpp)"
 msgstr "उच्च रंग (15 बीपीपी)"
 
-#: plugins/rdp/rdp_plugin.c:2615 plugins/vnc/vnc_plugin.c:1959
+#: plugins/rdp/rdp_plugin.c:2615 plugins/vnc/vnc_plugin.c:1967
 #, fuzzy
 msgid "256 colours (8 bpp)"
 msgstr "256 रंग (8 बीपीपी)"
@@ -2716,8 +2745,8 @@ msgstr "कई मॉनिटर पर स्पैन स्क्रीन"
 msgid "List monitor IDs"
 msgstr "सूची मॉनिटर टीडीएस"
 
-#: plugins/rdp/rdp_plugin.c:2785 plugins/vnc/vnc_plugin.c:2021
-#: plugins/vnc/vnc_plugin.c:2033 plugins/gvnc/gvnc_plugin.c:849
+#: plugins/rdp/rdp_plugin.c:2785 plugins/vnc/vnc_plugin.c:2029
+#: plugins/vnc/vnc_plugin.c:2041 plugins/gvnc/gvnc_plugin.c:849
 #, fuzzy
 msgid "Colour depth"
 msgstr "रंग गहराई"
@@ -2727,8 +2756,8 @@ msgstr "रंग गहराई"
 msgid "Network connection type"
 msgstr "नेटवर्क कनेक्शन प्रकार"
 
-#: plugins/rdp/rdp_plugin.c:2802 plugins/vnc/vnc_plugin.c:2022
-#: plugins/vnc/vnc_plugin.c:2034
+#: plugins/rdp/rdp_plugin.c:2802 plugins/vnc/vnc_plugin.c:2030
+#: plugins/vnc/vnc_plugin.c:2042
 #, fuzzy
 msgid "Quality"
 msgstr "गुणवत्ता"
@@ -2943,7 +2972,7 @@ msgstr "समानांतर बंदरगाहों को साझा
 msgid "Share a smart card"
 msgstr "एक स्मार्ट कार्ड साझा करें"
 
-#: plugins/rdp/rdp_plugin.c:2840 plugins/vnc/vnc_plugin.c:2057
+#: plugins/rdp/rdp_plugin.c:2840 plugins/vnc/vnc_plugin.c:2065
 #, fuzzy
 msgid "Turn off clipboard sync"
 msgstr "क्लिपबोर्ड सिंक बंद करें"
@@ -2964,7 +2993,7 @@ msgid "It disables CAL and hwId is set to 0"
 msgstr "यह सीएएल को अक्षम करता है और एचडब्ल्यूआईडी 0 पर सेट है"
 
 #: plugins/rdp/rdp_plugin.c:2843 plugins/spice/spice_plugin.c:704
-#: plugins/vnc/vnc_plugin.c:2053 plugins/www/www_plugin.c:919
+#: plugins/vnc/vnc_plugin.c:2061 plugins/www/www_plugin.c:919
 #: plugins/gvnc/gvnc_plugin.c:867
 #, fuzzy
 msgid "Forget passwords after use"
@@ -3026,7 +3055,7 @@ msgid "Enable Gateway websockets support"
 msgstr "गेटवे वेबसॉक्स समर्थन सक्षम करें"
 
 #: plugins/rdp/rdp_plugin.c:2869 plugins/spice/spice_plugin.c:717
-#: plugins/vnc/vnc_plugin.c:2074
+#: plugins/vnc/vnc_plugin.c:2082
 #, fuzzy
 msgid "Send Ctrl+Alt+Delete"
 msgstr "सीटीआरएल+ऑल्ट+डिलीट भेजें"
@@ -3179,7 +3208,7 @@ msgid "Share smart card"
 msgstr "स्मार्ट कार्ड साझा करें"
 
 #: plugins/spice/spice_plugin.c:707 plugins/spice/spice_plugin.c:715
-#: plugins/vnc/vnc_plugin.c:2059 plugins/vnc/vnc_plugin.c:2070
+#: plugins/vnc/vnc_plugin.c:2067 plugins/vnc/vnc_plugin.c:2078
 #: plugins/gvnc/gvnc_plugin.c:870 plugins/gvnc/gvnc_plugin.c:879
 #, fuzzy
 msgid "View only"
@@ -3245,17 +3274,17 @@ msgstr "वीएनसी सर्वर ने एक अज्ञात प�
 msgid "Please retry after turning on encryption for this profile."
 msgstr "कृपया इस प्रोफ़ाइल के लिए एन्क्रिप्शन चालू करने के बाद फिर से प्रयास करें।"
 
-#: plugins/vnc/vnc_plugin.c:1706
+#: plugins/vnc/vnc_plugin.c:1714
 #, fuzzy, c-format
 msgid "Connected to %s:%d via VNC"
 msgstr "एसएसएच के माध्यम से %s से कनेक्ट करना …"
 
-#: plugins/vnc/vnc_plugin.c:1725
+#: plugins/vnc/vnc_plugin.c:1733
 #, c-format
 msgid "Disconnected from %s:%d via VNC"
 msgstr ""
 
-#: plugins/vnc/vnc_plugin.c:1974
+#: plugins/vnc/vnc_plugin.c:1982
 #, fuzzy
 msgid ""
 "Connect to VNC using a repeater:\n"
@@ -3274,7 +3303,7 @@ msgstr ""
 "    रिपीटर, उदाहरण के लिए x11vnc के साथ:\n"
 "    x11vnc -कनेक्ट रिपीटर =आईडी: 123456789 +10.10.10.12:5500"
 
-#: plugins/vnc/vnc_plugin.c:1983
+#: plugins/vnc/vnc_plugin.c:1991
 #, fuzzy
 msgid ""
 "Listening for remote VNC connection:\n"
@@ -3291,7 +3320,7 @@ msgstr ""
 "    रेममिना, उदाहरण के लिए x11vnc के साथ:\n"
 "    x11vnc -डिस्प्ले:0 -कनेक्ट 192.168.1.36:8888"
 
-#: plugins/vnc/vnc_plugin.c:1991
+#: plugins/vnc/vnc_plugin.c:1999
 msgid ""
 "Overriding the pre-set VNC encoding quality:\n"
 "\n"
@@ -3304,49 +3333,49 @@ msgid ""
 "corre rre raw”"
 msgstr ""
 
-#: plugins/vnc/vnc_plugin.c:2018
+#: plugins/vnc/vnc_plugin.c:2026
 #, fuzzy
 msgid "Repeater"
 msgstr "आवर्तक"
 
-#: plugins/vnc/vnc_plugin.c:2030
+#: plugins/vnc/vnc_plugin.c:2038
 #, fuzzy
 msgid "Listen on port"
 msgstr "पोर्ट पर सुनो"
 
-#: plugins/vnc/vnc_plugin.c:2050
+#: plugins/vnc/vnc_plugin.c:2058
 msgid "Override pre-set VNC encodings"
 msgstr ""
 
-#: plugins/vnc/vnc_plugin.c:2051
+#: plugins/vnc/vnc_plugin.c:2059
 msgid "Force tight encoding"
 msgstr ""
 
-#: plugins/vnc/vnc_plugin.c:2051
+#: plugins/vnc/vnc_plugin.c:2059
 msgid "Enabling this may help when the remote desktop looks scrambled"
 msgstr ""
 
-#: plugins/vnc/vnc_plugin.c:2054 plugins/gvnc/gvnc_plugin.c:868
+#: plugins/vnc/vnc_plugin.c:2062 plugins/gvnc/gvnc_plugin.c:868
 #, fuzzy
 msgid "Ignore remote bell messages"
 msgstr "रिमोट बेल संदेशों पर ध्यान न दें"
 
-#: plugins/vnc/vnc_plugin.c:2055 plugins/vnc/vnc_plugin.c:2071
+#: plugins/vnc/vnc_plugin.c:2063 plugins/vnc/vnc_plugin.c:2079
 #, fuzzy
 msgid "Prevent local interaction on the server"
 msgstr "सर्वर पर स्थानीय बातचीत को रोकें"
 
-#: plugins/vnc/vnc_plugin.c:2056
+#: plugins/vnc/vnc_plugin.c:2064
 #, fuzzy
 msgid "Show remote cursor"
 msgstr "रिमोट कर्सर दिखाएं"
 
-#: plugins/vnc/vnc_plugin.c:2058
+#: plugins/vnc/vnc_plugin.c:2066
 #, fuzzy
 msgid "Turn off encryption"
 msgstr "एन्क्रिप्शन बंद करें"
 
-#: plugins/vnc/vnc_plugin.c:2073
+#: plugins/vnc/vnc_plugin.c:2081
 #, fuzzy
 msgid "Open Chat…"
 msgstr "ओपन चैट…"

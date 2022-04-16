@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: remmina\n"
 "Report-Msgid-Bugs-To: l10n@lists.remmina.org\n"
-"POT-Creation-Date: 2022-03-10 14:39+0000\n"
+"POT-Creation-Date: 2022-04-11 14:17+0000\n"
 "PO-Revision-Date: 2021-12-17 08:46+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Hungarian <https://hosted.weblate.org/projects/remmina/"
@@ -27,7 +27,7 @@ msgstr ""
 #: src/remmina_sftp_plugin.c:310 src/remmina_sftp_plugin.c:354
 #: src/remmina_protocol_widget.c:1680 src/remmina_protocol_widget.c:1699
 #: src/remmina_file_editor.c:1109 src/remmina_file_editor.c:1231
-#: src/remmina_ssh_plugin.c:1389 plugins/rdp/rdp_plugin.c:2774
+#: src/remmina_ssh_plugin.c:1391 plugins/rdp/rdp_plugin.c:2774
 #: plugins/www/www_plugin.c:895 plugins/x2go/x2go_plugin.c:3227
 #: data/ui/remmina_mpc.glade:236 data/ui/remmina_passwd.glade:84
 #: data/ui/remmina_unlock.glade:109
@@ -36,26 +36,26 @@ msgid "Password"
 msgstr "Jelszó"
 
 #: src/remmina_sftp_plugin.c:311 src/remmina_sftp_plugin.c:356
-#: src/remmina_file_editor.c:1110 src/remmina_ssh_plugin.c:1390
-#: src/remmina_ssh_plugin.c:1501
+#: src/remmina_file_editor.c:1110 src/remmina_ssh_plugin.c:1392
+#: src/remmina_ssh_plugin.c:1503
 #, fuzzy
 msgid "SSH identity file"
 msgstr "SSH személyazonosság fájl"
 
 #: src/remmina_sftp_plugin.c:312 src/remmina_file_editor.c:1111
-#: src/remmina_ssh_plugin.c:1391
+#: src/remmina_ssh_plugin.c:1393
 #, fuzzy
 msgid "SSH agent"
 msgstr "SSH ügynök"
 
 #: src/remmina_sftp_plugin.c:313 src/remmina_file_editor.c:1112
-#: src/remmina_ssh_plugin.c:1392
+#: src/remmina_ssh_plugin.c:1394
 #, fuzzy
 msgid "Public key (automatic)"
 msgstr "Nyilvános kulcs (automatikus)"
 
 #: src/remmina_sftp_plugin.c:314 src/remmina_file_editor.c:1113
-#: src/remmina_ssh_plugin.c:1393
+#: src/remmina_ssh_plugin.c:1395
 #, fuzzy
 msgid "Kerberos (GSSAPI)"
 msgstr "Kerberos (GSSAPI)"
@@ -79,9 +79,9 @@ msgid "Connect via SSH from a new terminal"
 msgstr "Kapcsolódás SSH-val új terminálban"
 
 #: src/remmina_sftp_plugin.c:353 src/remmina_message_panel.c:330
-#: src/remmina_file_editor.c:1225 src/remmina_ssh_plugin.c:1499
-#: plugins/rdp/rdp_plugin.c:2773 plugins/vnc/vnc_plugin.c:2019
-#: plugins/vnc/vnc_plugin.c:2031 plugins/www/www_plugin.c:894
+#: src/remmina_file_editor.c:1225 src/remmina_ssh_plugin.c:1501
+#: plugins/rdp/rdp_plugin.c:2773 plugins/vnc/vnc_plugin.c:2027
+#: plugins/vnc/vnc_plugin.c:2039 plugins/www/www_plugin.c:894
 #: plugins/x2go/x2go_plugin.c:478 plugins/x2go/x2go_plugin.c:3226
 #: data/ui/remmina_mpc.glade:144
 #, fuzzy
@@ -89,18 +89,18 @@ msgid "Username"
 msgstr "Felhasználónév"
 
 #: src/remmina_sftp_plugin.c:355 src/remmina_file_editor.c:1216
-#: src/remmina_ssh_plugin.c:1498
+#: src/remmina_ssh_plugin.c:1500
 #, fuzzy
 msgid "Authentication type"
 msgstr "Hitelesítési típus"
 
 #: src/remmina_sftp_plugin.c:357 src/remmina_file_editor.c:1249
-#: src/remmina_ssh_plugin.c:1505
+#: src/remmina_ssh_plugin.c:1507
 #, fuzzy
 msgid "Password to unlock private key"
 msgstr "Privát kulcs jelszava"
 
-#: src/remmina_sftp_plugin.c:358 src/remmina_ssh_plugin.c:1536
+#: src/remmina_sftp_plugin.c:358 src/remmina_ssh_plugin.c:1538
 #, fuzzy
 msgid "SSH Proxy Command"
 msgstr "SSH-proxy parancs"
@@ -119,7 +119,7 @@ msgstr "Nyissa meg a Remmina főablakát"
 #: src/remmina_log.c:134
 #, fuzzy
 #| msgid "Open Main Window"
-msgid "Paste sytem info in the Remmina debugging window"
+msgid "Paste system info in the Remmina debugging window"
 msgstr "Nyissa meg a Remmina főablakát"
 
 #: src/remmina_log.c:154
@@ -504,20 +504,20 @@ msgstr "Ablak minimalizálása"
 msgid "Disconnect"
 msgstr "Megszakít"
 
-#: src/rcw.c:4314
+#: src/rcw.c:4318
 #, c-format
 msgid "The file “%s” is corrupted, unreadable, or could not be found."
 msgstr "A(z) \"%s\" fájl sérült, nem olvasható vagy nem található."
 
 #. TRANSLATORS: This should be a link to the Remmina wiki page:
 #. TRANSLATORS: 'GtkSocket feature is not available'.
-#: src/rcw.c:4388
+#: src/rcw.c:4392
 msgid ""
 "https://gitlab.com/Remmina/Remmina/-/wikis/GtkSocket-feature-is-not-"
 "available-in-a-Wayland-session"
 msgstr ""
 
-#: src/rcw.c:4525
+#: src/rcw.c:4532
 #, fuzzy
 #| msgid "Warning: This plugin requires GtkSocket, but it’s not available."
 msgid ""
@@ -529,7 +529,7 @@ msgstr ""
 
 #. TRANSLATORS: This should be a link to the Remmina wiki page:
 #. 'GtkSocket feature is not available'.
-#: src/rcw.c:4531
+#: src/rcw.c:4538
 msgid ""
 "Plugins relying on GtkSocket can't run in a Wayland session.\n"
 "For more info and a possible workaround, please visit the Remmina wiki at:\n"
@@ -538,7 +538,7 @@ msgid ""
 "available-in-a-Wayland-session"
 msgstr ""
 
-#: src/rcw.c:4545
+#: src/rcw.c:4552
 #, fuzzy
 #| msgid "Open Main Window"
 msgid "Open in web browser"
@@ -574,13 +574,13 @@ msgstr[0] "%d jelszó módosítva."
 msgstr[1] "%d jelszó módosítva."
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:88
+#: src/remmina.c:93
 #, fuzzy
 msgid "Show 'About'"
 msgstr "Névjegy megjelenítése"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:90
+#: src/remmina.c:95
 msgid ""
 "Connect either to a desktop described in a file (.remmina or a filetype "
 "supported by a plugin) or a supported URI (RDP, VNC, SSH or SPICE)"
@@ -588,13 +588,13 @@ msgstr ""
 "Kapcsolódás egy fájl által leírt távoli asztalhoz (.remmina vagy bővítmény "
 "által támogatott típusú)"
 
-#: src/remmina.c:90 src/remmina.c:92 src/remmina.c:94
+#: src/remmina.c:95 src/remmina.c:97 src/remmina.c:99
 #, fuzzy
 msgid "FILE"
 msgstr "FILE"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:92
+#: src/remmina.c:97
 #, fuzzy
 #| msgid ""
 #| "Connect to a desktop described in a file (.remmina or a type supported by "
@@ -607,7 +607,7 @@ msgstr ""
 "által támogatott típusú)"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:94
+#: src/remmina.c:99
 #, fuzzy
 msgid ""
 "Edit desktop connection described in file (.remmina or a filetype supported "
@@ -617,96 +617,125 @@ msgstr ""
 "által támogatott típusú)"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:97
+#: src/remmina.c:102
 #, fuzzy
 msgid "Start in kiosk mode"
 msgstr "Indítás kioszk módban"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:99
+#: src/remmina.c:104
 #, fuzzy
 msgid "Create new connection profile"
 msgstr "Új kapcsolódási profil létrehozása"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:101
+#: src/remmina.c:106
 #, fuzzy
 msgid "Show preferences"
 msgstr "Beállítások megjelenítése"
 
-#: src/remmina.c:101
+#: src/remmina.c:106
 #, fuzzy
 msgid "TABINDEX"
 msgstr "TABINDEX"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:108
+#: src/remmina.c:113
 #, fuzzy
 msgid "Quit"
 msgstr "Kilépés"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:110
+#: src/remmina.c:115
 #, fuzzy
 msgid "Use default server name (for --new)"
 msgstr "Az alapértelmezett kiszolgálónév használata (--new esetén)"
 
-#: src/remmina.c:110
+#: src/remmina.c:115
 #, fuzzy
 msgid "SERVER"
 msgstr "SZERVER"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:112
+#: src/remmina.c:117
 #, fuzzy
 msgid "Use default protocol (for --new)"
 msgstr "Az alapértelmezett protokoll használata (--new esetén)"
 
-#: src/remmina.c:112
+#: src/remmina.c:117
 #, fuzzy
 msgid "PROTOCOL"
 msgstr "PROTOKOLL"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:114
+#: src/remmina.c:119
 #, fuzzy
 msgid "Start in tray"
 msgstr "Indítás értesítési ikonként"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:116
+#: src/remmina.c:121
 #, fuzzy
 msgid "Show the application version"
 msgstr "Az alkalmazás verziószámának megjelenítése"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:118
+#: src/remmina.c:123
 #, fuzzy
 msgid "Show version of the application and its plugins"
 msgstr "Az alkalmazás és bővítményei verziószámának megjelenítése"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:120
+#: src/remmina.c:125
 #, fuzzy
 msgid "Modify connection profile (requires --set-option)"
 msgstr "Kapcsolat profil módosítása (a --set opciót igényli)"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:122
+#: src/remmina.c:127
 #, fuzzy
 msgid "Set one or more profile settings, to be used with --update-profile"
 msgstr ""
 "Egy vagy több profil beállítása, az --update-profile-lal együtt használt"
 
-#: src/remmina.c:123
+#: src/remmina.c:128
 msgid "Encrypt a password"
 msgstr "Adja meg a VNC jelszavát"
+
+#: src/remmina.c:129
+#, fuzzy
+#| msgid "Disable encryption"
+msgid "Disable news notification"
+msgstr "Titkosítás tiltása"
+
+#: src/remmina.c:130
+#, fuzzy
+#| msgid "Disable clipboard sync"
+msgid "Disable toolbar"
+msgstr "Vágólap-szinkronizálás tiltása"
+
+#: src/remmina.c:131
+#, fuzzy
+msgid "Enable fullscreen"
+msgstr "Görgetett teljes képernyős mód"
+
+#: src/remmina.c:132
+msgid ""
+"Enable extra hardening (disable closing confirmation, disable unsafe "
+"shortcut keys, hide tabs, hide search bar)"
+msgstr ""
+
+#: src/remmina.c:133
+#, fuzzy
+#| msgid "Dark tray icon"
+msgid "Disable tray icon"
+msgstr "Sötét tálcaikon"
 
 #. TRANSLATORS:
 #. * This link should point to a resource explaining how to get Remmina
 #. * to log more verbose statements.
 #.
-#: src/remmina.c:338
+#: src/remmina.c:368
 msgid ""
 "Remmina does not log all output statements. Turn on more verbose output by "
 "using \"G_MESSAGES_DEBUG=all\" as an environment variable.\n"
@@ -715,12 +744,12 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:392
+#: src/remmina.c:422
 #, fuzzy
 msgid "- or protocol://username:encryptedpassword@host:port"
 msgstr "- vagy protocol://felhasználónév:titkosítottjelszó@host:port"
 
-#: src/remmina.c:395
+#: src/remmina.c:425
 #, fuzzy
 msgid ""
 "Examples:\n"
@@ -877,7 +906,7 @@ msgid "Go to parent folder"
 msgstr "Vissza a szülő mappába"
 
 #: src/remmina_ftp_client.c:764 plugins/rdp/rdp_plugin.c:2865
-#: plugins/vnc/vnc_plugin.c:2072
+#: plugins/vnc/vnc_plugin.c:2080
 #, fuzzy
 msgid "Refresh"
 msgstr "Frissítés"
@@ -949,7 +978,7 @@ msgid "Progress"
 msgstr "Folyamat"
 
 #: src/remmina_protocol_widget.c:291 src/remmina_ssh_plugin.c:840
-#: src/remmina_ssh_plugin.c:1474
+#: src/remmina_ssh_plugin.c:1476
 #, fuzzy
 msgid "Open SFTP transfer…"
 msgstr "SFTP átvitel megnyitása…"
@@ -1086,118 +1115,118 @@ msgstr "Szerver"
 msgid "Install the %s protocol plugin first."
 msgstr "Telepítse a %s protokoll bővítményt először."
 
-#: src/remmina_ssh.c:236
+#: src/remmina_ssh.c:732
 #, c-format
 msgid "Could not authenticate with TOTP/OTP/2FA. %s"
 msgstr "Nem sikerült autentikálni az SSH jelszóval. %s"
 
-#: src/remmina_ssh.c:295 src/remmina_ssh.c:676
+#: src/remmina_ssh.c:791 src/remmina_ssh.c:1172
 #, fuzzy, c-format
 msgid "Could not authenticate with SSH password. %s"
 msgstr "Nem sikerült autentikálni az SSH jelszóval. %s"
 
-#: src/remmina_ssh.c:322 src/remmina_ssh.c:389
+#: src/remmina_ssh.c:818 src/remmina_ssh.c:885
 #, fuzzy
 msgid "No saved SSH passphrase supplied. Asking user to enter it."
 msgstr "Nincs elmentett SSH jelszó megadva. A felhasználónak meg kell adnia."
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:327 src/remmina_ssh.c:368 src/remmina_ssh.c:394
-#: src/remmina_ssh.c:433 src/remmina_ssh.c:746
+#: src/remmina_ssh.c:823 src/remmina_ssh.c:864 src/remmina_ssh.c:890
+#: src/remmina_ssh.c:929 src/remmina_ssh.c:1242
 #, fuzzy, c-format
 msgid "Could not authenticate with public SSH key. %s"
 msgstr "Sikertelen az azonosítás az SSH publikus kulccsal. %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:336
+#: src/remmina_ssh.c:832
 #, fuzzy, c-format
 #| msgid "Public SSH key cannot be imported. %s"
 msgid "SSH certificate cannot be imported. %s"
 msgstr "Az SSH-tanúsítvány nem importálható. %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:345
+#: src/remmina_ssh.c:841
 #, fuzzy, c-format
 #| msgid "Public SSH key cannot be imported. %s"
 msgid "SSH certificate cannot be copied into the private SSH key. %s"
 msgstr "Az SSH-tanúsítvány nem másolható a privát SSH-kulcsba. %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:355
+#: src/remmina_ssh.c:851
 #, fuzzy, c-format
 #| msgid "Could not authenticate with public SSH key. %s"
 msgid "Could not authenticate using SSH certificate. %s"
 msgstr "Nem sikerült hitelesítést végezni az SSH-tanúsítvány használatával. %s"
 
-#: src/remmina_ssh.c:369
+#: src/remmina_ssh.c:865
 msgid "SSH identity file not selected."
 msgstr "Még nincs beállítva SSH-kulcsfájl."
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:380
+#: src/remmina_ssh.c:876
 #, fuzzy, c-format
 msgid "Public SSH key cannot be imported. %s"
 msgstr "A publikus SSH kulcs nem importálható. %s"
 
-#: src/remmina_ssh.c:478
+#: src/remmina_ssh.c:974
 #, fuzzy, c-format
 msgid "Could not authenticate automatically with public SSH key. %s"
 msgstr "Nem sikerült az automatikus autentikáció publikus SSH kulccsal. %s"
 
-#: src/remmina_ssh.c:523
+#: src/remmina_ssh.c:1019
 #, c-format
 msgid "Could not authenticate automatically with SSH agent. %s"
 msgstr "Nem sikerült az automatikus autentikáció publikus SSH kulccsal. %s"
 
-#: src/remmina_ssh.c:569 src/remmina_ssh.c:856
+#: src/remmina_ssh.c:1065 src/remmina_ssh.c:1352
 #, c-format
 msgid "Could not authenticate with SSH GSSAPI/Kerberos. %s"
 msgstr "Sikertelen az azonosítás SSH Kerberos/GSSAPI-val. %s"
 
-#: src/remmina_ssh.c:598
+#: src/remmina_ssh.c:1094
 #, fuzzy
 msgid "The public SSH key changed!"
 msgstr "Az SSH publikus kulcs megváltozott!"
 
-#: src/remmina_ssh.c:711
+#: src/remmina_ssh.c:1207
 #, c-format
 msgid "Could not authenticate with keyboard-interactive. %s"
 msgstr "Sikertelen az azonosítás az SSH publikus kulccsal. %s"
 
-#: src/remmina_ssh.c:813
+#: src/remmina_ssh.c:1309
 #, c-format
 msgid "Could not authenticate with automatic public SSH key. %s"
 msgstr "Sikertelen az azonosítás az SSH publikus kulccsal. %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:921
+#: src/remmina_ssh.c:1417
 #, fuzzy, c-format
 msgid "Could not fetch the server's public SSH key. %s"
 msgstr "Nem sikerül lekérni a szerver publikus kulcsát. %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:928
+#: src/remmina_ssh.c:1424
 #, fuzzy, c-format
 msgid "Could not fetch public SSH key. %s"
 msgstr "Nem sikerült lekérni az SSH publikus kulcsát. %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:936
+#: src/remmina_ssh.c:1432
 #, c-format
 msgid "Could not fetch checksum of the public SSH key. %s"
 msgstr "Nem sikerült lekérni az SSH publikus kulcsot. %s"
 
-#: src/remmina_ssh.c:949
+#: src/remmina_ssh.c:1445
 #, fuzzy
 msgid "The server is unknown. The public key fingerprint is:"
 msgstr "A kiszolgáló ismeretlen. A nyilvános kulcs ujjlenyomata:"
 
-#: src/remmina_ssh.c:951 src/remmina_ssh.c:957
+#: src/remmina_ssh.c:1447 src/remmina_ssh.c:1453
 #, fuzzy
 msgid "Do you trust the new public key?"
 msgstr "Megbízik az új nyilvános kulcsban?"
 
-#: src/remmina_ssh.c:954
+#: src/remmina_ssh.c:1450
 msgid ""
 "Warning: The server has changed its public key. This means you are either "
 "under attack,\n"
@@ -1209,161 +1238,161 @@ msgstr ""
 "ujjlenyomata:"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:979
+#: src/remmina_ssh.c:1475
 #, fuzzy, c-format
 msgid "Could not check list of known SSH hosts. %s"
 msgstr "Nem sikerült ellenőrizni az ismert SSH kiszolgálók listáját. %s"
 
-#: src/remmina_ssh.c:988
+#: src/remmina_ssh.c:1484
 #, fuzzy
 msgid "SSH password"
 msgstr "SSH-jelszó"
 
-#: src/remmina_ssh.c:995 src/remmina_ssh.c:1039
+#: src/remmina_ssh.c:1491 src/remmina_ssh.c:1535
 #, fuzzy
 msgid "SSH private key passphrase"
 msgstr "Személyes SSH-kulcs jelszava"
 
-#: src/remmina_ssh.c:1000
+#: src/remmina_ssh.c:1496
 #, fuzzy
 msgid "SSH Kerberos/GSSAPI"
 msgstr "SSH Kerberos/GSSAPI"
 
-#: src/remmina_ssh.c:1005
+#: src/remmina_ssh.c:1501
 #, fuzzy
 msgid "Enter TOTP/OTP/2FA code"
 msgstr "TOTP/OTP/2FA kód megadása"
 
-#: src/remmina_ssh.c:1035 src/remmina_ssh.c:1061
+#: src/remmina_ssh.c:1531 src/remmina_ssh.c:1557
 #, fuzzy
 msgid "SSH tunnel credentials"
 msgstr "SSH alagút hitelesítő adatok"
 
-#: src/remmina_ssh.c:1035 src/remmina_ssh.c:1061
+#: src/remmina_ssh.c:1531 src/remmina_ssh.c:1557
 #, fuzzy
 msgid "SSH credentials"
 msgstr "SSH hitelesítő adatok"
 
-#: src/remmina_ssh.c:1112
+#: src/remmina_ssh.c:1608
 #, fuzzy
 msgid "Keyboard interactive login, TOTP/OTP/2FA"
 msgstr "Billentyűzetes interaktív bejelentkezés, TOTP/OTP/2FA"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:1337
+#: src/remmina_ssh.c:1833
 #, fuzzy, c-format
 msgid "Could not start SSH session. %s"
 msgstr "Nem sikerült elindítani az SSH-kapcsolatot. %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:1735
+#: src/remmina_ssh.c:2232
 #, fuzzy, c-format
 msgid "Could not create channel. %s"
 msgstr "Nem sikerült létrehozni csatornát. %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:1746
+#: src/remmina_ssh.c:2243
 #, fuzzy, c-format
 msgid "Could not connect to SSH tunnel. %s"
 msgstr "Nem sikerült kapcsolódni az SSH-alagúthoz. %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:1816 src/remmina_ssh.c:1837 src/remmina_ssh.c:1846
+#: src/remmina_ssh.c:2313 src/remmina_ssh.c:2334 src/remmina_ssh.c:2343
 #, fuzzy, c-format
 msgid "Could not request port forwarding. %s"
 msgstr "Nem sikerült a porttovábbítás kérése. %s"
 
-#: src/remmina_ssh.c:1876
+#: src/remmina_ssh.c:2373
 #, fuzzy
 msgid "The server did not respond."
 msgstr "A szerver nem válaszolt."
 
-#: src/remmina_ssh.c:1916
+#: src/remmina_ssh.c:2413
 #, fuzzy, c-format
 msgid "Cannot connect to local port %i."
 msgstr "Sikertelen a csatlakozás a helyi %i portra."
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:1965
+#: src/remmina_ssh.c:2462
 #, fuzzy, c-format
 msgid "Could not write to SSH channel. %s"
 msgstr "Nem sikerült az SSh csatornába írni. %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:1972
+#: src/remmina_ssh.c:2469
 #, fuzzy, c-format
 msgid "Could not read from tunnel listening socket. %s"
 msgstr "Nem sikerült olvasni az alagút figyelő socketből. %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:1992
+#: src/remmina_ssh.c:2489
 #, fuzzy, c-format
 msgid "Could not poll SSH channel. %s"
 msgstr "Nem sikerült pollolni az SSH csatornát. %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:1999
+#: src/remmina_ssh.c:2496
 #, fuzzy, c-format
 msgid "Could not read SSH channel in a non-blocking way. %s"
 msgstr "Nem sikerült olvasni az SSH csatornából nem-blokkoló módon. %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2018
+#: src/remmina_ssh.c:2515
 #, fuzzy, c-format
 msgid "Could not send data to tunnel listening socket. %s"
 msgstr "Nem sikerült adatot küldeni az alagút scoketjéhez. %s"
 
-#: src/remmina_ssh.c:2120
+#: src/remmina_ssh.c:2617
 #, fuzzy
 msgid "Assign a destination port."
 msgstr "Adjon meg egy célportot."
 
-#: src/remmina_ssh.c:2127
+#: src/remmina_ssh.c:2624
 #, fuzzy
 msgid "Could not create socket."
 msgstr "Sikertelen a socket létrehozása."
 
-#: src/remmina_ssh.c:2137
+#: src/remmina_ssh.c:2634
 #, fuzzy
 msgid "Could not bind server socket to local port."
 msgstr "Sikertelen a socket helyi porthoz kötése."
 
-#: src/remmina_ssh.c:2143
+#: src/remmina_ssh.c:2640
 #, fuzzy
 msgid "Could not listen to local port."
 msgstr "Nem lehetséges a helyi port hallgatása."
 
 #. TRANSLATORS: Do not translate pthread
-#: src/remmina_ssh.c:2153 src/remmina_ssh.c:2170 src/remmina_ssh.c:2188
+#: src/remmina_ssh.c:2650 src/remmina_ssh.c:2667 src/remmina_ssh.c:2685
 #, fuzzy
 msgid "Could not start pthread."
 msgstr "Pthread indítása sikertelen."
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2280
+#: src/remmina_ssh.c:2777
 #, fuzzy, c-format
 msgid "Could not create SFTP session. %s"
 msgstr "Nem sikerült létrehozni az SFTP kapcsolatot. %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2285
+#: src/remmina_ssh.c:2782
 #, fuzzy, c-format
 msgid "Could not start SFTP session. %s"
 msgstr "Nem sikerült elindítani az SFTP kapcsolatot. %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2383
+#: src/remmina_ssh.c:2874
 #, fuzzy, c-format
 msgid "Could not open channel. %s"
 msgstr "Nem sikerült csatornát nyitni. %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2402
+#: src/remmina_ssh.c:2917
 #, fuzzy, c-format
 msgid "Could not request shell. %s"
 msgstr "Nem sikerült shell-t kérni. %s"
 
-#: src/remmina_ssh.c:2532
+#: src/remmina_ssh.c:3047
 #, fuzzy
 msgid "Could not create PTY device."
 msgstr "Nem lehetséges PTY eszköz létrehozása."
@@ -1719,7 +1748,7 @@ msgstr "SSH-azonosítás"
 msgid "SSH private key file"
 msgstr "SSH privát kulcsfájl"
 
-#: src/remmina_file_editor.c:1244 src/remmina_ssh_plugin.c:1503
+#: src/remmina_file_editor.c:1244 src/remmina_ssh_plugin.c:1505
 #, fuzzy
 #| msgid "CA Certificate File"
 msgid "SSH certificate file"
@@ -1973,89 +2002,89 @@ msgstr "Betűméret csökkentése (host+Page Down)"
 msgid "Find text (host+G)"
 msgstr "Beillesztés (host+V)"
 
-#: src/remmina_ssh_plugin.c:921
+#: src/remmina_ssh_plugin.c:895
 #, fuzzy, c-format
 msgid "Disconnected from %s:%d via SSH"
 msgstr "Csatlakozás ehhez: „%s” SSH-val…"
 
-#: src/remmina_ssh_plugin.c:1468 data/ui/remmina_main.glade:177
+#: src/remmina_ssh_plugin.c:1470 data/ui/remmina_main.glade:177
 #, fuzzy
 msgid "Copy"
 msgstr "Másolás"
 
-#: src/remmina_ssh_plugin.c:1468
+#: src/remmina_ssh_plugin.c:1470
 #, fuzzy
 msgid "_Copy"
 msgstr "Másolás"
 
-#: src/remmina_ssh_plugin.c:1469
+#: src/remmina_ssh_plugin.c:1471
 #, fuzzy
 msgid "Paste"
 msgstr "Beillesztés"
 
-#: src/remmina_ssh_plugin.c:1469
+#: src/remmina_ssh_plugin.c:1471
 #, fuzzy
 msgid "_Paste"
 msgstr "_Beillesztés"
 
-#: src/remmina_ssh_plugin.c:1470
+#: src/remmina_ssh_plugin.c:1472
 #, fuzzy
 msgid "Select all"
 msgstr "Összes kijelölése"
 
-#: src/remmina_ssh_plugin.c:1470
+#: src/remmina_ssh_plugin.c:1472
 #, fuzzy
 msgid "_Select all"
 msgstr "Ö_sszes kijelölése"
 
-#: src/remmina_ssh_plugin.c:1471
+#: src/remmina_ssh_plugin.c:1473
 #, fuzzy
 msgid "Increase font size"
 msgstr "Betűméret növelése"
 
-#: src/remmina_ssh_plugin.c:1471
+#: src/remmina_ssh_plugin.c:1473
 #, fuzzy
 msgid "_Increase font size"
 msgstr "Betűméret _növelése"
 
-#: src/remmina_ssh_plugin.c:1472
+#: src/remmina_ssh_plugin.c:1474
 #, fuzzy
 msgid "Decrease font size"
 msgstr "Betűméret csökkentése"
 
-#: src/remmina_ssh_plugin.c:1472
+#: src/remmina_ssh_plugin.c:1474
 #, fuzzy
 msgid "_Decrease font size"
 msgstr "Betűméret _csökkentése"
 
-#: src/remmina_ssh_plugin.c:1473
+#: src/remmina_ssh_plugin.c:1475
 #, fuzzy
 msgid "Find text"
 msgstr "Szöveg keresése"
 
-#: src/remmina_ssh_plugin.c:1473
+#: src/remmina_ssh_plugin.c:1475
 msgid "_Find text"
 msgstr "_Szöveg keresése"
 
-#: src/remmina_ssh_plugin.c:1500 plugins/spice/spice_plugin.c:676
-#: plugins/vnc/vnc_plugin.c:2020 plugins/vnc/vnc_plugin.c:2032
+#: src/remmina_ssh_plugin.c:1502 plugins/spice/spice_plugin.c:676
+#: plugins/vnc/vnc_plugin.c:2028 plugins/vnc/vnc_plugin.c:2040
 #, fuzzy
 msgid "User password"
 msgstr "Felhasználó jelszava"
 
-#: src/remmina_ssh_plugin.c:1506
+#: src/remmina_ssh_plugin.c:1508
 #, fuzzy
 #| msgid "Pre-command"
 msgid "Opening command"
 msgstr "Elő-parancs"
 
-#: src/remmina_ssh_plugin.c:1507
+#: src/remmina_ssh_plugin.c:1509
 #, fuzzy
 #| msgid "Start-up program"
 msgid "Start-up background program"
 msgstr "Induló program"
 
-#: src/remmina_ssh_plugin.c:1512
+#: src/remmina_ssh_plugin.c:1514
 msgid ""
 "The filename can use the following placeholders:\n"
 "\n"
@@ -2077,79 +2106,83 @@ msgstr ""
 "  • %g kicserélésre kerül a Remmina csoport profil névvel\n"
 "  • %d kicserélésre kerül a helyi datetime-mal iso8601 formában\n"
 
-#: src/remmina_ssh_plugin.c:1534
+#: src/remmina_ssh_plugin.c:1536
 #, fuzzy
 #| msgid "Terminal color scheme"
 msgid "Terminal colour scheme"
 msgstr "Terminál színsémája"
 
-#: src/remmina_ssh_plugin.c:1535
+#: src/remmina_ssh_plugin.c:1537
 #, fuzzy
 msgid "Character set"
 msgstr "Karakterkészlet"
 
-#: src/remmina_ssh_plugin.c:1537
+#: src/remmina_ssh_plugin.c:1539
 #, fuzzy
 msgid "KEX (Key Exchange) algorithms"
 msgstr "KEX (kulcscsere) algoritmus"
 
-#: src/remmina_ssh_plugin.c:1538
+#: src/remmina_ssh_plugin.c:1540
 #, fuzzy
 msgid "Symmetric cipher client to server"
 msgstr "Szimmetrikus titkosítás az ügyfél és a kiszolgáló között"
 
-#: src/remmina_ssh_plugin.c:1539
+#: src/remmina_ssh_plugin.c:1541
 #, fuzzy
 msgid "Preferred server host key types"
 msgstr "Előnyben részesített kiszolgáló kulcstípusok"
 
-#: src/remmina_ssh_plugin.c:1540
+#: src/remmina_ssh_plugin.c:1542
 #, fuzzy
 msgid "Folder for SSH session log"
 msgstr "Az SSH munkamenet log mappája"
 
-#: src/remmina_ssh_plugin.c:1541
+#: src/remmina_ssh_plugin.c:1543
 #, fuzzy
 msgid "Filename for SSH session log"
 msgstr "SSH munkamenet napló fájlneve"
 
-#: src/remmina_ssh_plugin.c:1542
+#: src/remmina_ssh_plugin.c:1544
 #, fuzzy
 msgid "Log SSH session when exiting Remmina"
 msgstr "Az SSH kapcsolat logolása a Remmina-ból kilépéskor"
 
-#: src/remmina_ssh_plugin.c:1543
+#: src/remmina_ssh_plugin.c:1545
 #, fuzzy
 msgid "Log SSH session asynchronously"
 msgstr "SSH munkamenet aszinkron naplózása"
 
-#: src/remmina_ssh_plugin.c:1543
+#: src/remmina_ssh_plugin.c:1545
 #, fuzzy
 msgid "Saving the session asynchronously may have a notable performance impact"
 msgstr ""
 "A munkamenet aszinkron mentése jelentős hatással lehet a teljesítményre."
 
-#: src/remmina_ssh_plugin.c:1544
+#: src/remmina_ssh_plugin.c:1546
 #, fuzzy
 msgid "Audible terminal bell"
 msgstr "Hallható terminál csengő"
 
-#: src/remmina_ssh_plugin.c:1545
+#: src/remmina_ssh_plugin.c:1547
+msgid "SSH X11 Forwarding"
+msgstr ""
+
+#: src/remmina_ssh_plugin.c:1548
 #, fuzzy
 msgid "SSH compression"
 msgstr "SSH tömörítés"
 
-#: src/remmina_ssh_plugin.c:1546
+#: src/remmina_ssh_plugin.c:1549
 #, fuzzy
 msgid "Don't remember passwords"
 msgstr "Ne jegyezze meg a jelszavakat"
 
-#: src/remmina_ssh_plugin.c:1547
+#: src/remmina_ssh_plugin.c:1550
 #, fuzzy
 msgid "Strict host key checking"
 msgstr "Szigorú kiszolgáló kulcs ellenőrzés"
 
-#: src/remmina_ssh_plugin.c:1561
+#: src/remmina_ssh_plugin.c:1564
 #, fuzzy
 msgid "SSH - Secure Shell"
 msgstr "SSH – Biztonságos parancsértelmező"
@@ -2174,25 +2207,25 @@ msgid "<Choose a quality level to edit…>"
 msgstr "<Válasszon minőségszintet a szerkesztéshez…>"
 
 #: plugins/rdp/rdp_settings.c:282 plugins/rdp/rdp_plugin.c:2636
-#: plugins/vnc/vnc_plugin.c:1969
+#: plugins/vnc/vnc_plugin.c:1977
 #, fuzzy
 msgid "Poor (fastest)"
 msgstr "Gyenge (leggyorsabb)"
 
 #: plugins/rdp/rdp_settings.c:284 plugins/rdp/rdp_plugin.c:2637
-#: plugins/vnc/vnc_plugin.c:1968
+#: plugins/vnc/vnc_plugin.c:1976
 #, fuzzy
 msgid "Medium"
 msgstr "Közepes"
 
 #: plugins/rdp/rdp_settings.c:286 plugins/rdp/rdp_plugin.c:2638
-#: plugins/vnc/vnc_plugin.c:1966
+#: plugins/vnc/vnc_plugin.c:1974
 #, fuzzy
 msgid "Good"
 msgstr "Jó"
 
 #: plugins/rdp/rdp_settings.c:288 plugins/rdp/rdp_plugin.c:2639
-#: plugins/vnc/vnc_plugin.c:1967
+#: plugins/vnc/vnc_plugin.c:1975
 #, fuzzy
 msgid "Best (slowest)"
 msgstr "Legjobb (leglassabb)"
@@ -2297,7 +2330,7 @@ msgid "Input device settings"
 msgstr "Bemeneti eszköz beállításai"
 
 #: plugins/rdp/rdp_settings.c:658 plugins/rdp/rdp_plugin.c:2780
-#: plugins/vnc/vnc_plugin.c:2052
+#: plugins/vnc/vnc_plugin.c:2060
 #, fuzzy
 #| msgid "Turn on smooth scrolling"
 msgid "Disable smooth scrolling"
@@ -2507,7 +2540,7 @@ msgstr "GFX RFX (32 bpp)"
 msgid "RemoteFX (32 bpp)"
 msgstr "RemoteFX (32 bpp)"
 
-#: plugins/rdp/rdp_plugin.c:2611 plugins/vnc/vnc_plugin.c:1957
+#: plugins/rdp/rdp_plugin.c:2611 plugins/vnc/vnc_plugin.c:1965
 #, fuzzy
 msgid "True colour (32 bpp)"
 msgstr "32 bites színmélység"
@@ -2517,7 +2550,7 @@ msgstr "32 bites színmélység"
 msgid "True colour (24 bpp)"
 msgstr "24 bites színmélység"
 
-#: plugins/rdp/rdp_plugin.c:2613 plugins/vnc/vnc_plugin.c:1958
+#: plugins/rdp/rdp_plugin.c:2613 plugins/vnc/vnc_plugin.c:1966
 #, fuzzy
 msgid "High colour (16 bpp)"
 msgstr "16 bites színmélység"
@@ -2527,7 +2560,7 @@ msgstr "16 bites színmélység"
 msgid "High colour (15 bpp)"
 msgstr "15 bites színmélység"
 
-#: plugins/rdp/rdp_plugin.c:2615 plugins/vnc/vnc_plugin.c:1959
+#: plugins/rdp/rdp_plugin.c:2615 plugins/vnc/vnc_plugin.c:1967
 #, fuzzy
 msgid "256 colours (8 bpp)"
 msgstr "256 szín (8 bpp)"
@@ -2804,8 +2837,8 @@ msgstr "Képernyő több monitoron való megosztása"
 msgid "List monitor IDs"
 msgstr "Monitor azonosítók listája"
 
-#: plugins/rdp/rdp_plugin.c:2785 plugins/vnc/vnc_plugin.c:2021
-#: plugins/vnc/vnc_plugin.c:2033 plugins/gvnc/gvnc_plugin.c:849
+#: plugins/rdp/rdp_plugin.c:2785 plugins/vnc/vnc_plugin.c:2029
+#: plugins/vnc/vnc_plugin.c:2041 plugins/gvnc/gvnc_plugin.c:849
 #, fuzzy
 msgid "Colour depth"
 msgstr "Színmélység"
@@ -2814,8 +2847,8 @@ msgstr "Színmélység"
 msgid "Network connection type"
 msgstr "Új kapcsolódási profil"
 
-#: plugins/rdp/rdp_plugin.c:2802 plugins/vnc/vnc_plugin.c:2022
-#: plugins/vnc/vnc_plugin.c:2034
+#: plugins/rdp/rdp_plugin.c:2802 plugins/vnc/vnc_plugin.c:2030
+#: plugins/vnc/vnc_plugin.c:2042
 #, fuzzy
 msgid "Quality"
 msgstr "Minőség"
@@ -3026,7 +3059,7 @@ msgstr "Párhuzamos portok megosztása"
 msgid "Share a smart card"
 msgstr "Intelligens kártya megosztása"
 
-#: plugins/rdp/rdp_plugin.c:2840 plugins/vnc/vnc_plugin.c:2057
+#: plugins/rdp/rdp_plugin.c:2840 plugins/vnc/vnc_plugin.c:2065
 #, fuzzy
 msgid "Turn off clipboard sync"
 msgstr "Vágólap-szinkronizálás kikapcsolása"
@@ -3047,7 +3080,7 @@ msgid "It disables CAL and hwId is set to 0"
 msgstr "Letiltja a CAL-t és a hwId beállításra kerül 0-ra"
 
 #: plugins/rdp/rdp_plugin.c:2843 plugins/spice/spice_plugin.c:704
-#: plugins/vnc/vnc_plugin.c:2053 plugins/www/www_plugin.c:919
+#: plugins/vnc/vnc_plugin.c:2061 plugins/www/www_plugin.c:919
 #: plugins/gvnc/gvnc_plugin.c:867
 #, fuzzy
 msgid "Forget passwords after use"
@@ -3109,7 +3142,7 @@ msgid "Enable Gateway websockets support"
 msgstr "Gateway websockets támogatás engedélyezése"
 
 #: plugins/rdp/rdp_plugin.c:2869 plugins/spice/spice_plugin.c:717
-#: plugins/vnc/vnc_plugin.c:2074
+#: plugins/vnc/vnc_plugin.c:2082
 #, fuzzy
 msgid "Send Ctrl+Alt+Delete"
 msgstr "Ctrl+Alt+Delete küldése"
@@ -3263,7 +3296,7 @@ msgid "Share smart card"
 msgstr "Intelligens kártya megosztása"
 
 #: plugins/spice/spice_plugin.c:707 plugins/spice/spice_plugin.c:715
-#: plugins/vnc/vnc_plugin.c:2059 plugins/vnc/vnc_plugin.c:2070
+#: plugins/vnc/vnc_plugin.c:2067 plugins/vnc/vnc_plugin.c:2078
 #: plugins/gvnc/gvnc_plugin.c:870 plugins/gvnc/gvnc_plugin.c:879
 #, fuzzy
 msgid "View only"
@@ -3329,17 +3362,17 @@ msgstr "A VNC szerver egy ismeretlen autentikációs metódust kért. %s"
 msgid "Please retry after turning on encryption for this profile."
 msgstr "Próbálja meg újra a titkosítás engedélyezése után ebben a profilban."
 
-#: plugins/vnc/vnc_plugin.c:1706
+#: plugins/vnc/vnc_plugin.c:1714
 #, fuzzy, c-format
 msgid "Connected to %s:%d via VNC"
 msgstr "Csatlakozás ehhez: „%s” SSH-val…"
 
-#: plugins/vnc/vnc_plugin.c:1725
+#: plugins/vnc/vnc_plugin.c:1733
 #, c-format
 msgid "Disconnected from %s:%d via VNC"
 msgstr ""
 
-#: plugins/vnc/vnc_plugin.c:1974
+#: plugins/vnc/vnc_plugin.c:1982
 #, fuzzy
 msgid ""
 "Connect to VNC using a repeater:\n"
@@ -3359,7 +3392,7 @@ msgstr ""
 "    123456789+10.10.10.10.12:5500: x11vnc -connect "
 "repeater=ID:123456789+10.10.10.12:5500"
 
-#: plugins/vnc/vnc_plugin.c:1983
+#: plugins/vnc/vnc_plugin.c:1991
 #, fuzzy
 msgid ""
 "Listening for remote VNC connection:\n"
@@ -3376,7 +3409,7 @@ msgstr ""
 "    Remminához, pl. az x11vnc segítségével:\n"
 "    x11vnc -display :0 -connect 192.168.1.36:8888"
 
-#: plugins/vnc/vnc_plugin.c:1991
+#: plugins/vnc/vnc_plugin.c:1999
 msgid ""
 "Overriding the pre-set VNC encoding quality:\n"
 "\n"
@@ -3389,48 +3422,48 @@ msgid ""
 "corre rre raw”"
 msgstr ""
 
-#: plugins/vnc/vnc_plugin.c:2018
+#: plugins/vnc/vnc_plugin.c:2026
 #, fuzzy
 msgid "Repeater"
 msgstr "Ismétlő"
 
-#: plugins/vnc/vnc_plugin.c:2030
+#: plugins/vnc/vnc_plugin.c:2038
 #, fuzzy
 msgid "Listen on port"
 msgstr "Port figyelése"
 
-#: plugins/vnc/vnc_plugin.c:2050
+#: plugins/vnc/vnc_plugin.c:2058
 msgid "Override pre-set VNC encodings"
 msgstr ""
 
-#: plugins/vnc/vnc_plugin.c:2051
+#: plugins/vnc/vnc_plugin.c:2059
 msgid "Force tight encoding"
 msgstr ""
 
-#: plugins/vnc/vnc_plugin.c:2051
+#: plugins/vnc/vnc_plugin.c:2059
 msgid "Enabling this may help when the remote desktop looks scrambled"
 msgstr ""
 
-#: plugins/vnc/vnc_plugin.c:2054 plugins/gvnc/gvnc_plugin.c:868
+#: plugins/vnc/vnc_plugin.c:2062 plugins/gvnc/gvnc_plugin.c:868
 #, fuzzy
 msgid "Ignore remote bell messages"
 msgstr "Távoli csengetési üzenetek figyelmen kívül hagyása"
 
-#: plugins/vnc/vnc_plugin.c:2055 plugins/vnc/vnc_plugin.c:2071
+#: plugins/vnc/vnc_plugin.c:2063 plugins/vnc/vnc_plugin.c:2079
 #, fuzzy
 msgid "Prevent local interaction on the server"
 msgstr "A helyi interakció megakadályozása a kiszolgálón"
 
-#: plugins/vnc/vnc_plugin.c:2056
+#: plugins/vnc/vnc_plugin.c:2064
 #, fuzzy
 msgid "Show remote cursor"
 msgstr "Távoli kurzor megjelenítése"
 
-#: plugins/vnc/vnc_plugin.c:2058
+#: plugins/vnc/vnc_plugin.c:2066
 msgid "Turn off encryption"
 msgstr "TLS titkosítás használata"
 
-#: plugins/vnc/vnc_plugin.c:2073
+#: plugins/vnc/vnc_plugin.c:2081
 #, fuzzy
 msgid "Open Chat…"
 msgstr "Csevegés megnyitása…"
@@ -5849,12 +5882,6 @@ msgstr "Mester jelszó"
 #~ msgid "Password for private SSH key"
 #~ msgstr "Jelszó az SSH privát kulcshoz"
 
-#~ msgid "Disable clipboard sync"
-#~ msgstr "Vágólap-szinkronizálás tiltása"
-
-#~ msgid "Disable encryption"
-#~ msgstr "Titkosítás tiltása"
-
 #~ msgid "Send Ctrl+Alt+Del"
 #~ msgstr "Ctrl+Alt+Delete küldése"
 
@@ -5915,9 +5942,6 @@ msgstr "Mester jelszó"
 
 #~ msgid "Sound"
 #~ msgstr "Hang"
-
-#~ msgid "Dark tray icon"
-#~ msgstr "Sötét tálcaikon"
 
 #~ msgid "Improves contrast if you have a light panel."
 #~ msgstr "Javítja a kontrasztot, ha világos panelt használ."
