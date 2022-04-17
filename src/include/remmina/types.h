@@ -65,7 +65,7 @@ typedef enum
     REMMINA_TYPEHINT_BOOLEAN,
     REMMINA_TYPEHINT_CPOINTER,
     REMMINA_TYPEHINT_RAW,
-  	REMMINA_TYPEHINT_TUPLE,
+    REMMINA_TYPEHINT_TUPLE,
     REMMINA_TYPEHINT_UNDEFINED,
 } RemminaTypeHint;
 
@@ -75,9 +75,9 @@ typedef struct _RemminaProtocolFeature {
 	gpointer			opt1;
 	gpointer			opt2;
 	gpointer			opt3;
-    RemminaTypeHint     opt1_type_hint;
-    RemminaTypeHint     opt2_type_hint;
-    RemminaTypeHint     opt3_type_hint;
+    	RemminaTypeHint     		opt1_type_hint;
+    	RemminaTypeHint     		opt2_type_hint;
+    	RemminaTypeHint     		opt3_type_hint;
 } RemminaProtocolFeature;
 
 typedef struct _RemminaPluginScreenshotData {
