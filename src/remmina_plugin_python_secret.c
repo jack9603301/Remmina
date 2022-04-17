@@ -43,9 +43,6 @@
 // A P I
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-/**
- *
- */
 void remmina_plugin_python_secret_init(void)
 {
 	TRACE_CALL(__func__);
@@ -93,7 +90,7 @@ remmina_plugin_python_secret_get_password_wrapper(RemminaSecretPlugin* instance,
 		return NULL;
 	}
 
-    return remmina_plugin_python_copy_string_from_python(result, len);
+	return remmina_plugin_python_copy_string_from_python(result, len);
 }
 
 void

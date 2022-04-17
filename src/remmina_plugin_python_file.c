@@ -130,11 +130,11 @@ RemminaPlugin* remmina_plugin_python_create_file_plugin(PyPlugin* plugin)
 	TRACE_CALL(__func__);
 
 	PyObject* instance = plugin->instance;
-    Py_IncRef(instance);
+	Py_IncRef(instance);
 
 	if (!remmina_plugin_python_check_attribute(instance, ATTR_NAME))
 	{
-        g_printerr("Unable to create file plugin. Aborting!\n");
+		g_printerr("Unable to create file plugin. Aborting!\n");
 		return NULL;
 	}
 

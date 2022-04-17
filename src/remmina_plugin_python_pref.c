@@ -46,58 +46,59 @@
 // A P I
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-/**
- *
- */
-void remmina_plugin_python_pref_init(void) {
-    TRACE_CALL(__func__);
+void remmina_plugin_python_pref_init(void)
+{
+	TRACE_CALL(__func__);
 
 }
 
 /**
  * @brief
  */
-GtkWidget *remmina_plugin_python_pref_get_pref_body_wrapper(RemminaPrefPlugin *instance) {
-    TRACE_CALL(__func__);
+GtkWidget* remmina_plugin_python_pref_get_pref_body_wrapper(RemminaPrefPlugin* instance)
+{
+	TRACE_CALL(__func__);
 
-    PyPlugin *plugin = remmina_plugin_python_get_plugin(instance->name);
+	PyPlugin* plugin = remmina_plugin_python_get_plugin(instance->name);
 
-    PyObject *result = CallPythonMethod(plugin->instance, "get_pref_body", NULL, NULL);
-    if (result == Py_None || result == NULL) {
-        return NULL;
-    }
+	PyObject* result = CallPythonMethod(plugin->instance, "get_pref_body", NULL, NULL);
+	if (result == Py_None || result == NULL)
+	{
+		return NULL;
+	}
 
-    return get_pywidget(result);
+	return get_pywidget(result);
 }
 
-RemminaPlugin *remmina_plugin_python_create_pref_plugin(PyPlugin *plugin) {
-    TRACE_CALL(__func__);
+RemminaPlugin* remmina_plugin_python_create_pref_plugin(PyPlugin* plugin)
+{
+	TRACE_CALL(__func__);
 
-    PyObject *instance = plugin->instance;
+	PyObject* instance = plugin->instance;
 
-    if (!remmina_plugin_python_check_attribute(instance, ATTR_NAME)
-        || !remmina_plugin_python_check_attribute(instance, ATTR_VERSION)
-        || !remmina_plugin_python_check_attribute(instance, ATTR_DESCRIPTION)
-        || !remmina_plugin_python_check_attribute(instance, ATTR_PREF_LABEL)) {
-        g_printerr("Unable to create pref plugin. Aborting!\n");
-        return NULL;
-    }
+	if (!remmina_plugin_python_check_attribute(instance, ATTR_NAME)
+		|| !remmina_plugin_python_check_attribute(instance, ATTR_VERSION)
+		|| !remmina_plugin_python_check_attribute(instance, ATTR_DESCRIPTION)
+		|| !remmina_plugin_python_check_attribute(instance, ATTR_PREF_LABEL))
+	{
+		g_printerr("Unable to create pref plugin. Aborting!\n");
+		return NULL;
+	}
 
-    RemminaPrefPlugin *remmina_plugin = (RemminaPrefPlugin*)remmina_plugin_python_malloc(sizeof(RemminaPrefPlugin));
+	RemminaPrefPlugin* remmina_plugin = (RemminaPrefPlugin*)remmina_plugin_python_malloc(sizeof(RemminaPrefPlugin));
 
-    remmina_plugin->type = REMMINA_PLUGIN_TYPE_PREF;
-    remmina_plugin->domain = GETTEXT_PACKAGE;
-    remmina_plugin->name = PyUnicode_AsUTF8(PyObject_GetAttrString(instance, ATTR_NAME));
-    remmina_plugin->version = PyUnicode_AsUTF8(PyObject_GetAttrString(instance, ATTR_VERSION));
-    remmina_plugin->description = PyUnicode_AsUTF8(PyObject_GetAttrString(instance, ATTR_DESCRIPTION));
-    remmina_plugin->pref_label = PyUnicode_AsUTF8(PyObject_GetAttrString(instance, ATTR_PREF_LABEL));
-    remmina_plugin->get_pref_body = remmina_plugin_python_pref_get_pref_body_wrapper;
+	remmina_plugin->type = REMMINA_PLUGIN_TYPE_PREF;
+	remmina_plugin->domain = GETTEXT_PACKAGE;
+	remmina_plugin->name = PyUnicode_AsUTF8(PyObject_GetAttrString(instance, ATTR_NAME));
+	remmina_plugin->version = PyUnicode_AsUTF8(PyObject_GetAttrString(instance, ATTR_VERSION));
+	remmina_plugin->description = PyUnicode_AsUTF8(PyObject_GetAttrString(instance, ATTR_DESCRIPTION));
+	remmina_plugin->pref_label = PyUnicode_AsUTF8(PyObject_GetAttrString(instance, ATTR_PREF_LABEL));
+	remmina_plugin->get_pref_body = remmina_plugin_python_pref_get_pref_body_wrapper;
 
-    plugin->pref_plugin = remmina_plugin;
-    plugin->generic_plugin = (RemminaPlugin *) remmina_plugin;
+	plugin->pref_plugin = remmina_plugin;
+	plugin->generic_plugin = (RemminaPlugin*)remmina_plugin;
 
-    remmina_plugin_python_add_plugin(plugin);
+	remmina_plugin_python_add_plugin(plugin);
 
-    return (RemminaPlugin *) remmina_plugin;
+	return (RemminaPlugin*)remmina_plugin;
 }

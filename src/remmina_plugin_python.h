@@ -75,6 +75,6 @@ void remmina_plugin_python_init(void);
  *
  * @return  TRUE on success, FALSE otherwise.
  */
-gboolean remmina_plugin_python_load(RemminaPluginService *service, const gchar *filename);
+gboolean remmina_plugin_python_load(RemminaPluginService* service, const gchar* filename);
 
 G_END_DECLS

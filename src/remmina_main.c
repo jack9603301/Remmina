@@ -286,7 +286,7 @@ static void remmina_main_show_snap_welcome()
 		g_print("  but we can’t find the secret plugin inside the SNAP.\n");
 		need_snap_interface_connections = TRUE;
 	} else {
-		if (!remmina_secret_plugin->is_service_available()) {
+		if (!remmina_secret_plugin->is_service_available(remmina_secret_plugin)) {
 			g_print("  but we can’t access a secret service. Secret service or SNAP interface connection is missing.\n");
 			need_snap_interface_connections = TRUE;
 		}
@@ -987,9 +987,7 @@ void remmina_main_on_action_application_preferences(GSimpleAction *action, GVari
 	gtk_widget_show_all(widget);
 	/* Switch to a dark theme if the user enabled it */
 	settings = gtk_settings_get_default();
-    if (remmina_pref.dark_theme) {
-	  g_object_set(settings, "gtk-application-prefer-dark-theme", remmina_pref.dark_theme, NULL);
-    }
+	  g_object_set(settings, "gtk-application-prefer-dark-theme", &remmina_pref.dark_theme, NULL);
 }
 
 void remmina_main_on_action_application_default(GSimpleAction *action, GVariant *param, gpointer data)

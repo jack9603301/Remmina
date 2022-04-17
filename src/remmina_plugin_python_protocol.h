@@ -56,12 +56,12 @@ G_BEGIN_DECLS
  */
 typedef struct
 {
-    PyObject_HEAD
-    RemminaProtocolFeatureType type;
-    gint id;
-    PyGeneric* opt1;
-    PyGeneric* opt2;
-    PyGeneric* opt3;
+	PyObject_HEAD
+	RemminaProtocolFeatureType type;
+	gint id;
+	PyGeneric* opt1;
+	PyGeneric* opt2;
+	PyGeneric* opt3;
 } PyRemminaProtocolFeature;
 
 /**
@@ -69,12 +69,12 @@ typedef struct
  */
 typedef struct
 {
-    PyObject_HEAD
-    PyByteArrayObject* buffer;
-    int bitsPerPixel;
-    int bytesPerPixel;
-    int width;
-    int height;
+	PyObject_HEAD
+	PyByteArrayObject* buffer;
+	int bitsPerPixel;
+	int bytesPerPixel;
+	int width;
+	int height;
 } PyRemminaPluginScreenshotData;
 
 /**
@@ -90,7 +90,7 @@ void remmina_plugin_python_protocol_init(void);
  *
  * @return	Returns a new instance of the RemminaPlugin (must be freed!).
  */
-RemminaPlugin *remmina_plugin_python_create_protocol_plugin(PyPlugin *plugin);
+RemminaPlugin* remmina_plugin_python_create_protocol_plugin(PyPlugin* plugin);
 
 /**
  *

@@ -51,7 +51,7 @@
  * represents a line of Python code.
  */
 static const char
-    *python_init_commands[] = {"import sys", "sys.path.append('" REMMINA_RUNTIME_PLUGINDIR "')", NULL // Sentinel
+	* python_init_commands[] = { "import sys", "sys.path.append('" REMMINA_RUNTIME_PLUGINDIR "')", NULL // Sentinel
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -66,100 +66,111 @@ static const char
  *
  * @return  The length of the filename extracted.
  */
-static int basename_no_ext(const char *in, char **out) {
-  TRACE_CALL(__func__);
+static int basename_no_ext(const char* in, char** out)
+{
+	TRACE_CALL(__func__);
 
-  assert(in);
-  assert(out);
+	assert(in);
+	assert(out);
 
-  const char *base = strrchr(in, '/');
-  if (base) {
-    base++;
-  }
+	const char* base = strrchr(in, '/');
+	if (base)
+	{
+		base++;
+	}
 
-  const char *base_end = strrchr(base, '.');
-  if (!base_end) {
-    base_end = base + strlen(base);
-  }
+	const char* base_end = strrchr(base, '.');
+	if (!base_end)
+	{
+		base_end = base + strlen(base);
+	}
 
-  const int length = base_end - base;
-  const int memsize = sizeof(char *) * ((length) + 1);
+	const int length = base_end - base;
+	const int memsize = sizeof(char*) * ((length) + 1);
 
-  *out = (char *) remmina_plugin_python_malloc(memsize);
+	*out = (char*)remmina_plugin_python_malloc(memsize);
 
-  memset(*out, 0, memsize);
-  strncpy(*out, base, length);
-  (*out)[length] = '\0';
+	memset(*out, 0, memsize);
+	strncpy(*out, base, length);
+	(*out)[length] = '\0';
 
-  return length;
+	return length;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // A P I
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void remmina_plugin_python_init(void) {
-  TRACE_CALL(__func__);
+void remmina_plugin_python_init(void)
+{
+	TRACE_CALL(__func__);
 
-  remmina_plugin_python_module_init();
-  Py_Initialize();
+	remmina_plugin_python_module_init();
+	Py_Initialize();
 
-  for (const char **ptr = python_init_commands; *ptr; ++ptr) {
-    PyRun_SimpleString(*ptr);
-  }
+	for (const char** ptr = python_init_commands; *ptr; ++ptr)
+	{
+		PyRun_SimpleString(*ptr);
+	}
 
-  remmina_plugin_python_protocol_widget_init();
+	remmina_plugin_python_protocol_widget_init();
 }
 
-gboolean remmina_plugin_python_load(RemminaPluginService *service, const char *name) {
-  TRACE_CALL(__func__);
+gboolean remmina_plugin_python_load(RemminaPluginService* service, const char* name)
+{
+	TRACE_CALL(__func__);
 
-  assert(service);
-  assert(name);
+	assert(service);
+	assert(name);
 
-  remmina_plugin_python_set_service(service);
+	remmina_plugin_python_set_service(service);
 
-  char *filename = NULL;
-  if (basename_no_ext(name, &filename) == 0) {
-    g_printerr("[%s:%d]: Can not extract filename from '%s'!\n", __FILE__, __LINE__, name);
-    return FALSE;
-  }
+	char* filename = NULL;
+	if (basename_no_ext(name, &filename) == 0)
+	{
+		g_printerr("[%s:%d]: Can not extract filename from '%s'!\n", __FILE__, __LINE__, name);
+		return FALSE;
+	}
 
-  PyObject *plugin_name = PyUnicode_DecodeFSDefault(filename);
+	PyObject* plugin_name = PyUnicode_DecodeFSDefault(filename);
 
-  if (!plugin_name) {
-    free(filename);
-    g_printerr("[%s:%d]: Error converting plugin filename to PyUnicode!\n", __FILE__, __LINE__);
-    return FALSE;
-  }
+	if (!plugin_name)
+	{
+		free(filename);
+		g_printerr("[%s:%d]: Error converting plugin filename to PyUnicode!\n", __FILE__, __LINE__);
+		return FALSE;
+	}
 
-  wchar_t *program_name = NULL;
-  Py_ssize_t len = PyUnicode_AsWideChar(plugin_name, program_name, 0);
-  if (len <= 0) {
-    free(filename);
-    g_printerr("[%s:%d]: Failed allocating %lu bytes!\n", __FILE__, __LINE__, (sizeof(wchar_t) * len));
-    return FALSE;
-  }
+	wchar_t* program_name = NULL;
+	Py_ssize_t len = PyUnicode_AsWideChar(plugin_name, program_name, 0);
+	if (len <= 0)
+	{
+		free(filename);
+		g_printerr("[%s:%d]: Failed allocating %lu bytes!\n", __FILE__, __LINE__, (sizeof(wchar_t) * len));
+		return FALSE;
+	}
 
-  program_name = (wchar_t *) remmina_plugin_python_malloc(sizeof(wchar_t) * len);
-  if (!program_name) {
-    free(filename);
-    g_printerr("[%s:%d]: Failed allocating %lu bytes!\n", __FILE__, __LINE__, (sizeof(wchar_t) * len));
-    return FALSE;
-  }
+	program_name = (wchar_t*)remmina_plugin_python_malloc(sizeof(wchar_t) * len);
+	if (!program_name)
+	{
+		free(filename);
+		g_printerr("[%s:%d]: Failed allocating %lu bytes!\n", __FILE__, __LINE__, (sizeof(wchar_t) * len));
+		return FALSE;
+	}
 
-  PyUnicode_AsWideChar(plugin_name, program_name, len);
+	PyUnicode_AsWideChar(plugin_name, program_name, len);
 
-  PySys_SetArgv(1, &program_name);
+	PySys_SetArgv(1, &program_name);
 
-  if (PyImport_Import(plugin_name)) {
-    free(filename);
-    return TRUE;
-  }
+	if (PyImport_Import(plugin_name))
+	{
+		free(filename);
+		return TRUE;
+	}
 
-  g_print("[%s:%d]: Failed to load python plugin file: '%s'\n", __FILE__, __LINE__, name);
-  PyErr_Print();
-  free(filename);
+	g_print("[%s:%d]: Failed to load python plugin file: '%s'\n", __FILE__, __LINE__, name);
+	PyErr_Print();
+	free(filename);
 
-  return FALSE;
+	return FALSE;
 }

@@ -140,9 +140,9 @@ typedef struct
  */
 typedef struct
 {
-    PyObject_HEAD;
-    RemminaTypeHint type_hint;
-    gpointer raw;
+	PyObject_HEAD;
+	RemminaTypeHint type_hint;
+	gpointer raw;
 } PyGeneric;
 
 /**
@@ -166,17 +166,17 @@ PyGeneric* remmina_plugin_python_generic_new(void);
 /**
  * Registers the given plugin if no other plugin with the same name has been already registered.
  */
-void remmina_plugin_python_add_plugin(PyPlugin *plugin);
+void remmina_plugin_python_add_plugin(PyPlugin* plugin);
 
 /**
  * Sets the pointer to the plugin service of Remmina.
  */
-void remmina_plugin_python_set_service(RemminaPluginService *service);
+void remmina_plugin_python_set_service(RemminaPluginService* service);
 
 /**
  * Extracts data from a PyObject instance to a generic pointer and returns a type hint if it could be determined.
  */
-RemminaTypeHint remmina_plugin_python_to_generic(PyObject *field, gpointer *target);
+RemminaTypeHint remmina_plugin_python_to_generic(PyObject* field, gpointer* target);
 
 /**
  * Gets the result of the last python method call.
@@ -188,7 +188,7 @@ PyObject* remmina_plugin_python_last_result(void);
  *
  * @return 	Returns the passed result (it's done to be compatible with the CallPythonMethod macro).
  */
-PyObject* remmina_plugin_python_last_result_set(PyObject *result);
+PyObject* remmina_plugin_python_last_result_set(PyObject* result);
 
 /**
  * @brief	Prints a log message to inform the user a python message has been called.
@@ -198,7 +198,7 @@ PyObject* remmina_plugin_python_last_result_set(PyObject *result);
  * @param 	instance The instance that contains the called method.
  * @param 	method The name of the method called.
  */
-void remmina_plugin_python_log_method_call(PyObject *instance, const char *method);
+void remmina_plugin_python_log_method_call(PyObject* instance, const char* method);
 
 /**
  * @brief 	Checks if an error has occurred and prints it.
@@ -216,7 +216,7 @@ gboolean remmina_plugin_python_check_error(void);
  *
  * @return 	The value attribute as long.
  */
-long remmina_plugin_python_get_attribute_long(PyObject *instance, const char *attr_name, long def);
+long remmina_plugin_python_get_attribute_long(PyObject* instance, const char* attr_name, long def);
 
 /**
  * @brief 	Checks if a given attribute exists.
@@ -226,7 +226,7 @@ long remmina_plugin_python_get_attribute_long(PyObject *instance, const char *at
  *
  * @return 	Returns TRUE if the attribute exists.
  */
-gboolean remmina_plugin_python_check_attribute(PyObject *instance, const char *attr_name);
+gboolean remmina_plugin_python_check_attribute(PyObject* instance, const char* attr_name);
 
 /**
  * @brief 	Allocates memory and checks for errors before returning.
@@ -245,7 +245,7 @@ void* remmina_plugin_python_malloc(int bytes);
  *
  * @return 	A char pointer to the new copy of the string.
  */
-char* remmina_plugin_python_copy_string_from_python(PyObject *string, Py_ssize_t len);
+char* remmina_plugin_python_copy_string_from_python(PyObject* string, Py_ssize_t len);
 
 /**
  * @brief	Tries to find the Python plugin matching to the given instance of RemminaPlugin.
@@ -255,21 +255,21 @@ char* remmina_plugin_python_copy_string_from_python(PyObject *string, Py_ssize_t
  *
  * @return	A pointer to a PyPlugin instance if successful. Otherwise NULL is returned.
  */
-PyPlugin* remmina_plugin_python_get_plugin(const char *name);
+PyPlugin* remmina_plugin_python_get_plugin(const char* name);
 
 /**
  * Creates a new GtkWidget
  * @param obj
  * @return
  */
-GtkWidget* new_pywidget(GObject *obj);
+GtkWidget* new_pywidget(GObject* obj);
 
 /**
  * Extracts a GtkWidget from a PyObject instance.
  * @param obj
  * @return
  */
-GtkWidget* get_pywidget(PyObject *obj);
+GtkWidget* get_pywidget(PyObject* obj);
 
 /**
  * Initializes the pygobject library. This needs to be called before any Python plugin is being initialized.

@@ -84,7 +84,7 @@ static PyTypeObject python_remmina_file_type = {
 
 void remmina_plugin_python_remmina_init_types(void)
 {
-  PyType_Ready(&python_remmina_file_type);
+	PyType_Ready(&python_remmina_file_type);
 }
 
 PyRemminaFile* remmina_plugin_python_remmina_file_to_python(RemminaFile* file)
@@ -111,7 +111,6 @@ static PyObject* file_set_setting(PyRemminaFile* self, PyObject* args, PyObject*
 	static char* keyword_list[] = { "key", "value", NULL };
 	gchar* key;
 	PyObject* value;
-
 
 	if (PyArg_ParseTupleAndKeywords(args, kwds, "s|O", keyword_list, &key, &value))
 	{
@@ -151,10 +150,10 @@ static PyObject* file_get_setting(PyRemminaFile* self, PyObject* args, PyObject*
 		{
 			return Py_BuildValue("s", remmina_file_get_string(self->file, key));
 		}
-        else if (PyBool_Check(def))
-        {
-            return remmina_file_get_int(self->file, key, (gint)PyLong_AsLong(def)) ? Py_True : Py_False;
-        }
+		else if (PyBool_Check(def))
+		{
+			return remmina_file_get_int(self->file, key, (gint)PyLong_AsLong(def)) ? Py_True : Py_False;
+		}
 		else if (PyLong_Check(def))
 		{
 			return Py_BuildValue("i", remmina_file_get_int(self->file, key, (gint)PyLong_AsLong(def)));
