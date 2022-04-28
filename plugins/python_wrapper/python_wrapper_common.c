@@ -277,14 +277,12 @@ RemminaTypeHint python_wrapper_to_generic(PyObject* field, gpointer* target)
 	return REMMINA_TYPEHINT_UNDEFINED;
 }
 
-PyPlugin* python_wrapper_get_plugin(RemminaProtocolWidget* gp)
+PyPlugin* python_wrapper_get_plugin(const gchar* name)
 {
 	TRACE_CALL(__func__);
 
 	assert(plugin_map);
-	assert(gp);
-
-	const gchar* name = python_wrapper_get_service()->protocol_widget_get_name(gp);
+	assert(name);
 
 	for (gint i = 0; i < plugin_map->len; ++i)
 	{
@@ -296,6 +294,21 @@ PyPlugin* python_wrapper_get_plugin(RemminaProtocolWidget* gp)
 	}
 
 	return NULL;
+}
+
+PyPlugin* python_wrapper_get_plugin_by_protocol_widget(RemminaProtocolWidget* gp)
+{
+	TRACE_CALL(__func__);
+
+	assert(plugin_map);
+	assert(gp);
+
+	const gchar* name = python_wrapper_get_service()->protocol_widget_get_name(gp);
+	if (!name) {
+		return NULL;
+	}
+
+	return python_wrapper_get_plugin(name);
 }
 
 void init_pygobject()

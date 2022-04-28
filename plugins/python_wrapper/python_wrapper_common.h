@@ -260,7 +260,17 @@ char* python_wrapper_copy_string_from_python(PyObject* string, Py_ssize_t len);
  *
  * @return	A pointer to a PyPlugin instance if successful. Otherwise NULL is returned.
  */
-PyPlugin* python_wrapper_get_plugin(RemminaProtocolWidget* gp);
+PyPlugin* python_wrapper_get_plugin(const gchar* name);
+
+/**
+ * @brief	Tries to find the Python plugin matching to the given instance of RemminaPlugin.
+ *
+ * @param 	plugin_map An array of PyPlugin pointers to search.
+ * @param 	instance The RemminaPlugin instance to find the correct PyPlugin instance for.
+ *
+ * @return	A pointer to a PyPlugin instance if successful. Otherwise NULL is returned.
+ */
+PyPlugin* python_wrapper_get_plugin_by_protocol_widget(RemminaProtocolWidget* gp);
 
 /**
  * Creates a new GtkWidget

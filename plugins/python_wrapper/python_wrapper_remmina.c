@@ -811,10 +811,15 @@ static PyObject* remmina_register_plugin_wrapper(PyObject* self, PyObject* plugi
 				plugin->gp = python_wrapper_protocol_widget_create();
 			}
 
-			python_wrapper_get_service()->register_plugin((RemminaPlugin*)remmina_plugin);
+			if (python_wrapper_get_service()->register_plugin((RemminaPlugin*)remmina_plugin)) {
+				g_print("%s: Successfully reigstered!\n", remmina_plugin->name);
+			} else {
+				g_print("%s: Failed to reigster!\n", remmina_plugin->name);
+			}
 		}
 	}
 
+	PyErr_Clear();
 	return Py_None;
 }
 

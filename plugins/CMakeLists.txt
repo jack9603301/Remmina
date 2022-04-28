@@ -169,6 +169,8 @@ if(WITH_NX)
     endif()
 endif()
 
+add_subdirectory(python_wrapper)
+
 #find_suggested_package(TELEPATHY)
 #if(TELEPATHY_FOUND)
 #add_subdirectory(telepathy)
