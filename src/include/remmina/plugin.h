@@ -251,8 +251,8 @@ typedef struct _RemminaPluginService {
 	gint (*get_profile_remote_width)(RemminaProtocolWidget *gp);
 	gint (*get_profile_remote_height)(RemminaProtocolWidget *gp);
 	const gchar*(*protocol_widget_get_name)(RemminaProtocolWidget *gp);
-	const gint(*protocol_widget_get_width)(RemminaProtocolWidget *gp);
-	const gint(*protocol_widget_get_height)(RemminaProtocolWidget *gp);
+	gint(*protocol_widget_get_width)(RemminaProtocolWidget *gp);
+	gint(*protocol_widget_get_height)(RemminaProtocolWidget *gp);
 	void(*protocol_widget_set_width)(RemminaProtocolWidget *gp, gint width);
 	void(*protocol_widget_set_height)(RemminaProtocolWidget *gp, gint height);
 	RemminaScaleMode(*protocol_widget_get_current_scale_mode)(RemminaProtocolWidget *gp);
