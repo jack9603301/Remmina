@@ -262,11 +262,11 @@ RemminaPluginService remmina_plugin_manager_service =
 	remmina_protocol_widget_set_width,
 	remmina_protocol_widget_set_height,
 	remmina_protocol_widget_get_current_scale_mode,
+	remmina_protocol_widget_get_expand,
 	remmina_protocol_widget_set_expand,
 	remmina_protocol_widget_set_error,
 	remmina_protocol_widget_has_error,
 	remmina_protocol_widget_gtkviewport,
-	remmina_protocol_widget_get_expand,
 	remmina_protocol_widget_is_closed,
 	remmina_protocol_widget_get_file,
 	remmina_protocol_widget_panel_auth,
@@ -369,7 +369,7 @@ void remmina_plugin_manager_init()
 
 	while (alternative_language_plugins->len > 0) {
 		gboolean has_loaded = FALSE;
-		const gchar* name = (const gchar*)g_ptr_array_remove_index(alternative_language_plugins, 0);
+		gchar* name = (gchar*)g_ptr_array_remove_index(alternative_language_plugins, 0);
 		const gchar* ext = get_filename_ext(name);
 
 		for (j = 0; j < remmina_plugin_table->len && !has_loaded; j++) {
@@ -393,6 +393,8 @@ void remmina_plugin_manager_init()
 		if (!has_loaded) {
 			g_print("%s: Skip unsupported file type '%s'\n", name, ext);
 		}
+
+		g_free(name);
 	}
 
 	/* Now all secret plugins needs to initialize, following their init_order.

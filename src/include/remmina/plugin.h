@@ -258,7 +258,7 @@ typedef struct _RemminaPluginService {
 	RemminaScaleMode(*protocol_widget_get_current_scale_mode)(RemminaProtocolWidget *gp);
 	gboolean (*protocol_widget_get_expand)(RemminaProtocolWidget *gp);
 	void (*protocol_widget_set_expand)(RemminaProtocolWidget *gp, gboolean expand);
-	void (*protocol_widget_set_error)(RemminaProtocolWidget *gp, const gchar* msg);
+	void (*protocol_widget_set_error)(RemminaProtocolWidget *gp, const gchar *fmt, ...);
 	gboolean (*protocol_widget_has_error)(RemminaProtocolWidget *gp);
 	GtkWidget *(*protocol_widget_gtkviewport)(RemminaProtocolWidget *gp);
 	gboolean (*protocol_widget_is_closed)(RemminaProtocolWidget *gp);
