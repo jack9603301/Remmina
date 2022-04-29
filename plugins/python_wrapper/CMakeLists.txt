@@ -31,28 +31,28 @@
 #  files in the program, then also delete it here.
 
 set(REMMINA_PLUGIN_PYTHON_WRAPPER_SRCS
-        python_wrapper_entry.c
-        python_wrapper_file.h
-        python_wrapper_pref.c
-        python_wrapper_protocol.h
-        python_wrapper_remmina.c
-        python_wrapper_remmina.h
-        python_wrapper_tool.c
-        python_wrapper_common.c
-        python_wrapper_entry.h
-        python_wrapper_plugin.c
-        python_wrapper_pref.h
-        python_wrapper_protocol_widget.c
-        python_wrapper_remmina_file.c
-        python_wrapper_secret.c
-        python_wrapper_tool.h
-        python_wrapper_common.h
-        python_wrapper_file.c
-        python_wrapper_plugin.h
-        python_wrapper_protocol.c
-        python_wrapper_protocol_widget.h
-        python_wrapper_remmina_file.h
-        python_wrapper_secret.h
+    python_wrapper_common.c
+    python_wrapper_common.h
+    python_wrapper_entry.c
+    python_wrapper_entry.h
+    python_wrapper_file.c
+    python_wrapper_file.h
+    python_wrapper_plugin.c
+    python_wrapper_plugin.h
+    python_wrapper_pref.c
+    python_wrapper_pref.h
+    python_wrapper_protocol.c
+    python_wrapper_protocol.h
+    python_wrapper_protocol_widget.c
+    python_wrapper_protocol_widget.h
+    python_wrapper_remmina.c
+    python_wrapper_remmina.h
+    python_wrapper_remmina_file.c
+    python_wrapper_remmina_file.h
+    python_wrapper_secret.c
+    python_wrapper_secret.h
+    python_wrapper_tool.c
+    python_wrapper_tool.h
     )
 
 add_library(remmina-plugin-python_wrapper ${REMMINA_PLUGIN_PYTHON_WRAPPER_SRCS})
@@ -65,8 +65,5 @@ target_link_libraries(remmina-plugin-python_wrapper ${REMMINA_COMMON_LIBRARIES} 
 
 install(TARGETS remmina-plugin-python_wrapper DESTINATION ${REMMINA_PLUGINDIR})
 
-find_suggested_package(PythonLibs)
-if(PythonLibs_FOUND)
-    target_include_directories(remmina-plugin-python_wrapper PRIVATE ${PYTHON_INCLUDE_DIRS})
-    target_link_libraries(remmina-plugin-python_wrapper ${PYTHON_LIBRARIES})
-endif()
+target_include_directories(remmina-plugin-python_wrapper PRIVATE ${PYTHON_INCLUDE_DIRS})
+target_link_libraries(remmina-plugin-python_wrapper ${PYTHON_LIBRARIES})
