@@ -65,7 +65,7 @@ G_BEGIN_DECLS
  * @brief 	Initializes the Python plugin loaders.
  * @details This does not load any plugins but initializes the implementation (e.g. globals and the Python engine).
  */
-void python_wrapper_init(RemminaPluginService* service);
+gboolean python_wrapper_init(RemminaLanguageWrapperPlugin* plugin);
 
 /**
  * @brief 	Loads a plugin from the Remmina plugin folder with the given name.

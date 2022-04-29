@@ -120,12 +120,11 @@ static int basename_no_ext(const char* in, char** out)
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-void python_wrapper_init(RemminaPluginService* service)
+gboolean python_wrapper_init(RemminaLanguageWrapperPlugin* plugin)
 {
 	TRACE_CALL(__func__);
-
-	assert(service);
-	python_wrapper_set_service(service);
+	assert(plugin);
+	return TRUE;
 }
 
 gboolean python_wrapper_load(RemminaLanguageWrapperPlugin* plugin, const char* name)
@@ -202,7 +201,7 @@ G_MODULE_EXPORT gboolean remmina_plugin_entry(RemminaPluginService *service)
 
 	python_wrapper_protocol_widget_init();
 
-	service->register_plugin(&remmina_python_wrapper);
+	service->register_plugin((RemminaPlugin*)&remmina_python_wrapper);
 
 	return TRUE;
 }
