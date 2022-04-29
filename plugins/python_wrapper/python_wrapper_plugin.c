@@ -95,6 +95,8 @@ static int basename_no_ext(const char* in, char** out)
 	if (base)
 	{
 		base++;
+	} else {
+		return 0;
 	}
 
 	const char* base_end = strrchr(base, '.');
