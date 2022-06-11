@@ -3351,7 +3351,7 @@ rcw_new(gboolean fullscreen, int full_screen_target_monitor)
 
 	/* Under wayland window-state-event is not received in some cases */
 	g_signal_connect(G_OBJECT(cnnwin), "focus-in-event", G_CALLBACK(rcw_focus_in_event), NULL);
-        /* Without focus-out-event, Alt-TAB makes Alt sticky */
+	/* Without focus-out-event, Alt-TAB makes Alt sticky */
 	g_signal_connect(G_OBJECT(cnnwin), "focus-out-event", G_CALLBACK(rcw_focus_out_event), NULL);
 
 	g_signal_connect(G_OBJECT(cnnwin), "enter-notify-event", G_CALLBACK(rcw_on_enter_notify_event), NULL);
