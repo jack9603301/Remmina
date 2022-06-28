@@ -59,6 +59,27 @@
 #include "remmina_public.h"
 #include "remmina/remmina_trace_calls.h"
 
+static void remmina_public_parse_address(const gchar* server, gint defaultport, gchar **host, gint *port) {
+	const gchar *nul_terminated_server = NULL;
+	GNetworkAddress *address;
+	GError *err = NULL;
+
+	nul_terminated_server = g_strdup (server);
+	g_debug ("(%s) - Parsing server: %s, default port: %d", __func__, server, defaultport);
+	address = (GNetworkAddress*)g_network_address_parse ((const gchar *)nul_terminated_server, defaultport, &err);
+
+	if (address == NULL) {
+		g_debug ("(%s) - Error converting server string: %s, with error: %s", __func__, nul_terminated_server, err->message);
+		*host = NULL;
+		if (err)
+			g_error_free(err);
+	} else {
+
+		*host = g_strdup(g_network_address_get_hostname (address));
+		*port = g_network_address_get_port (address);
+	}
+}
+
 GtkWidget*
 remmina_public_create_combo_entry(const gchar *text, const gchar *def, gboolean descending)
 {
@@ -421,7 +442,6 @@ void remmina_public_get_server_port(const gchar *server, gint defaultport, gchar
 {
 	TRACE_CALL(__func__);
 
-	const gchar *nul_terminated_server = NULL;
 	if (server != NULL) {
 		if(strstr(g_strdup(server), "ID:") != NULL) {
 			g_debug ("(%s) - Using remmina_public_get_server_port_old to parse the repeater ID", __func__);
@@ -429,22 +449,13 @@ void remmina_public_get_server_port(const gchar *server, gint defaultport, gchar
 			return;
 		}
 
-		GNetworkAddress *address;
-		GError *err = NULL;
-
-		nul_terminated_server = g_strdup (server);
-		g_debug ("(%s) - Parsing server: %s, default port: %d", __func__, server, defaultport);
-		address = (GNetworkAddress*)g_network_address_parse ((const gchar *)nul_terminated_server, defaultport, &err);
-
-		if (address == NULL) {
-			g_debug ("(%s) - Error converting server string: %s, with error: %s", __func__, nul_terminated_server, err->message);
-			*host = NULL;
-			if (err)
-				g_error_free(err);
+		if(strstr(g_strdup(server), "unix:///") != NULL) {
+			g_debug("(%s) address contain unix:// -> %s", __func__, server);
+			gchar *val = remmina_public_str_replace(server, "unix://", "");
+			remmina_public_parse_address(val, defaultport, host, port);
+			free(val);
 		} else {
-
-			*host = g_strdup(g_network_address_get_hostname (address));
-			*port = g_network_address_get_port (address);
+			remmina_public_parse_address(server, defaultport, host, port);
 		}
 	} else
 		*host = NULL;
