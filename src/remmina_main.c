@@ -527,19 +527,16 @@ static gboolean remmina_main_filter_visible_func(GtkTreeModel *model, GtkTreeIte
 		gtk_tree_model_get(model, iter,
 				   PROTOCOL_COLUMN, &protocol,
 				   NAME_COLUMN, &name,
-				   LABELS_COLUMN, &labels,
 				   GROUP_COLUMN, &group,
 				   SERVER_COLUMN, &server,
 				   PLUGIN_COLUMN, &plugin,
 				   DATE_COLUMN, &date,
+				   LABELS_COLUMN, &labels,
 				   -1);
 		if (g_strcmp0(protocol, "folder-symbolic") != 0) {
 			s = g_ascii_strdown(name ? name : "", -1);
 			g_free(name);
 			name = s;
-			s = g_ascii_strdown(labels ? labels : "", -1);
-			g_free(labels);
-			labels = s;
 			s = g_ascii_strdown(group ? group : "", -1);
 			g_free(group);
 			group = s;
@@ -552,7 +549,23 @@ static gboolean remmina_main_filter_visible_func(GtkTreeModel *model, GtkTreeIte
 			s = g_ascii_strdown(date ? date : "", -1);
 			g_free(date);
 			date = s;
-			result = (strstr(name, text) || strstr(labels, text) || strstr(group, text) || strstr(server, text) || strstr(plugin, text) || strstr(date, text));
+			result = (strstr(name, text) || strstr(group, text) || strstr(server, text) || strstr(plugin, text) || strstr(date, text));
+
+			// Filter by labels
+
+			s = g_ascii_strdown(labels ? labels : "", -1);
+			g_free(labels);
+			labels = s;
+
+			if (labels) {
+				gchar** labels_array = g_strsplit(labels, ",", -1);
+
+				for (int i = 0; (NULL != labels_array[i]); i++) {
+					result = (result || strstr(labels_array[i], text));
+				}
+
+				g_strfreev(labels_array);
+			}
 		}
 		g_free(protocol);
 		g_free(name);
