@@ -1639,7 +1639,7 @@ static GError* remmina_file_editor_update(RemminaFileEditor *gfe,
 
 	remmina_file_set_string(priv->remmina_file, "labels", gtk_entry_get_text(GTK_ENTRY(priv->labels_entry)));
 
-	remmina_file_set_string_ref(priv->remmina_file, "group",
+	remmina_file_set_string(priv->remmina_file, "group",
 				    (priv->group_combo ? remmina_public_combo_get_active_text(GTK_COMBO_BOX(priv->group_combo)) : NULL));
 
 	remmina_file_set_string(priv->remmina_file, "protocol",
