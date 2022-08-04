@@ -283,6 +283,7 @@ check_include_files(errno.h HAVE_ERRNO_H)
 
 include_directories(.)
 include_directories(src/include)
+include_directories(/usr/include/xapp)
 
 # FreeBSD
 
