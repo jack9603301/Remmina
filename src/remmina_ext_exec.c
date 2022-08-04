@@ -1,7 +1,7 @@
 /*
  * Remmina - The GTK+ Remote Desktop Client
  * Copyright (C) 2009-2010 Vic Lee
- * Copyright (C) 2014-2021 Antenore Gatta, Giovanni Panozzo
+ * Copyright (C) 2014-2022 Antenore Gatta, Giovanni Panozzo
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,14 +34,12 @@
  */
 
 #include <gdk/gdkkeysyms.h>
-#include <gtk/gtk.h>
 #include <glib/gi18n.h>
 #include <glib.h>
 #include <stdlib.h>
 #include <sys/wait.h>
 #include <unistd.h>
 #include "remmina_utils.h"
-#include "remmina_file.h"
 #include "remmina_ext_exec.h"
 #include "remmina_public.h"
 #include "remmina/remmina_trace_calls.h"
@@ -127,7 +125,9 @@ GtkDialog* remmina_ext_exec_new(RemminaFile* remminafile, const char *remmina_ex
 			g_error_free(error);
 		}
 		g_strfreev(argv);
+		g_free(cmd);
 		return (pcspinner->dialog);
 	}
+	g_free(cmd);
 	return FALSE;
 }

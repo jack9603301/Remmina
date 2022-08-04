@@ -1,7 +1,7 @@
 # remmina-plugin-vnc - The GTK+ Remote Desktop Client
 #
 # Copyright (C) 2011 Marc-Andre Moreau
-# Copyright (C) 2014-2021 Antenore Gatta, Giovanni Panozzo
+# Copyright (C) 2014-2022 Antenore Gatta, Giovanni Panozzo
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -50,8 +50,8 @@ target_link_libraries(remmina-plugin-vnc ${REMMINA_COMMON_LIBRARIES} ${LIBVNCSER
 install(TARGETS remmina-plugin-vnc DESTINATION ${REMMINA_PLUGINDIR})
 
 install(FILES
-    scalable/emblems/remmina-vnc-ssh-symbolic.svg
-    scalable/emblems/remmina-vnc-symbolic.svg
+    scalable/emblems/org.remmina.Remmina-vnc-ssh-symbolic.svg
+    scalable/emblems/org.remmina.Remmina-vnc-symbolic.svg
     DESTINATION ${APPICONSCALE_EMBLEMS_DIR})
 
 if(WITH_ICON_CACHE)

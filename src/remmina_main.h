@@ -2,7 +2,7 @@
  * Remmina - The GTK+ Remote Desktop Client
  * Copyright (C) 2009-2011 Vic Lee
  * Copyright (C) 2014-2015 Antenore Gatta, Fabio Castelli, Giovanni Panozzo
- * Copyright (C) 2016-2021 Antenore Gatta, Giovanni Panozzo
+ * Copyright (C) 2016-2022 Antenore Gatta, Giovanni Panozzo
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,11 +34,13 @@
  *
  */
 
-#include "remmina_string_array.h"
-
 #pragma once
 
 #include "remmina_file.h"
+#include "remmina_monitor.h"
+#include <gtk/gtk.h>
+
+#include "remmina_string_array.h"
 
 typedef struct _RemminaMainPriv RemminaMainPriv;
 
@@ -68,11 +70,17 @@ typedef struct _RemminaMain {
 	GtkButton *		button_quick_connect;
 	/* Other widgets */
 	GtkTreeView *		tree_files_list;
+	GtkTreeViewColumn *	column_files_list_name;
 	GtkTreeViewColumn *	column_files_list_group;
+	GtkTreeViewColumn *	column_files_list_server;
+	GtkTreeViewColumn *	column_files_list_plugin;
+	GtkTreeViewColumn *	column_files_list_date;
 	GtkStatusbar *		statusbar_main;
+	GtkWidget *		network_icon;
 	/* Non widget objects */
 	GtkAccelGroup *		accelgroup_shortcuts;
 	RemminaMainPriv *	priv;
+	RemminaMonitor *	monitor;
 } RemminaMain;
 
 struct _RemminaMainPriv {
@@ -101,6 +109,7 @@ void remmina_main_destroy(void);
 void remmina_main_on_destroy_event(void);
 void remmina_main_save_before_destroy(void);
 
+void remmina_main_show_dialog(GtkMessageType msg, GtkButtonsType buttons, const gchar* message);
 void remmina_main_show_warning_dialog(const gchar *message);
 void remmina_main_on_action_application_about(GSimpleAction *action, GVariant *param, gpointer data);
 void remmina_main_on_action_application_news(GSimpleAction *action, GVariant *param, gpointer data);

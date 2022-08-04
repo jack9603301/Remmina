@@ -1,6 +1,6 @@
 /*
  * Remmina - The GTK+ Remote Desktop Client
- * Copyright (C) 2016-2021 Antenore Gatta, Giovanni Panozzo
+ * Copyright (C) 2016-2022 Antenore Gatta, Giovanni Panozzo
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,6 +33,7 @@
  */
 
 #pragma once
+#include "common/remmina_plugin.h"
 
 #ifndef __PLUGIN_CONFIG_H
 #define __PLUGIN_CONFIG_H
@@ -40,14 +41,35 @@
 #define VNC_PLUGIN_NAME        "VNC"
 #define VNC_PLUGIN_DESCRIPTION N_("Remmina VNC Plugin")
 #define VNC_PLUGIN_VERSION     VERSION
-#define VNC_PLUGIN_APPICON     "remmina-vnc-symbolic"
-#define VNC_PLUGIN_SSH_APPICON     "remmina-vnc-ssh-symbolic"
+#define VNC_PLUGIN_APPICON     "org.remmina.Remmina-vnc-symbolic"
+#define VNC_PLUGIN_SSH_APPICON     "org.remmina.Remmina-vnc-ssh-symbolic"
 #define VNCI_PLUGIN_NAME        "VNCI"
 #define VNCI_PLUGIN_DESCRIPTION N_("Remmina VNC listener Plugin")
 #define VNCI_PLUGIN_VERSION     VERSION
-#define VNCI_PLUGIN_APPICON     "remmina-vnc-symbolic"
-#define VNCI_PLUGIN_SSH_APPICON     "remmina-vnc-ssh-symbolic"
+#define VNCI_PLUGIN_APPICON     "org.remmina.Remmina-vnc-symbolic"
+#define VNCI_PLUGIN_SSH_APPICON     "org.remmina.Remmina-vnc-ssh-symbolic"
 #endif
+
+#define REMMINA_PLUGIN_INFO(fmt, ...) \
+		remmina_plugin_service->_remmina_info(__func__, fmt, ##__VA_ARGS__)
+
+#define REMMINA_PLUGIN_MESSAGE(fmt, ...) \
+		remmina_plugin_service->_remmina_message(__func, fmt, ##__VA_ARGS__)
+
+#define REMMINA_PLUGIN_DEBUG(fmt, ...) \
+		remmina_plugin_service->_remmina_debug(__func__, fmt, ##__VA_ARGS__)
+
+#define REMMINA_PLUGIN_WARNING(fmt, ...) \
+		remmina_plugin_service->_remmina_warning(__func__, fmt, ##__VA_ARGS__)
+
+/* This will intentionally crash Remmina */
+#define REMMINA_PLUGIN_ERROR(fmt, ...) \
+		remmina_plugin_service->_remmina_error(__func__, fmt, ##__VA_ARGS__)
+
+#define REMMINA_PLUGIN_CRITICAL(fmt, ...) \
+		remmina_plugin_service->_remmina_critical(__func__, fmt, ##__VA_ARGS__)
+#define REMMINA_PLUGIN_AUDIT(fmt, ...) \
+		remmina_plugin_service->_remmina_audit(__func__, fmt, ##__VA_ARGS__)
 
 typedef struct _RemminaPluginVncData {
 	/* Whether the user requests to connect/disconnect */

@@ -2,7 +2,7 @@
  * Remmina - The GTK+ Remote Desktop Client
  * Copyright (C) 2009-2011 Vic Lee
  * Copyright (C) 2014-2015 Antenore Gatta, Fabio Castelli, Giovanni Panozzo
- * Copyright (C) 2016-2021 Antenore Gatta, Giovanni Panozzo
+ * Copyright (C) 2016-2022 Antenore Gatta, Giovanni Panozzo
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,6 +34,9 @@
  *
  */
 
+#include <glib-object.h>
+#include <gobject/gvaluecollector.h>
+
 #include "remmina/types.h"
 
 #pragma once
@@ -42,7 +45,10 @@ G_BEGIN_DECLS
 
 struct _RemminaFile {
 	gchar *		filename;
+	// @todo Add a cache file with content remminafile->filename = last_success
+	gchar *		statefile;
 	GHashTable *	settings;
+	GHashTable *	states;
 	GHashTable *	spsettings;
 	gboolean	prevent_saving;
 };
@@ -76,12 +82,14 @@ RemminaFile *remmina_file_new(void);
 RemminaFile *remmina_file_copy(const gchar *filename);
 void remmina_file_generate_filename(RemminaFile *remminafile);
 void remmina_file_set_filename(RemminaFile *remminafile, const gchar *filename);
+void remmina_file_set_statefile(RemminaFile *remminafile);
+void remmina_file_state_last_success(RemminaFile *remminafile);
 const gchar *remmina_file_get_filename(RemminaFile *remminafile);
+const gchar *remmina_file_get_statefile(RemminaFile *remminafile);
 /* Load a new .remmina file and return the allocated RemminaFile object */
 RemminaFile *remmina_file_load(const gchar *filename);
 /* Settings get/set functions */
 void remmina_file_set_string(RemminaFile *remminafile, const gchar *setting, const gchar *value);
-void remmina_file_set_string_ref(RemminaFile *remminafile, const gchar *setting, gchar *value);
 const gchar *remmina_file_get_string(RemminaFile *remminafile, const gchar *setting);
 gchar *remmina_file_get_secret(RemminaFile *remminafile, const gchar *setting);
 gchar *remmina_file_format_properties(RemminaFile *remminafile, const gchar *setting);
@@ -89,6 +97,11 @@ void remmina_file_set_int(RemminaFile *remminafile, const gchar *setting, gint v
 gint remmina_file_get_int(RemminaFile *remminafile, const gchar *setting, gint default_value);
 void remmina_file_store_secret_plugin_password(RemminaFile *remminafile, const gchar *key, const gchar *value);
 gboolean remmina_file_remove_key(RemminaFile *remminafile, const gchar *setting);
+void remmina_file_set_state(RemminaFile *remminafile, const gchar *setting, const gchar *value);
+const gchar *remmina_file_get_state(RemminaFile *remminafile, const gchar *setting);
+void remmina_file_set_state_int(RemminaFile *remminafile, const gchar *setting, gint value);
+gint remmina_file_get_state_int(RemminaFile *remminafile, const gchar *setting, gint default_value);
+gdouble remmina_file_get_state_double(RemminaFile *remminafile, const gchar *setting, gdouble default_value);
 /* Create or overwrite the .remmina file */
 void remmina_file_save(RemminaFile *remminafile);
 /* Free the RemminaFile object */

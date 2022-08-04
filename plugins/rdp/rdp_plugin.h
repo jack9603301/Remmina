@@ -2,7 +2,7 @@
  * Remmina - The GTK+ Remote Desktop Client
  * Copyright (C) 2010-2011 Vic Lee
  * Copyright (C) 2014-2015 Antenore Gatta, Fabio Castelli, Giovanni Panozzo
- * Copyright (C) 2016-2021 Antenore Gatta, Giovanni Panozzo
+ * Copyright (C) 2016-2022 Antenore Gatta, Giovanni Panozzo
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -62,7 +62,6 @@
  *
  * Returns: %TRUE if FREERDP headers are new enough
  */
-
 #define FREERDP_CHECK_VERSION(major,minor,revision)                                  \
 	(FREERDP_VERSION_MAJOR > (major) ||                                       \
 	 (FREERDP_VERSION_MAJOR == (major) && FREERDP_VERSION_MINOR > (minor)) || \
@@ -82,7 +81,9 @@ typedef struct rf_context rfContext;
 
 #define GET_PLUGIN_DATA(gp) (rfContext *)g_object_get_data(G_OBJECT(gp), "plugin-data")
 
-/* Performance Flags, from freerdp source
+/**
+ * Performance Flags, from FreeRDP source
+ *
  * PERF_FLAG_NONE 0x00000000
  * PERF_DISABLE_WALLPAPER 0x00000001
  * PERF_DISABLE_FULLWINDOWDRAG 0x00000002
@@ -103,7 +104,27 @@ typedef struct rf_context rfContext;
 #define DEFAULT_QUALITY_9       0x80
 
 extern RemminaPluginService *remmina_plugin_service;
-#define REMMINA_PLUGIN_DEBUG(fmt, ...) remmina_plugin_service->_remmina_debug(__func__, fmt, ##__VA_ARGS__)
+
+#define REMMINA_PLUGIN_INFO(fmt, ...) \
+		remmina_plugin_service->_remmina_info(__func__, fmt, ##__VA_ARGS__)
+
+#define REMMINA_PLUGIN_MESSAGE(fmt, ...) \
+		remmina_plugin_service->_remmina_message(__func, fmt, ##__VA_ARGS__)
+
+#define REMMINA_PLUGIN_DEBUG(fmt, ...) \
+		remmina_plugin_service->_remmina_debug(__func__, fmt, ##__VA_ARGS__)
+
+#define REMMINA_PLUGIN_WARNING(fmt, ...) \
+		remmina_plugin_service->_remmina_warning(__func__, fmt, ##__VA_ARGS__)
+
+/* This will intentionally crash Remmina */
+#define REMMINA_PLUGIN_ERROR(fmt, ...) \
+		remmina_plugin_service->_remmina_error(__func__, fmt, ##__VA_ARGS__)
+
+#define REMMINA_PLUGIN_CRITICAL(fmt, ...) \
+		remmina_plugin_service->_remmina_critical(__func__, fmt, ##__VA_ARGS__)
+#define REMMINA_PLUGIN_AUDIT(fmt, ...) \
+		remmina_plugin_service->_remmina_audit(__func__, fmt, ##__VA_ARGS__)
 
 struct rf_clipboard {
 	rfContext *		rfi;
@@ -118,6 +139,12 @@ struct rf_clipboard {
 	pthread_cond_t		transfer_clip_cond;
 	enum  { SCDW_NONE, SCDW_BUSY_WAIT, SCDW_ABORTING } srv_clip_data_wait;
 	gpointer		srv_data;
+	pthread_mutex_t	srv_data_mutex;
+
+	UINT32			server_html_format_id;
+
+	/* Stats for clipboard download */
+	struct timeval clientformatdatarequest_tv;
 };
 typedef struct rf_clipboard rfClipboard;
 
@@ -206,8 +233,7 @@ typedef enum {
 typedef enum {
 	REMMINA_RDP_UI_CLIPBOARD_FORMATLIST,
 	REMMINA_RDP_UI_CLIPBOARD_GET_DATA,
-	REMMINA_RDP_UI_CLIPBOARD_SET_DATA,
-	REMMINA_RDP_UI_CLIPBOARD_SET_CONTENT
+	REMMINA_RDP_UI_CLIPBOARD_SET_DATA
 } RemminaPluginRdpUiClipboardType;
 
 typedef enum {

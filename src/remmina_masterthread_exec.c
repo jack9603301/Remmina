@@ -2,7 +2,7 @@
  * Remmina - The GTK+ Remote Desktop Client
  * Copyright (C) 2009-2011 Vic Lee
  * Copyright (C) 2014-2015 Antenore Gatta, Fabio Castelli, Giovanni Panozzo
- * Copyright (C) 2016-2021 Antenore Gatta, Giovanni Panozzo
+ * Copyright (C) 2016-2022 Antenore Gatta, Giovanni Panozzo
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -59,6 +59,9 @@ static gboolean remmina_masterthread_exec_callback(RemminaMTExecData *d)
 			break;
 		case FUNC_FILE_GET_STRING:
 			d->p.file_get_string.retval = remmina_file_get_string( d->p.file_get_string.remminafile, d->p.file_get_string.setting );
+			break;
+		case FUNC_FILE_SET_STRING:
+			remmina_file_set_string( d->p.file_set_string.remminafile, d->p.file_set_string.setting, d->p.file_set_string.value );
 			break;
 		case FUNC_GTK_LABEL_SET_TEXT:
 			gtk_label_set_text( d->p.gtk_label_set_text.label, d->p.gtk_label_set_text.str );

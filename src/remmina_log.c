@@ -2,7 +2,7 @@
  * Remmina - The GTK+ Remote Desktop Client
  * Copyright (C) 2010 Vic Lee
  * Copyright (C) 2014-2015 Antenore Gatta, Fabio Castelli, Giovanni Panozzo
- * Copyright (C) 2016-2021 Antenore Gatta, Giovanni Panozzo
+ * Copyright (C) 2016-2022 Antenore Gatta, Giovanni Panozzo
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -37,9 +37,12 @@
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
 #include "remmina_public.h"
+#include "remmina_pref.h"
 #include "remmina_log.h"
-#include "remmina_stats_sender.h"
+#include "remmina_stats.h"
 #include "remmina/remmina_trace_calls.h"
+
+gboolean logstart;
 
 /***** Define the log window GUI *****/
 #define REMMINA_TYPE_LOG_WINDOW               (remmina_log_window_get_type())
@@ -65,6 +68,24 @@ G_GNUC_CONST;
 
 G_DEFINE_TYPE(RemminaLogWindow, remmina_log_window, GTK_TYPE_WINDOW)
 
+void remmina_log_stats()
+{
+	TRACE_CALL(__func__);
+	JsonNode *n;
+
+	n = remmina_stats_get_all();
+	if (n != NULL) {
+
+		JsonGenerator *g = json_generator_new();
+		json_generator_set_pretty (g, TRUE);
+		json_generator_set_root(g, n);
+		json_node_unref(n);
+		g_autofree gchar *s = json_generator_to_data(g, NULL);	// s=serialized stats
+		REMMINA_DEBUG("STATS: JSON data%s\n", s);
+		g_object_unref(g);
+	}
+}
+
 static void remmina_log_window_class_init(RemminaLogWindowClass *klass)
 {
 	TRACE_CALL(__func__);
@@ -72,48 +93,6 @@ static void remmina_log_window_class_init(RemminaLogWindowClass *klass)
 
 /* We will always only have one log window per instance */
 static GtkWidget *log_window = NULL;
-
-static gboolean remmina_log_on_keypress(GtkWidget *widget, GdkEvent *event, gpointer user_data)
-{
-	TRACE_CALL(__func__);
-	GdkEventKey *e = (GdkEventKey *)event;
-
-	if (!log_window)
-		return FALSE;
-
-	if ((e->state & GDK_CONTROL_MASK) == GDK_CONTROL_MASK) {
-		if ((e->keyval == GDK_KEY_s || e->keyval == GDK_KEY_t) && remmina_stat_sender_can_send()) {
-			remmina_stats_sender_send(e->keyval != GDK_KEY_s);
-		}
-		return TRUE;
-	}
-
-	return FALSE;
-}
-
-static void remmina_log_window_init(RemminaLogWindow *logwin)
-{
-	TRACE_CALL(__func__);
-	GtkWidget *scrolledwindow;
-	GtkWidget *widget;
-
-	gtk_container_set_border_width(GTK_CONTAINER(logwin), 4);
-
-	scrolledwindow = gtk_scrolled_window_new(NULL, NULL);
-	gtk_widget_show(scrolledwindow);
-	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolledwindow), GTK_POLICY_NEVER, GTK_POLICY_ALWAYS);
-	gtk_container_add(GTK_CONTAINER(logwin), scrolledwindow);
-
-	widget = gtk_text_view_new();
-	gtk_widget_show(widget);
-	gtk_text_view_set_wrap_mode(GTK_TEXT_VIEW(widget), GTK_WRAP_WORD_CHAR);
-	gtk_text_view_set_editable(GTK_TEXT_VIEW(widget), FALSE);
-	gtk_container_add(GTK_CONTAINER(scrolledwindow), widget);
-	logwin->log_view = widget;
-	logwin->log_buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(widget));
-
-	g_signal_connect(G_OBJECT(logwin->log_view), "key-press-event", G_CALLBACK(remmina_log_on_keypress), (gpointer)logwin);
-}
 
 static GtkWidget*
 remmina_log_window_new(void)
@@ -128,6 +107,12 @@ static void remmina_log_end(GtkWidget *widget, gpointer data)
 	log_window = NULL;
 }
 
+static void remmina_log_start_stop (GtkSwitch *logswitch, gpointer user_data)
+{
+	TRACE_CALL(__func__);
+	logstart = !logstart;
+}
+
 void remmina_log_start(void)
 {
 	TRACE_CALL(__func__);
@@ -136,13 +121,41 @@ void remmina_log_start(void)
 	}else  {
 		log_window = remmina_log_window_new();
 		gtk_window_set_default_size(GTK_WINDOW(log_window), 640, 480);
+		gtk_window_set_resizable (GTK_WINDOW(log_window), TRUE);
+		gtk_window_set_decorated (GTK_WINDOW(log_window), TRUE);
+
+		/* Header bar */
+		GtkWidget *header = gtk_header_bar_new ();
+		gtk_header_bar_set_show_close_button (GTK_HEADER_BAR (header), TRUE);
+		gtk_header_bar_set_title (GTK_HEADER_BAR (header), _("Remmina debugging window"));
+		gtk_header_bar_set_has_subtitle (GTK_HEADER_BAR (header), FALSE);
+		/* Stats */
+		GtkWidget *getstat = gtk_button_new ();
+		gtk_widget_set_tooltip_text (getstat, _("Paste system info in the Remmina debugging window"));
+		GIcon *icon = g_themed_icon_new ("edit-paste-symbolic");
+		GtkWidget *image = gtk_image_new_from_gicon (icon, GTK_ICON_SIZE_BUTTON);
+		g_object_unref (icon);
+		gtk_container_add (GTK_CONTAINER (getstat), image);
+		gtk_header_bar_pack_start (GTK_HEADER_BAR (header), getstat);
+		/* Start logging */
+		GtkWidget *start = gtk_switch_new ();
+		logstart = TRUE;
+		gtk_switch_set_active (GTK_SWITCH(start), logstart);
+		gtk_header_bar_pack_start (GTK_HEADER_BAR (header), start);
+
+		gtk_window_set_titlebar (GTK_WINDOW (log_window), header);
+
+		g_signal_connect(getstat, "button-press-event", G_CALLBACK(remmina_log_stats), NULL);
+		g_signal_connect(start, "notify::active", G_CALLBACK(remmina_log_start_stop), NULL);
 		g_signal_connect(G_OBJECT(log_window), "destroy", G_CALLBACK(remmina_log_end), NULL);
-		gtk_widget_show(log_window);
+		gtk_widget_show_all(log_window);
 	}
-	if (remmina_stat_sender_can_send())
-		remmina_log_print("Shortcut keys for stats:\n"
-			"\tCTRL+S: collect, show and send stats\n"
-			"\tCTRL+T: collect and show stats\n");
+
+	remmina_log_print(_("This window can help you find connection problems.\n"
+		"You can stop and start the logging at any moment using the On/Off switch.\n"
+		"The stats button (Ctrl+T), can be useful to gather system info you may share when reporting a bug.\n"
+		"There is more info about debugging Remmina on https://gitlab.com/Remmina/Remmina/-/wikis/Usage/Remmina-debugging\n"
+		));
 }
 
 gboolean remmina_log_running(void)
@@ -169,7 +182,7 @@ static gboolean remmina_log_print_real(gpointer data)
 	TRACE_CALL(__func__);
 	GtkTextIter iter;
 
-	if (log_window) {
+	if (log_window && logstart) {
 		gtk_text_buffer_get_end_iter(REMMINA_LOG_WINDOW(log_window)->log_buffer, &iter);
 		gtk_text_buffer_insert(REMMINA_LOG_WINDOW(log_window)->log_buffer, &iter, (const gchar*)data, -1);
 		IDLE_ADD(remmina_log_scroll_to_end, NULL);
@@ -178,6 +191,8 @@ static gboolean remmina_log_print_real(gpointer data)
 	return FALSE;
 }
 
+// Only prints into Remmina's own debug window. (Not stdout!)
+// See _remmina_{debug, info, error, critical, warning}
 void remmina_log_print(const gchar *text)
 {
 	TRACE_CALL(__func__);
@@ -185,6 +200,54 @@ void remmina_log_print(const gchar *text)
 		return;
 
 	IDLE_ADD(remmina_log_print_real, g_strdup(text));
+}
+
+void _remmina_info(const gchar *fmt, ...)
+{
+	TRACE_CALL(__func__);
+
+	va_list args;
+	g_autofree gchar *text;
+	va_start(args, fmt);
+	text = g_strdup_vprintf(fmt, args);
+	va_end(args);
+
+	// always appends newline
+	g_info ("%s", text);
+
+	g_autofree gchar *buf_tmp = g_strconcat(text, "\n", NULL);
+	/* freed in remmina_log_print_real */
+	gchar *bufn = g_strconcat("(INFO) - ", buf_tmp, NULL);
+
+	if (!log_window) {
+		free(bufn);
+		return;
+	}
+	IDLE_ADD(remmina_log_print_real, bufn);
+}
+
+void _remmina_message(const gchar *fmt, ...)
+{
+	TRACE_CALL(__func__);
+
+	va_list args;
+	g_autofree gchar *text;
+	va_start(args, fmt);
+	text = g_strdup_vprintf(fmt, args);
+	va_end(args);
+
+	// always appends newline
+	g_message ("%s", text);
+
+	if (!log_window) {
+		return;
+	}
+
+	g_autofree gchar *buf_tmp = g_strconcat(text, "\n", NULL);
+	/* freed in remmina_log_print_real */
+	gchar *bufn = g_strconcat("(MESSAGE) - ", buf_tmp, NULL);
+
+	IDLE_ADD(remmina_log_print_real, bufn);
 }
 
 /**
@@ -205,18 +268,145 @@ void _remmina_debug(const gchar *fun, const gchar *fmt, ...)
 	g_autofree gchar *buf = g_strconcat("(", fun, ") - ", text, NULL);
 	g_free(text);
 
+	// always appends newline
 	g_debug ("%s", buf);
 
-	/* freed in remmina_log_print_real */
-	gchar *bufn = g_strconcat(buf, "\n", NULL);
-
 	if (!log_window) {
-		free(bufn);
 		return;
 	}
+
+	g_autofree gchar *buf_tmp = g_strconcat(buf, "\n", NULL);
+	/* freed in remmina_log_print_real */
+	gchar *bufn = g_strconcat("(DEBUG) - ", buf_tmp, NULL);
+
 	IDLE_ADD(remmina_log_print_real, bufn);
 }
 
+void _remmina_warning(const gchar *fun, const gchar *fmt, ...)
+{
+	TRACE_CALL(__func__);
+
+	va_list args;
+	gchar *text;
+	va_start(args, fmt);
+	text = g_strdup_vprintf(fmt, args);
+	va_end(args);
+
+	g_autofree gchar *buf = g_strconcat("(", fun, ") - ", text, NULL);
+	g_free(text);
+
+	// always appends newline
+	g_warning ("%s", buf);
+
+	if (!log_window) {
+		return;
+	}
+
+	g_autofree gchar *buf_tmp = g_strconcat(buf, "\n", NULL);
+	/* freed in remmina_log_print_real */
+	gchar *bufn = g_strconcat("(WARN) - ", buf_tmp, NULL);
+
+	IDLE_ADD(remmina_log_print_real, bufn);
+}
+
+void _remmina_audit(const gchar *fun, const gchar *fmt, ...)
+{
+	TRACE_CALL(__func__);
+	va_list args;
+	va_start(args, fmt);
+	gchar *text = g_strdup_vprintf(fmt, args);
+	va_end(args);
+
+#if GLIB_CHECK_VERSION(2,62,0)
+	GDateTime* tv = g_date_time_new_now_local();
+	gchar *isodate = g_date_time_format_iso8601(tv);
+	g_date_time_unref(tv);
+#else
+	GTimeVal tv;
+	g_get_current_time(&tv);
+	gchar *isodate = g_time_val_to_iso8601(&tv);
+#endif
+
+	g_autofree gchar *buf = g_strdup("");
+
+	if (isodate) {
+
+		buf = g_strconcat(
+				"[", isodate, "] - ",
+				g_get_host_name (),
+				" - ",
+				g_get_user_name (),
+				" - ",
+				text,
+				NULL);
+
+	}
+
+	g_free(text);
+	if (remmina_pref_get_boolean("audit"))
+		_remmina_message(buf);
+	else
+		_remmina_debug(fun, buf);
+}
+
+// !!! Calling this function will crash Remmina !!!
+// !!! purposefully and send a trap signal !!!
+void _remmina_error(const gchar *fun, const gchar *fmt, ...)
+{
+	TRACE_CALL(__func__);
+
+	va_list args;
+	gchar *text;
+	va_start(args, fmt);
+	text = g_strdup_vprintf(fmt, args);
+	va_end(args);
+
+	g_autofree gchar *buf = g_strconcat("(", fun, ") - ", text, NULL);
+	g_free(text);
+
+	// always appends newline
+	g_error ("%s", buf);
+
+	if (!log_window) {
+		return;
+	}
+
+	g_autofree gchar *buf_tmp = g_strconcat(buf, "\n", NULL);
+	/* freed in remmina_log_print_real */
+	gchar *bufn = g_strconcat("(ERROR) - ", buf_tmp, NULL);
+
+	IDLE_ADD(remmina_log_print_real, bufn);
+}
+
+void _remmina_critical(const gchar *fun, const gchar *fmt, ...)
+{
+	TRACE_CALL(__func__);
+
+	va_list args;
+	gchar *text;
+	va_start(args, fmt);
+	text = g_strdup_vprintf(fmt, args);
+	va_end(args);
+
+	g_autofree gchar *buf = g_strconcat("(", fun, ") - ", text, NULL);
+	g_free(text);
+
+	// always appends newline
+	g_critical ("%s", buf);
+
+	if (!log_window) {
+		return;
+	}
+
+	g_autofree gchar *buf_tmp = g_strconcat(buf, "\n", NULL);
+	/* freed in remmina_log_print_real */
+	gchar *bufn = g_strconcat("(CRIT) - ", buf_tmp, NULL);
+
+	IDLE_ADD(remmina_log_print_real, bufn);
+}
+
+// Only prints into Remmina's own debug window. (Not stdout!)
+// See _remmina_{message, info, debug warning, error, critical}
 void remmina_log_printf(const gchar *fmt, ...)
 {
 	TRACE_CALL(__func__);
@@ -230,5 +420,49 @@ void remmina_log_printf(const gchar *fmt, ...)
 	va_end(args);
 
 	IDLE_ADD(remmina_log_print_real, text);
+}
+
+static gboolean remmina_log_on_keypress(GtkWidget *widget, GdkEvent *event, gpointer user_data)
+{
+	TRACE_CALL(__func__);
+
+	if (!log_window)
+		return FALSE;
+
+	GdkEventKey *e = (GdkEventKey *)event;
+
+	if ((e->state & GDK_CONTROL_MASK) == GDK_CONTROL_MASK) {
+		if (e->keyval == GDK_KEY_t) {
+			remmina_log_stats();
+		}
+		return TRUE;
+	}
+
+	return FALSE;
+}
+
+static void remmina_log_window_init(RemminaLogWindow *logwin)
+{
+	TRACE_CALL(__func__);
+	GtkWidget *scrolledwindow;
+	GtkWidget *widget;
+
+	gtk_container_set_border_width(GTK_CONTAINER(logwin), 4);
+
+	scrolledwindow = gtk_scrolled_window_new(NULL, NULL);
+	gtk_widget_show(scrolledwindow);
+	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolledwindow), GTK_POLICY_NEVER, GTK_POLICY_ALWAYS);
+	gtk_container_add(GTK_CONTAINER(logwin), scrolledwindow);
+
+	widget = gtk_text_view_new();
+	gtk_widget_show(widget);
+	gtk_text_view_set_wrap_mode(GTK_TEXT_VIEW(widget), GTK_WRAP_WORD_CHAR);
+	gtk_text_view_set_editable(GTK_TEXT_VIEW(widget), FALSE);
+	gtk_text_view_set_monospace(GTK_TEXT_VIEW(widget), TRUE);
+	gtk_container_add(GTK_CONTAINER(scrolledwindow), widget);
+	logwin->log_view = widget;
+	logwin->log_buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(widget));
+
+	g_signal_connect(G_OBJECT(logwin->log_view), "key-press-event", G_CALLBACK(remmina_log_on_keypress), (gpointer)logwin);
 }
 

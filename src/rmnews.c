@@ -1,6 +1,6 @@
 /*
  * Remmina - The GTK+ Remote Desktop Client
- * Copyright (C) 2016-2021 Antenore Gatta, Giovanni Panozzo
+ * Copyright (C) 2016-2022 Antenore Gatta, Giovanni Panozzo
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,17 +35,16 @@
 #include "config.h"
 #include "remmina/remmina_trace_calls.h"
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <gtk/gtk.h>
-#include <gio/gio.h>
-#include <gio/gdesktopappinfo.h>
-#include <glib/gi18n.h>
-#include <libsoup/soup.h>
-#include <glib/gstdio.h>
 #include <fcntl.h>
-#include <sys/types.h>
+#include <gio/gdesktopappinfo.h>
+#include <gio/gio.h>
+#include <glib/gi18n.h>
+#include <glib/gstdio.h>
+#include <libsoup/soup.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <sys/stat.h>
+#include <sys/types.h>
 #include <time.h>
 
 #include "remmina.h"
@@ -56,8 +55,6 @@
 #include "remmina_sodium.h"
 #include "remmina_utils.h"
 #include "remmina_scheduler.h"
-#include "remmina_stats_sender.h"
-#include "remmina_stats.h"
 #include "remmina_sysinfo.h"
 #include "rmnews.h"
 
@@ -77,7 +74,6 @@ static RemminaNewsDialog *rmnews_news_dialog;
 #define GET_OBJ(object_name) gtk_builder_get_object(rmnews_news_dialog->builder, object_name)
 
 static SoupSession *session;
-//static const gchar *rmnews_url = NULL;
 static const gchar *output_file_path = NULL;
 
 static
@@ -106,24 +102,9 @@ void rmnews_news_switch_state_set_cb()
 	if (rmnews_news_dialog->rmnews_news_switch && \
 	    gtk_switch_get_active(rmnews_news_dialog->rmnews_news_switch)) {
 		remmina_pref.periodic_news_permitted = TRUE;
-		if (remmina_pref_save())
-			remmina_stats_sender_schedule();
+		remmina_pref_save();
 	} else {
 		remmina_pref.periodic_news_permitted = FALSE;
-		remmina_pref_save();
-	}
-}
-
-void rmnews_stats_switch_state_set_cb()
-{
-	TRACE_CALL(__func__);
-	if (rmnews_news_dialog->rmnews_stats_switch \
-	    && gtk_switch_get_active(rmnews_news_dialog->rmnews_stats_switch)) {
-		remmina_pref.periodic_usage_stats_permitted = TRUE;
-		if (remmina_pref_save())
-			remmina_stats_sender_schedule();
-	} else {
-		remmina_pref.periodic_usage_stats_permitted = FALSE;
 		remmina_pref_save();
 	}
 }
@@ -195,6 +176,8 @@ void rmnews_show_news(GtkWindow *parent)
 {
 	TRACE_CALL(__func__);
 
+	if (disablenews) return;
+
 	rmnews_news_dialog = g_new0(RemminaNewsDialog, 1);
 	rmnews_news_dialog->retval = 1;
 
@@ -203,10 +186,6 @@ void rmnews_show_news(GtkWindow *parent)
 
 	rmnews_news_dialog->rmnews_text_view = GTK_TEXT_VIEW(GET_OBJ("rmnews_text_view"));
 	rmnews_news_dialog->rmnews_label = GTK_LABEL(GET_OBJ("rmnews_label"));
-	//rmnews_news_dialog->rmnews_stats_label = GTK_LABEL(GET_OBJ("rmnews_stats_label"));
-	rmnews_news_dialog->rmnews_stats_switch = GTK_SWITCH(GET_OBJ("rmnews_stats_switch"));
-	if (remmina_pref.periodic_usage_stats_permitted == 1)
-		gtk_switch_set_active(rmnews_news_dialog->rmnews_stats_switch, TRUE);
 	rmnews_news_dialog->rmnews_defaultcl_label = GTK_LABEL(GET_OBJ("rmnews_defaultcl_label"));
 	rmnews_news_dialog->rmnews_defaultcl_button = GTK_BUTTON(GET_OBJ("rmnews_defaultcl_switch"));
 	rmnews_news_dialog->rmnews_news_switch = GTK_SWITCH(GET_OBJ("rmnews_news_switch"));
@@ -450,7 +429,6 @@ void rmnews_get_news()
 	int fd;
 	gchar *uid;
 	gchar mage[20], gcount[20];
-	gboolean sa;
 	struct stat sb;
 
 	gchar *cachedir = g_build_path("/", g_get_user_cache_dir(), REMMINA_APP_ID, NULL);
@@ -504,12 +482,6 @@ void rmnews_get_news()
 
 	uid = rmnews_get_uid();
 
-	sa = FALSE;
-	if (remmina_pref.periodic_usage_stats_permitted &&
-	    remmina_pref.periodic_usage_stats_uuid_prefix != NULL &&
-	    remmina_pref.periodic_usage_stats_uuid_prefix[0] != 0)
-		sa = TRUE;
-
 	if (stat("/etc/machine-id", &sb) == 0)
 		sprintf(mage, "%ld", (long)(time(NULL) - sb.st_mtim.tv_sec));
 	else
@@ -524,8 +496,7 @@ void rmnews_get_news()
 				   VERSION,
 				   "&uid=",
 				   uid,
-				   "&sa=",
-				   sa ? "1" : "0",
+				   "&sa=0",
 				   "&mage=",
 				   mage,
 				   "&gcount=",
@@ -564,7 +535,7 @@ static gboolean rmnews_periodic_check(gpointer user_data)
 	}
 	next = remmina_pref.periodic_rmnews_last_get + RMNEWS_INTERVAL_SEC;
 	if (unixts > next || (unixts < remmina_pref.periodic_rmnews_last_get && unixts > 1514764800)) {
-		REMMINA_DEBUG("remmina_pref.periodic_news_permitted is %d", remmina_pref.periodic_news_permitted);
+		//REMMINA_DEBUG("remmina_pref.periodic_news_permitted is %d", remmina_pref.periodic_news_permitted);
 		if (remmina_pref.periodic_news_permitted == 1) {
 			rmnews_get_news();
 		} else if (remmina_pref.periodic_rmnews_get_count == 0) {

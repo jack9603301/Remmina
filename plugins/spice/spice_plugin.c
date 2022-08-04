@@ -373,21 +373,22 @@ static void remmina_plugin_spice_main_channel_event_cb(SpiceChannel *channel, Sp
 {
 	TRACE_CALL(__func__);
 
-	gchar *server;
+	gchar *server = NULL;
 	gint port;
 	RemminaFile *remminafile = remmina_plugin_service->protocol_plugin_get_file(gp);
-
-	switch (event) {
-	case SPICE_CHANNEL_CLOSED:
-		remmina_plugin_service->get_server_port(remmina_plugin_service->file_get_string(remminafile, "server"),
+	remmina_plugin_service->get_server_port(remmina_plugin_service->file_get_string(remminafile, "server"),
 			XSPICE_DEFAULT_PORT,
 			&server,
 			&port);
+
+	switch (event) {
+	case SPICE_CHANNEL_CLOSED:
 		remmina_plugin_service->protocol_plugin_set_error(gp, _("Disconnected from the SPICE server “%s”."), server);
-		g_free(server);
 		remmina_plugin_spice_close_connection(gp);
+		REMMINA_PLUGIN_AUDIT(_("Disconnected from %s:%d via SPICE"), server, port);
 		break;
 	case SPICE_CHANNEL_OPENED:
+		REMMINA_PLUGIN_AUDIT(_("Connected to %s:%d via SPICE"), server, port);
 		break;
 	case SPICE_CHANNEL_ERROR_AUTH:
 		if (remmina_plugin_spice_ask_auth(gp)) {
@@ -411,6 +412,7 @@ static void remmina_plugin_spice_main_channel_event_cb(SpiceChannel *channel, Sp
 	default:
 		break;
 	}
+	g_free(server), server = NULL;
 }
 
 void remmina_plugin_spice_agent_connected_event_cb(SpiceChannel *channel, RemminaProtocolWidget *gp)
@@ -608,7 +610,7 @@ static void remmina_plugin_spice_call_feature(RemminaProtocolWidget *gp, const R
 
 #ifdef SPICE_GTK_CHECK_VERSION
 #  if SPICE_GTK_CHECK_VERSION(0, 34, 0)
-/* Array of key/value pairs for prefered video codec
+/* Array of key/value pairs for preferred video codec
  * Key - SpiceVideoCodecType (spice/enums.h)
  */
 static gpointer videocodec_list[] =
@@ -626,7 +628,7 @@ static gpointer videocodec_list[] =
 
 #ifdef SPICE_GTK_CHECK_VERSION
 #  if SPICE_GTK_CHECK_VERSION(0, 31, 0)
-/* Array of key/value pairs for prefered video codec
+/* Array of key/value pairs for preferred video codec
  * Key - SpiceImageCompression (spice/enums.h)
  */
 static gpointer imagecompression_list[] =
@@ -658,16 +660,24 @@ static gchar disablegstvideooverlay_tooltip[] =
  * c) Setting description
  * d) Compact disposition
  * e) Values for REMMINA_PROTOCOL_SETTING_TYPE_SELECT or REMMINA_PROTOCOL_SETTING_TYPE_COMBO
- * f) Setting Tooltip
+ * f) Setting tooltip
+ * g) Validation data pointer, will be passed to the validation callback method.
+ * h) Validation callback method (Can be NULL. Every entry will be valid then.)
+ *		use following prototype:
+ *		gboolean mysetting_validator_method(gpointer key, gpointer value,
+ *						    gpointer validator_data);
+ *		gpointer key is a gchar* containing the setting's name,
+ *		gpointer value contains the value which should be validated,
+ *		gpointer validator_data contains your passed data.
  */
 static const RemminaProtocolSetting remmina_plugin_spice_basic_settings[] =
 {
-	{ REMMINA_PROTOCOL_SETTING_TYPE_SERVER,	  "server",	    NULL,					FALSE,	NULL,	NULL},
-	{ REMMINA_PROTOCOL_SETTING_TYPE_PASSWORD, "password",	    N_("User password"),			FALSE,	NULL,	NULL},
-	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK,	  "usetls",	    N_("Use TLS encryption"),			FALSE,	NULL,	NULL},
-	{ REMMINA_PROTOCOL_SETTING_TYPE_FILE,	  "cacert",	    N_("Server CA certificate"),		FALSE,	NULL,	NULL},
-	{ REMMINA_PROTOCOL_SETTING_TYPE_FOLDER,	  "sharefolder",    N_("Share folder"),				FALSE,	NULL,	NULL},
-	{ REMMINA_PROTOCOL_SETTING_TYPE_END,	  NULL,		    NULL,					FALSE,	NULL,	NULL}
+	{ REMMINA_PROTOCOL_SETTING_TYPE_SERVER,		"server",		NULL,				FALSE,	NULL, NULL, NULL, NULL },
+	{ REMMINA_PROTOCOL_SETTING_TYPE_PASSWORD,	"password",		N_("User password"),	 	FALSE,	NULL, NULL, NULL, NULL },
+	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK,		"usetls",		N_("Use TLS encryption"),	FALSE,	NULL, NULL, NULL, NULL },
+	{ REMMINA_PROTOCOL_SETTING_TYPE_FILE,		"cacert",		N_("Server CA certificate"),	FALSE,	NULL, NULL, NULL, NULL },
+	{ REMMINA_PROTOCOL_SETTING_TYPE_TEXT,		"sharefolder",		N_("Share folder"),		FALSE,	NULL, NULL, NULL, NULL },
+	{ REMMINA_PROTOCOL_SETTING_TYPE_END,		NULL,			NULL,				FALSE,	NULL, NULL, NULL, NULL }
 };
 
 /* Array of RemminaProtocolSetting for advanced settings.
@@ -683,11 +693,11 @@ static const RemminaProtocolSetting remmina_plugin_spice_advanced_settings[] =
 {
 #ifdef SPICE_GTK_CHECK_VERSION
 #  if SPICE_GTK_CHECK_VERSION(0, 35, 0)
-	{ REMMINA_PROTOCOL_SETTING_TYPE_SELECT,	"videocodec",	    N_("Prefered video codec"),		FALSE, videocodec_list, NULL},
+	{ REMMINA_PROTOCOL_SETTING_TYPE_SELECT,	"videocodec",	    N_("Preferred video codec"),		FALSE, videocodec_list, NULL},
 	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK,	"disablegstvideooverlay",	    N_("Turn off GStreamer overlay"),		FALSE,	NULL,	disablegstvideooverlay_tooltip},
 #  endif
 #  if SPICE_GTK_CHECK_VERSION(0, 31, 0)
-	{ REMMINA_PROTOCOL_SETTING_TYPE_SELECT,	"imagecompression",	    N_("Prefered image compression"),		FALSE, imagecompression_list, NULL},
+	{ REMMINA_PROTOCOL_SETTING_TYPE_SELECT,	"imagecompression",	    N_("Preferred image compression"),		FALSE, imagecompression_list, NULL},
 #  endif
 #endif
 	{ REMMINA_PROTOCOL_SETTING_TYPE_CHECK,	"disableclipboard",	    N_("No clipboard sync"),		TRUE,	NULL,	NULL},
@@ -719,8 +729,8 @@ static RemminaProtocolPlugin remmina_plugin_spice =
 	N_("SPICE - Simple Protocol for Independent Computing Environments"),   // Description
 	GETTEXT_PACKAGE,                                                        // Translation domain
 	VERSION,                                                                // Version number
-	"remmina-spice-symbolic",                                               // Icon for normal connection
-	"remmina-spice-ssh-symbolic",                                               // Icon for SSH connection
+	"org.remmina.Remmina-spice-symbolic",                                   // Icon for normal connection
+	"org.remmina.Remmina-spice-ssh-symbolic",                               // Icon for SSH connection
 	remmina_plugin_spice_basic_settings,                                    // Array for basic settings
 	remmina_plugin_spice_advanced_settings,                                 // Array for advanced settings
 	REMMINA_PROTOCOL_SSH_SETTING_TUNNEL,                                    // SSH settings type

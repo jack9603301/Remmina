@@ -316,7 +316,7 @@
                         <property name="halign">start</property>
                         <property name="margin-start">18</property>
                         <property name="margin-end">6</property>
-                        <property name="label" translatable="yes" comments="The star (*) is a reference to privacy consent">Remember last view mode</property>
+                        <property name="label" translatable="yes">Remember last view mode</property>
                         <property name="justify">right</property>
                       </object>
                       <packing>
@@ -335,20 +335,6 @@
                       <packing>
                         <property name="left-attach">1</property>
                         <property name="top-attach">10</property>
-                        <property name="width">2</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkSwitch" id="switch_permit_send_stats">
-                        <property name="visible">True</property>
-                        <property name="can-focus">True</property>
-                        <property name="halign">start</property>
-                        <property name="valign">center</property>
-                        <property name="margin-end">18</property>
-                      </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">11</property>
                         <property name="width">2</property>
                       </packing>
                     </child>
@@ -372,10 +358,10 @@
                       <object class="GtkEntry" id="entry_options_file_name">
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
-                        <property name="tooltip-text" translatable="yes">%G Group name (slash will be converted to - automatically)
+                        <property name="tooltip-text" translatable="yes" comments="Placeholders used to name a Remmina connection profile">%G Name of group (slashes \/ are converted to dashes -)
 %P Protocol name
 %N Connection name
-%h Hostname/IP
+%h Host name/IP
 
 
 </property>
@@ -398,32 +384,16 @@
                         <property name="halign">start</property>
                         <property name="margin-start">18</property>
                         <property name="margin-end">6</property>
-                        <property name="margin-bottom">18</property>
                         <property name="label" translatable="yes">Prevent screenshots from entering clipboard</property>
                         <property name="justify">right</property>
                       </object>
                       <packing>
                         <property name="left-attach">0</property>
-                        <property name="top-attach">13</property>
+                        <property name="top-attach">12</property>
                       </packing>
                     </child>
                     <child>
                       <object class="GtkSwitch" id="switch_options_deny_screenshot_clipboard">
-                        <property name="visible">True</property>
-                        <property name="can-focus">True</property>
-                        <property name="halign">start</property>
-                        <property name="valign">center</property>
-                        <property name="margin-end">18</property>
-                        <property name="margin-bottom">18</property>
-                      </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">13</property>
-                        <property name="width">2</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkSwitch" id="switch_permit_news">
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
                         <property name="halign">start</property>
@@ -437,13 +407,27 @@
                       </packing>
                     </child>
                     <child>
+                      <object class="GtkSwitch" id="switch_permit_news">
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="halign">start</property>
+                        <property name="valign">center</property>
+                        <property name="margin-end">18</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">1</property>
+                        <property name="top-attach">11</property>
+                        <property name="width">2</property>
+                      </packing>
+                    </child>
+                    <child>
                       <object class="GtkLabel" id="privacy_disclaimer_label">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="halign">start</property>
                         <property name="margin-start">18</property>
                         <property name="margin-end">18</property>
-                        <property name="label" translatable="yes">* By enabling statistics and/or news you consent to send and fetch data to/from remmina.org</property>
+                        <property name="label" translatable="yes">* By enabling news you consent to fetch data from remmina.org</property>
                         <property name="justify">fill</property>
                         <property name="wrap">True</property>
                         <property name="wrap-mode">word-char</property>
@@ -452,21 +436,6 @@
                         <property name="left-attach">0</property>
                         <property name="top-attach">14</property>
                         <property name="width">3</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="rmnews_allow_stats_label">
-                        <property name="visible">True</property>
-                        <property name="can-focus">True</property>
-                        <property name="halign">start</property>
-                        <property name="margin-start">18</property>
-                        <property name="margin-end">6</property>
-                        <property name="label" translatable="yes" comments="The star (*) is a reference to privacy consent">Send &lt;b&gt;&lt;a href="https://remmina.gitlab.io/remminadoc.gitlab.io/remmina__stats_8c.html#details" title="Remmina usage statistics"&gt;anonymous&lt;/a&gt;&lt;/b&gt; statistics. (*)</property>
-                        <property name="use-markup">True</property>
-                      </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">11</property>
                       </packing>
                     </child>
                     <child>
@@ -481,7 +450,7 @@
                       </object>
                       <packing>
                         <property name="left-attach">0</property>
-                        <property name="top-attach">12</property>
+                        <property name="top-attach">11</property>
                       </packing>
                     </child>
                     <child>
@@ -513,6 +482,37 @@
                       <packing>
                         <property name="left-attach">1</property>
                         <property name="top-attach">6</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="label_options_confirm_close">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="halign">start</property>
+                        <property name="margin-start">18</property>
+                        <property name="margin-end">6</property>
+                        <property name="margin-bottom">18</property>
+                        <property name="label" translatable="yes">Confirm before closing multiple tabs</property>
+                        <property name="justify">right</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">13</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkSwitch" id="switch_options_confirm_close">
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="halign">start</property>
+                        <property name="valign">center</property>
+                        <property name="margin-end">18</property>
+                        <property name="margin-bottom">18</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">1</property>
+                        <property name="top-attach">13</property>
+                        <property name="width">2</property>
                       </packing>
                     </child>
                   </object>
@@ -632,8 +632,6 @@
                       <object class="GtkComboBoxText" id="comboboxtext_appearance_tab_interface">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
-                        <property name="margin-start">6</property>
-                        <property name="margin-end">18</property>
                         <items>
                           <item id="0" translatable="yes">By group</item>
                           <item id="1" translatable="yes">By protocol</item>
@@ -748,22 +746,6 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkSwitch" id="switch_appearance_grab_color">
-                        <property name="visible">True</property>
-                        <property name="can-focus">True</property>
-                        <property name="tooltip-text" translatable="yes">Enable/Disable “Grab all keyboard events” status colour</property>
-                        <property name="halign">start</property>
-                        <property name="margin-start">6</property>
-                        <property name="margin-end">6</property>
-                        <property name="margin-top">18</property>
-                        <signal name="notify::active" handler="remmina_prefdiag_on_grab_color_activated" swapped="no"/>
-                      </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">0</property>
-                      </packing>
-                    </child>
-                    <child>
                       <object class="GtkEntry" id="entry_grab_color">
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
@@ -777,6 +759,22 @@ It changes the background colour of connection names in the Remmina connection t
                       </object>
                       <packing>
                         <property name="left-attach">2</property>
+                        <property name="top-attach">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkSwitch" id="switch_appearance_grab_color">
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="tooltip-text" translatable="yes">Enable/Disable “Grab all keyboard events” status colour</property>
+                        <property name="halign">start</property>
+                        <property name="margin-start">6</property>
+                        <property name="margin-end">6</property>
+                        <property name="margin-top">18</property>
+                        <signal name="notify::active" handler="remmina_prefdiag_on_grab_color_activated" swapped="no"/>
+                      </object>
+                      <packing>
+                        <property name="left-attach">1</property>
                         <property name="top-attach">0</property>
                       </packing>
                     </child>
@@ -1631,25 +1629,44 @@ It changes the background colour of connection names in the Remmina connection t
               <object class="GtkViewport">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
+                <property name="tooltip-text" translatable="yes">Time in seconds before Remmina will lock the session and asks for a password again. Default: 300 Seconds.</property>
                 <child>
-                  <!-- n-columns=2 n-rows=5 -->
-                  <object class="GtkGrid" id="grid_security">
+                  <!-- n-columns=2 n-rows=7 -->
+                  <object class="GtkGrid">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <property name="row-spacing">5</property>
-                    <property name="column-spacing">7</property>
+                    <property name="halign">start</property>
+                    <property name="valign">start</property>
                     <child>
-                      <object class="GtkLabel" id="label_security_use_master">
+                      <object class="GtkLabel" id="label_security_use_primary_password">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
-                        <property name="tooltip-text" translatable="yes">Use secret key authentication for some widgets</property>
+                        <property name="tooltip-text" translatable="yes">Set and use a secret key to protect Remmina from unauthorized use.</property>
                         <property name="halign">start</property>
+                        <property name="valign">center</property>
                         <property name="margin-start">18</property>
-                        <property name="margin-top">18</property>
-                        <property name="label" translatable="yes">Use master password</property>
+                        <property name="margin-top">9</property>
+                        <property name="label" translatable="yes">Remmina password</property>
                       </object>
                       <packing>
                         <property name="left-attach">0</property>
+                        <property name="top-attach">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkSwitch" id="switch_security_use_primary_password">
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="tooltip-text" translatable="yes">Use secret key authentication for some widgets</property>
+                        <property name="halign">start</property>
+                        <property name="valign">center</property>
+                        <property name="margin-start">6</property>
+                        <property name="margin-end">18</property>
+                        <property name="margin-top">9</property>
+                        <signal name="notify::active" handler="remmina_prefdiag_on_use_password_activated" swapped="no"/>
+                      </object>
+                      <packing>
+                        <property name="left-attach">1</property>
                         <property name="top-attach">0</property>
                       </packing>
                     </child>
@@ -1658,8 +1675,9 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="halign">start</property>
+                        <property name="valign">center</property>
                         <property name="margin-start">18</property>
-                        <property name="label" translatable="yes">Automatic lock interval</property>
+                        <property name="label" translatable="yes">Valid for</property>
                       </object>
                       <packing>
                         <property name="left-attach">0</property>
@@ -1667,88 +1685,15 @@ It changes the background colour of connection names in the Remmina connection t
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkLabel" id="label_security_master_password">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="halign">start</property>
-                        <property name="margin-start">18</property>
-                        <property name="label" translatable="yes">Password</property>
-                      </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">2</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="label_security_repeat_password">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="halign">start</property>
-                        <property name="margin-start">18</property>
-                        <property name="label" translatable="yes">Repeat the password</property>
-                      </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">3</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="label_security_trust_fingerprints">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="tooltip-text" translatable="yes">Automatically accept all fingerprints and certificates</property>
-                        <property name="halign">start</property>
-                        <property name="margin-start">18</property>
-                        <property name="margin-bottom">18</property>
-                        <property name="label" translatable="yes">Trust all fingerprints and certificates</property>
-                      </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">4</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkSwitch" id="switch_security_use_master_password">
-                        <property name="visible">True</property>
-                        <property name="can-focus">True</property>
-                        <property name="tooltip-text" translatable="yes">Use secret key authentication for some widgets</property>
-                        <property name="halign">start</property>
-                        <property name="margin-start">6</property>
-                        <property name="margin-end">18</property>
-                        <property name="margin-top">18</property>
-                      </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">0</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkEntry" id="unlock_password">
-                        <property name="visible">True</property>
-                        <property name="can-focus">True</property>
-                        <property name="halign">start</property>
-                        <property name="margin-start">6</property>
-                        <property name="margin-end">18</property>
-                        <property name="visibility">False</property>
-                        <property name="invisible-char">•</property>
-                        <property name="width-chars">24</property>
-                        <property name="input-purpose">password</property>
-                      </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">2</property>
-                      </packing>
-                    </child>
-                    <child>
                       <object class="GtkEntry" id="unlock_timeout">
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
-                        <property name="tooltip-text" translatable="yes">Master password validity in seconds</property>
-                        <property name="halign">start</property>
+                        <property name="tooltip-text" translatable="yes">Number of seconds to keep password valid for</property>
+                        <property name="valign">center</property>
                         <property name="margin-start">6</property>
                         <property name="margin-end">18</property>
                         <property name="width-chars">24</property>
-                        <property name="text">300</property>
+                        <property name="placeholder-text" translatable="yes">timeout in seconds (default 300)</property>
                         <property name="input-purpose">number</property>
                       </object>
                       <packing>
@@ -1757,21 +1702,57 @@ It changes the background colour of connection names in the Remmina connection t
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkEntry" id="unlock_repassword">
+                      <object class="GtkLabel" id="label_security_lock_connection">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="tooltip-text" translatable="yes">Enter your Remmina password to connect</property>
+                        <property name="halign">start</property>
+                        <property name="valign">center</property>
+                        <property name="margin-start">18</property>
+                        <property name="label" translatable="yes" comments="“Require to connect” is “Require the Remmina password before to connect”, the Remmina password is the Master/Principal Password, that is used to protect Remmina from unauthorized use.">Require to connect</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">2</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="label_security_lock_edit">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="tooltip-text" translatable="yes">Creation, editing, copying, and deletions require the Remmina password</property>
+                        <property name="halign">start</property>
+                        <property name="valign">center</property>
+                        <property name="margin-start">18</property>
+                        <property name="label" translatable="yes" comments="Creation, editing, copying, and deletions require the primary password">Require to modify</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">3</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkSwitch" id="switch_security_lock_connect">
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
                         <property name="halign">start</property>
+                        <property name="valign">center</property>
                         <property name="margin-start">6</property>
                         <property name="margin-end">18</property>
-                        <property name="margin-bottom">9</property>
-                        <property name="visibility">False</property>
-                        <property name="invisible-char">•</property>
-                        <property name="width-chars">24</property>
-                        <property name="input-purpose">password</property>
-                        <signal name="changed" handler="remmina_prefdiag_unlock_repwd_on_changed" swapped="no"/>
-                        <style>
-                          <class name="unlock_repassword"/>
-                        </style>
+                      </object>
+                      <packing>
+                        <property name="left-attach">1</property>
+                        <property name="top-attach">2</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkSwitch" id="switch_security_lock_edit">
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="halign">start</property>
+                        <property name="valign">center</property>
+                        <property name="margin-start">6</property>
+                        <property name="margin-end">18</property>
                       </object>
                       <packing>
                         <property name="left-attach">1</property>
@@ -1779,18 +1760,99 @@ It changes the background colour of connection names in the Remmina connection t
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkSwitch" id="switch_security_trust_all">
+                      <object class="GtkLabel">
                         <property name="visible">True</property>
-                        <property name="can-focus">True</property>
-                        <property name="tooltip-text" translatable="yes">Use secret key authentication for some widgets</property>
+                        <property name="can-focus">False</property>
                         <property name="halign">start</property>
+                        <property name="valign">center</property>
+                        <property name="margin-start">18</property>
+                        <property name="label" translatable="yes">Encryption</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">4</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkComboBoxText" id="comboboxtext_security_enc_method">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="tooltip-text" translatable="yes">These are the encryption methods used by Remmina to store passwords.
+
+Except the "Weak" method, all the others are recommended, "Keystore" is the default, as it integrates with KDE/Plasma and GNOME.
+
+"Intermediate" doesn't use as much memory or processing power, and "Sensitive" is more secure, but uses +1 GiB of RAM and many CPU cycles. </property>
+                        <property name="valign">center</property>
                         <property name="margin-start">6</property>
                         <property name="margin-end">18</property>
-                        <property name="margin-bottom">18</property>
+                        <items>
+                          <item id="1" translatable="yes">Intermediate (+64 MiB RAM)</item>
+                          <item id="2" translatable="yes">Strong (+256 MiB, ~2009 CPU)</item>
+                          <item id="3" translatable="yes">Sensitive (+1 GiB, ~2014 CPU)</item>
+                        </items>
                       </object>
                       <packing>
                         <property name="left-attach">1</property>
                         <property name="top-attach">4</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="label_security_enable_audit">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="halign">start</property>
+                        <property name="valign">center</property>
+                        <property name="margin-start">18</property>
+                        <property name="margin-top">9</property>
+                        <property name="label" translatable="yes">Auditing log</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">5</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkSwitch" id="switch_security_audit">
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="halign">start</property>
+                        <property name="valign">center</property>
+                        <property name="margin-start">6</property>
+                        <property name="margin-end">18</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">1</property>
+                        <property name="top-attach">5</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="label_security_trust_fingerprints">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="tooltip-text" translatable="yes">Automatically accept all fingerprints and certificates</property>
+                        <property name="halign">start</property>
+                        <property name="valign">center</property>
+                        <property name="margin-start">18</property>
+                        <property name="margin-top">9</property>
+                        <property name="label" translatable="yes">Trust all certificates</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">6</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkSwitch" id="switch_security_trust_all">
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="halign">start</property>
+                        <property name="valign">center</property>
+                        <property name="margin-start">6</property>
+                        <property name="margin-end">18</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">1</property>
+                        <property name="top-attach">6</property>
                       </packing>
                     </child>
                   </object>
@@ -2001,7 +2063,7 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="can-focus">False</property>
                         <property name="halign">start</property>
                         <property name="margin-start">18</property>
-                        <property name="label" translatable="yes">Allow using bright colours with bold text</property>
+                        <property name="label" translatable="yes">Show bold text in bright colors</property>
                       </object>
                       <packing>
                         <property name="left-attach">0</property>

@@ -1,7 +1,7 @@
 /*
  * Remmina - The GTK+ Remote Desktop Client
  * Copyright (C) 2015 Antenore Gatta, Fabio Castelli, Giovanni Panozzo
- * Copyright (C) 2016-2021 Antenore Gatta, Giovanni Panozzo
+ * Copyright (C) 2016-2022 Antenore Gatta, Giovanni Panozzo
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -39,5 +39,5 @@
 #define PLUGIN_NAME        "GVNC"
 #define PLUGIN_DESCRIPTION N_("Remmina VNC plugin for GNOME and KVM")
 #define PLUGIN_VERSION     "0.1b"
-#define PLUGIN_APPICON     "remmina-gvnc-symbolic"
+#define PLUGIN_APPICON     "org.remmina.Remmina-gvnc-symbolic"
 #endif

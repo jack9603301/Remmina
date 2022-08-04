@@ -1,6 +1,6 @@
 /*
  * Remmina - The GTK Remote Desktop Client
- * Copyright (C) 2014-2021 Antenore Gatta, Giovanni Panozzo
+ * Copyright (C) 2014-2022 Antenore Gatta, Giovanni Panozzo
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,10 +32,13 @@
  *
  */
 
+#define G_LOG_USE_STRUCTURED
+#ifndef G_LOG_DOMAIN
+#define G_LOG_DOMAIN    ((gchar*)"remmina")
+#endif  /* G_LOG_DOMAIN */
 #include <gdk/gdkx.h>
 #include <gio/gio.h>
 #include <glib/gi18n.h>
-#include <gtk/gtk.h>
 #include <stdlib.h>
 
 #include "config.h"
@@ -58,8 +61,6 @@
 #include "remmina_widget_pool.h"
 #include "remmina/remmina_trace_calls.h"
 #include "rmnews.h"
-#include "remmina_stats_sender.h"
-
 
 #ifdef HAVE_ERRNO_H
 #include <errno.h>
@@ -79,6 +80,11 @@ static int gcrypt_thread_initialized = 0;
 #endif  /* HAVE_LIBGCRYPT */
 
 gboolean kioskmode;
+gboolean disablenews;
+gboolean disabletoolbar;
+gboolean fullscreen;
+gboolean extrahardening;
+gboolean disabletrayicon;
 
 static GOptionEntry remmina_options[] =
 {
@@ -87,9 +93,9 @@ static GOptionEntry remmina_options[] =
 	// TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
 	{ "connect",	      'c',  0,			  G_OPTION_ARG_FILENAME_ARRAY, NULL, N_("Connect either to a desktop described in a file (.remmina or a filetype supported by a plugin) or a supported URI (RDP, VNC, SSH or SPICE)"),	     N_("FILE")	},
 	// TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-	{ G_OPTION_REMAINING, '\0', 0,			  G_OPTION_ARG_FILENAME_ARRAY, NULL, N_("Connect to a desktop described in a file (.remmina or a type supported by a plugin)"),	     N_("FILE")	},
+	{ G_OPTION_REMAINING, '\0', 0,			  G_OPTION_ARG_FILENAME_ARRAY, NULL, N_("Connect to a desktop described in a file (.remmina or a filetype supported by a plugin)"),	     N_("FILE")	},
 	// TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-	{ "edit",	      'e',  0,			  G_OPTION_ARG_FILENAME_ARRAY, NULL, N_("Edit desktop connection described in file (.remmina or type supported by plugin)"), N_("FILE")	},
+	{ "edit",	      'e',  0,			  G_OPTION_ARG_FILENAME_ARRAY, NULL, N_("Edit desktop connection described in file (.remmina or a filetype supported by plugin)"), N_("FILE")	},
 	{ "help",	      '?',  G_OPTION_FLAG_HIDDEN, G_OPTION_ARG_NONE,	       NULL, NULL,										     NULL	},
 	// TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
 	{ "kiosk",	      'k',  0,			  G_OPTION_ARG_NONE,	       NULL, N_("Start in kiosk mode"),								     NULL	},
@@ -119,6 +125,11 @@ static GOptionEntry remmina_options[] =
 	// TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
 	{ "set-option",	      0,    0,			  G_OPTION_ARG_STRING_ARRAY,   NULL, N_("Set one or more profile settings, to be used with --update-profile"),		     NULL	},
 	{ "encrypt-password", 0,    0,			  G_OPTION_ARG_NONE,	       NULL, N_("Encrypt a password"),												  NULL		 },
+	{ "disable-news", 0,    0,			  G_OPTION_ARG_NONE,	       NULL, N_("Disable news notification"),												  NULL		 },
+	{ "disable-toolbar", 0,    0,			  G_OPTION_ARG_NONE,	       NULL, N_("Disable toolbar"),												  NULL		 },
+	{ "enable-fullscreen", 0,    0,			  G_OPTION_ARG_NONE,	       NULL, N_("Enable fullscreen"),												  NULL		 },
+	{ "enable-extra-hardening", 0,    0,		  G_OPTION_ARG_NONE,	       NULL, N_("Enable extra hardening (disable closing confirmation, disable unsafe shortcut keys, hide tabs, hide search bar)"),	  NULL		 },
+	{ "no-tray-icon", 0,    0,			  G_OPTION_ARG_NONE,	       NULL, N_("Disable tray icon"),												  NULL		 },
 	{ NULL }
 };
 
@@ -150,9 +161,29 @@ static gint remmina_on_command_line(GApplication *app, GApplicationCommandLine *
 #if SODIUM_VERSION_INT >= 90200
 	remmina_sodium_init();
 #endif
-	remmina_pref_init();
-
 	opts = g_application_command_line_get_options_dict(cmdline);
+
+	if (g_variant_dict_lookup_value(opts, "disable-news", NULL)) {
+		disablenews = TRUE;
+	}
+
+	if (g_variant_dict_lookup_value(opts, "disable-toolbar", NULL)) {
+		disabletoolbar = TRUE;
+	}
+
+	if (g_variant_dict_lookup_value(opts, "enable-fullscreen", NULL)) {
+		fullscreen = TRUE;
+	}
+
+	if (g_variant_dict_lookup_value(opts, "enable-extra-hardening", NULL)) {
+		extrahardening = TRUE;
+	}
+
+	if (g_variant_dict_lookup_value(opts, "no-tray-icon", NULL)) {
+		disabletrayicon = TRUE;
+	}
+
+	remmina_pref_init();
 
 	if (g_variant_dict_lookup_value(opts, "quit", NULL)) {
 		remmina_exec_command(REMMINA_COMMAND_EXIT, NULL);
@@ -263,7 +294,6 @@ static void remmina_on_startup(GApplication *app)
 					  REMMINA_RUNTIME_DATADIR G_DIR_SEPARATOR_S "icons");
 	g_application_hold(app);
 
-	remmina_stats_sender_schedule();
 	rmnews_schedule();
 
 	/* Check for secret plugin and service initialization and show console warnings if
@@ -272,7 +302,7 @@ static void remmina_on_startup(GApplication *app)
 	if (!secret_plugin)
 		g_print("Warning: Remmina is running without a secret plugin. Passwords will be saved in a less secure way.\n");
 	else
-		if (!secret_plugin->is_service_available())
+		if (!secret_plugin->is_service_available(secret_plugin))
 			g_print("Warning: Remmina is running with a secrecy plugin, but it cannot connect to a secrecy service.\n");
 
 	remmina_exec_command(REMMINA_COMMAND_AUTOSTART, NULL);
@@ -325,6 +355,22 @@ int main(int argc, char *argv[])
 	int status;
 
 	g_unsetenv("GDK_CORE_DEVICE_EVENTS");
+
+	// Checking for environment variable "G_MESSAGES_DEBUG"
+	// Give the less familiar with GLib a tip on where to get
+	// more debugging info.
+	if(!getenv("G_MESSAGES_DEBUG")) {
+		/* TRANSLATORS:
+		 * This link should point to a resource explaining how to get Remmina
+		 * to log more verbose statements.
+		 */
+		g_message(_("Remmina does not log all output statements. "
+			    "Turn on more verbose output by using "
+			    "\"G_MESSAGES_DEBUG=all\" as an environment variable.\n"
+			    "More info available on the Remmina wiki at:\n"
+			    "https://gitlab.com/Remmina/Remmina/-/wikis/Usage/Remmina-debugging"
+		));
+	}
 
 	/* Enable wayland backend only after GTK 3.22.27 or the clipboard
 	 * will not work. See GTK bug 790031 */

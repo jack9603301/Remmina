@@ -1,7 +1,7 @@
 /*
  * Remmina - The GTK+ Remote Desktop Client
  * Copyright (C) 2010 Vic Lee
- * Copyright (C) 2017-2021 Antenore Gatta, Giovanni Panozzo
+ * Copyright (C) 2017-2022 Antenore Gatta, Giovanni Panozzo
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -36,15 +36,28 @@
 #pragma once
 
 #include <stdarg.h>
+#include <glib.h>
 
 G_BEGIN_DECLS
 
-#define REMMINA_DEBUG(fmt, ...) _remmina_debug(__func__, fmt, ##__VA_ARGS__)
+#define REMMINA_INFO(fmt, ...)     _remmina_info(fmt, ## __VA_ARGS__)
+#define REMMINA_MESSAGE(fmt, ...)  _remmina_message(fmt, ## __VA_ARGS__)
+#define REMMINA_DEBUG(fmt, ...)    _remmina_debug(__func__, fmt, ## __VA_ARGS__)
+#define REMMINA_WARNING(fmt, ...)  _remmina_warning(__func__, fmt, ## __VA_ARGS__)
+#define REMMINA_AUDIT(fmt, ...)    _remmina_audit(__func__, fmt, ## __VA_ARGS__)
+#define REMMINA_ERROR(fmt, ...)    _remmina_error(__func__, fmt, ## __VA_ARGS__)
+#define REMMINA_CRITICAL(fmt, ...) _remmina_critical(__func__, fmt, ## __VA_ARGS__)
 
 void remmina_log_start(void);
 gboolean remmina_log_running(void);
 void remmina_log_print(const gchar *text);
+void _remmina_info(const gchar *fmt, ...);
+void _remmina_message(const gchar *fmt, ...);
 void _remmina_debug(const gchar *fun, const gchar *fmt, ...);
+void _remmina_warning(const gchar *fun, const gchar *fmt, ...);
+void _remmina_audit(const gchar *fun, const gchar *fmt, ...);
+void _remmina_error(const gchar *fun, const gchar *fmt, ...);
+void _remmina_critical(const gchar *fun, const gchar *fmt, ...);
 void remmina_log_printf(const gchar *fmt, ...);
 
 G_END_DECLS

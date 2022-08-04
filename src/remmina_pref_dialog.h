@@ -1,7 +1,7 @@
 /*
  * Remmina - The GTK+ Remote Desktop Client
  * Copyright (C) 2009-2011 Vic Lee
- * Copyright (C) 2017-2021 Antenore Gatta, Giovanni Panozzo
+ * Copyright (C) 2017-2022 Antenore Gatta, Giovanni Panozzo
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -56,17 +56,18 @@ typedef struct _RemminaPrefDialog {
 	GtkSwitch *		switch_appearance_grab_color;
 	GtkSwitch *		switch_options_deny_screenshot_clipboard;
 	GtkSwitch *		switch_options_remember_last_view_mode;
-	GtkSwitch *		switch_security_use_master_password;
+	GtkSwitch *		switch_options_confirm_close;
+	GtkSwitch *		switch_security_use_primary_password;
 	GtkEntry *		unlock_timeout;
-	GtkEntry *		unlock_password;
-	GtkEntry *		unlock_repassword;
+	GtkSwitch *		switch_security_lock_connect;
+	GtkSwitch *		switch_security_lock_edit;
+	GtkSwitch *		switch_security_audit;
 	GtkSwitch *		switch_security_trust_all;
 	GtkCheckButton *	checkbutton_options_save_settings;
 	GtkCheckButton *	checkbutton_appearance_fullscreen_on_auto;
 	GtkCheckButton *	checkbutton_appearance_show_tabs;
 	GtkCheckButton *	checkbutton_appearance_hide_toolbar;
 	GtkCheckButton *	checkbutton_appearance_hide_searchbar;
-	GtkSwitch *		switch_permit_send_stats;
 	GtkSwitch *		switch_permit_news;
 	GtkComboBox *		comboboxtext_options_double_click;
 	GtkComboBox *		comboboxtext_appearance_view_mode;
@@ -74,6 +75,7 @@ typedef struct _RemminaPrefDialog {
 	GtkComboBox *		comboboxtext_options_scale_quality;
 	GtkComboBox *		comboboxtext_options_ssh_loglevel;
 	GtkComboBox *		comboboxtext_appearance_fullscreen_toolbar_visibility;
+	GtkComboBox *		comboboxtext_security_enc_method;
 	GtkCheckButton *	checkbutton_options_ssh_parseconfig;
 	GtkEntry *		entry_options_ssh_port;
 	GtkEntry *		entry_options_ssh_tcp_keepidle;

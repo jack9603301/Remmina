@@ -1,6 +1,6 @@
 /*
  * Remmina - The GTK+ Remote Desktop Client
- * Copyright (C) 2016-2021 Antenore Gatta, Giovanni Panozzo
+ * Copyright (C) 2016-2022 Antenore Gatta, Giovanni Panozzo
  *
  * Initially based on the plugin "Remmina Plugin EXEC", created and written by
  * Fabio Castelli (Muflone) <muflone@vbsimple.net>.
@@ -40,4 +40,25 @@
 #define PLUGIN_NAME        "EXEC"
 #define PLUGIN_DESCRIPTION N_("Execute a command")
 #define PLUGIN_VERSION     "1.0"
-#define PLUGIN_APPICON     "remmina-tool-symbolic"
+#define PLUGIN_APPICON     "org.remmina.Remmina-tool-symbolic"
+
+#define REMMINA_PLUGIN_INFO(fmt, ...) \
+		remmina_plugin_service->_remmina_info(__func__, fmt, ##__VA_ARGS__)
+
+#define REMMINA_PLUGIN_MESSAGE(fmt, ...) \
+		remmina_plugin_service->_remmina_message(__func, fmt, ##__VA_ARGS__)
+
+#define REMMINA_PLUGIN_DEBUG(fmt, ...) \
+		remmina_plugin_service->_remmina_debug(__func__, fmt, ##__VA_ARGS__)
+
+#define REMMINA_PLUGIN_WARNING(fmt, ...) \
+		remmina_plugin_service->_remmina_warning(__func__, fmt, ##__VA_ARGS__)
+
+/* This will intentionally crash Remmina */
+#define REMMINA_PLUGIN_ERROR(fmt, ...) \
+		remmina_plugin_service->_remmina_error(__func__, fmt, ##__VA_ARGS__)
+
+#define REMMINA_PLUGIN_CRITICAL(fmt, ...) \
+		remmina_plugin_service->_remmina_critical(__func__, fmt, ##__VA_ARGS__)
+#define REMMINA_PLUGIN_AUDIT(fmt, ...) \
+		remmina_plugin_service->_remmina_audit(__func__, fmt, ##__VA_ARGS__)

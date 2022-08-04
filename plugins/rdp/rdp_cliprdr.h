@@ -3,7 +3,7 @@
  * Copyright (C) 2010-2011 Vic Lee
  * Copyright (C) 2012-2012 Jean-Louis Dupond
  * Copyright (C) 2014-2015 Antenore Gatta, Fabio Castelli, Giovanni Panozzo
- * Copyright (C) 2016-2021 Antenore Gatta, Giovanni Panozzo
+ * Copyright (C) 2016-2022 Antenore Gatta, Giovanni Panozzo
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -48,4 +48,4 @@ void remmina_rdp_channel_cliprdr_process(RemminaProtocolWidget *gp, wMessage *ev
 void remmina_rdp_event_process_clipboard(RemminaProtocolWidget *gp, RemminaPluginRdpUiObject *ui);
 CLIPRDR_FORMAT_LIST *remmina_rdp_cliprdr_get_client_format_list(RemminaProtocolWidget *gp);
 void remmina_rdp_cliprdr_detach_owner(RemminaProtocolWidget *gp);
-void remmina_rdp_clipboard_abort_transfer(rfContext *rfi);
+void remmina_rdp_clipboard_abort_client_format_data_request(rfContext *rfi);

@@ -2,7 +2,7 @@
  * Remmina - The GTK+ Remote Desktop Client
  * Copyright (C) 2010 Vic Lee
  * Copyright (C) 2014-2015 Antenore Gatta, Fabio Castelli, Giovanni Panozzo
- * Copyright (C) 2016-2021 Antenore Gatta, Giovanni Panozzo
+ * Copyright (C) 2016-2022 Antenore Gatta, Giovanni Panozzo
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -36,7 +36,6 @@
 
 #include "config.h"
 #include "buildflags.h"
-#include <gtk/gtk.h>
 #include <glib/gi18n.h>
 #include <stdlib.h>
 #include "remmina.h"
@@ -53,10 +52,11 @@
 #include "remmina_about.h"
 #include "remmina_plugin_manager.h"
 #include "remmina_exec.h"
-#include "remmina_icon.h"
 #include "remmina/remmina_trace_calls.h"
 #include "remmina_file_manager.h"
 #include "remmina_crypt.h"
+
+#include "remmina_icon.h"
 
 #ifdef SNAP_BUILD
 #   define ISSNAP "- SNAP Build -"
@@ -96,8 +96,10 @@ void remmina_exec_exitremmina()
 	/* Delete all widgets, main window not included */
 	remmina_widget_pool_foreach(cb_closewidget, NULL);
 
+#ifdef HAVE_LIBAPPINDICATOR
 	/* Remove systray menu */
 	remmina_icon_destroy();
+#endif
 
 	/* close/destroy main window struct and window */
 	remmina_main_destroy();
@@ -165,7 +167,7 @@ int remmina_exec_set_setting(gchar *profilefilename, gchar **settings)
 {
 	RemminaFile *remminafile;
 	int i;
-	gchar **tk, *value;
+	gchar **tk, *value = NULL;
 	char *line = NULL;
 	size_t len = 0;
 	ssize_t read;
@@ -393,7 +395,8 @@ void remmina_exec_command(RemminaCommandType command, const gchar* data)
 		break;
 
 	case REMMINA_COMMAND_PREF:
-		if (remmina_unlock_new(mainwindow) == 0)
+		if (remmina_pref_get_boolean("use_primary_password")
+				&& remmina_unlock_new(mainwindow) == 0)
 			break;
 		prefdialog = remmina_pref_dialog_get_dialog();
 		if (prefdialog) {
@@ -407,6 +410,10 @@ void remmina_exec_command(RemminaCommandType command, const gchar* data)
 		break;
 
 	case REMMINA_COMMAND_NEW:
+		if (remmina_pref_get_boolean("lock_edit")
+				&& remmina_pref_get_boolean("use_primary_password"))
+				if (remmina_unlock_new(mainwindow) == 0)
+					break;
 		s1 = (data ? strchr(data, ',') : NULL);
 		if (s1) {
 			s1 = g_strdup(data);
@@ -421,14 +428,23 @@ void remmina_exec_command(RemminaCommandType command, const gchar* data)
 		break;
 
 	case REMMINA_COMMAND_CONNECT:
+		REMMINA_DEBUG ("Initiating connection");
 		/** @todo This should be a G_OPTION_ARG_FILENAME_ARRAY (^aay) so that
 		 * we can implement multi profile connection:
 		 *    https://gitlab.com/Remmina/Remmina/issues/915
 		 */
+		if (remmina_pref_get_boolean("lock_connect")
+				&& remmina_pref_get_boolean("use_primary_password"))
+				if (remmina_unlock_new(mainwindow) == 0)
+					break;
 		remmina_exec_connect(data);
 		break;
 
 	case REMMINA_COMMAND_EDIT:
+		if (remmina_pref_get_boolean("lock_edit")
+				&& remmina_pref_get_boolean("use_primary_password"))
+				if (remmina_unlock_new(mainwindow) == 0)
+					break;
 		widget = remmina_file_editor_new_from_filename(data);
 		if (widget)
 			gtk_widget_show(widget);
@@ -469,7 +485,7 @@ void remmina_exec_command(RemminaCommandType command, const gchar* data)
 	case REMMINA_COMMAND_PLUGIN:
 		plugin = (RemminaEntryPlugin*)remmina_plugin_manager_get_plugin(REMMINA_PLUGIN_TYPE_ENTRY, data);
 		if (plugin) {
-			plugin->entry_func();
+			plugin->entry_func(plugin);
 		}else  {
 			widget = gtk_message_dialog_new(NULL, GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK,
 				_("Plugin %s is not registered."), data);

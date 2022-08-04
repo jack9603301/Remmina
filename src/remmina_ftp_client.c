@@ -2,7 +2,7 @@
  * Remmina - The GTK+ Remote Desktop Client
  * Copyright (C) 2009-2011 Vic Lee
  * Copyright (C) 2014-2015 Antenore Gatta, Fabio Castelli, Giovanni Panozzo
- * Copyright (C) 2016-2021 Antenore Gatta, Giovanni Panozzo
+ * Copyright (C) 2016-2022 Antenore Gatta, Giovanni Panozzo
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -37,14 +37,12 @@
 #define _FILE_OFFSET_BITS 64
 
 #include <gdk/gdk.h>
-#include <gtk/gtk.h>
 #include <glib/gi18n.h>
 #include <glib/gstdio.h>
 #include "config.h"
 #include "remmina_public.h"
 #include "remmina_pref.h"
 #include "remmina_marshals.h"
-#include "remmina_file.h"
 #include "remmina_ftp_client.h"
 #include "remmina_masterthread_exec.h"
 #include "remmina/remmina_trace_calls.h"
@@ -202,6 +200,9 @@ static void remmina_ftp_client_cell_data_filetype_pixbuf(GtkTreeViewColumn *col,
 	case REMMINA_FTP_FILE_TYPE_DIR:
 		g_object_set(renderer, "icon-name", "folder", NULL);
 		break;
+	case REMMINA_FTP_FILE_TYPE_LINK:
+		g_object_set(renderer, "icon-name", "emblem-symbolic-link", NULL);
+		break;
 	default:
 		g_object_set(renderer, "icon-name", "text-x-generic", NULL);
 		break;
@@ -279,6 +280,25 @@ static void remmina_ftp_client_cell_data_permission(GtkTreeViewColumn *col, GtkC
 	buf[10] = '\0';
 
 	g_object_set(renderer, "text", buf, NULL);
+}
+
+static void remmina_ftp_client_cell_data_modified(GtkTreeViewColumn *col, GtkCellRenderer *renderer, GtkTreeModel *model,
+						    GtkTreeIter *iter, gpointer user_data)
+{
+	TRACE_CALL(__func__);
+	gint32 modified = 0;
+	GDateTime *datetime;
+	gchar* str;
+
+	gtk_tree_model_get(model, iter, REMMINA_FTP_FILE_COLUMN_MODIFIED, &modified, -1);    
+
+	datetime = g_date_time_new_from_unix_local(modified);
+	str = g_date_time_format(datetime, "\%Y-\%m-\%d \%H:\%M:\%S");
+
+	g_object_set(renderer, "text", str, NULL);
+
+	g_date_time_unref(datetime);
+	g_free(str);
 }
 
 static void remmina_ftp_client_cell_data_size_progress(GtkTreeViewColumn *col, GtkCellRenderer *renderer, GtkTreeModel *model,
@@ -648,14 +668,14 @@ static void remmina_ftp_client_popup_menu(RemminaFTPClient *client, GdkEventButt
 
 	menuitem = gtk_menu_item_new_with_label(_("Download"));
 	gtk_widget_show(menuitem);
-	image = gtk_image_new_from_icon_name("remmina-document-save-symbolic", GTK_ICON_SIZE_MENU);
+	image = gtk_image_new_from_icon_name("org.remmina.Remmina-document-save-symbolic", GTK_ICON_SIZE_MENU);
 	gtk_widget_show(image);
 	gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
 	g_signal_connect(G_OBJECT(menuitem), "activate", G_CALLBACK(remmina_ftp_client_action_download), client);
 
 	menuitem = gtk_menu_item_new_with_label(_("Upload"));
 	gtk_widget_show(menuitem);
-	image = gtk_image_new_from_icon_name("remmina-document-send-symbolic", GTK_ICON_SIZE_MENU);
+	image = gtk_image_new_from_icon_name("org.remmina.Remmina-document-send-symbolic", GTK_ICON_SIZE_MENU);
 	gtk_widget_show(image);
 	gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
 	g_signal_connect(G_OBJECT(menuitem), "activate", G_CALLBACK(remmina_ftp_client_action_upload), client);
@@ -693,6 +713,9 @@ static gboolean remmina_ftp_client_file_list_on_button_press(GtkWidget *widget, 
 				REMMINA_FTP_FILE_COLUMN_NAME, &name, -1);
 			switch (type) {
 			case REMMINA_FTP_FILE_TYPE_DIR:
+				remmina_ftp_client_open_dir(client, name);
+				break;
+			case REMMINA_FTP_FILE_TYPE_LINK:
 				remmina_ftp_client_open_dir(client, name);
 				break;
 			case REMMINA_FTP_FILE_TYPE_FILE:
@@ -942,10 +965,18 @@ static void remmina_ftp_client_init(RemminaFTPClient *client)
 	gtk_tree_view_column_set_sort_column_id(column, REMMINA_FTP_FILE_COLUMN_PERMISSION);
 	gtk_tree_view_append_column(GTK_TREE_VIEW(priv->file_list_view), column);
 
+	renderer = gtk_cell_renderer_text_new();
+	column = gtk_tree_view_column_new_with_attributes(_("Modified"), renderer, "text", REMMINA_FTP_FILE_COLUMN_MODIFIED,
+		NULL);
+	gtk_tree_view_column_set_resizable(column, TRUE);
+	gtk_tree_view_column_set_cell_data_func(column, renderer, remmina_ftp_client_cell_data_modified, NULL, NULL);
+	gtk_tree_view_column_set_sort_column_id(column, REMMINA_FTP_FILE_COLUMN_MODIFIED);
+	gtk_tree_view_append_column(GTK_TREE_VIEW(priv->file_list_view), column);
+
 	/* Remote File List - Model */
 	priv->file_list_model = GTK_TREE_MODEL(
 		gtk_list_store_new(REMMINA_FTP_FILE_N_COLUMNS, G_TYPE_INT, G_TYPE_STRING, G_TYPE_FLOAT, G_TYPE_STRING,
-			G_TYPE_STRING, G_TYPE_INT, G_TYPE_STRING));
+			G_TYPE_STRING, G_TYPE_INT, G_TYPE_INT, G_TYPE_STRING));
 
 	priv->file_list_filter = gtk_tree_model_filter_new(priv->file_list_model, NULL);
 	gtk_tree_model_filter_set_visible_func(GTK_TREE_MODEL_FILTER(priv->file_list_filter),
@@ -1187,7 +1218,11 @@ remmina_ftp_client_get_waiting_task(RemminaFTPClient *client)
 			path = gtk_tree_model_get_path(priv->task_list_model, &iter);
 			task.rowref = gtk_tree_row_reference_new(priv->task_list_model, path);
 			gtk_tree_path_free(path);
+#if GLIB_CHECK_VERSION(2,68,0)
+			return (RemminaFTPTask*)g_memdup2(&task, sizeof(RemminaFTPTask));
+#else
 			return (RemminaFTPTask*)g_memdup(&task, sizeof(RemminaFTPTask));
+#endif
 		}
 		if (!gtk_tree_model_iter_next(priv->task_list_model, &iter))
 			break;

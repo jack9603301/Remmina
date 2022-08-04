@@ -1,6 +1,6 @@
 /*
  * Remmina - The GTK+ Remote Desktop Client
- * Copyright (C) 2016-2021 Antenore Gatta, Giovanni Panozzo
+ * Copyright (C) 2016-2022 Antenore Gatta, Giovanni Panozzo
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -38,6 +38,8 @@
  */
 
 #pragma once
+
+#include <glib.h>
 
 G_BEGIN_DECLS
 gint remmina_utils_string_find(GString *haystack, gint start, gint end, const gchar *needle);

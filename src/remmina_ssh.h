@@ -2,7 +2,7 @@
  * Remmina - The GTK+ Remote Desktop Client
  * Copyright (C) 2009-2011 Vic Lee
  * Copyright (C) 2014-2015 Antenore Gatta, Fabio Castelli, Giovanni Panozzo
- * Copyright (C) 2016-2021 Antenore Gatta, Giovanni Panozzo
+ * Copyright (C) 2016-2022 Antenore Gatta, Giovanni Panozzo
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -105,6 +105,7 @@ gboolean remmina_ssh_init_session(RemminaSSH *ssh);
 
 
 enum remmina_ssh_auth_result {
+	REMMINA_SSH_AUTH_NULL,
 	REMMINA_SSH_AUTH_SUCCESS,
 	REMMINA_SSH_AUTH_PARTIAL,
 	REMMINA_SSH_AUTH_AGAIN,
@@ -245,11 +246,13 @@ typedef struct _RemminaSSHShell {
 	gint			master;
 	gint			slave;
 	gchar *			exec;
+	gchar *			run_line;
 	pthread_t		thread;
 	ssh_channel		channel;
 	gboolean		closed;
 	RemminaSSHExitFunc	exit_callback;
 	gpointer		user_data;
+	ssh_event		event;
 } RemminaSSHShell;
 
 /* Create a new SSH Shell session object from RemminaFile */

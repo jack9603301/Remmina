@@ -1,6 +1,6 @@
 /*
  * Remmina - The GTK+ Remote Desktop Client
- * Copyright (C) 2017-2021 Antenore Gatta, Giovanni Panozzo
+ * Copyright (C) 2017-2022 Antenore Gatta, Giovanni Panozzo
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,6 +35,7 @@
 #pragma once
 
 #include <sodium.h>
+#include <gtk/gtk.h>
 
 #if SODIUM_VERSION_INT >= 90200
 typedef struct _RemminaUnlockDialog {
@@ -51,7 +52,7 @@ typedef struct _RemminaUnlockDialog {
 } RemminaUnlockDialog;
 
 extern GTimer *timer;
-extern gboolean isinit;
+extern gboolean unlocked;
 
 #endif
 

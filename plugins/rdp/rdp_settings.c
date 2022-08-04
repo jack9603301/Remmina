@@ -2,7 +2,7 @@
  * Remmina - The GTK+ Remote Desktop Client
  * Copyright (C) 2010-2011 Vic Lee
  * Copyright (C) 2014-2015 Antenore Gatta, Fabio Castelli, Giovanni Panozzo
- * Copyright (C) 2016-2021 Antenore Gatta, Giovanni Panozzo
+ * Copyright (C) 2016-2022 Antenore Gatta, Giovanni Panozzo
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,8 +34,6 @@
  *
  */
 
-
-#include "rdp_plugin.h"
 #include "rdp_settings.h"
 #include <freerdp/locale/keyboard.h>
 
@@ -695,7 +693,7 @@ static void remmina_rdp_settings_grid_init(RemminaPluginRdpsetGrid *grid)
 
 }
 
-GtkWidget *remmina_rdp_settings_new(void)
+GtkWidget *remmina_rdp_settings_new(RemminaPrefPlugin* plugin)
 {
 	TRACE_CALL(__func__);
 	GtkWidget *widget;

@@ -2,7 +2,7 @@
  * Remmina - The GTK+ Remote Desktop Client
  * Copyright (C) 2009 - Vic Lee
  * Copyright (C) 2014-2015 Antenore Gatta, Fabio Castelli, Giovanni Panozzo
- * Copyright (C) 2016-2021 Antenore Gatta, Giovanni Panozzo
+ * Copyright (C) 2016-2022 Antenore Gatta, Giovanni Panozzo
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,7 +34,6 @@
  *
  */
 
-#include <gtk/gtk.h>
 #include <glib/gi18n.h>
 #include <gdk/gdkkeysyms.h>
 #include "remmina_chat_window.h"
@@ -224,7 +223,7 @@ remmina_chat_window_new(GtkWindow* parent, const gchar* chat_with)
 	window->send_text = widget;
 
 	/* Send button */
-	image = gtk_image_new_from_icon_name("remmina-document-send-symbolic", GTK_ICON_SIZE_BUTTON);
+	image = gtk_image_new_from_icon_name("org.remmina.Remmina-document-send-symbolic", GTK_ICON_SIZE_BUTTON);
 	gtk_widget_show(image);
 
 	widget = gtk_button_new_with_mnemonic(_("_Send"));

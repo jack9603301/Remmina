@@ -2,7 +2,7 @@
 #
 # Copyright (C) 2011 Marc-Andre Moreau
 # Copyright (C) 2014-2015 Antenore Gatta, Fabio Castelli, Giovanni Panozzo
-# Copyright (C) 2016-2021 Antenore Gatta, Giovanni Panozzo
+# Copyright (C) 2016-2022 Antenore Gatta, Giovanni Panozzo
 #
 # This program is free software; you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -29,15 +29,22 @@
 # this exception statement from all source files in the program, then also
 # delete it here.
 
-cmake_minimum_required(VERSION 3.4.0)
+cmake_minimum_required(VERSION 3.10.0)
+
+cmake_policy(SET CMP0048 NEW)
+
+project(
+  Remmina
+  VERSION 1.4.27
+  DESCRIPTION "The Gtk Remote Desktop Client"
+  LANGUAGES C CXX
+)
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR}/cmake)
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR}/cmake/macros)
 
 set(CMAKE_COLOR_MAKEFILE ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-
-project(Remmina C CXX)
 
 include(CheckCCompilerFlag)
 include(CheckIncludeFiles)
@@ -54,21 +61,25 @@ include(FindPCRE2)
 include(GlibCompileResourcesSupport)
 include(FindIntl)
 
-#---------------------------------------------------------------------
-# Package creation with CMake depends on the value of umask - if permissions
-# are such that temporary files are created without permissions needed for
-# generated packages, the resulting packages may behave badly when installed.
-# In particular, RPM packages may improperly reset permissions on core
-# directories such as /usr.
+# ---------------------------------------------------------------------
+# Package creation with CMake depends on the value of umask - if permissions are
+# such that temporary files are created without permissions needed for generated
+# packages, the resulting packages may behave badly when installed. In
+# particular, RPM packages may improperly reset permissions on core directories
+# such as /usr.
 function(check_umask umask_val status_var)
-    string(REGEX REPLACE "[^x]" "" umask_x "${umask_val}")
-    string(REGEX REPLACE "[^r]" "" umask_r "${umask_val}")
-    string(LENGTH "${umask_r}" UMASK_HAVE_R)
-    set(${status_var} 0 PARENT_SCOPE)
-    if(UMASK_HAVE_R AND "${umask_x}" STREQUAL "xxx")
-        set(${status_var} 1 PARENT_SCOPE)
-    endif(UMASK_HAVE_R AND "${umask_x}" STREQUAL "xxx")
-endfunction(check_umask)
+  string(REGEX REPLACE "[^x]" "" umask_x "${umask_val}")
+  string(REGEX REPLACE "[^r]" "" umask_r "${umask_val}")
+  string(LENGTH "${umask_r}" UMASK_HAVE_R)
+  set(${status_var}
+      0
+      PARENT_SCOPE)
+  if(UMASK_HAVE_R AND "${umask_x}" STREQUAL "xxx")
+    set(${status_var}
+        1
+        PARENT_SCOPE)
+  endif()
+endfunction()
 
 find_program(SLEEP_EXEC sleep)
 mark_as_advanced(SLEEP_EXEC)
@@ -78,29 +89,36 @@ mark_as_advanced(SLEEP_EXEC)
 find_program(UMASK_EXEC umask)
 mark_as_advanced(UMASK_EXEC)
 if(NOT UMASK_EXEC)
-    # If we don't have a umask cmd, see if sh -c "umask -S" works
-    execute_process(COMMAND sh -c "umask -S" OUTPUT_VARIABLE umask_out)
-    # Check if we've got something that looks like a umask output
-    if("${umask_out}" MATCHES "^u=.*g=.*o=.*")
-        set(UMASK_EXEC sh)
-        set(UMASK_EXEC_ARGS -c "umask -S")
-    endif("${umask_out}" MATCHES "^u=.*g=.*o=.*")
-else(NOT UMASK_EXEC)
-    set(UMASK_EXEC_ARGS -S)
-endif(NOT UMASK_EXEC)
+  # If we don't have a umask cmd, see if sh -c "umask -S" works
+  execute_process(COMMAND sh -c "umask -S" OUTPUT_VARIABLE umask_out)
+  # Check if we've got something that looks like a umask output
+  if("${umask_out}" MATCHES "^u=.*g=.*o=.*")
+    set(UMASK_EXEC sh)
+    set(UMASK_EXEC_ARGS -c "umask -S")
+  endif()
+else()
+  set(UMASK_EXEC_ARGS -S)
+endif()
 
 if(UMASK_EXEC)
-    execute_process(COMMAND ${UMASK_EXEC} ${UMASK_EXEC_ARGS} OUTPUT_VARIABLE umask_curr)
-    string(STRIP "${umask_curr}" umask_curr)
-    check_umask("${umask_curr}" UMASK_OK)
-    if(NOT UMASK_OK)
-        message(" ")
-        message(WARNING "umask is set to ${umask_curr} - this setting is not recommended if one of the goals of this build is to generate packages. Use 'umask 022' for improved package behavior.")
-        if(SLEEP_EXEC)
-            execute_process(COMMAND ${SLEEP_EXEC} 10)
-        endif(SLEEP_EXEC)
-    endif(NOT UMASK_OK)
-endif(UMASK_EXEC)
+  execute_process(COMMAND ${UMASK_EXEC} ${UMASK_EXEC_ARGS}
+                  OUTPUT_VARIABLE umask_curr)
+  string(STRIP "${umask_curr}" umask_curr)
+  check_umask("${umask_curr}" UMASK_OK)
+  if(NOT UMASK_OK)
+    message(" ")
+    message(
+      WARNING
+        "\
+        umask is set to ${umask_curr} - this setting is not recommended if one\
+        of the goals of this build is to generate packages. Use 'umask 022' \
+        for improved package behavior.
+        ")
+    if(SLEEP_EXEC)
+      execute_process(COMMAND ${SLEEP_EXEC} 10)
+    endif()
+  endif()
+endif()
 
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE "Release")
@@ -135,6 +153,8 @@ if(CMAKE_COMPILER_IS_GNUCC)
 
   if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     add_definitions(-DDEBUG)
+    set(CMAKE_CXX_FLAGS_DEBUG "-O0")
+    set(CMAKE_C_FLAGS_DEBUG "-O0")
     check_c_compiler_flag(-Wunused-result Wunused-result)
     if(Wunused-result)
       set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wunused-result")
@@ -240,14 +260,15 @@ endif()
 
 # Figure out no-undefined flag
 if(${CMAKE_SYSTEM_NAME} STREQUAL Darwin)
-    set(NO_UNDEFINED_FLAG "-Wl,-undefined,error")
+  set(NO_UNDEFINED_FLAG "-Wl,-undefined,error")
 elseif((${CMAKE_SYSTEM_NAME} STREQUAL Linux) OR MINGW)
-    set(NO_UNDEFINED_FLAG "-Wl,--no-undefined")
+  set(NO_UNDEFINED_FLAG "-Wl,--no-undefined")
 else()
-    # On OpenBSD this seems to cause problems, so we unset it
-    set(NO_UNDEFINED_FLAG "")
+  # On OpenBSD this seems to cause problems, so we unset it
+  set(NO_UNDEFINED_FLAG "")
 endif()
-set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} ${NO_UNDEFINED_FLAG}")
+set(CMAKE_SHARED_LINKER_FLAGS
+    "${CMAKE_SHARED_LINKER_FLAGS} ${NO_UNDEFINED_FLAG}")
 
 check_include_files(sys/socket.h HAVE_SYS_SOCKET_H)
 check_include_files(arpa/inet.h HAVE_ARPA_INET_H)
@@ -275,16 +296,8 @@ endif()
 
 # Versioning
 set(WITH_LIBRARY_VERSIONING "ON")
-set(REMMINA_VERSION_MAJOR "1")
-set(REMMINA_VERSION_MINOR "4")
-set(REMMINA_VERSION_REVISION "20")
-# set(REMMINA_VERSION_SUFFIX "1") set(REMMINA_VERSION
-# "${REMMINA_VERSION_MAJOR}.${REMMINA_VERSION_MINOR}.${REMMINA_VERSION_REVISION}.${REMMINA_VERSION_SUFFIX}")
-set(REMMINA_VERSION
-    "${REMMINA_VERSION_MAJOR}.${REMMINA_VERSION_MINOR}.${REMMINA_VERSION_REVISION}"
-)
 
-message(STATUS "Remmina version: ${REMMINA_VERSION}")
+message(STATUS "Remmina version: ${Remmina_VERSION}")
 
 include(GetGitRevisionDescription)
 git_get_exact_tag(REMMINA_GIT_REVISION --tags --always)
@@ -358,77 +371,75 @@ endif()
 
 # Uninstall support
 
-# setup a 'make uninstall' target if we find a
-# cmake_uninstall.cmake.in in the module path
-#===========================================================
-foreach( MODULE_PATH ${CMAKE_MODULE_PATH} )
-  set( UNINSTALL_IN  "${MODULE_PATH}/cmake_uninstall.cmake.in" )
-  set( UNINSTALL_OUT "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake" )
-  if( EXISTS ${UNINSTALL_IN} )
-    configure_file( "${UNINSTALL_IN}"
-                    "${UNINSTALL_OUT}"
-                    IMMEDIATE @ONLY
-    )
-   if(WITH_CLEANUP)
-        message(STATUS "Remove folders during uninstall target")
-        add_definitions(-DREMOVE_DIRS)
-        set(UNINST_RMDIRS 1)
+# setup a 'make uninstall' target if we find a cmake_uninstall.cmake.in in the
+# module path
+# ===========================================================
+foreach(module_path ${CMAKE_MODULE_PATH})
+  set(UNINSTALL_in "${module_path}/cmake_uninstall.cmake.in")
+  set(UNINSTALL_out "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake")
+  if(EXISTS ${UNINSTALL_in})
+    configure_file("${UNINSTALL_in}" "${UNINSTALL_out}" IMMEDIATE @ONLY)
+    if(WITH_CLEANUP)
+      message(STATUS "Remove folders during uninstall target")
+      add_definitions(-DREMOVE_DIRS)
+      set(UNINST_RMDIRS 1)
     else()
-        message(STATUS "Folders won't be removed during uninstall target")
-        set(UNINST_RMDIRS 0)
+      message(STATUS "Folders won't be removed during uninstall target")
+      set(UNINST_RMDIRS 0)
     endif()
-    add_custom_target(uninstall
-        "${CMAKE_COMMAND}" -DWITH_CLEANUP:BOOL=${WITH_CLEANUP} -P "${UNINSTALL_OUT}")
-   option(WITH_CLEANUP "Remove folders during uninstall target" OFF)
+    add_custom_target(
+      uninstall
+      "${CMAKE_COMMAND}" -DWITH_CLEANUP:BOOL=${WITH_CLEANUP} -P
+      "${UNINSTALL_out}"
+      COMMENT "Uninstall target")
+    option(WITH_CLEANUP "Remove folders during uninstall target" OFF)
     break()
-  endif( EXISTS ${UNINSTALL_IN} )
-endforeach( MODULE_PATH )
+  endif()
+endforeach()
 
-#find_required_package(GTK)
+# find_required_package(GTK)
 find_package(GLib REQUIRED)
 if(NOT GLib_FOUND)
-    message(FATAL_ERROR "GLIB2 library not found")
-endif(NOT GLib_FOUND)
+  message(FATAL_ERROR "GLIB2 library not found")
+endif()
 include_directories(${GLib_INCLUDE_DIRS})
 include_directories(${GMODULE_INCLUDE_DIR})
 
 find_package(GTK3 3.14.0 REQUIRED)
 if(NOT GTK3_FOUND)
-    message(FATAL_ERROR "GTK3 library not found")
-endif(NOT GTK3_FOUND)
+  message(FATAL_ERROR "GTK3 library not found")
+endif()
 include_directories(${GTK3_INCLUDE_DIRS})
 
 pkg_check_modules(wayland-client wayland-client)
 if(wayland-client_FOUND)
-    set(GTK_LIBRARIES
-        ${GTK3_LIBRARY}
-        ${GDK3_LIBRARY}
-        ${GDKPixbuf_LIBRARY}
-        ${Pango_LIBRARY}
-        ${Cairo_LIBRARY}
-        ${GObject_LIBRARY}
-        ${GLib_LIBRARY}
-        ${GIO_LIBRARY}
-        ${Gmodule_LIBRARIES}
-        ${GMODULE_LIBRARY}
-        ${wayland-client_LIBRARIES}
-    )
-    include_directories(${wayland-client_INCLUDE_DIRS})
-    message(STATUS "Wayland library found.")
+  set(GTK_LIBRARIES
+      ${GTK3_LIBRARY}
+      ${GDK3_LIBRARY}
+      ${GDKPixbuf_LIBRARY}
+      ${Pango_LIBRARY}
+      ${Cairo_LIBRARY}
+      ${GObject_LIBRARY}
+      ${GLib_LIBRARY}
+      ${GIO_LIBRARY}
+      ${Gmodule_LIBRARIES}
+      ${GMODULE_LIBRARY}
+      ${wayland-client_LIBRARIES})
+  include_directories(${wayland-client_INCLUDE_DIRS})
+  message(STATUS "Wayland library found.")
 else()
-    set(GTK_LIBRARIES
-        ${GTK3_LIBRARY}
-        ${GDK3_LIBRARY}
-        ${GDKPixbuf_LIBRARY}
-        ${Pango_LIBRARY}
-        ${Cairo_LIBRARY}
-        ${GObject_LIBRARY}
-        ${GLib_LIBRARY}
-        ${GIO_LIBRARY}
-        ${Gmodule_LIBRARIES}
-        ${GMODULE_LIBRARY}
-    )
-    message(STATUS "Wayland library not found.")
+  set(GTK_LIBRARIES
+      ${GTK3_LIBRARY}
+      ${GDK3_LIBRARY}
+      ${GDKPixbuf_LIBRARY}
+      ${Pango_LIBRARY}
+      ${Cairo_LIBRARY}
+      ${GObject_LIBRARY}
+      ${GLib_LIBRARY}
+      ${GIO_LIBRARY}
+      ${Gmodule_LIBRARIES}
+      ${GMODULE_LIBRARY})
+  message(STATUS "Wayland library not found.")
 endif()
 
 set(CMAKE_THREAD_PREFER_PTHREAD TRUE)
@@ -443,13 +454,19 @@ if(CMAKE_COMPILER_IS_GNUCC AND WITH_GCC_SANITIZE_ADDRESS)
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fsanitize=address")
 endif()
 
+if(CMAKE_COMPILER_IS_GNUCC AND WITH_GCC_SANITIZE_THREAD)
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fsanitize=thread")
+endif()
+
 # LLVM coverage flags - https://clang.llvm.org/docs/SourceBasedCodeCoverage.html
 if("${CMAKE_C_COMPILER_ID}" MATCHES "Clang" AND WITH_CLANG_COVERAGE)
   message(STATUS "Enabling coverage.")
   add_definitions(-DWITH_CLANG_COVERAGE)
   set(CMAKE_C_FLAGS
-      "${CMAKE_C_FLAGS} -g -fprofile-instr-generate -fcoverage-mapping -ftest-coverage"
-  )
+      "\
+    ${CMAKE_C_FLAGS} -g -fprofile-instr-generate \
+    -fcoverage-mapping -ftest-coverage\
+    ")
   set(CMAKE_EXE_LINKER_FLAGS
       "${CMAKE_EXE_LINKER_FLAGS} -fprofile-instr-generate")
 elseif("${CMAKE_C_COMPILER_ID}" MATCHES "GNU" AND WITH_GCC_PROFILING)
@@ -469,8 +486,8 @@ endif()
 
 option(TOGTK4 "Disable deprecations to easy GTK4 migration")
 if(TOGTK4)
-    message(STATUS "Do not use GTK3 and GDK deprecated symbols")
-    add_definitions(-DGDK_DISABLE_DEPRECATED -DGTK_DISABLE_DEPRECATED)
+  message(STATUS "Do not use GTK3 and GDK deprecated symbols")
+  add_definitions(-DGDK_DISABLE_DEPRECATED -DGTK_DISABLE_DEPRECATED)
 endif()
 
 if(WITH_TRACE_CALLS)
@@ -500,15 +517,15 @@ if(GCRYPT_FOUND)
   add_definitions(-DHAVE_LIBGCRYPT)
 endif()
 
-#avahi for discovery over mDNS/DNS-SD daemon
-if (UNIX AND NOT APPLE)
-    find_suggested_package(Avahi)
-    if(AVAHI_FOUND)
-        message(STATUS "AVAHI_INCLUDE_DIRS=${AVAHI_INCLUDE_DIRS}")
-        message(STATUS "AVAHI_LIBRARIES=${AVAHI_LIBRARIES}")
-        add_definitions(-DHAVE_LIBAVAHI_UI)
-        add_definitions(-DHAVE_LIBAVAHI_CLIENT)
-    endif()
+# avahi for discovery over mDNS/DNS-SD daemon
+if(UNIX AND NOT APPLE)
+  find_suggested_package(Avahi)
+  if(AVAHI_FOUND)
+    message(STATUS "AVAHI_INCLUDE_DIRS=${AVAHI_INCLUDE_DIRS}")
+    message(STATUS "AVAHI_LIBRARIES=${AVAHI_LIBRARIES}")
+    add_definitions(-DHAVE_LIBAVAHI_UI)
+    add_definitions(-DHAVE_LIBAVAHI_CLIENT)
+  endif()
 endif()
 
 option(WITH_ICON_CACHE "Generate the icon cache during install target" ON)
@@ -518,8 +535,10 @@ if(WITH_ICON_CACHE)
   find_program(XDG_ICON_RESOURCE NAMES xdg-icon-resource)
   if(XDG_ICON_RESOURCE)
     message(STATUS "Theme icon cache will be rebuilt")
-    add_custom_target(desktop-icon COMMAND ${XDG_ICON_RESOURCE} forceupdate
-                                           --theme hicolor)
+    add_custom_target(
+      desktop-icon
+      COMMAND ${XDG_ICON_RESOURCE} forceupdate --theme hicolor
+      COMMENT "Updating icon theme")
   else()
     message(WARNING "Cannot update icon cache: xdg-icon-resource not found")
   endif()
@@ -537,7 +556,7 @@ else()
 endif()
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.h.in
-			   ${CMAKE_CURRENT_BINARY_DIR}/generated/config.h)
+               ${CMAKE_CURRENT_BINARY_DIR}/generated/config.h)
 
 set(REMMINA_BUILD_CONFIG_LIST "")
 get_cmake_property(res VARIABLES)
@@ -548,7 +567,7 @@ foreach(var ${res})
 endforeach()
 string(REPLACE ";" " " REMMINA_BUILD_CONFIG "${REMMINA_BUILD_CONFIG_LIST}")
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/buildflags.h.in
-			   ${CMAKE_CURRENT_BINARY_DIR}/generated/buildflags.h)
+               ${CMAKE_CURRENT_BINARY_DIR}/generated/buildflags.h)
 include_directories(${CMAKE_CURRENT_BINARY_DIR}/generated/)
 
 # Configure RPATH
@@ -556,20 +575,19 @@ set(CMAKE_SKIP_BUILD_RPATH FALSE)
 set(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
 set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 set(CMAKE_BUILD_RPATH_USE_ORIGIN TRUE)
-if (NOT FREEBSD)
-	set(CMAKE_INSTALL_RPATH "\$ORIGIN/../${CMAKE_INSTALL_LIBDIR}:\$ORIGIN/..")
+if(NOT FREEBSD)
+  set(CMAKE_INSTALL_RPATH "\$ORIGIN/../${CMAKE_INSTALL_LIBDIR}:\$ORIGIN/..")
 endif()
 
 if(GTK3_FOUND)
-    #pkg_check_modules(gio REQUIRED gio-2.0)
-    #pkg_check_modules(gio-unix REQUIRED gio-unix-2.0)
-    add_subdirectory(src)
-    add_subdirectory(data)
-    add_subdirectory(plugins)
-    add_subdirectory(plugins/secret)
+  # pkg_check_modules(gio REQUIRED gio-2.0) pkg_check_modules(gio-unix REQUIRED
+  # gio-unix-2.0)
+  add_subdirectory(src)
+  add_subdirectory(data)
+  add_subdirectory(plugins)
+  add_subdirectory(plugins/secret)
 endif()
 
 if(WITH_TRANSLATIONS)
   add_subdirectory(po)
 endif()
-

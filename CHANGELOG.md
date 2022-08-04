@@ -1,3 +1,133 @@
+## v1.4.27
+[full changelog](https://gitlab.com/Remmina/Remmina/compare/v1.4.26...v1.4.27)
+
+* Fix dangling pointer after scrolled_container destruction. [!2409](https://gitlab.com/Remmina/Remmina/merge_requests/2409) *@antenore*
+* Strengthen remmina file set string [!2410](https://gitlab.com/Remmina/Remmina/merge_requests/2410) *@giox069*
+* Refactoring and minor fixes [!2411](https://gitlab.com/Remmina/Remmina/merge_requests/2411) *@antenore*
+* launcher.sh is compatible with xfce4-terminal and gnome-terminal now. [!2412](https://gitlab.com/Remmina/Remmina/merge_requests/2412) *@Lebensgefahr*
+* Fix #2473 - revive rcw_focus_out_event to avoid sticky Alt on Alt-TAB [!2413](https://gitlab.com/Remmina/Remmina/merge_requests/2413) *@wolfmanx*
+
+## v1.4.26
+[full changelog](https://gitlab.com/Remmina/Remmina/compare/v1.4.25...v1.4.26)
+
+* Fix trial for 2577: Closing a VNC connection makes Remmina close all other... [!2391](https://gitlab.com/Remmina/Remmina/merge_requests/2391) *@PHWR*
+* Handle after-auth connection errors in VNC properly [!2390](https://gitlab.com/Remmina/Remmina/merge_requests/2390) *@lorenz*
+* Using Remmina from command-line for kiosked servers [!2392](https://gitlab.com/Remmina/Remmina/merge_requests/2392) *@marco.fortina*
+* Manual page refactoring fixes #2056 [!2393](https://gitlab.com/Remmina/Remmina/merge_requests/2393) *@antenore*
+* Add mutex to protect RDP clipboard->srv_data. Fixes #2666 [!2395](https://gitlab.com/Remmina/Remmina/merge_requests/2395) *@giox069*
+* SSH Forward X11 [!2397](https://gitlab.com/Remmina/Remmina/merge_requests/2397) *@antenore*
+* Add '--no-tray-icon' command-line option [!2398](https://gitlab.com/Remmina/Remmina/merge_requests/2398) *@marco.fortina*
+* Python plugins [!2399](https://gitlab.com/Remmina/Remmina/merge_requests/2399) *@ToolsDevler*
+* Apply plugin api changes from Python plugin change [!2400](https://gitlab.com/Remmina/Remmina/merge_requests/2400) *@ToolsDevler*
+* Extract python plugin [!2401](https://gitlab.com/Remmina/Remmina/merge_requests/2401) *@ToolsDevler*
+* Make FreeRDPs TLS Security Level setting accessible in the advanced settings view [!2402](https://gitlab.com/Remmina/Remmina/merge_requests/2402) *@antenore*
+* Disable grabs for SSH and SFTP, #closes #2728 [!2403](https://gitlab.com/Remmina/Remmina/merge_requests/2403) *@antenore*
+* Cannot disable shared folder [!2404](https://gitlab.com/Remmina/Remmina/merge_requests/2404) *@antenore*
+* Use PyInitializeEx in order to skip signal handler registration [!2405](https://gitlab.com/Remmina/Remmina/merge_requests/2405) *@ToolsDevler*
+* Ignore add new connection button in kiosk mode [!2406](https://gitlab.com/Remmina/Remmina/merge_requests/2406) *@antenore*
+* WWW plugin refactoring [!2407](https://gitlab.com/Remmina/Remmina/merge_requests/2407) *@antenore*
+
+## v1.4.25
+[full changelog](https://gitlab.com/Remmina/Remmina/compare/v1.4.24...v1.4.25)
+
+* kiosk: Drop GNOME MediaKeys plugin [!2377](https://gitlab.com/Remmina/Remmina/merge_requests/2377) *@jbicha*
+* Honour soft links target in SFTP [!2379](https://gitlab.com/Remmina/Remmina/merge_requests/2379) *@antenore*
+* Optional close confirmation [!2380](https://gitlab.com/Remmina/Remmina/merge_requests/2380) *@antenore*
+* Fix some build warnings [!2382](https://gitlab.com/Remmina/Remmina/merge_requests/2382) *@donoban*
+* Fix manpages [!2378](https://gitlab.com/Remmina/Remmina/merge_requests/2378) *@Fantu*
+* Snap cleanup + kwallet support [!2381](https://gitlab.com/Remmina/Remmina/merge_requests/2381) *@antenore*
+* Deprecations and amend g_date_time_format_iso8601 [!2383](https://gitlab.com/Remmina/Remmina/merge_requests/2383) *@antenore*
+* Fixes to snap build [!2384](https://gitlab.com/Remmina/Remmina/merge_requests/2384) *@giox069*
+* Removing dependencies that are available as extensions [!2385](https://gitlab.com/Remmina/Remmina/merge_requests/2385) *@antenore*
+* FreeRDP_OffscreenSupportLevel is of type UINT32 [!2386](https://gitlab.com/Remmina/Remmina/merge_requests/2386) *@akallabeth*
+* Minor fixes [!2387](https://gitlab.com/Remmina/Remmina/merge_requests/2387) *@antenore*
+* Get the right value for FreeRDP_AutoReconnectMaxRetries [!2388](https://gitlab.com/Remmina/Remmina/merge_requests/2388) *@antenore*
+
+## v1.4.24
+[full changelog](https://gitlab.com/Remmina/Remmina/compare/v1.4.23...v1.4.24)
+
+* Contribution section added to issue template [!2365](https://gitlab.com/Remmina/Remmina/merge_requests/2365) *@kingu*
+* Language of VNC encoding cleaned up [!2367](https://gitlab.com/Remmina/Remmina/merge_requests/2367) *@kingu*
+* Remmina Hardening and Compliance [!2366](https://gitlab.com/Remmina/Remmina/merge_requests/2366) *@antenore*
+* Remmina_preferences language reworked [!2368](https://gitlab.com/Remmina/Remmina/merge_requests/2368) *@kingu*
+* Thanks 2021 [!2371](https://gitlab.com/Remmina/Remmina/merge_requests/2371) *@kingu*
+* Resolve "Follow-up from "Remmina_preferences language reworked"" [!2369](https://gitlab.com/Remmina/Remmina/merge_requests/2369) *@antenore*
+* Encryption level language reworked [!2372](https://gitlab.com/Remmina/Remmina/merge_requests/2372) *@kingu*
+* Issue 2122 : Confirm on close of window [!2374](https://gitlab.com/Remmina/Remmina/merge_requests/2374) *@emmguyot*
+* Adding flush and cairo clean up [!2375](https://gitlab.com/Remmina/Remmina/merge_requests/2375) *@antenore*
+
+## v1.4.23
+[full changelog](https://gitlab.com/Remmina/Remmina/compare/v1.4.22...v1.4.23)
+
+* Patch for a Remmina segfault and stats code cleaning [!2358](https://gitlab.com/Remmina/Remmina/merge_requests/2358) *@antenore*
+* Make Appindicator optional [!2359](https://gitlab.com/Remmina/Remmina/merge_requests/2359) *@antenore*
+* Added check-box to force tight encoding for VNC connections [!2360](https://gitlab.com/Remmina/Remmina/merge_requests/2360) *@antenore*
+* remote resolution: use multiple of four [!2353](https://gitlab.com/Remmina/Remmina/merge_requests/2353) *@eworm-de*
+* Add Keyboard mapping per client RDP [!2361](https://gitlab.com/Remmina/Remmina/merge_requests/2361) *@headkaze*
+* Improve TLS error message, fixes #2364 [!2362](https://gitlab.com/Remmina/Remmina/merge_requests/2362) *@antenore*
+* Triage policy language reworked [!2363](https://gitlab.com/Remmina/Remmina/merge_requests/2363) *@kingu*
+
+## v1.4.22
+[full changelog](https://gitlab.com/Remmina/Remmina/compare/v1.4.21...v1.4.22)
+
+* Fix crash if main window is closed #1692 [!2330](https://gitlab.com/Remmina/Remmina/merge_requests/2330) *@broth-itk*
+* Main window position reset after opening a connection (issue 2587) [!2331](https://gitlab.com/Remmina/Remmina/merge_requests/2331) *@broth-itk*
+* File Interface refactoring [!2332](https://gitlab.com/Remmina/Remmina/merge_requests/2332) *@antenore*
+* CMake refactoring and build time warnings [!2333](https://gitlab.com/Remmina/Remmina/merge_requests/2333) *@antenore*
+* Add Croatian language to desktop shortcuts and infos [!2334](https://gitlab.com/Remmina/Remmina/merge_requests/2334) *@muzena*
+* Appdata corrections and renewal [!2336](https://gitlab.com/Remmina/Remmina/merge_requests/2336) *@kingu*
+* Fixes for freerdp3 compatibility. [!2337](https://gitlab.com/Remmina/Remmina/merge_requests/2337) *@giox069*
+* X2Go: Rewrite dialog-system; Ask users which session to resume... [!2328](https://gitlab.com/Remmina/Remmina/merge_requests/2328) *@D0n1elT*
+* int main(): print instructions how to enable a more verbose output of remmina [!2338](https://gitlab.com/Remmina/Remmina/merge_requests/2338) *@D0n1elT*
+* Mitigations for #2635 (default printer) with freerdp < 3 [!2343](https://gitlab.com/Remmina/Remmina/merge_requests/2343) *@giox069*
+* X2Go: Add a session-terminate button into the session resuming selection menu [!2339](https://gitlab.com/Remmina/Remmina/merge_requests/2339) *@D0n1elT*
+* Properly warn users when using a plugin which requires GtkSocket [!2340](https://gitlab.com/Remmina/Remmina/merge_requests/2340) *@D0n1elT*
+* x2go_plugin.c: Make changes to source strings for translations. [!2344](https://gitlab.com/Remmina/Remmina/merge_requests/2344) *@D0n1elT*
+* Fix ubuntu-impish-amd64 build errors. [!2345](https://gitlab.com/Remmina/Remmina/merge_requests/2345) *@D0n1elT*
+* Hopefully fix Ubuntu Impish Build [!2347](https://gitlab.com/Remmina/Remmina/merge_requests/2347) *@D0n1elT*
+* Fix string format [!2348](https://gitlab.com/Remmina/Remmina/merge_requests/2348) *@antenore*
+* 2634-ssh-opening-command [!2342](https://gitlab.com/Remmina/Remmina/merge_requests/2342) *@merarischreoder*
+* New debug strings reworked [!2341](https://gitlab.com/Remmina/Remmina/merge_requests/2341) *@kingu*
+* Deduplicated "Started PyHoca" string [!2346](https://gitlab.com/Remmina/Remmina/merge_requests/2346) *@kingu*
+* Removing the Remmina stats sender and repurposing Remmina stats [!2350](https://gitlab.com/Remmina/Remmina/merge_requests/2350) *@antenore*
+* X2Go: Major rewrite of session-terminating system. [!2349](https://gitlab.com/Remmina/Remmina/merge_requests/2349) *@D0n1elT*
+* Message about debugging info reworked [!2351](https://gitlab.com/Remmina/Remmina/merge_requests/2351) *@kingu*
+* Strings in rcw.c reworked [!2352](https://gitlab.com/Remmina/Remmina/merge_requests/2352) *@kingu*
+* VNC custom encodings to avoid corrupted frames. [!2354](https://gitlab.com/Remmina/Remmina/merge_requests/2354) *@antenore*
+* X2Go format string bugs [!2355](https://gitlab.com/Remmina/Remmina/merge_requests/2355) *@antenore*
+
+## v1.4.21
+[full changelog](https://gitlab.com/Remmina/Remmina/compare/v1.4.20...v1.4.21)
+
+* Nullify host if qucikconnect isn't a valid address [!2298](https://gitlab.com/Remmina/Remmina/merge_requests/2298) *@antenore*
+* rdp_plugin.c: Fix dereferencing of NULL variable when profile name is empty [!2299](https://gitlab.com/Remmina/Remmina/merge_requests/2299) *@agunnerson-ibm*
+* Resolve label spacing in preferences window [!2300](https://gitlab.com/Remmina/Remmina/merge_requests/2300) *@antenore*
+* GNOME 40 runtime and other updates [!2302](https://gitlab.com/Remmina/Remmina/merge_requests/2302) *@antenore*
+* Add support for ESX web console login [!2303](https://gitlab.com/Remmina/Remmina/merge_requests/2303) *@antenore*
+* Added RDP general option to remap scancodes [!2304](https://gitlab.com/Remmina/Remmina/merge_requests/2304) *@antenore*
+* Back compatibility with WebKit < 2.32.0 [!2305](https://gitlab.com/Remmina/Remmina/merge_requests/2305) *@antenore*
+* Make screenshot file names iso8601 compliant [!2306](https://gitlab.com/Remmina/Remmina/merge_requests/2306) *@antenore*
+* Typo in bug-report template [!2308](https://gitlab.com/Remmina/Remmina/merge_requests/2308) *@kingu*
+* Typo in merge-request template [!2309](https://gitlab.com/Remmina/Remmina/merge_requests/2309) *@kingu*
+* Implementing restricted-mode and password hash [!2307](https://gitlab.com/Remmina/Remmina/merge_requests/2307) *@antenore*
+* Unitialized var by @qarmin (Rafał Mikrut ). Closes #2594 [!2310](https://gitlab.com/Remmina/Remmina/merge_requests/2310) *@antenore*
+* Include X2Go plugin [!2301](https://gitlab.com/Remmina/Remmina/merge_requests/2301) *@D0n1elT*
+* Add integer-only input field for plugin settings in Remmina Editor [!2311](https://gitlab.com/Remmina/Remmina/merge_requests/2311) *@D0n1elT*
+* Adding VNCI Listen port field tooltip [!2314](https://gitlab.com/Remmina/Remmina/merge_requests/2314) *@antenore*
+* Using core20 for snap [!2315](https://gitlab.com/Remmina/Remmina/merge_requests/2315) *@antenore*
+* Fix the translation problem of "tooltip" in ssh window [!2317](https://gitlab.com/Remmina/Remmina/merge_requests/2317) *@HeroesLoveToRoujiamo*
+* X2Go plugin language reworked [!2313](https://gitlab.com/Remmina/Remmina/merge_requests/2313) *@kingu*
+* Rework x2go_plugin.c to comply with remmina coding style. [!2319](https://gitlab.com/Remmina/Remmina/merge_requests/2319) *@D0n1elT*
+* Add validation system for Remmina Editor [!2312](https://gitlab.com/Remmina/Remmina/merge_requests/2312) *@D0n1elT*
+* Small changes to README, AUTHORS and error message adjusting in remmina_file_editor.c [!2320](https://gitlab.com/Remmina/Remmina/merge_requests/2320) *@D0n1elT*
+* remmina_file_editor.c: Readd by mistake removed '!' [!2322](https://gitlab.com/Remmina/Remmina/merge_requests/2322) *@D0n1elT*
+* Mitigation for #1951 and extra RDP clibpoard debug messages [!2323](https://gitlab.com/Remmina/Remmina/merge_requests/2323) *@giox069*
+* X2Go plugin language reworked 2 [!2321](https://gitlab.com/Remmina/Remmina/merge_requests/2321) *@kingu*
+* Rollback Let's Encrypt SSL workaround [!2324](https://gitlab.com/Remmina/Remmina/merge_requests/2324) *@antenore*
+* Add RDP clipboard support for Microsoft HTML Clipboard Format [!2325](https://gitlab.com/Remmina/Remmina/merge_requests/2325) *@giox069*
+* Building FreeRDP with icu support [!2326](https://gitlab.com/Remmina/Remmina/merge_requests/2326) *@antenore*
+* Resource renaming to comply with the Freedesktop rules [!2327](https://gitlab.com/Remmina/Remmina/merge_requests/2327) *@antenore*
+
 ## v1.4.20
 [full changelog](https://gitlab.com/Remmina/Remmina/compare/v1.4.19...v1.4.20)
 
@@ -372,3 +502,4 @@
 * Spelling: Could not access the RDP server x7 [!2004](https://gitlab.com/Remmina/Remmina/merge_requests/2004) *@kingu*
 * Removing double struct declaration. [!2005](https://gitlab.com/Remmina/Remmina/merge_requests/2005) *@antenore*
 
+*This Change Log was automatically generated by [gitlab_awesome_release](https://gitlab.com/sue445/gitlab_awesome_release)*

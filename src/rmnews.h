@@ -1,6 +1,6 @@
 /*
  * Remmina - The GTK+ Remote Desktop Client
- * Copyright (C) 2016-2021 Antenore Gatta, Giovanni Panozzo
+ * Copyright (C) 2016-2022 Antenore Gatta, Giovanni Panozzo
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -39,8 +39,6 @@ typedef struct _RemminaNewsDialog {
 	GtkTextView *	rmnews_text_view;
 	GtkLabel *	rmnews_label;
 	GtkButton *	rmnews_button_close;
-	//GtkLabel *	rmnews_stats_label;
-	GtkSwitch *	rmnews_stats_switch;
 	GtkLabel *	rmnews_defaultcl_label;
 	GtkButton *	rmnews_defaultcl_button;
 	GtkSwitch *	rmnews_news_switch;
@@ -50,7 +48,10 @@ typedef struct _RemminaNewsDialog {
 
 #pragma once
 
+#include <gtk/gtk.h>
+
 G_BEGIN_DECLS
+extern gboolean disablenews;
 void rmnews_schedule();
 void rmnews_show_news();
 void rmnews_get_url(const char *url);

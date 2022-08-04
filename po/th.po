@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: remmina\n"
 "Report-Msgid-Bugs-To: l10n@lists.remmina.org\n"
-"POT-Creation-Date: 2021-09-05 21:04+0000\n"
-"PO-Revision-Date: 2021-07-16 09:00+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"POT-Creation-Date: 2022-08-02 05:15+0000\n"
+"PO-Revision-Date: 2021-12-17 08:52+0000\n"
+"Last-Translator: Antenore Gatta <antenore@simbiosi.org>\n"
 "Language-Team: Thai <https://hosted.weblate.org/projects/remmina/remmina/th/"
 ">\n"
 "Language: th\n"
@@ -19,237 +19,265 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.7.2-dev\n"
+"X-Generator: Weblate 4.10\n"
 "X-Launchpad-Export-Date: 2014-04-10 15:03+0000\n"
 
-#: src/remmina_sftp_plugin.c:310 src/remmina_sftp_plugin.c:346
-#: src/remmina_protocol_widget.c:1672 src/remmina_protocol_widget.c:1691
-#: src/remmina_file_editor.c:846 src/remmina_file_editor.c:967
-#: src/remmina_ssh_plugin.c:1369 plugins/rdp/rdp_plugin.c:2656
-#: plugins/www/www_plugin.c:887 data/ui/remmina_mpc.glade:236
-#: data/ui/remmina_preferences.glade:1675 data/ui/remmina_unlock.glade:116
+#: src/remmina_sftp_plugin.c:309 src/remmina_sftp_plugin.c:353
+#: src/remmina_protocol_widget.c:1692 src/remmina_protocol_widget.c:1711
+#: src/remmina_file_editor.c:1118 src/remmina_file_editor.c:1240
+#: src/remmina_ssh_plugin.c:1393 plugins/rdp/rdp_plugin.c:2797
+#: plugins/www/www_plugin.c:905 plugins/x2go/x2go_plugin.c:3227
+#: data/ui/remmina_mpc.glade:236 data/ui/remmina_passwd.glade:84
+#: data/ui/remmina_unlock.glade:109
 msgid "Password"
 msgstr "รหัสผ่าน"
 
-#: src/remmina_sftp_plugin.c:311 src/remmina_sftp_plugin.c:348
-#: src/remmina_file_editor.c:847 src/remmina_ssh_plugin.c:1370
-#: src/remmina_ssh_plugin.c:1475
+#: src/remmina_sftp_plugin.c:310 src/remmina_sftp_plugin.c:355
+#: src/remmina_file_editor.c:1119 src/remmina_ssh_plugin.c:1394
+#: src/remmina_ssh_plugin.c:1505
 #, fuzzy
 msgid "SSH identity file"
 msgstr "ไฟล์เอกลักษณ์ SSH"
 
-#: src/remmina_sftp_plugin.c:312 src/remmina_file_editor.c:848
-#: src/remmina_ssh_plugin.c:1371
+#: src/remmina_sftp_plugin.c:311 src/remmina_file_editor.c:1120
+#: src/remmina_ssh_plugin.c:1395
 #, fuzzy
 msgid "SSH agent"
 msgstr "ตัวแทน SSH"
 
-#: src/remmina_sftp_plugin.c:313 src/remmina_file_editor.c:849
-#: src/remmina_ssh_plugin.c:1372
+#: src/remmina_sftp_plugin.c:312 src/remmina_file_editor.c:1121
+#: src/remmina_ssh_plugin.c:1396
 msgid "Public key (automatic)"
 msgstr "กุญแจสาธารณะ (อัตโนมัติ)"
 
-#: src/remmina_sftp_plugin.c:314 src/remmina_file_editor.c:850
-#: src/remmina_ssh_plugin.c:1373
+#: src/remmina_sftp_plugin.c:313 src/remmina_file_editor.c:1122
+#: src/remmina_ssh_plugin.c:1397
 #, fuzzy
 msgid "Kerberos (GSSAPI)"
 msgstr "Kerberos (GSSAPI) (GSSAPI)"
 
-#: src/remmina_sftp_plugin.c:323
+#: src/remmina_sftp_plugin.c:322
 #, fuzzy
 msgid "Show Hidden Files"
 msgstr "แสดงแฟ้มที่ซ่อนไว้"
 
-#: src/remmina_sftp_plugin.c:325
+#: src/remmina_sftp_plugin.c:324
 #, fuzzy
 msgid "Overwrite all files"
 msgstr "เขียนทับแฟ้มทั้งหมด"
 
-#: src/remmina_sftp_plugin.c:327
+#: src/remmina_sftp_plugin.c:326
 #, fuzzy
 msgid "Resume all file transfers"
 msgstr "ดําเนินการถ่ายโอนแฟ้มทั้งหมดต่อ"
 
-#: src/remmina_sftp_plugin.c:328 src/remmina_protocol_widget.c:283
+#: src/remmina_sftp_plugin.c:327 src/remmina_protocol_widget.c:282
 #, fuzzy
 msgid "Connect via SSH from a new terminal"
 msgstr "เชื่อมต่อผ่าน SSH จากเทอร์มินัลใหม่"
 
-#: src/remmina_sftp_plugin.c:345 src/remmina_message_panel.c:330
-#: src/remmina_file_editor.c:961 src/remmina_ssh_plugin.c:1473
-#: plugins/rdp/rdp_plugin.c:2655 plugins/vnc/vnc_plugin.c:1960
-#: plugins/vnc/vnc_plugin.c:1980 plugins/www/www_plugin.c:886
+#: src/remmina_sftp_plugin.c:352 src/remmina_message_panel.c:329
+#: src/remmina_file_editor.c:1234 src/remmina_ssh_plugin.c:1503
+#: plugins/rdp/rdp_plugin.c:2796 plugins/vnc/vnc_plugin.c:2037
+#: plugins/vnc/vnc_plugin.c:2049 plugins/www/www_plugin.c:904
+#: plugins/x2go/x2go_plugin.c:478 plugins/x2go/x2go_plugin.c:3226
 #: data/ui/remmina_mpc.glade:144
 #, fuzzy
 msgid "Username"
 msgstr "ชื่อผู้ใช้"
 
-#: src/remmina_sftp_plugin.c:347 src/remmina_file_editor.c:952
-#: src/remmina_ssh_plugin.c:1472
+#: src/remmina_sftp_plugin.c:354 src/remmina_file_editor.c:1225
+#: src/remmina_ssh_plugin.c:1502
 #, fuzzy
 msgid "Authentication type"
 msgstr "ประเภทของการรับรองความถูกต้อง"
 
-#: src/remmina_sftp_plugin.c:349 src/remmina_file_editor.c:984
-#: src/remmina_ssh_plugin.c:1479
+#: src/remmina_sftp_plugin.c:356 src/remmina_file_editor.c:1258
+#: src/remmina_ssh_plugin.c:1509
 #, fuzzy
 msgid "Password to unlock private key"
 msgstr "รหัสผ่านเพื่อปลดล็อกคีย์ส่วนตัว"
 
-#: src/remmina_sftp_plugin.c:350 src/remmina_ssh_plugin.c:1509
+#: src/remmina_sftp_plugin.c:357 src/remmina_ssh_plugin.c:1540
 #, fuzzy
 msgid "SSH Proxy Command"
 msgstr "คําสั่งพร็อกซี SSH"
 
-#: src/remmina_sftp_plugin.c:359
+#: src/remmina_sftp_plugin.c:366
 msgid "SFTP - Secure File Transfer"
 msgstr "SFTP - Secure File Transfer"
 
-#: src/remmina_plugin_manager.c:73 src/remmina_file_editor.c:1533
+#: src/remmina_log.c:130
+#, fuzzy
+#| msgid "Open Main Window"
+msgid "Remmina debugging window"
+msgstr "เปิดหน้าต่างหลัก Remmina"
+
+#: src/remmina_log.c:134
+#, fuzzy
+#| msgid "Open Main Window"
+msgid "Paste system info in the Remmina debugging window"
+msgstr "เปิดหน้าต่างหลัก Remmina"
+
+#: src/remmina_log.c:154
+msgid ""
+"This window can help you find connection problems.\n"
+"You can stop and start the logging at any moment using the On/Off switch.\n"
+"The stats button (Ctrl+T), can be useful to gather system info you may share "
+"when reporting a bug.\n"
+"There is more info about debugging Remmina on https://gitlab.com/Remmina/"
+"Remmina/-/wikis/Usage/Remmina-debugging\n"
+msgstr ""
+
+#: src/remmina_plugin_manager.c:72 src/remmina_file_editor.c:1973
 msgid "Protocol"
 msgstr "โปรโตคอล"
 
-#: src/remmina_plugin_manager.c:73
+#: src/remmina_plugin_manager.c:72
 msgid "Entry"
 msgstr "รายการ"
 
-#: src/remmina_plugin_manager.c:73
+#: src/remmina_plugin_manager.c:72
 msgid "File"
 msgstr "แฟ้ม"
 
-#: src/remmina_plugin_manager.c:73
+#: src/remmina_plugin_manager.c:72
 msgid "Tool"
 msgstr "เครื่องมือ"
 
-#: src/remmina_plugin_manager.c:73
+#: src/remmina_plugin_manager.c:72
 msgid "Preference"
 msgstr "ปรับแต่ง"
 
-#: src/remmina_plugin_manager.c:73
+#: src/remmina_plugin_manager.c:72
 #, fuzzy
 msgid "Secret"
 msgstr "ลับ"
 
-#: src/remmina_plugin_manager.c:456 data/ui/remmina_main.glade:305
+#: src/remmina_plugin_manager.c:72
+msgid "Language Wrapper"
+msgstr ""
+
+#: src/remmina_plugin_manager.c:524 data/ui/remmina_main.glade:305
 msgid "Plugins"
 msgstr "ปลั๊กอิน"
 
-#: src/remmina_plugin_manager.c:456 src/remmina_message_panel.c:452
-#: src/remmina_message_panel.c:621 src/remmina_file_editor.c:152
+#: src/remmina_plugin_manager.c:524 src/remmina_message_panel.c:451
+#: src/remmina_message_panel.c:620 src/remmina_file_editor.c:242
 #, fuzzy
 msgid "_OK"
 msgstr "_OK"
 
-#: src/remmina_plugin_manager.c:474 src/remmina_file_editor.c:1490
+#: src/remmina_plugin_manager.c:542 src/remmina_file_editor.c:1930
 #: data/ui/remmina_main.glade:442
 msgid "Name"
 msgstr "ชื่อ"
 
-#: src/remmina_plugin_manager.c:480
+#: src/remmina_plugin_manager.c:548
 msgid "Type"
 msgstr "ประเภท"
 
-#: src/remmina_plugin_manager.c:486
+#: src/remmina_plugin_manager.c:554
 msgid "Description"
 msgstr "คำบรรยาย"
 
-#: src/remmina_plugin_manager.c:492
+#: src/remmina_plugin_manager.c:560
 #, fuzzy
 msgid "Version"
 msgstr "เวอร์ชัน"
 
-#: src/remmina_chat_window.c:178
+#: src/remmina_chat_window.c:177
 #, c-format
 msgid "Chat with %s"
 msgstr "แชทกับ %s"
 
-#: src/remmina_chat_window.c:230
+#: src/remmina_chat_window.c:229
 msgid "_Send"
 msgstr "_ส่ง"
 
-#: src/remmina_chat_window.c:240
+#: src/remmina_chat_window.c:239
 msgid "_Clear"
 msgstr "_ล้าง"
 
-#: src/remmina_applet_menu_item.c:121
+#: src/remmina_applet_menu_item.c:120
 msgid "Discovered"
 msgstr "ค้นพบแล้ว"
 
-#: src/remmina_applet_menu_item.c:126
+#: src/remmina_applet_menu_item.c:125
 msgid "New Connection"
 msgstr "การเชื่อมต่อใหม่"
 
-#: src/remmina_key_chooser.h:38
+#: src/remmina_key_chooser.h:40
 #, fuzzy
 msgid "Shift+"
 msgstr "กะ+"
 
-#: src/remmina_key_chooser.h:39
+#: src/remmina_key_chooser.h:41
 #, fuzzy
 msgid "Ctrl+"
 msgstr "Ctrl+ (เครื่องหมายอัฒน"
 
-#: src/remmina_key_chooser.h:40
+#: src/remmina_key_chooser.h:42
 #, fuzzy
 msgid "Alt+"
 msgstr "Alt+ (Alt+ (Alt+"
 
-#: src/remmina_key_chooser.h:41
+#: src/remmina_key_chooser.h:43
 #, fuzzy
 msgid "Super+"
 msgstr "ซูเปอร์+"
 
-#: src/remmina_key_chooser.h:42
+#: src/remmina_key_chooser.h:44
 #, fuzzy
 msgid "Hyper+"
 msgstr "ไฮเปอร์+"
 
-#: src/remmina_key_chooser.h:43
+#: src/remmina_key_chooser.h:45
 #, fuzzy
 msgid "Meta+"
 msgstr "เมตา+"
 
-#: src/remmina_key_chooser.h:44
+#: src/remmina_key_chooser.h:46
 #, fuzzy
 msgid "<None>"
 msgstr "<None>"
 
-#: src/remmina_pref_dialog.c:91 src/remmina_file_editor.c:435
+#: src/remmina_pref_dialog.c:92 src/remmina_file_editor.c:528
 msgid "Resolutions"
 msgstr "ความละเอียด"
 
-#: src/remmina_pref_dialog.c:91 src/remmina_file_editor.c:435
+#: src/remmina_pref_dialog.c:92 src/remmina_file_editor.c:528
 #, fuzzy
 msgid "Configure the available resolutions"
 msgstr "กําหนดค่าความละเอียดที่มีอยู่"
 
-#: src/remmina_pref_dialog.c:143
+#: src/remmina_pref_dialog.c:144
 msgid "Recent lists cleared."
 msgstr "ล้างรายการล่าสุดแล้ว"
 
-#: src/remmina_pref_dialog.c:154 src/rcw.c:2022
+#: src/remmina_pref_dialog.c:156 src/rcw.c:2041
 #: data/ui/remmina_preferences.glade:169 data/ui/remmina_preferences.glade:179
 #, fuzzy
 msgid "Keystrokes"
 msgstr "กด แป้น พิมพ์"
 
-#: src/remmina_pref_dialog.c:154
+#: src/remmina_pref_dialog.c:156
 #, fuzzy
 msgid "Configure the keystrokes"
 msgstr "กําหนดค่าการกดแป้นพิมพ์"
 
 #. TRANSLATORS: Do not translate libsodium, is the name of a library
-#: src/remmina_pref_dialog.c:487
+#: src/remmina_pref_dialog.c:476
 #, fuzzy
-msgid "libsodium >= 1.9.0 is required to use master password"
+msgid "libsodium >= 1.9.0 is required to use Primary Password"
 msgstr "จําเป็นต้องมี libsodium >= 1.9.0 เพื่อใช้รหัสผ่านหลัก"
 
-#: src/remmina_pref_dialog.c:806
+#: src/remmina_pref_dialog.c:811
 #, fuzzy
 msgid "Picking a terminal colouring file replaces the file: "
 msgstr "การเลือกแฟ้มระบายสีเทอร์มินัลจะแทนที่แฟ้ม: "
 
-#: src/remmina_pref_dialog.c:810
+#: src/remmina_pref_dialog.c:815
 #, fuzzy
 msgid ""
 "This file contains the “Custom” terminal colour scheme selectable from the "
@@ -259,200 +287,251 @@ msgstr ""
 "ไฟล์นี้มีโทนสีเทอร์มินัล \"กําหนดเอง\" ที่เลือกได้จากแท็บ \"ขั้นสูง\" "
 "ของการเชื่อมต่อเทอร์มินัลและสามารถแก้ไขได้ในแท็บ \"เทอร์มินัล\" ในการตั้งค่า"
 
-#: src/remmina_message_panel.c:163 data/ui/remmina_mpc.glade:46
-#: data/ui/remmina_unlock.glade:46
+#: src/remmina_message_panel.c:162 data/ui/remmina_mpc.glade:46
+#: data/ui/remmina_passwd.glade:19 data/ui/remmina_unlock.glade:43
 msgid "Cancel"
 msgstr "ยกเลิก"
 
-#: src/remmina_message_panel.c:199 data/ui/remmina_snap_info_dialog.glade:28
+#: src/remmina_message_panel.c:198 data/ui/remmina_snap_info_dialog.glade:25
 #: data/ui/remmina_string_list.glade:8 data/ui/remmina_string_list.glade:9
 #: data/ui/remmina_string_list.glade:63 data/ui/remmina_news.glade:33
-#: data/ui/remmina_preferences.glade:2622
+#: data/ui/remmina_preferences.glade:2684
 msgid "Close"
 msgstr "ปิด"
 
-#: src/remmina_message_panel.c:260
+#: src/remmina_message_panel.c:259
 #, fuzzy
 msgid "Yes"
 msgstr "ใช่"
 
-#: src/remmina_message_panel.c:267
+#: src/remmina_message_panel.c:266
 #, fuzzy
 msgid "No"
 msgstr "ไม่ใช่"
 
-#: src/remmina_message_panel.c:391 plugins/rdp/rdp_plugin.c:2657
+#: src/remmina_message_panel.c:390 plugins/rdp/rdp_plugin.c:2798
 #: data/ui/remmina_mpc.glade:172
 #, fuzzy
 msgid "Domain"
 msgstr "อาณาจักร"
 
-#: src/remmina_message_panel.c:420
+#: src/remmina_message_panel.c:419
 msgid "Save password"
 msgstr "บันทึกรหัสผ่าน"
 
-#: src/remmina_message_panel.c:457 src/remmina_message_panel.c:629
-#: src/remmina_sftp_client.c:947 src/remmina_file_editor.c:151
-#: src/remmina_file_editor.c:1365 plugins/spice/spice_plugin_file_transfer.c:84
+#: src/remmina_message_panel.c:456 src/remmina_message_panel.c:628
+#: src/remmina_sftp_client.c:972 src/remmina_file_editor.c:241
+#: src/remmina_file_editor.c:1805 plugins/spice/spice_plugin_file_transfer.c:84
 #: data/ui/remmina_key_chooser.glade:8 data/ui/remmina_key_chooser.glade:9
 #: data/ui/remmina_spinner.glade:8 data/ui/remmina_spinner.glade:9
 #, fuzzy
 msgid "_Cancel"
 msgstr "_Cancel"
 
-#: src/remmina_message_panel.c:513
+#: src/remmina_message_panel.c:512
 #, fuzzy
 msgid "Enter certificate authentication files"
 msgstr "ป้อนไฟล์การรับรองความถูกต้องของใบรับรอง"
 
-#: src/remmina_message_panel.c:525
+#: src/remmina_message_panel.c:524
 #, fuzzy
 msgid "CA Certificate File"
 msgstr "แฟ้มใบรับรอง CA"
 
-#: src/remmina_message_panel.c:547
+#: src/remmina_message_panel.c:546
 #, fuzzy
 msgid "CA CRL File"
 msgstr "ไฟล์ CRL CA"
 
-#: src/remmina_message_panel.c:569
+#: src/remmina_message_panel.c:568
 #, fuzzy
 msgid "Client Certificate File"
 msgstr "แฟ้มใบรับรองไคลเอ็นต์"
 
-#: src/remmina_message_panel.c:591
+#: src/remmina_message_panel.c:590
 #, fuzzy
 msgid "Client Certificate Key"
 msgstr "คีย์ใบรับรองไคลเอ็นต์"
 
-#: src/rcw.c:658
+#: src/rcw.c:655
 #, c-format
 msgid ""
 "Are you sure you want to close %i active connections in the current window?"
 msgstr "มี %i การเชื่อมต่อในหน้าต่างปัจจุบัน คุณแน่ใจหรือไม่ที่จะปิด?"
 
-#: src/rcw.c:1394
+#: src/rcw.c:665
+#, fuzzy
+#| msgid ""
+#| "Are you sure you want to close %i active connections in the current "
+#| "window?"
+msgid "Are you sure you want to close this last active connection?"
+msgstr "มี %i การเชื่อมต่อในหน้าต่างปัจจุบัน คุณแน่ใจหรือไม่ที่จะปิด?"
+
+#: src/rcw.c:1412
 #, fuzzy
 msgid "Viewport fullscreen mode"
 msgstr "โหมดเต็มหน้าจอของวิวพอร์ต"
 
-#: src/rcw.c:1402 data/ui/remmina_preferences.glade:607
+#: src/rcw.c:1420 data/ui/remmina_preferences.glade:607
 #, fuzzy
 msgid "Scrolled fullscreen"
 msgstr "เลื่อนเต็มหน้าจอ"
 
-#: src/rcw.c:1487
+#: src/rcw.c:1506
 #, fuzzy
 msgid "Keep aspect ratio when scaled"
 msgstr "รักษาอัตราส่วนกว้างยาวเมื่อปรับสัดส่วน"
 
-#: src/rcw.c:1495
+#: src/rcw.c:1514
 #, fuzzy
 msgid "Fill client window when scaled"
 msgstr "เติมหน้าต่างไคลเอ็นต์เมื่อปรับสัดส่วน"
 
-#: src/rcw.c:2043
+#: src/rcw.c:2062
 #, fuzzy
 msgid "Send clipboard content as keystrokes"
 msgstr "ส่งเนื้อหาของคลิปบอร์ดเป็นการกดแป้นพิมพ์"
 
-#: src/rcw.c:2147
+#: src/rcw.c:2064
+msgid ""
+"CAUTION: Pasted text will be sent as a sequence of key-codes as if typed on "
+"your local keyboard.\n"
+"\n"
+"  • For best results use same keyboard settings for both, client and "
+"server.\n"
+"\n"
+"  • If client-keyboard is different from server-keyboard the received text "
+"can contain wrong or erroneous characters.\n"
+"\n"
+"  • Unicode characters and other special characters that can't be translated "
+"to local key-codes won’t be sent to the server.\n"
+"\n"
+msgstr ""
+
+#: src/rcw.c:2178
 #, fuzzy
 msgid "Turn off scaling to avoid screenshot distortion."
 msgstr "ปิดการปรับขนาดเพื่อหลีกเลี่ยงการบิดเบือนภาพหน้าจอ"
 
-#: src/rcw.c:2207 plugins/www/www_plugin.c:855
+#: src/rcw.c:2238 plugins/www/www_plugin.c:864
 #, fuzzy
 msgid "Screenshot taken"
 msgstr "ภาพหน้าจอที่ถ่าย"
 
-#: src/rcw.c:2290
+#: src/rcw.c:2321
 #, fuzzy
 msgid "_Menu"
 msgstr "_Menu"
 
-#: src/rcw.c:2291
+#: src/rcw.c:2322
 #, fuzzy
 msgid "Menu"
 msgstr "เมนู"
 
-#: src/rcw.c:2300
+#: src/rcw.c:2331
 #, fuzzy
 #| msgid "Open Main Window"
 msgid "Open the Remmina main window"
 msgstr "เปิดหน้าต่างหลัก Remmina"
 
-#: src/rcw.c:2310
+#: src/rcw.c:2341
 #, fuzzy
 msgid "Duplicate current connection"
 msgstr "ทําซ้ําการเชื่อมต่อปัจจุบัน"
 
-#: src/rcw.c:2327
+#: src/rcw.c:2358
 msgid "Resize the window to fit in remote resolution"
 msgstr "ปรับขนาดหน้าต่างให้พอดีกับความละเอียดของเครื่องทางไกล"
 
-#: src/rcw.c:2338
+#: src/rcw.c:2369
 msgid "Toggle fullscreen mode"
 msgstr "สลับสถานะโหมดเต็มจอ"
 
-#: src/rcw.c:2384 data/ui/remmina_preferences.glade:1332
-#: data/ui/remmina_preferences.glade:1342
+#: src/rcw.c:2415 data/ui/remmina_preferences.glade:1330
+#: data/ui/remmina_preferences.glade:1340
 #, fuzzy
 msgid "Multi monitor"
 msgstr "จอภาพหลายจอ"
 
-#: src/rcw.c:2400
+#: src/rcw.c:2431
 #, fuzzy
 msgid "Toggle dynamic resolution update"
 msgstr "สลับการปรับปรุงความละเอียดแบบไดนามิก"
 
-#: src/rcw.c:2410
+#: src/rcw.c:2441
 msgid "Toggle scaled mode"
 msgstr "สลับสถานะโหมดการปรับขนาด"
 
-#: src/rcw.c:2450 data/ui/remmina_preferences.glade:1066
+#: src/rcw.c:2481 data/ui/remmina_preferences.glade:1064
 msgid "Switch tab pages"
 msgstr "สลับหน้าแท็บ"
 
-#: src/rcw.c:2460
+#: src/rcw.c:2491
 msgid "Grab all keyboard events"
 msgstr "จับทุกเหตุการณ์แป้นพิมพ์"
 
-#: src/rcw.c:2470
+#: src/rcw.c:2508
 msgid "Preferences"
 msgstr "ปรับแต่ง"
 
-#: src/rcw.c:2479
+#: src/rcw.c:2517
 msgid "_Tools"
 msgstr "เครื่องมือ"
 
-#: src/rcw.c:2480 data/ui/remmina_main.glade:207
+#: src/rcw.c:2518 data/ui/remmina_main.glade:207
 msgid "Tools"
 msgstr "เครื่องมือ"
 
-#: src/rcw.c:2493 data/ui/remmina_preferences.glade:1267
-#: data/ui/remmina_preferences.glade:1277
+#: src/rcw.c:2531 data/ui/remmina_preferences.glade:1265
+#: data/ui/remmina_preferences.glade:1275
 #, fuzzy
 msgid "Screenshot"
 msgstr "ภาพหน้าจอ"
 
-#: src/rcw.c:2507 data/ui/remmina_preferences.glade:1174
+#: src/rcw.c:2545 data/ui/remmina_preferences.glade:1172
 msgid "Minimize window"
 msgstr "ย่อหน้าต่าง"
 
-#: src/rcw.c:2517 data/ui/remmina_preferences.glade:1205
+#: src/rcw.c:2555 data/ui/remmina_preferences.glade:1203
 msgid "Disconnect"
 msgstr "ตัดการเชื่อมต่อ"
 
-#: src/rcw.c:4284
+#: src/rcw.c:4364
 #, fuzzy, c-format
 msgid "The file “%s” is corrupted, unreadable, or could not be found."
 msgstr "แฟ้ม \"%s\" เสียหาย ไม่สามารถอ่านได้ หรือหาไม่พบ"
 
-#: src/rcw.c:4452
+#. TRANSLATORS: This should be a link to the Remmina wiki page:
+#. TRANSLATORS: 'GtkSocket feature is not available'.
+#: src/rcw.c:4438
+msgid ""
+"https://gitlab.com/Remmina/Remmina/-/wikis/GtkSocket-feature-is-not-"
+"available-in-a-Wayland-session"
+msgstr ""
+
+#: src/rcw.c:4579
 #, fuzzy
-msgid "Warning: This plugin requires GtkSocket, but it’s not available."
+msgid ""
+"Warning: This plugin requires GtkSocket, but this feature is unavailable in "
+"a Wayland session."
 msgstr "คําเตือน: ปลั๊กอินนี้ต้องใช้ GtkSocket แต่ไม่พร้อมใช้งาน"
+
+#. TRANSLATORS: This should be a link to the Remmina wiki page:
+#. 'GtkSocket feature is not available'.
+#: src/rcw.c:4585
+msgid ""
+"Plugins relying on GtkSocket can't run in a Wayland session.\n"
+"For more info and a possible workaround, please visit the Remmina wiki at:\n"
+"\n"
+"https://gitlab.com/Remmina/Remmina/-/wikis/GtkSocket-feature-is-not-"
+"available-in-a-Wayland-session"
+msgstr ""
+
+#: src/rcw.c:4599
+#, fuzzy
+#| msgid "Open Main Window"
+msgid "Open in web browser"
+msgstr "เปิดหน้าต่างหลัก"
 
 #: src/remmina_mpchange.c:234
 #, fuzzy
@@ -481,13 +560,13 @@ msgid_plural "%d passwords changed."
 msgstr[0] "%d เปลี่ยนรหัสผ่าน"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:86
+#: src/remmina.c:92
 #, fuzzy
 msgid "Show 'About'"
 msgstr "แสดง 'เกี่ยวกับ'"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:88
+#: src/remmina.c:94
 #, fuzzy
 msgid ""
 "Connect either to a desktop described in a file (.remmina or a filetype "
@@ -496,117 +575,154 @@ msgstr ""
 "เชื่อมต่อกับเดสก์ท็อปที่อธิบายไว้ในไฟล์ (.remmina หรือประเภทไฟล์ที่สนับสนุนโดยปลั๊กอิน) หรือ URI "
 "ที่สนับสนุน (RDP, VNC, SSH หรือ SPICE)"
 
-#: src/remmina.c:88 src/remmina.c:90 src/remmina.c:92
+#: src/remmina.c:94 src/remmina.c:96 src/remmina.c:98
 #, fuzzy
 msgid "FILE"
 msgstr "แฟ้ม"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:90
+#: src/remmina.c:96
 #, fuzzy
 msgid ""
-"Connect to a desktop described in a file (.remmina or a type supported by a "
-"plugin)"
+"Connect to a desktop described in a file (.remmina or a filetype supported "
+"by a plugin)"
 msgstr "เชื่อมต่อกับเดสก์ท็อปที่อธิบายไว้ในไฟล์ (.remmina หรือชนิดที่ปลั๊กอินสนับสนุน)"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:92
+#: src/remmina.c:98
 #, fuzzy
 msgid ""
-"Edit desktop connection described in file (.remmina or type supported by "
-"plugin)"
+"Edit desktop connection described in file (.remmina or a filetype supported "
+"by plugin)"
 msgstr "แก้ไขการเชื่อมต่อเดสก์ท็อปที่อธิบายไว้ในไฟล์ (.remmina หรือชนิดที่สนับสนุนโดยปลั๊กอิน)"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:95
+#: src/remmina.c:101
 #, fuzzy
 msgid "Start in kiosk mode"
 msgstr "เริ่มต้นในโหมดคีออสก์"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:97
+#: src/remmina.c:103
 msgid "Create new connection profile"
 msgstr "การเชื่อมต่อใหม่"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:99
+#: src/remmina.c:105
 msgid "Show preferences"
 msgstr "ปรับแต่ง"
 
-#: src/remmina.c:99
+#: src/remmina.c:105
 #, fuzzy
 msgid "TABINDEX"
 msgstr "TABINDEX ประมาณส่วนข้อมูลดัชนีทั้งหมด"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:106
+#: src/remmina.c:112
 #, fuzzy
 msgid "Quit"
 msgstr "ออก"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:108
+#: src/remmina.c:114
 #, fuzzy
 msgid "Use default server name (for --new)"
 msgstr "ใช้ชื่อเซิร์ฟเวอร์เริ่มต้น (สําหรับ --new)"
 
-#: src/remmina.c:108
+#: src/remmina.c:114
 #, fuzzy
 msgid "SERVER"
 msgstr "เซิร์ฟเวอร์"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:110
+#: src/remmina.c:116
 #, fuzzy
 msgid "Use default protocol (for --new)"
 msgstr "ใช้โพรโทคอลเริ่มต้น (สําหรับ --new)"
 
-#: src/remmina.c:110
+#: src/remmina.c:116
 #, fuzzy
 msgid "PROTOCOL"
 msgstr "พิธีสาร"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:112
+#: src/remmina.c:118
 #, fuzzy
 msgid "Start in tray"
 msgstr "เริ่มต้นในถาด"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:114
+#: src/remmina.c:120
 #, fuzzy
 msgid "Show the application version"
 msgstr "แสดงรุ่นของโปรแกรมประยุกต์"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:116
+#: src/remmina.c:122
 #, fuzzy
 msgid "Show version of the application and its plugins"
 msgstr "แสดงรุ่นของโปรแกรมประยุกต์และปลั๊กอินของโปรแกรมประยุกต์นั้น"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:118
+#: src/remmina.c:124
 #, fuzzy
 msgid "Modify connection profile (requires --set-option)"
 msgstr "ปรับเปลี่ยนโปรไฟล์การเชื่อมต่อ (ต้องการ --set-option)"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:120
+#: src/remmina.c:126
 #, fuzzy
 msgid "Set one or more profile settings, to be used with --update-profile"
 msgstr "ตั้งค่าโพรไฟล์หนึ่งรายการขึ้นไป ที่จะใช้กับ --update-profile"
 
-#: src/remmina.c:121
+#: src/remmina.c:127
 msgid "Encrypt a password"
 msgstr "บันทึกรหัสผ่าน"
 
+#: src/remmina.c:128
+msgid "Disable news notification"
+msgstr ""
+
+#: src/remmina.c:129
+#, fuzzy
+msgid "Disable toolbar"
+msgstr "แสดง/ซ่อนแถบเครื่องมือ"
+
+#: src/remmina.c:130
+#, fuzzy
+msgid "Enable fullscreen"
+msgstr "เลื่อนเต็มหน้าจอ"
+
+#: src/remmina.c:131
+msgid ""
+"Enable extra hardening (disable closing confirmation, disable unsafe "
+"shortcut keys, hide tabs, hide search bar)"
+msgstr ""
+
+#: src/remmina.c:132
+#, fuzzy
+msgid "Disable tray icon"
+msgstr "ไม่มีไอคอนถาด"
+
+#. TRANSLATORS:
+#. * This link should point to a resource explaining how to get Remmina
+#. * to log more verbose statements.
+#.
+#: src/remmina.c:367
+msgid ""
+"Remmina does not log all output statements. Turn on more verbose output by "
+"using \"G_MESSAGES_DEBUG=all\" as an environment variable.\n"
+"More info available on the Remmina wiki at:\n"
+"https://gitlab.com/Remmina/Remmina/-/wikis/Usage/Remmina-debugging"
+msgstr ""
+
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:375
+#: src/remmina.c:421
 #, fuzzy
 msgid "- or protocol://username:encryptedpassword@host:port"
 msgstr "- หรือโปรโตคอล://ชื่อผู้ใช้:encryptedpassword@host:พอร์ต"
 
-#: src/remmina.c:378
+#: src/remmina.c:424
 #, fuzzy
 msgid ""
 "Examples:\n"
@@ -686,17 +802,17 @@ msgstr "การสร้างซ็อกเก็ต UNIX ล้มเหล
 msgid "Connecting to UNIX socket failed: %s"
 msgstr "กําลังเชื่อมต่อไปยังซ็อกเก็ต UNIX ล้มเหลว: %s"
 
-#: src/remmina_public.c:631
+#: src/remmina_public.c:632
 msgid "Please enter format 'widthxheight'."
 msgstr "โปรดใช้รูปแบบ 'กว้างxสูง'"
 
-#: src/remmina_public.c:653
+#: src/remmina_public.c:654
 #, fuzzy
 msgid "Change security settings"
 msgstr "เปลี่ยนแปลงการตั้งค่าความปลอดภัย"
 
 #. TRANSLATORS: translator-credits should be replaced with a formatted list of translators in your own language
-#: src/remmina_about.c:54
+#: src/remmina_about.c:53
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
@@ -704,358 +820,362 @@ msgstr ""
 "  Kitt Tientanopajai https://launchpad.net/~kitty\n"
 "  SiraNokyoongtong https://launchpad.net/~gumara"
 
-#: src/remmina_ftp_client.c:389
+#: src/remmina_ftp_client.c:409
 msgid "Choose download location"
 msgstr "เลือกตำแหน่งดาวน์โหลด"
 
-#: src/remmina_ftp_client.c:529
+#: src/remmina_ftp_client.c:549
 msgid "Are you sure to delete the selected files on server?"
 msgstr "คุณแน่ใจหรือไม่ที่จะลบแฟ้มที่เลือกบนเซิร์ฟเวอร์?"
 
-#: src/remmina_ftp_client.c:586
+#: src/remmina_ftp_client.c:606
 msgid "Choose a file to upload"
 msgstr "เลือกแฟ้มที่จะอัปโหลด"
 
-#: src/remmina_ftp_client.c:593
+#: src/remmina_ftp_client.c:613
 msgid "Upload folder"
 msgstr "อัปโหลดโฟลเดอร์"
 
-#: src/remmina_ftp_client.c:649 src/remmina_ftp_client.c:763
+#: src/remmina_ftp_client.c:669 src/remmina_ftp_client.c:786
 msgid "Download"
 msgstr "ดาวน์โหลด"
 
-#: src/remmina_ftp_client.c:656 src/remmina_ftp_client.c:770
+#: src/remmina_ftp_client.c:676 src/remmina_ftp_client.c:793
 msgid "Upload"
 msgstr "อัปโหลด"
 
-#: src/remmina_ftp_client.c:663
+#: src/remmina_ftp_client.c:683
 #, fuzzy
 msgid "_Delete"
 msgstr "_Delete"
 
-#: src/remmina_ftp_client.c:748
+#: src/remmina_ftp_client.c:771
 #, fuzzy
 msgid "Home"
 msgstr "โฮม"
 
-#: src/remmina_ftp_client.c:749
+#: src/remmina_ftp_client.c:772
 msgid "Go to home folder"
 msgstr "ไปยังโฟลเดอร์บ้าน"
 
-#: src/remmina_ftp_client.c:753
+#: src/remmina_ftp_client.c:776
 #, fuzzy
 msgid "Up"
 msgstr "บน"
 
-#: src/remmina_ftp_client.c:754
+#: src/remmina_ftp_client.c:777
 msgid "Go to parent folder"
 msgstr "ไปยังโฟลเดอร์แม่"
 
-#: src/remmina_ftp_client.c:758 plugins/rdp/rdp_plugin.c:2744
-#: plugins/vnc/vnc_plugin.c:2019
+#: src/remmina_ftp_client.c:781 plugins/rdp/rdp_plugin.c:2888
+#: plugins/vnc/vnc_plugin.c:2090
 #, fuzzy
 msgid "Refresh"
 msgstr "เรียกใหม่"
 
-#: src/remmina_ftp_client.c:759
+#: src/remmina_ftp_client.c:782
 msgid "Refresh current folder"
 msgstr "แสดงผลโฟลเดอร์ปัจจุบันใหม่"
 
-#: src/remmina_ftp_client.c:764
+#: src/remmina_ftp_client.c:787
 msgid "Download from server"
 msgstr "ดาวน์โหลดจากเซิร์ฟเวอร์"
 
-#: src/remmina_ftp_client.c:771
+#: src/remmina_ftp_client.c:794
 msgid "Upload to server"
 msgstr "อัปโหลดไปยังเซิร์ฟเวอร์"
 
-#: src/remmina_ftp_client.c:775 data/ui/remmina_main.glade:197
+#: src/remmina_ftp_client.c:798 data/ui/remmina_main.glade:197
 #, fuzzy
 msgid "Delete"
 msgstr "ลบ"
 
-#: src/remmina_ftp_client.c:776
+#: src/remmina_ftp_client.c:799
 msgid "Delete files on server"
 msgstr "ลบแฟ้มบนเซิร์ฟเวอร์"
 
-#: src/remmina_ftp_client.c:905 src/remmina_ftp_client.c:974
+#: src/remmina_ftp_client.c:928 src/remmina_ftp_client.c:1005
 msgid "Filename"
 msgstr "ชื่อแฟ้ม"
 
-#: src/remmina_ftp_client.c:918 src/remmina_ftp_client.c:1003
+#: src/remmina_ftp_client.c:941 src/remmina_ftp_client.c:1034
 msgid "Size"
 msgstr "ขนาด"
 
-#: src/remmina_ftp_client.c:926
+#: src/remmina_ftp_client.c:949
 msgid "User"
 msgstr "ผู้ใช้"
 
-#: src/remmina_ftp_client.c:932 src/remmina_file_editor.c:1515
+#: src/remmina_ftp_client.c:955 src/remmina_file_editor.c:1955
 #: data/ui/remmina_mpc.glade:115 data/ui/remmina_main.glade:464
 msgid "Group"
 msgstr "กลุ่ม"
 
-#: src/remmina_ftp_client.c:938
+#: src/remmina_ftp_client.c:961
 msgid "Permission"
 msgstr "สิทธิ์"
 
-#: src/remmina_ftp_client.c:990 plugins/rdp/rdp_plugin.c:2552
+#: src/remmina_ftp_client.c:969
+msgid "Modified"
+msgstr ""
+
+#: src/remmina_ftp_client.c:1021 plugins/rdp/rdp_plugin.c:2673
 msgid "Remote"
 msgstr "รีโมท"
 
-#: src/remmina_ftp_client.c:997 plugins/rdp/rdp_plugin.c:2551
+#: src/remmina_ftp_client.c:1028 plugins/rdp/rdp_plugin.c:2672
 msgid "Local"
 msgstr "โลคอล"
 
-#: src/remmina_ftp_client.c:1011
+#: src/remmina_ftp_client.c:1042
 msgid "Progress"
 msgstr "ความคืบหน้า"
 
-#: src/remmina_protocol_widget.c:290 src/remmina_ssh_plugin.c:829
-#: src/remmina_ssh_plugin.c:1454
+#: src/remmina_protocol_widget.c:292 src/remmina_ssh_plugin.c:840
+#: src/remmina_ssh_plugin.c:1478
 msgid "Open SFTP transfer…"
 msgstr "เปิด Secure File Transfer…"
 
-#: src/remmina_protocol_widget.c:319
+#: src/remmina_protocol_widget.c:324
 #, fuzzy
 msgid "Executing external commands…"
 msgstr "กําลังดําเนินการคําสั่งภายนอก…"
 
 #. TRANSLATORS: “%s” is a placeholder for the connection profile name
-#: src/remmina_protocol_widget.c:327
+#: src/remmina_protocol_widget.c:332
 #, c-format
 msgid "Connecting to “%s”…"
 msgstr "เชื่อมต่อไปยัง '%s'…"
 
 #. TRANSLATORS: “%s” is a placeholder for an hostname or an IP address.
-#: src/remmina_protocol_widget.c:911 src/remmina_protocol_widget.c:1096
+#: src/remmina_protocol_widget.c:924 src/remmina_protocol_widget.c:1108
 #, c-format
 msgid "Connecting to “%s” via SSH…"
 msgstr "เชื่อมต่อไปยัง '%s'…"
 
 #. TRANSLATORS: “%i” is a placeholder for a TCP port number.
-#: src/remmina_protocol_widget.c:1160
+#: src/remmina_protocol_widget.c:1172
 #, c-format
 msgid "Awaiting incoming SSH connection on port %i…"
 msgstr "กำลังรอ SSH tunnel ขาเข้าที่พอร์ต %i…"
 
-#: src/remmina_protocol_widget.c:1213
+#: src/remmina_protocol_widget.c:1225
 #, c-format
 msgid "The “%s” command is not available on the SSH server."
 msgstr "ไม่พบคำสั่ง %s บนเซิร์ฟเวอร์ SSH"
 
-#: src/remmina_protocol_widget.c:1218
+#: src/remmina_protocol_widget.c:1230
 #, c-format
 msgid "Could not run the “%s” command on the SSH server (status = %i)."
 msgstr "คำสั่ง %s ล้มเหลวบนเซิร์ฟเวอร์ SSH (สถานะ = %i)"
 
 #. TRANSLATORS: %s is a placeholder for an error message
-#: src/remmina_protocol_widget.c:1226
+#: src/remmina_protocol_widget.c:1238
 #, c-format
 msgid "Could not run command. %s"
 msgstr "การขอใช้การส่งต่อพอร์ตล้มเหลว: %s"
 
 #. TRANSLATORS: “%s” is a placeholder for a hostname or IP address.
-#: src/remmina_protocol_widget.c:1296
+#: src/remmina_protocol_widget.c:1308
 #, c-format
 msgid "Connecting to %s via SSH…"
 msgstr "เชื่อมต่อไปยัง '%s'…"
 
-#: src/remmina_protocol_widget.c:1690
+#: src/remmina_protocol_widget.c:1710
 #, fuzzy
 msgid "Type in SSH username and password."
 msgstr "พิมพ์ชื่อผู้ใช้และรหัสผ่าน SSH"
 
-#: src/remmina_protocol_widget.c:1745 src/remmina_protocol_widget.c:1777
+#: src/remmina_protocol_widget.c:1765 src/remmina_protocol_widget.c:1797
 #, fuzzy
 msgid "Fingerprint automatically accepted"
 msgstr "ลายนิ้วมือได้รับการยอมรับโดยอัตโนมัติ"
 
 #. TRANSLATORS: The user is asked to verify a new SSL certificate.
-#: src/remmina_protocol_widget.c:1753
+#: src/remmina_protocol_widget.c:1773
 #, fuzzy
 msgid "Certificate details:"
 msgstr "รายละเอียดใบรับรอง:"
 
 #. TRANSLATORS: An SSL certificate subject is usually the remote server the user connect to.
-#: src/remmina_protocol_widget.c:1755 src/remmina_protocol_widget.c:1787
+#: src/remmina_protocol_widget.c:1775 src/remmina_protocol_widget.c:1807
 #, fuzzy
 msgid "Subject:"
 msgstr "ชื่อเรื่อง:"
 
 #. TRANSLATORS: The name or email of the entity that have issued the SSL certificate
-#: src/remmina_protocol_widget.c:1757 src/remmina_protocol_widget.c:1789
+#: src/remmina_protocol_widget.c:1777 src/remmina_protocol_widget.c:1809
 #, fuzzy
 msgid "Issuer:"
 msgstr "ผู้ออก:"
 
 #. TRANSLATORS: An SSL certificate fingerprint, is a hash of a certificate calculated on all certificate's data and its signature.
-#: src/remmina_protocol_widget.c:1759
+#: src/remmina_protocol_widget.c:1779
 #, fuzzy
 msgid "Fingerprint:"
 msgstr "ลายนิ้วมือ"
 
 #. TRANSLATORS: The user is asked to accept or refuse a new SSL certificate.
-#: src/remmina_protocol_widget.c:1761
+#: src/remmina_protocol_widget.c:1781
 #, fuzzy
 msgid "Accept certificate?"
 msgstr "ยอมรับใบรับรองหรือไม่"
 
 #. TRANSLATORS: The user is asked to verify a new SSL certificate.
-#: src/remmina_protocol_widget.c:1785
+#: src/remmina_protocol_widget.c:1805
 #, fuzzy
 msgid "The certificate changed! Details:"
 msgstr "ใบรับรองเปลี่ยน! ราย ละเอียด:"
 
 #. TRANSLATORS: An SSL certificate fingerprint, is a hash of a certificate calculated on all certificate's data and its signature.
-#: src/remmina_protocol_widget.c:1791
+#: src/remmina_protocol_widget.c:1811
 #, fuzzy
 msgid "Old fingerprint:"
 msgstr "ลายนิ้วมือเก่า:"
 
 #. TRANSLATORS: An SSL certificate fingerprint, is a hash of a certificate calculated on all certificate's data and its signature.
-#: src/remmina_protocol_widget.c:1793
+#: src/remmina_protocol_widget.c:1813
 #, fuzzy
 msgid "New fingerprint:"
 msgstr "ลายนิ้วมือใหม่:"
 
 #. TRANSLATORS: The user is asked to accept or refuse a new SSL certificate.
-#: src/remmina_protocol_widget.c:1795
+#: src/remmina_protocol_widget.c:1815
 #, fuzzy
 msgid "Accept changed certificate?"
 msgstr "ยอมรับใบรับรองที่เปลี่ยนแปลงหรือไม่"
 
 #. TRANSLATORS: “%i” is a placeholder for a port number. “%s”  is a placeholder for a protocol name (VNC).
-#: src/remmina_protocol_widget.c:1938
+#: src/remmina_protocol_widget.c:1958
 #, c-format
 msgid "Listening on port %i for an incoming %s connection…"
 msgstr "เฝ้าฟังบนพอร์ต %i สำหรับการเชื่อมต่อขาเข้าจาก %s…"
 
-#: src/remmina_protocol_widget.c:1963
+#: src/remmina_protocol_widget.c:1983
 msgid "Could not authenticate, attempting reconnection…"
 msgstr "การยืนยันตัวบุคคลล้มเหลว กำลังพยายาามเชื่อมต่อใหม่…"
 
-#: src/remmina_protocol_widget.c:2025 src/remmina_file_editor.c:346
-#: src/remmina_file_editor.c:917 data/ui/remmina_main.glade:478
+#: src/remmina_protocol_widget.c:2045 src/remmina_file_editor.c:436
+#: src/remmina_file_editor.c:1190 data/ui/remmina_main.glade:478
 msgid "Server"
 msgstr "เซิร์ฟเวอร์"
 
 #. TRANSLATORS: “%s” is a placeholder for a protocol name, like “RDP”.
-#: src/remmina_protocol_widget.c:2043
+#: src/remmina_protocol_widget.c:2063
 #, fuzzy, c-format
 msgid "Install the %s protocol plugin first."
 msgstr "ติดตั้งปลั๊กอินโพรโทคอล %s ก่อน"
 
-#: src/remmina_ssh.c:236
+#: src/remmina_ssh.c:732
 #, c-format
 msgid "Could not authenticate with TOTP/OTP/2FA. %s"
 msgstr "การเริ่มวาระ SSH ล้มเหลว: %s"
 
-#: src/remmina_ssh.c:295 src/remmina_ssh.c:676
+#: src/remmina_ssh.c:791 src/remmina_ssh.c:1172
 #, c-format
 msgid "Could not authenticate with SSH password. %s"
 msgstr "การเริ่มวาระ SSH ล้มเหลว: %s"
 
-#: src/remmina_ssh.c:322 src/remmina_ssh.c:389
+#: src/remmina_ssh.c:818 src/remmina_ssh.c:885
 #, fuzzy
 msgid "No saved SSH passphrase supplied. Asking user to enter it."
 msgstr "ไม่มีวลีรหัสผ่าน SSH ที่บันทึกไว้ ขอให้ผู้ใช้ป้อน"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:327 src/remmina_ssh.c:368 src/remmina_ssh.c:394
-#: src/remmina_ssh.c:433 src/remmina_ssh.c:746
+#: src/remmina_ssh.c:823 src/remmina_ssh.c:864 src/remmina_ssh.c:890
+#: src/remmina_ssh.c:929 src/remmina_ssh.c:1242
 #, fuzzy, c-format
 msgid "Could not authenticate with public SSH key. %s"
 msgstr "ไม่สามารถรับรองความถูกต้องด้วยคีย์ SSH สาธารณะได้ %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:336
+#: src/remmina_ssh.c:832
 #, fuzzy, c-format
 msgid "SSH certificate cannot be imported. %s"
 msgstr "ไม่สามารถนําเข้าใบรับรอง SSH ได้ %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:345
+#: src/remmina_ssh.c:841
 #, fuzzy, c-format
 msgid "SSH certificate cannot be copied into the private SSH key. %s"
 msgstr "ไม่สามารถคัดลอกใบรับรอง SSH ลงในคีย์ SSH ส่วนตัวได้ %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:355
+#: src/remmina_ssh.c:851
 #, fuzzy, c-format
 #| msgid "Could not authenticate with SSH password. %s"
 msgid "Could not authenticate using SSH certificate. %s"
 msgstr "ไม่สามารถรับรองความถูกต้องโดยใช้ใบรับรอง SSH ได้ %s"
 
-#: src/remmina_ssh.c:369
+#: src/remmina_ssh.c:865
 msgid "SSH identity file not selected."
 msgstr "ยังไม่ได้ตั้งค่าแฟ้มกุญแจ SSH"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:380
+#: src/remmina_ssh.c:876
 #, fuzzy, c-format
 msgid "Public SSH key cannot be imported. %s"
 msgstr "ไม่สามารถนําเข้าคีย์ SSH สาธารณะได้ %s"
 
-#: src/remmina_ssh.c:478
+#: src/remmina_ssh.c:974
 #, fuzzy, c-format
 msgid "Could not authenticate automatically with public SSH key. %s"
 msgstr "ไม่สามารถรับรองความถูกต้องโดยอัตโนมัติด้วยคีย์ SSH สาธารณะ %s"
 
-#: src/remmina_ssh.c:523
+#: src/remmina_ssh.c:1019
 #, c-format
 msgid "Could not authenticate automatically with SSH agent. %s"
 msgstr "การเริ่มวาระ SSH ล้มเหลว: %s"
 
-#: src/remmina_ssh.c:569 src/remmina_ssh.c:856
+#: src/remmina_ssh.c:1065 src/remmina_ssh.c:1352
 #, c-format
 msgid "Could not authenticate with SSH GSSAPI/Kerberos. %s"
 msgstr "การเริ่มวาระ SSH ล้มเหลว: %s"
 
-#: src/remmina_ssh.c:598
+#: src/remmina_ssh.c:1094
 #, fuzzy
 msgid "The public SSH key changed!"
 msgstr "คีย์ SSH สาธารณะเปลี่ยนไป!"
 
-#: src/remmina_ssh.c:711
+#: src/remmina_ssh.c:1207
 #, c-format
 msgid "Could not authenticate with keyboard-interactive. %s"
 msgstr "การเริ่มวาระ SSH ล้มเหลว: %s"
 
-#: src/remmina_ssh.c:813
+#: src/remmina_ssh.c:1309
 #, c-format
 msgid "Could not authenticate with automatic public SSH key. %s"
 msgstr "การเชื่อมต่อ SSH tunnel ไปยังปลายทางล้มเหลว: %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:921
+#: src/remmina_ssh.c:1417
 #, fuzzy, c-format
 msgid "Could not fetch the server's public SSH key. %s"
 msgstr "ไม่สามารถดึงข้อมูลคีย์ SSH สาธารณะของเซิร์ฟเวอร์ %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:928
+#: src/remmina_ssh.c:1424
 #, c-format
 msgid "Could not fetch public SSH key. %s"
 msgstr "การเชื่อมต่อ SSH tunnel ไปยังปลายทางล้มเหลว: %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:936
+#: src/remmina_ssh.c:1432
 #, c-format
 msgid "Could not fetch checksum of the public SSH key. %s"
 msgstr "การเริ่มวาระ SSH ล้มเหลว: %s"
 
-#: src/remmina_ssh.c:949
+#: src/remmina_ssh.c:1445
 #, fuzzy
 msgid "The server is unknown. The public key fingerprint is:"
 msgstr "ไม่รู้จักเซิร์ฟเวอร์ ลายนิ้วมือของคีย์สาธารณะคือ:"
 
-#: src/remmina_ssh.c:951 src/remmina_ssh.c:957
+#: src/remmina_ssh.c:1447 src/remmina_ssh.c:1453
 #, fuzzy
 msgid "Do you trust the new public key?"
 msgstr "คุณเชื่อถือคีย์สาธารณะใหม่หรือไม่"
 
-#: src/remmina_ssh.c:954
+#: src/remmina_ssh.c:1450
 #, fuzzy
 msgid ""
 "Warning: The server has changed its public key. This means you are either "
@@ -1066,74 +1186,74 @@ msgstr ""
 "หรือผู้ดูแลระบบได้เปลี่ยนคีย์ ลายนิ้วมือของคีย์สาธารณะใหม่คือ:"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:979
+#: src/remmina_ssh.c:1475
 #, c-format
 msgid "Could not check list of known SSH hosts. %s"
 msgstr "การเริ่มวาระ SSH ล้มเหลว: %s"
 
-#: src/remmina_ssh.c:988
+#: src/remmina_ssh.c:1484
 msgid "SSH password"
 msgstr "รหัสผ่าน SSH"
 
-#: src/remmina_ssh.c:995 src/remmina_ssh.c:1039
+#: src/remmina_ssh.c:1491 src/remmina_ssh.c:1535
 msgid "SSH private key passphrase"
 msgstr "วลีรหัสผ่านกุญแจส่วนตัว SSH"
 
-#: src/remmina_ssh.c:1000
+#: src/remmina_ssh.c:1496
 #, fuzzy
 msgid "SSH Kerberos/GSSAPI"
 msgstr "เอสเอสไอ Kerberos/GSSAPI"
 
-#: src/remmina_ssh.c:1005
+#: src/remmina_ssh.c:1501
 #, fuzzy
 msgid "Enter TOTP/OTP/2FA code"
 msgstr "ป้อนรหัส TOTP/OTP/2FA"
 
-#: src/remmina_ssh.c:1035 src/remmina_ssh.c:1061
+#: src/remmina_ssh.c:1531 src/remmina_ssh.c:1557
 #, fuzzy
 msgid "SSH tunnel credentials"
 msgstr "ข้อมูลประจําตัวของอุโมงค์ SSH"
 
-#: src/remmina_ssh.c:1035 src/remmina_ssh.c:1061
+#: src/remmina_ssh.c:1531 src/remmina_ssh.c:1557
 #, fuzzy
 msgid "SSH credentials"
 msgstr "ข้อมูลประจําตัว SSH"
 
-#: src/remmina_ssh.c:1112
+#: src/remmina_ssh.c:1608
 #, fuzzy
 msgid "Keyboard interactive login, TOTP/OTP/2FA"
 msgstr "การเข้าสู่ระบบแบบโต้ตอบแป้นพิมพ์, TOTP / OTP / 2FA"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:1337
+#: src/remmina_ssh.c:1833
 #, c-format
 msgid "Could not start SSH session. %s"
 msgstr "การเริ่มวาระ SSH ล้มเหลว: %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:1735
+#: src/remmina_ssh.c:2232
 #, c-format
 msgid "Could not create channel. %s"
 msgstr "การสร้างวาระ SFTP ล้มเหลว: %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:1746
+#: src/remmina_ssh.c:2243
 #, c-format
 msgid "Could not connect to SSH tunnel. %s"
 msgstr "การเชื่อมต่อ SSH tunnel ไปยังปลายทางล้มเหลว: %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:1816 src/remmina_ssh.c:1837 src/remmina_ssh.c:1846
+#: src/remmina_ssh.c:2313 src/remmina_ssh.c:2334 src/remmina_ssh.c:2343
 #, c-format
 msgid "Could not request port forwarding. %s"
 msgstr "การขอใช้การส่งต่อพอร์ตล้มเหลว: %s"
 
-#: src/remmina_ssh.c:1876
+#: src/remmina_ssh.c:2373
 #, fuzzy
 msgid "The server did not respond."
 msgstr "เซิร์ฟเวอร์ไม่ตอบสนอง"
 
-#: src/remmina_ssh.c:1916
+#: src/remmina_ssh.c:2413
 #, fuzzy, c-format
 msgid "Cannot connect to local port %i."
 msgstr ""
@@ -1141,107 +1261,119 @@ msgstr ""
 "หรือได้รับการเชื่อมต่อไปยังพอร์ตปัจจุบัน"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:1965
+#: src/remmina_ssh.c:2462
 #, c-format
 msgid "Could not write to SSH channel. %s"
 msgstr "การสร้างวาระ SFTP ล้มเหลว: %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:1972
+#: src/remmina_ssh.c:2469
 #, c-format
 msgid "Could not read from tunnel listening socket. %s"
 msgstr "การสร้างวาระ SFTP ล้มเหลว: %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:1992
+#: src/remmina_ssh.c:2489
 #, c-format
 msgid "Could not poll SSH channel. %s"
 msgstr "การสร้างวาระ SFTP ล้มเหลว: %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:1999
+#: src/remmina_ssh.c:2496
 #, c-format
 msgid "Could not read SSH channel in a non-blocking way. %s"
 msgstr "การสร้างวาระ SFTP ล้มเหลว: %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2018
+#: src/remmina_ssh.c:2515
 #, c-format
 msgid "Could not send data to tunnel listening socket. %s"
 msgstr "การเชื่อมต่อ SSH tunnel ไปยังปลายทางล้มเหลว: %s"
 
-#: src/remmina_ssh.c:2120
+#: src/remmina_ssh.c:2617
 #, fuzzy
 msgid "Assign a destination port."
 msgstr "กําหนดพอร์ตปลายทาง"
 
-#: src/remmina_ssh.c:2127
+#: src/remmina_ssh.c:2624
 #, fuzzy
 msgid "Could not create socket."
 msgstr "ไม่สามารถสร้างซ็อกเก็ตได้"
 
-#: src/remmina_ssh.c:2137
+#: src/remmina_ssh.c:2634
 #, fuzzy
 msgid "Could not bind server socket to local port."
 msgstr "ไม่สามารถผูกซ็อกเก็ตเซิร์ฟเวอร์เข้ากับพอร์ตเฉพาะที่"
 
-#: src/remmina_ssh.c:2143
+#: src/remmina_ssh.c:2640
 #, fuzzy
 msgid "Could not listen to local port."
 msgstr "ไม่สามารถพอร์ตภายในเครื่องได้"
 
 #. TRANSLATORS: Do not translate pthread
-#: src/remmina_ssh.c:2153 src/remmina_ssh.c:2170 src/remmina_ssh.c:2188
+#: src/remmina_ssh.c:2650 src/remmina_ssh.c:2667 src/remmina_ssh.c:2685
 #, fuzzy
 msgid "Could not start pthread."
 msgstr "ไม่สามารถเริ่มโปรแกรมอ่าน"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2280
+#: src/remmina_ssh.c:2777
 #, c-format
 msgid "Could not create SFTP session. %s"
 msgstr "การสร้างวาระ SFTP ล้มเหลว: %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2285
+#: src/remmina_ssh.c:2782
 #, c-format
 msgid "Could not start SFTP session. %s"
 msgstr "การเริ่มวาระ SSH ล้มเหลว: %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2378
+#: src/remmina_ssh.c:2874
 #, c-format
 msgid "Could not open channel. %s"
 msgstr "การสร้างวาระ SFTP ล้มเหลว: %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2393
+#: src/remmina_ssh.c:2917
 #, c-format
 msgid "Could not request shell. %s"
 msgstr "การสร้างวาระ SFTP ล้มเหลว: %s"
 
-#: src/remmina_ssh.c:2511
+#: src/remmina_ssh.c:3047
 #, fuzzy
 msgid "Could not create PTY device."
 msgstr "ไม่สามารถสร้างอุปกรณ์ PTY ได้"
 
-#: src/remmina_exec.c:475
+#: src/remmina_exec.c:491
 #, c-format
 msgid "Plugin %s is not registered."
 msgstr "ปลั๊กอิน %s ยังไม่ได้ลงทะเบียน"
 
-#: src/remmina_main.c:662
+#: src/remmina_main.c:685
+msgid "The latest successful connection attempt, or a pre-computed date"
+msgstr ""
+
+#: src/remmina_main.c:687
 #, c-format
 msgid "Total %i item."
 msgid_plural "Total %i items."
 msgstr[0] "ทั้งหมด %i รายการ"
 
-#: src/remmina_main.c:853
+#: src/remmina_main.c:695
+msgid "Network status: fully online"
+msgstr ""
+
+#: src/remmina_main.c:698
+msgid "Network status: offline"
+msgstr ""
+
+#: src/remmina_main.c:947
 #, c-format
 msgid "Are you sure you want to delete “%s”?"
 msgstr "คุณแน่ใจหรือไม่ที่จะลบ '%s'"
 
-#: src/remmina_main.c:973
+#: src/remmina_main.c:1073
 #, c-format
 msgid ""
 "Unable to import:\n"
@@ -1250,107 +1382,107 @@ msgstr ""
 "ไม่สามารถนำเข้า:\n"
 "%s"
 
-#: src/remmina_main.c:999 data/ui/remmina_main.glade:285
+#: src/remmina_main.c:1099 data/ui/remmina_main.glade:285
 msgid "Import"
 msgstr "นำเข้า"
 
-#: src/remmina_main.c:1022 src/remmina_file_editor.c:1373
+#: src/remmina_main.c:1122 src/remmina_file_editor.c:1813
 #, fuzzy
 msgid "_Save"
 msgstr "_Save"
 
-#: src/remmina_main.c:1028
+#: src/remmina_main.c:1128
 msgid "This protocol does not support exporting."
 msgstr "โปรโตคอลนี้ไม่รองรับการส่งออก"
 
-#: src/remmina_main.c:1344
+#: src/remmina_main.c:1449
 msgid "Remmina Remote Desktop Client"
 msgstr "Remmina ลูกข่ายพื้นโต๊ะระยะไกล"
 
-#: src/remmina_main.c:1346
+#: src/remmina_main.c:1451
 #, fuzzy
 msgid "Remmina Kiosk"
 msgstr "ตู้เรมมินา"
 
 #. TRANSLATORS: The placeholder %s is a directory path
-#: src/remmina_sftp_client.c:173
+#: src/remmina_sftp_client.c:176
 #, c-format
 msgid "Could not create the folder “%s”."
 msgstr "การสร้างวาระ SFTP ล้มเหลว: %s"
 
 #. TRANSLATORS: The placeholder %s is a file path
-#: src/remmina_sftp_client.c:181 src/remmina_sftp_client.c:202
+#: src/remmina_sftp_client.c:184 src/remmina_sftp_client.c:205
 #, c-format
 msgid "Could not create the file “%s”."
 msgstr "การสร้างวาระ SFTP ล้มเหลว: %s"
 
 #. TRANSLATORS: The placeholders %s are a file path, and an error message.
-#: src/remmina_sftp_client.c:220
+#: src/remmina_sftp_client.c:223
 #, c-format
 msgid "Could not open the file “%s” on the server. %s"
 msgstr "การเปิดแฟ้ม %s บนเซิร์ฟเวอร์ %s ผิดพลาด"
 
-#: src/remmina_sftp_client.c:242
+#: src/remmina_sftp_client.c:245
 #, c-format
 msgid "Could not save the file “%s”."
 msgstr "การสร้างวาระ SFTP ล้มเหลว: %s"
 
-#: src/remmina_sftp_client.c:281 src/remmina_sftp_client.c:698
-#: src/remmina_sftp_client.c:761
+#: src/remmina_sftp_client.c:294 src/remmina_sftp_client.c:710
+#: src/remmina_sftp_client.c:785
 #, c-format
 msgid "Could not open the folder “%s”. %s"
 msgstr "การเปิดไดเรกทอรี่ %s ล้มเหลว %s"
 
-#: src/remmina_sftp_client.c:385
+#: src/remmina_sftp_client.c:398
 #, c-format
 msgid "Could not create the folder “%s” on the server. %s"
 msgstr "การสร้างโฟลเดอร์ %s ผิดพลาด บนเซิร์ฟเวอร์ %s"
 
-#: src/remmina_sftp_client.c:413 src/remmina_sftp_client.c:435
+#: src/remmina_sftp_client.c:426 src/remmina_sftp_client.c:448
 #, c-format
 msgid "Could not create the file “%s” on the server. %s"
 msgstr "การสร้างแฟ้ม %s บนเซิร์ฟเวอร์ %s ผิดพลาด"
 
-#: src/remmina_sftp_client.c:456
+#: src/remmina_sftp_client.c:469
 #, c-format
 msgid "Could not open the file “%s”."
 msgstr "การสร้างวาระ SFTP ล้มเหลว: %s"
 
-#: src/remmina_sftp_client.c:476
+#: src/remmina_sftp_client.c:489
 #, c-format
 msgid "Could not write to the file “%s” on the server. %s"
 msgstr "การเขียนแฟ้ม %s บนเซิร์ฟเวอร์ %s ผิดพลาด"
 
-#: src/remmina_sftp_client.c:716
+#: src/remmina_sftp_client.c:727
 #, c-format
 msgid "Could not read from the folder. %s"
 msgstr "การสร้างวาระ SFTP ล้มเหลว: %s"
 
-#: src/remmina_sftp_client.c:823
+#: src/remmina_sftp_client.c:848
 msgid "Are you sure you want to cancel the file transfer in progress?"
 msgstr "คุณแน่ใจหรือไม่ที่จะลบ '%s'"
 
-#: src/remmina_sftp_client.c:857
+#: src/remmina_sftp_client.c:882
 #, c-format
 msgid "Could not delete “%s”. %s"
 msgstr "การลบ '%s' ล้มเหลว %s"
 
-#: src/remmina_sftp_client.c:942
+#: src/remmina_sftp_client.c:967
 #, fuzzy
 msgid "The file exists already"
 msgstr "มีแฟ้มอยู่แล้ว"
 
-#: src/remmina_sftp_client.c:945
+#: src/remmina_sftp_client.c:970
 #, fuzzy
 msgid "Resume"
 msgstr "เล่นต่อ"
 
-#: src/remmina_sftp_client.c:946
+#: src/remmina_sftp_client.c:971
 #, fuzzy
 msgid "Overwrite"
 msgstr "เขียนทับ"
 
-#: src/remmina_sftp_client.c:964
+#: src/remmina_sftp_client.c:989
 #, fuzzy
 msgid "The following file already exists in the target folder:"
 msgstr "แฟ้มต่อไปนี้มีอยู่แล้วในโฟลเดอร์เป้าหมาย:"
@@ -1425,317 +1557,431 @@ msgstr ""
 "• เซิร์ฟเวอร์[:p ort]\n"
 "• username@server[:p ort] (เฉพาะโปรโตคอล SSH)</big>"
 
-#: src/remmina_file_editor.c:149
+#: src/remmina_file_editor.c:162
+msgid "Input is invalid."
+msgstr ""
+
+#: src/remmina_file_editor.c:239
 msgid "Choose a Remote Desktop Server"
 msgstr "เลือกเซิร์ฟเวอร์พื้นโต๊ะระยะไกล"
 
-#: src/remmina_file_editor.c:370
+#: src/remmina_file_editor.c:460
 #, c-format
 msgid "Browse the network to find a %s server"
 msgstr "ท่องดูเครือข่ายเพื่อหาเซิร์ฟเวอร์ %s"
 
-#: src/remmina_file_editor.c:471
+#: src/remmina_file_editor.c:564
 msgid "Resolution"
 msgstr "ความละเอียด"
 
-#: src/remmina_file_editor.c:478
+#: src/remmina_file_editor.c:571
 #, fuzzy
 msgid "Use initial window size"
 msgstr "ใช้ขนาดหน้าต่างเริ่มต้น"
 
-#: src/remmina_file_editor.c:482
+#: src/remmina_file_editor.c:575
 msgid "Use client resolution"
 msgstr "ใช้ความละเอียดของไคลเอนต์"
 
-#: src/remmina_file_editor.c:493 src/remmina_file_editor.c:897
+#: src/remmina_file_editor.c:586 src/remmina_file_editor.c:1170
 msgid "Custom"
 msgstr "ปรับแก้"
 
-#: src/remmina_file_editor.c:717
+#: src/remmina_file_editor.c:954
 msgid "Keyboard mapping"
 msgstr "ผังแป้นพิมพ์"
 
-#: src/remmina_file_editor.c:817
+#: src/remmina_file_editor.c:1081
 #, fuzzy
 msgid "Behavior"
 msgstr "พฤติกรรม"
 
-#: src/remmina_file_editor.c:820
+#: src/remmina_file_editor.c:1084
 #, fuzzy
 msgid "Execute a Command"
 msgstr "ดําเนินการคําสั่ง"
 
-#: src/remmina_file_editor.c:824
+#: src/remmina_file_editor.c:1088
 msgid "Before connecting"
 msgstr "การเชื่อมต่อใหม่"
 
-#: src/remmina_file_editor.c:826
+#: src/remmina_file_editor.c:1090
 #, fuzzy
 msgid "command %h %u %t %U %p %g --option"
 msgstr "คําสั่ง %h %u %t %u %p %g --option"
 
-#: src/remmina_file_editor.c:831
+#: src/remmina_file_editor.c:1095
 msgid "After connecting"
 msgstr "การเชื่อมต่อใหม่"
 
-#: src/remmina_file_editor.c:833
+#: src/remmina_file_editor.c:1097
 #, fuzzy
 msgid "/path/to/command -opt1 arg %h %u %t -opt2 %U %p %g"
 msgstr "/path/to/command -opt1 arg %h %t -opt2 %U %p %g"
 
-#: src/remmina_file_editor.c:837
+#: src/remmina_file_editor.c:1101
 msgid "Start-up"
 msgstr "พาธเริ่มต้น"
 
-#: src/remmina_file_editor.c:840
+#: src/remmina_file_editor.c:1104
 #, fuzzy
 msgid "Auto-start this profile"
 msgstr "เริ่มต้นโปรไฟล์นี้อัตโนมัติ"
 
-#: src/remmina_file_editor.c:870
+#: src/remmina_file_editor.c:1108
+#, fuzzy
+#| msgid "New connection profile"
+msgid "Connection profile security"
+msgstr "การเชื่อมต่อใหม่"
+
+#: src/remmina_file_editor.c:1111
+msgid "Require password to connect or edit the profile"
+msgstr ""
+
+#: src/remmina_file_editor.c:1143
 #, fuzzy
 msgid "SSH Tunnel"
 msgstr "อุโมงค์ SSH"
 
-#: src/remmina_file_editor.c:871
+#: src/remmina_file_editor.c:1144
 msgid "Enable SSH tunnel"
 msgstr "ใช้งาน SSH Tunnel"
 
-#: src/remmina_file_editor.c:878
+#: src/remmina_file_editor.c:1151
 msgid "Tunnel via loopback address"
 msgstr "ใช้ Tunnel ผ่าน Loopback Address"
 
-#: src/remmina_file_editor.c:888
+#: src/remmina_file_editor.c:1161
 #, c-format
 msgid "Same server at port %i"
 msgstr "เซิร์ฟเวอร์เดียวกันที่พอร์ท %i"
 
-#: src/remmina_file_editor.c:938 plugins/rdp/rdp_plugin.c:2698
+#: src/remmina_file_editor.c:1211 plugins/rdp/rdp_plugin.c:2842
 msgid "Start-up path"
 msgstr "พาธเริ่มต้น"
 
-#: src/remmina_file_editor.c:947
+#: src/remmina_file_editor.c:1220
 msgid "SSH Authentication"
 msgstr "การยืนยันตัวบุคคลของ SSH"
 
-#: src/remmina_file_editor.c:973
+#: src/remmina_file_editor.c:1247
 #, fuzzy
 #| msgid "SSH private key passphrase"
 msgid "SSH private key file"
 msgstr "ไฟล์คีย์ส่วนตัวของ SSH"
 
-#: src/remmina_file_editor.c:979 src/remmina_ssh_plugin.c:1477
+#: src/remmina_file_editor.c:1253 src/remmina_ssh_plugin.c:1507
 #, fuzzy
 msgid "SSH certificate file"
 msgstr "ไฟล์ใบรับรอง SSH"
 
-#: src/remmina_file_editor.c:1037
+#: src/remmina_file_editor.c:1311
 msgid "Basic"
 msgstr "เบื้องต้น"
 
-#: src/remmina_file_editor.c:1043
+#: src/remmina_file_editor.c:1317
 msgid "Advanced"
 msgstr "ขั้นสูง"
 
-#: src/remmina_file_editor.c:1054
+#: src/remmina_file_editor.c:1328
 #, fuzzy
 msgid "Notes"
 msgstr "บันทึก"
 
-#: src/remmina_file_editor.c:1293
+#: src/remmina_file_editor.c:1458
+#, c-format
+msgid "(%s: %i): Can't validate setting '%s' since 'value' or 'gfe' are NULL!"
+msgstr ""
+
+#: src/remmina_file_editor.c:1461
+#, c-format
+msgid ""
+"(%s: %i): Can't validate user input since 'setting_name_to_validate', "
+"'value' or 'gfe' are NULL!"
+msgstr ""
+
+#. TRANSLATORS: Meta-error. Shouldn't be visible.
+#: src/remmina_file_editor.c:1465 plugins/x2go/x2go_plugin.c:2409
+#: plugins/x2go/x2go_plugin.c:3052
+#, fuzzy
+msgid "Internal error."
+msgstr "ข้อผิดพลาดในการโอนย้าย"
+
+#: src/remmina_file_editor.c:1689 src/remmina_file_editor.c:1725
+#: src/remmina_file_editor.c:1746 src/remmina_file_editor.c:1769
+#, fuzzy, c-format
+#| msgid "Could not create SFTP session. %s"
+msgid "Couldn't validate user input. %s"
+msgstr "การสร้างวาระ SFTP ล้มเหลว: %s"
+
+#: src/remmina_file_editor.c:1713
 msgid "Default settings saved."
 msgstr "บันทึกการตั้งค่าปริยายแล้ว"
 
-#: src/remmina_file_editor.c:1363
+#: src/remmina_file_editor.c:1803
 msgid "Remote Connection Profile"
 msgstr "การเชื่อมต่อใหม่"
 
-#: src/remmina_file_editor.c:1369
+#: src/remmina_file_editor.c:1809
 #, fuzzy
 msgid "Save as Default"
 msgstr "บันทึกเป็นค่าเริ่มต้น"
 
-#: src/remmina_file_editor.c:1370
+#: src/remmina_file_editor.c:1810
 #, fuzzy
 msgid "Use the current settings as the default for all new connection profiles"
 msgstr "ใช้การตั้งค่าปัจจุบันเป็นค่าเริ่มต้นสําหรับโปรไฟล์การเชื่อมต่อใหม่ทั้งหมด"
 
-#: src/remmina_file_editor.c:1378 data/ui/remmina_main.glade:160
+#: src/remmina_file_editor.c:1818 data/ui/remmina_main.glade:160
 #, fuzzy
 msgid "Connect"
 msgstr "เชื่อมต่อ"
 
-#: src/remmina_file_editor.c:1381
+#: src/remmina_file_editor.c:1821
 #, fuzzy
 msgid "_Save and Connect"
 msgstr "_Saveและเชื่อมต่อ"
 
-#: src/remmina_file_editor.c:1504
+#: src/remmina_file_editor.c:1944
 msgid "Quick Connect"
 msgstr "เชื่อมต่อด่วน"
 
-#: src/remmina_file_editor.c:1528
+#: src/remmina_file_editor.c:1968
 #, fuzzy, c-format
 msgid "Use '%s' as subgroup delimiter"
 msgstr "ใช้ '%s' เป็นตัวคั่นกลุ่มย่อย"
 
-#: src/remmina_file_editor.c:1594 src/remmina_file_editor.c:1612
+#: src/remmina_file_editor.c:2034 src/remmina_file_editor.c:2054
 #, c-format
 msgid "Could not find the file “%s”."
 msgstr "การสร้างวาระ SFTP ล้มเหลว: %s"
 
-#: src/remmina_icon.c:128
+#. TRANSLATORS: This is a message that pops up when an external Remmina plugin tries to set the window resolution using a legacy parameter.
+#. TRANSLATORS: This is a message that pop-up when an external Remmina plugin tries to set the windows resolution using a legacy parameter.
+#: src/remmina_file.c:485 src/remmina_file.c:531
+msgid ""
+"Using the «resolution» parameter in the Remmina preferences file is "
+"deprecated.\n"
+msgstr ""
+
+#: src/remmina_icon.c:136
 msgid "Open Main Window"
 msgstr "เปิดหน้าต่างหลัก"
 
-#: src/remmina_icon.c:133 data/ui/remmina_main.glade:254
+#: src/remmina_icon.c:141 data/ui/remmina_main.glade:254
 #, fuzzy
 msgid "_Preferences"
 msgstr "การตั้งค่า"
 
-#: src/remmina_icon.c:138
+#: src/remmina_icon.c:146
 #, fuzzy
 msgid "_About"
 msgstr "_About"
 
-#: src/remmina_icon.c:148
+#: src/remmina_icon.c:156
 msgid "Enable Service Discovery"
 msgstr "เปิดใช้การค้นหาบริการ"
 
-#: src/remmina_icon.c:160 data/ui/remmina_main.glade:404
+#: src/remmina_icon.c:168 data/ui/remmina_main.glade:404
 #, fuzzy
 msgid "_Quit"
 msgstr "_Quit"
 
 #. TRANSLATORS: Applet name as per the Freedesktop Desktop entry specification https://specifications.freedesktop.org/desktop-entry-spec/latest/
 #. TRANSLATORS: Applet Name as per the Freedesktop Desktop entry specification https://specifications.freedesktop.org/desktop-entry-spec/latest/
-#: src/remmina_icon.c:284 src/remmina_icon.c:416
+#: src/remmina_icon.c:294 src/remmina_icon.c:446
 #, fuzzy
 msgid "Remmina Applet"
 msgstr "เรมมินาแอปเพล็ต"
 
 #. TRANSLATORS: Applet comment/description as per the Freedesktop Desktop entry specification https://specifications.freedesktop.org/desktop-entry-spec/latest/
-#: src/remmina_icon.c:286 src/remmina_icon.c:418
+#: src/remmina_icon.c:296 src/remmina_icon.c:448
 msgid "Connect to remote desktops through the applet menu"
 msgstr "เชื่อมต่อไปยังพื้นโต๊ะระยะไกล ผ่านเมนูแอพเพล็ต"
 
+#: src/remmina_icon.c:360
+msgid "StatusNotifier/Appindicator support in “"
+msgstr ""
+
+#. TRANSLATORS: %s is a placeholder for "StatusNotifier/Appindicator suppor in “DESKTOP NAME”: "
+#: src/remmina_icon.c:367
+#, c-format
+msgid "%s your desktop does support it"
+msgstr ""
+
+#. TRANSLATORS: %s is a placeholder for "StatusNotifier/Appindicator suppor in “DESKTOP NAME”: "
+#: src/remmina_icon.c:369
+#, c-format
+msgid "%s and Remmina has built-in (compiled) support for libappindicator."
+msgstr ""
+
+#. TRANSLATORS: %s is a placeholder for "StatusNotifier/Appindicator suppor in “DESKTOP NAME”: "
+#: src/remmina_icon.c:372
+#, c-format
+msgid ""
+"%s not supported natively by your Desktop Environment. libappindicator will "
+"try to fallback to GtkStatusIcon/xembed"
+msgstr ""
+
+#. TRANSLATORS: %s is a placeholder for "StatusNotifier/Appindicator suppor in “DESKTOP NAME”: "
+#: src/remmina_icon.c:376
+#, c-format
+msgid "%s You may need to install, and use XApp Status Applet"
+msgstr ""
+
+#. TRANSLATORS: %s is a placeholder for "StatusNotifier/Appindicator suppor in “DESKTOP NAME”: "
+#: src/remmina_icon.c:379
+#, c-format
+msgid "%s You may need to install, and use KStatusNotifierItem"
+msgstr ""
+
+#. TRANSLATORS: %s is a placeholder for "StatusNotifier/Appindicator suppor in “DESKTOP NAME”: "
+#: src/remmina_icon.c:382
+#, c-format
+msgid "%s You may need to install, and use XEmbed SNI Proxy"
+msgstr ""
+
+#. TRANSLATORS: %s is a placeholder for "StatusNotifier/Appindicator suppor in “DESKTOP NAME”: "
+#: src/remmina_icon.c:385
+#, c-format
+msgid "%s You may need to install, and use Gnome Shell Extension Appindicator"
+msgstr ""
+
+#: src/remmina_ssh_plugin.c:342
+#, fuzzy, c-format
+#| msgid "Connecting to %s via SSH…"
+msgid "Connected to %s:%d via SSH"
+msgstr "เชื่อมต่อไปยัง '%s'…"
+
 #. TRANSLATORS: %s is a placeholder for an error message
-#: src/remmina_ssh_plugin.c:539
+#: src/remmina_ssh_plugin.c:550
 #, fuzzy, c-format
 msgid "Error: %s"
 msgstr "ข้อผิดพลาด: %s"
 
-#: src/remmina_ssh_plugin.c:556
+#: src/remmina_ssh_plugin.c:567
 #, fuzzy
 msgid "Terminal content saved in"
 msgstr "บันทึกเนื้อหาของเทอร์มินัลใน"
 
-#: src/remmina_ssh_plugin.c:822
+#: src/remmina_ssh_plugin.c:833
 #, fuzzy
 msgid "Select All (host+A)"
 msgstr "เลือกทั้งหมด (โฮสต์+A)"
 
-#: src/remmina_ssh_plugin.c:823
+#: src/remmina_ssh_plugin.c:834
 #, fuzzy
 msgid "Copy (host+C)"
 msgstr "คัดลอก (โฮสต์+ค)"
 
-#: src/remmina_ssh_plugin.c:824
+#: src/remmina_ssh_plugin.c:835
 #, fuzzy
 msgid "Paste (host+V)"
 msgstr "วาง (โฮสต์+V)"
 
-#: src/remmina_ssh_plugin.c:825
+#: src/remmina_ssh_plugin.c:836
 #, fuzzy
 msgid "Save session to file"
 msgstr "บันทึกเซสชันไปยังแฟ้ม"
 
-#: src/remmina_ssh_plugin.c:826
+#: src/remmina_ssh_plugin.c:837
 #, fuzzy
 msgid "Increase font size (host+Page Up)"
 msgstr "เพิ่มขนาดแบบอักษร (โฮสต์+เลื่อนหน้าขึ้น)"
 
-#: src/remmina_ssh_plugin.c:827
+#: src/remmina_ssh_plugin.c:838
 #, fuzzy
 msgid "Decrease font size (host+Page Down)"
 msgstr "ลดขนาดฟอนต์ (โฮสต์+หน้าลง)"
 
-#: src/remmina_ssh_plugin.c:828
+#: src/remmina_ssh_plugin.c:839
 #, fuzzy
 msgid "Find text (host+G)"
 msgstr "ค้นหาข้อความ (โฮสต์+G)"
 
-#: src/remmina_ssh_plugin.c:1448 data/ui/remmina_main.glade:177
+#: src/remmina_ssh_plugin.c:895
+#, fuzzy, c-format
+#| msgid "Connecting to %s via SSH…"
+msgid "Disconnected from %s:%d via SSH"
+msgstr "เชื่อมต่อไปยัง '%s'…"
+
+#: src/remmina_ssh_plugin.c:1472 data/ui/remmina_main.glade:177
 #, fuzzy
 msgid "Copy"
 msgstr "คัดลอก"
 
-#: src/remmina_ssh_plugin.c:1448
+#: src/remmina_ssh_plugin.c:1472
 #, fuzzy
 msgid "_Copy"
 msgstr "_Copy"
 
-#: src/remmina_ssh_plugin.c:1449
+#: src/remmina_ssh_plugin.c:1473
 #, fuzzy
 msgid "Paste"
 msgstr "วาง"
 
-#: src/remmina_ssh_plugin.c:1449
+#: src/remmina_ssh_plugin.c:1473
 #, fuzzy
 msgid "_Paste"
 msgstr "_Paste"
 
-#: src/remmina_ssh_plugin.c:1450
+#: src/remmina_ssh_plugin.c:1474
 #, fuzzy
 msgid "Select all"
 msgstr "เลือกทั้งหมด"
 
-#: src/remmina_ssh_plugin.c:1450
+#: src/remmina_ssh_plugin.c:1474
 #, fuzzy
 msgid "_Select all"
 msgstr "เลือกทั้งหมด"
 
-#: src/remmina_ssh_plugin.c:1451
+#: src/remmina_ssh_plugin.c:1475
 #, fuzzy
 msgid "Increase font size"
 msgstr "เพิ่มขนาดแบบอักษร"
 
-#: src/remmina_ssh_plugin.c:1451
+#: src/remmina_ssh_plugin.c:1475
 #, fuzzy
 msgid "_Increase font size"
 msgstr "_Increaseแบบอักษร"
 
-#: src/remmina_ssh_plugin.c:1452
+#: src/remmina_ssh_plugin.c:1476
 #, fuzzy
 msgid "Decrease font size"
 msgstr "ลดขนาดฟอนต์"
 
-#: src/remmina_ssh_plugin.c:1452
+#: src/remmina_ssh_plugin.c:1476
 #, fuzzy
 msgid "_Decrease font size"
 msgstr "_Decreaseแบบอักษรมาตรฐาน"
 
-#: src/remmina_ssh_plugin.c:1453
+#: src/remmina_ssh_plugin.c:1477
 #, fuzzy
 msgid "Find text"
 msgstr "ค้นหาข้อความ"
 
-#: src/remmina_ssh_plugin.c:1453
+#: src/remmina_ssh_plugin.c:1477
 #, fuzzy
 msgid "_Find text"
 msgstr "_Findข้อความ"
 
-#: src/remmina_ssh_plugin.c:1474 plugins/spice/spice_plugin.c:666
-#: plugins/vnc/vnc_plugin.c:1961 plugins/vnc/vnc_plugin.c:1981
+#: src/remmina_ssh_plugin.c:1504 plugins/spice/spice_plugin.c:676
+#: plugins/vnc/vnc_plugin.c:2038 plugins/vnc/vnc_plugin.c:2050
 #, fuzzy
 msgid "User password"
 msgstr "รหัสผ่านผู้ใช้"
 
-#: src/remmina_ssh_plugin.c:1480 plugins/rdp/rdp_plugin.c:2697
-msgid "Start-up program"
+#: src/remmina_ssh_plugin.c:1510
+msgid "Opening command"
+msgstr ""
+
+#: src/remmina_ssh_plugin.c:1511
+#, fuzzy
+#| msgid "Start-up program"
+msgid "Start-up background program"
 msgstr "โปรแกรมเริ่มต้น"
 
-#: src/remmina_ssh_plugin.c:1485
+#: src/remmina_ssh_plugin.c:1516
 #, fuzzy
 msgid ""
 "The filename can use the following placeholders:\n"
@@ -1758,74 +2004,82 @@ msgstr ""
 "  • %g ถูกแทนที่ด้วยชื่อกลุ่มโปรไฟล์ Remmina\n"
 "  • %d ถูกแทนที่ด้วยวันที่และเวลาท้องถิ่นในรูปแบบ ISO 8601\n"
 
-#: src/remmina_ssh_plugin.c:1507
+#: src/remmina_ssh_plugin.c:1538
 #, fuzzy
 msgid "Terminal colour scheme"
 msgstr "แบบแผนชุดสีเทอร์มินัล"
 
-#: src/remmina_ssh_plugin.c:1508
+#: src/remmina_ssh_plugin.c:1539
 msgid "Character set"
 msgstr "ชุดอักขระ"
 
-#: src/remmina_ssh_plugin.c:1510
+#: src/remmina_ssh_plugin.c:1541
 #, fuzzy
 msgid "KEX (Key Exchange) algorithms"
 msgstr "อัลกอริทึม KEX (การแลกเปลี่ยนคีย์)"
 
-#: src/remmina_ssh_plugin.c:1511
+#: src/remmina_ssh_plugin.c:1542
 #, fuzzy
 msgid "Symmetric cipher client to server"
 msgstr "ไคลเอนต์การเข้ารหัสแบบสมมาตรไปยังเซิร์ฟเวอร์"
 
-#: src/remmina_ssh_plugin.c:1512
+#: src/remmina_ssh_plugin.c:1543
 #, fuzzy
 msgid "Preferred server host key types"
 msgstr "ชนิดของคีย์โฮสต์ของเซิร์ฟเวอร์ที่ต้องการ"
 
-#: src/remmina_ssh_plugin.c:1513
+#: src/remmina_ssh_plugin.c:1544
 msgid "Folder for SSH session log"
 msgstr "การเริ่มวาระ SSH ล้มเหลว: %s"
 
-#: src/remmina_ssh_plugin.c:1514
+#: src/remmina_ssh_plugin.c:1544
+msgid "Full path of an existing folder"
+msgstr ""
+
+#: src/remmina_ssh_plugin.c:1545
 #, fuzzy
 msgid "Filename for SSH session log"
 msgstr "ชื่อแฟ้มสําหรับแฟ้มบันทึกเซสชัน SSH"
 
-#: src/remmina_ssh_plugin.c:1515
+#: src/remmina_ssh_plugin.c:1546
 #, fuzzy
 msgid "Log SSH session when exiting Remmina"
 msgstr "บันทึกเซสชัน SSH เมื่อออกจาก Remmina"
 
-#: src/remmina_ssh_plugin.c:1516
+#: src/remmina_ssh_plugin.c:1547
 #, fuzzy
 msgid "Log SSH session asynchronously"
 msgstr "บันทึกเซสชัน SSH แบบอะซิงโครนัส"
 
-#: src/remmina_ssh_plugin.c:1516
+#: src/remmina_ssh_plugin.c:1547
 #, fuzzy
 msgid "Saving the session asynchronously may have a notable performance impact"
 msgstr "การบันทึกเซสชันแบบอะซิงโครนัสอาจมีผลกระทบต่อประสิทธิภาพการทํางานที่โดดเด่น"
 
-#: src/remmina_ssh_plugin.c:1517
+#: src/remmina_ssh_plugin.c:1548
 #, fuzzy
 msgid "Audible terminal bell"
 msgstr "เสียงระฆังเทอร์มินัล"
 
-#: src/remmina_ssh_plugin.c:1518
+#: src/remmina_ssh_plugin.c:1549
+msgid "SSH X11 Forwarding"
+msgstr ""
+
+#: src/remmina_ssh_plugin.c:1550
 #, fuzzy
 msgid "SSH compression"
 msgstr "การบีบอัด SSH"
 
-#: src/remmina_ssh_plugin.c:1519
+#: src/remmina_ssh_plugin.c:1551
 msgid "Don't remember passwords"
 msgstr "บันทึกรหัสผ่าน"
 
-#: src/remmina_ssh_plugin.c:1520
+#: src/remmina_ssh_plugin.c:1552
 #, fuzzy
 msgid "Strict host key checking"
 msgstr "การตรวจสอบคีย์โฮสต์ที่เข้มงวด"
 
-#: src/remmina_ssh_plugin.c:1534
+#: src/remmina_ssh_plugin.c:1566
 msgid "SSH - Secure Shell"
 msgstr "SSH - Secure Shell"
 
@@ -1833,243 +2087,249 @@ msgstr "SSH - Secure Shell"
 msgid "Secured password storage in KWallet"
 msgstr "รหัสผ่าน %s"
 
-#: plugins/rdp/rdp_settings.c:217
+#: plugins/rdp/rdp_settings.c:215
 #, fuzzy
 msgid "<Auto-detect>"
 msgstr "<Auto-detect>"
 
-#: plugins/rdp/rdp_settings.c:249
+#: plugins/rdp/rdp_settings.c:247
 #, fuzzy
 msgid "<Not set>"
 msgstr "<ไม่ได้ตั้งค่า>"
 
-#: plugins/rdp/rdp_settings.c:280
+#: plugins/rdp/rdp_settings.c:278
 #, fuzzy
 msgid "<Choose a quality level to edit…>"
 msgstr "<เลือกระดับคุณภาพเพื่อแก้ไข...>"
 
-#: plugins/rdp/rdp_settings.c:282 plugins/rdp/rdp_plugin.c:2526
-#: plugins/vnc/vnc_plugin.c:1934
+#: plugins/rdp/rdp_settings.c:280 plugins/rdp/rdp_plugin.c:2647
+#: plugins/vnc/vnc_plugin.c:1987
 #, fuzzy
 msgid "Poor (fastest)"
 msgstr "ไม่ดี (เร็วที่สุด)"
 
-#: plugins/rdp/rdp_settings.c:284 plugins/rdp/rdp_plugin.c:2527
-#: plugins/vnc/vnc_plugin.c:1933
+#: plugins/rdp/rdp_settings.c:282 plugins/rdp/rdp_plugin.c:2648
+#: plugins/vnc/vnc_plugin.c:1986
 #, fuzzy
 msgid "Medium"
 msgstr "ปานกลาง"
 
-#: plugins/rdp/rdp_settings.c:286 plugins/rdp/rdp_plugin.c:2528
-#: plugins/vnc/vnc_plugin.c:1931
+#: plugins/rdp/rdp_settings.c:284 plugins/rdp/rdp_plugin.c:2649
+#: plugins/vnc/vnc_plugin.c:1984
 #, fuzzy
 msgid "Good"
 msgstr "ดี"
 
-#: plugins/rdp/rdp_settings.c:288 plugins/rdp/rdp_plugin.c:2529
-#: plugins/vnc/vnc_plugin.c:1932
+#: plugins/rdp/rdp_settings.c:286 plugins/rdp/rdp_plugin.c:2650
+#: plugins/vnc/vnc_plugin.c:1985
 #, fuzzy
 msgid "Best (slowest)"
 msgstr "ดีที่สุด (ช้าที่สุด)"
 
-#: plugins/rdp/rdp_settings.c:427
+#: plugins/rdp/rdp_settings.c:425
 #, fuzzy
 msgid "Keyboard layout"
 msgstr "รูปแบบแป้นพิมพ์"
 
-#: plugins/rdp/rdp_settings.c:457
+#: plugins/rdp/rdp_settings.c:455
 #, fuzzy
 msgid "Use client keyboard mapping"
 msgstr "ใช้การแม็ปคีย์บอร์ดไคลเอนต์"
 
-#: plugins/rdp/rdp_settings.c:468
+#: plugins/rdp/rdp_settings.c:466
 #, fuzzy
 #| msgid "Keyboard mapping"
 msgid "Keyboard scancode remapping"
 msgstr "ผังแป้นพิมพ์"
 
-#: plugins/rdp/rdp_settings.c:483
+#: plugins/rdp/rdp_settings.c:481
 msgid "List of key=value,… pairs to remap scancodes. E.g. 0x56=0x29,0x29=0x56"
 msgstr ""
 
-#: plugins/rdp/rdp_settings.c:486
+#: plugins/rdp/rdp_settings.c:484
 msgid "FreeRDP > 2.3.0 is required to map scancodes"
 msgstr ""
 
-#: plugins/rdp/rdp_settings.c:494
+#: plugins/rdp/rdp_settings.c:492
 #, fuzzy
 msgid "Quality settings"
 msgstr "การตั้งค่าคุณภาพ"
 
-#: plugins/rdp/rdp_settings.c:517
+#: plugins/rdp/rdp_settings.c:515
 #, fuzzy
 msgid "Wallpaper"
 msgstr "วอลเปเปอร์"
 
-#: plugins/rdp/rdp_settings.c:525
+#: plugins/rdp/rdp_settings.c:523
 #, fuzzy
 msgid "Window drag"
 msgstr "ลากหน้าต่าง"
 
-#: plugins/rdp/rdp_settings.c:532
+#: plugins/rdp/rdp_settings.c:530
 #, fuzzy
 msgid "Menu animation"
 msgstr "การเคลื่อนไหวของเมนู"
 
-#: plugins/rdp/rdp_settings.c:540
+#: plugins/rdp/rdp_settings.c:538
 #, fuzzy
 msgid "Theme"
 msgstr "ธีม"
 
-#: plugins/rdp/rdp_settings.c:547
+#: plugins/rdp/rdp_settings.c:545
 #, fuzzy
 msgid "Cursor shadow"
 msgstr "เงาเคอร์เซอร์"
 
-#: plugins/rdp/rdp_settings.c:555
+#: plugins/rdp/rdp_settings.c:553
 #, fuzzy
 msgid "Cursor blinking"
 msgstr "เคอร์เซอร์กะพริบ"
 
-#: plugins/rdp/rdp_settings.c:562
+#: plugins/rdp/rdp_settings.c:560
 #, fuzzy
 msgid "Font smoothing"
 msgstr "การปรับแบบอักษรให้เรียบ"
 
-#: plugins/rdp/rdp_settings.c:570
+#: plugins/rdp/rdp_settings.c:568
 #, fuzzy
 msgid "Composition"
 msgstr "ส่วนประกอบ"
 
-#: plugins/rdp/rdp_settings.c:580
+#: plugins/rdp/rdp_settings.c:578
 #, fuzzy
 msgid "Remote scale factor"
 msgstr "ตัวคูณสเกลระยะไกล"
 
-#: plugins/rdp/rdp_settings.c:595
+#: plugins/rdp/rdp_settings.c:593
 #, fuzzy
 msgid "Desktop scale factor %"
 msgstr "% ตัวคูณมาตราส่วนเดสก์ท็อป"
 
-#: plugins/rdp/rdp_settings.c:607
+#: plugins/rdp/rdp_settings.c:605
 #, fuzzy
 msgid "Device scale factor %"
 msgstr "% ตัวคูณสเกลอุปกรณ์"
 
-#: plugins/rdp/rdp_settings.c:630
+#: plugins/rdp/rdp_settings.c:628
 #, fuzzy
 msgid "Desktop orientation"
 msgstr "การวางแนวเดสก์ท็อป"
 
-#: plugins/rdp/rdp_settings.c:650
+#: plugins/rdp/rdp_settings.c:648
 #, fuzzy
 msgid "Input device settings"
 msgstr "การตั้งค่าอุปกรณ์อินพุต"
 
-#: plugins/rdp/rdp_settings.c:658 plugins/rdp/rdp_plugin.c:2660
-#: plugins/vnc/vnc_plugin.c:2006
+#: plugins/rdp/rdp_settings.c:656 plugins/rdp/rdp_plugin.c:2803
+#: plugins/vnc/vnc_plugin.c:2070
 #, fuzzy
 msgid "Disable smooth scrolling"
 msgstr "ปิดใช้งานการเลื่อนแบบเรียบ"
 
-#: plugins/rdp/rdp_settings.c:669
+#: plugins/rdp/rdp_settings.c:667
 #, fuzzy
 #| msgid "Default settings saved."
 msgid "General settings"
 msgstr "การตั้งค่าทั่วไป"
 
-#: plugins/rdp/rdp_settings.c:676 plugins/rdp/rdp_plugin.c:2712
+#: plugins/rdp/rdp_settings.c:674 plugins/rdp/rdp_plugin.c:2856
 #, fuzzy
 #| msgid "Reconnection attempt %d of %d…"
 msgid "Reconnect attempts number"
 msgstr "หมายเลขความพยายามอีกครั้ง"
 
-#: plugins/rdp/rdp_settings.c:689 plugins/rdp/rdp_plugin.c:2712
+#: plugins/rdp/rdp_settings.c:687 plugins/rdp/rdp_plugin.c:2856
 #, fuzzy
 msgid ""
 "The maximum number of reconnect attempts upon an RDP disconnect (default: 20)"
 msgstr "จํานวนครั้งสูงสุดของการพยายามเชื่อมต่อใหม่เมื่อยกเลิกการเชื่อมต่อ RDP (ค่าเริ่มต้น: 20)"
 
-#: plugins/rdp/rdp_plugin.c:757 plugins/rdp/rdp_plugin.c:822
+#: plugins/rdp/rdp_plugin.c:781 plugins/rdp/rdp_plugin.c:846
 #, fuzzy
 msgid "Enter RDP authentication credentials"
 msgstr "ใส่ข้อมูลประจําตัวการรับรองความถูกต้องของ RDP"
 
-#: plugins/rdp/rdp_plugin.c:830
+#: plugins/rdp/rdp_plugin.c:854
 #, fuzzy
 msgid "Enter RDP gateway authentication credentials"
 msgstr "ใส่ข้อมูลประจําตัวการรับรองความถูกต้องของเกตเวย์ RDP"
 
-#: plugins/rdp/rdp_plugin.c:2057
+#. TRANSLATORS: the placeholder may be either an IP/FQDN or a server hostname
+#: plugins/rdp/rdp_plugin.c:1035
+#, c-format
+msgid "Disconnected from %s via RDP"
+msgstr ""
+
+#: plugins/rdp/rdp_plugin.c:2178
 #, c-format
 msgid ""
 "Could not access the RDP server “%s”.\n"
 "Account locked out."
 msgstr "ไม่พบคำสั่ง %s บนเซิร์ฟเวอร์ SSH"
 
-#: plugins/rdp/rdp_plugin.c:2064
+#: plugins/rdp/rdp_plugin.c:2185
 #, c-format
 msgid ""
 "Could not access the RDP server “%s”.\n"
 "Account expired."
 msgstr "ไม่พบคำสั่ง %s บนเซิร์ฟเวอร์ SSH"
 
-#: plugins/rdp/rdp_plugin.c:2071
+#: plugins/rdp/rdp_plugin.c:2192
 #, c-format
 msgid ""
 "Could not access the RDP server “%s”.\n"
 "Password expired."
 msgstr "ไม่พบคำสั่ง %s บนเซิร์ฟเวอร์ SSH"
 
-#: plugins/rdp/rdp_plugin.c:2078
+#: plugins/rdp/rdp_plugin.c:2199
 #, c-format
 msgid ""
 "Could not access the RDP server “%s”.\n"
 "Account disabled."
 msgstr "ไม่พบคำสั่ง %s บนเซิร์ฟเวอร์ SSH"
 
-#: plugins/rdp/rdp_plugin.c:2084
+#: plugins/rdp/rdp_plugin.c:2205
 #, c-format
 msgid ""
 "Could not access the RDP server “%s”.\n"
 "Insufficient user privileges."
 msgstr "ไม่พบคำสั่ง %s บนเซิร์ฟเวอร์ SSH"
 
-#: plugins/rdp/rdp_plugin.c:2092
+#: plugins/rdp/rdp_plugin.c:2213
 #, c-format
 msgid ""
 "Could not access the RDP server “%s”.\n"
 "Account restricted."
 msgstr "ไม่พบคำสั่ง %s บนเซิร์ฟเวอร์ SSH"
 
-#: plugins/rdp/rdp_plugin.c:2100
+#: plugins/rdp/rdp_plugin.c:2221
 #, c-format
 msgid ""
 "Could not access the RDP server “%s”.\n"
 "Change user password before connecting."
 msgstr "ไม่พบคำสั่ง %s บนเซิร์ฟเวอร์ SSH"
 
-#: plugins/rdp/rdp_plugin.c:2105
+#: plugins/rdp/rdp_plugin.c:2226
 #, c-format
 msgid "Lost connection to the RDP server “%s”."
 msgstr "การเชื่อมต่อ SSH tunnel ไปยังปลายทางล้มเหลว: %s"
 
-#: plugins/rdp/rdp_plugin.c:2108
+#: plugins/rdp/rdp_plugin.c:2229
 #, c-format
 msgid "Could not find the address for the RDP server “%s”."
 msgstr "ไม่พบคำสั่ง %s บนเซิร์ฟเวอร์ SSH"
 
-#: plugins/rdp/rdp_plugin.c:2112
+#: plugins/rdp/rdp_plugin.c:2233
 #, fuzzy, c-format
 msgid ""
-"Could not connect to the RDP server “%s” via TLS. Check that client and "
-"server support a common TLS version."
+"Could not connect to the RDP server “%s” via TLS. See the DEBUG traces from "
+"a terminal for more information."
 msgstr ""
 "ไม่สามารถเชื่อมต่อกับเซิร์ฟเวอร์ RDP \"%s\" ผ่านทาง TLS ได้ [%s\" ตรวจสอบว่า "
 "ไคลเอนต์และเซิร์ฟเวอร์สนับสนุนรุ่น TLS ทั่วไป"
 
 #. TRANSLATORS: the placeholder may be either an IP/FQDN or a server hostname
-#: plugins/rdp/rdp_plugin.c:2116
+#: plugins/rdp/rdp_plugin.c:2237
 #, fuzzy, c-format
 #| msgid ""
 #| "Unable to establish a connection to the RDP server “%s”. Check \"Security "
@@ -2081,17 +2341,17 @@ msgstr ""
 "ไม่สามารถสร้างการเชื่อมต่อไปยังเซิร์ฟเวอร์ RDP \"%s\" ได้ ตรวจสอบ "
 "\"การเจรจาโปรโตคอลความปลอดภัย\""
 
-#: plugins/rdp/rdp_plugin.c:2124
+#: plugins/rdp/rdp_plugin.c:2245
 #, c-format
 msgid "Cannot connect to the RDP server “%s”."
 msgstr "การเชื่อมต่อ SSH tunnel ไปยังปลายทางล้มเหลว: %s"
 
-#: plugins/rdp/rdp_plugin.c:2127
+#: plugins/rdp/rdp_plugin.c:2248
 #, fuzzy
 msgid "Could not start libfreerdp-gdi."
 msgstr "ไม่สามารถเริ่ม libfreerdp-gdi ได้"
 
-#: plugins/rdp/rdp_plugin.c:2130
+#: plugins/rdp/rdp_plugin.c:2251
 #, fuzzy, c-format
 msgid ""
 "You requested a H.264 GFX mode for the server “%s”, but your libfreerdp does "
@@ -2100,12 +2360,12 @@ msgstr ""
 "คุณได้ร้องขอโหมด H.264 GFX สําหรับเซิร์ฟเวอร์ \"%s\" แต่ libfreerdp ของคุณไม่สนับสนุน "
 "H.264 กรุณาใช้การตั้งค่าความลึกของสีที่ไม่ใช่ AVC"
 
-#: plugins/rdp/rdp_plugin.c:2137
+#: plugins/rdp/rdp_plugin.c:2258
 #, fuzzy, c-format
 msgid "The “%s” server refused the connection."
 msgstr "เซิร์ฟเวอร์ \"%s\" ปฏิเสธการเชื่อมต่อ"
 
-#: plugins/rdp/rdp_plugin.c:2142
+#: plugins/rdp/rdp_plugin.c:2263
 #, fuzzy, c-format
 msgid ""
 "The Remote Desktop Gateway “%s” denied the user “%s\\%s” access due to "
@@ -2113,140 +2373,169 @@ msgid ""
 msgstr ""
 "เกตเวย์ของเดสก์ท็อประยะไกล \"%s\" ปฏิเสธการเข้าถึงของผู้ใช้ \"%s\\%s\" เนื่องจากนโยบาย"
 
-#: plugins/rdp/rdp_plugin.c:2152
+#: plugins/rdp/rdp_plugin.c:2273
 #, c-format
 msgid "Cannot connect to the “%s” RDP server."
 msgstr "การเชื่อมต่อ SSH tunnel ไปยังปลายทางล้มเหลว: %s"
 
-#: plugins/rdp/rdp_plugin.c:2495
+#: plugins/rdp/rdp_plugin.c:2616
 #, fuzzy
 msgid "Automatic (32 bpp) (Server chooses its best format)"
 msgstr "อัตโนมัติ (32 bpp) (เซิร์ฟเวอร์เลือกรูปแบบที่ดีที่สุด)"
 
-#: plugins/rdp/rdp_plugin.c:2496
+#: plugins/rdp/rdp_plugin.c:2617
 #, fuzzy
 msgid "GFX AVC444 (32 bpp)"
 msgstr "GFX AVC444 (32 bpp)"
 
-#: plugins/rdp/rdp_plugin.c:2497
+#: plugins/rdp/rdp_plugin.c:2618
 #, fuzzy
 msgid "GFX AVC420 (32 bpp)"
 msgstr "GFX AVC420 (32 bpp)"
 
-#: plugins/rdp/rdp_plugin.c:2498
+#: plugins/rdp/rdp_plugin.c:2619
 #, fuzzy
 msgid "GFX RFX (32 bpp)"
 msgstr "GFX RFX (32 bpp)"
 
-#: plugins/rdp/rdp_plugin.c:2499
+#: plugins/rdp/rdp_plugin.c:2620
 #, fuzzy
 msgid "GFX RFX Progressive (32 bpp)"
 msgstr "จีเอฟเอ็กซ์ RFX โปรเกรสซีฟ (32 bpp)"
 
-#: plugins/rdp/rdp_plugin.c:2500
+#: plugins/rdp/rdp_plugin.c:2621
 #, fuzzy
 msgid "RemoteFX (32 bpp)"
 msgstr "รีโมทFX (32 bpp)"
 
-#: plugins/rdp/rdp_plugin.c:2501 plugins/vnc/vnc_plugin.c:1922
+#: plugins/rdp/rdp_plugin.c:2622 plugins/vnc/vnc_plugin.c:1975
 #, fuzzy
 msgid "True colour (32 bpp)"
 msgstr "สีจริง (32 bpp)"
 
-#: plugins/rdp/rdp_plugin.c:2502
+#: plugins/rdp/rdp_plugin.c:2623
 #, fuzzy
 msgid "True colour (24 bpp)"
 msgstr "สีจริง (24 bpp)"
 
-#: plugins/rdp/rdp_plugin.c:2503 plugins/vnc/vnc_plugin.c:1923
+#: plugins/rdp/rdp_plugin.c:2624 plugins/vnc/vnc_plugin.c:1976
 #, fuzzy
 msgid "High colour (16 bpp)"
 msgstr "สีสูง (16 bpp)"
 
-#: plugins/rdp/rdp_plugin.c:2504
+#: plugins/rdp/rdp_plugin.c:2625
 #, fuzzy
 msgid "High colour (15 bpp)"
 msgstr "สีสูง (15 bpp)"
 
-#: plugins/rdp/rdp_plugin.c:2505 plugins/vnc/vnc_plugin.c:1924
+#: plugins/rdp/rdp_plugin.c:2626 plugins/vnc/vnc_plugin.c:1977
 #, fuzzy
 msgid "256 colours (8 bpp)"
 msgstr "256 สี (8 bpp)"
 
-#: plugins/rdp/rdp_plugin.c:2536 data/ui/remmina_preferences.glade:641
+#: plugins/rdp/rdp_plugin.c:2657 data/ui/remmina_preferences.glade:639
 #, fuzzy
 msgid "None"
 msgstr "ไม่มี"
 
-#: plugins/rdp/rdp_plugin.c:2537
+#: plugins/rdp/rdp_plugin.c:2658
 #, fuzzy
 msgid "Auto-detect"
 msgstr "ตรวจจับอัตโนมัติ"
 
-#: plugins/rdp/rdp_plugin.c:2538
+#: plugins/rdp/rdp_plugin.c:2659
 #, fuzzy
 msgid "Modem"
 msgstr "โมเด็ม"
 
-#: plugins/rdp/rdp_plugin.c:2539
+#: plugins/rdp/rdp_plugin.c:2660
 #, fuzzy
 msgid "Low performance broadband"
 msgstr "บรอดแบนด์ประสิทธิภาพต่ํา"
 
-#: plugins/rdp/rdp_plugin.c:2540
+#: plugins/rdp/rdp_plugin.c:2661
 #, fuzzy
 msgid "Satellite"
 msgstr "ดาวเทียม"
 
-#: plugins/rdp/rdp_plugin.c:2541
+#: plugins/rdp/rdp_plugin.c:2662
 #, fuzzy
 msgid "High performance broadband"
 msgstr "บรอดแบนด์ประสิทธิภาพสูง"
 
-#: plugins/rdp/rdp_plugin.c:2542
+#: plugins/rdp/rdp_plugin.c:2663
 #, fuzzy
 msgid "WAN"
 msgstr "ซีด"
 
-#: plugins/rdp/rdp_plugin.c:2543
+#: plugins/rdp/rdp_plugin.c:2664
 #, fuzzy
 msgid "LAN"
 msgstr "แลน"
 
-#: plugins/rdp/rdp_plugin.c:2550 plugins/spice/spice_plugin.c:635
-#: data/ui/remmina_preferences.glade:677
+#: plugins/rdp/rdp_plugin.c:2671 plugins/spice/spice_plugin.c:637
+#: data/ui/remmina_preferences.glade:675
 #, fuzzy
 msgid "Off"
 msgstr "ปิด"
 
-#: plugins/rdp/rdp_plugin.c:2559
+#: plugins/rdp/rdp_plugin.c:2680
 #, fuzzy
 msgid "Automatic negotiation"
 msgstr "การเจรจาต่อรองอัตโนมัติ"
 
-#: plugins/rdp/rdp_plugin.c:2560
+#: plugins/rdp/rdp_plugin.c:2681
 msgid "NLA protocol security"
 msgstr "โปรโตคอล"
 
-#: plugins/rdp/rdp_plugin.c:2561
+#: plugins/rdp/rdp_plugin.c:2682
 msgid "TLS protocol security"
 msgstr "โปรโตคอล"
 
-#: plugins/rdp/rdp_plugin.c:2562
+#: plugins/rdp/rdp_plugin.c:2683
 msgid "RDP protocol security"
 msgstr "โปรโตคอล"
 
-#: plugins/rdp/rdp_plugin.c:2563
+#: plugins/rdp/rdp_plugin.c:2684
 #, fuzzy
 msgid "NLA extended protocol security"
 msgstr "NLA ขยายการรักษาความปลอดภัยของโพรโทคอล"
 
-#: plugins/rdp/rdp_plugin.c:2576
+#: plugins/rdp/rdp_plugin.c:2698 plugins/spice/spice_plugin.c:618
+#: plugins/spice/spice_plugin.c:636
+msgid "Default"
+msgstr "ปริยาย"
+
+#: plugins/rdp/rdp_plugin.c:2699
+msgid "0 — Windows 7 compatible"
+msgstr ""
+
+#: plugins/rdp/rdp_plugin.c:2700
+msgid "1"
+msgstr ""
+
+#: plugins/rdp/rdp_plugin.c:2701
+msgid "2"
+msgstr ""
+
+#: plugins/rdp/rdp_plugin.c:2702
+msgid "3"
+msgstr ""
+
+#: plugins/rdp/rdp_plugin.c:2703
+msgid "4"
+msgstr ""
+
+#: plugins/rdp/rdp_plugin.c:2704
+msgid "5"
+msgstr ""
+
+#: plugins/rdp/rdp_plugin.c:2709
 #, fuzzy
 msgid "2600 (Windows XP), 7601 (Windows Vista/7), 9600 (Windows 8 and newer)"
 msgstr "2600 (Windows XP), 7601 (Windows Vista/7), 9600 (Windows 8 และใหม่กว่า)"
 
-#: plugins/rdp/rdp_plugin.c:2579
+#: plugins/rdp/rdp_plugin.c:2712
 #, fuzzy
 msgid ""
 "Used i.a. by terminal services in a smart card channel to distinguish client "
@@ -2263,7 +2552,7 @@ msgstr ""
 "Windows 8 และใหม่กว่า: SCardGetReaderIcon(),\n"
 "    SCardGetDeviceTypeId()"
 
-#: plugins/rdp/rdp_plugin.c:2587
+#: plugins/rdp/rdp_plugin.c:2720
 #, fuzzy
 msgid ""
 "Options for redirection of audio input:\n"
@@ -2282,7 +2571,7 @@ msgstr ""
 "  และวัว; sys: oss, dev: 1,รูปแบบ: 1\n"
 "  • sys:alsa"
 
-#: plugins/rdp/rdp_plugin.c:2596
+#: plugins/rdp/rdp_plugin.c:2729
 #, fuzzy
 msgid ""
 "Options for redirection of audio output:\n"
@@ -2301,7 +2590,7 @@ msgstr ""
 "  และวัว; sys: oss, dev: 1,รูปแบบ: 1\n"
 "  • sys:alsa"
 
-#: plugins/rdp/rdp_plugin.c:2606
+#: plugins/rdp/rdp_plugin.c:2739
 #, fuzzy
 msgid ""
 "Options for redirection of USB device:\n"
@@ -2314,7 +2603,7 @@ msgstr ""
 "  • อัตโนมัติ\n"
 "  • id:054c:0268#4669:6e6b,addr:04:0c"
 
-#: plugins/rdp/rdp_plugin.c:2612
+#: plugins/rdp/rdp_plugin.c:2745
 #, fuzzy
 msgid ""
 "Advanced setting for high latency links:\n"
@@ -2325,7 +2614,7 @@ msgstr ""
 "ปรับการหมดเวลาของการเชื่อมต่อ ใช้ถ้าการเชื่อมต่อของคุณหมดเวลา\n"
 "ค่าสูงสุดที่เป็นไปได้คือ 600000 ms (10 นาที)\n"
 
-#: plugins/rdp/rdp_plugin.c:2617
+#: plugins/rdp/rdp_plugin.c:2750
 #, fuzzy
 msgid ""
 "Performance optimisations based on the network connection type:\n"
@@ -2336,7 +2625,7 @@ msgstr ""
 "ขอแนะนําให้ใช้การตรวจจับอัตโนมัติ\n"
 "หาก \"ตรวจจับอัตโนมัติ\" ล้มเหลวให้เลือกตัวเลือกที่เหมาะสมที่สุดในรายการ\n"
 
-#: plugins/rdp/rdp_plugin.c:2622
+#: plugins/rdp/rdp_plugin.c:2755
 #, fuzzy
 msgid ""
 "Comma-separated list of monitor IDs and desktop orientations:\n"
@@ -2361,7 +2650,7 @@ msgstr ""
 "  • 270 (ภาพพลิก)\n"
 "\n"
 
-#: plugins/rdp/rdp_plugin.c:2634
+#: plugins/rdp/rdp_plugin.c:2767
 #, fuzzy
 msgid ""
 "Redirect directory <path> as named share <name>.\n"
@@ -2382,144 +2671,157 @@ msgstr ""
 "  • hotplug,*\n"
 "\n"
 
-#: plugins/rdp/rdp_plugin.c:2658 plugins/spice/spice_plugin.c:669
+#: plugins/rdp/rdp_plugin.c:2799 plugins/spice/spice_plugin.c:679
 #, fuzzy
 msgid "Share folder"
 msgstr "ใช้โฟลเดอร์ร่วมกัน"
 
-#: plugins/rdp/rdp_plugin.c:2658
-#, fuzzy
-msgid "Use “Redirect directory” in the advanced tab for multiple directories"
-msgstr "ใช้ \"ไดเรกตอรีเปลี่ยนเส้นทาง\""
+#: plugins/rdp/rdp_plugin.c:2800
+msgid "Restricted admin mode"
+msgstr ""
 
-#: plugins/rdp/rdp_plugin.c:2659
+#: plugins/rdp/rdp_plugin.c:2801
+#, fuzzy
+#| msgid "Password"
+msgid "Password hash"
+msgstr "รหัสผ่าน"
+
+#: plugins/rdp/rdp_plugin.c:2801
+msgid "Restricted admin mode password hash"
+msgstr ""
+
+#: plugins/rdp/rdp_plugin.c:2802
 #, fuzzy
 msgid "Left-handed mouse support"
 msgstr "การสนับสนุนเมาส์ด้วยมือซ้าย"
 
-#: plugins/rdp/rdp_plugin.c:2659
+#: plugins/rdp/rdp_plugin.c:2802
 #, fuzzy
 msgid "Swap left and right mouse buttons for left-handed mouse support"
 msgstr "สลับปุ่มเมาส์ซ้ายและขวาสําหรับการสนับสนุนเมาส์ถนัดซ้าย"
 
-#: plugins/rdp/rdp_plugin.c:2661
+#: plugins/rdp/rdp_plugin.c:2804
 #, fuzzy
 msgid "Enable multi monitor"
 msgstr "เปิดใช้งานจอภาพหลายจอ"
 
-#: plugins/rdp/rdp_plugin.c:2662
+#: plugins/rdp/rdp_plugin.c:2805
 #, fuzzy
 msgid "Span screen over multiple monitors"
 msgstr "ขยายหน้าจอผ่านจอภาพหลายจอ"
 
-#: plugins/rdp/rdp_plugin.c:2663
+#: plugins/rdp/rdp_plugin.c:2806
 #, fuzzy
 msgid "List monitor IDs"
 msgstr "รหัสการตรวจสอบรายการ"
 
-#: plugins/rdp/rdp_plugin.c:2665 plugins/vnc/vnc_plugin.c:1962
-#: plugins/vnc/vnc_plugin.c:1982 plugins/gvnc/gvnc_plugin.c:840
+#: plugins/rdp/rdp_plugin.c:2808 plugins/vnc/vnc_plugin.c:2039
+#: plugins/vnc/vnc_plugin.c:2051 plugins/gvnc/gvnc_plugin.c:848
 #, fuzzy
 msgid "Colour depth"
 msgstr "ความลึกของสี"
 
-#: plugins/rdp/rdp_plugin.c:2666
+#: plugins/rdp/rdp_plugin.c:2809
 msgid "Network connection type"
 msgstr "การเชื่อมต่อใหม่"
 
-#: plugins/rdp/rdp_plugin.c:2681 plugins/vnc/vnc_plugin.c:1963
-#: plugins/vnc/vnc_plugin.c:1983
+#: plugins/rdp/rdp_plugin.c:2825 plugins/vnc/vnc_plugin.c:2040
+#: plugins/vnc/vnc_plugin.c:2052
 #, fuzzy
 msgid "Quality"
 msgstr "คุณภาพ"
 
-#: plugins/rdp/rdp_plugin.c:2682
+#: plugins/rdp/rdp_plugin.c:2826
 #, fuzzy
 msgid "Security protocol negotiation"
 msgstr "การเจรจาโพรโทคอลความปลอดภัย"
 
-#: plugins/rdp/rdp_plugin.c:2683
+#: plugins/rdp/rdp_plugin.c:2827
 #, fuzzy
 msgid "Gateway transport type"
 msgstr "ชนิดการส่งผ่านเกตเวย์"
 
-#: plugins/rdp/rdp_plugin.c:2684
+#: plugins/rdp/rdp_plugin.c:2828
+#, fuzzy
+msgid "TLS Security Level"
+msgstr "การรักษาความปลอดภัย"
+
+#: plugins/rdp/rdp_plugin.c:2829
 #, fuzzy
 msgid "FreeRDP log level"
 msgstr "ระดับล็อก FreeRDP"
 
-#: plugins/rdp/rdp_plugin.c:2685
+#: plugins/rdp/rdp_plugin.c:2830
 #, fuzzy
 msgid "FreeRDP log filters"
 msgstr "ตัวกรองบันทึก FreeRDP"
 
-#: plugins/rdp/rdp_plugin.c:2685
+#: plugins/rdp/rdp_plugin.c:2830
 #, fuzzy
 msgid "tag:level[,tag:level[,…]]"
 msgstr "แท็ก:ระดับ[,แท็ก:ระดับ[,...]]"
 
-#: plugins/rdp/rdp_plugin.c:2686
+#: plugins/rdp/rdp_plugin.c:2831
 #, fuzzy
 msgid "Audio output mode"
 msgstr "โหมดสัญญาณเสียงออก"
 
-#: plugins/rdp/rdp_plugin.c:2687
+#: plugins/rdp/rdp_plugin.c:2832
 #, fuzzy
 msgid "Redirect local audio output"
 msgstr "เปลี่ยนเส้นทางสัญญาณเสียงออกภายในเครื่อง"
 
-#: plugins/rdp/rdp_plugin.c:2688
+#: plugins/rdp/rdp_plugin.c:2833
 #, fuzzy
 msgid "Redirect local microphone"
 msgstr "เปลี่ยนเส้นทางไมโครโฟนภายในเครื่อง"
 
-#: plugins/rdp/rdp_plugin.c:2689
+#: plugins/rdp/rdp_plugin.c:2834
 msgid "Connection timeout in ms"
 msgstr "เชื่อมต่อไปยัง '%s'…"
 
-#: plugins/rdp/rdp_plugin.c:2690
+#: plugins/rdp/rdp_plugin.c:2835
 msgid "Remote Desktop Gateway server"
 msgstr "ค่าปรับแต่งพื้นโต๊ะระยะไกล"
 
-#: plugins/rdp/rdp_plugin.c:2691
+#: plugins/rdp/rdp_plugin.c:2836
 msgid "Remote Desktop Gateway username"
 msgstr "ค่าปรับแต่งพื้นโต๊ะระยะไกล"
 
-#: plugins/rdp/rdp_plugin.c:2692
+#: plugins/rdp/rdp_plugin.c:2837
 msgid "Remote Desktop Gateway password"
 msgstr "ค่าปรับแต่งพื้นโต๊ะระยะไกล"
 
-#: plugins/rdp/rdp_plugin.c:2693
+#: plugins/rdp/rdp_plugin.c:2838
 msgid "Remote Desktop Gateway domain"
 msgstr "ค่าปรับแต่งพื้นโต๊ะระยะไกล"
 
-#: plugins/rdp/rdp_plugin.c:2694
-#, fuzzy
-msgid "Redirect directory"
-msgstr "ไดเรกตอรีการเปลี่ยนเส้นทาง"
-
-#: plugins/rdp/rdp_plugin.c:2695
+#: plugins/rdp/rdp_plugin.c:2839
 #, fuzzy
 msgid "Client name"
 msgstr "ชื่อลูกข่าย"
 
-#: plugins/rdp/rdp_plugin.c:2696
+#: plugins/rdp/rdp_plugin.c:2840
 #, fuzzy
 msgid "Client build"
 msgstr "การสร้างไคลเอนต์"
 
-#: plugins/rdp/rdp_plugin.c:2699
+#: plugins/rdp/rdp_plugin.c:2841
+msgid "Start-up program"
+msgstr "โปรแกรมเริ่มต้น"
+
+#: plugins/rdp/rdp_plugin.c:2843
 #, fuzzy
 msgid "Load balance info"
 msgstr "ข้อมูลยอดดุลจํานวนงานในการโหลด"
 
 #. TRANSLATORS: Do not use typographic quotation marks, these must stay as "double quote", also know as “Typewriter ("programmer's") quote, ambidextrous.”
-#: plugins/rdp/rdp_plugin.c:2701
+#: plugins/rdp/rdp_plugin.c:2845
 #, fuzzy
 msgid "Override printer drivers"
 msgstr "การแทนที่โปรแกรมควบคุมเครื่องพิมพ์"
 
-#: plugins/rdp/rdp_plugin.c:2701
+#: plugins/rdp/rdp_plugin.c:2845
 #, fuzzy
 msgid ""
 "\"Samsung_CLX-3300_Series\":\"Samsung CLX-3300 Series PS\";\"Canon MF410\":"
@@ -2528,222 +2830,229 @@ msgstr ""
 "\"Samsung_CLX-3300_Series\":\"ซัมซุง CLX-3300 ซีรีส์ PS\";\" Canon MF410\":"
 "\"Canon MF410 ซีรี่ส์ UFR II\""
 
-#: plugins/rdp/rdp_plugin.c:2702
+#: plugins/rdp/rdp_plugin.c:2846
 #, fuzzy
 msgid "USB device redirection"
 msgstr "การเปลี่ยนเส้นทางอุปกรณ์ USB"
 
-#: plugins/rdp/rdp_plugin.c:2703
+#: plugins/rdp/rdp_plugin.c:2847
 #, fuzzy
 msgid "Local serial name"
 msgstr "ชื่อประจําสินค้าเฉพาะที่"
 
-#: plugins/rdp/rdp_plugin.c:2703
+#: plugins/rdp/rdp_plugin.c:2847
 #, fuzzy
 msgid "COM1, COM2, etc."
 msgstr "COM1, COM2 ฯลฯ"
 
-#: plugins/rdp/rdp_plugin.c:2704
+#: plugins/rdp/rdp_plugin.c:2848
 #, fuzzy
 msgid "Local serial driver"
 msgstr "โปรแกรมควบคุมแบบอนุกรมภายในเครื่อง"
 
-#: plugins/rdp/rdp_plugin.c:2704
+#: plugins/rdp/rdp_plugin.c:2848
 #, fuzzy
 msgid "Serial"
 msgstr "อนุกรม"
 
-#: plugins/rdp/rdp_plugin.c:2705
+#: plugins/rdp/rdp_plugin.c:2849
 #, fuzzy
 msgid "Local serial path"
 msgstr "พาธอนุกรมเฉพาะที่"
 
-#: plugins/rdp/rdp_plugin.c:2705
+#: plugins/rdp/rdp_plugin.c:2849
 #, fuzzy
 msgid "/dev/ttyS0, /dev/ttyS1, etc."
 msgstr "/dev/ttyS0, /dev/ttyS1 ฯลฯ"
 
-#: plugins/rdp/rdp_plugin.c:2706
+#: plugins/rdp/rdp_plugin.c:2850
 #, fuzzy
 msgid "Local parallel name"
 msgstr "ชื่อแบบขนานภายในเครื่อง"
 
-#: plugins/rdp/rdp_plugin.c:2707
+#: plugins/rdp/rdp_plugin.c:2851
 #, fuzzy
 msgid "Local parallel device"
 msgstr "อุปกรณ์ขนานภายในเครื่อง"
 
-#: plugins/rdp/rdp_plugin.c:2708
+#: plugins/rdp/rdp_plugin.c:2852
 #, fuzzy
 msgid "Name of smart card"
 msgstr "ชื่อของสมาร์ทการ์ด"
 
-#: plugins/rdp/rdp_plugin.c:2709
+#: plugins/rdp/rdp_plugin.c:2853
 #, fuzzy
 msgid "Dynamic virtual channel"
 msgstr "ช่องทางเสมือนแบบไดนามิก"
 
-#: plugins/rdp/rdp_plugin.c:2709 plugins/rdp/rdp_plugin.c:2710
+#: plugins/rdp/rdp_plugin.c:2853 plugins/rdp/rdp_plugin.c:2854
 #, fuzzy
 msgid "<channel>[,<options>]"
 msgstr "<channel>[,<options>]"
 
-#: plugins/rdp/rdp_plugin.c:2710
+#: plugins/rdp/rdp_plugin.c:2854
 #, fuzzy
 msgid "Static virtual channel"
 msgstr "แชนเนลเสมือนแบบคงที่"
 
-#: plugins/rdp/rdp_plugin.c:2711
+#: plugins/rdp/rdp_plugin.c:2855
 #, fuzzy
 #| msgid "Per connection"
 msgid "TCP redirection"
 msgstr "การเปลี่ยนเส้นทาง TCP"
 
-#: plugins/rdp/rdp_plugin.c:2711
+#: plugins/rdp/rdp_plugin.c:2855
 #, fuzzy
 msgid "/PATH/TO/rdp2tcp"
 msgstr "/PATH/ไปยัง/rdp2tcp"
 
-#: plugins/rdp/rdp_plugin.c:2713
+#: plugins/rdp/rdp_plugin.c:2857
 #, fuzzy
 msgid "Prefer IPv6 AAAA record over IPv4 A record"
 msgstr "ต้องการระเบียน IPv6 AAAA มากกว่าระเบียน IPv4 A"
 
-#: plugins/rdp/rdp_plugin.c:2714
+#: plugins/rdp/rdp_plugin.c:2858
 #, fuzzy
 msgid "Share printers"
 msgstr "การใช้เครื่องพิมพ์ร่วมกัน"
 
-#: plugins/rdp/rdp_plugin.c:2715
+#: plugins/rdp/rdp_plugin.c:2859
 #, fuzzy
 msgid "Share serial ports"
 msgstr "แชร์พอร์ตอนุกรม"
 
-#: plugins/rdp/rdp_plugin.c:2716
+#: plugins/rdp/rdp_plugin.c:2860
 #, fuzzy
 msgid "(SELinux) permissive mode for serial ports"
 msgstr "(SELinux) โหมดที่อนุญาตสําหรับพอร์ตอนุกรม"
 
-#: plugins/rdp/rdp_plugin.c:2717
+#: plugins/rdp/rdp_plugin.c:2861
 #, fuzzy
 msgid "Share parallel ports"
 msgstr "แชร์พอร์ตขนาน"
 
-#: plugins/rdp/rdp_plugin.c:2718
+#: plugins/rdp/rdp_plugin.c:2862
 #, fuzzy
 msgid "Share a smart card"
 msgstr "แชร์สมาร์ทการ์ด"
 
-#: plugins/rdp/rdp_plugin.c:2719 plugins/vnc/vnc_plugin.c:2001
+#: plugins/rdp/rdp_plugin.c:2863 plugins/vnc/vnc_plugin.c:2075
 #, fuzzy
 msgid "Turn off clipboard sync"
 msgstr "ปิดการซิงค์คลิปบอร์ด"
 
-#: plugins/rdp/rdp_plugin.c:2720
+#: plugins/rdp/rdp_plugin.c:2864
 #, fuzzy
 msgid "Ignore certificate"
 msgstr "ละเว้นใบรับรอง"
 
-#: plugins/rdp/rdp_plugin.c:2721
+#: plugins/rdp/rdp_plugin.c:2865
 #, fuzzy
 msgid "Use the old license workflow"
 msgstr "ใช้ลําดับงานลิขสิทธิ์เก่า"
 
-#: plugins/rdp/rdp_plugin.c:2721
+#: plugins/rdp/rdp_plugin.c:2865
 #, fuzzy
 msgid "It disables CAL and hwId is set to 0"
 msgstr "ปิดการใช้งาน CAL และ hwId ถูกตั้งค่าเป็น 0"
 
-#: plugins/rdp/rdp_plugin.c:2722 plugins/spice/spice_plugin.c:694
-#: plugins/vnc/vnc_plugin.c:2005 plugins/www/www_plugin.c:911
-#: plugins/gvnc/gvnc_plugin.c:858
+#: plugins/rdp/rdp_plugin.c:2866 plugins/spice/spice_plugin.c:704
+#: plugins/vnc/vnc_plugin.c:2071 plugins/www/www_plugin.c:932
+#: plugins/gvnc/gvnc_plugin.c:866
 msgid "Forget passwords after use"
 msgstr "รหัสผ่าน %s"
 
-#: plugins/rdp/rdp_plugin.c:2723
+#: plugins/rdp/rdp_plugin.c:2867
 #, fuzzy
 msgid "Attach to console (2003/2003 R2)"
 msgstr "ติดกับคอนโซล (2003/2003 R2)"
 
-#: plugins/rdp/rdp_plugin.c:2724
+#: plugins/rdp/rdp_plugin.c:2868
 #, fuzzy
 msgid "Turn off fast-path"
 msgstr "ปิดเส้นทางด่วน"
 
-#: plugins/rdp/rdp_plugin.c:2725
+#: plugins/rdp/rdp_plugin.c:2869
 #, fuzzy
 msgid "Server detection using Remote Desktop Gateway"
 msgstr "การตรวจหาเซิร์ฟเวอร์โดยใช้เกตเวย์ของเดสก์ท็อประยะไกล"
 
-#: plugins/rdp/rdp_plugin.c:2727
+#: plugins/rdp/rdp_plugin.c:2871
 #, fuzzy
 msgid "Use system proxy settings"
 msgstr "ใช้การตั้งค่าพร็อกซีระบบ"
 
-#: plugins/rdp/rdp_plugin.c:2729
+#: plugins/rdp/rdp_plugin.c:2873
 #, fuzzy
 msgid "Turn off automatic reconnection"
 msgstr "ปิดการเชื่อมต่อใหม่อัตโนมัติ"
 
-#: plugins/rdp/rdp_plugin.c:2730
+#: plugins/rdp/rdp_plugin.c:2874
 #, fuzzy
 msgid "Relax order checks"
 msgstr "ผ่อนคลายการตรวจสอบการสั่งซื้อ"
 
-#: plugins/rdp/rdp_plugin.c:2731
+#: plugins/rdp/rdp_plugin.c:2875
 #, fuzzy
 msgid "Glyph cache"
 msgstr "แคช Glyph"
 
-#: plugins/rdp/rdp_plugin.c:2732
+#: plugins/rdp/rdp_plugin.c:2876
 #, fuzzy
 msgid "Enable multitransport protocol (UDP)"
 msgstr "เปิดใช้งานโพรโทคอลแบบหลายสื่อ (UDP)"
 
-#: plugins/rdp/rdp_plugin.c:2732
+#: plugins/rdp/rdp_plugin.c:2876
 #, fuzzy
 msgid "Using the UDP protocol may improve performance"
 msgstr "การใช้โปรโตคอล UDP อาจเพิ่มประสิทธิภาพ"
 
-#: plugins/rdp/rdp_plugin.c:2733
+#: plugins/rdp/rdp_plugin.c:2877
 #, fuzzy
 msgid "Use base credentials for gateway too"
 msgstr "ใช้ข้อมูลประจําตัวพื้นฐานสําหรับเกตเวย์ด้วย"
 
-#: plugins/rdp/rdp_plugin.c:2735
+#: plugins/rdp/rdp_plugin.c:2879
 #, fuzzy
 msgid "Enable Gateway websockets support"
 msgstr "เปิดใช้งานการสนับสนุน websockets เกตเวย์"
 
-#: plugins/rdp/rdp_plugin.c:2748 plugins/spice/spice_plugin.c:707
-#: plugins/vnc/vnc_plugin.c:2021
+#: plugins/rdp/rdp_plugin.c:2892 plugins/spice/spice_plugin.c:717
+#: plugins/vnc/vnc_plugin.c:2092
 #, fuzzy
 msgid "Send Ctrl+Alt+Delete"
 msgstr "ส่ง Ctrl+Alt+ลบ"
 
-#: plugins/rdp/rdp_plugin.c:2761
+#: plugins/rdp/rdp_plugin.c:2905
 #, fuzzy
 msgid "RDP - Remote Desktop Protocol"
 msgstr "RDP - โพรโทคอลการใช้เดสก์ท็อประยะไกล"
 
-#: plugins/rdp/rdp_plugin.c:2786
+#: plugins/rdp/rdp_plugin.c:2930
 #, fuzzy
 msgid "RDP - RDP File Handler"
 msgstr "RDP - ตัวจัดการแฟ้ม RDP"
 
-#: plugins/rdp/rdp_plugin.c:2801
+#: plugins/rdp/rdp_plugin.c:2945
 #, fuzzy
 msgid "RDP - Preferences"
 msgstr "RDP - การกําหนดลักษณะ"
 
-#: plugins/rdp/rdp_plugin.c:2854
+#: plugins/rdp/rdp_plugin.c:2998
 #, fuzzy
 msgid "Export connection in Windows .rdp file format"
 msgstr "ส่งออกการเชื่อมต่อในรูปแบบไฟล์ .rdp ของ Windows"
 
-#: plugins/rdp/rdp_event.c:344
+#: plugins/rdp/rdp_event.c:347
 #, c-format
 msgid "Reconnection attempt %d of %d…"
+msgstr "เชื่อมต่อไปยัง '%s'…"
+
+#. TRANSLATORS: the placeholder may be either an IP/FQDN or a server hostname
+#: plugins/rdp/rdp_event.c:1126
+#, fuzzy, c-format
+#| msgid "Connecting to %s via SSH…"
+msgid "Connected to %s via RDP"
 msgstr "เชื่อมต่อไปยัง '%s'…"
 
 #: plugins/spice/spice_plugin_file_transfer.c:82
@@ -2780,88 +3089,98 @@ msgstr "รหัสผ่าน SSH"
 msgid "Disconnected from the SPICE server “%s”."
 msgstr "การเชื่อมต่อ SSH tunnel ไปยังปลายทางล้มเหลว: %s"
 
-#: plugins/spice/spice_plugin.c:402
+#: plugins/spice/spice_plugin.c:388
+#, fuzzy, c-format
+#| msgid "Disconnected from the SPICE server “%s”."
+msgid "Disconnected from %s:%d via SPICE"
+msgstr "การเชื่อมต่อ SSH tunnel ไปยังปลายทางล้มเหลว: %s"
+
+#: plugins/spice/spice_plugin.c:391
+#, fuzzy, c-format
+#| msgid "Connecting to %s via SSH…"
+msgid "Connected to %s:%d via SPICE"
+msgstr "เชื่อมต่อไปยัง '%s'…"
+
+#: plugins/spice/spice_plugin.c:403
 #, fuzzy
 msgid "TLS connection error."
 msgstr "ข้อผิดพลาดในการเชื่อมต่อ TLS"
 
-#: plugins/spice/spice_plugin.c:408
+#: plugins/spice/spice_plugin.c:409
 #, fuzzy
 msgid "Connection to the SPICE server dropped."
 msgstr "การเชื่อมต่อไปยังเซิร์ฟเวอร์ SPICE ลดลง"
 
-#: plugins/spice/spice_plugin.c:616 plugins/spice/spice_plugin.c:634
-msgid "Default"
-msgstr "ปริยาย"
-
-#: plugins/spice/spice_plugin.c:636
+#: plugins/spice/spice_plugin.c:638
 #, fuzzy
 msgid "Auto GLZ"
 msgstr "GLZ อัตโนมัติ"
 
-#: plugins/spice/spice_plugin.c:637
+#: plugins/spice/spice_plugin.c:639
 #, fuzzy
 msgid "Auto LZ"
 msgstr "LZ อัตโนมัติ"
 
-#: plugins/spice/spice_plugin.c:650
+#: plugins/spice/spice_plugin.c:652
 #, fuzzy
 msgid "Disable video overlay if videos are not displayed properly.\n"
 msgstr "ปิดใช้งานการซ้อนทับวิดีโอหากวิดีโอแสดงไม่ถูกต้อง\n"
 
-#: plugins/spice/spice_plugin.c:667
+#: plugins/spice/spice_plugin.c:677
 #, fuzzy
 msgid "Use TLS encryption"
 msgstr "ใช้การเข้ารหัส TLS"
 
-#: plugins/spice/spice_plugin.c:668
+#: plugins/spice/spice_plugin.c:678
 #, fuzzy
 msgid "Server CA certificate"
 msgstr "ใบรับรองเซิร์ฟเวอร์ CA"
 
-#: plugins/spice/spice_plugin.c:686
-msgid "Prefered video codec"
+#: plugins/spice/spice_plugin.c:696
+#, fuzzy
+#| msgid "Prefered video codec"
+msgid "Preferred video codec"
 msgstr "ปรับแต่ง"
 
-#: plugins/spice/spice_plugin.c:687
+#: plugins/spice/spice_plugin.c:697
 #, fuzzy
 msgid "Turn off GStreamer overlay"
 msgstr "ปิดการซ้อนทับ GStreamer"
 
-#: plugins/spice/spice_plugin.c:690
+#: plugins/spice/spice_plugin.c:700
 #, fuzzy
-msgid "Prefered image compression"
+msgid "Preferred image compression"
 msgstr "การบีบอัดภาพที่ต้องการ"
 
-#: plugins/spice/spice_plugin.c:693 plugins/spice/spice_plugin.c:706
-#: plugins/gvnc/gvnc_plugin.c:857 plugins/gvnc/gvnc_plugin.c:871
+#: plugins/spice/spice_plugin.c:703 plugins/spice/spice_plugin.c:716
+#: plugins/gvnc/gvnc_plugin.c:865 plugins/gvnc/gvnc_plugin.c:879
 #, fuzzy
 msgid "No clipboard sync"
 msgstr "ไม่มีการซิงค์คลิปบอร์ด"
 
-#: plugins/spice/spice_plugin.c:695 plugins/gvnc/gvnc_plugin.c:860
+#: plugins/spice/spice_plugin.c:705 plugins/gvnc/gvnc_plugin.c:868
 #, fuzzy
 msgid "Enable audio channel"
 msgstr "เปิดใช้งานช่องสัญญาณเสียง"
 
-#: plugins/spice/spice_plugin.c:696
+#: plugins/spice/spice_plugin.c:706
 #, fuzzy
 msgid "Share smart card"
 msgstr "แชร์สมาร์ทการ์ด"
 
-#: plugins/spice/spice_plugin.c:697 plugins/spice/spice_plugin.c:705
-#: plugins/vnc/vnc_plugin.c:2000 plugins/vnc/vnc_plugin.c:2017
-#: plugins/gvnc/gvnc_plugin.c:861 plugins/gvnc/gvnc_plugin.c:870
+#: plugins/spice/spice_plugin.c:707 plugins/spice/spice_plugin.c:715
+#: plugins/vnc/vnc_plugin.c:2077 plugins/vnc/vnc_plugin.c:2088
+#: plugins/gvnc/gvnc_plugin.c:869 plugins/gvnc/gvnc_plugin.c:878
 #, fuzzy
 msgid "View only"
 msgstr "ดูอย่างเดียว"
 
-#: plugins/spice/spice_plugin.c:708 plugins/spice/spice_plugin_usb.c:51
+#: plugins/spice/spice_plugin.c:718 plugins/spice/spice_plugin_usb.c:51
 #, fuzzy
 msgid "Select USB devices for redirection"
 msgstr "เลือกอุปกรณ์ USB สําหรับการเปลี่ยนเส้นทาง"
 
-#: plugins/spice/spice_plugin.c:719
+#: plugins/spice/spice_plugin.c:729
 #, fuzzy
 msgid "SPICE - Simple Protocol for Independent Computing Environments"
 msgstr "SPICE - โปรโตคอลอย่างง่ายสําหรับสภาพแวดล้อมระบบคอมพิวเตอร์อิสระ"
@@ -2876,46 +3195,63 @@ msgstr "_Close"
 msgid "USB redirection error"
 msgstr "ข้อผิดพลาดในการเปลี่ยนเส้นทาง USB"
 
-#: plugins/vnc/vnc_plugin.c:772
+#: plugins/vnc/vnc_plugin.c:789
 msgid "Enter VNC password"
 msgstr "บันทึกรหัสผ่าน"
 
-#: plugins/vnc/vnc_plugin.c:825 plugins/gvnc/gvnc_plugin.c:539
+#: plugins/vnc/vnc_plugin.c:842 plugins/gvnc/gvnc_plugin.c:538
 #, fuzzy
 msgid "Enter VNC authentication credentials"
 msgstr "ใส่ข้อมูลประจําตัวการรับรองความถูกต้อง VNC"
 
-#: plugins/vnc/vnc_plugin.c:936
+#: plugins/vnc/vnc_plugin.c:950
 #, fuzzy
 msgid "Unable to connect to VNC server"
 msgstr "ไม่สามารถเชื่อมต่อกับเซิร์ฟเวอร์ VNC ได้"
 
-#: plugins/vnc/vnc_plugin.c:937
+#: plugins/vnc/vnc_plugin.c:951
 #, fuzzy, c-format
 msgid "Couldn’t convert '%s' to host address"
 msgstr "ไม่สามารถแปลง '%s' เป็นที่อยู่โฮสต์ได้"
 
-#: plugins/vnc/vnc_plugin.c:938
+#: plugins/vnc/vnc_plugin.c:952
 #, fuzzy, c-format
 msgid "VNC connection failed: %s"
 msgstr "การเชื่อมต่อ VNC ล้มเหลว: %s"
 
-#: plugins/vnc/vnc_plugin.c:939
+#: plugins/vnc/vnc_plugin.c:953
 #, fuzzy
 msgid "Your connection has been rejected."
 msgstr "การเชื่อมต่อของคุณถูกปฏิเสธ"
 
-#: plugins/vnc/vnc_plugin.c:966
+#: plugins/vnc/vnc_plugin.c:980
 #, fuzzy, c-format
 msgid "The VNC server requested an unknown authentication method. %s"
 msgstr "เซิร์ฟเวอร์ VNC ร้องขอวิธีการรับรองความถูกต้องที่ไม่รู้จัก %s"
 
-#: plugins/vnc/vnc_plugin.c:968
+#: plugins/vnc/vnc_plugin.c:982
 #, fuzzy
 msgid "Please retry after turning on encryption for this profile."
 msgstr "กรุณาลองอีกครั้งหลังจากเปิดการเข้ารหัสลับสําหรับส่วนกําหนดค่านี้"
 
-#: plugins/vnc/vnc_plugin.c:1939
+#: plugins/vnc/vnc_plugin.c:1716
+#, fuzzy, c-format
+#| msgid "Connecting to %s via SSH…"
+msgid "Connected to %s via VNC"
+msgstr "เชื่อมต่อไปยัง '%s'…"
+
+#: plugins/vnc/vnc_plugin.c:1723
+#, fuzzy, c-format
+#| msgid "Connecting to %s via SSH…"
+msgid "Connected to %s:%d via VNC"
+msgstr "เชื่อมต่อไปยัง '%s'…"
+
+#: plugins/vnc/vnc_plugin.c:1743
+#, c-format
+msgid "Disconnected from %s:%d via VNC"
+msgstr ""
+
+#: plugins/vnc/vnc_plugin.c:1992
 #, fuzzy
 msgid ""
 "Connect to VNC using a repeater:\n"
@@ -2934,47 +3270,82 @@ msgstr ""
 "    ตัวทําซ้ํา เช่น กับ x11vnc:\n"
 "    x11vnc -เชื่อมต่อทวน=ID:123456789+10.10.10.12:5500"
 
-#: plugins/vnc/vnc_plugin.c:1959
+#: plugins/vnc/vnc_plugin.c:2001
+msgid ""
+"Listening for remote VNC connection:\n"
+"  • The “Listen on port” field is the port Remmina will listen to,\n"
+"    e.g. 8888\n"
+"  • From the remote VNC server, you will connect to\n"
+"    Remmina, e.g. with x11vnc:\n"
+"    x11vnc -display :0 -connect 192.168.1.36:8888"
+msgstr ""
+
+#: plugins/vnc/vnc_plugin.c:2009
+msgid ""
+"Overriding the pre-set VNC encoding quality:\n"
+"\n"
+"  • “Poor (fastest)” sets encoding to “copyrect zlib hextile raw”\n"
+"  • “Medium” sets encoding to “tight zrle ultra copyrect hextile zlib corre "
+"rre raw”\n"
+"  • “Good” sets encoding to “tight zrle ultra copyrect hextile zlib corre "
+"rre raw”\n"
+"  • “Best (slowest)” sets encoding to “copyrect zrle ultra zlib hextile "
+"corre rre raw”"
+msgstr ""
+
+#: plugins/vnc/vnc_plugin.c:2036
 #, fuzzy
 msgid "Repeater"
 msgstr "ทวน"
 
-#: plugins/vnc/vnc_plugin.c:1979
+#: plugins/vnc/vnc_plugin.c:2048
 #, fuzzy
 msgid "Listen on port"
 msgstr "ฟังบนพอร์ต"
 
-#: plugins/vnc/vnc_plugin.c:1999
-#, fuzzy
-msgid "Show remote cursor"
-msgstr "แสดงเคอร์เซอร์ระยะไกล"
+#: plugins/vnc/vnc_plugin.c:2068
+msgid "Override pre-set VNC encodings"
+msgstr ""
 
-#: plugins/vnc/vnc_plugin.c:2002
-#, fuzzy
-msgid "Turn off encryption"
-msgstr "ปิดการเข้ารหัสลับ"
+#: plugins/vnc/vnc_plugin.c:2069
+msgid "Force tight encoding"
+msgstr ""
 
-#: plugins/vnc/vnc_plugin.c:2003 plugins/vnc/vnc_plugin.c:2018
-#, fuzzy
-msgid "Prevent local interaction on the server"
-msgstr "ป้องกันการโต้ตอบภายในเซิร์ฟเวอร์"
+#: plugins/vnc/vnc_plugin.c:2069
+msgid "Enabling this may help when the remote desktop looks scrambled"
+msgstr ""
 
-#: plugins/vnc/vnc_plugin.c:2004 plugins/gvnc/gvnc_plugin.c:859
+#: plugins/vnc/vnc_plugin.c:2072 plugins/gvnc/gvnc_plugin.c:867
 #, fuzzy
 msgid "Ignore remote bell messages"
 msgstr "ละเว้นข้อความกระดิ่งระยะไกล"
 
-#: plugins/vnc/vnc_plugin.c:2020
+#: plugins/vnc/vnc_plugin.c:2073 plugins/vnc/vnc_plugin.c:2089
+#, fuzzy
+msgid "Prevent local interaction on the server"
+msgstr "ป้องกันการโต้ตอบภายในเซิร์ฟเวอร์"
+
+#: plugins/vnc/vnc_plugin.c:2074
+#, fuzzy
+msgid "Show remote cursor"
+msgstr "แสดงเคอร์เซอร์ระยะไกล"
+
+#: plugins/vnc/vnc_plugin.c:2076
+#, fuzzy
+msgid "Turn off encryption"
+msgstr "ปิดการเข้ารหัสลับ"
+
+#: plugins/vnc/vnc_plugin.c:2091
 #, fuzzy
 msgid "Open Chat…"
 msgstr "เปิดการสนทนา…"
 
-#: plugins/vnc/vnc_plugin.h:41
+#: plugins/vnc/vnc_plugin.h:42
 #, fuzzy
 msgid "Remmina VNC Plugin"
 msgstr "ปลั๊กอิน VNC แบบ Remmina"
 
-#: plugins/vnc/vnc_plugin.h:46
+#: plugins/vnc/vnc_plugin.h:47
 #, fuzzy
 msgid "Remmina VNC listener Plugin"
 msgstr "ปลั๊กอินตัวฟัง Remmina VNC"
@@ -2984,77 +3355,77 @@ msgstr "ปลั๊กอินตัวฟัง Remmina VNC"
 msgid "Remmina web-browser plugin"
 msgstr "ติดตั้งปลั๊กอินเว็บเบราว์เซอร์ใหม่"
 
-#: plugins/www/www_plugin.c:98
+#: plugins/www/www_plugin.c:99
 #, fuzzy
 msgid "File downloaded"
 msgstr "ดาวน์โหลดไฟล์แล้ว"
 
-#: plugins/www/www_plugin.c:581
+#: plugins/www/www_plugin.c:588
 #, fuzzy
 msgid "Enter WWW authentication credentials"
 msgstr "ใส่ข้อมูลประจําตัวสําหรับการรับรองความถูกต้องของ WWW"
 
-#: plugins/www/www_plugin.c:885
+#: plugins/www/www_plugin.c:903
 #, fuzzy
 msgid "URL"
 msgstr "URL"
 
-#: plugins/www/www_plugin.c:885
+#: plugins/www/www_plugin.c:903
 #, fuzzy
 msgid "http://address or https://address"
 msgstr "http://address หรือ https://address"
 
-#: plugins/www/www_plugin.c:902
+#: plugins/www/www_plugin.c:920
 #, fuzzy
 msgid "User agent"
 msgstr "ตัวแทนผู้ใช้"
 
-#: plugins/www/www_plugin.c:903
+#: plugins/www/www_plugin.c:921
 #, fuzzy
 msgid "Proxy URL"
 msgstr "URL ของพร็อกซี"
 
-#: plugins/www/www_plugin.c:903
+#: plugins/www/www_plugin.c:921
 #, fuzzy
 msgid "E.g. https://example.org, socks://mysocks:1080"
 msgstr "เช่น https://example.org socks://mysocks:1080"
 
-#: plugins/www/www_plugin.c:904
+#: plugins/www/www_plugin.c:922
 #, fuzzy
 msgid "Turn on Java support"
 msgstr "เปิดการสนับสนุน Java"
 
-#: plugins/www/www_plugin.c:905
+#: plugins/www/www_plugin.c:923
 #, fuzzy
 msgid "Turn on smooth scrolling"
 msgstr "เปิดการเลื่อนที่ราบรื่น"
 
-#: plugins/www/www_plugin.c:906
+#: plugins/www/www_plugin.c:924
 #, fuzzy
 msgid "Turn on spatial navigation"
 msgstr "เปิดการนําทางเชิงพื้นที่"
 
-#: plugins/www/www_plugin.c:907
+#: plugins/www/www_plugin.c:927
 #, fuzzy
 msgid "Turn on plugin support"
 msgstr "เปิดการสนับสนุนปลั๊กอิน"
 
-#: plugins/www/www_plugin.c:908
+#: plugins/www/www_plugin.c:928
 #, fuzzy
 msgid "Turn on WebGL support"
 msgstr "เปิดการสนับสนุน WebGL"
 
-#: plugins/www/www_plugin.c:909
+#: plugins/www/www_plugin.c:930
 #, fuzzy
 msgid "Turn on HTML5 audio support"
 msgstr "เปิดการสนับสนุนเสียง HTML5"
 
-#: plugins/www/www_plugin.c:910
+#: plugins/www/www_plugin.c:931
 #, fuzzy
 msgid "Ignore TLS errors"
 msgstr "ละเว้นข้อผิดพลาด TLS"
 
-#: plugins/www/www_plugin.c:913
+#: plugins/www/www_plugin.c:934
 #, fuzzy
 msgid "Turn on Web Inspector"
 msgstr "เปิดตัวตรวจสอบเว็บ"
@@ -3073,12 +3444,12 @@ msgstr ""
 "คําเตือน: การเรียกใช้คําสั่งแบบซิงโครนัสอาจทําให้ Remmina ไม่ตอบสนอง\n"
 "คุณต้องการดําเนินการต่อหรือไม่?"
 
-#: plugins/exec/exec_plugin.c:266
+#: plugins/exec/exec_plugin.c:274
 #, fuzzy
 msgid "Command"
 msgstr "คำสั่ง"
 
-#: plugins/exec/exec_plugin.c:267
+#: plugins/exec/exec_plugin.c:275
 #, fuzzy
 msgid "Asynchronous execution"
 msgstr "การดําเนินการแบบอะซิงโครนัส"
@@ -3097,163 +3468,748 @@ msgstr "หวัดดีชาวโลก!"
 msgid "Secured password storage in the GNOME keyring"
 msgstr "รหัสผ่าน %s"
 
+#: plugins/x2go/x2go_plugin.c:67
+#, c-format
+msgid ""
+"The command-line feature '%s' is not available! Attempting to start PyHoca-"
+"CLI without using this feature…"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:292 plugins/x2go/x2go_plugin.c:424
+#: plugins/x2go/x2go_plugin.c:513 plugins/x2go/x2go_plugin.c:620
+#: plugins/x2go/x2go_plugin.c:710 plugins/x2go/x2go_plugin.c:722
+#: plugins/x2go/x2go_plugin.c:731 plugins/x2go/x2go_plugin.c:757
+#: plugins/x2go/x2go_plugin.c:766 plugins/x2go/x2go_plugin.c:785
+#: plugins/x2go/x2go_plugin.c:835 plugins/x2go/x2go_plugin.c:901
+#: plugins/x2go/x2go_plugin.c:912 plugins/x2go/x2go_plugin.c:920
+#: plugins/x2go/x2go_plugin.c:1034 plugins/x2go/x2go_plugin.c:1050
+#: plugins/x2go/x2go_plugin.c:1115 plugins/x2go/x2go_plugin.c:1143
+#: plugins/x2go/x2go_plugin.c:1292 plugins/x2go/x2go_plugin.c:1666
+#: plugins/x2go/x2go_plugin.c:1700 plugins/x2go/x2go_plugin.c:1796
+#: plugins/x2go/x2go_plugin.c:2090 plugins/x2go/x2go_plugin.c:2904
+#: plugins/x2go/x2go_plugin.c:3117 plugins/x2go/x2go_plugin.c:3122
+#: plugins/x2go/x2go_plugin.c:3127 plugins/x2go/x2go_plugin.c:3132
+#: plugins/x2go/x2go_plugin.c:3147 plugins/x2go/x2go_plugin.c:3152
+#: plugins/x2go/x2go_plugin.c:3157 plugins/x2go/x2go_plugin.c:3162
+#, fuzzy, c-format
+msgid "Internal error: %s"
+msgstr "ข้อผิดพลาดในการโอนย้าย"
+
+#: plugins/x2go/x2go_plugin.c:293 plugins/x2go/x2go_plugin.c:425
+#: plugins/x2go/x2go_plugin.c:514 plugins/x2go/x2go_plugin.c:1293
+msgid "Parameter 'custom_data' is not initialized!"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:306
+msgid "Broken `DialogData`! Aborting…"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:310
+msgid "Can't retrieve `DialogData`! Aborting…"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:472
+msgid "X Display"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:473
+#, fuzzy
+msgid "Status"
+msgstr "สถานะ"
+
+#: plugins/x2go/x2go_plugin.c:474
+#, fuzzy
+#| msgid "Permission"
+msgid "Session ID"
+msgstr "สิทธิ์"
+
+#: plugins/x2go/x2go_plugin.c:475
+msgid "Create date"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:476
+msgid "Suspended since"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:477
+msgid "Agent PID"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:479
+#, fuzzy
+msgid "Hostname"
+msgstr "ชื่อผู้ใช้"
+
+#: plugins/x2go/x2go_plugin.c:480
+msgid "Cookie"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:481
+msgid "Graphic port"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:482
+msgid "SND port"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:483
+#, fuzzy
+msgid "SSHFS port"
+msgstr "พอร์ต SSH เฉพาะที่"
+
+#: plugins/x2go/x2go_plugin.c:484
+#, fuzzy
+msgid "Visible"
+msgstr "มองเห็น"
+
+#: plugins/x2go/x2go_plugin.c:523
+msgid "Couldn't retrieve valid `DialogData` or `sessions_list`! Aborting…"
+msgstr ""
+
+#. TRANSLATORS: Stick to x2goclient's translation for terminate.
+#: plugins/x2go/x2go_plugin.c:532
+#, fuzzy
+msgid "_Terminate"
+msgstr "สถานีปลายทาง"
+
+#. TRANSLATORS: Stick to x2goclient's translation for resume.
+#: plugins/x2go/x2go_plugin.c:535
+#, fuzzy
+msgid "_Resume"
+msgstr "เล่นต่อ"
+
+#: plugins/x2go/x2go_plugin.c:537
+msgid "_New"
+msgstr ""
+
+#. TRANSLATORS: Tooltip for terminating button inside Session-Chooser-Dialog.
+#. TRANSLATORS: Please stick to X2GoClient's way of translating.
+#: plugins/x2go/x2go_plugin.c:546
+msgid "Terminating X2Go sessions can take a moment."
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:621 plugins/x2go/x2go_plugin.c:623
+#, c-format
+msgid "Unknown property '%i'"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:711 plugins/x2go/x2go_plugin.c:758
+msgid "Couldn't find child GtkTreeView of session chooser dialog."
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:723
+msgid ""
+"Neither the 'dialog' nor 'treeview' parameters are initialized! At least one "
+"of them must be given."
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:732
+msgid ""
+"Could not obtain \"GtkTreeModelFilter*\" of the session chooser dialog, for "
+"unknown reason."
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:767
+msgid "Couldn't get currently selected row (session)!"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:786
+#, c-format
+msgid ""
+"Exactly one session should be selectable but '%i' rows (sessions) are "
+"selected."
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:836
+msgid "Failed to fill 'GtkTreeIter'."
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:902
+msgid "parameter 'argv' is 'NULL'."
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:913
+msgid "parameter 'error' is 'NULL'."
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:921
+msgid "parameter 'env' is either invalid or uninitialized."
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:937 plugins/x2go/x2go_plugin.c:2391
+msgid "Started PyHoca-CLI with the following arguments:"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:965
+msgid ""
+"The necessary PyHoca-CLI process has encountered a internet connection "
+"problem."
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:975
+#, fuzzy, c-format
+#| msgid "Could not start SSH session. %s"
+msgid ""
+"Could not start PyHoca-CLI:\n"
+"%s"
+msgstr "การเริ่มวาระ SSH ล้มเหลว: %s"
+
+#: plugins/x2go/x2go_plugin.c:986
+#, c-format
+msgid ""
+"An unknown error occured while trying to start PyHoca-CLI. Exit code: %i"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:993
+#, c-format
+msgid ""
+"An unknown error occured while trying to start PyHoca-CLI. Exit code: %i. "
+"Error: '%s'"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:1035
+msgid "Neither the 'path' nor 'dialog' parameters are initialized."
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:1051
+msgid "GtkTreePath 'path' describes a non-existing row!"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:1116
+msgid "Parameter 'custom_data' is not fully initialized!"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:1144 plugins/x2go/x2go_plugin.c:1797
+#: plugins/x2go/x2go_plugin.c:2091
+#, fuzzy
+#| msgid "Per connection"
+msgid "'Invalid connection data.'"
+msgstr "การเชื่อมต่อที่ใช้ร่วมกัน"
+
+#: plugins/x2go/x2go_plugin.c:1221
+#, c-format
+msgid ""
+"An error occured while trying to terminate X2Go session '%s':\n"
+"%s"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:1233 plugins/x2go/x2go_plugin.c:1609
+msgid "An error occured."
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:1333 plugins/x2go/x2go_plugin.c:1348
+msgid "Couldn't get session ID from session chooser dialog."
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:1340
+#, c-format
+msgid "Resuming session: '%s'"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:1355
+#, c-format
+msgid "Terminating session: '%s'"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:1529
+#, c-format
+msgid "Disconnected from %s:%d via X2Go"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:1601
+msgid "PyHoca-CLI exited unexpectedly. This connection will now be closed."
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:1610
+msgid ""
+"The necessary child process 'pyhoca-cli' stopped unexpectedly.\n"
+"Please check your profile settings and PyHoca-CLI's output for possible "
+"errors. Also ensure the remote server is reachable."
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:1653
+msgid "Can't save empty username!"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:1667
+#, fuzzy
+#| msgid "Could not save the file “%s”."
+msgid "Could not save new credentials."
+msgstr "การสร้างวาระ SFTP ล้มเหลว: %s"
+
+#: plugins/x2go/x2go_plugin.c:1670
+msgid ""
+"An error occured while trying to save new credentials: 's_password' or "
+"'s_username' strings were not set."
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:1701
+msgid "Parameter 'default_username' is uninitialized."
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:1730
+#, fuzzy
+msgid "Enter X2Go credentials"
+msgstr "ใส่ข้อมูลประจําตัวการรับรองความถูกต้องของ RDP"
+
+#: plugins/x2go/x2go_plugin.c:1927
+msgid ""
+"Couldn't parse the output of PyHoca-CLI's --list-sessions option. Creating a "
+"new session now."
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:1966
+msgid "Couldn't allocate enough memory!"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:1976
+#, c-format
+msgid "Found already existing X2Go session with ID: '%s'"
+msgstr ""
+
+#. TRANSLATORS: Please stick to X2GoClient's translation.
+#: plugins/x2go/x2go_plugin.c:2019
+msgid "Suspended"
+msgstr ""
+
+#. TRANSLATORS: Please stick to X2GoClient's translation.
+#: plugins/x2go/x2go_plugin.c:2022
+msgid "Running"
+msgstr ""
+
+#. TRANSLATORS: Please stick to X2GoClient's translation.
+#: plugins/x2go/x2go_plugin.c:2025
+#, fuzzy
+msgid "Terminated"
+msgstr "สถานีปลายทาง"
+
+#: plugins/x2go/x2go_plugin.c:2058
+msgid ""
+"Could not find any sessions on remote machine. Creating a new session now."
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:2113
+#, fuzzy
+#| msgid "Choose a file to upload"
+msgid "Choose a session to resume:"
+msgstr "เลือกแฟ้มที่จะอัปโหลด"
+
+#: plugins/x2go/x2go_plugin.c:2156
+msgid "Waiting for user to select a session…"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:2164
+msgid "No session was selected. Creating a new one."
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:2212
+#, c-format
+msgid "A non-critical error happened: %s"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:2217
+#, c-format
+msgid "User chose to resume session with ID: '%s'"
+msgstr ""
+
+#. TRANSLATORS: Please stick to X2GoClient's way of translating.
+#: plugins/x2go/x2go_plugin.c:2238
+#, c-format
+msgid "Resuming session '%s'…"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:2369
+msgid "DPI setting is out of bounds. Please adjust it in profile settings."
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:2411
+msgid "An error occured while starting an X2Go session…"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:2419
+#, fuzzy
+#| msgid "Could not start SSH session. %s"
+msgid "Could not start X2Go session."
+msgstr "การเริ่มวาระ SSH ล้มเหลว: %s"
+
+#: plugins/x2go/x2go_plugin.c:2420
+#, fuzzy, c-format
+#| msgid "Could not start SSH session. %s"
+msgid "Could not start PyHoca-CLI (%i): '%s'"
+msgstr "การเริ่มวาระ SSH ล้มเหลว: %s"
+
+#: plugins/x2go/x2go_plugin.c:2535
+msgid ""
+"Couldn't get PyHoca-CLI's command-line features. This indicates it is either "
+"too old, or not installed. An old limited set of features will be used for "
+"now."
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:2544
+msgid ""
+"Could not parse PyHoca-CLI's command-line features. Using a limited feature-"
+"set for now."
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:2550
+msgid "Retrieved the following PyHoca-CLI command-line features:"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:2558
+#, c-format
+msgid "Available feature[%i]: '%s'"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:2583
+#, fuzzy, c-format
+#| msgid "Connecting to %s via SSH…"
+msgid "Connected to %s:%d via X2Go"
+msgstr "เชื่อมต่อไปยัง '%s'…"
+
+#: plugins/x2go/x2go_plugin.c:2677
+#, fuzzy
+#| msgid "Could not open channel. %s"
+msgid "Could not open X11 DISPLAY."
+msgstr "การสร้างวาระ SFTP ล้มเหลว: %s"
+
+#: plugins/x2go/x2go_plugin.c:2717
+msgid "Waiting for window of X2Go Agent to appear…"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:2743
+msgid "Waiting for PyHoca-CLI to show the session's window…"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:2794
+msgid "No X2Go session window appeared. Something went wrong…"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:2905
+msgid "RemminaProtocolWidget* gp is 'NULL'!"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:2926
+#, c-format
+msgid "The %s protocol is unavailable because GtkSocket only works under X.org"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:2935
+msgid "Could not initialize pthread. Falling back to non-threaded mode…"
+msgstr ""
+
+#. TRANSLATORS: Presumably you just want to translate 'and' into
+#. your language.
+#. (Except your listing-grammar differs from english.)
+#. 'value1', 'value2', 'valueN-1' and 'valueN'
+#. TRANSLATORS: Presumably you just want to translate 'and' into
+#. your language.
+#. (Except your listing-grammar differs from english.)
+#. 'value1' and 'value2'
+#: plugins/x2go/x2go_plugin.c:2978 plugins/x2go/x2go_plugin.c:2996
+#, c-format
+msgid "%sand '%s'"
+msgstr ""
+
+#. TRANSLATORS: Presumably you just want to leave it english.
+#. (Except your listing-grammar differs from english.)
+#. 'value1', 'value2', 'valueN-1' and 'valueN'
+#. TRANSLATORS: Presumably you just want to leave it english.
+#. (Except your listing-grammar differs from english.)
+#. 'value1' and 'value2'
+#: plugins/x2go/x2go_plugin.c:2983 plugins/x2go/x2go_plugin.c:3001
+#, c-format
+msgid "%s'%s' "
+msgstr ""
+
+#. TRANSLATORS: Presumably you just want to leave it english.
+#. (Except your listing-grammar differs from english.)
+#. 'value1', 'value2', 'valueN-1' and 'valueN'
+#: plugins/x2go/x2go_plugin.c:2988
+#, c-format
+msgid "%s'%s', "
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:3027
+msgid "Invalid validation data in ProtocolSettings array!"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:3042 plugins/x2go/x2go_plugin.c:3107
+msgid "Validation data in ProtocolSettings array is invalid!"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:3051
+msgid "Parameters 'key' or 'value' are 'NULL'!"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:3069
+#, c-format
+msgid "Allowed values are %s."
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:3071
+#, c-format
+msgid "The only allowed value is '%s'."
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:3118
+msgid "The lower limit is not a valid integer!"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:3123
+msgid "The lower limit is too high!"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:3128
+msgid "The lower limit is too low!"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:3133 plugins/x2go/x2go_plugin.c:3163
+#: plugins/x2go/x2go_plugin.c:3183
+msgid "Something unknown went wrong."
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:3138 plugins/x2go/x2go_plugin.c:3168
+#: plugins/x2go/x2go_plugin.c:3187
+msgid "Please check the RemminaProtocolSetting array for possible errors."
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:3148
+msgid "The upper limit is not a valid integer!"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:3153
+msgid "The upper limit is too high!"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:3158
+msgid "The upper limit is too low!"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:3178
+msgid "The input is not a valid integer!"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:3180 plugins/x2go/x2go_plugin.c:3199
+#, c-format
+msgid "Input must be a number between %i and %i."
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:3228
+#, fuzzy
+#| msgid "Start-up program"
+msgid "Startup program"
+msgstr "โปรแกรมเริ่มต้น"
+
+#: plugins/x2go/x2go_plugin.c:3230
+msgid "Which command should be executed after creating the X2Go session?"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:3232
+#, fuzzy
+msgid "Keyboard Layout (auto)"
+msgstr "รูปแบบแป้นพิมพ์"
+
+#: plugins/x2go/x2go_plugin.c:3233
+#, fuzzy
+msgid "Keyboard type (auto)"
+msgstr "รูปแบบแป้นพิมพ์"
+
+#: plugins/x2go/x2go_plugin.c:3234
+#, fuzzy
+msgid "Audio support"
+msgstr "เปิดการสนับสนุน Java"
+
+#: plugins/x2go/x2go_plugin.c:3236
+msgid "The sound system of the X2Go server (default: 'pulse')."
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:3239
+#, fuzzy
+#| msgid "Per connection"
+msgid "Clipboard direction"
+msgstr "การเปลี่ยนเส้นทาง TCP"
+
+#: plugins/x2go/x2go_plugin.c:3241
+msgid "Which direction should clipboard content be copied? (default: 'both')."
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:3245
+#, fuzzy
+#| msgid "Resolution"
+msgid "DPI resolution"
+msgstr "ความละเอียด"
+
+#: plugins/x2go/x2go_plugin.c:3246
+msgid ""
+"Launch session with a specific resolution (in dots per inch). Must be "
+"between 20 and 400."
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:3290
+msgid "X2Go plugin loaded."
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.h:43
+msgid "X2Go - Launch an X2Go session"
+msgstr ""
+
 #: plugins/gvnc/gvnc_plugin_config.h:40
 #, fuzzy
 msgid "Remmina VNC plugin for GNOME and KVM"
 msgstr "ปลั๊กอิน VNC ใหม่สําหรับ GNOME และ KVM"
 
-#: plugins/gvnc/gvnc_plugin.c:477
+#: plugins/gvnc/gvnc_plugin.c:476
 #, fuzzy, c-format
 msgid "Unsupported authentication type %u"
 msgstr "ชนิดการรับรองความถูกต้องที่ไม่ได้รับการสนับสนุน %u"
 
-#: plugins/gvnc/gvnc_plugin.c:489
+#: plugins/gvnc/gvnc_plugin.c:488
 #, fuzzy, c-format
 #| msgid "SSH Authentication"
 msgid "Authentication failure: %s"
 msgstr "การรับรองความถูกต้องล้มเหลว: %s"
 
-#: plugins/gvnc/gvnc_plugin.c:820
+#: plugins/gvnc/gvnc_plugin.c:819
 #, fuzzy
 msgid "Use server settings"
 msgstr "ใช้การตั้งค่าเซิร์ฟเวอร์"
 
-#: plugins/gvnc/gvnc_plugin.c:821
+#: plugins/gvnc/gvnc_plugin.c:820
 #, fuzzy
 msgid "True colour (24 bits)"
 msgstr "สีจริง (24 บิต)"
 
-#: plugins/gvnc/gvnc_plugin.c:822
+#: plugins/gvnc/gvnc_plugin.c:821
 #, fuzzy
 msgid "High colour (16 bits)"
 msgstr "สีสูง (16 บิต)"
 
-#: plugins/gvnc/gvnc_plugin.c:823
+#: plugins/gvnc/gvnc_plugin.c:822
 #, fuzzy
 msgid "Low colour (8 bits)"
 msgstr "สีต่ํา (8 บิต)"
 
-#: plugins/gvnc/gvnc_plugin.c:824
+#: plugins/gvnc/gvnc_plugin.c:823
 #, fuzzy
 msgid "Ultra low colour (3 bits)"
 msgstr "สีต่ําพิเศษ (3 บิต)"
 
-#: plugins/gvnc/gvnc_plugin.c:839
+#: plugins/gvnc/gvnc_plugin.c:847
 #, fuzzy
 #| msgid "Enter VNC password"
 msgid "VNC password"
 msgstr "รหัสผ่าน VNC"
 
-#: plugins/gvnc/gvnc_plugin.c:841
+#: plugins/gvnc/gvnc_plugin.c:849
 #, fuzzy
 msgid "Use JPEG Compression"
 msgstr "ใช้การบีบอัด JPEG"
 
-#: plugins/gvnc/gvnc_plugin.c:841
+#: plugins/gvnc/gvnc_plugin.c:849
 #, fuzzy
 #| msgid "Browse the network to find a %s server"
 msgid "This might not work on all VNC servers"
 msgstr "การดําเนินการนี้อาจใช้ไม่ได้บนเซิร์ฟเวอร์ VNC ทั้งหมด"
 
-#: plugins/gvnc/gvnc_plugin.c:842
+#: plugins/gvnc/gvnc_plugin.c:850
 #, fuzzy
 msgid "Enable GTK-VNC debug"
 msgstr "เปิดใช้งานการตรวจแก้จุดบกพร่อง GTK-VNC"
 
-#: plugins/gvnc/gvnc_plugin.c:862
+#: plugins/gvnc/gvnc_plugin.c:870
 #, fuzzy
 #| msgid "Per connection"
 msgid "Shared connection"
 msgstr "การเชื่อมต่อที่ใช้ร่วมกัน"
 
-#: plugins/gvnc/gvnc_plugin.c:862
+#: plugins/gvnc/gvnc_plugin.c:870
 #, fuzzy
 msgid ""
 "If the server should try to share the desktop by leaving other clients "
 "connected"
 msgstr "ถ้าเซิร์ฟเวอร์ควรพยายามใช้เดสก์ท็อปร่วมกันโดยปล่อยให้ไคลเอ็นต์อื่นเชื่อมต่ออยู่"
 
-#: plugins/gvnc/gvnc_plugin.c:872
+#: plugins/gvnc/gvnc_plugin.c:880
 #, fuzzy
 msgid "Send Ctrl+Alt+_Del"
 msgstr "ส่ง Ctrl+Alt+_Del"
 
-#: plugins/gvnc/gvnc_plugin.c:873
+#: plugins/gvnc/gvnc_plugin.c:881
 #, fuzzy
 msgid "Send Ctrl+Alt+_Backspace"
 msgstr "ส่ง Ctrl+Alt+_Backspace"
 
-#: plugins/gvnc/gvnc_plugin.c:874
+#: plugins/gvnc/gvnc_plugin.c:882
 #, fuzzy
 msgid "Send Ctrl+Alt+_F1"
 msgstr "ส่ง Ctrl+Alt+_F1"
 
-#: plugins/gvnc/gvnc_plugin.c:875
+#: plugins/gvnc/gvnc_plugin.c:883
 #, fuzzy
 msgid "Send Ctrl+Alt+_F2"
 msgstr "ส่ง Ctrl+Alt+_F2"
 
-#: plugins/gvnc/gvnc_plugin.c:876
+#: plugins/gvnc/gvnc_plugin.c:884
 #, fuzzy
 msgid "Send Ctrl+Alt+_F3"
 msgstr "ส่ง Ctrl+Alt+_F3"
 
-#: plugins/gvnc/gvnc_plugin.c:877
+#: plugins/gvnc/gvnc_plugin.c:885
 #, fuzzy
 msgid "Send Ctrl+Alt+_F4"
 msgstr "ส่ง Ctrl+Alt+_F4"
 
-#: plugins/gvnc/gvnc_plugin.c:878
+#: plugins/gvnc/gvnc_plugin.c:886
 #, fuzzy
 msgid "Send Ctrl+Alt+_F5"
 msgstr "ส่ง Ctrl+Alt+_F5"
 
-#: plugins/gvnc/gvnc_plugin.c:879
+#: plugins/gvnc/gvnc_plugin.c:887
 #, fuzzy
 msgid "Send Ctrl+Alt+_F6"
 msgstr "ส่ง Ctrl+Alt+_F6"
 
-#: plugins/gvnc/gvnc_plugin.c:880
+#: plugins/gvnc/gvnc_plugin.c:888
 #, fuzzy
 msgid "Send Ctrl+Alt+_F7"
 msgstr "ส่ง Ctrl+Alt+_F7"
 
-#: plugins/gvnc/gvnc_plugin.c:881
+#: plugins/gvnc/gvnc_plugin.c:889
 #, fuzzy
 msgid "Send Ctrl+Alt+_F8"
 msgstr "ส่ง Ctrl+Alt+_F8"
 
-#: plugins/gvnc/gvnc_plugin.c:882
+#: plugins/gvnc/gvnc_plugin.c:890
 #, fuzzy
 msgid "Send Ctrl+Alt+_F9"
 msgstr "ส่ง Ctrl+Alt+_F9"
 
-#: plugins/gvnc/gvnc_plugin.c:883
+#: plugins/gvnc/gvnc_plugin.c:891
 #, fuzzy
 msgid "Send Ctrl+Alt+_F10"
 msgstr "ส่ง Ctrl+Alt+_F10"
 
-#: plugins/gvnc/gvnc_plugin.c:884
+#: plugins/gvnc/gvnc_plugin.c:892
 #, fuzzy
 msgid "Send Ctrl+Alt+_F11"
 msgstr "ส่ง Ctrl+Alt+_F11"
 
-#: plugins/gvnc/gvnc_plugin.c:885
+#: plugins/gvnc/gvnc_plugin.c:893
 #, fuzzy
 msgid "Send Ctrl+Alt+_F12"
 msgstr "ส่ง Ctrl+Alt+_F12"
 
-#: plugins/gvnc/gvnc_plugin.c:887
+#: plugins/gvnc/gvnc_plugin.c:895
 #, fuzzy
 msgid "Reboot remote host"
 msgstr "รีบูตโฮสต์ระยะไกล"
 
-#: plugins/gvnc/gvnc_plugin.c:888
+#: plugins/gvnc/gvnc_plugin.c:896
 #, fuzzy
 msgid "Reset remote host (hard reboot)"
 msgstr "รีเซ็ตโฮสต์ระยะไกล (รีบูตอย่างหนัก)"
 
-#: plugins/gvnc/gvnc_plugin.c:889
+#: plugins/gvnc/gvnc_plugin.c:897
 #, fuzzy
 msgid "Shutdown remote host"
 msgstr "ปิดโฮสต์ระยะไกล"
@@ -3277,7 +4233,7 @@ msgstr "คําเชิญการแชร์เดสก์ท็อป"
 msgid "Telepathy - Desktop Sharing"
 msgstr "โทรจิต - การแชร์เดสก์ท็อป"
 
-#: data/ui/remmina_snap_info_dialog.glade:71
+#: data/ui/remmina_snap_info_dialog.glade:67
 #, fuzzy
 msgid ""
 "<big><b>Remmina Snap package</b></big>\n"
@@ -3294,7 +4250,7 @@ msgstr ""
 "ต้องตั้งค่าฟังก์ชัน Remmina บางอย่างเพื่อให้ทํางานได้อย่างถูกต้อง\n"
 "</span>\n"
 
-#: data/ui/remmina_snap_info_dialog.glade:120
+#: data/ui/remmina_snap_info_dialog.glade:112
 #, fuzzy
 msgid ""
 "To enable access to some important features, like password saving in your "
@@ -3306,11 +4262,11 @@ msgstr ""
 "การบันทึกรหัสผ่านในพวงกุญแจและการแชร์เครื่องพิมพ์ RDP ของคุณ "
 "อีกทางเลือกหนึ่งคุณสามารถป้อนคําสั่งต่อไปนี้ในหน้าต่างเทอร์มินัล:"
 
-#: data/ui/remmina_snap_info_dialog.glade:167
+#: data/ui/remmina_snap_info_dialog.glade:157
 msgid "<big>Permissions</big>"
 msgstr "<big>สิทธิ์</big>"
 
-#: data/ui/remmina_snap_info_dialog.glade:202
+#: data/ui/remmina_snap_info_dialog.glade:193
 #, fuzzy
 msgid ""
 "Since Snap packages run confined from the rest of the system, Remmina "
@@ -3320,17 +4276,17 @@ msgstr ""
 "เนื่องจากแพคเกจ Snap ทํางานถูก จํากัด จากส่วนที่เหลือของระบบโปรไฟล์ Remmina "
 "จะถูกบันทึกภายในระบบไฟล์ Snap ตามค่าเริ่มต้น คุณสามารถเปลี่ยนตําแหน่งได้ในการตั้งค่า Remmina"
 
-#: data/ui/remmina_snap_info_dialog.glade:222
+#: data/ui/remmina_snap_info_dialog.glade:213
 #, fuzzy
 msgid "Change where Remmina profiles are stored"
 msgstr "เปลี่ยนตําแหน่งที่จัดเก็บโปรไฟล์ Remmina"
 
-#: data/ui/remmina_snap_info_dialog.glade:261
+#: data/ui/remmina_snap_info_dialog.glade:252
 #, fuzzy
 msgid "<big>Snap settings</big>"
 msgstr "<big> การตั้งค่าสแนป</big>"
 
-#: data/ui/remmina_snap_info_dialog.glade:274
+#: data/ui/remmina_snap_info_dialog.glade:265
 #, fuzzy
 msgid "Do not show this message again"
 msgstr "ไม่ต้องแสดงข้อความนี้อีก"
@@ -3382,11 +4338,9 @@ msgstr "เกี่ยวกับ"
 #: data/ui/remmina_about.glade:34
 #, fuzzy
 msgid ""
-"\n"
-"Copyright © 2014–2021 Antenore Gatta, Giovanni Panozzo.\n"
+"Copyright © 2014–2022 Antenore Gatta, Giovanni Panozzo.\n"
 "Copyright © 2009–2014 Vic Lee\n"
-"More details in COPYING\n"
-"    "
+"More details in COPYING"
 msgstr ""
 "\n"
 "สงวนลิขสิทธิ์ © 2014–2021 Antenore Gatta, Giovanni Panozzo\n"
@@ -3394,10 +4348,9 @@ msgstr ""
 "รายละเอียดเพิ่มเติมในการคัดลอก\n"
 "    "
 
-#: data/ui/remmina_about.glade:40
-#, fuzzy
-msgid "Website"
-msgstr "เว็บไซต์"
+#: data/ui/remmina_about.glade:38
+msgid "https://www.remmina.org/"
+msgstr ""
 
 #: data/ui/remmina_string_list.glade:14 data/ui/remmina_string_list.glade:158
 #, fuzzy
@@ -3467,6 +4420,22 @@ msgctxt "Multi password changer table"
 msgid "Domain\\Username"
 msgstr "โดเมน\\ชื่อผู้ใช้"
 
+#: data/ui/remmina_passwd.glade:33
+#, fuzzy
+msgid "OK"
+msgstr "_OK"
+
+#: data/ui/remmina_passwd.glade:60
+#, fuzzy
+#| msgid "Set new password"
+msgid "Set Primary Password"
+msgstr "บันทึกรหัสผ่าน"
+
+#: data/ui/remmina_passwd.glade:101
+#, fuzzy
+msgid "Verify password"
+msgstr "รหัสผ่านผู้ใช้"
+
 #: data/ui/remmina_news.glade:75
 #, fuzzy
 msgid ""
@@ -3501,39 +4470,22 @@ msgstr ""
 "release notes\"> <i> เยี่ยมชมเว็บไซต์เพื่ออ่านบันทึกย่อประจํารุ่น</i></a>\n"
 "</span>"
 
-#. The star (*) is a reference to privacy consent
-#: data/ui/remmina_news.glade:130 data/ui/remmina_preferences.glade:464
-#, fuzzy
-msgid ""
-"Send <b><a href=\"https://remmina.gitlab.io/remminadoc.gitlab.io/"
-"remmina__stats_8c.html#details\" title=\"Remmina usage statistics"
-"\">anonymous</a></b> statistics. (*)"
-msgstr ""
-"ส่ง <b><a href=\"https://remmina.gitlab.io/remminadoc.gitlab.io/"
-"remmina__stats_8c.html#details\" title=\"Remmina usage statistics\">ไม่ระบุชื่อ</"
-"a></b> สถิติ. (*)"
-
-#: data/ui/remmina_news.glade:142 data/ui/remmina_news.glade:195
-#, fuzzy
-msgid "Send anonymous statistics"
-msgstr "ส่งสถิติที่ไม่ระบุชื่อ"
-
-#: data/ui/remmina_news.glade:156
+#: data/ui/remmina_news.glade:130
 msgid "Use as default remote desktop client"
 msgstr "Remmina ลูกข่ายพื้นโต๊ะระยะไกล"
 
-#: data/ui/remmina_news.glade:165
+#: data/ui/remmina_news.glade:139
 #, fuzzy
 msgid "Apply"
 msgstr "นำไปใช้"
 
-#: data/ui/remmina_news.glade:169
+#: data/ui/remmina_news.glade:143
 #, fuzzy
 msgid "Allow Remmina to automatically open .rdp and .remmina files."
 msgstr "อนุญาตให้ Remmina เปิดแฟ้ม .rdp และ .remmina โดยอัตโนมัติ"
 
 #. The star (*) is a reference to privacy consent
-#: data/ui/remmina_news.glade:183 data/ui/remmina_preferences.glade:479
+#: data/ui/remmina_news.glade:157 data/ui/remmina_preferences.glade:448
 #, fuzzy
 msgid ""
 "Fetch news from <a href=\"https://remmina.org\" title=\"Remmina news site"
@@ -3542,20 +4494,22 @@ msgstr ""
 "ดึงข่าวจาก <a href=\"https://remmina.org\" title=\"Remmina news site\">remmina."
 "org</a> (*)"
 
-#: data/ui/remmina_news.glade:208 data/ui/remmina_preferences.glade:446
+#: data/ui/remmina_news.glade:169
+msgid "Receives updated news from remmina.org"
+msgstr ""
+
+#: data/ui/remmina_news.glade:182
 #, fuzzy
-msgid ""
-"* By enabling statistics and/or news you consent to send and fetch data to/"
-"from remmina.org"
+msgid "* By turning on news you consent to fetching data from remmina.org"
 msgstr "* โดยการเปิดใช้งานสถิติและ / หรือข่าวคุณยินยอมที่จะส่งและดึงข้อมูลไปยัง / remmina.org"
 
-#: data/ui/remmina_news.glade:231
+#: data/ui/remmina_news.glade:205
 #, fuzzy
 msgid "<big>Take part</big>"
 msgstr "<big> เข้าร่วม</big>"
 
 #. Pay attention to the quoting characters as they may break the pango layout. If in doubt and cannot test, copy and paste the symbols from the English string.
-#: data/ui/remmina_news.glade:257
+#: data/ui/remmina_news.glade:231
 #, fuzzy
 msgid ""
 "<span>\n"
@@ -3571,7 +4525,7 @@ msgstr ""
 "“blblblblblb”\">ยังทําให้เรามีความสุข</a> และช่วยปรับปรุง Remmina ต่อไป </b>\n"
 "</span>\n"
 
-#: data/ui/remmina_news.glade:277
+#: data/ui/remmina_news.glade:251
 #, fuzzy
 msgid "<big>Contribute</big>"
 msgstr "<big> มีส่วนร่วม</big>"
@@ -3616,7 +4570,7 @@ msgid "Server name or IP address"
 msgstr "ชื่อเซิร์ฟเวอร์หรือที่อยู่ IP"
 
 #: data/ui/remmina_main.glade:102 data/ui/remmina_main.glade:104
-#: data/ui/remmina_preferences.glade:504
+#: data/ui/remmina_preferences.glade:473
 #, fuzzy
 msgid "Clear"
 msgstr "ล้าง"
@@ -3830,13 +4784,12 @@ msgstr "เลือกโฟลเดอร์เพื่อบันทึก
 msgid "Remember last view for each connection"
 msgstr "จดจํามุมมองสุดท้ายสําหรับแต่ละการเชื่อมต่อ"
 
-#. The star (*) is a reference to privacy consent
 #: data/ui/remmina_preferences.glade:319
 #, fuzzy
 msgid "Remember last view mode"
 msgstr "จําโหมดมุมมองสุดท้าย"
 
-#: data/ui/remmina_preferences.glade:359
+#: data/ui/remmina_preferences.glade:345
 #, fuzzy
 msgid ""
 "Set a custom filename for your Remmina connection profiles, using a "
@@ -3844,18 +4797,19 @@ msgid ""
 msgstr ""
 "ตั้งค่าชื่อไฟล์ที่กําหนดเองสําหรับโปรไฟล์การเชื่อมต่อ Remmina ของคุณโดยใช้สตริงการจัดรูปแบบ"
 
-#: data/ui/remmina_preferences.glade:363
+#: data/ui/remmina_preferences.glade:349
 #, fuzzy
 msgid "Template for profile filenames"
 msgstr "แม่แบบสําหรับชื่อแฟ้มโปรไฟล์"
 
-#: data/ui/remmina_preferences.glade:375
+#. Placeholders used to name a Remmina connection profile
+#: data/ui/remmina_preferences.glade:361
 #, fuzzy
 msgid ""
-"%G Group name (slash will be converted to - automatically)\n"
+"%G Name of group (slashes \\/ are converted to dashes -)\n"
 "%P Protocol name\n"
 "%N Connection name\n"
-"%h Hostname/IP\n"
+"%h Host name/IP\n"
 "\n"
 "\n"
 msgstr ""
@@ -3866,15 +4820,24 @@ msgstr ""
 "\n"
 "\n"
 
-#: data/ui/remmina_preferences.glade:397
+#: data/ui/remmina_preferences.glade:383
 #, fuzzy
 msgid "Only save generated screenshots, don't copy them to clipboard."
 msgstr "บันทึกภาพหน้าจอที่สร้างขึ้นเท่านั้นอย่าคัดลอกไปยังคลิปบอร์ด"
 
-#: data/ui/remmina_preferences.glade:402
+#: data/ui/remmina_preferences.glade:387
 #, fuzzy
 msgid "Prevent screenshots from entering clipboard"
 msgstr "ป้องกันไม่ให้ภาพหน้าจอเข้าสู่คลิปบอร์ด"
+
+#: data/ui/remmina_preferences.glade:430
+#, fuzzy
+msgid "* By enabling news you consent to fetch data from remmina.org"
+msgstr "* โดยการเปิดใช้งานสถิติและ / หรือข่าวคุณยินยอมที่จะส่งและดึงข้อมูลไปยัง / remmina.org"
+
+#: data/ui/remmina_preferences.glade:495
+msgid "Confirm before closing multiple tabs"
+msgstr ""
 
 #: data/ui/remmina_preferences.glade:529
 #, fuzzy
@@ -3917,68 +4880,62 @@ msgctxt "Appearance preferences"
 msgid "Tabs grouping"
 msgstr "การจัดกลุ่มแท็บ"
 
-#: data/ui/remmina_preferences.glade:638
+#: data/ui/remmina_preferences.glade:636
 msgid "By group"
 msgstr "กลุ่ม"
 
-#: data/ui/remmina_preferences.glade:639
+#: data/ui/remmina_preferences.glade:637
 msgid "By protocol"
 msgstr "โปรโตคอล"
 
-#: data/ui/remmina_preferences.glade:640
+#: data/ui/remmina_preferences.glade:638
 msgid "Per connection"
 msgstr "การเชื่อมต่อใหม่"
 
-#: data/ui/remmina_preferences.glade:652
+#: data/ui/remmina_preferences.glade:650
 #, fuzzy
 msgid "Fullscreen on the same screen as the connection window"
 msgstr "เต็มหน้าจอบนหน้าจอเดียวกันกับหน้าต่างการเชื่อมต่อ"
 
-#: data/ui/remmina_preferences.glade:675
+#: data/ui/remmina_preferences.glade:673
 #, fuzzy
 msgid "Peeking"
 msgstr "การมอง"
 
-#: data/ui/remmina_preferences.glade:676
+#: data/ui/remmina_preferences.glade:674
 #, fuzzy
 msgid "Hidden"
 msgstr "ซ่อน"
 
-#: data/ui/remmina_preferences.glade:693
+#: data/ui/remmina_preferences.glade:691
 #, fuzzy
 msgid "Fullscreen toolbar visibility"
 msgstr "การมองเห็นแถบเครื่องมือแบบเต็มหน้าจอ"
 
-#: data/ui/remmina_preferences.glade:703
+#: data/ui/remmina_preferences.glade:701
 #, fuzzy
 msgid "Hide the search bar shown in the main window"
 msgstr "ซ่อนแถบค้นหาที่แสดงในหน้าต่างหลัก"
 
-#: data/ui/remmina_preferences.glade:719
+#: data/ui/remmina_preferences.glade:717
 #, fuzzy
 msgid "Prefer dark theme"
 msgstr "ชอบธีมสีเข้ม"
 
-#: data/ui/remmina_preferences.glade:723
+#: data/ui/remmina_preferences.glade:721
 #, fuzzy
 msgid ""
 "If a GTK theme includes a dark variant, it will be used instead of the "
 "configured theme."
 msgstr "หากธีม GTK มีตัวแปรมืด ระบบจะใช้ธีมนั้นแทนธีมที่กําหนดค่าไว้"
 
-#: data/ui/remmina_preferences.glade:743
+#: data/ui/remmina_preferences.glade:741
 #, fuzzy
 #| msgid "Grab all keyboard events"
 msgid "“Grab all keyboard events” status colour"
 msgstr "สีสถานะ \"Grab all keyboard events\""
 
-#: data/ui/remmina_preferences.glade:754
-#, fuzzy
-#| msgid "Grab all keyboard events"
-msgid "Enable/Disable “Grab all keyboard events” status colour"
-msgstr "เปิด/ปิดใช้งานสีสถานะ \"Grab all keyboard events\""
-
-#: data/ui/remmina_preferences.glade:770
+#: data/ui/remmina_preferences.glade:752
 #, fuzzy
 msgid ""
 "Hexadecimal- or colour names (red, #ff0000).\n"
@@ -3988,224 +4945,292 @@ msgstr ""
 "ชื่อเลขฐานสิบหกหรือชื่อสี (สีแดง #ff0000)\n"
 "มันเปลี่ยนสีพื้นหลังของชื่อการเชื่อมต่อในแถบเครื่องมือการเชื่อมต่อ Remmina (เมื่อเต็มหน้าจอ)"
 
-#: data/ui/remmina_preferences.glade:827
+#: data/ui/remmina_preferences.glade:769
+#, fuzzy
+#| msgid "Grab all keyboard events"
+msgid "Enable/Disable “Grab all keyboard events” status colour"
+msgstr "เปิด/ปิดใช้งานสีสถานะ \"Grab all keyboard events\""
+
+#: data/ui/remmina_preferences.glade:825
 #, fuzzy
 msgid "Appearance"
 msgstr "ลักษณะ"
 
-#: data/ui/remmina_preferences.glade:853
+#: data/ui/remmina_preferences.glade:851
 #, fuzzy
 msgid "Show new connection on top of the menu"
 msgstr "แสดงการเชื่อมต่อใหม่ที่ด้านบนของเมนู"
 
-#: data/ui/remmina_preferences.glade:872
+#: data/ui/remmina_preferences.glade:870
 #, fuzzy
 msgid "Hide total count shown in the group menu"
 msgstr "ซ่อนจํานวนรวมที่แสดงในเมนูกลุ่ม"
 
-#: data/ui/remmina_preferences.glade:890
+#: data/ui/remmina_preferences.glade:888
 #, fuzzy
 msgid "No tray icon"
 msgstr "ไม่มีไอคอนถาด"
 
-#: data/ui/remmina_preferences.glade:909
+#: data/ui/remmina_preferences.glade:907
 #, fuzzy
 msgid "Start in tray upon user login"
 msgstr "เริ่มต้นในถาดเมื่อผู้ใช้เข้าสู่ระบบ"
 
-#: data/ui/remmina_preferences.glade:940
+#: data/ui/remmina_preferences.glade:938
 #, fuzzy
 msgid "Applet"
 msgstr "แอปเพล็ต"
 
-#: data/ui/remmina_preferences.glade:972
+#: data/ui/remmina_preferences.glade:970
 #, fuzzy
 msgid "Host key"
 msgstr "คีย์โฮสต์"
 
-#: data/ui/remmina_preferences.glade:1004
+#: data/ui/remmina_preferences.glade:1002
 msgid "Show/hide fullscreen"
 msgstr "สลับสถานะโหมดเต็มจอ"
 
-#: data/ui/remmina_preferences.glade:1035
+#: data/ui/remmina_preferences.glade:1033
 #, fuzzy
 msgid "Auto-fit window"
 msgstr "ปรับหน้าต่างให้พอดีอัตโนมัติ"
 
-#: data/ui/remmina_preferences.glade:1112
+#: data/ui/remmina_preferences.glade:1110
 #, fuzzy
 msgid "Apply/remove scaling"
 msgstr "นํามาตราส่วนไปใช้/เอามาตราส่วนออก"
 
-#: data/ui/remmina_preferences.glade:1143
+#: data/ui/remmina_preferences.glade:1141
 #, fuzzy
 msgid "Grab keyboard"
 msgstr "คว้าแป้นพิมพ์"
 
-#: data/ui/remmina_preferences.glade:1236
+#: data/ui/remmina_preferences.glade:1234
 #, fuzzy
 msgid "Show/hide toolbar"
 msgstr "แสดง/ซ่อนแถบเครื่องมือ"
 
-#: data/ui/remmina_preferences.glade:1299
-#: data/ui/remmina_preferences.glade:1309
+#: data/ui/remmina_preferences.glade:1297
+#: data/ui/remmina_preferences.glade:1307
 #, fuzzy
 msgid "View-only mode"
 msgstr "โหมดดูอย่างเดียว"
 
-#: data/ui/remmina_preferences.glade:1372
+#: data/ui/remmina_preferences.glade:1370
 #, fuzzy
 msgid "Keyboard"
 msgstr "แป้นพิมพ์"
 
-#: data/ui/remmina_preferences.glade:1403
+#: data/ui/remmina_preferences.glade:1401
 #, fuzzy
 msgid "Local SSH port"
 msgstr "พอร์ต SSH เฉพาะที่"
 
-#: data/ui/remmina_preferences.glade:1427
+#: data/ui/remmina_preferences.glade:1425
 #, fuzzy
 msgid "Parse ~/.ssh/config"
 msgstr "แยกวิเคราะห์ ~/.ssh/config"
 
-#: data/ui/remmina_preferences.glade:1451
+#: data/ui/remmina_preferences.glade:1449
 #, fuzzy
 msgid "No logging at all"
 msgstr "ไม่มีการบันทึกเลย"
 
-#: data/ui/remmina_preferences.glade:1452
+#: data/ui/remmina_preferences.glade:1450
 #, fuzzy
 msgid "Rare conditions or warnings"
 msgstr "เงื่อนไขหรือคําเตือนที่หายาก"
 
-#: data/ui/remmina_preferences.glade:1453
+#: data/ui/remmina_preferences.glade:1451
 #, fuzzy
 msgid "API-accessible entrypoints"
 msgstr "จุดเข้าใช้งานที่สามารถเข้าถึงได้ด้วย API"
 
-#: data/ui/remmina_preferences.glade:1454
+#: data/ui/remmina_preferences.glade:1452
 #, fuzzy
 msgid "Lower level protocol info, packet level"
 msgstr "ข้อมูลโปรโตคอลระดับล่างระดับแพ็คเก็ต"
 
-#: data/ui/remmina_preferences.glade:1455
+#: data/ui/remmina_preferences.glade:1453
 #, fuzzy
 msgid "Function entering and leaving"
 msgstr "ฟังก์ชันการป้อนและการออก"
 
-#: data/ui/remmina_preferences.glade:1472
+#: data/ui/remmina_preferences.glade:1470
 #, fuzzy
 msgid "SSH log level"
 msgstr "ระดับบันทึก SSH"
 
 #. http://man7.org/linux/man-pages/man7/tcp.7.html
-#: data/ui/remmina_preferences.glade:1543
+#: data/ui/remmina_preferences.glade:1541
 #, fuzzy
 msgid "Seconds of connection idleness before TCP keepalive probes are sent."
 msgstr "วินาทีของการเชื่อมต่อที่ไม่ได้ใช้งานก่อนที่จะส่งโพรบแบบ keepalive TCP"
 
 #. http://man7.org/linux/man-pages/man7/tcp.7.html
-#: data/ui/remmina_preferences.glade:1559
+#: data/ui/remmina_preferences.glade:1557
 #, fuzzy
 msgid "Seconds between each keepalive probe."
 msgstr "วินาทีระหว่างหัววัดแบบ keepalive แต่ละโพรบ"
 
 #. http://man7.org/linux/man-pages/man7/tcp.7.html
-#: data/ui/remmina_preferences.glade:1575
+#: data/ui/remmina_preferences.glade:1573
 #, fuzzy
 msgid ""
 "Number of keepalive probes sent via TCP connection before it is dropped."
 msgstr "จํานวนโพรบแบบ keepalive ที่ส่งผ่านการเชื่อมต่อ TCP ก่อนที่จะหลุด"
 
 #. http://man7.org/linux/man-pages/man7/tcp.7.html
-#: data/ui/remmina_preferences.glade:1591
+#: data/ui/remmina_preferences.glade:1589
 #, fuzzy
 msgid ""
 "Amount of milliseconds to attempt acknowledging data before closing the "
 "corresponding TCP connection forcibly."
 msgstr "จํานวนมิลลิวินาทีที่จะพยายามยอมรับข้อมูลก่อนที่จะปิดการเชื่อมต่อ TCP ที่สอดคล้องกันบังคับให้ทํา"
 
-#: data/ui/remmina_preferences.glade:1617
+#: data/ui/remmina_preferences.glade:1615
 #, fuzzy
 msgid "SSH options"
 msgstr "ตัวเลือก SSH"
 
-#: data/ui/remmina_preferences.glade:1645
-#: data/ui/remmina_preferences.glade:1714
-#: data/ui/remmina_preferences.glade:1785
-msgid "Use secret key authentication for some widgets"
-msgstr "การยืนยันตัวบุคคล SSH ด้วยกุญแจสาธารณะล้มเหลว: %s"
+#: data/ui/remmina_preferences.glade:1632
+msgid ""
+"Time in seconds before Remmina will lock the session and asks for a password "
+"again. Default: 300 Seconds."
+msgstr ""
+
+#: data/ui/remmina_preferences.glade:1644
+msgid "Set and use a secret key to protect Remmina from unauthorized use."
+msgstr ""
 
 #: data/ui/remmina_preferences.glade:1649
 #, fuzzy
-msgid "Use master password"
-msgstr "ใช้รหัสผ่านหลัก"
+msgid "Remmina password"
+msgstr "รหัสผ่านผู้ใช้"
 
-#: data/ui/remmina_preferences.glade:1662
+#: data/ui/remmina_preferences.glade:1660
+msgid "Use secret key authentication for some widgets"
+msgstr "การยืนยันตัวบุคคล SSH ด้วยกุญแจสาธารณะล้มเหลว: %s"
+
+#: data/ui/remmina_preferences.glade:1680
+msgid "Valid for"
+msgstr ""
+
+#: data/ui/remmina_preferences.glade:1691
+msgid "Number of seconds to keep password valid for"
+msgstr ""
+
+#: data/ui/remmina_preferences.glade:1696
+msgid "timeout in seconds (default 300)"
+msgstr ""
+
+#: data/ui/remmina_preferences.glade:1708
 #, fuzzy
-msgid "Automatic lock interval"
-msgstr "ช่วงการล็อคอัตโนมัติ"
+#| msgid "Secured password storage in KWallet"
+msgid "Enter your Remmina password to connect"
+msgstr "รหัสผ่าน %s"
 
-#: data/ui/remmina_preferences.glade:1688
-msgid "Repeat the password"
-msgstr "บันทึกรหัสผ่าน"
+#. “Require to connect” is “Require the Remmina password before to connect”, the Remmina password is the Master/Principal Password, that is used to protect Remmina from unauthorized use.
+#: data/ui/remmina_preferences.glade:1712
+#, fuzzy
+#| msgid "Secured password storage in KWallet"
+msgid "Require to connect"
+msgstr "รหัสผ่าน %s"
 
-#: data/ui/remmina_preferences.glade:1699
+#: data/ui/remmina_preferences.glade:1723
+msgid "Creation, editing, copying, and deletions require the Remmina password"
+msgstr ""
+
+#. Creation, editing, copying, and deletions require the primary password
+#: data/ui/remmina_preferences.glade:1727
+msgid "Require to modify"
+msgstr ""
+
+#: data/ui/remmina_preferences.glade:1769
+#, fuzzy
+#| msgid "Description"
+msgid "Encryption"
+msgstr "คำบรรยาย"
+
+#: data/ui/remmina_preferences.glade:1780
+msgid ""
+"These are the encryption methods used by Remmina to store passwords.\n"
+"\n"
+"Except the \"Weak\" method, all the others are recommended, \"Keystore\" is "
+"the default, as it integrates with KDE/Plasma and GNOME.\n"
+"\n"
+"\"Intermediate\" doesn't use as much memory or processing power, and "
+"\"Sensitive\" is more secure, but uses +1 GiB of RAM and many CPU cycles. "
+msgstr ""
+
+#: data/ui/remmina_preferences.glade:1789
+msgid "Intermediate (+64 MiB RAM)"
+msgstr ""
+
+#: data/ui/remmina_preferences.glade:1790
+msgid "Strong (+256 MiB, ~2009 CPU)"
+msgstr ""
+
+#: data/ui/remmina_preferences.glade:1791
+msgid "Sensitive (+1 GiB, ~2014 CPU)"
+msgstr ""
+
+#: data/ui/remmina_preferences.glade:1807
+#, fuzzy
+msgid "Auditing log"
+msgstr "แก้ไขการตั้งค่า"
+
+#: data/ui/remmina_preferences.glade:1832
 #, fuzzy
 msgid "Automatically accept all fingerprints and certificates"
 msgstr "ยอมรับลายนิ้วมือและใบรับรองทั้งหมดโดยอัตโนมัติ"
 
-#: data/ui/remmina_preferences.glade:1703
+#: data/ui/remmina_preferences.glade:1837
 #, fuzzy
-msgid "Trust all fingerprints and certificates"
+msgid "Trust all certificates"
 msgstr "เชื่อถือลายนิ้วมือและใบรับรองทั้งหมด"
 
-#: data/ui/remmina_preferences.glade:1746
-#, fuzzy
-msgid "Master password validity in seconds"
-msgstr "ความถูกต้องของรหัสผ่านหลักเป็นวินาที"
-
-#: data/ui/remmina_preferences.glade:1810
+#: data/ui/remmina_preferences.glade:1872
 #, fuzzy
 msgid "Security"
 msgstr "การรักษาความปลอดภัย"
 
-#: data/ui/remmina_preferences.glade:1841
+#: data/ui/remmina_preferences.glade:1903
 #, fuzzy
 msgid "Terminal font"
 msgstr "แบบอักษรของเทอร์มินัล"
 
-#: data/ui/remmina_preferences.glade:1854
+#: data/ui/remmina_preferences.glade:1916
 #, fuzzy
 msgid "Scrollback lines"
 msgstr "เลื่อนบรรทัดกลับ"
 
-#: data/ui/remmina_preferences.glade:1902
+#: data/ui/remmina_preferences.glade:1964
 #, fuzzy
 msgid "Shortcuts for copying and pasting"
 msgstr "ทางลัดสําหรับการคัดลอกและวาง"
 
-#: data/ui/remmina_preferences.glade:1915
+#: data/ui/remmina_preferences.glade:1977
 #, fuzzy
 msgid "Select all shortcuts"
 msgstr "เลือกทางลัดทั้งหมด"
 
-#: data/ui/remmina_preferences.glade:1928
-#: data/ui/remmina_preferences.glade:1945
-#: data/ui/remmina_preferences.glade:2398
-#: data/ui/remmina_preferences.glade:2428
-#: data/ui/remmina_preferences.glade:2562
-#: data/ui/remmina_preferences.glade:2579
+#: data/ui/remmina_preferences.glade:1990
+#: data/ui/remmina_preferences.glade:2007
+#: data/ui/remmina_preferences.glade:2460
+#: data/ui/remmina_preferences.glade:2490
+#: data/ui/remmina_preferences.glade:2624
+#: data/ui/remmina_preferences.glade:2641
 #, fuzzy
 msgid "(Host key+)"
 msgstr "(คีย์โฮสต์+)"
 
-#: data/ui/remmina_preferences.glade:1963
+#: data/ui/remmina_preferences.glade:2025
 #, fuzzy
 msgid "Use default system font"
 msgstr "ใช้แบบอักษรของระบบเริ่มต้น"
 
-#: data/ui/remmina_preferences.glade:1988
+#: data/ui/remmina_preferences.glade:2050
 #, fuzzy
 msgid ""
 "Selecting “SGR 1” also switches to the bright counterparts of the first 8 "
@@ -4214,17 +5239,16 @@ msgstr ""
 "การเลือก \"SGR 1\" ยังสลับเป็นสีพาเล็ท 8 สีแรกที่สดใส "
 "(นอกเหนือจากการทําให้ข้อความเป็นตัวหนา)"
 
-#: data/ui/remmina_preferences.glade:2004
-#, fuzzy
-msgid "Allow using bright colours with bold text"
-msgstr "อนุญาตให้ใช้สีสดใสกับข้อความตัวหนา"
+#: data/ui/remmina_preferences.glade:2066
+msgid "Show bold text in bright colors"
+msgstr ""
 
-#: data/ui/remmina_preferences.glade:2018
+#: data/ui/remmina_preferences.glade:2080
 #, fuzzy
 msgid "Colour theme"
 msgstr "ธีมสี"
 
-#: data/ui/remmina_preferences.glade:2029
+#: data/ui/remmina_preferences.glade:2091
 #, fuzzy
 msgid ""
 "Choose a colour scheme file. Usually available in /usr/share/remmina/theme. "
@@ -4233,177 +5257,267 @@ msgstr ""
 "เลือกแฟ้มแบบแผนชุดสี มักจะมีอยู่ใน/usr/แบ่งปัน/remmina/รูปแบบของ https://github.com/"
 "mbadolato/iTerm2-Color-Schemes มีรายละเอียดเพิ่มเติม"
 
-#: data/ui/remmina_preferences.glade:2033
+#: data/ui/remmina_preferences.glade:2095
 #, fuzzy
 msgid "Pick a terminal colouring file"
 msgstr "เลือกไฟล์ระบายสีเทอร์มินัล"
 
-#: data/ui/remmina_preferences.glade:2048
+#: data/ui/remmina_preferences.glade:2110
 #, fuzzy
 msgid "Bright colours"
 msgstr "สีสันสดใส"
 
-#: data/ui/remmina_preferences.glade:2062
+#: data/ui/remmina_preferences.glade:2124
 #, fuzzy
 msgid "Pick a light black colour"
 msgstr "เลือกสีดําอ่อน"
 
-#: data/ui/remmina_preferences.glade:2076
+#: data/ui/remmina_preferences.glade:2138
 #, fuzzy
 msgid "Pick a light red colour"
 msgstr "เลือกสีแดงอ่อน"
 
-#: data/ui/remmina_preferences.glade:2090
+#: data/ui/remmina_preferences.glade:2152
 #, fuzzy
 msgid "Pick a bright green colour"
 msgstr "เลือกสีเขียวสดใส"
 
-#: data/ui/remmina_preferences.glade:2104
+#: data/ui/remmina_preferences.glade:2166
 #, fuzzy
 msgid "Pick a bright yellow colour"
 msgstr "เลือกสีเหลืองสดใส"
 
-#: data/ui/remmina_preferences.glade:2118
+#: data/ui/remmina_preferences.glade:2180
 #, fuzzy
 msgid "Pick a bright blue colour"
 msgstr "เลือกสีฟ้าสดใส"
 
-#: data/ui/remmina_preferences.glade:2132
+#: data/ui/remmina_preferences.glade:2194
 #, fuzzy
 msgid "Pick a light magenta colour"
 msgstr "เลือกสีสีม่วงแดงอ่อน"
 
-#: data/ui/remmina_preferences.glade:2146
+#: data/ui/remmina_preferences.glade:2208
 #, fuzzy
 msgid "Pick a light cyan colour"
 msgstr "เลือกสีฟ้าอ่อน"
 
-#: data/ui/remmina_preferences.glade:2160
+#: data/ui/remmina_preferences.glade:2222
 #, fuzzy
 msgid "Pick a light white colour"
 msgstr "เลือกสีขาวอ่อน"
 
-#: data/ui/remmina_preferences.glade:2174
+#: data/ui/remmina_preferences.glade:2236
 #, fuzzy
 msgid "Pick a black colour"
 msgstr "เลือกสีดํา"
 
-#: data/ui/remmina_preferences.glade:2188
+#: data/ui/remmina_preferences.glade:2250
 #, fuzzy
 msgid "Pick a red colour"
 msgstr "เลือกสีแดง"
 
-#: data/ui/remmina_preferences.glade:2202
+#: data/ui/remmina_preferences.glade:2264
 #, fuzzy
 msgid "Pick a green colour"
 msgstr "เลือกสีเขียว"
 
-#: data/ui/remmina_preferences.glade:2216
+#: data/ui/remmina_preferences.glade:2278
 #, fuzzy
 msgid "Pick a yellow colour"
 msgstr "เลือกสีเหลือง"
 
-#: data/ui/remmina_preferences.glade:2230
+#: data/ui/remmina_preferences.glade:2292
 #, fuzzy
 msgid "Pick a blue colour"
 msgstr "เลือกสีฟ้า"
 
-#: data/ui/remmina_preferences.glade:2244
+#: data/ui/remmina_preferences.glade:2306
 #, fuzzy
 msgid "Pick a magenta colour"
 msgstr "เลือกสีสีม่วงแดง"
 
-#: data/ui/remmina_preferences.glade:2258
+#: data/ui/remmina_preferences.glade:2320
 #, fuzzy
 msgid "Pick a cyan colour"
 msgstr "เลือกสีฟ้า"
 
-#: data/ui/remmina_preferences.glade:2272
+#: data/ui/remmina_preferences.glade:2334
 #, fuzzy
 msgid "Pick a white colour"
 msgstr "เลือกสีขาว"
 
-#: data/ui/remmina_preferences.glade:2285
+#: data/ui/remmina_preferences.glade:2347
 #, fuzzy
 msgid "Normal colours"
 msgstr "สีปกติ"
 
-#: data/ui/remmina_preferences.glade:2298
-#: data/ui/remmina_preferences.glade:2313
+#: data/ui/remmina_preferences.glade:2360
+#: data/ui/remmina_preferences.glade:2375
 #, fuzzy
 msgid "Cursor colour"
 msgstr "สีเคอร์เซอร์"
 
-#: data/ui/remmina_preferences.glade:2327
-#: data/ui/remmina_preferences.glade:2342
+#: data/ui/remmina_preferences.glade:2389
+#: data/ui/remmina_preferences.glade:2404
 #, fuzzy
 msgid "Background colour"
 msgstr "สีพื้นหลัง"
 
-#: data/ui/remmina_preferences.glade:2358
-#: data/ui/remmina_preferences.glade:2372
+#: data/ui/remmina_preferences.glade:2420
+#: data/ui/remmina_preferences.glade:2434
 #, fuzzy
 msgid "Foreground colour"
 msgstr "สีพื้นหน้า"
 
-#: data/ui/remmina_preferences.glade:2385
+#: data/ui/remmina_preferences.glade:2447
 #, fuzzy
 msgid "Increase and decrease font size"
 msgstr "เพิ่มและลดขนาดแบบอักษร"
 
-#: data/ui/remmina_preferences.glade:2415
+#: data/ui/remmina_preferences.glade:2477
 #, fuzzy
 msgid "Search text shortcut"
 msgstr "ทางลัดการค้นหาข้อความ"
 
-#: data/ui/remmina_preferences.glade:2446
-#: data/ui/remmina_preferences.glade:2461
+#: data/ui/remmina_preferences.glade:2508
+#: data/ui/remmina_preferences.glade:2523
 #, fuzzy
 msgid "Bold colour"
 msgstr "ตัวหนา"
 
-#: data/ui/remmina_preferences.glade:2475
-#: data/ui/remmina_preferences.glade:2516
+#: data/ui/remmina_preferences.glade:2537
+#: data/ui/remmina_preferences.glade:2578
 #, fuzzy
 msgid "Highlight colour"
 msgstr "เน้นสี"
 
-#: data/ui/remmina_preferences.glade:2488
-#: data/ui/remmina_preferences.glade:2532
+#: data/ui/remmina_preferences.glade:2550
+#: data/ui/remmina_preferences.glade:2594
 #, fuzzy
 msgid "Highlight foreground colour"
 msgstr "เน้นสีพื้นหน้า"
 
-#: data/ui/remmina_preferences.glade:2501
-#: data/ui/remmina_preferences.glade:2548
+#: data/ui/remmina_preferences.glade:2563
+#: data/ui/remmina_preferences.glade:2610
 #, fuzzy
 msgid "Cursor foreground colour"
 msgstr "สีพื้นหน้าของเคอร์เซอร์"
 
-#: data/ui/remmina_preferences.glade:2604
+#: data/ui/remmina_preferences.glade:2666
 #, fuzzy
 msgid "Terminal"
 msgstr "สถานีปลายทาง"
 
-#: data/ui/remmina_preferences.glade:2618
+#: data/ui/remmina_preferences.glade:2680
 #, fuzzy
 msgid "Remmina Preferences"
 msgstr "การกําหนดลักษณะ Remmina"
 
-#: data/ui/remmina_unlock.glade:60
+#: data/ui/remmina_unlock.glade:56
 #, fuzzy
 msgid "Unlock"
 msgstr "ปลดล็อก"
 
-#: data/ui/remmina_unlock.glade:94
+#: data/ui/remmina_unlock.glade:85
 #, fuzzy
 msgid "Unlock Remmina"
 msgstr "ปลดล็อก Remmina"
 
-#: data/ui/remmina_unlock.glade:128
+#: data/ui/remmina_unlock.glade:120
 #, fuzzy
 msgid "Master password"
 msgstr "รหัสผ่านหลัก"
+
+#, fuzzy
+#~ msgid "Allow using bright colours with bold text"
+#~ msgstr "อนุญาตให้ใช้สีสดใสกับข้อความตัวหนา"
+
+#, fuzzy
+#~ msgid ""
+#~ "Use “Redirect directory” in the advanced tab for multiple directories"
+#~ msgstr "ใช้ \"ไดเรกตอรีเปลี่ยนเส้นทาง\""
+
+#, fuzzy
+#~ msgid "Redirect directory"
+#~ msgstr "ไดเรกตอรีการเปลี่ยนเส้นทาง"
+
+#, fuzzy
+#~ msgid "Automatic lock interval"
+#~ msgstr "ช่วงการล็อคอัตโนมัติ"
+
+#, fuzzy
+#~| msgid "Enter VNC password"
+#~ msgid "Enter new password"
+#~ msgstr "บันทึกรหัสผ่าน"
+
+#, fuzzy
+#~| msgid "Repeat the password"
+#~ msgid "Re-enter password"
+#~ msgstr "บันทึกรหัสผ่าน"
+
+#, fuzzy
+#~ msgid "Logging"
+#~ msgstr "การดีบัก"
+
+#, fuzzy
+#~ msgid "Certificates and fingerprints"
+#~ msgstr "รายละเอียดใบรับรอง:"
+
+#, fuzzy
+#~ msgid "Use a Primary Password"
+#~ msgstr "ใช้รหัสผ่านหลัก"
+
+#, fuzzy
+#~ msgid "Primary Password validity in seconds"
+#~ msgstr "ความถูกต้องของรหัสผ่านหลักเป็นวินาที"
+
+#, fuzzy
+#~| msgid "Forget passwords after use"
+#~ msgid "Weak (password may be guessed)"
+#~ msgstr "รหัสผ่าน %s"
+
+#, fuzzy
+#~ msgid "Connection profiles passwords encryption"
+#~ msgstr "ปรับเปลี่ยนโปรไฟล์การเชื่อมต่อ (ต้องการ --set-option)"
+
+#, fuzzy
+#~ msgid "Enable auditing logs"
+#~ msgstr "เปิดใช้งานช่องสัญญาณเสียง"
+
+#, fuzzy
+#~ msgid "Certificate settings"
+#~ msgstr "รายละเอียดใบรับรอง:"
+
+#, fuzzy
+#~ msgid ""
+#~ "Send <b><a href=\"https://remmina.gitlab.io/remminadoc.gitlab.io/"
+#~ "remmina__stats_8c.html#details\" title=\"Remmina usage statistics"
+#~ "\">anonymous</a></b> statistics. (*)"
+#~ msgstr ""
+#~ "ส่ง <b><a href=\"https://remmina.gitlab.io/remminadoc.gitlab.io/"
+#~ "remmina__stats_8c.html#details\" title=\"Remmina usage statistics"
+#~ "\">ไม่ระบุชื่อ</a></b> สถิติ. (*)"
+
+#, fuzzy
+#~ msgid "Send anonymous statistics"
+#~ msgstr "ส่งสถิติที่ไม่ระบุชื่อ"
+
+#, fuzzy
+#~ msgid "_Select session"
+#~ msgstr "เลือกทั้งหมด"
+
+#, fuzzy, c-format
+#~ msgid "Error: '%s'"
+#~ msgstr "ข้อผิดพลาด: %s"
+
+#, fuzzy
+#~ msgid "Website"
+#~ msgstr "เว็บไซต์"
+
+#, fuzzy
+#~ msgid "User name"
+#~ msgstr "ชื่อผู้ใช้"
 
 #~ msgid "Could not run %s on SSH server."
 #~ msgstr "การดำเนินงาน %s บนเซิร์ฟเวอร์ SSH ล้มเหลว."

@@ -2,7 +2,7 @@
  * Remmina - The GTK+ Remote Desktop Client
  * Copyright (C) 2009-2011 Vic Lee
  * Copyright (C) 2014-2015 Antenore Gatta, Fabio Castelli, Giovanni Panozzo
- * Copyright (C) 2016-2021 Antenore Gatta, Giovanni Panozzo
+ * Copyright (C) 2016-2022 Antenore Gatta, Giovanni Panozzo
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -36,6 +36,12 @@
 
 #pragma once
 #include <gtk/gtk.h>
+#include "remmina_sodium.h"
+
+#ifdef HAVE_LIBGCRYPT
+#include <gcrypt.h>
+#endif
+
 
 /*
  * Remmina Preference Loader
@@ -78,6 +84,16 @@ enum {
 	REMMINA_TAB_BY_PROTOCOL = 1,
 	REMMINA_TAB_ALL		= 2,
 	REMMINA_TAB_NONE	= 3
+};
+
+/* Remember to add the id 0, 4 and 5 in the remmina pref editor */
+enum {
+	RM_ENC_MODE_SECRET		= 0, /* Using libsecret */
+	RM_ENC_MODE_SODIUM_INTERACTIVE	= 1, /* Using libsodium */
+	RM_ENC_MODE_SODIUM_MODERATE	= 2, /* Using libsodium */
+	RM_ENC_MODE_SODIUM_SENSITIVE	= 3, /* Using libsodium */
+	RM_ENC_MODE_GCRYPT		= 4, /* Using GCrypt */
+	RM_ENC_MODE_NONE		= 5  /* No encryption */
 };
 
 enum {
@@ -127,8 +143,10 @@ typedef struct _RemminaPref {
 	gint			recent_maximum;
 	gchar *			resolutions;
 	gchar *			keystrokes;
+	gboolean		confirm_close;
 	/* In RemminaPrefDialog appearance tab */
 	gboolean		dark_theme;
+	gboolean		list_refresh_workaround;
 	gboolean		fullscreen_on_auto;
 	gboolean		always_show_tab;
 	gboolean		hide_connection_toolbar;
@@ -166,10 +184,14 @@ typedef struct _RemminaPref {
 	guint			shortcutkey_disconnect;
 	guint			shortcutkey_toolbar;
 	/* In RemminaPrefDialog security tab */
-	gboolean		use_master_password;
+	gboolean		use_primary_password;
 	const gchar *		unlock_password;
 	const gchar *		unlock_repassword;
 	gint			unlock_timeout;
+	gboolean		lock_connect;
+	gboolean		lock_edit;
+	gint			enc_mode;
+	gboolean		audit;
 	gboolean		trust_all;
 	/* In RemminaPrefDialog terminal tab */
 	gchar *			vte_font;
@@ -210,9 +232,6 @@ typedef struct _RemminaPref {
 	RemminaColorPref	color_pref;
 
 	/* Usage stats */
-	gboolean		periodic_usage_stats_permitted;
-	glong			periodic_usage_stats_last_sent;
-	gchar *			periodic_usage_stats_uuid_prefix;
 	gchar *			last_success;
 
 	/* Remmina news */
@@ -235,6 +254,10 @@ extern const gchar *default_resolutions;
 extern gchar *remmina_pref_file;
 extern gchar *remmina_colors_file;
 extern RemminaPref remmina_pref;
+extern gboolean disabletoolbar;
+extern gboolean fullscreen;
+extern gboolean extrahardening;
+extern gboolean disabletrayicon;
 
 void remmina_pref_init(void);
 gboolean remmina_pref_is_rw(void);
@@ -244,6 +267,7 @@ void remmina_pref_add_recent(const gchar *protocol, const gchar *server);
 gchar *remmina_pref_get_recent(const gchar *protocol);
 void remmina_pref_clear_recent(void);
 
+guint *remmina_pref_keymap_get_table(const gchar *keymap);
 guint remmina_pref_keymap_get_keyval(const gchar *keymap, guint keyval);
 gchar **remmina_pref_keymap_groups(void);
 

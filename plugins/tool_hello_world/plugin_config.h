@@ -1,7 +1,7 @@
 /*
  * Remmina - The GTK+ Remote Desktop Client
  * Copyright (C) 2015 Antenore Gatta, Fabio Castelli, Giovanni Panozzo
- * Copyright (C) 2016-2021 Antenore Gatta, Giovanni Panozzo
+ * Copyright (C) 2016-2022 Antenore Gatta, Giovanni Panozzo
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -39,5 +39,5 @@
 #define PLUGIN_NAME        "HELLO"
 #define PLUGIN_DESCRIPTION N_("Hello, World!")
 #define PLUGIN_VERSION     "1.0"
-#define PLUGIN_APPICON     "remmina-tool"
+#define PLUGIN_APPICON     "org.remmina.Remmina-tool-symbolic"
 #endif

@@ -2,7 +2,7 @@
  * Remmina - The GTK+ Remote Desktop Client
  * Copyright (C) 2009-2011 Vic Lee
  * Copyright (C) 2014-2015 Antenore Gatta, Fabio Castelli, Giovanni Panozzo
- * Copyright (C) 2016-2021 Antenore Gatta, Giovanni Panozzo
+ * Copyright (C) 2016-2022 Antenore Gatta, Giovanni Panozzo
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -541,7 +541,8 @@ guint16 remmina_public_get_keycode_for_keyval(GdkKeymap *keymap, guint keyval)
 gboolean remmina_public_get_modifier_for_keycode(GdkKeymap *keymap, guint16 keycode)
 {
 	TRACE_CALL(__func__);
-	g_return_val_if_fail(keycode > 0, FALSE);
+	//g_return_val_if_fail(keycode > 0, FALSE);
+	if (keycode > 0) return FALSE;
 #ifdef GDK_WINDOWING_X11
 	return gdk_x11_keymap_key_is_modifier(keymap, keycode);
 #else

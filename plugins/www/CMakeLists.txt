@@ -1,6 +1,6 @@
 # remmina-plugin-www - The GTK+ Remote Desktop Client
 #
-# Copyright (C) 2016-2021 Antenore Gatta, Giovanni Panozzo
+# Copyright (C) 2016-2022 Antenore Gatta, Giovanni Panozzo
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -43,14 +43,20 @@ add_library(remmina-plugin-www MODULE ${REMMINA_PLUGIN_WWW_SRCS})
 set_target_properties(remmina-plugin-www PROPERTIES PREFIX "")
 set_target_properties(remmina-plugin-www PROPERTIES NO_SONAME 1)
 
-add_definitions(${WEBKIT2_CFLAGS_OTHER})
-include_directories(${REMMINA_COMMON_INCLUDE_DIRS} ${GTK_INCLUDE_DIRS} ${WEBKIT2_INCLUDE_DIRS})
-target_link_libraries(remmina-plugin-www ${REMMINA_COMMON_LIBRARIES} ${WEBKIT2_LIBRARIES})
+add_definitions(${WEBKIT2GTK_CFLAGS_OTHER})
+
+find_required_package(LIBSOUP24)
+if(LIBSOUP24_FOUND)
+    include_directories(${REMMINA_COMMON_INCLUDE_DIRS} ${WEBKIT2GTK_INCLUDE_DIRS} ${LIBSOUP24_INCLUDE_DIRS})
+    target_link_libraries(remmina-plugin-www ${REMMINA_COMMON_LIBRARIES} ${LIBSOUP24_LIBRARIES} ${WEBKIT2GTK_LIBRARIES})
+else()
+    message(FATAL_ERROR "libsoup 2.4 library not found")
+endif()
 
 install(TARGETS remmina-plugin-www DESTINATION ${REMMINA_PLUGINDIR})
 
 install(FILES
-    scalable/emblems/remmina-www-symbolic.svg
+    scalable/emblems/org.remmina.Remmina-www-symbolic.svg
     DESTINATION ${APPICONSCALE_EMBLEMS_DIR})
 
 if(WITH_ICON_CACHE)

@@ -5,239 +5,287 @@
 # Allan Nordhøy <epost@anotheragency.no>, 2020, 2021.
 # Antenore Gatta <antenore@simbiosi.org>, 2020, 2021.
 # Kornelijus Tvarijanavičius <kornelitvari@protonmail.com>, 2020, 2021.
+# Aurimas Fišeras <aurimas@members.fsf.org>, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: remmina\n"
 "Report-Msgid-Bugs-To: l10n@lists.remmina.org\n"
-"POT-Creation-Date: 2021-09-05 21:04+0000\n"
-"PO-Revision-Date: 2021-07-16 08:59+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"POT-Creation-Date: 2022-08-02 05:15+0000\n"
+"PO-Revision-Date: 2021-12-17 08:47+0000\n"
+"Last-Translator: Aurimas Fišeras <aurimas@members.fsf.org>\n"
 "Language-Team: Lithuanian <https://hosted.weblate.org/projects/remmina/"
 "remmina/lt/>\n"
 "Language: lt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
-"%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 4.7.2-dev\n"
+"Plural-Forms: nplurals=3; plural=(n % 10 == 1 && (n % 100 < 11 || n % 100 > "
+"19)) ? 0 : ((n % 10 >= 2 && n % 10 <= 9 && (n % 100 < 11 || n % 100 > 19)) ? "
+"1 : 2);\n"
+"X-Generator: Weblate 4.10\n"
 "X-Launchpad-Export-Date: 2014-04-10 15:03+0000\n"
 
-#: src/remmina_sftp_plugin.c:310 src/remmina_sftp_plugin.c:346
-#: src/remmina_protocol_widget.c:1672 src/remmina_protocol_widget.c:1691
-#: src/remmina_file_editor.c:846 src/remmina_file_editor.c:967
-#: src/remmina_ssh_plugin.c:1369 plugins/rdp/rdp_plugin.c:2656
-#: plugins/www/www_plugin.c:887 data/ui/remmina_mpc.glade:236
-#: data/ui/remmina_preferences.glade:1675 data/ui/remmina_unlock.glade:116
+#: src/remmina_sftp_plugin.c:309 src/remmina_sftp_plugin.c:353
+#: src/remmina_protocol_widget.c:1692 src/remmina_protocol_widget.c:1711
+#: src/remmina_file_editor.c:1118 src/remmina_file_editor.c:1240
+#: src/remmina_ssh_plugin.c:1393 plugins/rdp/rdp_plugin.c:2797
+#: plugins/www/www_plugin.c:905 plugins/x2go/x2go_plugin.c:3227
+#: data/ui/remmina_mpc.glade:236 data/ui/remmina_passwd.glade:84
+#: data/ui/remmina_unlock.glade:109
 msgid "Password"
 msgstr "Slaptažodis"
 
-#: src/remmina_sftp_plugin.c:311 src/remmina_sftp_plugin.c:348
-#: src/remmina_file_editor.c:847 src/remmina_ssh_plugin.c:1370
-#: src/remmina_ssh_plugin.c:1475
+#: src/remmina_sftp_plugin.c:310 src/remmina_sftp_plugin.c:355
+#: src/remmina_file_editor.c:1119 src/remmina_ssh_plugin.c:1394
+#: src/remmina_ssh_plugin.c:1505
 msgid "SSH identity file"
 msgstr "SSH tapatybės failas"
 
-#: src/remmina_sftp_plugin.c:312 src/remmina_file_editor.c:848
-#: src/remmina_ssh_plugin.c:1371
+#: src/remmina_sftp_plugin.c:311 src/remmina_file_editor.c:1120
+#: src/remmina_ssh_plugin.c:1395
 msgid "SSH agent"
 msgstr "SSH agentas"
 
-#: src/remmina_sftp_plugin.c:313 src/remmina_file_editor.c:849
-#: src/remmina_ssh_plugin.c:1372
+#: src/remmina_sftp_plugin.c:312 src/remmina_file_editor.c:1121
+#: src/remmina_ssh_plugin.c:1396
 msgid "Public key (automatic)"
 msgstr "Viešasis raktas (automatiškai)"
 
-#: src/remmina_sftp_plugin.c:314 src/remmina_file_editor.c:850
-#: src/remmina_ssh_plugin.c:1373
+#: src/remmina_sftp_plugin.c:313 src/remmina_file_editor.c:1122
+#: src/remmina_ssh_plugin.c:1397
 msgid "Kerberos (GSSAPI)"
 msgstr "Kerberos (GSSAPI)"
 
-#: src/remmina_sftp_plugin.c:323
+#: src/remmina_sftp_plugin.c:322
 msgid "Show Hidden Files"
 msgstr "Rodyti paslėptus failus"
 
-#: src/remmina_sftp_plugin.c:325
+#: src/remmina_sftp_plugin.c:324
 msgid "Overwrite all files"
 msgstr "Perrašyti visus failus"
 
-#: src/remmina_sftp_plugin.c:327
-#, fuzzy
+#: src/remmina_sftp_plugin.c:326
 msgid "Resume all file transfers"
-msgstr "Atnaujinti visus failų perdavimus"
+msgstr "Tęsti visus failų siuntimus"
 
-#: src/remmina_sftp_plugin.c:328 src/remmina_protocol_widget.c:283
+#: src/remmina_sftp_plugin.c:327 src/remmina_protocol_widget.c:282
 msgid "Connect via SSH from a new terminal"
 msgstr "Prisijungti per SSH iš naujo terminalo"
 
-#: src/remmina_sftp_plugin.c:345 src/remmina_message_panel.c:330
-#: src/remmina_file_editor.c:961 src/remmina_ssh_plugin.c:1473
-#: plugins/rdp/rdp_plugin.c:2655 plugins/vnc/vnc_plugin.c:1960
-#: plugins/vnc/vnc_plugin.c:1980 plugins/www/www_plugin.c:886
+#: src/remmina_sftp_plugin.c:352 src/remmina_message_panel.c:329
+#: src/remmina_file_editor.c:1234 src/remmina_ssh_plugin.c:1503
+#: plugins/rdp/rdp_plugin.c:2796 plugins/vnc/vnc_plugin.c:2037
+#: plugins/vnc/vnc_plugin.c:2049 plugins/www/www_plugin.c:904
+#: plugins/x2go/x2go_plugin.c:478 plugins/x2go/x2go_plugin.c:3226
 #: data/ui/remmina_mpc.glade:144
 msgid "Username"
-msgstr "Slapyvardis"
+msgstr "Naudotojo vardas"
 
-#: src/remmina_sftp_plugin.c:347 src/remmina_file_editor.c:952
-#: src/remmina_ssh_plugin.c:1472
+#: src/remmina_sftp_plugin.c:354 src/remmina_file_editor.c:1225
+#: src/remmina_ssh_plugin.c:1502
 msgid "Authentication type"
-msgstr "Autentifikacijos tipas"
+msgstr "Tapatumo nustatymo tipas"
 
-#: src/remmina_sftp_plugin.c:349 src/remmina_file_editor.c:984
-#: src/remmina_ssh_plugin.c:1479
+#: src/remmina_sftp_plugin.c:356 src/remmina_file_editor.c:1258
+#: src/remmina_ssh_plugin.c:1509
 msgid "Password to unlock private key"
 msgstr "Slaptažodis privataus rakto atrakinimui"
 
-#: src/remmina_sftp_plugin.c:350 src/remmina_ssh_plugin.c:1509
+#: src/remmina_sftp_plugin.c:357 src/remmina_ssh_plugin.c:1540
 #, fuzzy
 msgid "SSH Proxy Command"
 msgstr "SSH proxy komanda"
 
-#: src/remmina_sftp_plugin.c:359
+#: src/remmina_sftp_plugin.c:366
 msgid "SFTP - Secure File Transfer"
-msgstr "SFTP - saugus failų siuntimas"
+msgstr "SFTP – saugus failų siuntimas"
 
-#: src/remmina_plugin_manager.c:73 src/remmina_file_editor.c:1533
+#: src/remmina_log.c:130
+#, fuzzy
+#| msgid "Open Main Window"
+msgid "Remmina debugging window"
+msgstr "Atidarykite pagrindinį \"Remmina\" langą"
+
+#: src/remmina_log.c:134
+#, fuzzy
+#| msgid "Open Main Window"
+msgid "Paste system info in the Remmina debugging window"
+msgstr "Atidarykite pagrindinį \"Remmina\" langą"
+
+#: src/remmina_log.c:154
+msgid ""
+"This window can help you find connection problems.\n"
+"You can stop and start the logging at any moment using the On/Off switch.\n"
+"The stats button (Ctrl+T), can be useful to gather system info you may share "
+"when reporting a bug.\n"
+"There is more info about debugging Remmina on https://gitlab.com/Remmina/"
+"Remmina/-/wikis/Usage/Remmina-debugging\n"
+msgstr ""
+
+#: src/remmina_plugin_manager.c:72 src/remmina_file_editor.c:1973
+#, fuzzy
 msgid "Protocol"
 msgstr "Protokolas"
 
-#: src/remmina_plugin_manager.c:73
+#: src/remmina_plugin_manager.c:72
+#, fuzzy
 msgid "Entry"
 msgstr "Įrašas"
 
-#: src/remmina_plugin_manager.c:73
+#: src/remmina_plugin_manager.c:72
+#, fuzzy
 msgid "File"
-msgstr "Failas"
+msgstr "Failą"
 
-#: src/remmina_plugin_manager.c:73
+#: src/remmina_plugin_manager.c:72
+#, fuzzy
 msgid "Tool"
 msgstr "Įrankis"
 
-#: src/remmina_plugin_manager.c:73
+#: src/remmina_plugin_manager.c:72
+#, fuzzy
 msgid "Preference"
 msgstr "Parinktis"
 
-#: src/remmina_plugin_manager.c:73
+#: src/remmina_plugin_manager.c:72
+#, fuzzy
 msgid "Secret"
 msgstr "Paslaptis"
 
-#: src/remmina_plugin_manager.c:456 data/ui/remmina_main.glade:305
-msgid "Plugins"
-msgstr "Papildiniai"
+#: src/remmina_plugin_manager.c:72
+msgid "Language Wrapper"
+msgstr ""
 
-#: src/remmina_plugin_manager.c:456 src/remmina_message_panel.c:452
-#: src/remmina_message_panel.c:621 src/remmina_file_editor.c:152
+#: src/remmina_plugin_manager.c:524 data/ui/remmina_main.glade:305
+#, fuzzy
+msgid "Plugins"
+msgstr "Įskiepiai"
+
+#: src/remmina_plugin_manager.c:524 src/remmina_message_panel.c:451
+#: src/remmina_message_panel.c:620 src/remmina_file_editor.c:242
 #, fuzzy
 msgid "_OK"
-msgstr "_Gerai"
+msgstr "_OK"
 
-#: src/remmina_plugin_manager.c:474 src/remmina_file_editor.c:1490
+#: src/remmina_plugin_manager.c:542 src/remmina_file_editor.c:1930
 #: data/ui/remmina_main.glade:442
+#, fuzzy
 msgid "Name"
 msgstr "Pavadinimas"
 
-#: src/remmina_plugin_manager.c:480
+#: src/remmina_plugin_manager.c:548
+#, fuzzy
 msgid "Type"
-msgstr "Tipas"
+msgstr "Тipas"
 
-#: src/remmina_plugin_manager.c:486
+#: src/remmina_plugin_manager.c:554
+#, fuzzy
 msgid "Description"
 msgstr "Aprašas"
 
-#: src/remmina_plugin_manager.c:492
+#: src/remmina_plugin_manager.c:560
+#, fuzzy
 msgid "Version"
 msgstr "Versija"
 
-#: src/remmina_chat_window.c:178
-#, c-format
+#: src/remmina_chat_window.c:177
+#, fuzzy, c-format
 msgid "Chat with %s"
 msgstr "Pokalbis su %s"
 
-#: src/remmina_chat_window.c:230
+#: src/remmina_chat_window.c:229
+#, fuzzy
 msgid "_Send"
 msgstr "_Siųsti"
 
-#: src/remmina_chat_window.c:240
+#: src/remmina_chat_window.c:239
+#, fuzzy
 msgid "_Clear"
 msgstr "Iš_valyti"
 
-#: src/remmina_applet_menu_item.c:121
+#: src/remmina_applet_menu_item.c:120
+#, fuzzy
 msgid "Discovered"
 msgstr "Rastas"
 
-#: src/remmina_applet_menu_item.c:126
+#: src/remmina_applet_menu_item.c:125
+#, fuzzy
 msgid "New Connection"
 msgstr "Naujas ryšys"
 
-#: src/remmina_key_chooser.h:38
+#: src/remmina_key_chooser.h:40
 #, fuzzy
 msgid "Shift+"
 msgstr "Shift+"
 
-#: src/remmina_key_chooser.h:39
+#: src/remmina_key_chooser.h:41
 #, fuzzy
 msgid "Ctrl+"
 msgstr "Ctrl+"
 
-#: src/remmina_key_chooser.h:40
+#: src/remmina_key_chooser.h:42
 #, fuzzy
 msgid "Alt+"
 msgstr "Alt+"
 
-#: src/remmina_key_chooser.h:41
+#: src/remmina_key_chooser.h:43
 #, fuzzy
 msgid "Super+"
 msgstr "\"Super+"
 
-#: src/remmina_key_chooser.h:42
+#: src/remmina_key_chooser.h:44
 #, fuzzy
 msgid "Hyper+"
 msgstr "\"Hyper+"
 
-#: src/remmina_key_chooser.h:43
+#: src/remmina_key_chooser.h:45
 #, fuzzy
 msgid "Meta+"
 msgstr "Meta+"
 
-#: src/remmina_key_chooser.h:44
+#: src/remmina_key_chooser.h:46
 #, fuzzy
 msgid "<None>"
 msgstr "<Nėra>"
 
-#: src/remmina_pref_dialog.c:91 src/remmina_file_editor.c:435
+#: src/remmina_pref_dialog.c:92 src/remmina_file_editor.c:528
+#, fuzzy
 msgid "Resolutions"
 msgstr "Skiriamosios gebos"
 
-#: src/remmina_pref_dialog.c:91 src/remmina_file_editor.c:435
+#: src/remmina_pref_dialog.c:92 src/remmina_file_editor.c:528
+#, fuzzy
 msgid "Configure the available resolutions"
 msgstr "Konfiguruokite galimas rezoliucijas"
 
-#: src/remmina_pref_dialog.c:143
+#: src/remmina_pref_dialog.c:144
+#, fuzzy
 msgid "Recent lists cleared."
 msgstr "Paskiausių sąrašai išvalyti."
 
-#: src/remmina_pref_dialog.c:154 src/rcw.c:2022
+#: src/remmina_pref_dialog.c:156 src/rcw.c:2041
 #: data/ui/remmina_preferences.glade:169 data/ui/remmina_preferences.glade:179
 #, fuzzy
 msgid "Keystrokes"
-msgstr "Klavišai"
+msgstr "Klavišų paspaudimai"
 
-#: src/remmina_pref_dialog.c:154
+#: src/remmina_pref_dialog.c:156
 #, fuzzy
 msgid "Configure the keystrokes"
 msgstr "Sukonfigūruokite klavišų paspaudimus"
 
 #. TRANSLATORS: Do not translate libsodium, is the name of a library
-#: src/remmina_pref_dialog.c:487
-msgid "libsodium >= 1.9.0 is required to use master password"
+#: src/remmina_pref_dialog.c:476
+#, fuzzy
+msgid "libsodium >= 1.9.0 is required to use Primary Password"
 msgstr "libsodium >= 1.9.0 reikalingas naudoti pagrindiniam slaptažodžiui"
 
-#: src/remmina_pref_dialog.c:806
+#: src/remmina_pref_dialog.c:811
 #, fuzzy
 msgid "Picking a terminal colouring file replaces the file: "
 msgstr "Pasirinkus terminalo spalvinimo failą, failas pakeičiamas: "
 
-#: src/remmina_pref_dialog.c:810
+#: src/remmina_pref_dialog.c:815
 #, fuzzy
 msgid ""
 "This file contains the “Custom” terminal colour scheme selectable from the "
@@ -248,201 +296,264 @@ msgstr ""
 "pasirinkti terminalo jungčių skirtuke \"Advanced\" ir redaguoti nustatymų "
 "skirtuke \"Terminal\"."
 
-#: src/remmina_message_panel.c:163 data/ui/remmina_mpc.glade:46
-#: data/ui/remmina_unlock.glade:46
+#: src/remmina_message_panel.c:162 data/ui/remmina_mpc.glade:46
+#: data/ui/remmina_passwd.glade:19 data/ui/remmina_unlock.glade:43
 #, fuzzy
 msgid "Cancel"
 msgstr "Atsisakyti"
 
-#: src/remmina_message_panel.c:199 data/ui/remmina_snap_info_dialog.glade:28
+#: src/remmina_message_panel.c:198 data/ui/remmina_snap_info_dialog.glade:25
 #: data/ui/remmina_string_list.glade:8 data/ui/remmina_string_list.glade:9
 #: data/ui/remmina_string_list.glade:63 data/ui/remmina_news.glade:33
-#: data/ui/remmina_preferences.glade:2622
+#: data/ui/remmina_preferences.glade:2684
 #, fuzzy
 msgid "Close"
 msgstr "Užverti"
 
-#: src/remmina_message_panel.c:260
+#: src/remmina_message_panel.c:259
 #, fuzzy
 msgid "Yes"
 msgstr "Taip"
 
-#: src/remmina_message_panel.c:267
+#: src/remmina_message_panel.c:266
 #, fuzzy
 msgid "No"
 msgstr "Ne"
 
-#: src/remmina_message_panel.c:391 plugins/rdp/rdp_plugin.c:2657
+#: src/remmina_message_panel.c:390 plugins/rdp/rdp_plugin.c:2798
 #: data/ui/remmina_mpc.glade:172
+#, fuzzy
 msgid "Domain"
 msgstr "Sritis"
 
-#: src/remmina_message_panel.c:420
+#: src/remmina_message_panel.c:419
+#, fuzzy
 msgid "Save password"
 msgstr "Išsaugoti slaptažodį"
 
-#: src/remmina_message_panel.c:457 src/remmina_message_panel.c:629
-#: src/remmina_sftp_client.c:947 src/remmina_file_editor.c:151
-#: src/remmina_file_editor.c:1365 plugins/spice/spice_plugin_file_transfer.c:84
+#: src/remmina_message_panel.c:456 src/remmina_message_panel.c:628
+#: src/remmina_sftp_client.c:972 src/remmina_file_editor.c:241
+#: src/remmina_file_editor.c:1805 plugins/spice/spice_plugin_file_transfer.c:84
 #: data/ui/remmina_key_chooser.glade:8 data/ui/remmina_key_chooser.glade:9
 #: data/ui/remmina_spinner.glade:8 data/ui/remmina_spinner.glade:9
 #, fuzzy
 msgid "_Cancel"
 msgstr "_Atsisakyti"
 
-#: src/remmina_message_panel.c:513
+#: src/remmina_message_panel.c:512
 #, fuzzy
 msgid "Enter certificate authentication files"
 msgstr "Įveskite sertifikato autentiškumo patvirtinimo failus"
 
-#: src/remmina_message_panel.c:525
+#: src/remmina_message_panel.c:524
 #, fuzzy
 msgid "CA Certificate File"
 msgstr "CA sertifikato failas"
 
-#: src/remmina_message_panel.c:547
+#: src/remmina_message_panel.c:546
 #, fuzzy
 msgid "CA CRL File"
 msgstr "CA CRL failas"
 
-#: src/remmina_message_panel.c:569
+#: src/remmina_message_panel.c:568
 #, fuzzy
 msgid "Client Certificate File"
 msgstr "Kliento sertifikato failas"
 
-#: src/remmina_message_panel.c:591
+#: src/remmina_message_panel.c:590
 #, fuzzy
 msgid "Client Certificate Key"
 msgstr "Kliento sertifikato raktas"
 
-#: src/rcw.c:658
+#: src/rcw.c:655
 #, c-format
 msgid ""
 "Are you sure you want to close %i active connections in the current window?"
-msgstr "Dabartiniame lange yra %i aktyvūs ryšiai. Ar norite užverti?"
+msgstr "Ar tikrai norite užverti %i aktyvių ryšių dabartiniame lange?"
 
-#: src/rcw.c:1394
+#: src/rcw.c:665
+#, fuzzy
+#| msgid ""
+#| "Are you sure you want to close %i active connections in the current "
+#| "window?"
+msgid "Are you sure you want to close this last active connection?"
+msgstr "Ar tikrai norite užverti %i aktyvių ryšių dabartiniame lange?"
+
+#: src/rcw.c:1412
+#, fuzzy
 msgid "Viewport fullscreen mode"
 msgstr "Peržiūros srities viso ekrano veiksena"
 
-#: src/rcw.c:1402 data/ui/remmina_preferences.glade:607
+#: src/rcw.c:1420 data/ui/remmina_preferences.glade:607
 #, fuzzy
 msgid "Scrolled fullscreen"
 msgstr "Slinkti per visą ekraną"
 
-#: src/rcw.c:1487
+#: src/rcw.c:1506
 #, fuzzy
 msgid "Keep aspect ratio when scaled"
 msgstr "Išlaikyti kraštinių santykį, kai mastelis keičiamas"
 
-#: src/rcw.c:1495
+#: src/rcw.c:1514
 #, fuzzy
 msgid "Fill client window when scaled"
 msgstr "Užpildykite kliento langą, kai mastelis keičiamas"
 
-#: src/rcw.c:2043
+#: src/rcw.c:2062
 #, fuzzy
 msgid "Send clipboard content as keystrokes"
 msgstr "Siųsti iškarpinės turinį kaip klavišų paspaudimus"
 
-#: src/rcw.c:2147
+#: src/rcw.c:2064
+msgid ""
+"CAUTION: Pasted text will be sent as a sequence of key-codes as if typed on "
+"your local keyboard.\n"
+"\n"
+"  • For best results use same keyboard settings for both, client and "
+"server.\n"
+"\n"
+"  • If client-keyboard is different from server-keyboard the received text "
+"can contain wrong or erroneous characters.\n"
+"\n"
+"  • Unicode characters and other special characters that can't be translated "
+"to local key-codes won’t be sent to the server.\n"
+"\n"
+msgstr ""
+
+#: src/rcw.c:2178
 #, fuzzy
 msgid "Turn off scaling to avoid screenshot distortion."
 msgstr ""
 "Išjunkite mastelio keitimą, kad išvengtumėte ekrano nuotraukos iškraipymo."
 
-#: src/rcw.c:2207 plugins/www/www_plugin.c:855
+#: src/rcw.c:2238 plugins/www/www_plugin.c:864
 #, fuzzy
 msgid "Screenshot taken"
 msgstr "Padaryta ekrano nuotrauka"
 
-#: src/rcw.c:2290
+#: src/rcw.c:2321
 #, fuzzy
 msgid "_Menu"
 msgstr "_Meniu"
 
-#: src/rcw.c:2291
+#: src/rcw.c:2322
 #, fuzzy
 msgid "Menu"
 msgstr "Meniu"
 
-#: src/rcw.c:2300
+#: src/rcw.c:2331
 #, fuzzy
 #| msgid "Open Main Window"
 msgid "Open the Remmina main window"
 msgstr "Atidarykite pagrindinį \"Remmina\" langą"
 
-#: src/rcw.c:2310
+#: src/rcw.c:2341
 #, fuzzy
 msgid "Duplicate current connection"
 msgstr "Dabartinio ryšio dubliavimas"
 
-#: src/rcw.c:2327
+#: src/rcw.c:2358
+#, fuzzy
 msgid "Resize the window to fit in remote resolution"
 msgstr "Pakeisti lango dydį, kad tilptų nutolusi skiriamoji geba"
 
-#: src/rcw.c:2338
+#: src/rcw.c:2369
+#, fuzzy
 msgid "Toggle fullscreen mode"
 msgstr "Perjungti viso ekrano veikseną"
 
-#: src/rcw.c:2384 data/ui/remmina_preferences.glade:1332
-#: data/ui/remmina_preferences.glade:1342
+#: src/rcw.c:2415 data/ui/remmina_preferences.glade:1330
+#: data/ui/remmina_preferences.glade:1340
 #, fuzzy
 msgid "Multi monitor"
 msgstr "Keli monitoriai"
 
-#: src/rcw.c:2400
+#: src/rcw.c:2431
 #, fuzzy
 msgid "Toggle dynamic resolution update"
 msgstr "Perjungti dinaminės skiriamosios gebos atnaujinimą"
 
-#: src/rcw.c:2410
+#: src/rcw.c:2441
+#, fuzzy
 msgid "Toggle scaled mode"
 msgstr "Perjungti mastelio keitimo veiskeną"
 
-#: src/rcw.c:2450 data/ui/remmina_preferences.glade:1066
+#: src/rcw.c:2481 data/ui/remmina_preferences.glade:1064
+#, fuzzy
 msgid "Switch tab pages"
 msgstr "Perjungti kortelių puslapius"
 
-#: src/rcw.c:2460
+#: src/rcw.c:2491
+#, fuzzy
 msgid "Grab all keyboard events"
 msgstr "Pasisavinti visus klaviatūros įvykius"
 
-#: src/rcw.c:2470
+#: src/rcw.c:2508
+#, fuzzy
 msgid "Preferences"
-msgstr "Parinktis"
+msgstr "Nustatymai"
 
-#: src/rcw.c:2479
+#: src/rcw.c:2517
+#, fuzzy
 msgid "_Tools"
-msgstr "_Įrankiai"
+msgstr "Įra_nkiai"
 
-#: src/rcw.c:2480 data/ui/remmina_main.glade:207
+#: src/rcw.c:2518 data/ui/remmina_main.glade:207
+#, fuzzy
 msgid "Tools"
 msgstr "Įrankiai"
 
-#: src/rcw.c:2493 data/ui/remmina_preferences.glade:1267
-#: data/ui/remmina_preferences.glade:1277
+#: src/rcw.c:2531 data/ui/remmina_preferences.glade:1265
+#: data/ui/remmina_preferences.glade:1275
 #, fuzzy
 msgid "Screenshot"
-msgstr "Ekrano fotografija"
+msgstr "Ekrano nuotrauka"
 
-#: src/rcw.c:2507 data/ui/remmina_preferences.glade:1174
+#: src/rcw.c:2545 data/ui/remmina_preferences.glade:1172
+#, fuzzy
 msgid "Minimize window"
 msgstr "Sutraukti langą"
 
-#: src/rcw.c:2517 data/ui/remmina_preferences.glade:1205
+#: src/rcw.c:2555 data/ui/remmina_preferences.glade:1203
+#, fuzzy
 msgid "Disconnect"
-msgstr "Nutraukti ryšį"
+msgstr "Atsijungti"
 
-#: src/rcw.c:4284
+#: src/rcw.c:4364
 #, fuzzy, c-format
 msgid "The file “%s” is corrupted, unreadable, or could not be found."
 msgstr "Failas \"%s\" yra sugadintas, neperskaitomas arba jo nepavyko rasti."
 
-#: src/rcw.c:4452
+#. TRANSLATORS: This should be a link to the Remmina wiki page:
+#. TRANSLATORS: 'GtkSocket feature is not available'.
+#: src/rcw.c:4438
+msgid ""
+"https://gitlab.com/Remmina/Remmina/-/wikis/GtkSocket-feature-is-not-"
+"available-in-a-Wayland-session"
+msgstr ""
+
+#: src/rcw.c:4579
 #, fuzzy
-msgid "Warning: This plugin requires GtkSocket, but it’s not available."
+msgid ""
+"Warning: This plugin requires GtkSocket, but this feature is unavailable in "
+"a Wayland session."
 msgstr "Įspėjimas: Šis įskiepis reikalauja GtkSocket, tačiau jo nėra."
+
+#. TRANSLATORS: This should be a link to the Remmina wiki page:
+#. 'GtkSocket feature is not available'.
+#: src/rcw.c:4585
+msgid ""
+"Plugins relying on GtkSocket can't run in a Wayland session.\n"
+"For more info and a possible workaround, please visit the Remmina wiki at:\n"
+"\n"
+"https://gitlab.com/Remmina/Remmina/-/wikis/GtkSocket-feature-is-not-"
+"available-in-a-Wayland-session"
+msgstr ""
+
+#: src/rcw.c:4599
+#, fuzzy
+msgid "Open in web browser"
+msgstr "Atverti naršyklėje"
 
 #: src/remmina_mpchange.c:234
 #, fuzzy
@@ -473,13 +584,13 @@ msgstr[1] ""
 msgstr[2] ""
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:86
+#: src/remmina.c:92
 #, fuzzy
 msgid "Show 'About'"
 msgstr "Rodyti \"Apie"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:88
+#: src/remmina.c:94
 #, fuzzy
 msgid ""
 "Connect either to a desktop described in a file (.remmina or a filetype "
@@ -488,122 +599,168 @@ msgstr ""
 "Prisijunkite prie darbalaukio, aprašyto faile (.remmina arba įskiepio "
 "palaikomame failo tipe), arba prie palaikomo URI (RDP, VNC, SSH arba SPICE)."
 
-#: src/remmina.c:88 src/remmina.c:90 src/remmina.c:92
+#: src/remmina.c:94 src/remmina.c:96 src/remmina.c:98
 #, fuzzy
 msgid "FILE"
 msgstr "FAILAS"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:90
+#: src/remmina.c:96
 #, fuzzy
 msgid ""
-"Connect to a desktop described in a file (.remmina or a type supported by a "
-"plugin)"
+"Connect to a desktop described in a file (.remmina or a filetype supported "
+"by a plugin)"
 msgstr ""
 "Prisijungti prie darbalaukio, aprašyto faile (.remmina arba įskiepio "
 "palaikomo tipo)"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:92
+#: src/remmina.c:98
 #, fuzzy
 msgid ""
-"Edit desktop connection described in file (.remmina or type supported by "
-"plugin)"
+"Edit desktop connection described in file (.remmina or a filetype supported "
+"by plugin)"
 msgstr ""
 "Redaguoti darbalaukio ryšį, aprašytą faile (.remmina arba įskiepio palaikomo "
 "tipo)"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:95
+#: src/remmina.c:101
 #, fuzzy
 msgid "Start in kiosk mode"
 msgstr "Paleisti kiosko režimą"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:97
+#: src/remmina.c:103
+#, fuzzy
 msgid "Create new connection profile"
 msgstr "Sukurti naują sujungimo profilį"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:99
+#: src/remmina.c:105
+#, fuzzy
 msgid "Show preferences"
 msgstr "Rodyti nustatymus"
 
-#: src/remmina.c:99
+#: src/remmina.c:105
 #, fuzzy
 msgid "TABINDEX"
 msgstr "LENTELĖS"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:106
+#: src/remmina.c:112
 #, fuzzy
 msgid "Quit"
 msgstr "Išeiti"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:108
+#: src/remmina.c:114
 #, fuzzy
 msgid "Use default server name (for --new)"
 msgstr "Naudoti numatytąjį serverio pavadinimą (jei --new)"
 
-#: src/remmina.c:108
+#: src/remmina.c:114
 #, fuzzy
 msgid "SERVER"
 msgstr "SERVERISAS"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:110
+#: src/remmina.c:116
 #, fuzzy
 msgid "Use default protocol (for --new)"
 msgstr "Naudoti numatytąjį protokolą (jei --new)"
 
-#: src/remmina.c:110
+#: src/remmina.c:116
 #, fuzzy
 msgid "PROTOCOL"
 msgstr "PROTOKOLAS"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:112
+#: src/remmina.c:118
 #, fuzzy
 msgid "Start in tray"
-msgstr "Paslėpti paleidus"
+msgstr "Pradėkite nuo dėklo"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:114
+#: src/remmina.c:120
 #, fuzzy
 msgid "Show the application version"
 msgstr "Rodyti programos versiją"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:116
+#: src/remmina.c:122
 #, fuzzy
 msgid "Show version of the application and its plugins"
 msgstr "Rodyti programos ir jos papildinių versiją"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:118
+#: src/remmina.c:124
 #, fuzzy
 msgid "Modify connection profile (requires --set-option)"
 msgstr "Pakeisti ryšio profilį (reikia --set parinkties)"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:120
+#: src/remmina.c:126
 #, fuzzy
 msgid "Set one or more profile settings, to be used with --update-profile"
 msgstr ""
 "Nustatyti vieną ar daugiau profilio nustatymų, naudojamų su --update-profile"
 
-#: src/remmina.c:121
+#: src/remmina.c:127
+#, fuzzy
 msgid "Encrypt a password"
 msgstr "Užšifruoti slaptažodį"
 
+#: src/remmina.c:128
+#, fuzzy
+#| msgid "Disable encryption"
+msgid "Disable news notification"
+msgstr "Išjungti šifravimą"
+
+#: src/remmina.c:129
+#, fuzzy
+#| msgid "Disable clipboard sync"
+msgid "Disable toolbar"
+msgstr "Išjungti iškarpinės sinchronizavimą"
+
+#: src/remmina.c:130
+#, fuzzy
+msgid "Enable fullscreen"
+msgstr "Slinkti per visą ekraną"
+
+#: src/remmina.c:131
+msgid ""
+"Enable extra hardening (disable closing confirmation, disable unsafe "
+"shortcut keys, hide tabs, hide search bar)"
+msgstr ""
+
+#: src/remmina.c:132
+#, fuzzy
+msgid "Disable tray icon"
+msgstr "Nėra dėklo piktogramos"
+
+#. TRANSLATORS:
+#. * This link should point to a resource explaining how to get Remmina
+#. * to log more verbose statements.
+#.
+#: src/remmina.c:367
+#, fuzzy
+msgid ""
+"Remmina does not log all output statements. Turn on more verbose output by "
+"using \"G_MESSAGES_DEBUG=all\" as an environment variable.\n"
+"More info available on the Remmina wiki at:\n"
+"https://gitlab.com/Remmina/Remmina/-/wikis/Usage/Remmina-debugging"
+msgstr ""
+"\"Remmina\" neregistruoja visų išvesties teiginių. Norėdami įjungti "
+"išsamesnį išvedimą, kaip aplinkos kintamąjį naudokite G_MESSAGES_DEBUG=all. "
+
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:375
+#: src/remmina.c:421
 #, fuzzy
 msgid "- or protocol://username:encryptedpassword@host:port"
 msgstr "- arba protocol://username:encryptedpassword@host:port"
 
-#: src/remmina.c:378
+#: src/remmina.c:424
 #, fuzzy
 msgid ""
 "Examples:\n"
@@ -685,366 +842,405 @@ msgstr "Nepavyko sukurti UNIX lizdo: %s"
 msgid "Connecting to UNIX socket failed: %s"
 msgstr "Nepavyko prisijungti prie UNIX lizdo: %s"
 
-#: src/remmina_public.c:631
+#: src/remmina_public.c:632
+#, fuzzy
 msgid "Please enter format 'widthxheight'."
 msgstr "Prašome įvesti formatu „plotisxaukštis“."
 
-#: src/remmina_public.c:653
+#: src/remmina_public.c:654
 #, fuzzy
 msgid "Change security settings"
 msgstr "Keisti saugumo nustatymus"
 
 #. TRANSLATORS: translator-credits should be replaced with a formatted list of translators in your own language
-#: src/remmina_about.c:54
+#: src/remmina_about.c:53
+#, fuzzy
 msgid "translator-credits"
 msgstr ""
-"Launchpad Contributions:\n"
-"  Aurimas Fišeras https://launchpad.net/~aurimas-gmail\n"
-"  Mantas Kriaučiūnas https://launchpad.net/~mantas\n"
-"  Vic https://launchpad.net/~llyzs"
+"Tadas Masiulionis\n"
+"Mantas Kriaučiūnas <mantas@akl.lt>\n"
+"Aurimas Fišeras <aurimas@members.fsf.org>"
 
-#: src/remmina_ftp_client.c:389
+#: src/remmina_ftp_client.c:409
+#, fuzzy
 msgid "Choose download location"
 msgstr "Pasirinkite atsiuntimo vietą"
 
-#: src/remmina_ftp_client.c:529
+#: src/remmina_ftp_client.c:549
+#, fuzzy
 msgid "Are you sure to delete the selected files on server?"
 msgstr "Ar tikrai norite pašalinti pažymėtus failus serveryje?"
 
-#: src/remmina_ftp_client.c:586
+#: src/remmina_ftp_client.c:606
+#, fuzzy
 msgid "Choose a file to upload"
 msgstr "Pasirinkite failą išsiuntimui"
 
-#: src/remmina_ftp_client.c:593
+#: src/remmina_ftp_client.c:613
+#, fuzzy
 msgid "Upload folder"
 msgstr "Išsiuntimo aplankas"
 
-#: src/remmina_ftp_client.c:649 src/remmina_ftp_client.c:763
+#: src/remmina_ftp_client.c:669 src/remmina_ftp_client.c:786
+#, fuzzy
 msgid "Download"
-msgstr "Atsisiųsti"
+msgstr "Atsiųsti"
 
-#: src/remmina_ftp_client.c:656 src/remmina_ftp_client.c:770
+#: src/remmina_ftp_client.c:676 src/remmina_ftp_client.c:793
+#, fuzzy
 msgid "Upload"
-msgstr "Išsiuntimas"
+msgstr "Nusiųsti"
 
-#: src/remmina_ftp_client.c:663
+#: src/remmina_ftp_client.c:683
 #, fuzzy
 msgid "_Delete"
 msgstr "_Pašalinti"
 
-#: src/remmina_ftp_client.c:748
+#: src/remmina_ftp_client.c:771
 #, fuzzy
 msgid "Home"
-msgstr "Pradžia"
+msgstr "Pagrindinis"
 
-#: src/remmina_ftp_client.c:749
+#: src/remmina_ftp_client.c:772
+#, fuzzy
 msgid "Go to home folder"
 msgstr "Eiti į namų aplanką"
 
-#: src/remmina_ftp_client.c:753
+#: src/remmina_ftp_client.c:776
 #, fuzzy
 msgid "Up"
 msgstr "Aukštyn"
 
-#: src/remmina_ftp_client.c:754
+#: src/remmina_ftp_client.c:777
+#, fuzzy
 msgid "Go to parent folder"
 msgstr "Eiti į virškatalogį"
 
-#: src/remmina_ftp_client.c:758 plugins/rdp/rdp_plugin.c:2744
-#: plugins/vnc/vnc_plugin.c:2019
+#: src/remmina_ftp_client.c:781 plugins/rdp/rdp_plugin.c:2888
+#: plugins/vnc/vnc_plugin.c:2090
+#, fuzzy
 msgid "Refresh"
-msgstr "Atnaujinti"
+msgstr "Naujinti"
 
-#: src/remmina_ftp_client.c:759
+#: src/remmina_ftp_client.c:782
+#, fuzzy
 msgid "Refresh current folder"
 msgstr "Atnaujinti dabartinį katalogą"
 
-#: src/remmina_ftp_client.c:764
+#: src/remmina_ftp_client.c:787
+#, fuzzy
 msgid "Download from server"
 msgstr "Atsiųsti iš serverio"
 
-#: src/remmina_ftp_client.c:771
+#: src/remmina_ftp_client.c:794
+#, fuzzy
 msgid "Upload to server"
 msgstr "Išsiųsti į serverį"
 
-#: src/remmina_ftp_client.c:775 data/ui/remmina_main.glade:197
+#: src/remmina_ftp_client.c:798 data/ui/remmina_main.glade:197
 #, fuzzy
 msgid "Delete"
 msgstr "Ištrinti"
 
-#: src/remmina_ftp_client.c:776
+#: src/remmina_ftp_client.c:799
+#, fuzzy
 msgid "Delete files on server"
 msgstr "Šalinti failus serveryje"
 
-#: src/remmina_ftp_client.c:905 src/remmina_ftp_client.c:974
+#: src/remmina_ftp_client.c:928 src/remmina_ftp_client.c:1005
+#, fuzzy
 msgid "Filename"
-msgstr "Failo vardas"
+msgstr "Failo pavadinimas"
 
-#: src/remmina_ftp_client.c:918 src/remmina_ftp_client.c:1003
+#: src/remmina_ftp_client.c:941 src/remmina_ftp_client.c:1034
+#, fuzzy
 msgid "Size"
 msgstr "Dydis"
 
-#: src/remmina_ftp_client.c:926
+#: src/remmina_ftp_client.c:949
+#, fuzzy
 msgid "User"
 msgstr "Naudotojas"
 
-#: src/remmina_ftp_client.c:932 src/remmina_file_editor.c:1515
+#: src/remmina_ftp_client.c:955 src/remmina_file_editor.c:1955
 #: data/ui/remmina_mpc.glade:115 data/ui/remmina_main.glade:464
+#, fuzzy
 msgid "Group"
 msgstr "Grupė"
 
-#: src/remmina_ftp_client.c:938
+#: src/remmina_ftp_client.c:961
+#, fuzzy
 msgid "Permission"
 msgstr "Leidimas"
 
-#: src/remmina_ftp_client.c:990 plugins/rdp/rdp_plugin.c:2552
+#: src/remmina_ftp_client.c:969
+msgid "Modified"
+msgstr ""
+
+#: src/remmina_ftp_client.c:1021 plugins/rdp/rdp_plugin.c:2673
+#, fuzzy
 msgid "Remote"
 msgstr "Nutolęs"
 
-#: src/remmina_ftp_client.c:997 plugins/rdp/rdp_plugin.c:2551
+#: src/remmina_ftp_client.c:1028 plugins/rdp/rdp_plugin.c:2672
+#, fuzzy
 msgid "Local"
 msgstr "Vietinis"
 
-#: src/remmina_ftp_client.c:1011
+#: src/remmina_ftp_client.c:1042
+#, fuzzy
 msgid "Progress"
 msgstr "Eiga"
 
-#: src/remmina_protocol_widget.c:290 src/remmina_ssh_plugin.c:829
-#: src/remmina_ssh_plugin.c:1454
+#: src/remmina_protocol_widget.c:292 src/remmina_ssh_plugin.c:840
+#: src/remmina_ssh_plugin.c:1478
 msgid "Open SFTP transfer…"
 msgstr "Atverti saugų failų siuntimą…"
 
-#: src/remmina_protocol_widget.c:319
+#: src/remmina_protocol_widget.c:324
+#, fuzzy
 msgid "Executing external commands…"
 msgstr "Įvykdomos įšorinės komandos…"
 
 #. TRANSLATORS: “%s” is a placeholder for the connection profile name
-#: src/remmina_protocol_widget.c:327
+#: src/remmina_protocol_widget.c:332
 #, c-format
 msgid "Connecting to “%s”…"
 msgstr "Jungiamasi prie „%s“…"
 
 #. TRANSLATORS: “%s” is a placeholder for an hostname or an IP address.
-#: src/remmina_protocol_widget.c:911 src/remmina_protocol_widget.c:1096
+#: src/remmina_protocol_widget.c:924 src/remmina_protocol_widget.c:1108
 #, c-format
 msgid "Connecting to “%s” via SSH…"
 msgstr "Jungiamasi prie „%s“ per SSH…"
 
 #. TRANSLATORS: “%i” is a placeholder for a TCP port number.
-#: src/remmina_protocol_widget.c:1160
-#, c-format
+#: src/remmina_protocol_widget.c:1172
+#, fuzzy, c-format
 msgid "Awaiting incoming SSH connection on port %i…"
 msgstr "Laukiama ateinančio SSH ryšio per prievadą %i…"
 
-#: src/remmina_protocol_widget.c:1213
+#: src/remmina_protocol_widget.c:1225
 #, c-format
 msgid "The “%s” command is not available on the SSH server."
 msgstr "Komanda %s nerasta SSH serveryje."
 
-#: src/remmina_protocol_widget.c:1218
+#: src/remmina_protocol_widget.c:1230
 #, c-format
 msgid "Could not run the “%s” command on the SSH server (status = %i)."
 msgstr "Nepavyko įvykdyti komandos „%s“ SSH serveryje (būsena = %i)."
 
 #. TRANSLATORS: %s is a placeholder for an error message
-#: src/remmina_protocol_widget.c:1226
-#, c-format
+#: src/remmina_protocol_widget.c:1238
+#, fuzzy, c-format
 msgid "Could not run command. %s"
 msgstr "Nepavyko įvykdyti komandos. %s"
 
 #. TRANSLATORS: “%s” is a placeholder for a hostname or IP address.
-#: src/remmina_protocol_widget.c:1296
-#, c-format
+#: src/remmina_protocol_widget.c:1308
+#, fuzzy, c-format
 msgid "Connecting to %s via SSH…"
 msgstr "Jungiamasi prie „%s“ per SSH…"
 
-#: src/remmina_protocol_widget.c:1690
+#: src/remmina_protocol_widget.c:1710
+#, fuzzy
 msgid "Type in SSH username and password."
 msgstr "Įrašykite SSH slapyvardį ir slaptažodį."
 
-#: src/remmina_protocol_widget.c:1745 src/remmina_protocol_widget.c:1777
+#: src/remmina_protocol_widget.c:1765 src/remmina_protocol_widget.c:1797
 #, fuzzy
 msgid "Fingerprint automatically accepted"
 msgstr "Automatiškai priimami pirštų atspaudai"
 
 #. TRANSLATORS: The user is asked to verify a new SSL certificate.
-#: src/remmina_protocol_widget.c:1753
+#: src/remmina_protocol_widget.c:1773
+#, fuzzy
 msgid "Certificate details:"
 msgstr "Sertifikato informacija:"
 
 #. TRANSLATORS: An SSL certificate subject is usually the remote server the user connect to.
-#: src/remmina_protocol_widget.c:1755 src/remmina_protocol_widget.c:1787
+#: src/remmina_protocol_widget.c:1775 src/remmina_protocol_widget.c:1807
+#, fuzzy
 msgid "Subject:"
-msgstr "Subjektas:"
+msgstr "Tema:"
 
 #. TRANSLATORS: The name or email of the entity that have issued the SSL certificate
-#: src/remmina_protocol_widget.c:1757 src/remmina_protocol_widget.c:1789
+#: src/remmina_protocol_widget.c:1777 src/remmina_protocol_widget.c:1809
+#, fuzzy
 msgid "Issuer:"
 msgstr "Išdavėjas:"
 
 #. TRANSLATORS: An SSL certificate fingerprint, is a hash of a certificate calculated on all certificate's data and its signature.
-#: src/remmina_protocol_widget.c:1759
+#: src/remmina_protocol_widget.c:1779
+#, fuzzy
 msgid "Fingerprint:"
-msgstr "Pirštų atspaudas:"
+msgstr "Kontrolinis kodas:"
 
 #. TRANSLATORS: The user is asked to accept or refuse a new SSL certificate.
-#: src/remmina_protocol_widget.c:1761
+#: src/remmina_protocol_widget.c:1781
+#, fuzzy
 msgid "Accept certificate?"
 msgstr "Priimti sertifikatą?"
 
 #. TRANSLATORS: The user is asked to verify a new SSL certificate.
-#: src/remmina_protocol_widget.c:1785
+#: src/remmina_protocol_widget.c:1805
 #, fuzzy
 msgid "The certificate changed! Details:"
 msgstr "Sertifikatas pakeistas! Išsami informacija:"
 
 #. TRANSLATORS: An SSL certificate fingerprint, is a hash of a certificate calculated on all certificate's data and its signature.
-#: src/remmina_protocol_widget.c:1791
+#: src/remmina_protocol_widget.c:1811
+#, fuzzy
 msgid "Old fingerprint:"
 msgstr "Senas pirštų antspaudas:"
 
 #. TRANSLATORS: An SSL certificate fingerprint, is a hash of a certificate calculated on all certificate's data and its signature.
-#: src/remmina_protocol_widget.c:1793
+#: src/remmina_protocol_widget.c:1813
+#, fuzzy
 msgid "New fingerprint:"
 msgstr "Naujas pirštų antspaudas:"
 
 #. TRANSLATORS: The user is asked to accept or refuse a new SSL certificate.
-#: src/remmina_protocol_widget.c:1795
+#: src/remmina_protocol_widget.c:1815
+#, fuzzy
 msgid "Accept changed certificate?"
 msgstr "Priimti pakeistą sertifikatą?"
 
 #. TRANSLATORS: “%i” is a placeholder for a port number. “%s”  is a placeholder for a protocol name (VNC).
-#: src/remmina_protocol_widget.c:1938
-#, c-format
+#: src/remmina_protocol_widget.c:1958
+#, fuzzy, c-format
 msgid "Listening on port %i for an incoming %s connection…"
 msgstr "Per prievadą %i laukiama įeinančio %s prisijungimo…"
 
-#: src/remmina_protocol_widget.c:1963
+#: src/remmina_protocol_widget.c:1983
 msgid "Could not authenticate, attempting reconnection…"
 msgstr "Nepavyko nustatyti tapatumo. Mėginama prisijungti iš naujo…"
 
-#: src/remmina_protocol_widget.c:2025 src/remmina_file_editor.c:346
-#: src/remmina_file_editor.c:917 data/ui/remmina_main.glade:478
+#: src/remmina_protocol_widget.c:2045 src/remmina_file_editor.c:436
+#: src/remmina_file_editor.c:1190 data/ui/remmina_main.glade:478
+#, fuzzy
 msgid "Server"
 msgstr "Serveris"
 
 #. TRANSLATORS: “%s” is a placeholder for a protocol name, like “RDP”.
-#: src/remmina_protocol_widget.c:2043
-#, c-format
+#: src/remmina_protocol_widget.c:2063
+#, fuzzy, c-format
 msgid "Install the %s protocol plugin first."
 msgstr "Pirmiausia įdiegite %s protokolo papildinį."
 
-#: src/remmina_ssh.c:236
+#: src/remmina_ssh.c:732
 #, c-format
 msgid "Could not authenticate with TOTP/OTP/2FA. %s"
 msgstr "Nepavyko paleisti SSH seanso: %s"
 
-#: src/remmina_ssh.c:295 src/remmina_ssh.c:676
+#: src/remmina_ssh.c:791 src/remmina_ssh.c:1172
 #, c-format
 msgid "Could not authenticate with SSH password. %s"
 msgstr "Nepavyko paleisti SSH seanso: %s"
 
-#: src/remmina_ssh.c:322 src/remmina_ssh.c:389
+#: src/remmina_ssh.c:818 src/remmina_ssh.c:885
 #, fuzzy
 msgid "No saved SSH passphrase supplied. Asking user to enter it."
 msgstr ""
 "Nepateikta išsaugota SSH slaptažodžių frazė. Prašoma naudotojo ją įvesti."
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:327 src/remmina_ssh.c:368 src/remmina_ssh.c:394
-#: src/remmina_ssh.c:433 src/remmina_ssh.c:746
+#: src/remmina_ssh.c:823 src/remmina_ssh.c:864 src/remmina_ssh.c:890
+#: src/remmina_ssh.c:929 src/remmina_ssh.c:1242
 #, fuzzy, c-format
 msgid "Could not authenticate with public SSH key. %s"
 msgstr "Nepavyko autentifikuoti su viešuoju SSH raktu. %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:336
+#: src/remmina_ssh.c:832
 #, fuzzy, c-format
 msgid "SSH certificate cannot be imported. %s"
 msgstr "SSH sertifikato negalima importuoti. %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:345
+#: src/remmina_ssh.c:841
 #, fuzzy, c-format
 msgid "SSH certificate cannot be copied into the private SSH key. %s"
 msgstr "SSH sertifikato negalima nukopijuoti į privatų SSH raktą. %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:355
+#: src/remmina_ssh.c:851
 #, fuzzy, c-format
 #| msgid "Could not authenticate with SSH password. %s"
 msgid "Could not authenticate using SSH certificate. %s"
 msgstr "Nepavyko autentifikuoti naudojant SSH sertifikatą. %s"
 
-#: src/remmina_ssh.c:369
+#: src/remmina_ssh.c:865
 msgid "SSH identity file not selected."
 msgstr "SSH rakto failas dar nenurodytas."
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:380
+#: src/remmina_ssh.c:876
 #, fuzzy, c-format
 msgid "Public SSH key cannot be imported. %s"
 msgstr "Viešojo SSH rakto negalima importuoti. %s"
 
-#: src/remmina_ssh.c:478
+#: src/remmina_ssh.c:974
 #, fuzzy, c-format
 msgid "Could not authenticate automatically with public SSH key. %s"
 msgstr ""
 "Nepavyko automatiškai patvirtinti autentiškumo naudojant viešąjį SSH raktą. "
 "%s"
 
-#: src/remmina_ssh.c:523
+#: src/remmina_ssh.c:1019
 #, c-format
 msgid "Could not authenticate automatically with SSH agent. %s"
 msgstr "Nepavyko paleisti SSH seanso: %s"
 
-#: src/remmina_ssh.c:569 src/remmina_ssh.c:856
+#: src/remmina_ssh.c:1065 src/remmina_ssh.c:1352
 #, c-format
 msgid "Could not authenticate with SSH GSSAPI/Kerberos. %s"
 msgstr "Nepavyko paleisti SSH seanso: %s"
 
-#: src/remmina_ssh.c:598
+#: src/remmina_ssh.c:1094
 #, fuzzy
 msgid "The public SSH key changed!"
 msgstr "Viešasis SSH raktas pakeistas!"
 
-#: src/remmina_ssh.c:711
+#: src/remmina_ssh.c:1207
 #, c-format
 msgid "Could not authenticate with keyboard-interactive. %s"
 msgstr "Nepavyko paleisti SSH seanso: %s"
 
-#: src/remmina_ssh.c:813
+#: src/remmina_ssh.c:1309
 #, c-format
 msgid "Could not authenticate with automatic public SSH key. %s"
 msgstr "Nepavyko prisijungti prie SSH tunelio paskirties: %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:921
+#: src/remmina_ssh.c:1417
 #, fuzzy, c-format
 msgid "Could not fetch the server's public SSH key. %s"
 msgstr "Nepavyko gauti serverio viešojo SSH rakto. %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:928
+#: src/remmina_ssh.c:1424
 #, c-format
 msgid "Could not fetch public SSH key. %s"
 msgstr "Nepavyko prisijungti prie SSH tunelio paskirties: %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:936
+#: src/remmina_ssh.c:1432
 #, c-format
 msgid "Could not fetch checksum of the public SSH key. %s"
 msgstr "Nepavyko paleisti SSH seanso: %s"
 
-#: src/remmina_ssh.c:949
+#: src/remmina_ssh.c:1445
+#, fuzzy
 msgid "The server is unknown. The public key fingerprint is:"
 msgstr "Serveris nežinomas. Viešojo rakto pirštų antspaudas yra:"
 
-#: src/remmina_ssh.c:951 src/remmina_ssh.c:957
+#: src/remmina_ssh.c:1447 src/remmina_ssh.c:1453
+#, fuzzy
 msgid "Do you trust the new public key?"
 msgstr "Ar pasitikite nauju viešuoju raktu?"
 
-#: src/remmina_ssh.c:954
+#: src/remmina_ssh.c:1450
 msgid ""
 "Warning: The server has changed its public key. This means you are either "
 "under attack,\n"
@@ -1055,169 +1251,177 @@ msgstr ""
 "administratorius pakeitė raktą. Naujojo viešojo rakto pirštų antspaudas yra:"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:979
+#: src/remmina_ssh.c:1475
 #, c-format
 msgid "Could not check list of known SSH hosts. %s"
 msgstr "Nepavyko paleisti SSH seanso: %s"
 
-#: src/remmina_ssh.c:988
+#: src/remmina_ssh.c:1484
+#, fuzzy
 msgid "SSH password"
 msgstr "SSH slaptažodis"
 
-#: src/remmina_ssh.c:995 src/remmina_ssh.c:1039
+#: src/remmina_ssh.c:1491 src/remmina_ssh.c:1535
+#, fuzzy
 msgid "SSH private key passphrase"
 msgstr "SSH privačiojo rakto slaptafrazė"
 
-#: src/remmina_ssh.c:1000
+#: src/remmina_ssh.c:1496
 #, fuzzy
 msgid "SSH Kerberos/GSSAPI"
 msgstr "SSH Kerberos/GSSAPI"
 
-#: src/remmina_ssh.c:1005
+#: src/remmina_ssh.c:1501
 #, fuzzy
 msgid "Enter TOTP/OTP/2FA code"
 msgstr "Įveskite TOTP/OTP/2FA kodą"
 
-#: src/remmina_ssh.c:1035 src/remmina_ssh.c:1061
+#: src/remmina_ssh.c:1531 src/remmina_ssh.c:1557
 #, fuzzy
 msgid "SSH tunnel credentials"
 msgstr "SSH tunelio įgaliojimai"
 
-#: src/remmina_ssh.c:1035 src/remmina_ssh.c:1061
+#: src/remmina_ssh.c:1531 src/remmina_ssh.c:1557
 #, fuzzy
 msgid "SSH credentials"
 msgstr "SSH įgaliojimai"
 
-#: src/remmina_ssh.c:1112
+#: src/remmina_ssh.c:1608
 #, fuzzy
 msgid "Keyboard interactive login, TOTP/OTP/2FA"
 msgstr "Interaktyvus prisijungimas klaviatūra, TOTP/OTP/2FA"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:1337
+#: src/remmina_ssh.c:1833
 #, c-format
 msgid "Could not start SSH session. %s"
 msgstr "Nepavyko paleisti SSH seanso: %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:1735
+#: src/remmina_ssh.c:2232
 #, c-format
 msgid "Could not create channel. %s"
 msgstr "Nepavyko sukurti SFTP seanso: %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:1746
+#: src/remmina_ssh.c:2243
 #, c-format
 msgid "Could not connect to SSH tunnel. %s"
 msgstr "Nepavyko prisijungti prie SSH tunelio paskirties: %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:1816 src/remmina_ssh.c:1837 src/remmina_ssh.c:1846
+#: src/remmina_ssh.c:2313 src/remmina_ssh.c:2334 src/remmina_ssh.c:2343
 #, c-format
 msgid "Could not request port forwarding. %s"
 msgstr "Nepavyko užklausti prievadų persiuntimo. %s"
 
-#: src/remmina_ssh.c:1876
+#: src/remmina_ssh.c:2373
 #, fuzzy
 msgid "The server did not respond."
 msgstr "Serveris neatsakė."
 
-#: src/remmina_ssh.c:1916
+#: src/remmina_ssh.c:2413
 #, fuzzy, c-format
 msgid "Cannot connect to local port %i."
 msgstr "Nepavyksta prisijungti prie vietinio prievado %i."
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:1965
+#: src/remmina_ssh.c:2462
 #, c-format
 msgid "Could not write to SSH channel. %s"
 msgstr "Nepavyko sukurti SFTP seanso: %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:1972
+#: src/remmina_ssh.c:2469
 #, c-format
 msgid "Could not read from tunnel listening socket. %s"
 msgstr "Nepavyko sukurti SFTP seanso: %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:1992
+#: src/remmina_ssh.c:2489
 #, c-format
 msgid "Could not poll SSH channel. %s"
 msgstr "Nepavyko sukurti SFTP seanso: %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:1999
+#: src/remmina_ssh.c:2496
 #, c-format
 msgid "Could not read SSH channel in a non-blocking way. %s"
 msgstr "Nepavyko sukurti SFTP seanso: %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2018
+#: src/remmina_ssh.c:2515
 #, c-format
 msgid "Could not send data to tunnel listening socket. %s"
 msgstr "Nepavyko prisijungti prie SSH tunelio paskirties: %s"
 
-#: src/remmina_ssh.c:2120
+#: src/remmina_ssh.c:2617
 #, fuzzy
 msgid "Assign a destination port."
 msgstr "Priskirkite paskirties prievadą."
 
-#: src/remmina_ssh.c:2127
+#: src/remmina_ssh.c:2624
 #, fuzzy
 msgid "Could not create socket."
 msgstr "Nepavyko sukurti lizdo."
 
-#: src/remmina_ssh.c:2137
+#: src/remmina_ssh.c:2634
 #, fuzzy
 msgid "Could not bind server socket to local port."
 msgstr "Nepavyko susieti serverio lizdo su vietiniu prievadu."
 
-#: src/remmina_ssh.c:2143
+#: src/remmina_ssh.c:2640
 #, fuzzy
 msgid "Could not listen to local port."
 msgstr "Nepavyko įsiklausyti į vietinį prievadą."
 
 #. TRANSLATORS: Do not translate pthread
-#: src/remmina_ssh.c:2153 src/remmina_ssh.c:2170 src/remmina_ssh.c:2188
+#: src/remmina_ssh.c:2650 src/remmina_ssh.c:2667 src/remmina_ssh.c:2685
 #, fuzzy
 msgid "Could not start pthread."
 msgstr "Nepavyko paleisti pthread."
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2280
+#: src/remmina_ssh.c:2777
 #, c-format
 msgid "Could not create SFTP session. %s"
 msgstr "Nepavyko sukurti SFTP seanso: %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2285
+#: src/remmina_ssh.c:2782
 #, c-format
 msgid "Could not start SFTP session. %s"
 msgstr "Nepavyko paleisti SSH seanso: %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2378
+#: src/remmina_ssh.c:2874
 #, c-format
 msgid "Could not open channel. %s"
 msgstr "Nepavyko sukurti SFTP seanso: %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2393
+#: src/remmina_ssh.c:2917
 #, c-format
 msgid "Could not request shell. %s"
 msgstr "Nepavyko sukurti SFTP seanso: %s"
 
-#: src/remmina_ssh.c:2511
+#: src/remmina_ssh.c:3047
 #, fuzzy
 msgid "Could not create PTY device."
 msgstr "Nepavyko sukurti PTY įrenginio."
 
-#: src/remmina_exec.c:475
-#, c-format
+#: src/remmina_exec.c:491
+#, fuzzy, c-format
 msgid "Plugin %s is not registered."
 msgstr "Papildinys %s neužregistruotas."
 
-#: src/remmina_main.c:662
+#: src/remmina_main.c:685
+#, fuzzy
+msgid "The latest successful connection attempt, or a pre-computed date"
+msgstr ""
+"Paskutinis sėkmingas bandymas prisijungti arba iš anksto apskaičiuota data"
+
+#: src/remmina_main.c:687
 #, c-format
 msgid "Total %i item."
 msgid_plural "Total %i items."
@@ -1225,13 +1429,21 @@ msgstr[0] "Iš viso %i elementas."
 msgstr[1] "Iš viso %i elementai."
 msgstr[2] "Iš viso %i elementų."
 
-#: src/remmina_main.c:853
+#: src/remmina_main.c:695
+msgid "Network status: fully online"
+msgstr ""
+
+#: src/remmina_main.c:698
+msgid "Network status: offline"
+msgstr ""
+
+#: src/remmina_main.c:947
 #, c-format
 msgid "Are you sure you want to delete “%s”?"
 msgstr "Ar tikrai norite pašalinti „%s“?"
 
-#: src/remmina_main.c:973
-#, c-format
+#: src/remmina_main.c:1073
+#, fuzzy, c-format
 msgid ""
 "Unable to import:\n"
 "%s"
@@ -1239,105 +1451,112 @@ msgstr ""
 "Nepavyko importuoti:\n"
 "%s"
 
-#: src/remmina_main.c:999 data/ui/remmina_main.glade:285
+#: src/remmina_main.c:1099 data/ui/remmina_main.glade:285
+#, fuzzy
 msgid "Import"
 msgstr "Importuoti"
 
-#: src/remmina_main.c:1022 src/remmina_file_editor.c:1373
+#: src/remmina_main.c:1122 src/remmina_file_editor.c:1813
 #, fuzzy
 msgid "_Save"
 msgstr "Iš_saugoti"
 
-#: src/remmina_main.c:1028
+#: src/remmina_main.c:1128
+#, fuzzy
 msgid "This protocol does not support exporting."
 msgstr "Šis protokolas nepalaiko eksportavimo."
 
-#: src/remmina_main.c:1344
+#: src/remmina_main.c:1449
+#, fuzzy
 msgid "Remmina Remote Desktop Client"
 msgstr "Nutolusių kompiuterių valdymas - Remmina"
 
-#: src/remmina_main.c:1346
+#: src/remmina_main.c:1451
 #, fuzzy
 msgid "Remmina Kiosk"
 msgstr "\"Remmina\" kioskas"
 
 #. TRANSLATORS: The placeholder %s is a directory path
-#: src/remmina_sftp_client.c:173
+#: src/remmina_sftp_client.c:176
 #, c-format
 msgid "Could not create the folder “%s”."
 msgstr "Nepavyko sukurti aplanko „%s“."
 
 #. TRANSLATORS: The placeholder %s is a file path
-#: src/remmina_sftp_client.c:181 src/remmina_sftp_client.c:202
+#: src/remmina_sftp_client.c:184 src/remmina_sftp_client.c:205
 #, c-format
 msgid "Could not create the file “%s”."
 msgstr "Nepavyko sukurti failo „%s“."
 
 #. TRANSLATORS: The placeholders %s are a file path, and an error message.
-#: src/remmina_sftp_client.c:220
+#: src/remmina_sftp_client.c:223
 #, c-format
 msgid "Could not open the file “%s” on the server. %s"
 msgstr "Nepavyko atverti failo „%s“ serveryje. %s"
 
-#: src/remmina_sftp_client.c:242
+#: src/remmina_sftp_client.c:245
 #, c-format
 msgid "Could not save the file “%s”."
 msgstr "Nepavyko išsaugoti failo „%s“."
 
-#: src/remmina_sftp_client.c:281 src/remmina_sftp_client.c:698
-#: src/remmina_sftp_client.c:761
+#: src/remmina_sftp_client.c:294 src/remmina_sftp_client.c:710
+#: src/remmina_sftp_client.c:785
 #, c-format
 msgid "Could not open the folder “%s”. %s"
 msgstr "Nepavyko atverti aplanko „%s“. %s"
 
-#: src/remmina_sftp_client.c:385
+#: src/remmina_sftp_client.c:398
 #, c-format
 msgid "Could not create the folder “%s” on the server. %s"
 msgstr "Nepavyko sukurti aplanko „%s“ serveryje. %s"
 
-#: src/remmina_sftp_client.c:413 src/remmina_sftp_client.c:435
+#: src/remmina_sftp_client.c:426 src/remmina_sftp_client.c:448
 #, c-format
 msgid "Could not create the file “%s” on the server. %s"
 msgstr "Nepavyko sukurti failo „%s“ serveryje. %s"
 
-#: src/remmina_sftp_client.c:456
+#: src/remmina_sftp_client.c:469
 #, c-format
 msgid "Could not open the file “%s”."
 msgstr "Nepavyko atverti failo „%s“."
 
-#: src/remmina_sftp_client.c:476
+#: src/remmina_sftp_client.c:489
 #, c-format
 msgid "Could not write to the file “%s” on the server. %s"
 msgstr "Nepavyko įrašyti failo „%s“ serveryje. %s"
 
-#: src/remmina_sftp_client.c:716
-#, c-format
+#: src/remmina_sftp_client.c:727
+#, fuzzy, c-format
 msgid "Could not read from the folder. %s"
 msgstr "Nepavyko skaityti iš aplanko. %s"
 
-#: src/remmina_sftp_client.c:823
+#: src/remmina_sftp_client.c:848
+#, fuzzy
 msgid "Are you sure you want to cancel the file transfer in progress?"
 msgstr "Ar tikrai norite atšaukti vykdomą failų perkelimą?"
 
-#: src/remmina_sftp_client.c:857
+#: src/remmina_sftp_client.c:882
 #, c-format
 msgid "Could not delete “%s”. %s"
 msgstr "Nepavyko pašalinti „%s“. %s"
 
-#: src/remmina_sftp_client.c:942
+#: src/remmina_sftp_client.c:967
 #, fuzzy
 msgid "The file exists already"
 msgstr "Failas jau egzistuoja"
 
-#: src/remmina_sftp_client.c:945
+#: src/remmina_sftp_client.c:970
+#, fuzzy
 msgid "Resume"
 msgstr "Tęsti"
 
-#: src/remmina_sftp_client.c:946
+#: src/remmina_sftp_client.c:971
+#, fuzzy
 msgid "Overwrite"
 msgstr "Perrašyti"
 
-#: src/remmina_sftp_client.c:964
+#: src/remmina_sftp_client.c:989
+#, fuzzy
 msgid "The following file already exists in the target folder:"
 msgstr "Šis failas jau egzistuoja paskirties aplanke:"
 
@@ -1412,304 +1631,459 @@ msgstr ""
 "- serveris[:prievadas]\n"
 "- username@server[:port] (tik SSH protokolas)</big>"
 
-#: src/remmina_file_editor.c:149
+#: src/remmina_file_editor.c:162
+#, fuzzy
+msgid "Input is invalid."
+msgstr "Įvestis negalioja."
+
+#: src/remmina_file_editor.c:239
+#, fuzzy
 msgid "Choose a Remote Desktop Server"
 msgstr "Pasirinkite nutolusio darbastalio serverį"
 
-#: src/remmina_file_editor.c:370
-#, c-format
+#: src/remmina_file_editor.c:460
+#, fuzzy, c-format
 msgid "Browse the network to find a %s server"
 msgstr "Naršyti tinkle %s serveriui rasti"
 
-#: src/remmina_file_editor.c:471
+#: src/remmina_file_editor.c:564
+#, fuzzy
 msgid "Resolution"
 msgstr "Skiriamoji geba"
 
-#: src/remmina_file_editor.c:478
+#: src/remmina_file_editor.c:571
 #, fuzzy
 msgid "Use initial window size"
 msgstr "Naudoti pradinį lango dydį"
 
-#: src/remmina_file_editor.c:482
+#: src/remmina_file_editor.c:575
+#, fuzzy
 msgid "Use client resolution"
 msgstr "Naudoti kliento skiriamąją gebą"
 
-#: src/remmina_file_editor.c:493 src/remmina_file_editor.c:897
+#: src/remmina_file_editor.c:586 src/remmina_file_editor.c:1170
+#, fuzzy
 msgid "Custom"
-msgstr "Kita"
+msgstr "Pritaikyti"
 
-#: src/remmina_file_editor.c:717
+#: src/remmina_file_editor.c:954
+#, fuzzy
 msgid "Keyboard mapping"
 msgstr "Klaviatūros atvaizdavimas"
 
-#: src/remmina_file_editor.c:817
+#: src/remmina_file_editor.c:1081
 #, fuzzy
 msgid "Behavior"
 msgstr "Elgsena"
 
-#: src/remmina_file_editor.c:820
+#: src/remmina_file_editor.c:1084
 #, fuzzy
 msgid "Execute a Command"
 msgstr "Vykdyti komandą"
 
-#: src/remmina_file_editor.c:824
+#: src/remmina_file_editor.c:1088
 msgid "Before connecting"
 msgstr "Naujas ryšys"
 
-#: src/remmina_file_editor.c:826
+#: src/remmina_file_editor.c:1090
 #, fuzzy
 msgid "command %h %u %t %U %p %g --option"
 msgstr "komanda %h %u %t %U %p %g --option"
 
-#: src/remmina_file_editor.c:831
+#: src/remmina_file_editor.c:1095
 msgid "After connecting"
 msgstr "Naujas ryšys"
 
-#: src/remmina_file_editor.c:833
+#: src/remmina_file_editor.c:1097
 #, fuzzy
 msgid "/path/to/command -opt1 arg %h %u %t -opt2 %U %p %g"
 msgstr "/path/to/command -opt1 arg %h %u %t -opt2 %U %p %g"
 
-#: src/remmina_file_editor.c:837
+#: src/remmina_file_editor.c:1101
 msgid "Start-up"
 msgstr "Pradėti"
 
-#: src/remmina_file_editor.c:840
+#: src/remmina_file_editor.c:1104
 #, fuzzy
 msgid "Auto-start this profile"
 msgstr "Automatinis šio profilio paleidimas"
 
-#: src/remmina_file_editor.c:870
+#: src/remmina_file_editor.c:1108
+#, fuzzy
+#| msgid "New connection profile"
+msgid "Connection profile security"
+msgstr "VNC ryšys nepavyko: %s"
+
+#: src/remmina_file_editor.c:1111
+msgid "Require password to connect or edit the profile"
+msgstr ""
+
+#: src/remmina_file_editor.c:1143
 #, fuzzy
 msgid "SSH Tunnel"
 msgstr "SSH tunelis"
 
-#: src/remmina_file_editor.c:871
+#: src/remmina_file_editor.c:1144
+#, fuzzy
 msgid "Enable SSH tunnel"
 msgstr "Įjungti SSH tunelį"
 
-#: src/remmina_file_editor.c:878
+#: src/remmina_file_editor.c:1151
+#, fuzzy
 msgid "Tunnel via loopback address"
 msgstr "Tunelis per loopback adresą"
 
-#: src/remmina_file_editor.c:888
-#, c-format
+#: src/remmina_file_editor.c:1161
+#, fuzzy, c-format
 msgid "Same server at port %i"
 msgstr "Tas pats serveris, prievadas %i"
 
-#: src/remmina_file_editor.c:938 plugins/rdp/rdp_plugin.c:2698
+#: src/remmina_file_editor.c:1211 plugins/rdp/rdp_plugin.c:2842
 msgid "Start-up path"
 msgstr "Paleidimo kelias"
 
-#: src/remmina_file_editor.c:947
+#: src/remmina_file_editor.c:1220
+#, fuzzy
 msgid "SSH Authentication"
 msgstr "SSH tapatumo nustatymas"
 
-#: src/remmina_file_editor.c:973
+#: src/remmina_file_editor.c:1247
 #, fuzzy
 #| msgid "SSH private key passphrase"
 msgid "SSH private key file"
 msgstr "SSH privataus rakto failas"
 
-#: src/remmina_file_editor.c:979 src/remmina_ssh_plugin.c:1477
+#: src/remmina_file_editor.c:1253 src/remmina_ssh_plugin.c:1507
 #, fuzzy
 #| msgid "SSH identity file"
 msgid "SSH certificate file"
 msgstr "SSH sertifikato failas"
 
-#: src/remmina_file_editor.c:1037
+#: src/remmina_file_editor.c:1311
+#, fuzzy
 msgid "Basic"
 msgstr "Pagrindinės"
 
-#: src/remmina_file_editor.c:1043
+#: src/remmina_file_editor.c:1317
+#, fuzzy
 msgid "Advanced"
-msgstr "Išplėstinės"
+msgstr "Papildomi"
 
-#: src/remmina_file_editor.c:1054
+#: src/remmina_file_editor.c:1328
 #, fuzzy
 msgid "Notes"
 msgstr "Pastabos"
 
-#: src/remmina_file_editor.c:1293
+#: src/remmina_file_editor.c:1458
+#, fuzzy, c-format
+msgid "(%s: %i): Can't validate setting '%s' since 'value' or 'gfe' are NULL!"
+msgstr ""
+"(%s: %i): Negalima patvirtinti parametro \"%s\", nes 'value' arba 'gfe' yra "
+"NULL!"
+
+#: src/remmina_file_editor.c:1461
+#, fuzzy, c-format
+msgid ""
+"(%s: %i): Can't validate user input since 'setting_name_to_validate', "
+"'value' or 'gfe' are NULL!"
+msgstr ""
+"(%s: %i): Negalima patvirtinti naudotojo įvesties, nes "
+"'setting_name_to_validate', 'value' arba 'gfe' yra NULL!"
+
+#. TRANSLATORS: Meta-error. Shouldn't be visible.
+#: src/remmina_file_editor.c:1465 plugins/x2go/x2go_plugin.c:2409
+#: plugins/x2go/x2go_plugin.c:3052
+#, fuzzy
+msgid "Internal error."
+msgstr "Vidinė klaida."
+
+#: src/remmina_file_editor.c:1689 src/remmina_file_editor.c:1725
+#: src/remmina_file_editor.c:1746 src/remmina_file_editor.c:1769
+#, fuzzy, c-format
+#| msgid "Could not create SFTP session. %s"
+msgid "Couldn't validate user input. %s"
+msgstr "Nepavyko patvirtinti naudotojo įvesties. %s"
+
+#: src/remmina_file_editor.c:1713
+#, fuzzy
 msgid "Default settings saved."
 msgstr "Numatytieji nustatymai išsaugoti."
 
-#: src/remmina_file_editor.c:1363
+#: src/remmina_file_editor.c:1803
 msgid "Remote Connection Profile"
 msgstr "VNC ryšys nepavyko: %s"
 
-#: src/remmina_file_editor.c:1369
+#: src/remmina_file_editor.c:1809
 #, fuzzy
 msgid "Save as Default"
-msgstr "Išsaugoti pagal nutylėjimą:"
+msgstr "Išsaugoti kaip numatytąjį"
 
-#: src/remmina_file_editor.c:1370
+#: src/remmina_file_editor.c:1810
 #, fuzzy
 msgid "Use the current settings as the default for all new connection profiles"
 msgstr ""
 "Naudokite dabartinius nustatymus kaip numatytuosius visiems naujiems ryšio "
 "profiliams"
 
-#: src/remmina_file_editor.c:1378 data/ui/remmina_main.glade:160
+#: src/remmina_file_editor.c:1818 data/ui/remmina_main.glade:160
 #, fuzzy
 msgid "Connect"
 msgstr "Prisijungti"
 
-#: src/remmina_file_editor.c:1381
+#: src/remmina_file_editor.c:1821
 #, fuzzy
 msgid "_Save and Connect"
 msgstr "_Save and Connect (Išsaugoti ir prijungti)"
 
-#: src/remmina_file_editor.c:1504
+#: src/remmina_file_editor.c:1944
+#, fuzzy
 msgid "Quick Connect"
 msgstr "Greitas prisijungimas"
 
-#: src/remmina_file_editor.c:1528
-#, c-format
+#: src/remmina_file_editor.c:1968
+#, fuzzy, c-format
 msgid "Use '%s' as subgroup delimiter"
 msgstr "Naudoti „%s“ kaip pogrupio skirtuką"
 
-#: src/remmina_file_editor.c:1594 src/remmina_file_editor.c:1612
+#: src/remmina_file_editor.c:2034 src/remmina_file_editor.c:2054
 #, c-format
 msgid "Could not find the file “%s”."
 msgstr "Nepavyko atverti failo „%s“."
 
-#: src/remmina_icon.c:128
+#. TRANSLATORS: This is a message that pops up when an external Remmina plugin tries to set the window resolution using a legacy parameter.
+#. TRANSLATORS: This is a message that pop-up when an external Remmina plugin tries to set the windows resolution using a legacy parameter.
+#: src/remmina_file.c:485 src/remmina_file.c:531
+#, fuzzy
+msgid ""
+"Using the «resolution» parameter in the Remmina preferences file is "
+"deprecated.\n"
+msgstr ""
+"Parametro \"resolution\" naudojimas \"Remmina\" nustatymų faile yra "
+"nebenaudojamas.\n"
+
+#: src/remmina_icon.c:136
+#, fuzzy
 msgid "Open Main Window"
 msgstr "Atverti pagrindinį langą"
 
-#: src/remmina_icon.c:133 data/ui/remmina_main.glade:254
+#: src/remmina_icon.c:141 data/ui/remmina_main.glade:254
 #, fuzzy
 msgid "_Preferences"
 msgstr "_Nuostatos"
 
-#: src/remmina_icon.c:138
+#: src/remmina_icon.c:146
 #, fuzzy
 msgid "_About"
 msgstr "_Apie"
 
-#: src/remmina_icon.c:148
+#: src/remmina_icon.c:156
+#, fuzzy
 msgid "Enable Service Discovery"
 msgstr "Įjungti paslaugų paiešką"
 
-#: src/remmina_icon.c:160 data/ui/remmina_main.glade:404
+#: src/remmina_icon.c:168 data/ui/remmina_main.glade:404
 #, fuzzy
 msgid "_Quit"
 msgstr "Išei_ti"
 
 #. TRANSLATORS: Applet name as per the Freedesktop Desktop entry specification https://specifications.freedesktop.org/desktop-entry-spec/latest/
 #. TRANSLATORS: Applet Name as per the Freedesktop Desktop entry specification https://specifications.freedesktop.org/desktop-entry-spec/latest/
-#: src/remmina_icon.c:284 src/remmina_icon.c:416
+#: src/remmina_icon.c:294 src/remmina_icon.c:446
+#, fuzzy
 msgid "Remmina Applet"
 msgstr "Remmina programėlė"
 
 #. TRANSLATORS: Applet comment/description as per the Freedesktop Desktop entry specification https://specifications.freedesktop.org/desktop-entry-spec/latest/
-#: src/remmina_icon.c:286 src/remmina_icon.c:418
+#: src/remmina_icon.c:296 src/remmina_icon.c:448
+#, fuzzy
 msgid "Connect to remote desktops through the applet menu"
 msgstr "Prisijungti prie nutolusių kompiuterių naudojant meniu"
 
+#: src/remmina_icon.c:360
+#, fuzzy
+msgid "StatusNotifier/Appindicator support in “"
+msgstr "StatusNotifier/Appindicator palaikymas \""
+
+#. TRANSLATORS: %s is a placeholder for "StatusNotifier/Appindicator suppor in “DESKTOP NAME”: "
+#: src/remmina_icon.c:367
+#, fuzzy, c-format
+msgid "%s your desktop does support it"
+msgstr "%s jūsų darbalaukis palaiko šią funkciją"
+
+#. TRANSLATORS: %s is a placeholder for "StatusNotifier/Appindicator suppor in “DESKTOP NAME”: "
+#: src/remmina_icon.c:369
+#, fuzzy, c-format
+msgid "%s and Remmina has built-in (compiled) support for libappindicator."
+msgstr ""
+"%s ir \"Remmina\" turi integruotą (sukompiliuotą) libappindicator palaikymą."
+
+#. TRANSLATORS: %s is a placeholder for "StatusNotifier/Appindicator suppor in “DESKTOP NAME”: "
+#: src/remmina_icon.c:372
+#, fuzzy, c-format
+msgid ""
+"%s not supported natively by your Desktop Environment. libappindicator will "
+"try to fallback to GtkStatusIcon/xembed"
+msgstr ""
+"%s nepalaikoma jūsų darbalaukio aplinkoje. libappindicator bandys grįžti "
+"prie GtkStatusIcon/xembed"
+
+#. TRANSLATORS: %s is a placeholder for "StatusNotifier/Appindicator suppor in “DESKTOP NAME”: "
+#: src/remmina_icon.c:376
+#, fuzzy, c-format
+msgid "%s You may need to install, and use XApp Status Applet"
+msgstr "%s Gali prireikti įdiegti ir naudoti \"XApp\" būsenos programėlę"
+
+#. TRANSLATORS: %s is a placeholder for "StatusNotifier/Appindicator suppor in “DESKTOP NAME”: "
+#: src/remmina_icon.c:379
+#, fuzzy, c-format
+msgid "%s You may need to install, and use KStatusNotifierItem"
+msgstr "%s Gali prireikti įdiegti ir naudoti KStatusNotifierItem"
+
+#. TRANSLATORS: %s is a placeholder for "StatusNotifier/Appindicator suppor in “DESKTOP NAME”: "
+#: src/remmina_icon.c:382
+#, fuzzy, c-format
+msgid "%s You may need to install, and use XEmbed SNI Proxy"
+msgstr "%s Gali prireikti įdiegti ir naudoti \"XEmbed SNI Proxy"
+
+#. TRANSLATORS: %s is a placeholder for "StatusNotifier/Appindicator suppor in “DESKTOP NAME”: "
+#: src/remmina_icon.c:385
+#, fuzzy, c-format
+msgid "%s You may need to install, and use Gnome Shell Extension Appindicator"
+msgstr ""
+"%s Gali prireikti įdiegti ir naudoti \"Gnome Shell\" plėtinį \"Appindicator"
+
+#: src/remmina_ssh_plugin.c:342
+#, fuzzy, c-format
+msgid "Connected to %s:%d via SSH"
+msgstr "Jungiamasi prie „%s“ per SSH…"
+
 #. TRANSLATORS: %s is a placeholder for an error message
-#: src/remmina_ssh_plugin.c:539
-#, c-format
+#: src/remmina_ssh_plugin.c:550
+#, fuzzy, c-format
 msgid "Error: %s"
 msgstr "Klaida: %s"
 
-#: src/remmina_ssh_plugin.c:556
+#: src/remmina_ssh_plugin.c:567
+#, fuzzy
 msgid "Terminal content saved in"
 msgstr "Terminalo turinys išsaugotas"
 
-#: src/remmina_ssh_plugin.c:822
+#: src/remmina_ssh_plugin.c:833
+#, fuzzy
 msgid "Select All (host+A)"
 msgstr "Pasirinkti viską (host+A)"
 
-#: src/remmina_ssh_plugin.c:823
+#: src/remmina_ssh_plugin.c:834
+#, fuzzy
 msgid "Copy (host+C)"
 msgstr "Kopijuoti (host+C)"
 
-#: src/remmina_ssh_plugin.c:824
+#: src/remmina_ssh_plugin.c:835
+#, fuzzy
 msgid "Paste (host+V)"
 msgstr "Įklijuoti (host+V)"
 
-#: src/remmina_ssh_plugin.c:825
+#: src/remmina_ssh_plugin.c:836
+#, fuzzy
 msgid "Save session to file"
 msgstr "Saugoti sesiją į failą"
 
-#: src/remmina_ssh_plugin.c:826
+#: src/remmina_ssh_plugin.c:837
+#, fuzzy
 msgid "Increase font size (host+Page Up)"
 msgstr "Padidinti šrifto dydį (host+Page Up)"
 
-#: src/remmina_ssh_plugin.c:827
+#: src/remmina_ssh_plugin.c:838
+#, fuzzy
 msgid "Decrease font size (host+Page Down)"
 msgstr "Sumažinti šrifto dydį (host+Page Down)"
 
-#: src/remmina_ssh_plugin.c:828
+#: src/remmina_ssh_plugin.c:839
 msgid "Find text (host+G)"
 msgstr "Įklijuoti (host+V)"
 
-#: src/remmina_ssh_plugin.c:1448 data/ui/remmina_main.glade:177
+#: src/remmina_ssh_plugin.c:895
+#, fuzzy, c-format
+msgid "Disconnected from %s:%d via SSH"
+msgstr "Jungiamasi prie „%s“ per SSH…"
+
+#: src/remmina_ssh_plugin.c:1472 data/ui/remmina_main.glade:177
+#, fuzzy
 msgid "Copy"
 msgstr "Kopijuoti"
 
-#: src/remmina_ssh_plugin.c:1448
+#: src/remmina_ssh_plugin.c:1472
 #, fuzzy
 msgid "_Copy"
 msgstr "_Kopijuoti"
 
-#: src/remmina_ssh_plugin.c:1449
+#: src/remmina_ssh_plugin.c:1473
+#, fuzzy
 msgid "Paste"
-msgstr "Įdėti"
+msgstr "Įklijuoti"
 
-#: src/remmina_ssh_plugin.c:1449
+#: src/remmina_ssh_plugin.c:1473
 #, fuzzy
 msgid "_Paste"
 msgstr "Į_dėti"
 
-#: src/remmina_ssh_plugin.c:1450
+#: src/remmina_ssh_plugin.c:1474
 #, fuzzy
 msgid "Select all"
-msgstr "Parinkti viską"
+msgstr "Žymėti visus"
 
-#: src/remmina_ssh_plugin.c:1450
+#: src/remmina_ssh_plugin.c:1474
 #, fuzzy
 msgid "_Select all"
 msgstr "_Pasirinkite visus"
 
-#: src/remmina_ssh_plugin.c:1451
+#: src/remmina_ssh_plugin.c:1475
+#, fuzzy
 msgid "Increase font size"
 msgstr "Padidinti šrifto dydį"
 
-#: src/remmina_ssh_plugin.c:1451
+#: src/remmina_ssh_plugin.c:1475
+#, fuzzy
 msgid "_Increase font size"
 msgstr "_Padidinti šrifto dydį"
 
-#: src/remmina_ssh_plugin.c:1452
+#: src/remmina_ssh_plugin.c:1476
+#, fuzzy
 msgid "Decrease font size"
 msgstr "Sumažinti šrifto dydį"
 
-#: src/remmina_ssh_plugin.c:1452
+#: src/remmina_ssh_plugin.c:1476
+#, fuzzy
 msgid "_Decrease font size"
 msgstr "_Sumažinti šrifto dydį"
 
-#: src/remmina_ssh_plugin.c:1453
+#: src/remmina_ssh_plugin.c:1477
 #, fuzzy
 msgid "Find text"
 msgstr "Rasti tekstą"
 
-#: src/remmina_ssh_plugin.c:1453
+#: src/remmina_ssh_plugin.c:1477
 #, fuzzy
 msgid "_Find text"
 msgstr "_Rasti tekstą"
 
-#: src/remmina_ssh_plugin.c:1474 plugins/spice/spice_plugin.c:666
-#: plugins/vnc/vnc_plugin.c:1961 plugins/vnc/vnc_plugin.c:1981
+#: src/remmina_ssh_plugin.c:1504 plugins/spice/spice_plugin.c:676
+#: plugins/vnc/vnc_plugin.c:2038 plugins/vnc/vnc_plugin.c:2050
+#, fuzzy
 msgid "User password"
 msgstr "Vartotojo slaptažodis"
 
-#: src/remmina_ssh_plugin.c:1480 plugins/rdp/rdp_plugin.c:2697
-msgid "Start-up program"
+#: src/remmina_ssh_plugin.c:1510
+msgid "Opening command"
+msgstr ""
+
+#: src/remmina_ssh_plugin.c:1511
+#, fuzzy
+#| msgid "Start-up program"
+msgid "Start-up background program"
 msgstr "Paleidimo programa"
 
-#: src/remmina_ssh_plugin.c:1485
+#: src/remmina_ssh_plugin.c:1516
 #, fuzzy
 msgid ""
 "The filename can use the following placeholders:\n"
@@ -1732,220 +2106,251 @@ msgstr ""
 "  - %g pakeičiamas Remmina profilio grupės pavadinimu\n"
 "  - %d pakeičiama vietine data ir laiku ISO 8601 formatu\n"
 
-#: src/remmina_ssh_plugin.c:1507
+#: src/remmina_ssh_plugin.c:1538
 #, fuzzy
 msgid "Terminal colour scheme"
 msgstr "Terminalo spalvų schema"
 
-#: src/remmina_ssh_plugin.c:1508
+#: src/remmina_ssh_plugin.c:1539
+#, fuzzy
 msgid "Character set"
 msgstr "Ženklų rinkinys"
 
-#: src/remmina_ssh_plugin.c:1510
+#: src/remmina_ssh_plugin.c:1541
 #, fuzzy
 msgid "KEX (Key Exchange) algorithms"
 msgstr "KEX (keitimosi raktais) algoritmai"
 
-#: src/remmina_ssh_plugin.c:1511
+#: src/remmina_ssh_plugin.c:1542
 #, fuzzy
 msgid "Symmetric cipher client to server"
 msgstr "Simetrinis šifras iš kliento į serverį"
 
-#: src/remmina_ssh_plugin.c:1512
+#: src/remmina_ssh_plugin.c:1543
 #, fuzzy
 msgid "Preferred server host key types"
 msgstr "Pageidaujami serverio prieglobos raktų tipai"
 
-#: src/remmina_ssh_plugin.c:1513
+#: src/remmina_ssh_plugin.c:1544
+#, fuzzy
 msgid "Folder for SSH session log"
 msgstr "Aplankas SSH sesijų žurnalui"
 
-#: src/remmina_ssh_plugin.c:1514
+#: src/remmina_ssh_plugin.c:1544
+msgid "Full path of an existing folder"
+msgstr ""
+
+#: src/remmina_ssh_plugin.c:1545
 #, fuzzy
 msgid "Filename for SSH session log"
 msgstr "SSH sesijos žurnalo failo pavadinimas"
 
-#: src/remmina_ssh_plugin.c:1515
+#: src/remmina_ssh_plugin.c:1546
 #, fuzzy
 msgid "Log SSH session when exiting Remmina"
 msgstr "SSH sesijos registravimas išėjus iš \"Remmina"
 
-#: src/remmina_ssh_plugin.c:1516
+#: src/remmina_ssh_plugin.c:1547
 #, fuzzy
 msgid "Log SSH session asynchronously"
 msgstr "Asinchroniškai registruokite SSH sesiją"
 
-#: src/remmina_ssh_plugin.c:1516
+#: src/remmina_ssh_plugin.c:1547
 #, fuzzy
 msgid "Saving the session asynchronously may have a notable performance impact"
 msgstr "Asinchroninis sesijos išsaugojimas gali turėti žymų poveikį našumui"
 
-#: src/remmina_ssh_plugin.c:1517
+#: src/remmina_ssh_plugin.c:1548
 #, fuzzy
 msgid "Audible terminal bell"
 msgstr "Garsinis terminalo skambutis"
 
-#: src/remmina_ssh_plugin.c:1518
+#: src/remmina_ssh_plugin.c:1549
+msgid "SSH X11 Forwarding"
+msgstr ""
+
+#: src/remmina_ssh_plugin.c:1550
 #, fuzzy
 msgid "SSH compression"
 msgstr "SSH suspaudimas"
 
-#: src/remmina_ssh_plugin.c:1519
+#: src/remmina_ssh_plugin.c:1551
+#, fuzzy
 msgid "Don't remember passwords"
 msgstr "Neišsaugoti slaptažodžių"
 
-#: src/remmina_ssh_plugin.c:1520
+#: src/remmina_ssh_plugin.c:1552
 #, fuzzy
 msgid "Strict host key checking"
 msgstr "Griežtas priimančiosios šalies rakto tikrinimas"
 
-#: src/remmina_ssh_plugin.c:1534
+#: src/remmina_ssh_plugin.c:1566
+#, fuzzy
 msgid "SSH - Secure Shell"
 msgstr "SSH - saugus apvalkalas"
 
 #: plugins/kwallet/src/kwallet_plugin_main.c:118
 msgid "Secured password storage in KWallet"
-msgstr "%s slaptažodis"
+msgstr "Saugus slaptažodžių saugojimas KWallet"
 
-#: plugins/rdp/rdp_settings.c:217
+#: plugins/rdp/rdp_settings.c:215
 msgid "<Auto-detect>"
 msgstr "<automati6kai aptikti>"
 
-#: plugins/rdp/rdp_settings.c:249
+#: plugins/rdp/rdp_settings.c:247
 #, fuzzy
 msgid "<Not set>"
 msgstr "<Nenustatyta>"
 
-#: plugins/rdp/rdp_settings.c:280
+#: plugins/rdp/rdp_settings.c:278
 #, fuzzy
 msgid "<Choose a quality level to edit…>"
 msgstr "<Pasirinkite kokybės lygį, kurį norite redaguoti...>"
 
-#: plugins/rdp/rdp_settings.c:282 plugins/rdp/rdp_plugin.c:2526
-#: plugins/vnc/vnc_plugin.c:1934
+#: plugins/rdp/rdp_settings.c:280 plugins/rdp/rdp_plugin.c:2647
+#: plugins/vnc/vnc_plugin.c:1987
+#, fuzzy
 msgid "Poor (fastest)"
 msgstr "Prasta (greičiausia)"
 
-#: plugins/rdp/rdp_settings.c:284 plugins/rdp/rdp_plugin.c:2527
-#: plugins/vnc/vnc_plugin.c:1933
+#: plugins/rdp/rdp_settings.c:282 plugins/rdp/rdp_plugin.c:2648
+#: plugins/vnc/vnc_plugin.c:1986
+#, fuzzy
 msgid "Medium"
-msgstr "Vidutinė"
+msgstr "Vidutinis"
 
-#: plugins/rdp/rdp_settings.c:286 plugins/rdp/rdp_plugin.c:2528
-#: plugins/vnc/vnc_plugin.c:1931
+#: plugins/rdp/rdp_settings.c:284 plugins/rdp/rdp_plugin.c:2649
+#: plugins/vnc/vnc_plugin.c:1984
+#, fuzzy
 msgid "Good"
-msgstr "Gera"
+msgstr "Gerai"
 
-#: plugins/rdp/rdp_settings.c:288 plugins/rdp/rdp_plugin.c:2529
-#: plugins/vnc/vnc_plugin.c:1932
+#: plugins/rdp/rdp_settings.c:286 plugins/rdp/rdp_plugin.c:2650
+#: plugins/vnc/vnc_plugin.c:1985
+#, fuzzy
 msgid "Best (slowest)"
 msgstr "Geriausia (lėčiausia)"
 
-#: plugins/rdp/rdp_settings.c:427
+#: plugins/rdp/rdp_settings.c:425
+#, fuzzy
 msgid "Keyboard layout"
 msgstr "Klaviatūros išdėstymas"
 
-#: plugins/rdp/rdp_settings.c:457
+#: plugins/rdp/rdp_settings.c:455
+#, fuzzy
 msgid "Use client keyboard mapping"
 msgstr "Naudoti kliento klaviatūros atvaizdį"
 
-#: plugins/rdp/rdp_settings.c:468
+#: plugins/rdp/rdp_settings.c:466
 #, fuzzy
 #| msgid "Keyboard mapping"
 msgid "Keyboard scancode remapping"
-msgstr "Klaviatūros atvaizdavimas"
+msgstr "Klaviatūros skanduotės kodų pertvarkymas"
 
-#: plugins/rdp/rdp_settings.c:483
+#: plugins/rdp/rdp_settings.c:481
+#, fuzzy
 msgid "List of key=value,… pairs to remap scancodes. E.g. 0x56=0x29,0x29=0x56"
 msgstr ""
+"Rakto=vertės,... porų, skirtų pertvarkyti skanduotėms, sąrašas. Pvz., "
+"0x56=0x29,0x29=0x56"
 
-#: plugins/rdp/rdp_settings.c:486
+#: plugins/rdp/rdp_settings.c:484
+#, fuzzy
 msgid "FreeRDP > 2.3.0 is required to map scancodes"
 msgstr ""
+"Reikalinga \"FreeRDP\" > 2.3.0, kad būtų galima atvaizduoti skenavimo kodus"
 
-#: plugins/rdp/rdp_settings.c:494
+#: plugins/rdp/rdp_settings.c:492
 #, fuzzy
 msgid "Quality settings"
 msgstr "Kokybės nustatymai"
 
-#: plugins/rdp/rdp_settings.c:517
+#: plugins/rdp/rdp_settings.c:515
+#, fuzzy
 msgid "Wallpaper"
 msgstr "Darbalaukio fonas"
 
-#: plugins/rdp/rdp_settings.c:525
+#: plugins/rdp/rdp_settings.c:523
+#, fuzzy
 msgid "Window drag"
 msgstr "Lango tempimas"
 
-#: plugins/rdp/rdp_settings.c:532
+#: plugins/rdp/rdp_settings.c:530
+#, fuzzy
 msgid "Menu animation"
 msgstr "Meniu animacija"
 
-#: plugins/rdp/rdp_settings.c:540
+#: plugins/rdp/rdp_settings.c:538
+#, fuzzy
 msgid "Theme"
 msgstr "Tema"
 
-#: plugins/rdp/rdp_settings.c:547
+#: plugins/rdp/rdp_settings.c:545
+#, fuzzy
 msgid "Cursor shadow"
 msgstr "Žymeklio šešėlis"
 
-#: plugins/rdp/rdp_settings.c:555
+#: plugins/rdp/rdp_settings.c:553
+#, fuzzy
 msgid "Cursor blinking"
 msgstr "Žymeklio mirksėjimas"
 
-#: plugins/rdp/rdp_settings.c:562
+#: plugins/rdp/rdp_settings.c:560
+#, fuzzy
 msgid "Font smoothing"
 msgstr "Šriftų glodinimas"
 
-#: plugins/rdp/rdp_settings.c:570
+#: plugins/rdp/rdp_settings.c:568
+#, fuzzy
 msgid "Composition"
 msgstr "Kompozicija"
 
-#: plugins/rdp/rdp_settings.c:580
+#: plugins/rdp/rdp_settings.c:578
 #, fuzzy
 msgid "Remote scale factor"
 msgstr "Nuotolinio mastelio koeficientas"
 
-#: plugins/rdp/rdp_settings.c:595
+#: plugins/rdp/rdp_settings.c:593
 #, fuzzy
 msgid "Desktop scale factor %"
 msgstr "Darbalaukio mastelio koeficientas %"
 
-#: plugins/rdp/rdp_settings.c:607
+#: plugins/rdp/rdp_settings.c:605
 #, fuzzy
 msgid "Device scale factor %"
 msgstr "Įrenginio skalės koeficientas %"
 
-#: plugins/rdp/rdp_settings.c:630
+#: plugins/rdp/rdp_settings.c:628
 #, fuzzy
 msgid "Desktop orientation"
 msgstr "Darbalaukio orientacija"
 
-#: plugins/rdp/rdp_settings.c:650
+#: plugins/rdp/rdp_settings.c:648
 #, fuzzy
 #| msgid "Disable server input"
 msgid "Input device settings"
 msgstr "Įvesties įrenginio nustatymai"
 
-#: plugins/rdp/rdp_settings.c:658 plugins/rdp/rdp_plugin.c:2660
-#: plugins/vnc/vnc_plugin.c:2006
+#: plugins/rdp/rdp_settings.c:656 plugins/rdp/rdp_plugin.c:2803
+#: plugins/vnc/vnc_plugin.c:2070
 #, fuzzy
 #| msgid "Turn on smooth scrolling"
 msgid "Disable smooth scrolling"
-msgstr "Išjungti Smooth Scrolling"
+msgstr "Išjungti sklandų slinkimą"
 
-#: plugins/rdp/rdp_settings.c:669
+#: plugins/rdp/rdp_settings.c:667
 #, fuzzy
 #| msgid "Disable server input"
 msgid "General settings"
 msgstr "Bendri nustatymai"
 
-#: plugins/rdp/rdp_settings.c:676 plugins/rdp/rdp_plugin.c:2712
+#: plugins/rdp/rdp_settings.c:674 plugins/rdp/rdp_plugin.c:2856
 #, fuzzy
 #| msgid "Reconnection attempt %d of %d…"
 msgid "Reconnect attempts number"
 msgstr "Bandymų pakartotinai prisijungti skaičius"
 
-#: plugins/rdp/rdp_settings.c:689 plugins/rdp/rdp_plugin.c:2712
+#: plugins/rdp/rdp_settings.c:687 plugins/rdp/rdp_plugin.c:2856
 #, fuzzy
 msgid ""
 "The maximum number of reconnect attempts upon an RDP disconnect (default: 20)"
@@ -1953,86 +2358,92 @@ msgstr ""
 "Didžiausias pakartotinio prisijungimo bandymų skaičius atsijungus RDP "
 "(numatytoji reikšmė: 20)"
 
-#: plugins/rdp/rdp_plugin.c:757 plugins/rdp/rdp_plugin.c:822
+#: plugins/rdp/rdp_plugin.c:781 plugins/rdp/rdp_plugin.c:846
 #, fuzzy
 msgid "Enter RDP authentication credentials"
 msgstr "Įveskite RDP autentifikavimo duomenis"
 
-#: plugins/rdp/rdp_plugin.c:830
+#: plugins/rdp/rdp_plugin.c:854
 #, fuzzy
 msgid "Enter RDP gateway authentication credentials"
 msgstr "Įveskite RDP šliuzo autentifikavimo įgaliojimus"
 
-#: plugins/rdp/rdp_plugin.c:2057
+#. TRANSLATORS: the placeholder may be either an IP/FQDN or a server hostname
+#: plugins/rdp/rdp_plugin.c:1035
+#, c-format
+msgid "Disconnected from %s via RDP"
+msgstr ""
+
+#: plugins/rdp/rdp_plugin.c:2178
 #, c-format
 msgid ""
 "Could not access the RDP server “%s”.\n"
 "Account locked out."
 msgstr "Komanda %s nerasta SSH serveryje"
 
-#: plugins/rdp/rdp_plugin.c:2064
+#: plugins/rdp/rdp_plugin.c:2185
 #, c-format
 msgid ""
 "Could not access the RDP server “%s”.\n"
 "Account expired."
 msgstr "Komanda %s nerasta SSH serveryje"
 
-#: plugins/rdp/rdp_plugin.c:2071
+#: plugins/rdp/rdp_plugin.c:2192
 #, c-format
 msgid ""
 "Could not access the RDP server “%s”.\n"
 "Password expired."
 msgstr "Komanda %s nerasta SSH serveryje"
 
-#: plugins/rdp/rdp_plugin.c:2078
+#: plugins/rdp/rdp_plugin.c:2199
 #, c-format
 msgid ""
 "Could not access the RDP server “%s”.\n"
 "Account disabled."
 msgstr "Komanda %s nerasta SSH serveryje"
 
-#: plugins/rdp/rdp_plugin.c:2084
+#: plugins/rdp/rdp_plugin.c:2205
 #, c-format
 msgid ""
 "Could not access the RDP server “%s”.\n"
 "Insufficient user privileges."
 msgstr "Komanda %s nerasta SSH serveryje"
 
-#: plugins/rdp/rdp_plugin.c:2092
+#: plugins/rdp/rdp_plugin.c:2213
 #, c-format
 msgid ""
 "Could not access the RDP server “%s”.\n"
 "Account restricted."
 msgstr "Komanda %s nerasta SSH serveryje"
 
-#: plugins/rdp/rdp_plugin.c:2100
+#: plugins/rdp/rdp_plugin.c:2221
 #, c-format
 msgid ""
 "Could not access the RDP server “%s”.\n"
 "Change user password before connecting."
 msgstr "Komanda %s nerasta SSH serveryje"
 
-#: plugins/rdp/rdp_plugin.c:2105
+#: plugins/rdp/rdp_plugin.c:2226
 #, c-format
 msgid "Lost connection to the RDP server “%s”."
 msgstr "Nepavyko prisijungti prie RDP serverio %s"
 
-#: plugins/rdp/rdp_plugin.c:2108
+#: plugins/rdp/rdp_plugin.c:2229
 #, c-format
 msgid "Could not find the address for the RDP server “%s”."
 msgstr "Komanda %s nerasta SSH serveryje"
 
-#: plugins/rdp/rdp_plugin.c:2112
+#: plugins/rdp/rdp_plugin.c:2233
 #, fuzzy, c-format
 msgid ""
-"Could not connect to the RDP server “%s” via TLS. Check that client and "
-"server support a common TLS version."
+"Could not connect to the RDP server “%s” via TLS. See the DEBUG traces from "
+"a terminal for more information."
 msgstr ""
 "Nepavyko prisijungti prie RDP serverio \"%s\" per TLS. Patikrinkite, ar "
 "klientas ir serveris palaiko bendrą TLS versiją."
 
 #. TRANSLATORS: the placeholder may be either an IP/FQDN or a server hostname
-#: plugins/rdp/rdp_plugin.c:2116
+#: plugins/rdp/rdp_plugin.c:2237
 #, fuzzy, c-format
 #| msgid ""
 #| "Unable to establish a connection to the RDP server “%s”. Check \"Security "
@@ -2044,17 +2455,17 @@ msgstr ""
 "Nepavyksta užmegzti ryšio su RDP serveriu \"%s\". Patikrinkite \"Saugumo "
 "protokolo derybos\"."
 
-#: plugins/rdp/rdp_plugin.c:2124
+#: plugins/rdp/rdp_plugin.c:2245
 #, c-format
 msgid "Cannot connect to the RDP server “%s”."
 msgstr "Nepavyko prisijungti prie RDP serverio %s"
 
-#: plugins/rdp/rdp_plugin.c:2127
+#: plugins/rdp/rdp_plugin.c:2248
 #, fuzzy
 msgid "Could not start libfreerdp-gdi."
 msgstr "Nepavyko paleisti libfreerdp-gdi."
 
-#: plugins/rdp/rdp_plugin.c:2130
+#: plugins/rdp/rdp_plugin.c:2251
 #, fuzzy, c-format
 msgid ""
 "You requested a H.264 GFX mode for the server “%s”, but your libfreerdp does "
@@ -2063,12 +2474,12 @@ msgstr ""
 "Prašėte serverio \"%s\" H.264 GFX režimo, tačiau jūsų libfreerdp nepalaiko "
 "H.264. Prašome naudoti ne AVC spalvų gylio nustatymą."
 
-#: plugins/rdp/rdp_plugin.c:2137
+#: plugins/rdp/rdp_plugin.c:2258
 #, fuzzy, c-format
 msgid "The “%s” server refused the connection."
-msgstr "\"%s\" serveris atsisakė užmegzti ryšį."
+msgstr "\"%s\" serveris atsisakė prisijungti."
 
-#: plugins/rdp/rdp_plugin.c:2142
+#: plugins/rdp/rdp_plugin.c:2263
 #, fuzzy, c-format
 msgid ""
 "The Remote Desktop Gateway “%s” denied the user “%s\\%s” access due to "
@@ -2077,134 +2488,166 @@ msgstr ""
 "Nuotolinio darbalaukio šliuzas \"%s\" neleido naudotojui \"%s\\%s\" "
 "prisijungti dėl politikos."
 
-#: plugins/rdp/rdp_plugin.c:2152
+#: plugins/rdp/rdp_plugin.c:2273
 #, c-format
 msgid "Cannot connect to the “%s” RDP server."
 msgstr "Nepavyko prisijungti prie RDP serverio %s"
 
-#: plugins/rdp/rdp_plugin.c:2495
+#: plugins/rdp/rdp_plugin.c:2616
 #, fuzzy
 msgid "Automatic (32 bpp) (Server chooses its best format)"
 msgstr "Automatinis (32 bpp) (serveris pasirenka geriausią formatą)"
 
-#: plugins/rdp/rdp_plugin.c:2496
+#: plugins/rdp/rdp_plugin.c:2617
 #, fuzzy
 msgid "GFX AVC444 (32 bpp)"
 msgstr "GFX AVC444 (32 bpp)"
 
-#: plugins/rdp/rdp_plugin.c:2497
+#: plugins/rdp/rdp_plugin.c:2618
 #, fuzzy
 msgid "GFX AVC420 (32 bpp)"
 msgstr "GFX AVC420 (32 bpp)"
 
-#: plugins/rdp/rdp_plugin.c:2498
+#: plugins/rdp/rdp_plugin.c:2619
 #, fuzzy
 msgid "GFX RFX (32 bpp)"
 msgstr "GFX RFX (32 bpp)"
 
-#: plugins/rdp/rdp_plugin.c:2499
+#: plugins/rdp/rdp_plugin.c:2620
 #, fuzzy
 msgid "GFX RFX Progressive (32 bpp)"
 msgstr "GFX RFX Progressive (32 bpp)"
 
-#: plugins/rdp/rdp_plugin.c:2500
+#: plugins/rdp/rdp_plugin.c:2621
+#, fuzzy
 msgid "RemoteFX (32 bpp)"
 msgstr "RemoteFX (32 bpp)"
 
-#: plugins/rdp/rdp_plugin.c:2501 plugins/vnc/vnc_plugin.c:1922
+#: plugins/rdp/rdp_plugin.c:2622 plugins/vnc/vnc_plugin.c:1975
 msgid "True colour (32 bpp)"
 msgstr "Tikrosios spalvos (32 bpp)"
 
-#: plugins/rdp/rdp_plugin.c:2502
+#: plugins/rdp/rdp_plugin.c:2623
 msgid "True colour (24 bpp)"
 msgstr "Tikrosios spalvos (24 bpp)"
 
-#: plugins/rdp/rdp_plugin.c:2503 plugins/vnc/vnc_plugin.c:1923
+#: plugins/rdp/rdp_plugin.c:2624 plugins/vnc/vnc_plugin.c:1976
 msgid "High colour (16 bpp)"
 msgstr "Daug spalvų (16 bpp)"
 
-#: plugins/rdp/rdp_plugin.c:2504
+#: plugins/rdp/rdp_plugin.c:2625
 msgid "High colour (15 bpp)"
 msgstr "Daug spalvų (15 bpp)"
 
-#: plugins/rdp/rdp_plugin.c:2505 plugins/vnc/vnc_plugin.c:1924
+#: plugins/rdp/rdp_plugin.c:2626 plugins/vnc/vnc_plugin.c:1977
 msgid "256 colours (8 bpp)"
 msgstr "256 spalvos (8 bpp)"
 
-#: plugins/rdp/rdp_plugin.c:2536 data/ui/remmina_preferences.glade:641
+#: plugins/rdp/rdp_plugin.c:2657 data/ui/remmina_preferences.glade:639
 #, fuzzy
 msgid "None"
 msgstr "Nėra"
 
-#: plugins/rdp/rdp_plugin.c:2537
+#: plugins/rdp/rdp_plugin.c:2658
 msgid "Auto-detect"
 msgstr "<automati6kai aptikti>"
 
-#: plugins/rdp/rdp_plugin.c:2538
+#: plugins/rdp/rdp_plugin.c:2659
 #, fuzzy
 msgid "Modem"
 msgstr "Modemas"
 
-#: plugins/rdp/rdp_plugin.c:2539
+#: plugins/rdp/rdp_plugin.c:2660
 #, fuzzy
 msgid "Low performance broadband"
 msgstr "Mažo našumo plačiajuostis ryšys"
 
-#: plugins/rdp/rdp_plugin.c:2540
+#: plugins/rdp/rdp_plugin.c:2661
 #, fuzzy
 msgid "Satellite"
 msgstr "Palydovas"
 
-#: plugins/rdp/rdp_plugin.c:2541
+#: plugins/rdp/rdp_plugin.c:2662
 #, fuzzy
 msgid "High performance broadband"
 msgstr "Didelio našumo plačiajuostis ryšys"
 
-#: plugins/rdp/rdp_plugin.c:2542
+#: plugins/rdp/rdp_plugin.c:2663
 #, fuzzy
 msgid "WAN"
 msgstr "WAN"
 
-#: plugins/rdp/rdp_plugin.c:2543
+#: plugins/rdp/rdp_plugin.c:2664
 #, fuzzy
 msgid "LAN"
 msgstr "LAN"
 
-#: plugins/rdp/rdp_plugin.c:2550 plugins/spice/spice_plugin.c:635
-#: data/ui/remmina_preferences.glade:677
+#: plugins/rdp/rdp_plugin.c:2671 plugins/spice/spice_plugin.c:637
+#: data/ui/remmina_preferences.glade:675
+#, fuzzy
 msgid "Off"
 msgstr "Išjungta"
 
-#: plugins/rdp/rdp_plugin.c:2559
+#: plugins/rdp/rdp_plugin.c:2680
 #, fuzzy
 msgid "Automatic negotiation"
 msgstr "Automatinės derybos"
 
-#: plugins/rdp/rdp_plugin.c:2560
+#: plugins/rdp/rdp_plugin.c:2681
 msgid "NLA protocol security"
 msgstr "Protokolas"
 
-#: plugins/rdp/rdp_plugin.c:2561
+#: plugins/rdp/rdp_plugin.c:2682
 msgid "TLS protocol security"
 msgstr "Protokolas"
 
-#: plugins/rdp/rdp_plugin.c:2562
+#: plugins/rdp/rdp_plugin.c:2683
 msgid "RDP protocol security"
 msgstr "Protokolas"
 
-#: plugins/rdp/rdp_plugin.c:2563
+#: plugins/rdp/rdp_plugin.c:2684
 #, fuzzy
 msgid "NLA extended protocol security"
 msgstr "NLA išplėstinis protokolo saugumas"
 
-#: plugins/rdp/rdp_plugin.c:2576
+#: plugins/rdp/rdp_plugin.c:2698 plugins/spice/spice_plugin.c:618
+#: plugins/spice/spice_plugin.c:636
+#, fuzzy
+msgid "Default"
+msgstr "Numatytoji"
+
+#: plugins/rdp/rdp_plugin.c:2699
+msgid "0 — Windows 7 compatible"
+msgstr ""
+
+#: plugins/rdp/rdp_plugin.c:2700
+msgid "1"
+msgstr ""
+
+#: plugins/rdp/rdp_plugin.c:2701
+msgid "2"
+msgstr ""
+
+#: plugins/rdp/rdp_plugin.c:2702
+msgid "3"
+msgstr ""
+
+#: plugins/rdp/rdp_plugin.c:2703
+msgid "4"
+msgstr ""
+
+#: plugins/rdp/rdp_plugin.c:2704
+msgid "5"
+msgstr ""
+
+#: plugins/rdp/rdp_plugin.c:2709
 #, fuzzy
 msgid "2600 (Windows XP), 7601 (Windows Vista/7), 9600 (Windows 8 and newer)"
 msgstr ""
 "2600 (Windows XP), 7601 (Windows Vista/7), 9600 (Windows 8 ir naujesnės "
 "versijos)"
 
-#: plugins/rdp/rdp_plugin.c:2579
+#: plugins/rdp/rdp_plugin.c:2712
 #, fuzzy
 msgid ""
 "Used i.a. by terminal services in a smart card channel to distinguish client "
@@ -2223,7 +2666,7 @@ msgstr ""
 "  - >= 7065: Windows 8 ir naujesnės versijos: SCardGetReaderIcon(),\n"
 "    SCardGetDeviceTypeId()"
 
-#: plugins/rdp/rdp_plugin.c:2587
+#: plugins/rdp/rdp_plugin.c:2720
 #, fuzzy
 msgid ""
 "Options for redirection of audio input:\n"
@@ -2242,7 +2685,7 @@ msgstr ""
 "  - sys:oss,dev:1,format:1\n"
 "  - sys:alsa"
 
-#: plugins/rdp/rdp_plugin.c:2596
+#: plugins/rdp/rdp_plugin.c:2729
 #, fuzzy
 msgid ""
 "Options for redirection of audio output:\n"
@@ -2261,7 +2704,7 @@ msgstr ""
 "  - sys:oss,dev:1,format:1\n"
 "  - sys:alsa"
 
-#: plugins/rdp/rdp_plugin.c:2606
+#: plugins/rdp/rdp_plugin.c:2739
 #, fuzzy
 msgid ""
 "Options for redirection of USB device:\n"
@@ -2274,7 +2717,7 @@ msgstr ""
 "  - auto\n"
 "  • id:054c:0268#4669:6e6b,addr:04:0c"
 
-#: plugins/rdp/rdp_plugin.c:2612
+#: plugins/rdp/rdp_plugin.c:2745
 #, fuzzy
 msgid ""
 "Advanced setting for high latency links:\n"
@@ -2285,7 +2728,7 @@ msgstr ""
 "Nustato ryšio trukmę. Naudokite, jei jūsų ryšys nutrūksta.\n"
 "Didžiausia galima reikšmė yra 600000 ms (10 minučių).\n"
 
-#: plugins/rdp/rdp_plugin.c:2617
+#: plugins/rdp/rdp_plugin.c:2750
 #, fuzzy
 msgid ""
 "Performance optimisations based on the network connection type:\n"
@@ -2296,7 +2739,7 @@ msgstr ""
 "Rekomenduojama naudoti automatinį aptikimą.\n"
 "Jei \"Auto-detect\" nepavyksta, sąraše pasirinkite tinkamiausią parinktį.\n"
 
-#: plugins/rdp/rdp_plugin.c:2622
+#: plugins/rdp/rdp_plugin.c:2755
 #, fuzzy
 msgid ""
 "Comma-separated list of monitor IDs and desktop orientations:\n"
@@ -2321,7 +2764,7 @@ msgstr ""
 "  - 270 (portretas apverstas)\n"
 "\n"
 
-#: plugins/rdp/rdp_plugin.c:2634
+#: plugins/rdp/rdp_plugin.c:2767
 #, fuzzy
 msgid ""
 "Redirect directory <path> as named share <name>.\n"
@@ -2342,143 +2785,160 @@ msgstr ""
 "  - Hotplug,*\n"
 "\n"
 
-#: plugins/rdp/rdp_plugin.c:2658 plugins/spice/spice_plugin.c:669
+#: plugins/rdp/rdp_plugin.c:2799 plugins/spice/spice_plugin.c:679
+#, fuzzy
 msgid "Share folder"
 msgstr "Dalintis aplanku"
 
-#: plugins/rdp/rdp_plugin.c:2658
+#: plugins/rdp/rdp_plugin.c:2800
 #, fuzzy
-msgid "Use “Redirect directory” in the advanced tab for multiple directories"
-msgstr ""
-"Naudokite \"Peradresuoti katalogą\" išplėstiniame skirtuke keliems katalogams"
+msgid "Restricted admin mode"
+msgstr "Apribotas administratoriaus režimas"
 
-#: plugins/rdp/rdp_plugin.c:2659
+#: plugins/rdp/rdp_plugin.c:2801
+#, fuzzy
+#| msgid "Password"
+msgid "Password hash"
+msgstr "Slaptažodžio hash"
+
+#: plugins/rdp/rdp_plugin.c:2801
+#, fuzzy
+msgid "Restricted admin mode password hash"
+msgstr "Apriboto administratoriaus režimo slaptažodžio hash"
+
+#: plugins/rdp/rdp_plugin.c:2802
 #, fuzzy
 msgid "Left-handed mouse support"
 msgstr "Pelės palaikymas kairiąja ranka"
 
-#: plugins/rdp/rdp_plugin.c:2659
+#: plugins/rdp/rdp_plugin.c:2802
 #, fuzzy
 msgid "Swap left and right mouse buttons for left-handed mouse support"
 msgstr ""
 "Sukeisti kairįjį ir dešinįjį pelės mygtukus, kad būtų palaikoma kairės "
 "rankos pelė"
 
-#: plugins/rdp/rdp_plugin.c:2661
+#: plugins/rdp/rdp_plugin.c:2804
 #, fuzzy
 msgid "Enable multi monitor"
 msgstr "Įjungti kelių monitorių"
 
-#: plugins/rdp/rdp_plugin.c:2662
+#: plugins/rdp/rdp_plugin.c:2805
 #, fuzzy
 msgid "Span screen over multiple monitors"
 msgstr "Išskleisti ekraną per kelis monitorius"
 
-#: plugins/rdp/rdp_plugin.c:2663
+#: plugins/rdp/rdp_plugin.c:2806
 #, fuzzy
 #| msgid "Listen on port"
 msgid "List monitor IDs"
 msgstr "Monitoriaus ID sąrašas"
 
-#: plugins/rdp/rdp_plugin.c:2665 plugins/vnc/vnc_plugin.c:1962
-#: plugins/vnc/vnc_plugin.c:1982 plugins/gvnc/gvnc_plugin.c:840
+#: plugins/rdp/rdp_plugin.c:2808 plugins/vnc/vnc_plugin.c:2039
+#: plugins/vnc/vnc_plugin.c:2051 plugins/gvnc/gvnc_plugin.c:848
 msgid "Colour depth"
 msgstr "Spalvų skaičius"
 
-#: plugins/rdp/rdp_plugin.c:2666
+#: plugins/rdp/rdp_plugin.c:2809
 msgid "Network connection type"
 msgstr "VNC ryšys nepavyko: %s"
 
-#: plugins/rdp/rdp_plugin.c:2681 plugins/vnc/vnc_plugin.c:1963
-#: plugins/vnc/vnc_plugin.c:1983
+#: plugins/rdp/rdp_plugin.c:2825 plugins/vnc/vnc_plugin.c:2040
+#: plugins/vnc/vnc_plugin.c:2052
+#, fuzzy
 msgid "Quality"
 msgstr "Kokybė"
 
-#: plugins/rdp/rdp_plugin.c:2682
+#: plugins/rdp/rdp_plugin.c:2826
 #, fuzzy
 msgid "Security protocol negotiation"
 msgstr "Derybos dėl saugumo protokolo"
 
-#: plugins/rdp/rdp_plugin.c:2683
+#: plugins/rdp/rdp_plugin.c:2827
 #, fuzzy
 msgid "Gateway transport type"
 msgstr "Vartų transporto tipas"
 
-#: plugins/rdp/rdp_plugin.c:2684
+#: plugins/rdp/rdp_plugin.c:2828
+#, fuzzy
+msgid "TLS Security Level"
+msgstr "Sauga"
+
+#: plugins/rdp/rdp_plugin.c:2829
 #, fuzzy
 msgid "FreeRDP log level"
 msgstr "\"FreeRDP\" žurnalo lygis"
 
-#: plugins/rdp/rdp_plugin.c:2685
+#: plugins/rdp/rdp_plugin.c:2830
 #, fuzzy
 msgid "FreeRDP log filters"
 msgstr "\"FreeRDP\" žurnalo filtrai"
 
-#: plugins/rdp/rdp_plugin.c:2685
+#: plugins/rdp/rdp_plugin.c:2830
 #, fuzzy
 msgid "tag:level[,tag:level[,…]]"
 msgstr "tag:level[,tag:level[,...]]"
 
-#: plugins/rdp/rdp_plugin.c:2686
+#: plugins/rdp/rdp_plugin.c:2831
 #, fuzzy
 msgid "Audio output mode"
 msgstr "Garso išvesties režimas"
 
-#: plugins/rdp/rdp_plugin.c:2687
+#: plugins/rdp/rdp_plugin.c:2832
 #, fuzzy
 msgid "Redirect local audio output"
 msgstr "Vietinės garso išvesties nukreipimas"
 
-#: plugins/rdp/rdp_plugin.c:2688
+#: plugins/rdp/rdp_plugin.c:2833
 #, fuzzy
 msgid "Redirect local microphone"
 msgstr "Vietinio mikrofono nukreipimas"
 
-#: plugins/rdp/rdp_plugin.c:2689
+#: plugins/rdp/rdp_plugin.c:2834
 msgid "Connection timeout in ms"
 msgstr "Jungiamasi prie „%s“…"
 
-#: plugins/rdp/rdp_plugin.c:2690
+#: plugins/rdp/rdp_plugin.c:2835
 msgid "Remote Desktop Gateway server"
 msgstr "Nutolusio darbastalio nustatymai"
 
-#: plugins/rdp/rdp_plugin.c:2691
+#: plugins/rdp/rdp_plugin.c:2836
 msgid "Remote Desktop Gateway username"
 msgstr "Nutolusio darbastalio nustatymai"
 
-#: plugins/rdp/rdp_plugin.c:2692
+#: plugins/rdp/rdp_plugin.c:2837
 msgid "Remote Desktop Gateway password"
 msgstr "Nutolusio darbastalio nustatymai"
 
-#: plugins/rdp/rdp_plugin.c:2693
+#: plugins/rdp/rdp_plugin.c:2838
 msgid "Remote Desktop Gateway domain"
 msgstr "Nutolusio darbastalio nustatymai"
 
-#: plugins/rdp/rdp_plugin.c:2694
+#: plugins/rdp/rdp_plugin.c:2839
 #, fuzzy
-msgid "Redirect directory"
-msgstr "Peradresavimo katalogas"
-
-#: plugins/rdp/rdp_plugin.c:2695
 msgid "Client name"
 msgstr "Kliento vardas"
 
-#: plugins/rdp/rdp_plugin.c:2696
+#: plugins/rdp/rdp_plugin.c:2840
 msgid "Client build"
 msgstr "Kliento vardas"
 
-#: plugins/rdp/rdp_plugin.c:2699
+#: plugins/rdp/rdp_plugin.c:2841
+msgid "Start-up program"
+msgstr "Paleidimo programa"
+
+#: plugins/rdp/rdp_plugin.c:2843
 #, fuzzy
 msgid "Load balance info"
 msgstr "Apkrovos balanso informacija"
 
 #. TRANSLATORS: Do not use typographic quotation marks, these must stay as "double quote", also know as “Typewriter ("programmer's") quote, ambidextrous.”
-#: plugins/rdp/rdp_plugin.c:2701
+#: plugins/rdp/rdp_plugin.c:2845
 #, fuzzy
 msgid "Override printer drivers"
 msgstr "Spausdintuvų tvarkyklių pakeitimas"
 
-#: plugins/rdp/rdp_plugin.c:2701
+#: plugins/rdp/rdp_plugin.c:2845
 #, fuzzy
 msgid ""
 "\"Samsung_CLX-3300_Series\":\"Samsung CLX-3300 Series PS\";\"Canon MF410\":"
@@ -2487,222 +2947,232 @@ msgstr ""
 "\"Samsung_CLX-3300_Series\": \"Samsung CLX-3300 Series PS\"; \"Canon "
 "MF410\": \"Canon MF410 Series UFR II\""
 
-#: plugins/rdp/rdp_plugin.c:2702
+#: plugins/rdp/rdp_plugin.c:2846
 #, fuzzy
 msgid "USB device redirection"
 msgstr "USB įrenginio nukreipimas"
 
-#: plugins/rdp/rdp_plugin.c:2703
+#: plugins/rdp/rdp_plugin.c:2847
 #, fuzzy
 msgid "Local serial name"
 msgstr "Vietinis serijinis pavadinimas"
 
-#: plugins/rdp/rdp_plugin.c:2703
+#: plugins/rdp/rdp_plugin.c:2847
 #, fuzzy
 msgid "COM1, COM2, etc."
 msgstr "COM1, COM2 ir t. t."
 
-#: plugins/rdp/rdp_plugin.c:2704
+#: plugins/rdp/rdp_plugin.c:2848
 #, fuzzy
 msgid "Local serial driver"
 msgstr "Vietinė nuoseklioji tvarkyklė"
 
-#: plugins/rdp/rdp_plugin.c:2704
+#: plugins/rdp/rdp_plugin.c:2848
 #, fuzzy
 msgid "Serial"
 msgstr "Serijinis"
 
-#: plugins/rdp/rdp_plugin.c:2705
+#: plugins/rdp/rdp_plugin.c:2849
 #, fuzzy
 msgid "Local serial path"
 msgstr "Vietinis nuoseklusis kelias"
 
-#: plugins/rdp/rdp_plugin.c:2705
+#: plugins/rdp/rdp_plugin.c:2849
 #, fuzzy
 msgid "/dev/ttyS0, /dev/ttyS1, etc."
 msgstr "/dev/ttyS0, /dev/ttyS1 ir t. t."
 
-#: plugins/rdp/rdp_plugin.c:2706
+#: plugins/rdp/rdp_plugin.c:2850
 #, fuzzy
 msgid "Local parallel name"
 msgstr "Vietinis lygiagretusis pavadinimas"
 
-#: plugins/rdp/rdp_plugin.c:2707
+#: plugins/rdp/rdp_plugin.c:2851
 #, fuzzy
 msgid "Local parallel device"
 msgstr "Vietinis lygiagretusis įrenginys"
 
-#: plugins/rdp/rdp_plugin.c:2708
+#: plugins/rdp/rdp_plugin.c:2852
 #, fuzzy
 msgid "Name of smart card"
 msgstr "Išmaniosios kortelės pavadinimas"
 
-#: plugins/rdp/rdp_plugin.c:2709
+#: plugins/rdp/rdp_plugin.c:2853
 #, fuzzy
 msgid "Dynamic virtual channel"
 msgstr "Dinaminis virtualus kanalas"
 
-#: plugins/rdp/rdp_plugin.c:2709 plugins/rdp/rdp_plugin.c:2710
+#: plugins/rdp/rdp_plugin.c:2853 plugins/rdp/rdp_plugin.c:2854
 #, fuzzy
 msgid "<channel>[,<options>]"
 msgstr "<kanalas>[,<galimybės>]"
 
-#: plugins/rdp/rdp_plugin.c:2710
+#: plugins/rdp/rdp_plugin.c:2854
 #, fuzzy
 msgid "Static virtual channel"
 msgstr "Statinis virtualus kanalas"
 
-#: plugins/rdp/rdp_plugin.c:2711
+#: plugins/rdp/rdp_plugin.c:2855
 #, fuzzy
 #| msgid "Per connection"
 msgid "TCP redirection"
 msgstr "TCP nukreipimas"
 
-#: plugins/rdp/rdp_plugin.c:2711
+#: plugins/rdp/rdp_plugin.c:2855
 #, fuzzy
 msgid "/PATH/TO/rdp2tcp"
 msgstr "/PATH/TO/rdp2tcp"
 
-#: plugins/rdp/rdp_plugin.c:2713
+#: plugins/rdp/rdp_plugin.c:2857
 #, fuzzy
 msgid "Prefer IPv6 AAAA record over IPv4 A record"
 msgstr "Pirmenybė IPv6 AAAA įrašui, o ne IPv4 A įrašui"
 
-#: plugins/rdp/rdp_plugin.c:2714
+#: plugins/rdp/rdp_plugin.c:2858
 #, fuzzy
 msgid "Share printers"
 msgstr "Dalytis spausdintuvais"
 
-#: plugins/rdp/rdp_plugin.c:2715
+#: plugins/rdp/rdp_plugin.c:2859
 #, fuzzy
 msgid "Share serial ports"
 msgstr "Bendrinti nuosekliuosius prievadus"
 
-#: plugins/rdp/rdp_plugin.c:2716
-#, fuzzy
+#: plugins/rdp/rdp_plugin.c:2860
 msgid "(SELinux) permissive mode for serial ports"
-msgstr "(SELinux) leistinasis režimas serijiniams prievadams"
+msgstr "(SELinux) negriežta veiksena nuosekliesiems prievadams"
 
-#: plugins/rdp/rdp_plugin.c:2717
+#: plugins/rdp/rdp_plugin.c:2861
 #, fuzzy
 msgid "Share parallel ports"
 msgstr "Dalytis lygiagrečiaisiais prievadais"
 
-#: plugins/rdp/rdp_plugin.c:2718
+#: plugins/rdp/rdp_plugin.c:2862
 #, fuzzy
 msgid "Share a smart card"
 msgstr "Bendrinti išmaniąją kortelę"
 
-#: plugins/rdp/rdp_plugin.c:2719 plugins/vnc/vnc_plugin.c:2001
+#: plugins/rdp/rdp_plugin.c:2863 plugins/vnc/vnc_plugin.c:2075
 msgid "Turn off clipboard sync"
 msgstr "Išjungti iškarpinės sinchronizavimą"
 
-#: plugins/rdp/rdp_plugin.c:2720
+#: plugins/rdp/rdp_plugin.c:2864
 #, fuzzy
 msgid "Ignore certificate"
 msgstr "Ignoruoti sertifikatą"
 
-#: plugins/rdp/rdp_plugin.c:2721
+#: plugins/rdp/rdp_plugin.c:2865
 #, fuzzy
 msgid "Use the old license workflow"
 msgstr "Naudokite senąją licencijos darbo eigą"
 
-#: plugins/rdp/rdp_plugin.c:2721
+#: plugins/rdp/rdp_plugin.c:2865
 #, fuzzy
 msgid "It disables CAL and hwId is set to 0"
 msgstr "CAL išjungiama, o hwId nustatomas į 0"
 
-#: plugins/rdp/rdp_plugin.c:2722 plugins/spice/spice_plugin.c:694
-#: plugins/vnc/vnc_plugin.c:2005 plugins/www/www_plugin.c:911
-#: plugins/gvnc/gvnc_plugin.c:858
+#: plugins/rdp/rdp_plugin.c:2866 plugins/spice/spice_plugin.c:704
+#: plugins/vnc/vnc_plugin.c:2071 plugins/www/www_plugin.c:932
+#: plugins/gvnc/gvnc_plugin.c:866
 msgid "Forget passwords after use"
-msgstr "%s slaptažodis"
+msgstr "Pamiršti slaptažodžius po panaudojimo"
 
-#: plugins/rdp/rdp_plugin.c:2723
+#: plugins/rdp/rdp_plugin.c:2867
+#, fuzzy
 msgid "Attach to console (2003/2003 R2)"
 msgstr "Prisijungti prie pulto (Windows 2003 / 2003 R2)"
 
-#: plugins/rdp/rdp_plugin.c:2724
+#: plugins/rdp/rdp_plugin.c:2868
 #, fuzzy
 msgid "Turn off fast-path"
 msgstr "Išjungti greitąjį kelią"
 
-#: plugins/rdp/rdp_plugin.c:2725
+#: plugins/rdp/rdp_plugin.c:2869
 #, fuzzy
 msgid "Server detection using Remote Desktop Gateway"
 msgstr "Serverio aptikimas naudojant \"Remote Desktop Gateway"
 
-#: plugins/rdp/rdp_plugin.c:2727
+#: plugins/rdp/rdp_plugin.c:2871
 #, fuzzy
 msgid "Use system proxy settings"
 msgstr "Naudoti sistemos tarpinio serverio nustatymus"
 
-#: plugins/rdp/rdp_plugin.c:2729
+#: plugins/rdp/rdp_plugin.c:2873
 #, fuzzy
 msgid "Turn off automatic reconnection"
 msgstr "Išjungti automatinį pakartotinį prisijungimą"
 
-#: plugins/rdp/rdp_plugin.c:2730
+#: plugins/rdp/rdp_plugin.c:2874
 #, fuzzy
 msgid "Relax order checks"
 msgstr "Atsipalaiduoti užsakymo patikrinimai"
 
-#: plugins/rdp/rdp_plugin.c:2731
+#: plugins/rdp/rdp_plugin.c:2875
 #, fuzzy
 msgid "Glyph cache"
 msgstr "Glifų talpykla"
 
-#: plugins/rdp/rdp_plugin.c:2732
+#: plugins/rdp/rdp_plugin.c:2876
 #, fuzzy
 msgid "Enable multitransport protocol (UDP)"
 msgstr "Įjungti daugiaproporcinį protokolą (UDP)"
 
-#: plugins/rdp/rdp_plugin.c:2732
+#: plugins/rdp/rdp_plugin.c:2876
 #, fuzzy
 msgid "Using the UDP protocol may improve performance"
 msgstr "Naudojant UDP protokolą gali pagerėti našumas"
 
-#: plugins/rdp/rdp_plugin.c:2733
+#: plugins/rdp/rdp_plugin.c:2877
 #, fuzzy
 msgid "Use base credentials for gateway too"
 msgstr "Naudokite bazinius įgaliojimus ir vartams"
 
-#: plugins/rdp/rdp_plugin.c:2735
+#: plugins/rdp/rdp_plugin.c:2879
 #, fuzzy
 msgid "Enable Gateway websockets support"
 msgstr "Įjungti \"Gateway\" žiniatinklio lizdų palaikymą"
 
-#: plugins/rdp/rdp_plugin.c:2748 plugins/spice/spice_plugin.c:707
-#: plugins/vnc/vnc_plugin.c:2021
+#: plugins/rdp/rdp_plugin.c:2892 plugins/spice/spice_plugin.c:717
+#: plugins/vnc/vnc_plugin.c:2092
 #, fuzzy
 msgid "Send Ctrl+Alt+Delete"
 msgstr "Siųsti Ctrl+Alt+Delete"
 
-#: plugins/rdp/rdp_plugin.c:2761
+#: plugins/rdp/rdp_plugin.c:2905
+#, fuzzy
 msgid "RDP - Remote Desktop Protocol"
 msgstr "RDP – nutolusių kompiuterių valdymo protokolas"
 
-#: plugins/rdp/rdp_plugin.c:2786
+#: plugins/rdp/rdp_plugin.c:2930
+#, fuzzy
 msgid "RDP - RDP File Handler"
 msgstr "RDP - RDP failų doroklė"
 
-#: plugins/rdp/rdp_plugin.c:2801
+#: plugins/rdp/rdp_plugin.c:2945
+#, fuzzy
 msgid "RDP - Preferences"
 msgstr "RDP - nuostatos"
 
-#: plugins/rdp/rdp_plugin.c:2854
+#: plugins/rdp/rdp_plugin.c:2998
+#, fuzzy
 msgid "Export connection in Windows .rdp file format"
 msgstr "Eksportuoti prisijungimą Windows .rdp failo formatu"
 
-#: plugins/rdp/rdp_event.c:344
-#, c-format
+#: plugins/rdp/rdp_event.c:347
+#, fuzzy, c-format
 msgid "Reconnection attempt %d of %d…"
 msgstr "Jungimosi bandymas %d iš %d…"
+
+#. TRANSLATORS: the placeholder may be either an IP/FQDN or a server hostname
+#: plugins/rdp/rdp_event.c:1126
+#, fuzzy, c-format
+msgid "Connected to %s via RDP"
+msgstr "Jungiamasi prie „%s“ per SSH…"
 
 #: plugins/spice/spice_plugin_file_transfer.c:82
 #, fuzzy
 msgid "File Transfers"
-msgstr "Failų persiuntimai"
+msgstr "Failų perkėlimas"
 
 #: plugins/spice/spice_plugin_file_transfer.c:219
 #, fuzzy
@@ -2733,84 +3203,94 @@ msgstr "SSH slaptažodis"
 msgid "Disconnected from the SPICE server “%s”."
 msgstr "Nepavyko prisijungti prie RDP serverio %s"
 
-#: plugins/spice/spice_plugin.c:402
+#: plugins/spice/spice_plugin.c:388
+#, fuzzy, c-format
+#| msgid "Disconnected from the SPICE server “%s”."
+msgid "Disconnected from %s:%d via SPICE"
+msgstr "Nepavyko prisijungti prie RDP serverio %s"
+
+#: plugins/spice/spice_plugin.c:391
+#, fuzzy, c-format
+msgid "Connected to %s:%d via SPICE"
+msgstr "Jungiamasi prie „%s“ per SSH…"
+
+#: plugins/spice/spice_plugin.c:403
 #, fuzzy
 msgid "TLS connection error."
 msgstr "TLS ryšio klaida."
 
-#: plugins/spice/spice_plugin.c:408
+#: plugins/spice/spice_plugin.c:409
 msgid "Connection to the SPICE server dropped."
 msgstr "Nepavyko prisijungti prie RDP serverio %s"
 
-#: plugins/spice/spice_plugin.c:616 plugins/spice/spice_plugin.c:634
-msgid "Default"
-msgstr "Numatytasis"
-
-#: plugins/spice/spice_plugin.c:636
+#: plugins/spice/spice_plugin.c:638
 #, fuzzy
 msgid "Auto GLZ"
 msgstr "Automobilis GLZ"
 
-#: plugins/spice/spice_plugin.c:637
+#: plugins/spice/spice_plugin.c:639
 #, fuzzy
 msgid "Auto LZ"
 msgstr "Automatinis LZ"
 
-#: plugins/spice/spice_plugin.c:650
+#: plugins/spice/spice_plugin.c:652
 #, fuzzy
 msgid "Disable video overlay if videos are not displayed properly.\n"
 msgstr "Išjunkite vaizdo perdangą, jei vaizdo įrašai rodomi netinkamai.\n"
 
-#: plugins/spice/spice_plugin.c:667
+#: plugins/spice/spice_plugin.c:677
 #, fuzzy
 msgid "Use TLS encryption"
 msgstr "Naudokite TLS šifravimą"
 
-#: plugins/spice/spice_plugin.c:668
+#: plugins/spice/spice_plugin.c:678
 #, fuzzy
 msgid "Server CA certificate"
 msgstr "Serverio CA sertifikatas"
 
-#: plugins/spice/spice_plugin.c:686
-msgid "Prefered video codec"
+#: plugins/spice/spice_plugin.c:696
+#, fuzzy
+#| msgid "Prefered video codec"
+msgid "Preferred video codec"
 msgstr "Parinktis"
 
-#: plugins/spice/spice_plugin.c:687
+#: plugins/spice/spice_plugin.c:697
 msgid "Turn off GStreamer overlay"
 msgstr "Išjungti serverio įvedimą"
 
-#: plugins/spice/spice_plugin.c:690
+#: plugins/spice/spice_plugin.c:700
 #, fuzzy
-msgid "Prefered image compression"
+msgid "Preferred image compression"
 msgstr "Pageidaujamas vaizdo suspaudimas"
 
-#: plugins/spice/spice_plugin.c:693 plugins/spice/spice_plugin.c:706
-#: plugins/gvnc/gvnc_plugin.c:857 plugins/gvnc/gvnc_plugin.c:871
+#: plugins/spice/spice_plugin.c:703 plugins/spice/spice_plugin.c:716
+#: plugins/gvnc/gvnc_plugin.c:865 plugins/gvnc/gvnc_plugin.c:879
 msgid "No clipboard sync"
 msgstr "Išjungti iškarpinės sinchronizavimą"
 
-#: plugins/spice/spice_plugin.c:695 plugins/gvnc/gvnc_plugin.c:860
+#: plugins/spice/spice_plugin.c:705 plugins/gvnc/gvnc_plugin.c:868
 #, fuzzy
 msgid "Enable audio channel"
 msgstr "Įjungti garso kanalą"
 
-#: plugins/spice/spice_plugin.c:696
+#: plugins/spice/spice_plugin.c:706
 #, fuzzy
 msgid "Share smart card"
 msgstr "Dalytis išmaniąja kortele"
 
-#: plugins/spice/spice_plugin.c:697 plugins/spice/spice_plugin.c:705
-#: plugins/vnc/vnc_plugin.c:2000 plugins/vnc/vnc_plugin.c:2017
-#: plugins/gvnc/gvnc_plugin.c:861 plugins/gvnc/gvnc_plugin.c:870
+#: plugins/spice/spice_plugin.c:707 plugins/spice/spice_plugin.c:715
+#: plugins/vnc/vnc_plugin.c:2077 plugins/vnc/vnc_plugin.c:2088
+#: plugins/gvnc/gvnc_plugin.c:869 plugins/gvnc/gvnc_plugin.c:878
+#, fuzzy
 msgid "View only"
 msgstr "Tik peržiūra"
 
-#: plugins/spice/spice_plugin.c:708 plugins/spice/spice_plugin_usb.c:51
+#: plugins/spice/spice_plugin.c:718 plugins/spice/spice_plugin_usb.c:51
 #, fuzzy
 msgid "Select USB devices for redirection"
 msgstr "Pasirinkite USB įrenginius nukreipimui"
 
-#: plugins/spice/spice_plugin.c:719
+#: plugins/spice/spice_plugin.c:729
 #, fuzzy
 msgid "SPICE - Simple Protocol for Independent Computing Environments"
 msgstr "SPICE - paprastas nepriklausomų skaičiavimo aplinkų protokolas"
@@ -2825,44 +3305,61 @@ msgstr "_Užverti"
 msgid "USB redirection error"
 msgstr "USB nukreipimo klaida"
 
-#: plugins/vnc/vnc_plugin.c:772
+#: plugins/vnc/vnc_plugin.c:789
 msgid "Enter VNC password"
 msgstr "Išsaugoti slaptažodį"
 
-#: plugins/vnc/vnc_plugin.c:825 plugins/gvnc/gvnc_plugin.c:539
+#: plugins/vnc/vnc_plugin.c:842 plugins/gvnc/gvnc_plugin.c:538
 #, fuzzy
 msgid "Enter VNC authentication credentials"
 msgstr "Įveskite VNC autentifikavimo duomenis"
 
-#: plugins/vnc/vnc_plugin.c:936
+#: plugins/vnc/vnc_plugin.c:950
+#, fuzzy
 msgid "Unable to connect to VNC server"
 msgstr "Nepavyko prisijungti prie VNC serverio"
 
-#: plugins/vnc/vnc_plugin.c:937
-#, c-format
+#: plugins/vnc/vnc_plugin.c:951
+#, fuzzy, c-format
 msgid "Couldn’t convert '%s' to host address"
 msgstr "Nepavyko konvertuoti „%s“ į kompiuterio adresą"
 
-#: plugins/vnc/vnc_plugin.c:938
-#, c-format
+#: plugins/vnc/vnc_plugin.c:952
+#, fuzzy, c-format
 msgid "VNC connection failed: %s"
 msgstr "VNC ryšys nepavyko: %s"
 
-#: plugins/vnc/vnc_plugin.c:939
+#: plugins/vnc/vnc_plugin.c:953
+#, fuzzy
 msgid "Your connection has been rejected."
 msgstr "Jūsų prisijungimas buvo atmestas."
 
-#: plugins/vnc/vnc_plugin.c:966
+#: plugins/vnc/vnc_plugin.c:980
 #, fuzzy, c-format
 msgid "The VNC server requested an unknown authentication method. %s"
 msgstr "VNC serveris paprašė nežinomo autentifikavimo metodo. %s"
 
-#: plugins/vnc/vnc_plugin.c:968
+#: plugins/vnc/vnc_plugin.c:982
 #, fuzzy
 msgid "Please retry after turning on encryption for this profile."
 msgstr "Įjungę šio profilio šifravimą, bandykite dar kartą."
 
-#: plugins/vnc/vnc_plugin.c:1939
+#: plugins/vnc/vnc_plugin.c:1716
+#, fuzzy, c-format
+msgid "Connected to %s via VNC"
+msgstr "Jungiamasi prie „%s“ per SSH…"
+
+#: plugins/vnc/vnc_plugin.c:1723
+#, fuzzy, c-format
+msgid "Connected to %s:%d via VNC"
+msgstr "Jungiamasi prie „%s“ per SSH…"
+
+#: plugins/vnc/vnc_plugin.c:1743
+#, c-format
+msgid "Disconnected from %s:%d via VNC"
+msgstr ""
+
+#: plugins/vnc/vnc_plugin.c:1992
 #, fuzzy
 msgid ""
 "Connect to VNC using a repeater:\n"
@@ -2881,42 +3378,89 @@ msgstr ""
 "    prie kartotuvo, pvz., naudodami x11vnc:\n"
 "    x11vnc -connect repeater=ID:123456789+10.10.10.10.12:5500"
 
-#: plugins/vnc/vnc_plugin.c:1959
+#: plugins/vnc/vnc_plugin.c:2001
+#, fuzzy
+msgid ""
+"Listening for remote VNC connection:\n"
+"  • The “Listen on port” field is the port Remmina will listen to,\n"
+"    e.g. 8888\n"
+"  • From the remote VNC server, you will connect to\n"
+"    Remmina, e.g. with x11vnc:\n"
+"    x11vnc -display :0 -connect 192.168.1.36:8888"
+msgstr ""
+"Nuotolinio VNC ryšio klausymasis:\n"
+"  - Lauke \"Listen on port\" nurodomas prievadas, kurio klausysis \"Remmina"
+"\",\n"
+"    pvz., 8888\n"
+"  - Iš nuotolinio VNC serverio prisijungsite prie\n"
+"    Remmina, pvz., naudodami x11vnc:\n"
+"    x11vnc -display :0 -connect 192.168.1.36:8888"
+
+#: plugins/vnc/vnc_plugin.c:2009
+msgid ""
+"Overriding the pre-set VNC encoding quality:\n"
+"\n"
+"  • “Poor (fastest)” sets encoding to “copyrect zlib hextile raw”\n"
+"  • “Medium” sets encoding to “tight zrle ultra copyrect hextile zlib corre "
+"rre raw”\n"
+"  • “Good” sets encoding to “tight zrle ultra copyrect hextile zlib corre "
+"rre raw”\n"
+"  • “Best (slowest)” sets encoding to “copyrect zrle ultra zlib hextile "
+"corre rre raw”"
+msgstr ""
+
+#: plugins/vnc/vnc_plugin.c:2036
+#, fuzzy
 msgid "Repeater"
 msgstr "Kartotuvas"
 
-#: plugins/vnc/vnc_plugin.c:1979
+#: plugins/vnc/vnc_plugin.c:2048
+#, fuzzy
 msgid "Listen on port"
 msgstr "Klausytis prievado"
 
-#: plugins/vnc/vnc_plugin.c:1999
-msgid "Show remote cursor"
-msgstr "Rodyti nuotolinį žymeklį"
+#: plugins/vnc/vnc_plugin.c:2068
+msgid "Override pre-set VNC encodings"
+msgstr ""
 
-#: plugins/vnc/vnc_plugin.c:2002
-msgid "Turn off encryption"
-msgstr "Išjungti iškarpinės sinchronizavimą"
+#: plugins/vnc/vnc_plugin.c:2069
+msgid "Force tight encoding"
+msgstr ""
 
-#: plugins/vnc/vnc_plugin.c:2003 plugins/vnc/vnc_plugin.c:2018
-#, fuzzy
-msgid "Prevent local interaction on the server"
-msgstr "Užkirsti kelią vietinei sąveikai serveryje"
+#: plugins/vnc/vnc_plugin.c:2069
+msgid "Enabling this may help when the remote desktop looks scrambled"
+msgstr ""
 
-#: plugins/vnc/vnc_plugin.c:2004 plugins/gvnc/gvnc_plugin.c:859
+#: plugins/vnc/vnc_plugin.c:2072 plugins/gvnc/gvnc_plugin.c:867
 #, fuzzy
 msgid "Ignore remote bell messages"
 msgstr "Ignoruoti nuotolinio skambučio pranešimus"
 
-#: plugins/vnc/vnc_plugin.c:2020
+#: plugins/vnc/vnc_plugin.c:2073 plugins/vnc/vnc_plugin.c:2089
+#, fuzzy
+msgid "Prevent local interaction on the server"
+msgstr "Užkirsti kelią vietinei sąveikai serveryje"
+
+#: plugins/vnc/vnc_plugin.c:2074
+#, fuzzy
+msgid "Show remote cursor"
+msgstr "Rodyti nuotolinį žymeklį"
+
+#: plugins/vnc/vnc_plugin.c:2076
+msgid "Turn off encryption"
+msgstr "Išjungti iškarpinės sinchronizavimą"
+
+#: plugins/vnc/vnc_plugin.c:2091
+#, fuzzy
 msgid "Open Chat…"
 msgstr "Atverti pokalbį…"
 
-#: plugins/vnc/vnc_plugin.h:41
+#: plugins/vnc/vnc_plugin.h:42
 #, fuzzy
 msgid "Remmina VNC Plugin"
 msgstr "\"Remmina\" VNC įskiepis"
 
-#: plugins/vnc/vnc_plugin.h:46
+#: plugins/vnc/vnc_plugin.h:47
 #, fuzzy
 msgid "Remmina VNC listener Plugin"
 msgstr "\"Remmina\" VNC klausytojo įskiepis"
@@ -2926,76 +3470,76 @@ msgstr "\"Remmina\" VNC klausytojo įskiepis"
 msgid "Remmina web-browser plugin"
 msgstr "\"Remmina\" žiniatinklio naršyklės įskiepis"
 
-#: plugins/www/www_plugin.c:98
+#: plugins/www/www_plugin.c:99
 #, fuzzy
 msgid "File downloaded"
 msgstr "Atsisiųstas failas"
 
-#: plugins/www/www_plugin.c:581
+#: plugins/www/www_plugin.c:588
 #, fuzzy
 msgid "Enter WWW authentication credentials"
 msgstr "Įveskite WWW autentifikavimo duomenis"
 
-#: plugins/www/www_plugin.c:885
+#: plugins/www/www_plugin.c:903
 #, fuzzy
 msgid "URL"
 msgstr "Nuoroda"
 
-#: plugins/www/www_plugin.c:885
+#: plugins/www/www_plugin.c:903
 #, fuzzy
 msgid "http://address or https://address"
 msgstr "http://address arba https://address"
 
-#: plugins/www/www_plugin.c:902
+#: plugins/www/www_plugin.c:920
 #, fuzzy
 msgid "User agent"
 msgstr "Vartotojo agentas"
 
-#: plugins/www/www_plugin.c:903
+#: plugins/www/www_plugin.c:921
 #, fuzzy
 msgid "Proxy URL"
 msgstr "Proxy URL"
 
-#: plugins/www/www_plugin.c:903
+#: plugins/www/www_plugin.c:921
 #, fuzzy
 msgid "E.g. https://example.org, socks://mysocks:1080"
 msgstr "Pvz., https://example.org, kojinės://mysocks:1080"
 
-#: plugins/www/www_plugin.c:904
+#: plugins/www/www_plugin.c:922
 #, fuzzy
 msgid "Turn on Java support"
 msgstr "Įjunkite \"Java\" palaikymą"
 
-#: plugins/www/www_plugin.c:905
+#: plugins/www/www_plugin.c:923
 msgid "Turn on smooth scrolling"
 msgstr "Šriftų glodinimas"
 
-#: plugins/www/www_plugin.c:906
+#: plugins/www/www_plugin.c:924
 #, fuzzy
 msgid "Turn on spatial navigation"
 msgstr "Įjunkite erdvinę navigaciją"
 
-#: plugins/www/www_plugin.c:907
+#: plugins/www/www_plugin.c:927
 #, fuzzy
 msgid "Turn on plugin support"
 msgstr "Įjunkite įskiepių palaikymą"
 
-#: plugins/www/www_plugin.c:908
+#: plugins/www/www_plugin.c:928
 #, fuzzy
 msgid "Turn on WebGL support"
 msgstr "Įjunkite \"WebGL\" palaikymą"
 
-#: plugins/www/www_plugin.c:909
+#: plugins/www/www_plugin.c:930
 #, fuzzy
 msgid "Turn on HTML5 audio support"
 msgstr "Įjunkite HTML5 garso palaikymą"
 
-#: plugins/www/www_plugin.c:910
+#: plugins/www/www_plugin.c:931
 #, fuzzy
 msgid "Ignore TLS errors"
 msgstr "TLS klaidų ignoravimas"
 
-#: plugins/www/www_plugin.c:913
+#: plugins/www/www_plugin.c:934
 #, fuzzy
 msgid "Turn on Web Inspector"
 msgstr "Įjunkite žiniatinklio inspektorių"
@@ -3014,12 +3558,12 @@ msgstr ""
 "Įspėjimas: Vykdant komandą sinchroniškai, \"Remmina\" gali nereaguoti.\n"
 "Ar tikrai norite tęsti?"
 
-#: plugins/exec/exec_plugin.c:266
+#: plugins/exec/exec_plugin.c:274
 #, fuzzy
 msgid "Command"
 msgstr "Komanda"
 
-#: plugins/exec/exec_plugin.c:267
+#: plugins/exec/exec_plugin.c:275
 #, fuzzy
 msgid "Asynchronous execution"
 msgstr "Asinchroninis vykdymas"
@@ -3036,84 +3580,763 @@ msgstr "Sveikas, pasauli!"
 
 #: plugins/secret/src/glibsecret_plugin.c:188
 msgid "Secured password storage in the GNOME keyring"
-msgstr "%s slaptažodis"
+msgstr "Saugus slaptažodžių saugojimas GNOME raktinėje"
+
+#: plugins/x2go/x2go_plugin.c:67
+#, fuzzy, c-format
+msgid ""
+"The command-line feature '%s' is not available! Attempting to start PyHoca-"
+"CLI without using this feature…"
+msgstr ""
+"Komandinės eilutės funkcija \"%s\" nepasiekiama! Bandymas paleisti PyHoca-"
+"CLI nenaudojant šios funkcijos…"
+
+#: plugins/x2go/x2go_plugin.c:292 plugins/x2go/x2go_plugin.c:424
+#: plugins/x2go/x2go_plugin.c:513 plugins/x2go/x2go_plugin.c:620
+#: plugins/x2go/x2go_plugin.c:710 plugins/x2go/x2go_plugin.c:722
+#: plugins/x2go/x2go_plugin.c:731 plugins/x2go/x2go_plugin.c:757
+#: plugins/x2go/x2go_plugin.c:766 plugins/x2go/x2go_plugin.c:785
+#: plugins/x2go/x2go_plugin.c:835 plugins/x2go/x2go_plugin.c:901
+#: plugins/x2go/x2go_plugin.c:912 plugins/x2go/x2go_plugin.c:920
+#: plugins/x2go/x2go_plugin.c:1034 plugins/x2go/x2go_plugin.c:1050
+#: plugins/x2go/x2go_plugin.c:1115 plugins/x2go/x2go_plugin.c:1143
+#: plugins/x2go/x2go_plugin.c:1292 plugins/x2go/x2go_plugin.c:1666
+#: plugins/x2go/x2go_plugin.c:1700 plugins/x2go/x2go_plugin.c:1796
+#: plugins/x2go/x2go_plugin.c:2090 plugins/x2go/x2go_plugin.c:2904
+#: plugins/x2go/x2go_plugin.c:3117 plugins/x2go/x2go_plugin.c:3122
+#: plugins/x2go/x2go_plugin.c:3127 plugins/x2go/x2go_plugin.c:3132
+#: plugins/x2go/x2go_plugin.c:3147 plugins/x2go/x2go_plugin.c:3152
+#: plugins/x2go/x2go_plugin.c:3157 plugins/x2go/x2go_plugin.c:3162
+#, fuzzy, c-format
+msgid "Internal error: %s"
+msgstr "Vidinė klaida: %s"
+
+#: plugins/x2go/x2go_plugin.c:293 plugins/x2go/x2go_plugin.c:425
+#: plugins/x2go/x2go_plugin.c:514 plugins/x2go/x2go_plugin.c:1293
+#, fuzzy
+msgid "Parameter 'custom_data' is not initialized!"
+msgstr "Parametras 'default_username' yra neinicializuotas."
+
+#: plugins/x2go/x2go_plugin.c:306
+#, fuzzy
+msgid "Broken `DialogData`! Aborting…"
+msgstr "Sugedo `DialogData`! Nutraukta…"
+
+#: plugins/x2go/x2go_plugin.c:310
+#, fuzzy
+msgid "Can't retrieve `DialogData`! Aborting…"
+msgstr "Negalima gauti `DialogData`! Nutraukta…"
+
+#: plugins/x2go/x2go_plugin.c:472
+#, fuzzy
+msgid "X Display"
+msgstr "Rodinys"
+
+#: plugins/x2go/x2go_plugin.c:473
+#, fuzzy
+msgid "Status"
+msgstr "Būsena"
+
+#: plugins/x2go/x2go_plugin.c:474
+#, fuzzy
+#| msgid "Permission"
+msgid "Session ID"
+msgstr "Sesijos ID"
+
+#: plugins/x2go/x2go_plugin.c:475
+#, fuzzy
+msgid "Create date"
+msgstr "Sukūrimo data"
+
+#: plugins/x2go/x2go_plugin.c:476
+#, fuzzy
+msgid "Suspended since"
+msgstr "Sustabdyta nuo"
+
+#: plugins/x2go/x2go_plugin.c:477
+#, fuzzy
+msgid "Agent PID"
+msgstr "Agento PID"
+
+#: plugins/x2go/x2go_plugin.c:479
+#, fuzzy
+#| msgid "Username"
+msgid "Hostname"
+msgstr "Prieglobsčio vardas"
+
+#: plugins/x2go/x2go_plugin.c:480
+#, fuzzy
+msgid "Cookie"
+msgstr "Slapukas"
+
+#: plugins/x2go/x2go_plugin.c:481
+#, fuzzy
+msgid "Graphic port"
+msgstr "Grafinis prievadas"
+
+#: plugins/x2go/x2go_plugin.c:482
+#, fuzzy
+msgid "SND port"
+msgstr "SND prievadas"
+
+#: plugins/x2go/x2go_plugin.c:483
+#, fuzzy
+msgid "SSHFS port"
+msgstr "SSHFS prievadas"
+
+#: plugins/x2go/x2go_plugin.c:484
+#, fuzzy
+msgid "Visible"
+msgstr "Matomi"
+
+#: plugins/x2go/x2go_plugin.c:523
+#, fuzzy
+msgid "Couldn't retrieve valid `DialogData` or `sessions_list`! Aborting…"
+msgstr ""
+"Nepavyko gauti galiojančio `DialogData` arba `sessions_list`! Nutraukta…"
+
+#. TRANSLATORS: Stick to x2goclient's translation for terminate.
+#: plugins/x2go/x2go_plugin.c:532
+#, fuzzy
+#| msgid "Terminate"
+msgid "_Terminate"
+msgstr "Nutraukti"
+
+#. TRANSLATORS: Stick to x2goclient's translation for resume.
+#: plugins/x2go/x2go_plugin.c:535
+#, fuzzy
+msgid "_Resume"
+msgstr "_Tęsti"
+
+#: plugins/x2go/x2go_plugin.c:537
+#, fuzzy
+msgid "_New"
+msgstr "_Nauja"
+
+#. TRANSLATORS: Tooltip for terminating button inside Session-Chooser-Dialog.
+#. TRANSLATORS: Please stick to X2GoClient's way of translating.
+#: plugins/x2go/x2go_plugin.c:546
+msgid "Terminating X2Go sessions can take a moment."
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:621 plugins/x2go/x2go_plugin.c:623
+#, fuzzy, c-format
+msgid "Unknown property '%i'"
+msgstr "Nežinomas turtas"
+
+#: plugins/x2go/x2go_plugin.c:711 plugins/x2go/x2go_plugin.c:758
+#, fuzzy
+msgid "Couldn't find child GtkTreeView of session chooser dialog."
+msgstr ""
+"Nepavyko rasti sesijos pasirinkimo dialogo lango \"GtkTreeView\" atžalos."
+
+#: plugins/x2go/x2go_plugin.c:723
+msgid ""
+"Neither the 'dialog' nor 'treeview' parameters are initialized! At least one "
+"of them must be given."
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:732
+#, fuzzy
+msgid ""
+"Could not obtain \"GtkTreeModelFilter*\" of the session chooser dialog, for "
+"unknown reason."
+msgstr ""
+"Nepavyko rasti sesijos pasirinkimo dialogo lango \"GtkTreeView\" atžalos."
+
+#: plugins/x2go/x2go_plugin.c:767
+#, fuzzy
+msgid "Couldn't get currently selected row (session)!"
+msgstr "Nepavyko gauti sesijos ID iš pasirinktos eilutės."
+
+#: plugins/x2go/x2go_plugin.c:786
+#, fuzzy, c-format
+msgid ""
+"Exactly one session should be selectable but '%i' rows (sessions) are "
+"selected."
+msgstr "turėtų būti galima pasirinkti tik vieną seansą."
+
+#: plugins/x2go/x2go_plugin.c:836
+#, fuzzy
+msgid "Failed to fill 'GtkTreeIter'."
+msgstr "Nepavyko užpildyti 'GtkTreeIter'."
+
+#: plugins/x2go/x2go_plugin.c:902
+#, fuzzy
+msgid "parameter 'argv' is 'NULL'."
+msgstr "parametras 'argv' yra 'NULL'."
+
+#: plugins/x2go/x2go_plugin.c:913
+#, fuzzy
+msgid "parameter 'error' is 'NULL'."
+msgstr "parametras \"error\" yra \"NULL\"."
+
+#: plugins/x2go/x2go_plugin.c:921
+#, fuzzy
+msgid "parameter 'env' is either invalid or uninitialized."
+msgstr "parametras 'env' yra neteisingas arba neinicializuotas."
+
+#: plugins/x2go/x2go_plugin.c:937 plugins/x2go/x2go_plugin.c:2391
+#, fuzzy
+msgid "Started PyHoca-CLI with the following arguments:"
+msgstr "Paleistas PyHoca-CLI su šiais argumentais:"
+
+#: plugins/x2go/x2go_plugin.c:965
+#, fuzzy
+msgid ""
+"The necessary PyHoca-CLI process has encountered a internet connection "
+"problem."
+msgstr "Būtinas \"PyHoca-CLI\" procesas susidūrė su interneto ryšio problema."
+
+#: plugins/x2go/x2go_plugin.c:975
+#, fuzzy, c-format
+#| msgid "Could not start SSH session. %s"
+msgid ""
+"Could not start PyHoca-CLI:\n"
+"%s"
+msgstr "Nepavyko paleisti PyHoca-CLI (%i): '%s'"
+
+#: plugins/x2go/x2go_plugin.c:986
+#, fuzzy, c-format
+msgid ""
+"An unknown error occured while trying to start PyHoca-CLI. Exit code: %i"
+msgstr "Bandant paleisti PyHoca-CLI įvyko nežinoma klaida. Išėjimo kodas: %i"
+
+#: plugins/x2go/x2go_plugin.c:993
+#, fuzzy, c-format
+msgid ""
+"An unknown error occured while trying to start PyHoca-CLI. Exit code: %i. "
+"Error: '%s'"
+msgstr ""
+"Bandant paleisti PyHoca-CLI įvyko nežinoma klaida. Išėjimo kodas: %i. "
+"Klaida: \"%s"
+
+#: plugins/x2go/x2go_plugin.c:1035
+#, fuzzy
+msgid "Neither the 'path' nor 'dialog' parameters are initialized."
+msgstr "parametras 'env' yra neteisingas arba neinicializuotas."
+
+#: plugins/x2go/x2go_plugin.c:1051
+msgid "GtkTreePath 'path' describes a non-existing row!"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:1116
+#, fuzzy
+msgid "Parameter 'custom_data' is not fully initialized!"
+msgstr "Parametras 'default_username' yra neinicializuotas."
+
+#: plugins/x2go/x2go_plugin.c:1144 plugins/x2go/x2go_plugin.c:1797
+#: plugins/x2go/x2go_plugin.c:2091
+#, fuzzy
+#| msgid "Per connection"
+msgid "'Invalid connection data.'"
+msgstr "\"Neteisingi ryšio duomenys."
+
+#: plugins/x2go/x2go_plugin.c:1221
+#, fuzzy, c-format
+msgid ""
+"An error occured while trying to terminate X2Go session '%s':\n"
+"%s"
+msgstr "Paleidžiant \"X2Go\" sesiją įvyko klaida…"
+
+#: plugins/x2go/x2go_plugin.c:1233 plugins/x2go/x2go_plugin.c:1609
+#, fuzzy
+msgid "An error occured."
+msgstr "Įvyko klaida."
+
+#: plugins/x2go/x2go_plugin.c:1333 plugins/x2go/x2go_plugin.c:1348
+#, fuzzy
+msgid "Couldn't get session ID from session chooser dialog."
+msgstr "Nepavyko gauti sesijos ID iš sesijos pasirinkimo dialogo lango."
+
+#: plugins/x2go/x2go_plugin.c:1340
+#, fuzzy, c-format
+msgid "Resuming session: '%s'"
+msgstr "Sesijos atnaujinimas: \"%s"
+
+#: plugins/x2go/x2go_plugin.c:1355
+#, fuzzy, c-format
+msgid "Terminating session: '%s'"
+msgstr "Sesijos atnaujinimas: \"%s"
+
+#: plugins/x2go/x2go_plugin.c:1529
+#, c-format
+msgid "Disconnected from %s:%d via X2Go"
+msgstr ""
+
+#: plugins/x2go/x2go_plugin.c:1601
+#, fuzzy
+msgid "PyHoca-CLI exited unexpectedly. This connection will now be closed."
+msgstr "PyHoca-CLI netikėtai baigėsi. Dabar šis ryšys bus uždarytas."
+
+#: plugins/x2go/x2go_plugin.c:1610
+#, fuzzy
+msgid ""
+"The necessary child process 'pyhoca-cli' stopped unexpectedly.\n"
+"Please check your profile settings and PyHoca-CLI's output for possible "
+"errors. Also ensure the remote server is reachable."
+msgstr ""
+"Būtinas antrinis procesas 'pyhoca-cli' netikėtai sustojo.\n"
+"Patikrinkite savo profilio nustatymus ir \"PyHoca-CLI\" išvestį, ar nėra "
+"galimų klaidų. Taip pat įsitikinkite, kad nuotolinis serveris yra "
+"pasiekiamas."
+
+#: plugins/x2go/x2go_plugin.c:1653
+#, fuzzy
+msgid "Can't save empty username!"
+msgstr "Negalima išsaugoti tuščio vartotojo vardo!"
+
+#: plugins/x2go/x2go_plugin.c:1667
+#, fuzzy
+msgid "Could not save new credentials."
+msgstr "Nepavyko išsaugoti naujų įgaliojimų."
+
+#: plugins/x2go/x2go_plugin.c:1670
+#, fuzzy
+msgid ""
+"An error occured while trying to save new credentials: 's_password' or "
+"'s_username' strings were not set."
+msgstr ""
+"Bandant išsaugoti naujus įgaliojimus įvyko klaida: nebuvo nustatytos eilutės "
+"'s_password' arba 's_username'."
+
+#: plugins/x2go/x2go_plugin.c:1701
+#, fuzzy
+msgid "Parameter 'default_username' is uninitialized."
+msgstr "Parametras 'default_username' yra neinicializuotas."
+
+#: plugins/x2go/x2go_plugin.c:1730
+#, fuzzy
+msgid "Enter X2Go credentials"
+msgstr "Įveskite \"X2Go\" kredencialus"
+
+#: plugins/x2go/x2go_plugin.c:1927
+#, fuzzy
+msgid ""
+"Couldn't parse the output of PyHoca-CLI's --list-sessions option. Creating a "
+"new session now."
+msgstr ""
+"Nepavyko išanalizuoti PyHoca-CLI parinkties --list-sessions išvesties. Dabar "
+"kuriama nauja sesija."
+
+#: plugins/x2go/x2go_plugin.c:1966
+#, fuzzy
+msgid "Couldn't allocate enough memory!"
+msgstr "Nepavyko paskirstyti pakankamai atminties!"
+
+#: plugins/x2go/x2go_plugin.c:1976
+#, fuzzy, c-format
+msgid "Found already existing X2Go session with ID: '%s'"
+msgstr "Rasta jau egzistuojanti \"X2Go\" sesija, kurios ID: \"%s"
+
+#. TRANSLATORS: Please stick to X2GoClient's translation.
+#: plugins/x2go/x2go_plugin.c:2019
+#, fuzzy
+msgid "Suspended"
+msgstr "Sustabdyta nuo"
+
+#. TRANSLATORS: Please stick to X2GoClient's translation.
+#: plugins/x2go/x2go_plugin.c:2022
+#, fuzzy
+msgid "Running"
+msgstr "Vykdoma"
+
+#. TRANSLATORS: Please stick to X2GoClient's translation.
+#: plugins/x2go/x2go_plugin.c:2025
+#, fuzzy
+#| msgid "Terminate"
+msgid "Terminated"
+msgstr "Nutraukti"
+
+#: plugins/x2go/x2go_plugin.c:2058
+#, fuzzy
+msgid ""
+"Could not find any sessions on remote machine. Creating a new session now."
+msgstr ""
+"Nuotoliniame kompiuteryje nepavyko rasti jokių sesijų. Dabar kuriama nauja "
+"sesija."
+
+#: plugins/x2go/x2go_plugin.c:2113
+#, fuzzy
+#| msgid "Choose a file to upload"
+msgid "Choose a session to resume:"
+msgstr "Pasirinkite seansą, kurį norite tęsti:"
+
+#: plugins/x2go/x2go_plugin.c:2156
+#, fuzzy
+msgid "Waiting for user to select a session…"
+msgstr "Laukiama, kol naudotojas pasirinks sesiją…"
+
+#: plugins/x2go/x2go_plugin.c:2164
+#, fuzzy
+msgid "No session was selected. Creating a new one."
+msgstr "Nebuvo pasirinkta jokia sesija. Kuriama nauja."
+
+#: plugins/x2go/x2go_plugin.c:2212
+#, fuzzy, c-format
+msgid "A non-critical error happened: %s"
+msgstr "Įvyko nekritinė klaida: %s"
+
+#: plugins/x2go/x2go_plugin.c:2217
+#, fuzzy, c-format
+msgid "User chose to resume session with ID: '%s'"
+msgstr "Vartotojas pasirinko atnaujinti seansą su ID: \"%s"
+
+#. TRANSLATORS: Please stick to X2GoClient's way of translating.
+#: plugins/x2go/x2go_plugin.c:2238
+#, fuzzy, c-format
+msgid "Resuming session '%s'…"
+msgstr "Sesijos \"%s\" atnaujinimas…"
+
+#: plugins/x2go/x2go_plugin.c:2369
+#, fuzzy
+msgid "DPI setting is out of bounds. Please adjust it in profile settings."
+msgstr "DPI nustatymas yra už ribų. Pakoreguokite jį profilio nustatymuose."
+
+#: plugins/x2go/x2go_plugin.c:2411
+#, fuzzy
+msgid "An error occured while starting an X2Go session…"
+msgstr "Paleidžiant \"X2Go\" sesiją įvyko klaida…"
+
+#: plugins/x2go/x2go_plugin.c:2419
+#, fuzzy
+#| msgid "Could not start SSH session. %s"
+msgid "Could not start X2Go session."
+msgstr "Nepavyko paleisti \"X2Go\" sesijos."
+
+#: plugins/x2go/x2go_plugin.c:2420
+#, fuzzy, c-format
+#| msgid "Could not start SSH session. %s"
+msgid "Could not start PyHoca-CLI (%i): '%s'"
+msgstr "Nepavyko paleisti PyHoca-CLI (%i): '%s'"
+
+#: plugins/x2go/x2go_plugin.c:2535
+#, fuzzy
+msgid ""
+"Couldn't get PyHoca-CLI's command-line features. This indicates it is either "
+"too old, or not installed. An old limited set of features will be used for "
+"now."
+msgstr ""
+"Nepavyko įdiegti PyHoca-CLI komandinės eilutės funkcijų. Tai rodo, kad ji "
+"yra per sena arba neįdiegta. Kol kas bus naudojamas senas ribotas funkcijų "
+"rinkinys."
+
+#: plugins/x2go/x2go_plugin.c:2544
+#, fuzzy
+msgid ""
+"Could not parse PyHoca-CLI's command-line features. Using a limited feature-"
+"set for now."
+msgstr ""
+"Nepavyko išanalizuoti PyHoca-CLI komandinės eilutės funkcijų. Kol kas "
+"naudojamas ribotas funkcijų rinkinys."
+
+#: plugins/x2go/x2go_plugin.c:2550
+#, fuzzy
+msgid "Retrieved the following PyHoca-CLI command-line features:"
+msgstr "Grąžintos šios PyHoca-CLI komandinės eilutės funkcijos:"
+
+#: plugins/x2go/x2go_plugin.c:2558
+#, fuzzy, c-format
+msgid "Available feature[%i]: '%s'"
+msgstr "Turima funkcija[%i]: \"%s"
+
+#: plugins/x2go/x2go_plugin.c:2583
+#, fuzzy, c-format
+msgid "Connected to %s:%d via X2Go"
+msgstr "Jungiamasi prie „%s“ per SSH…"
+
+#: plugins/x2go/x2go_plugin.c:2677
+#, fuzzy
+#| msgid "Could not open channel. %s"
+msgid "Could not open X11 DISPLAY."
+msgstr "Nepavyko atidaryti X11 DISPLAY."
+
+#: plugins/x2go/x2go_plugin.c:2717
+#, fuzzy
+msgid "Waiting for window of X2Go Agent to appear…"
+msgstr "Laukiama, kol pasirodys \"X2Go Agent\" langas…"
+
+#: plugins/x2go/x2go_plugin.c:2743
+#, fuzzy
+msgid "Waiting for PyHoca-CLI to show the session's window…"
+msgstr "Laukiama, kol PyHoca-CLI parodys sesijos langą…"
+
+#: plugins/x2go/x2go_plugin.c:2794
+#, fuzzy
+msgid "No X2Go session window appeared. Something went wrong…"
+msgstr "X2Go sesijos langas nepasirodė. Kažkas nutiko ne taip…"
+
+#: plugins/x2go/x2go_plugin.c:2905
+#, fuzzy
+msgid "RemminaProtocolWidget* gp is 'NULL'!"
+msgstr "RemminaProtocolWidget* gp yra 'NULL'!"
+
+#: plugins/x2go/x2go_plugin.c:2926
+#, fuzzy, c-format
+msgid "The %s protocol is unavailable because GtkSocket only works under X.org"
+msgstr "%s protokolas nepasiekiamas, nes \"GtkSocket\" veikia tik su X.org"
+
+#: plugins/x2go/x2go_plugin.c:2935
+#, fuzzy
+msgid "Could not initialize pthread. Falling back to non-threaded mode…"
+msgstr "Nepavyko inicializuoti pthread. Grįžtama į ne gijų režimą…"
+
+#. TRANSLATORS: Presumably you just want to translate 'and' into
+#. your language.
+#. (Except your listing-grammar differs from english.)
+#. 'value1', 'value2', 'valueN-1' and 'valueN'
+#. TRANSLATORS: Presumably you just want to translate 'and' into
+#. your language.
+#. (Except your listing-grammar differs from english.)
+#. 'value1' and 'value2'
+#: plugins/x2go/x2go_plugin.c:2978 plugins/x2go/x2go_plugin.c:2996
+#, fuzzy, c-format
+msgid "%sand '%s'"
+msgstr "%s ir \"%s"
+
+#. TRANSLATORS: Presumably you just want to leave it english.
+#. (Except your listing-grammar differs from english.)
+#. 'value1', 'value2', 'valueN-1' and 'valueN'
+#. TRANSLATORS: Presumably you just want to leave it english.
+#. (Except your listing-grammar differs from english.)
+#. 'value1' and 'value2'
+#: plugins/x2go/x2go_plugin.c:2983 plugins/x2go/x2go_plugin.c:3001
+#, fuzzy, c-format
+msgid "%s'%s' "
+msgstr "%s'%s' "
+
+#. TRANSLATORS: Presumably you just want to leave it english.
+#. (Except your listing-grammar differs from english.)
+#. 'value1', 'value2', 'valueN-1' and 'valueN'
+#: plugins/x2go/x2go_plugin.c:2988
+#, fuzzy, c-format
+msgid "%s'%s', "
+msgstr "%s'%s', "
+
+#: plugins/x2go/x2go_plugin.c:3027
+#, fuzzy
+msgid "Invalid validation data in ProtocolSettings array!"
+msgstr "Neteisingi patvirtinimo duomenys \"ProtocolSettings\" masyve!"
+
+#: plugins/x2go/x2go_plugin.c:3042 plugins/x2go/x2go_plugin.c:3107
+#, fuzzy
+msgid "Validation data in ProtocolSettings array is invalid!"
+msgstr "Patvirtinimo duomenys \"ProtocolSettings\" masyve negalioja!"
+
+#: plugins/x2go/x2go_plugin.c:3051
+#, fuzzy
+msgid "Parameters 'key' or 'value' are 'NULL'!"
+msgstr "Parametrai 'key' arba 'value' yra 'NULL'!"
+
+#: plugins/x2go/x2go_plugin.c:3069
+#, fuzzy, c-format
+msgid "Allowed values are %s."
+msgstr "Leistinos reikšmės yra %s."
+
+#: plugins/x2go/x2go_plugin.c:3071
+#, fuzzy, c-format
+msgid "The only allowed value is '%s'."
+msgstr "Vienintelė leidžiama reikšmė yra \"%s\"."
+
+#: plugins/x2go/x2go_plugin.c:3118
+#, fuzzy
+msgid "The lower limit is not a valid integer!"
+msgstr "Apatinė riba nėra galiojantis sveikasis skaičius!"
+
+#: plugins/x2go/x2go_plugin.c:3123
+#, fuzzy
+msgid "The lower limit is too high!"
+msgstr "Apatinė riba yra per aukšta!"
+
+#: plugins/x2go/x2go_plugin.c:3128
+#, fuzzy
+msgid "The lower limit is too low!"
+msgstr "Apatinė riba yra per maža!"
+
+#: plugins/x2go/x2go_plugin.c:3133 plugins/x2go/x2go_plugin.c:3163
+#: plugins/x2go/x2go_plugin.c:3183
+#, fuzzy
+msgid "Something unknown went wrong."
+msgstr "Kažkas nežinomo nutiko ne taip."
+
+#: plugins/x2go/x2go_plugin.c:3138 plugins/x2go/x2go_plugin.c:3168
+#: plugins/x2go/x2go_plugin.c:3187
+#, fuzzy
+msgid "Please check the RemminaProtocolSetting array for possible errors."
+msgstr "Patikrinkite, ar \"RemminaProtocolSetting\" masyve nėra galimų klaidų."
+
+#: plugins/x2go/x2go_plugin.c:3148
+#, fuzzy
+msgid "The upper limit is not a valid integer!"
+msgstr "Viršutinė riba nėra galiojantis sveikasis skaičius!"
+
+#: plugins/x2go/x2go_plugin.c:3153
+#, fuzzy
+msgid "The upper limit is too high!"
+msgstr "Viršutinė riba yra per aukšta!"
+
+#: plugins/x2go/x2go_plugin.c:3158
+#, fuzzy
+msgid "The upper limit is too low!"
+msgstr "Viršutinė riba yra per maža!"
+
+#: plugins/x2go/x2go_plugin.c:3178
+#, fuzzy
+msgid "The input is not a valid integer!"
+msgstr "Įvestis nėra galiojantis sveikasis skaičius!"
+
+#: plugins/x2go/x2go_plugin.c:3180 plugins/x2go/x2go_plugin.c:3199
+#, fuzzy, c-format
+msgid "Input must be a number between %i and %i."
+msgstr "Turi būti įvestas skaičius nuo %i iki %i."
+
+#: plugins/x2go/x2go_plugin.c:3228
+#, fuzzy
+#| msgid "Start-up program"
+msgid "Startup program"
+msgstr "Paleidimo programa"
+
+#: plugins/x2go/x2go_plugin.c:3230
+#, fuzzy
+msgid "Which command should be executed after creating the X2Go session?"
+msgstr "Kurią komandą reikia atlikti sukūrus X2Go sesiją?"
+
+#: plugins/x2go/x2go_plugin.c:3232
+#, fuzzy
+#| msgid "Keyboard layout"
+msgid "Keyboard Layout (auto)"
+msgstr "Klaviatūros išdėstymas (automatinis)"
+
+#: plugins/x2go/x2go_plugin.c:3233
+#, fuzzy
+#| msgid "Keyboard layout"
+msgid "Keyboard type (auto)"
+msgstr "Klaviatūros tipas (automatinis)"
+
+#: plugins/x2go/x2go_plugin.c:3234
+#, fuzzy
+msgid "Audio support"
+msgstr "Garso palaikymas"
+
+#: plugins/x2go/x2go_plugin.c:3236
+#, fuzzy
+msgid "The sound system of the X2Go server (default: 'pulse')."
+msgstr "X2Go serverio garso sistema (numatytoji reikšmė: 'pulse')."
+
+#: plugins/x2go/x2go_plugin.c:3239
+#, fuzzy
+#| msgid "Per connection"
+msgid "Clipboard direction"
+msgstr "Prisegtuko kryptis"
+
+#: plugins/x2go/x2go_plugin.c:3241
+#, fuzzy
+msgid "Which direction should clipboard content be copied? (default: 'both')."
+msgstr ""
+"Kuria kryptimi turėtų būti kopijuojamas iškarpinės turinys? (numatytoji "
+"reikšmė: \"abi\")."
+
+#: plugins/x2go/x2go_plugin.c:3245
+#, fuzzy
+#| msgid "Resolution"
+msgid "DPI resolution"
+msgstr "DPI skiriamoji geba"
+
+#: plugins/x2go/x2go_plugin.c:3246
+#, fuzzy
+msgid ""
+"Launch session with a specific resolution (in dots per inch). Must be "
+"between 20 and 400."
+msgstr ""
+"Paleiskite seansą su tam tikra skiriamąja geba (taškais colyje). Turi būti "
+"nuo 20 iki 400."
+
+#: plugins/x2go/x2go_plugin.c:3290
+#, fuzzy
+msgid "X2Go plugin loaded."
+msgstr "Įkeltas \"X2Go\" įskiepis."
+
+#: plugins/x2go/x2go_plugin.h:43
+#, fuzzy
+msgid "X2Go - Launch an X2Go session"
+msgstr "X2Go - paleiskite X2Go sesiją"
 
 #: plugins/gvnc/gvnc_plugin_config.h:40
 #, fuzzy
 msgid "Remmina VNC plugin for GNOME and KVM"
 msgstr "\"Remmina\" VNC įskiepis GNOME ir KVM"
 
-#: plugins/gvnc/gvnc_plugin.c:477
+#: plugins/gvnc/gvnc_plugin.c:476
 #, fuzzy, c-format
 #| msgid "Authentication type"
 msgid "Unsupported authentication type %u"
 msgstr "Nepalaikomas autentifikavimo tipas %u"
 
-#: plugins/gvnc/gvnc_plugin.c:489
+#: plugins/gvnc/gvnc_plugin.c:488
 #, fuzzy, c-format
 #| msgid "Authentication type"
 msgid "Authentication failure: %s"
 msgstr "Autentifikavimo klaida: %s"
 
-#: plugins/gvnc/gvnc_plugin.c:820
+#: plugins/gvnc/gvnc_plugin.c:819
 #, fuzzy
 #| msgid "Disable server input"
 msgid "Use server settings"
 msgstr "Naudoti serverio nustatymus"
 
-#: plugins/gvnc/gvnc_plugin.c:821
+#: plugins/gvnc/gvnc_plugin.c:820
 #, fuzzy
 #| msgid "True colour (24 bit)"
 msgid "True colour (24 bits)"
 msgstr "Tikros spalvos (24 bitai)"
 
-#: plugins/gvnc/gvnc_plugin.c:822
+#: plugins/gvnc/gvnc_plugin.c:821
 #, fuzzy
 #| msgid "High colour (16 bit)"
 msgid "High colour (16 bits)"
 msgstr "Aukštos spalvos (16 bitų)"
 
-#: plugins/gvnc/gvnc_plugin.c:823
+#: plugins/gvnc/gvnc_plugin.c:822
 #, fuzzy
 #| msgid "High colour (16 bit)"
 msgid "Low colour (8 bits)"
 msgstr "Mažai spalvų (8 bitai)"
 
-#: plugins/gvnc/gvnc_plugin.c:824
+#: plugins/gvnc/gvnc_plugin.c:823
 #, fuzzy
 #| msgid "True colour (24 bit)"
 msgid "Ultra low colour (3 bits)"
 msgstr "Itin mažo spalvingumo (3 bitai)"
 
-#: plugins/gvnc/gvnc_plugin.c:839
+#: plugins/gvnc/gvnc_plugin.c:847
 #, fuzzy
 #| msgid "Enter VNC password"
 msgid "VNC password"
 msgstr "VNC slaptažodis"
 
-#: plugins/gvnc/gvnc_plugin.c:841
+#: plugins/gvnc/gvnc_plugin.c:849
 #, fuzzy
 msgid "Use JPEG Compression"
 msgstr "Naudokite JPEG suspaudimą"
 
-#: plugins/gvnc/gvnc_plugin.c:841
+#: plugins/gvnc/gvnc_plugin.c:849
 #, fuzzy
 #| msgid "Browse the network to find a %s server"
 msgid "This might not work on all VNC servers"
 msgstr "Tai gali neveikti visuose VNC serveriuose"
 
-#: plugins/gvnc/gvnc_plugin.c:842
+#: plugins/gvnc/gvnc_plugin.c:850
 #, fuzzy
 msgid "Enable GTK-VNC debug"
 msgstr "Įjungti GTK-VNC derinimą"
 
-#: plugins/gvnc/gvnc_plugin.c:862
+#: plugins/gvnc/gvnc_plugin.c:870
 #, fuzzy
 #| msgid "Per connection"
 msgid "Shared connection"
 msgstr "Bendras ryšys"
 
-#: plugins/gvnc/gvnc_plugin.c:862
+#: plugins/gvnc/gvnc_plugin.c:870
 #, fuzzy
 msgid ""
 "If the server should try to share the desktop by leaving other clients "
@@ -3122,87 +4345,87 @@ msgstr ""
 "Jei serveris bandytų bendrinti darbalaukį palikdamas kitus klientus "
 "prijungtus"
 
-#: plugins/gvnc/gvnc_plugin.c:872
+#: plugins/gvnc/gvnc_plugin.c:880
 #, fuzzy
 msgid "Send Ctrl+Alt+_Del"
 msgstr "Siųsti Ctrl+Alt+_Del"
 
-#: plugins/gvnc/gvnc_plugin.c:873
+#: plugins/gvnc/gvnc_plugin.c:881
 #, fuzzy
 msgid "Send Ctrl+Alt+_Backspace"
 msgstr "Siųsti Ctrl+Alt+_Backspace"
 
-#: plugins/gvnc/gvnc_plugin.c:874
+#: plugins/gvnc/gvnc_plugin.c:882
 #, fuzzy
 msgid "Send Ctrl+Alt+_F1"
 msgstr "Siųsti Ctrl+Alt+_F1"
 
-#: plugins/gvnc/gvnc_plugin.c:875
+#: plugins/gvnc/gvnc_plugin.c:883
 #, fuzzy
 msgid "Send Ctrl+Alt+_F2"
 msgstr "Siųsti Ctrl+Alt+_F2"
 
-#: plugins/gvnc/gvnc_plugin.c:876
+#: plugins/gvnc/gvnc_plugin.c:884
 #, fuzzy
 msgid "Send Ctrl+Alt+_F3"
 msgstr "Siųsti Ctrl+Alt+_F3"
 
-#: plugins/gvnc/gvnc_plugin.c:877
+#: plugins/gvnc/gvnc_plugin.c:885
 #, fuzzy
 msgid "Send Ctrl+Alt+_F4"
 msgstr "Siųsti Ctrl+Alt+_F4"
 
-#: plugins/gvnc/gvnc_plugin.c:878
+#: plugins/gvnc/gvnc_plugin.c:886
 #, fuzzy
 msgid "Send Ctrl+Alt+_F5"
 msgstr "Siųsti Ctrl+Alt+_F5"
 
-#: plugins/gvnc/gvnc_plugin.c:879
+#: plugins/gvnc/gvnc_plugin.c:887
 #, fuzzy
 msgid "Send Ctrl+Alt+_F6"
 msgstr "Siųsti Ctrl+Alt+_F6"
 
-#: plugins/gvnc/gvnc_plugin.c:880
+#: plugins/gvnc/gvnc_plugin.c:888
 #, fuzzy
 msgid "Send Ctrl+Alt+_F7"
 msgstr "Siųsti Ctrl+Alt+_F7"
 
-#: plugins/gvnc/gvnc_plugin.c:881
+#: plugins/gvnc/gvnc_plugin.c:889
 #, fuzzy
 msgid "Send Ctrl+Alt+_F8"
 msgstr "Siųsti Ctrl+Alt+_F8"
 
-#: plugins/gvnc/gvnc_plugin.c:882
+#: plugins/gvnc/gvnc_plugin.c:890
 #, fuzzy
 msgid "Send Ctrl+Alt+_F9"
 msgstr "Siųsti Ctrl+Alt+_F9"
 
-#: plugins/gvnc/gvnc_plugin.c:883
+#: plugins/gvnc/gvnc_plugin.c:891
 #, fuzzy
 msgid "Send Ctrl+Alt+_F10"
 msgstr "Siųsti Ctrl+Alt+_F10"
 
-#: plugins/gvnc/gvnc_plugin.c:884
+#: plugins/gvnc/gvnc_plugin.c:892
 #, fuzzy
 msgid "Send Ctrl+Alt+_F11"
 msgstr "Siųsti Ctrl+Alt+_F11"
 
-#: plugins/gvnc/gvnc_plugin.c:885
+#: plugins/gvnc/gvnc_plugin.c:893
 #, fuzzy
 msgid "Send Ctrl+Alt+_F12"
 msgstr "Siųsti Ctrl+Alt+_F12"
 
-#: plugins/gvnc/gvnc_plugin.c:887
+#: plugins/gvnc/gvnc_plugin.c:895
 #, fuzzy
 msgid "Reboot remote host"
 msgstr "Nuotolinio kompiuterio perkrovimas"
 
-#: plugins/gvnc/gvnc_plugin.c:888
+#: plugins/gvnc/gvnc_plugin.c:896
 #, fuzzy
 msgid "Reset remote host (hard reboot)"
 msgstr "Nuotolinio kompiuterio iš naujo nustatymas (kietasis perkrovimas)"
 
-#: plugins/gvnc/gvnc_plugin.c:889
+#: plugins/gvnc/gvnc_plugin.c:897
 #, fuzzy
 #| msgid "Show remote cursor"
 msgid "Shutdown remote host"
@@ -3218,14 +4441,16 @@ msgstr ""
 "Ar priimsite kvietimą?"
 
 #: plugins/telepathy/telepathy_channel_handler.c:240
+#, fuzzy
 msgid "Desktop sharing invitation"
 msgstr "Darbastalio dalijimosi kvietimas"
 
 #: plugins/telepathy/telepathy_plugin.c:57
+#, fuzzy
 msgid "Telepathy - Desktop Sharing"
 msgstr "Telepathy - dalintis darbastaliu"
 
-#: data/ui/remmina_snap_info_dialog.glade:71
+#: data/ui/remmina_snap_info_dialog.glade:67
 #, fuzzy
 msgid ""
 "<big><b>Remmina Snap package</b></big>\n"
@@ -3242,7 +4467,7 @@ msgstr ""
 "Kad kai kurios \"Remmina\" funkcijos veiktų tinkamai, jas reikia nustatyti.\n"
 "</span>\n"
 
-#: data/ui/remmina_snap_info_dialog.glade:120
+#: data/ui/remmina_snap_info_dialog.glade:112
 #, fuzzy
 msgid ""
 "To enable access to some important features, like password saving in your "
@@ -3255,11 +4480,12 @@ msgstr ""
 "atidarykite programinės įrangos centrą ir suteikite \"Remmina\" atitinkamas "
 "teises. Kaip alternatyvą galite terminalo lange įvesti šias komandas:"
 
-#: data/ui/remmina_snap_info_dialog.glade:167
+#: data/ui/remmina_snap_info_dialog.glade:157
+#, fuzzy
 msgid "<big>Permissions</big>"
 msgstr "<big>Leidimas</big>"
 
-#: data/ui/remmina_snap_info_dialog.glade:202
+#: data/ui/remmina_snap_info_dialog.glade:193
 #, fuzzy
 msgid ""
 "Since Snap packages run confined from the rest of the system, Remmina "
@@ -3270,17 +4496,17 @@ msgstr ""
 "profiliai pagal numatytuosius nustatymus išsaugomi \"Snap\" failų sistemoje. "
 "Vietą galite pakeisti \"Remmina\" nustatymuose."
 
-#: data/ui/remmina_snap_info_dialog.glade:222
+#: data/ui/remmina_snap_info_dialog.glade:213
 #, fuzzy
 msgid "Change where Remmina profiles are stored"
 msgstr "Pakeiskite, kur saugomi \"Remmina\" profiliai"
 
-#: data/ui/remmina_snap_info_dialog.glade:261
+#: data/ui/remmina_snap_info_dialog.glade:252
 #, fuzzy
 msgid "<big>Snap settings</big>"
 msgstr "<big> </big>"
 
-#: data/ui/remmina_snap_info_dialog.glade:274
+#: data/ui/remmina_snap_info_dialog.glade:265
 #, fuzzy
 msgid "Do not show this message again"
 msgstr "Šio pranešimo daugiau nerodyti."
@@ -3333,22 +4559,18 @@ msgstr "Apie"
 #: data/ui/remmina_about.glade:34
 #, fuzzy
 msgid ""
-"\n"
-"Copyright © 2014–2021 Antenore Gatta, Giovanni Panozzo.\n"
+"Copyright © 2014–2022 Antenore Gatta, Giovanni Panozzo.\n"
 "Copyright © 2009–2014 Vic Lee\n"
-"More details in COPYING\n"
-"    "
+"More details in COPYING"
 msgstr ""
-"\n"
 "Autorinės teisės © 2014-2021 Antenore Gatta, Giovanni Panozzo.\n"
 "Autorinės teisės © 2009-2014 Vic Lee\n"
-"Daugiau informacijos rasite skiltyje KOPIJAVIMAS\n"
-"    "
+"Daugiau informacijos rasite skiltyje KOPIJAVIMAS"
 
-#: data/ui/remmina_about.glade:40
+#: data/ui/remmina_about.glade:38
 #, fuzzy
-msgid "Website"
-msgstr "Tinklalapis"
+msgid "https://www.remmina.org/"
+msgstr "https://www.remmina.org/"
 
 #: data/ui/remmina_string_list.glade:14 data/ui/remmina_string_list.glade:158
 #, fuzzy
@@ -3390,7 +4612,7 @@ msgstr "Atrankos kriterijai"
 #: data/ui/remmina_mpc.glade:261
 #, fuzzy
 msgid "Confirm password"
-msgstr "Patvirtinti slaptažodį"
+msgstr "Patvirtinkite slaptažodį"
 
 #: data/ui/remmina_mpc.glade:294
 msgid "Set new password"
@@ -3404,11 +4626,13 @@ msgid "Select"
 msgstr "Pasirinkti"
 
 #: data/ui/remmina_mpc.glade:343
+#, fuzzy
 msgctxt "Multi password changer table"
 msgid "Name"
 msgstr "Pavadinimas"
 
 #: data/ui/remmina_mpc.glade:354
+#, fuzzy
 msgctxt "Multi password changer table"
 msgid "Group"
 msgstr "Grupė"
@@ -3418,6 +4642,22 @@ msgstr "Grupė"
 msgctxt "Multi password changer table"
 msgid "Domain\\Username"
 msgstr "Domeno vardas\\Vartotojo vardas"
+
+#: data/ui/remmina_passwd.glade:33
+#, fuzzy
+msgid "OK"
+msgstr "_OK"
+
+#: data/ui/remmina_passwd.glade:60
+#, fuzzy
+#| msgid "Set new password"
+msgid "Set Primary Password"
+msgstr "Išsaugoti slaptažodį"
+
+#: data/ui/remmina_passwd.glade:101
+#, fuzzy
+msgid "Verify password"
+msgstr "Vartotojo slaptažodis"
 
 #: data/ui/remmina_news.glade:75
 #, fuzzy
@@ -3438,7 +4678,7 @@ msgid ""
 "release notes\"><i>Visit the website to read the release notes</i></a>.\n"
 "</span>"
 msgstr ""
-"<big><b>Naujienos yra išjungtos</b></big>\n"
+"<big><b>Naujienos išjungtos</b></big>\n"
 "\n"
 "<span>\n"
 "Naujienų įjungimas reiškia, kad programa jungiasi prie \"Remmina\" serverio, "
@@ -3446,48 +4686,31 @@ msgstr ""
 "</span>\n"
 "\n"
 "<span>\n"
-"Versijų tikrinimą galima įjungti tik kompiliavimo metu.\n"
+"Versijos tikrinimą galima įjungti tik kompiliavimo metu.\n"
 "</span>\n"
 "\n"
 "<span>\n"
 "<a href=\"https://gitlab.com/Remmina/Remmina/-/tags/\" title=\"Remmina "
-"release notes\"> <i>Apsilankykite svetainėje ir perskaitykite išleidimo "
-"pastabas </i> </a>.\n"
+"release notes\"><i>Apsilankykite svetainėje ir perskaitykite išleidimo "
+"pastabas </i></a>.\n"
 "</span>"
 
-#. The star (*) is a reference to privacy consent
-#: data/ui/remmina_news.glade:130 data/ui/remmina_preferences.glade:464
-#, fuzzy
-msgid ""
-"Send <b><a href=\"https://remmina.gitlab.io/remminadoc.gitlab.io/"
-"remmina__stats_8c.html#details\" title=\"Remmina usage statistics"
-"\">anonymous</a></b> statistics. (*)"
-msgstr ""
-"Siųsti <b><a href=\"https://remmina.gitlab.io/remminadoc.gitlab.io/"
-"remmina__stats_8c.html#details\" title=\"Remmina usage statistics"
-"\">anoniminę</a></b> statistiką. (*)"
-
-#: data/ui/remmina_news.glade:142 data/ui/remmina_news.glade:195
-#, fuzzy
-msgid "Send anonymous statistics"
-msgstr "Siųsti anoniminę statistiką"
-
-#: data/ui/remmina_news.glade:156
+#: data/ui/remmina_news.glade:130
 msgid "Use as default remote desktop client"
 msgstr "Nutolusių kompiuterių valdymas - Remmina"
 
-#: data/ui/remmina_news.glade:165
+#: data/ui/remmina_news.glade:139
 #, fuzzy
 msgid "Apply"
 msgstr "Taikyti"
 
-#: data/ui/remmina_news.glade:169
+#: data/ui/remmina_news.glade:143
 #, fuzzy
 msgid "Allow Remmina to automatically open .rdp and .remmina files."
 msgstr "Leiskite \"Remmina\" automatiškai atidaryti .rdp ir .remmina failus."
 
 #. The star (*) is a reference to privacy consent
-#: data/ui/remmina_news.glade:183 data/ui/remmina_preferences.glade:479
+#: data/ui/remmina_news.glade:157 data/ui/remmina_preferences.glade:448
 #, fuzzy
 msgid ""
 "Fetch news from <a href=\"https://remmina.org\" title=\"Remmina news site"
@@ -3496,22 +4719,24 @@ msgstr ""
 "Parsisiųsti naujienas iš <a href=\"https://remmina.org\" title=\"Remmina "
 "news site\">remmina.org</a> (*)"
 
-#: data/ui/remmina_news.glade:208 data/ui/remmina_preferences.glade:446
+#: data/ui/remmina_news.glade:169
+msgid "Receives updated news from remmina.org"
+msgstr ""
+
+#: data/ui/remmina_news.glade:182
 #, fuzzy
-msgid ""
-"* By enabling statistics and/or news you consent to send and fetch data to/"
-"from remmina.org"
+msgid "* By turning on news you consent to fetching data from remmina.org"
 msgstr ""
 "* Įjungdami statistiką ir (arba) naujienas sutinkate siųsti ir gauti "
 "duomenis į/iš remmina.org"
 
-#: data/ui/remmina_news.glade:231
+#: data/ui/remmina_news.glade:205
 #, fuzzy
 msgid "<big>Take part</big>"
 msgstr "<big>Dalyvaukite</big>"
 
 #. Pay attention to the quoting characters as they may break the pango layout. If in doubt and cannot test, copy and paste the symbols from the English string.
-#: data/ui/remmina_news.glade:257
+#: data/ui/remmina_news.glade:231
 #, fuzzy
 msgid ""
 "<span>\n"
@@ -3522,16 +4747,16 @@ msgid ""
 "</span>\n"
 msgstr ""
 "<span>\n"
-"<b>Esame dėkingi, kad renkatės laisvai platinamą programinę įrangą, <a href="
-"\"https://remmina.org/donations/\" title=\"Where’s the money, Lebowski? "
-"“blblblblblb”\">aukos taip pat mus džiugina </a> ir padeda tobulinti Remminą "
-"</b>.\n"
+"<b>Esame dėkingi, kad pasirinkote \"copyleft\" saugomą \"libre\" programinę "
+"įrangą, <a href=\"https://remmina.org/donations/\" title=\"Where’s the "
+"money, Lebowski? “blblblblblb”\">aukos taip pat mus džiugina </a> ir padeda "
+"toliau tobulinti \"Remmina\" </b>.\n"
 "</span>\n"
 
-#: data/ui/remmina_news.glade:277
+#: data/ui/remmina_news.glade:251
 #, fuzzy
 msgid "<big>Contribute</big>"
-msgstr "<big>Prisidėti</big>"
+msgstr "<big>Contribute</big>"
 
 #: data/ui/remmina_key_chooser.glade:23
 #, fuzzy
@@ -3576,7 +4801,7 @@ msgid "Server name or IP address"
 msgstr "Serverio pavadinimas arba IP adresas"
 
 #: data/ui/remmina_main.glade:102 data/ui/remmina_main.glade:104
-#: data/ui/remmina_preferences.glade:504
+#: data/ui/remmina_preferences.glade:473
 #, fuzzy
 msgid "Clear"
 msgstr "Išvalyti"
@@ -3584,7 +4809,7 @@ msgstr "Išvalyti"
 #: data/ui/remmina_main.glade:187
 #, fuzzy
 msgid "Edit"
-msgstr "Taisyti"
+msgstr "Taisa"
 
 #: data/ui/remmina_main.glade:217
 #, fuzzy
@@ -3628,7 +4853,7 @@ msgstr "Pagrindinis puslapis"
 #: data/ui/remmina_main.glade:358
 #, fuzzy
 msgid "Donations"
-msgstr "Paremti"
+msgstr "Dovanos"
 
 #: data/ui/remmina_main.glade:368
 #, fuzzy
@@ -3793,13 +5018,12 @@ msgstr ""
 msgid "Remember last view for each connection"
 msgstr "Prisiminti paskutinį kiekvieno ryšio rodinį"
 
-#. The star (*) is a reference to privacy consent
 #: data/ui/remmina_preferences.glade:319
 #, fuzzy
 msgid "Remember last view mode"
 msgstr "Prisiminti paskutinį peržiūros režimą"
 
-#: data/ui/remmina_preferences.glade:359
+#: data/ui/remmina_preferences.glade:345
 #, fuzzy
 msgid ""
 "Set a custom filename for your Remmina connection profiles, using a "
@@ -3808,18 +5032,19 @@ msgstr ""
 "Nustatykite pasirinktinį \"Remmina\" prisijungimo profilių failo pavadinimą, "
 "naudodami formatavimo eilutę."
 
-#: data/ui/remmina_preferences.glade:363
+#: data/ui/remmina_preferences.glade:349
 #, fuzzy
 msgid "Template for profile filenames"
 msgstr "Profilio failų pavadinimų šablonas"
 
-#: data/ui/remmina_preferences.glade:375
+#. Placeholders used to name a Remmina connection profile
+#: data/ui/remmina_preferences.glade:361
 #, fuzzy
 msgid ""
-"%G Group name (slash will be converted to - automatically)\n"
+"%G Name of group (slashes \\/ are converted to dashes -)\n"
 "%P Protocol name\n"
 "%N Connection name\n"
-"%h Hostname/IP\n"
+"%h Host name/IP\n"
 "\n"
 "\n"
 msgstr ""
@@ -3830,16 +5055,27 @@ msgstr ""
 "\n"
 "\n"
 
-#: data/ui/remmina_preferences.glade:397
+#: data/ui/remmina_preferences.glade:383
 #, fuzzy
 msgid "Only save generated screenshots, don't copy them to clipboard."
 msgstr ""
 "Išsaugokite tik sugeneruotas ekrano nuotraukas, nekopijuokite jų į iškarpinę."
 
-#: data/ui/remmina_preferences.glade:402
+#: data/ui/remmina_preferences.glade:387
 #, fuzzy
 msgid "Prevent screenshots from entering clipboard"
 msgstr "Neleisti ekrano nuotraukoms patekti į iškarpinę"
+
+#: data/ui/remmina_preferences.glade:430
+#, fuzzy
+msgid "* By enabling news you consent to fetch data from remmina.org"
+msgstr ""
+"* Įjungdami statistiką ir (arba) naujienas sutinkate siųsti ir gauti "
+"duomenis į/iš remmina.org"
+
+#: data/ui/remmina_preferences.glade:495
+msgid "Confirm before closing multiple tabs"
+msgstr ""
 
 #: data/ui/remmina_preferences.glade:529
 #, fuzzy
@@ -3863,7 +5099,7 @@ msgstr "Numatytasis"
 #: data/ui/remmina_preferences.glade:605
 #, fuzzy
 msgid "Automatic"
-msgstr "Automatiškai"
+msgstr "Automatinis"
 
 #: data/ui/remmina_preferences.glade:606
 #, fuzzy
@@ -3882,49 +5118,49 @@ msgctxt "Appearance preferences"
 msgid "Tabs grouping"
 msgstr "Skirtukų grupavimas"
 
-#: data/ui/remmina_preferences.glade:638
+#: data/ui/remmina_preferences.glade:636
 msgid "By group"
 msgstr "Grupė"
 
-#: data/ui/remmina_preferences.glade:639
+#: data/ui/remmina_preferences.glade:637
 msgid "By protocol"
 msgstr "Protokolas"
 
-#: data/ui/remmina_preferences.glade:640
+#: data/ui/remmina_preferences.glade:638
 msgid "Per connection"
 msgstr "Naujas ryšys"
 
-#: data/ui/remmina_preferences.glade:652
+#: data/ui/remmina_preferences.glade:650
 #, fuzzy
 msgid "Fullscreen on the same screen as the connection window"
 msgstr "Per visą ekraną tame pačiame ekrane kaip ir ryšio langas"
 
-#: data/ui/remmina_preferences.glade:675
+#: data/ui/remmina_preferences.glade:673
 #, fuzzy
 msgid "Peeking"
 msgstr "Žvilgsnis"
 
-#: data/ui/remmina_preferences.glade:676
+#: data/ui/remmina_preferences.glade:674
 #, fuzzy
 msgid "Hidden"
 msgstr "Paslėptas"
 
-#: data/ui/remmina_preferences.glade:693
+#: data/ui/remmina_preferences.glade:691
 #, fuzzy
 msgid "Fullscreen toolbar visibility"
 msgstr "Viso ekrano įrankių juostos matomumas"
 
-#: data/ui/remmina_preferences.glade:703
+#: data/ui/remmina_preferences.glade:701
 #, fuzzy
 msgid "Hide the search bar shown in the main window"
 msgstr "Pagrindiniame lange rodomos paieškos juostos paslėpimas"
 
-#: data/ui/remmina_preferences.glade:719
+#: data/ui/remmina_preferences.glade:717
 #, fuzzy
 msgid "Prefer dark theme"
-msgstr "Teikti pirmenybę tamsiai temai"
+msgstr "Pirmenybė teikiama tamsiai temai"
 
-#: data/ui/remmina_preferences.glade:723
+#: data/ui/remmina_preferences.glade:721
 #, fuzzy
 msgid ""
 "If a GTK theme includes a dark variant, it will be used instead of the "
@@ -3933,21 +5169,13 @@ msgstr ""
 "Jei GTK temoje yra tamsus variantas, jis bus naudojamas vietoj "
 "sukonfigūruotos temos."
 
-#: data/ui/remmina_preferences.glade:743
+#: data/ui/remmina_preferences.glade:741
 #, fuzzy
 #| msgid "Grab all keyboard events"
 msgid "“Grab all keyboard events” status colour"
 msgstr "\"Suimti visus klaviatūros įvykius\" būsenos spalva"
 
-#: data/ui/remmina_preferences.glade:754
-#, fuzzy
-#| msgid "Grab all keyboard events"
-msgid "Enable/Disable “Grab all keyboard events” status colour"
-msgstr ""
-"Įjungti / išjungti būsenos spalvą \"Grab all keyboard events\" (sugriebti "
-"visus klaviatūros įvykius)"
-
-#: data/ui/remmina_preferences.glade:770
+#: data/ui/remmina_preferences.glade:752
 #, fuzzy
 msgid ""
 "Hexadecimal- or colour names (red, #ff0000).\n"
@@ -3958,137 +5186,145 @@ msgstr ""
 "Jis pakeičia \"Remmina\" jungčių įrankių juostos (kai veikiama per visą "
 "ekraną) jungčių pavadinimų fono spalvą."
 
-#: data/ui/remmina_preferences.glade:827
+#: data/ui/remmina_preferences.glade:769
+#, fuzzy
+#| msgid "Grab all keyboard events"
+msgid "Enable/Disable “Grab all keyboard events” status colour"
+msgstr ""
+"Įjungti / išjungti būsenos spalvą \"Grab all keyboard events\" (sugriebti "
+"visus klaviatūros įvykius)"
+
+#: data/ui/remmina_preferences.glade:825
 #, fuzzy
 msgid "Appearance"
 msgstr "Išvaizda"
 
-#: data/ui/remmina_preferences.glade:853
+#: data/ui/remmina_preferences.glade:851
 #, fuzzy
 msgid "Show new connection on top of the menu"
 msgstr "Rodyti naują ryšį meniu viršuje"
 
-#: data/ui/remmina_preferences.glade:872
+#: data/ui/remmina_preferences.glade:870
 #, fuzzy
 msgid "Hide total count shown in the group menu"
 msgstr "Paslėpti grupės meniu rodomą bendrą skaičių"
 
-#: data/ui/remmina_preferences.glade:890
+#: data/ui/remmina_preferences.glade:888
 #, fuzzy
 msgid "No tray icon"
 msgstr "Nėra dėklo piktogramos"
 
-#: data/ui/remmina_preferences.glade:909
+#: data/ui/remmina_preferences.glade:907
 #, fuzzy
 msgid "Start in tray upon user login"
 msgstr "Paleisti dėkle prisijungus naudotojui"
 
-#: data/ui/remmina_preferences.glade:940
+#: data/ui/remmina_preferences.glade:938
 #, fuzzy
 msgid "Applet"
 msgstr "Programėlė"
 
-#: data/ui/remmina_preferences.glade:972
+#: data/ui/remmina_preferences.glade:970
 #, fuzzy
 msgid "Host key"
 msgstr "Priimančiojo raktas"
 
-#: data/ui/remmina_preferences.glade:1004
+#: data/ui/remmina_preferences.glade:1002
 msgid "Show/hide fullscreen"
 msgstr "Perjungti viso ekrano veikseną"
 
-#: data/ui/remmina_preferences.glade:1035
+#: data/ui/remmina_preferences.glade:1033
 #, fuzzy
 msgid "Auto-fit window"
 msgstr "Automatiškai pritaikomas langas"
 
-#: data/ui/remmina_preferences.glade:1112
+#: data/ui/remmina_preferences.glade:1110
 #, fuzzy
 msgid "Apply/remove scaling"
 msgstr "Taikyti / pašalinti mastelio keitimą"
 
-#: data/ui/remmina_preferences.glade:1143
+#: data/ui/remmina_preferences.glade:1141
 #, fuzzy
 msgid "Grab keyboard"
 msgstr "Paimkite klaviatūrą"
 
-#: data/ui/remmina_preferences.glade:1236
+#: data/ui/remmina_preferences.glade:1234
 #, fuzzy
 msgid "Show/hide toolbar"
 msgstr "Rodyti / slėpti įrankių juostą"
 
-#: data/ui/remmina_preferences.glade:1299
-#: data/ui/remmina_preferences.glade:1309
+#: data/ui/remmina_preferences.glade:1297
+#: data/ui/remmina_preferences.glade:1307
 #, fuzzy
 msgid "View-only mode"
 msgstr "Tik peržiūros režimas"
 
-#: data/ui/remmina_preferences.glade:1372
+#: data/ui/remmina_preferences.glade:1370
 #, fuzzy
 msgid "Keyboard"
 msgstr "Klaviatūra"
 
-#: data/ui/remmina_preferences.glade:1403
+#: data/ui/remmina_preferences.glade:1401
 #, fuzzy
 msgid "Local SSH port"
 msgstr "Vietinis SSH prievadas"
 
-#: data/ui/remmina_preferences.glade:1427
+#: data/ui/remmina_preferences.glade:1425
 #, fuzzy
 msgid "Parse ~/.ssh/config"
 msgstr "Išanalizuoti ~/.ssh/config"
 
-#: data/ui/remmina_preferences.glade:1451
+#: data/ui/remmina_preferences.glade:1449
 #, fuzzy
 msgid "No logging at all"
 msgstr "Visiškai nevykdomas registravimas"
 
-#: data/ui/remmina_preferences.glade:1452
+#: data/ui/remmina_preferences.glade:1450
 #, fuzzy
 msgid "Rare conditions or warnings"
 msgstr "Retos būklės arba įspėjimai"
 
-#: data/ui/remmina_preferences.glade:1453
+#: data/ui/remmina_preferences.glade:1451
 #, fuzzy
 msgid "API-accessible entrypoints"
 msgstr "API prieinami įvesties taškai"
 
-#: data/ui/remmina_preferences.glade:1454
+#: data/ui/remmina_preferences.glade:1452
 #, fuzzy
 msgid "Lower level protocol info, packet level"
 msgstr "Žemesnio lygio protokolo informacija, paketų lygmuo"
 
-#: data/ui/remmina_preferences.glade:1455
+#: data/ui/remmina_preferences.glade:1453
 #, fuzzy
 msgid "Function entering and leaving"
 msgstr "Įėjimo ir išėjimo funkcija"
 
-#: data/ui/remmina_preferences.glade:1472
+#: data/ui/remmina_preferences.glade:1470
 #, fuzzy
 msgid "SSH log level"
 msgstr "SSH žurnalo lygis"
 
 #. http://man7.org/linux/man-pages/man7/tcp.7.html
-#: data/ui/remmina_preferences.glade:1543
+#: data/ui/remmina_preferences.glade:1541
 #, fuzzy
 msgid "Seconds of connection idleness before TCP keepalive probes are sent."
 msgstr "Sekundės, kai ryšys neveikia, kol siunčiami TCP palaikymo zondai."
 
 #. http://man7.org/linux/man-pages/man7/tcp.7.html
-#: data/ui/remmina_preferences.glade:1559
+#: data/ui/remmina_preferences.glade:1557
 #, fuzzy
 msgid "Seconds between each keepalive probe."
 msgstr "Sekundės tarp kiekvieno palaikymo zondo."
 
 #. http://man7.org/linux/man-pages/man7/tcp.7.html
-#: data/ui/remmina_preferences.glade:1575
+#: data/ui/remmina_preferences.glade:1573
 #, fuzzy
 msgid ""
 "Number of keepalive probes sent via TCP connection before it is dropped."
 msgstr "TCP ryšiu išsiųstų palaikymo bandymų skaičius prieš nutraukiant ryšį."
 
 #. http://man7.org/linux/man-pages/man7/tcp.7.html
-#: data/ui/remmina_preferences.glade:1591
+#: data/ui/remmina_preferences.glade:1589
 #, fuzzy
 msgid ""
 "Amount of milliseconds to attempt acknowledging data before closing the "
@@ -4097,84 +5333,148 @@ msgstr ""
 "Milisekundžių, per kurias bandoma patvirtinti duomenis prieš priverstinai "
 "uždarant atitinkamą TCP ryšį, skaičius."
 
-#: data/ui/remmina_preferences.glade:1617
+#: data/ui/remmina_preferences.glade:1615
 #, fuzzy
 msgid "SSH options"
 msgstr "SSH parinktys"
 
-#: data/ui/remmina_preferences.glade:1645
-#: data/ui/remmina_preferences.glade:1714
-#: data/ui/remmina_preferences.glade:1785
-msgid "Use secret key authentication for some widgets"
-msgstr "Nepavyko SSH tapatumo nustatymas viešuoju raktu: %s"
+#: data/ui/remmina_preferences.glade:1632
+msgid ""
+"Time in seconds before Remmina will lock the session and asks for a password "
+"again. Default: 300 Seconds."
+msgstr ""
+
+#: data/ui/remmina_preferences.glade:1644
+msgid "Set and use a secret key to protect Remmina from unauthorized use."
+msgstr ""
 
 #: data/ui/remmina_preferences.glade:1649
 #, fuzzy
-msgid "Use master password"
-msgstr "Naudokite pagrindinį slaptažodį"
+msgid "Remmina password"
+msgstr "Vartotojo slaptažodis"
 
-#: data/ui/remmina_preferences.glade:1662
+#: data/ui/remmina_preferences.glade:1660
+msgid "Use secret key authentication for some widgets"
+msgstr "Nepavyko SSH tapatumo nustatymas viešuoju raktu: %s"
+
+#: data/ui/remmina_preferences.glade:1680
+msgid "Valid for"
+msgstr ""
+
+#: data/ui/remmina_preferences.glade:1691
+msgid "Number of seconds to keep password valid for"
+msgstr ""
+
+#: data/ui/remmina_preferences.glade:1696
+msgid "timeout in seconds (default 300)"
+msgstr ""
+
+#: data/ui/remmina_preferences.glade:1708
 #, fuzzy
-msgid "Automatic lock interval"
-msgstr "Automatinio užrakinimo intervalas"
+#| msgid "Secured password storage in KWallet"
+msgid "Enter your Remmina password to connect"
+msgstr "Saugus slaptažodžių saugojimas KWallet"
 
-#: data/ui/remmina_preferences.glade:1688
-msgid "Repeat the password"
-msgstr "Išsaugoti slaptažodį"
+#. “Require to connect” is “Require the Remmina password before to connect”, the Remmina password is the Master/Principal Password, that is used to protect Remmina from unauthorized use.
+#: data/ui/remmina_preferences.glade:1712
+#, fuzzy
+#| msgid "Secured password storage in KWallet"
+msgid "Require to connect"
+msgstr "Saugus slaptažodžių saugojimas KWallet"
 
-#: data/ui/remmina_preferences.glade:1699
+#: data/ui/remmina_preferences.glade:1723
+msgid "Creation, editing, copying, and deletions require the Remmina password"
+msgstr ""
+
+#. Creation, editing, copying, and deletions require the primary password
+#: data/ui/remmina_preferences.glade:1727
+msgid "Require to modify"
+msgstr ""
+
+#: data/ui/remmina_preferences.glade:1769
+#, fuzzy
+msgid "Encryption"
+msgstr "Aprašas"
+
+#: data/ui/remmina_preferences.glade:1780
+msgid ""
+"These are the encryption methods used by Remmina to store passwords.\n"
+"\n"
+"Except the \"Weak\" method, all the others are recommended, \"Keystore\" is "
+"the default, as it integrates with KDE/Plasma and GNOME.\n"
+"\n"
+"\"Intermediate\" doesn't use as much memory or processing power, and "
+"\"Sensitive\" is more secure, but uses +1 GiB of RAM and many CPU cycles. "
+msgstr ""
+
+#: data/ui/remmina_preferences.glade:1789
+msgid "Intermediate (+64 MiB RAM)"
+msgstr ""
+
+#: data/ui/remmina_preferences.glade:1790
+msgid "Strong (+256 MiB, ~2009 CPU)"
+msgstr ""
+
+#: data/ui/remmina_preferences.glade:1791
+msgid "Sensitive (+1 GiB, ~2014 CPU)"
+msgstr ""
+
+#: data/ui/remmina_preferences.glade:1807
+#, fuzzy
+msgid "Auditing log"
+msgstr "Redaguoti nustatymus"
+
+#: data/ui/remmina_preferences.glade:1832
 msgid "Automatically accept all fingerprints and certificates"
 msgstr "Priimti pakeistą sertifikatą?"
 
-#: data/ui/remmina_preferences.glade:1703
-msgid "Trust all fingerprints and certificates"
+#: data/ui/remmina_preferences.glade:1837
+#, fuzzy
+#| msgid "Trust all fingerprints and certificates"
+msgid "Trust all certificates"
 msgstr "Priimti pakeistą sertifikatą?"
 
-#: data/ui/remmina_preferences.glade:1746
+#: data/ui/remmina_preferences.glade:1872
 #, fuzzy
-msgid "Master password validity in seconds"
-msgstr "Pagrindinio slaptažodžio galiojimo laikas sekundėmis"
-
-#: data/ui/remmina_preferences.glade:1810
 msgid "Security"
-msgstr "Saugumas"
+msgstr "Sauga"
 
-#: data/ui/remmina_preferences.glade:1841
+#: data/ui/remmina_preferences.glade:1903
 #, fuzzy
 msgid "Terminal font"
 msgstr "Terminalo šriftas"
 
-#: data/ui/remmina_preferences.glade:1854
+#: data/ui/remmina_preferences.glade:1916
 #, fuzzy
 msgid "Scrollback lines"
 msgstr "Atgalinio slinkties linijos"
 
-#: data/ui/remmina_preferences.glade:1902
+#: data/ui/remmina_preferences.glade:1964
 #, fuzzy
 msgid "Shortcuts for copying and pasting"
 msgstr "Kopijavimo ir įklijavimo spartieji klavišai"
 
-#: data/ui/remmina_preferences.glade:1915
+#: data/ui/remmina_preferences.glade:1977
 #, fuzzy
 msgid "Select all shortcuts"
 msgstr "Pasirinkite visus sparčiuosius klavišus"
 
-#: data/ui/remmina_preferences.glade:1928
-#: data/ui/remmina_preferences.glade:1945
-#: data/ui/remmina_preferences.glade:2398
-#: data/ui/remmina_preferences.glade:2428
-#: data/ui/remmina_preferences.glade:2562
-#: data/ui/remmina_preferences.glade:2579
+#: data/ui/remmina_preferences.glade:1990
+#: data/ui/remmina_preferences.glade:2007
+#: data/ui/remmina_preferences.glade:2460
+#: data/ui/remmina_preferences.glade:2490
+#: data/ui/remmina_preferences.glade:2624
+#: data/ui/remmina_preferences.glade:2641
 #, fuzzy
 msgid "(Host key+)"
 msgstr "(pagrindinis klavišas+)"
 
-#: data/ui/remmina_preferences.glade:1963
+#: data/ui/remmina_preferences.glade:2025
 #, fuzzy
 msgid "Use default system font"
 msgstr "Naudoti numatytąjį sistemos šriftą"
 
-#: data/ui/remmina_preferences.glade:1988
+#: data/ui/remmina_preferences.glade:2050
 #, fuzzy
 msgid ""
 "Selecting “SGR 1” also switches to the bright counterparts of the first 8 "
@@ -4183,16 +5483,15 @@ msgstr ""
 "Pasirinkus \"SGR 1\" taip pat perjungiami pirmųjų 8 paletės spalvų šviesūs "
 "atitikmenys (be to, tekstas tampa paryškintas)."
 
-#: data/ui/remmina_preferences.glade:2004
-#, fuzzy
-msgid "Allow using bright colours with bold text"
-msgstr "Leidžiama naudoti ryškias spalvas ir paryškintą tekstą."
+#: data/ui/remmina_preferences.glade:2066
+msgid "Show bold text in bright colors"
+msgstr ""
 
-#: data/ui/remmina_preferences.glade:2018
+#: data/ui/remmina_preferences.glade:2080
 msgid "Colour theme"
 msgstr "Spalvų skaičius"
 
-#: data/ui/remmina_preferences.glade:2029
+#: data/ui/remmina_preferences.glade:2091
 #, fuzzy
 msgid ""
 "Choose a colour scheme file. Usually available in /usr/share/remmina/theme. "
@@ -4202,178 +5501,329 @@ msgstr ""
 "remmina/theme. https://github.com/mbadolato/iTerm2-Color-Schemes rasite "
 "daugiau informacijos."
 
-#: data/ui/remmina_preferences.glade:2033
+#: data/ui/remmina_preferences.glade:2095
 #, fuzzy
 msgid "Pick a terminal colouring file"
 msgstr "Pasirinkite terminalo spalvinimo failą"
 
-#: data/ui/remmina_preferences.glade:2048
+#: data/ui/remmina_preferences.glade:2110
 #, fuzzy
 msgid "Bright colours"
 msgstr "Ryškios spalvos"
 
-#: data/ui/remmina_preferences.glade:2062
+#: data/ui/remmina_preferences.glade:2124
 #, fuzzy
 msgid "Pick a light black colour"
 msgstr "Pasirinkite šviesiai juodą spalvą"
 
-#: data/ui/remmina_preferences.glade:2076
+#: data/ui/remmina_preferences.glade:2138
 #, fuzzy
 msgid "Pick a light red colour"
 msgstr "Pasirinkite šviesiai raudoną spalvą"
 
-#: data/ui/remmina_preferences.glade:2090
+#: data/ui/remmina_preferences.glade:2152
 #, fuzzy
 msgid "Pick a bright green colour"
 msgstr "Pasirinkite ryškią žalią spalvą"
 
-#: data/ui/remmina_preferences.glade:2104
+#: data/ui/remmina_preferences.glade:2166
 #, fuzzy
 msgid "Pick a bright yellow colour"
 msgstr "Pasirinkite ryškią geltoną spalvą"
 
-#: data/ui/remmina_preferences.glade:2118
+#: data/ui/remmina_preferences.glade:2180
 #, fuzzy
 msgid "Pick a bright blue colour"
 msgstr "Pasirinkite ryškiai mėlyną spalvą"
 
-#: data/ui/remmina_preferences.glade:2132
+#: data/ui/remmina_preferences.glade:2194
 #, fuzzy
 msgid "Pick a light magenta colour"
 msgstr "Pasirinkite šviesiai purpurinę spalvą"
 
-#: data/ui/remmina_preferences.glade:2146
+#: data/ui/remmina_preferences.glade:2208
 #, fuzzy
 msgid "Pick a light cyan colour"
 msgstr "Pasirinkite šviesiai žydrą spalvą"
 
-#: data/ui/remmina_preferences.glade:2160
+#: data/ui/remmina_preferences.glade:2222
 #, fuzzy
 msgid "Pick a light white colour"
 msgstr "Pasirinkite šviesiai baltą spalvą"
 
-#: data/ui/remmina_preferences.glade:2174
+#: data/ui/remmina_preferences.glade:2236
 #, fuzzy
 msgid "Pick a black colour"
 msgstr "Pasirinkite juodą spalvą"
 
-#: data/ui/remmina_preferences.glade:2188
+#: data/ui/remmina_preferences.glade:2250
 #, fuzzy
 msgid "Pick a red colour"
 msgstr "Pasirinkite raudoną spalvą"
 
-#: data/ui/remmina_preferences.glade:2202
+#: data/ui/remmina_preferences.glade:2264
 #, fuzzy
 msgid "Pick a green colour"
 msgstr "Pasirinkite žalią spalvą"
 
-#: data/ui/remmina_preferences.glade:2216
+#: data/ui/remmina_preferences.glade:2278
 #, fuzzy
 msgid "Pick a yellow colour"
 msgstr "Pasirinkite geltoną spalvą"
 
-#: data/ui/remmina_preferences.glade:2230
+#: data/ui/remmina_preferences.glade:2292
 #, fuzzy
 msgid "Pick a blue colour"
 msgstr "Pasirinkite mėlyną spalvą"
 
-#: data/ui/remmina_preferences.glade:2244
+#: data/ui/remmina_preferences.glade:2306
 #, fuzzy
 msgid "Pick a magenta colour"
 msgstr "Pasirinkite purpurinę spalvą"
 
-#: data/ui/remmina_preferences.glade:2258
+#: data/ui/remmina_preferences.glade:2320
 #, fuzzy
 msgid "Pick a cyan colour"
 msgstr "Pasirinkite žydrą spalvą"
 
-#: data/ui/remmina_preferences.glade:2272
+#: data/ui/remmina_preferences.glade:2334
 #, fuzzy
 msgid "Pick a white colour"
 msgstr "Pasirinkite baltą spalvą"
 
-#: data/ui/remmina_preferences.glade:2285
+#: data/ui/remmina_preferences.glade:2347
 #, fuzzy
 msgid "Normal colours"
 msgstr "Įprastos spalvos"
 
-#: data/ui/remmina_preferences.glade:2298
-#: data/ui/remmina_preferences.glade:2313
+#: data/ui/remmina_preferences.glade:2360
+#: data/ui/remmina_preferences.glade:2375
 msgid "Cursor colour"
 msgstr "Žymeklio šešėlis"
 
-#: data/ui/remmina_preferences.glade:2327
-#: data/ui/remmina_preferences.glade:2342
+#: data/ui/remmina_preferences.glade:2389
+#: data/ui/remmina_preferences.glade:2404
 #, fuzzy
 msgid "Background colour"
 msgstr "Fono spalva"
 
-#: data/ui/remmina_preferences.glade:2358
-#: data/ui/remmina_preferences.glade:2372
+#: data/ui/remmina_preferences.glade:2420
+#: data/ui/remmina_preferences.glade:2434
 #, fuzzy
 msgid "Foreground colour"
 msgstr "Pagrindinė spalva"
 
-#: data/ui/remmina_preferences.glade:2385
+#: data/ui/remmina_preferences.glade:2447
 #, fuzzy
 #| msgid "Increase font size"
 msgid "Increase and decrease font size"
 msgstr "Šrifto dydžio didinimas ir mažinimas"
 
-#: data/ui/remmina_preferences.glade:2415
+#: data/ui/remmina_preferences.glade:2477
 #, fuzzy
 msgid "Search text shortcut"
 msgstr "Paieškos teksto spartusis klavišas"
 
-#: data/ui/remmina_preferences.glade:2446
-#: data/ui/remmina_preferences.glade:2461
+#: data/ui/remmina_preferences.glade:2508
+#: data/ui/remmina_preferences.glade:2523
 msgid "Bold colour"
 msgstr "Žymeklio šešėlis"
 
-#: data/ui/remmina_preferences.glade:2475
-#: data/ui/remmina_preferences.glade:2516
+#: data/ui/remmina_preferences.glade:2537
+#: data/ui/remmina_preferences.glade:2578
 #, fuzzy
 #| msgid "High colour (16 bpp)"
 msgid "Highlight colour"
 msgstr "Išryškinimo spalva"
 
-#: data/ui/remmina_preferences.glade:2488
-#: data/ui/remmina_preferences.glade:2532
+#: data/ui/remmina_preferences.glade:2550
+#: data/ui/remmina_preferences.glade:2594
 #, fuzzy
 msgid "Highlight foreground colour"
 msgstr "Išryškinti pirmojo plano spalvą"
 
-#: data/ui/remmina_preferences.glade:2501
-#: data/ui/remmina_preferences.glade:2548
+#: data/ui/remmina_preferences.glade:2563
+#: data/ui/remmina_preferences.glade:2610
 #, fuzzy
 #| msgid "Cursor colour"
 msgid "Cursor foreground colour"
 msgstr "Kursoriaus pirmojo plano spalva"
 
-#: data/ui/remmina_preferences.glade:2604
+#: data/ui/remmina_preferences.glade:2666
 #, fuzzy
 msgid "Terminal"
 msgstr "Terminalas"
 
-#: data/ui/remmina_preferences.glade:2618
+#: data/ui/remmina_preferences.glade:2680
 #, fuzzy
 msgid "Remmina Preferences"
 msgstr "\"Remmina\" nuostatos"
 
-#: data/ui/remmina_unlock.glade:60
+#: data/ui/remmina_unlock.glade:56
 #, fuzzy
 msgid "Unlock"
 msgstr "Atrakinti"
 
-#: data/ui/remmina_unlock.glade:94
+#: data/ui/remmina_unlock.glade:85
 #, fuzzy
 msgid "Unlock Remmina"
 msgstr "Atrakinti Remmina"
 
-#: data/ui/remmina_unlock.glade:128
+#: data/ui/remmina_unlock.glade:120
 #, fuzzy
 msgid "Master password"
 msgstr "Pagrindinis slaptažodis"
+
+#, fuzzy
+#~ msgid "Allow using bright colours with bold text"
+#~ msgstr "Leidžiama naudoti ryškias spalvas ir paryškintą tekstą."
+
+#, fuzzy
+#~ msgid ""
+#~ "Use “Redirect directory” in the advanced tab for multiple directories"
+#~ msgstr ""
+#~ "Naudokite \"Peradresuoti katalogą\" išplėstiniame skirtuke keliems "
+#~ "katalogams"
+
+#, fuzzy
+#~ msgid "Redirect directory"
+#~ msgstr "Peradresavimo katalogas"
+
+#, fuzzy
+#~ msgid "Automatic lock interval"
+#~ msgstr "Automatinio užrakinimo intervalas"
+
+#, fuzzy
+#~| msgid "Enter VNC password"
+#~ msgid "Enter new password"
+#~ msgstr "Išsaugoti slaptažodį"
+
+#, fuzzy
+#~| msgid "Repeat the password"
+#~ msgid "Re-enter password"
+#~ msgstr "Išsaugoti slaptažodį"
+
+#, fuzzy
+#~ msgid "Logging"
+#~ msgstr "Derinimas"
+
+#, fuzzy
+#~ msgid "Certificates and fingerprints"
+#~ msgstr "Sertifikato informacija:"
+
+#, fuzzy
+#~ msgid "Use a Primary Password"
+#~ msgstr "Naudokite pagrindinį slaptažodį"
+
+#, fuzzy
+#~ msgid "Primary Password validity in seconds"
+#~ msgstr "Pagrindinio slaptažodžio galiojimo laikas sekundėmis"
+
+#, fuzzy
+#~| msgid "Forget passwords after use"
+#~ msgid "Weak (password may be guessed)"
+#~ msgstr "Pamiršti slaptažodžius po panaudojimo"
+
+#, fuzzy
+#~ msgid "Connection profiles passwords encryption"
+#~ msgstr "Pakeisti ryšio profilį (reikia --set parinkties)"
+
+#, fuzzy
+#~ msgid "Enable auditing logs"
+#~ msgstr "Įjungti garso kanalą"
+
+#, fuzzy
+#~ msgid "Certificate settings"
+#~ msgstr "Sertifikato informacija:"
+
+#, fuzzy, c-format
+#~ msgid "Couldn't get property with index '%i' out of selected row."
+#~ msgstr "Nepavyko gauti sesijos ID iš pasirinktos eilutės."
+
+#, fuzzy
+#~ msgid "An unknown error occured while trying to start PyHoca-CLI."
+#~ msgstr "Bandant paleisti PyHoca-CLI įvyko nežinoma klaida."
+
+#, fuzzy
+#~ msgid "Parameter 'session_id' is not initialized!"
+#~ msgstr "Parametras 'default_username' yra neinicializuotas."
+
+#, fuzzy
+#~ msgid ""
+#~ "Send <b><a href=\"https://remmina.gitlab.io/remminadoc.gitlab.io/"
+#~ "remmina__stats_8c.html#details\" title=\"Remmina usage statistics"
+#~ "\">anonymous</a></b> statistics. (*)"
+#~ msgstr ""
+#~ "Siųskite <b><a href=\"https://remmina.gitlab.io/remminadoc.gitlab.io/"
+#~ "remmina__stats_8c.html#details\" title=\"Remmina usage statistics"
+#~ "\">anoniminę</a></b> statistiką. (*)"
+
+#, fuzzy
+#~ msgid "Send anonymous statistics"
+#~ msgstr "Siųsti anoniminę statistiką"
+
+#, fuzzy
+#~ msgid "Started pyhoca-cli with following arguments:"
+#~ msgstr "Paleista pyhoca-cli su šiais argumentais:"
+
+#, fuzzy
+#~ msgid ""
+#~ "For more information, please visit the Remmina Wiki:\n"
+#~ "https://gitlab.com/Remmina/Remmina/-/wikis/Usage/Remmina-debugging"
+#~ msgstr ""
+#~ "Daugiau informacijos rasite \"Remmina Wiki\": https://gitlab.com/Remmina/"
+#~ "Remmina/-/wikis/Usage/Remmina-debugging"
+
+#, fuzzy
+#~ msgid "_Select session"
+#~ msgstr "_Pasirinkite sesiją"
+
+#, fuzzy
+#~ msgid "Started PyHoca-CLI with the following environment variables:"
+#~ msgstr "Paleistas PyHoca-CLI su šiais aplinkos kintamaisiais:"
+
+#, fuzzy, c-format
+#~ msgid "Could not retrieve PyHoca-CLI's command-line features! Exit code: %i"
+#~ msgstr ""
+#~ "Nepavyko gauti PyHoca-CLI komandinės eilutės funkcijų! Išėjimo kodas: %i"
+
+#, fuzzy, c-format
+#~| msgid "Error: %s"
+#~ msgid "Error: '%s'"
+#~ msgstr "Klaida: \"%s"
+
+#, fuzzy
+#~ msgid "Website"
+#~ msgstr "Tinklalapis"
+
+#, fuzzy
+#~ msgid "Given username can't get saved since it's empty!"
+#~ msgstr "Pateiktas vartotojo vardas negali būti išsaugotas, nes jis tuščias!"
+
+#, fuzzy
+#~ msgid "Limit minimum is too large!"
+#~ msgstr "Minimali riba yra per didelė!"
+
+#, fuzzy
+#~ msgid "Limit minimum is too small!"
+#~ msgstr "Minimali riba yra per maža!"
+
+#, fuzzy
+#~ msgid "Limit maximum is not a valid integer!"
+#~ msgstr "Ribos maksimumas nėra galiojantis sveikasis skaičius!"
+
+#, fuzzy
+#~ msgid "Limit maximum is too large!"
+#~ msgstr "Didžiausia riba yra per didelė!"
+
+#, fuzzy
+#~ msgid "Limit maximum is too small!"
+#~ msgstr "Didžiausia riba yra per maža!"
+
+#, fuzzy
+#~| msgid "Username"
+#~ msgid "User name"
+#~ msgstr "Slapyvardis"
 
 #~ msgid "Could not run %s on SSH server."
 #~ msgstr "Nepavyko paleisti %s SSH serveryje."
@@ -4419,21 +5869,6 @@ msgstr "Pagrindinis slaptažodis"
 
 #~ msgid "Start"
 #~ msgstr "Pradėti"
-
-#~ msgid "Terminate"
-#~ msgstr "Nutraukti"
-
-#~ msgid "Display"
-#~ msgstr "Rodymas"
-
-#~ msgid "Status"
-#~ msgstr "Būsena"
-
-#~ msgid "Disable clipboard sync"
-#~ msgstr "Išjungti iškarpinės sinchronizavimą"
-
-#~ msgid "Disable encryption"
-#~ msgstr "Išjungti šifravimą"
 
 #~ msgid "NX - NX Technology"
 #~ msgstr "NX - NX technologija"

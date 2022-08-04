@@ -2,7 +2,7 @@
  * Remmina - The GTK+ Remote Desktop Client
  * Copyright (C) 2010-2011 Vic Lee
  * Copyright (C) 2014-2015 Antenore Gatta, Fabio Castelli, Giovanni Panozzo
- * Copyright (C) 2016-2021 Antenore Gatta, Giovanni Panozzo
+ * Copyright (C) 2016-2022 Antenore Gatta, Giovanni Panozzo
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,11 +34,11 @@
  *
  */
 
-#include "common/remmina_plugin.h"
+#include "remmina/plugin.h"
 #include "rdp_plugin.h"
 #include "rdp_file.h"
 
-gboolean remmina_rdp_file_import_test(const gchar *from_file)
+gboolean remmina_rdp_file_import_test(RemminaFilePlugin *plugin, const gchar *from_file)
 {
 	TRACE_CALL(__func__);
 	gchar *ext;
@@ -182,7 +182,7 @@ static RemminaFile *remmina_rdp_file_import_channel(GIOChannel *channel)
 	return remminafile;
 }
 
-RemminaFile *remmina_rdp_file_import(const gchar *from_file)
+RemminaFile *remmina_rdp_file_import(RemminaFilePlugin *plugin,const gchar *from_file)
 {
 	TRACE_CALL(__func__);
 	GIOChannel *channel;
@@ -202,7 +202,7 @@ RemminaFile *remmina_rdp_file_import(const gchar *from_file)
 	return remminafile;
 }
 
-gboolean remmina_rdp_file_export_test(RemminaFile *remminafile)
+gboolean remmina_rdp_file_export_test(RemminaFilePlugin *plugin, RemminaFile *remminafile)
 {
 	TRACE_CALL(__func__);
 	if (g_strcmp0(remmina_plugin_service->file_get_string(remminafile, "protocol"), "RDP") == 0)
@@ -279,7 +279,7 @@ gboolean remmina_rdp_file_export_channel(RemminaFile *remminafile, FILE *fp)
 	return TRUE;
 }
 
-gboolean remmina_rdp_file_export(RemminaFile *remminafile, const gchar *to_file)
+gboolean remmina_rdp_file_export(RemminaFilePlugin *plugin, RemminaFile *remminafile, const gchar *to_file)
 {
 	TRACE_CALL(__func__);
 	FILE *fp;

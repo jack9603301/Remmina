@@ -2,7 +2,7 @@
  * Remmina - The GTK+ Remote Desktop Client
  * Copyright (C) 2010 Vic Lee
  * Copyright (C) 2014-2015 Antenore Gatta, Fabio Castelli, Giovanni Panozzo
- * Copyright (C) 2016-2021 Antenore Gatta, Giovanni Panozzo
+ * Copyright (C) 2016-2022 Antenore Gatta, Giovanni Panozzo
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -37,6 +37,7 @@
 #pragma once
 
 #include <glib.h>
+#include <glib-object.h>
 
 G_BEGIN_DECLS
 
@@ -56,12 +57,27 @@ typedef enum {
 #define REMMINA_PROTOCOL_FEATURE_PREF_RADIO 1
 #define REMMINA_PROTOCOL_FEATURE_PREF_CHECK 2
 
+typedef enum
+{
+    REMMINA_TYPEHINT_STRING,
+    REMMINA_TYPEHINT_SIGNED,
+    REMMINA_TYPEHINT_UNSIGNED,
+    REMMINA_TYPEHINT_BOOLEAN,
+    REMMINA_TYPEHINT_CPOINTER,
+    REMMINA_TYPEHINT_RAW,
+    REMMINA_TYPEHINT_TUPLE,
+    REMMINA_TYPEHINT_UNDEFINED,
+} RemminaTypeHint;
+
 typedef struct _RemminaProtocolFeature {
 	RemminaProtocolFeatureType	type;
 	gint				id;
 	gpointer			opt1;
 	gpointer			opt2;
 	gpointer			opt3;
+    	RemminaTypeHint     		opt1_type_hint;
+    	RemminaTypeHint     		opt2_type_hint;
+    	RemminaTypeHint     		opt3_type_hint;
 } RemminaProtocolFeature;
 
 typedef struct _RemminaPluginScreenshotData {
@@ -92,7 +108,9 @@ typedef enum {
 	REMMINA_PROTOCOL_SETTING_TYPE_COMBO,
 	REMMINA_PROTOCOL_SETTING_TYPE_CHECK,
 	REMMINA_PROTOCOL_SETTING_TYPE_FILE,
-	REMMINA_PROTOCOL_SETTING_TYPE_FOLDER
+	REMMINA_PROTOCOL_SETTING_TYPE_FOLDER,
+	REMMINA_PROTOCOL_SETTING_TYPE_INT,
+	REMMINA_PROTOCOL_SETTING_TYPE_DOUBLE
 } RemminaProtocolSettingType;
 
 typedef struct _RemminaProtocolSetting {
@@ -102,6 +120,8 @@ typedef struct _RemminaProtocolSetting {
 	gboolean			compact;
 	gpointer			opt1;
 	gpointer			opt2;
+	gpointer			validator_data;
+	GCallback			validator;
 } RemminaProtocolSetting;
 
 typedef enum {

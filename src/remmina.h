@@ -1,6 +1,6 @@
 /*
  * Remmina - The GTK+ Remote Desktop Client
- * Copyright (C) 2014-2021 Antenore Gatta, Giovanni Panozzo
+ * Copyright (C) 2014-2022 Antenore Gatta, Giovanni Panozzo
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,6 +33,8 @@
  */
 
 #pragma once
+
+#include <gtk/gtk.h>
 
 G_BEGIN_DECLS
 extern gboolean kioskmode;
