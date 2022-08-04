@@ -557,14 +557,33 @@ static gboolean remmina_main_filter_visible_func(GtkTreeModel *model, GtkTreeIte
 			g_free(labels);
 			labels = s;
 
-			if (labels) {
-				gchar** labels_array = g_strsplit(labels, ",", -1);
+			if (strlen(labels) > 0) {
+				gboolean labels_result  = TRUE;
+				gchar    **labels_array = g_strsplit(labels, ",", -1);
+				gchar    **text_array   = g_strsplit(text, ",", -1);
 
-				for (int i = 0; (NULL != labels_array[i]); i++) {
-					result = (result || strstr(labels_array[i], text));
+				for (int t = 0; (NULL != text_array[t]); t++) {
+					gboolean text_result = FALSE;
+
+					for (int l = 0; (NULL != labels_array[l]); l++) {
+						text_result = (text_result || strstr(labels_array[l], text_array[t]));
+
+						if (text_result) {
+							break;
+						}
+					}
+
+					labels_result = (labels_result && text_result);
+
+					if (!labels_result) {
+						break;
+					}
 				}
 
+				result = (result || labels_result);
+
 				g_strfreev(labels_array);
+				g_strfreev(text_array);
 			}
 		}
 		g_free(protocol);
