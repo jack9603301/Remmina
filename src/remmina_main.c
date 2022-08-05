@@ -566,9 +566,17 @@ static gboolean remmina_main_filter_visible_func(GtkTreeModel *model, GtkTreeIte
 				gchar    **text_array   = g_strsplit(text, ",", -1);
 
 				for (int t = 0; (NULL != text_array[t]); t++) {
+					if (0 == strlen(text_array[t])) {
+						continue;
+					}
+
 					gboolean text_result = FALSE;
 
 					for (int l = 0; (NULL != labels_array[l]); l++) {
+						if (0 == strlen(labels_array[l])) {
+							continue;
+						}
+
 						text_result = (text_result || strstr(labels_array[l], text_array[t]));
 
 						if (text_result) {
