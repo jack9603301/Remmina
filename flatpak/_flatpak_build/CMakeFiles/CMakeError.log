@@ -1,0 +1,50 @@
+Performing C SOURCE FILE Test CMAKE_HAVE_LIBC_PTHREAD failed with the following output:
+Change Dir: /home/benoit/dev/Remmina/flatpak/_flatpak_build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/ninja cmTC_e0b32 && [1/2] Building C object CMakeFiles/cmTC_e0b32.dir/src.c.o
+[2/2] Linking C executable cmTC_e0b32
+FAILED: cmTC_e0b32 
+: && /usr/bin/cc -fPIC -Wall -g -L/app/lib CMakeFiles/cmTC_e0b32.dir/src.c.o -o cmTC_e0b32   && :
+/usr/lib/gcc/x86_64-unknown-linux-gnu/11.3.0/../../../../x86_64-unknown-linux-gnu/bin/ld: CMakeFiles/cmTC_e0b32.dir/src.c.o: in function `main':
+/home/benoit/dev/Remmina/flatpak/_flatpak_build/CMakeFiles/CMakeTmp/src.c:11: undefined reference to `pthread_create'
+/usr/lib/gcc/x86_64-unknown-linux-gnu/11.3.0/../../../../x86_64-unknown-linux-gnu/bin/ld: /home/benoit/dev/Remmina/flatpak/_flatpak_build/CMakeFiles/CMakeTmp/src.c:12: undefined reference to `pthread_detach'
+/usr/lib/gcc/x86_64-unknown-linux-gnu/11.3.0/../../../../x86_64-unknown-linux-gnu/bin/ld: /home/benoit/dev/Remmina/flatpak/_flatpak_build/CMakeFiles/CMakeTmp/src.c:13: undefined reference to `pthread_cancel'
+/usr/lib/gcc/x86_64-unknown-linux-gnu/11.3.0/../../../../x86_64-unknown-linux-gnu/bin/ld: /home/benoit/dev/Remmina/flatpak/_flatpak_build/CMakeFiles/CMakeTmp/src.c:14: undefined reference to `pthread_join'
+collect2: error: ld returned 1 exit status
+ninja: build stopped: subcommand failed.
+
+
+Source file was:
+#include <pthread.h>
+
+static void* test_func(void* data)
+{
+  return data;
+}
+
+int main(void)
+{
+  pthread_t thread;
+  pthread_create(&thread, NULL, test_func, NULL);
+  pthread_detach(thread);
+  pthread_cancel(thread);
+  pthread_join(thread, NULL);
+  pthread_atfork(NULL, NULL, NULL);
+  pthread_exit(NULL);
+
+  return 0;
+}
+
+Determining if the function pthread_create exists in the pthreads failed with the following output:
+Change Dir: /home/benoit/dev/Remmina/flatpak/_flatpak_build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/ninja cmTC_60cf9 && [1/2] Building C object CMakeFiles/cmTC_60cf9.dir/CheckFunctionExists.c.o
+[2/2] Linking C executable cmTC_60cf9
+FAILED: cmTC_60cf9 
+: && /usr/bin/cc -fPIC -Wall -g -DCHECK_FUNCTION_EXISTS=pthread_create -L/app/lib CMakeFiles/cmTC_60cf9.dir/CheckFunctionExists.c.o -o cmTC_60cf9  -lpthreads && :
+/usr/lib/gcc/x86_64-unknown-linux-gnu/11.3.0/../../../../x86_64-unknown-linux-gnu/bin/ld: cannot find -lpthreads
+collect2: error: ld returned 1 exit status
+ninja: build stopped: subcommand failed.
+
+
+
