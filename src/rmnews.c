@@ -102,6 +102,23 @@ gint eweekdays[7] = {
 	604800
 };
 
+
+#if SOUP_CHECK_VERSION (2, 99, 2)
+static void rmnews_on_stream_splice (GObject *source, GAsyncResult *result, gpointer user_data)
+{
+        GError *error = NULL;
+        g_output_stream_splice_finish (G_OUTPUT_STREAM (source),
+                                       result,
+                                       &error);
+        if (error) {
+                g_printerr ("Failed to download: %s\n", error->message);
+                g_error_free (error);
+                return;
+        }
+
+}
+#endif
+
 void rmnews_news_switch_state_set_cb()
 {
 	TRACE_CALL(__func__);
@@ -231,16 +248,99 @@ void rmnews_show_news(GtkWindow *parent)
 	gtk_window_set_modal(GTK_WINDOW(rmnews_news_dialog->dialog), TRUE);
 }
 
+#if SOUP_CHECK_VERSION (2, 99, 2)
+static void rmnews_get_url_cb (GObject *source, GAsyncResult *result, gpointer user_data)
+{
+	TRACE_CALL(__func__);
+	const char *name;
+	const char *header;
+	GFile *output_file;
+	gchar *filesha = NULL;
+	gchar *filesha_after = NULL;
+
+	GError *error = NULL;
+        GInputStream *in = soup_session_send_finish (SOUP_SESSION (source), result, &error);
+
+	if (error) {
+		REMMINA_DEBUG ("Failed to send request: %s", error->message);
+		g_error_free (error);
+		return;
+	}
+
+	GDateTime *gdt = g_date_time_new_now_utc();
+	gint64 unixts = g_date_time_to_unix(gdt);
+	g_date_time_unref(gdt);
+
+        if (output_file_path) {
+		REMMINA_DEBUG("Calculating the SHA1 of the local file");
+		filesha = remmina_sha1_file(output_file_path);
+		REMMINA_DEBUG("SHA1 is %s", filesha);
+		if (filesha == NULL || filesha[0] == 0) filesha = "0\0";
+		REMMINA_DEBUG("Opening %s output file for writing", output_file_path);
+                GFile *output_file = g_file_new_for_commandline_arg (output_file_path);
+		GOutputStream *out = G_OUTPUT_STREAM (g_file_replace (output_file, NULL, NULL,
+							G_FILE_CREATE_REPLACE_DESTINATION, NULL, &error));
+                if (error) {
+			REMMINA_DEBUG("Failed to create \"%s\": %s", output_file_path, error->message);
+			remmina_pref.periodic_rmnews_last_get = unixts;
+			REMMINA_DEBUG ("periodic_rmnews_last_get set to %ld", remmina_pref.periodic_rmnews_last_get);
+			REMMINA_DEBUG ("Saving preferences");
+			remmina_pref_save();
+			g_free(filesha); filesha = NULL;
+                        g_error_free (error);
+                        g_object_unref (in);
+                        g_object_unref (output_file);
+                        return;
+                }
+
+                /* Start downloading to the file */
+                g_output_stream_splice_async (G_OUTPUT_STREAM (out), in,
+                                        G_OUTPUT_STREAM_SPLICE_CLOSE_SOURCE | G_OUTPUT_STREAM_SPLICE_CLOSE_TARGET,
+                                        G_PRIORITY_DEFAULT,
+                                        NULL,
+                                        rmnews_on_stream_splice,
+                                        NULL);
+
+		filesha_after = remmina_sha1_file(output_file_path);
+
+		REMMINA_DEBUG("SHA1 after download is %s", filesha_after);
+		if (g_strcmp0(filesha, filesha_after) != 0) {
+			REMMINA_DEBUG("SHA1 differs, we show the news and reset the counter");
+			remmina_pref.periodic_rmnews_last_get = 0;
+			REMMINA_DEBUG ("periodic_rmnews_last_get set to %ld", remmina_pref.periodic_rmnews_last_get);
+			REMMINA_DEBUG ("Saving preferences");
+			GtkWindow *parent = remmina_main_get_window();
+			if (!kioskmode && kioskmode == FALSE)
+			rmnews_show_news(parent);
+		} else {
+			remmina_pref.periodic_rmnews_last_get = unixts;
+		}
+		/* Increase counter with number of successful GETs */
+		remmina_pref.periodic_rmnews_get_count = remmina_pref.periodic_rmnews_get_count + 1;
+		remmina_pref_save();
+		g_free(filesha); filesha = NULL;
+
+                g_object_unref (out);
+	} else {
+		REMMINA_DEBUG("Cannot open output file for writing, because output_file_path is NULL");
+		remmina_pref.periodic_rmnews_last_get = unixts;
+		REMMINA_DEBUG ("periodic_rmnews_last_get set to %ld", remmina_pref.periodic_rmnews_last_get);
+		REMMINA_DEBUG ("Saving preferences");
+		remmina_pref_save();
+		return;
+        }
+
+        g_object_unref (in);
+
+
+}
+#else
 static void rmnews_get_url_cb(SoupSession *session, SoupMessage *msg, gpointer data)
 {
 	TRACE_CALL(__func__);
 	const char *name;
 	const char *header;
-#if SOUP_CHECK_VERSION (2, 99, 2)
-	g_autoptr(GBytes) sb;
-#else
 	g_autoptr(SoupBuffer) sb;
-#endif
 	FILE *output_file = NULL;
 	gchar *filesha = NULL;
 	gchar *filesha_after = NULL;
@@ -251,12 +351,7 @@ static void rmnews_get_url_cb(SoupSession *session, SoupMessage *msg, gpointer d
 	status = soup_message_get_status(msg);
 	REMMINA_DEBUG("Status code %d", status);
 
-#if SOUP_CHECK_VERSION (2, 99, 2)
-	GUri *uri = soup_message_get_uri (msg);
-	name = g_uri_get_path (uri);
-#else
 	name = soup_message_get_uri(msg)->path;
-#endif
 
 	gdt = g_date_time_new_now_utc();
 	unixts = g_date_time_to_unix(gdt);
@@ -267,19 +362,6 @@ static void rmnews_get_url_cb(SoupSession *session, SoupMessage *msg, gpointer d
 						      "Location");
 		REMMINA_DEBUG("Redirection detected");
 		if (header) {
-#if SOUP_CHECK_VERSION (2, 99, 2)
-			GUri *uri;
-			char *uri_string;
-
-			REMMINA_DEBUG("  -> %s\n", header);
-
-			uri = g_uri_parse_relative (soup_message_get_uri (msg), header, SOUP_HTTP_URI_FLAGS, NULL);
-			uri_string = g_uri_to_string (uri);
-			rmnews_get_url(uri_string);
-			g_free (uri_string);
-			g_uri_unref (uri);
-
-#else
 			SoupURI *uri;
 			char *uri_string;
 
@@ -290,7 +372,6 @@ static void rmnews_get_url_cb(SoupSession *session, SoupMessage *msg, gpointer d
 			rmnews_get_url(uri_string);
 			g_free(uri_string);
 			soup_uri_free(uri);
-#endif
 		}
 		remmina_pref.periodic_rmnews_last_get = unixts;
 		REMMINA_DEBUG ("periodic_rmnews_last_get set to %ld", remmina_pref.periodic_rmnews_last_get);
@@ -311,12 +392,11 @@ static void rmnews_get_url_cb(SoupSession *session, SoupMessage *msg, gpointer d
 			REMMINA_DEBUG("Calculating the SHA1 of the local file");
 			filesha = remmina_sha1_file(output_file_path);
 			REMMINA_DEBUG("SHA1 is %s", filesha);
-			if (filesha == NULL || filesha[0] == 0)
-			filesha = "0\0";
+			if (filesha == NULL || filesha[0] == 0) filesha = "0\0";
 			REMMINA_DEBUG("Opening %s output file for writing", output_file_path);
 			output_file = fopen(output_file_path, "w");
 			if (!output_file) {
-				g_printerr("Error trying to create file %s.\n", output_file_path);
+				REMMINA_DEBUG("Error trying to create file %s.", output_file_path);
 				remmina_pref.periodic_rmnews_last_get = unixts;
 				REMMINA_DEBUG ("periodic_rmnews_last_get set to %ld", remmina_pref.periodic_rmnews_last_get);
 				REMMINA_DEBUG ("Saving preferences");
@@ -361,6 +441,7 @@ static void rmnews_get_url_cb(SoupSession *session, SoupMessage *msg, gpointer d
 
 	g_object_unref(msg);
 }
+#endif
 
 /**
  * Try to get a unique system+user ID to identify this remmina user
@@ -412,8 +493,16 @@ void rmnews_get_url(const char *url)
 
 	REMMINA_DEBUG("Fetching %s", url);
 
+#if SOUP_CHECK_VERSION (2, 99, 2)
+	// Use soup_session_send_async or soup_session_send_and_read_async
+	soup_session_send_async ( session, msg, G_PRIORITY_DEFAULT,
+			NULL,			// cancellable
+			rmnews_get_url_cb,	// callback
+			NULL);			// user_data
+#else
 	g_object_ref(msg);
 	soup_session_queue_message(session, msg, rmnews_get_url_cb, NULL);
+#endif
 }
 
 void rmnews_get_news()
@@ -461,20 +550,25 @@ void rmnews_get_news()
 	}
 
 	REMMINA_DEBUG("Gathering news");
-		        /* Build the session with all of the features we need */
+	/* Build the session with all of the features we need */
 	session = soup_session_new_with_options ("user-agent", "get ",
                                                  "accept-language-auto", TRUE,
                                                  "timeout", 15,
                                                  NULL);
 
+#if SOUP_CHECK_VERSION (2, 99, 2)
+	soup_session_add_feature_by_type (session, SOUP_TYPE_COOKIE_JAR);
+	logger = soup_logger_new(SOUP_LOGGER_LOG_NONE);
+#else
 	session = g_object_new(SOUP_TYPE_SESSION,
 			       SOUP_SESSION_ADD_FEATURE_BY_TYPE, SOUP_TYPE_CONTENT_DECODER,
 			       SOUP_SESSION_ADD_FEATURE_BY_TYPE, SOUP_TYPE_COOKIE_JAR,
 			       SOUP_SESSION_USER_AGENT, "get ",
 			       SOUP_SESSION_ACCEPT_LANGUAGE_AUTO, TRUE,
 			       NULL);
-	/* TODO: Catch log level and set SOUP_LOGGER_LOG_MINIMAL or more */
 	logger = soup_logger_new(SOUP_LOGGER_LOG_NONE, -1);
+#endif
+	/* TODO: Catch log level and set SOUP_LOGGER_LOG_MINIMAL or more */
 	soup_session_add_feature(session, SOUP_SESSION_FEATURE(logger));
 	g_object_unref(logger);
 
