@@ -290,16 +290,36 @@ static void rmnews_get_url_cb (GObject *source, GAsyncResult *result, gpointer u
                         g_error_free (error);
                         g_object_unref (in);
                         g_object_unref (output_file);
+			g_object_unref (out);
                         return;
                 }
 
-                /* Start downloading to the file */
-                g_output_stream_splice_async (G_OUTPUT_STREAM (out), in,
-                                        G_OUTPUT_STREAM_SPLICE_CLOSE_SOURCE | G_OUTPUT_STREAM_SPLICE_CLOSE_TARGET,
-                                        G_PRIORITY_DEFAULT,
-                                        NULL,
-                                        rmnews_on_stream_splice,
-                                        NULL);
+		/* Start downloading to the file */
+		// g_output_stream_splice_async (G_OUTPUT_STREAM (out), in,
+		// 		G_OUTPUT_STREAM_SPLICE_CLOSE_SOURCE | G_OUTPUT_STREAM_SPLICE_CLOSE_TARGET,
+		// 		G_PRIORITY_DEFAULT,
+		// 		NULL,
+		// 		rmnews_on_stream_splice,
+		// NULL);
+		g_output_stream_splice (G_OUTPUT_STREAM (out), in,
+			  G_OUTPUT_STREAM_SPLICE_CLOSE_SOURCE | G_OUTPUT_STREAM_SPLICE_CLOSE_TARGET,
+			  NULL,
+			  &error);
+
+		if (error) {
+			REMMINA_DEBUG ("Failed to download: %s", error->message);
+			remmina_pref.periodic_rmnews_last_get = unixts;
+			REMMINA_DEBUG ("periodic_rmnews_last_get set to %ld", remmina_pref.periodic_rmnews_last_get);
+			REMMINA_DEBUG ("Saving preferences");
+			remmina_pref_save();
+			g_free(filesha); filesha = NULL;
+			g_error_free (error);
+                        g_object_unref (in);
+                        g_object_unref (output_file);
+			g_object_unref (out);
+			return;
+		}
+
 
 		filesha_after = remmina_sha1_file(output_file_path);
 
@@ -319,8 +339,7 @@ static void rmnews_get_url_cb (GObject *source, GAsyncResult *result, gpointer u
 		remmina_pref.periodic_rmnews_get_count = remmina_pref.periodic_rmnews_get_count + 1;
 		remmina_pref_save();
 		g_free(filesha); filesha = NULL;
-
-                g_object_unref (out);
+		g_object_unref (out);
 	} else {
 		REMMINA_DEBUG("Cannot open output file for writing, because output_file_path is NULL");
 		remmina_pref.periodic_rmnews_last_get = unixts;
