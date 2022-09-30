@@ -69,6 +69,7 @@
         "shared-modules/dbus-glib/dbus-glib.json",
         "shared-modules/libappindicator/libappindicator-gtk3-12.10.json",
         "shared-modules/libusb/libusb.json",
+        "requirements/webkit.json",
         {
             /**
             * libfreerdp uses xprop to try to detect keyboard layout
@@ -523,7 +524,7 @@
                 "-DWITH_CUPS:BOOL=ON",
                 "-DWITH_PYTHONLIBS:BOOL=ON",
                 "-DWITH_MANPAGES:BOOL=OFF",
-                "-DWITH_WWW=OFF"
+                "-DWITH_WWW=ON"
             ],
             "sources": [
                 {
