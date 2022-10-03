@@ -1,7 +1,7 @@
 {
     "app-id": "org.remmina.Remmina",
     "runtime": "org.gnome.Platform",
-    "runtime-version": "42",
+    "runtime-version": "43",
     "sdk": "org.gnome.Sdk",
     "command": "remmina",
     "cleanup": [
@@ -49,9 +49,9 @@
     "add-extensions": {
         "org.freedesktop.Platform.ffmpeg-full": {
             "directory": "lib/ffmpeg",
-            "version": "21.08",
+            "version": "22.08",
             "add-ld-path": ".",
-            "no-autodownload": false,
+            "no-autodownload": true,
             "autodelete": false
         },
         "org.freedesktop.Platform.openh264": {
@@ -61,15 +61,14 @@
         }
     },
     "cleanup-commands": [
-        "mkdir -p /app/lib/ffmpeg",
-        "mkdir -p /app/lib/openh264"
+        "mkdir -p ${FLATPAK_DEST}/lib/ffmpeg",
+        "mkdir -p ${FLATPAK_DEST}/lib/openh264"
     ],
     "modules": [
         "shared-modules/intltool/intltool-0.51.json",
         "shared-modules/dbus-glib/dbus-glib.json",
         "shared-modules/libappindicator/libappindicator-gtk3-12.10.json",
         "shared-modules/libusb/libusb.json",
-        "requirements/webkit.json",
         {
             /**
             * libfreerdp uses xprop to try to detect keyboard layout
@@ -254,8 +253,8 @@
                 {
                     "type": "git",
                     "url": "https://github.com/LudovicRousseau/PCSC.git",
-                    "tag": "pcsc-1.9.0",
-                    "commit": "e796a0f12fbefa459bff0d25e27089615fa91f21",
+                    "tag": "1.9.9",
+                    "commit": "15c16c7796607b1c8a2ce253d3f536918ab26b4a",
                     "x-checker-data": {
                         "type": "git",
                         "tag-pattern": "^pcsc-([\\d.]+)$"
@@ -274,7 +273,8 @@
             "config-opts": [
                 "-Dvapi=enabled",
                 "-Dwebdav=enabled",
-                "-Dgtk_doc=disabled"
+                "-Dgtk_doc=disabled",
+                "-Dpolkit=disabled"
             ],
             "sources": [
                 {
@@ -360,10 +360,6 @@
                     "cleanup": [
                         "/bin",
                         "/sbin"
-                    ],
-                    "config-opts": [
-                        "-Dgtk_doc=disabled",
-                        "-Dsystemd=disabled"
                     ],
                     "sources": [
                         {
@@ -459,14 +455,9 @@
             ],
             "sources": [
                 {
-                    "type": "archive",
-                    "url": "https://github.com/LibVNC/libvncserver/archive/LibVNCServer-0.9.13.tar.gz",
-                    "sha256": "0ae5bb9175dc0a602fe85c1cf591ac47ee5247b87f2bf164c16b05f87cbfa81a",
-                    "x-checker-data": {
-                        "type": "anitya",
-                        "project-id": 1756,
-                        "url-template": "https://github.com/LibVNC/libvncserver/archive/LibVNCServer-$version.tar.gz"
-                    }
+                    "type": "git",
+                    "url": "https://github.com/LibVNC/libvncserver.git",
+                    "branch": "master"
                 }
             ]
         },
@@ -475,22 +466,24 @@
             "buildsystem": "cmake-ninja",
             "cleanup": [],
             "config-opts": [
+                "-DCMAKE_VERBOSE_MAKEFILE=ON",
                 "-DCMAKE_BUILD_TYPE:STRING=Release",
                 "-DCMAKE_INSTALL_LIBDIR:PATH=lib",
                 "-DWITH_WAYLAND:BOOL=ON",
-                "-DCHANNEL_TSMF:BOOL=ON",
+                "-DCHANNEL_TSMF:BOOL=OFF",
                 "-DCHANNEL_URBDRC:BOOL=ON",
                 "-DBUILD_TESTING:BOOL=OFF",
-                "-DWITH_ICU:BOOL=ON",
                 "-DWITH_MANPAGES:BOOL=OFF",
                 "-DWITH_GSSAPI:BOOL=OFF",
                 "-DWITH_PCSC:BOOL=ON",
+                "-DWITH_PKCS11:BOOL=ON",
+                "-DWITH_SWSCALE:BOOL=ON",
                 "-DWITH_SERVER:BOOL=OFF",
                 "-DWITH_CUPS:BOOL=ON",
                 "-DWITH_FFMPEG:BOOL=ON",
+                "-DWITH_DSP_FFMPEG:BOOL=ON",
                 "-DWITH_OSS:BOOL=OFF",
                 "-DWITH_PULSE:BOOL=ON",
-                "-DWITH_CHANNELS:BOOL=ON",
                 "-DWITH_LIBSYSTEMD:BOOL=OFF"
             ],
             "sources": [
