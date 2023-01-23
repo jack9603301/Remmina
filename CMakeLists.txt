@@ -406,17 +406,17 @@ endif()
 include_directories(${GLib_INCLUDE_DIRS})
 include_directories(${GMODULE_INCLUDE_DIR})
 
-find_package(GTK3 3.14.0 REQUIRED)
-if(NOT GTK3_FOUND)
-  message(FATAL_ERROR "GTK3 library not found")
+find_package(GTK4 REQUIRED)
+if(NOT GTK4_FOUND)
+  message(FATAL_ERROR "GTK4 library not found")
 endif()
-include_directories(${GTK3_INCLUDE_DIRS})
+include_directories(${GTK4_INCLUDE_DIRS})
 
 pkg_check_modules(wayland-client wayland-client)
 if(wayland-client_FOUND)
   set(GTK_LIBRARIES
-      ${GTK3_LIBRARY}
-      ${GDK3_LIBRARY}
+      ${GTK4_LIBRARY}
+      ${GDK4_LIBRARY}
       ${GDKPixbuf_LIBRARY}
       ${Pango_LIBRARY}
       ${Cairo_LIBRARY}
@@ -430,8 +430,8 @@ if(wayland-client_FOUND)
   message(STATUS "Wayland library found.")
 else()
   set(GTK_LIBRARIES
-      ${GTK3_LIBRARY}
-      ${GDK3_LIBRARY}
+      ${GTK4_LIBRARY}
+      ${GDK4_LIBRARY}
       ${GDKPixbuf_LIBRARY}
       ${Pango_LIBRARY}
       ${Cairo_LIBRARY}
@@ -570,7 +570,7 @@ if(NOT FREEBSD)
   set(CMAKE_INSTALL_RPATH "\$ORIGIN/../${CMAKE_INSTALL_LIBDIR}:\$ORIGIN/..")
 endif()
 
-if(GTK3_FOUND)
+if(GTK4_FOUND)
   # pkg_check_modules(gio REQUIRED gio-2.0) pkg_check_modules(gio-unix REQUIRED
   # gio-unix-2.0)
   add_subdirectory(src)
