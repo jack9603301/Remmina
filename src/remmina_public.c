@@ -583,17 +583,6 @@ GtkBuilder* remmina_public_gtk_builder_new_from_resource(gchar *resource)
 	return builder;
 }
 
-/* Change parent container for a widget
- * If possible use this function instead of the deprecated gtk_widget_reparent */
-void remmina_public_gtk_widget_reparent(GtkWidget *widget, GtkContainer *container)
-{
-	TRACE_CALL(__func__);
-	g_object_ref(widget);
-	gtk_container_remove(GTK_CONTAINER(gtk_widget_get_parent(widget)), widget);
-	gtk_container_add(container, widget);
-	g_object_unref(widget);
-}
-
 /* Validate the inserted value for a new resolution */
 gboolean remmina_public_resolution_validation_func(const gchar *new_str, gchar **error)
 {

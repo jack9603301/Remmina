@@ -111,8 +111,6 @@ gboolean remmina_public_get_modifier_for_keycode(GdkKeymap *keymap, guint16 keyc
 GtkBuilder *remmina_public_gtk_builder_new_from_file(gchar *filename);
 /* Load a GtkBuilder object from a resource */
 GtkBuilder *remmina_public_gtk_builder_new_from_resource(gchar *resource);
-/* Change parent container for a widget */
-void remmina_public_gtk_widget_reparent(GtkWidget *widget, GtkContainer *container);
 /* Used to send desktop notifications */
 void remmina_public_send_notification(const gchar *notification_id, const gchar *notification_title, const gchar *notification_message);
 /* Validate the inserted value for a new resolution */
