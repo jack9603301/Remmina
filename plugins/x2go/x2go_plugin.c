@@ -259,7 +259,7 @@ str2int_errno str2int(gint *out, gchar *s, gint base)
  *	if (response_id == GTK_RESPONSE_OK) { \n
  *		REMMINA_PLUGIN_DEBUG("OK!"); \n
  *	} \n
- *	gtk_widget_destroy(self); \n
+ *	gtk_window_destroy(self); \n
  *	return G_SOURCE_REMOVE; \n
  * }
  *
@@ -349,7 +349,7 @@ static gboolean rmplugin_x2go_open_dialog(X2GoCustomUserData *custom_data)
 					 custom_data);
 	} else {
 		g_signal_connect(G_OBJECT(widget_gtk_dialog), "response",
-				 G_CALLBACK(gtk_widget_destroy),
+				 G_CALLBACK(gtk_window_destroy),
 				 NULL);
 	}
 
@@ -455,7 +455,7 @@ static gboolean rmplugin_x2go_session_chooser_row_activated(GtkTreeView *treevie
 		// stored, a session is selected. So we use the gpointer as a gboolean.
 		SET_SESSION_SELECTED(gp, (gpointer) TRUE);
 		gtk_widget_hide(GTK_WIDGET(dialog));
-		gtk_widget_destroy(GTK_WIDGET(dialog));
+		gtk_window_destroy(GTK_WIDGET(dialog));
 	}
 
 	return G_SOURCE_REMOVE;
@@ -1303,7 +1303,7 @@ static gboolean rmplugin_x2go_pyhoca_terminate_session(X2GoCustomUserData *custo
 		custom_data->opt1 = NULL;
 		custom_data->opt2 = NULL;
 
-		IDLE_ADD((GSourceFunc) rmplugin_x2go_open_dialog, custom_data);
+		//IDLE_ADD((GSourceFunc) rmplugin_x2go_open_dialog, custom_data);
 
 		// Too verbose:
 		// GtkTreeModel *model = gtk_tree_model_filter_get_model(
@@ -1365,7 +1365,7 @@ static gboolean rmplugin_x2go_session_chooser_callback(X2GoCustomUserData* custo
 		// than 0 stored, a session is selected. So we use the gpointer as a gboolean.
 		SET_SESSION_SELECTED(gp, (gpointer) TRUE);
 
-		gtk_widget_destroy(GTK_WIDGET(self));
+		gtk_window_destroy(GTK_WIDGET(self));
 
 		return G_SOURCE_REMOVE;
 	}
@@ -1453,7 +1453,7 @@ static gboolean rmplugin_x2go_session_chooser_callback(X2GoCustomUserData* custo
 	// than 0 stored, a session is selected. So we use the gpointer as a gboolean.
 	SET_SESSION_SELECTED(gp, (gpointer) TRUE);
 
-	gtk_widget_destroy(GTK_WIDGET(self));
+	gtk_window_destroy(GTK_WIDGET(self));
 
 	return G_SOURCE_REMOVE;
 }
@@ -1515,7 +1515,7 @@ static void onMainThread_schedule_callback_and_wait(struct onMainThread_cb_data 
 	pthread_cleanup_push(onMainThread_cleanup_handler, d);
 	pthread_mutex_init(&d->mu, NULL);
 	pthread_mutex_lock(&d->mu);
-	gdk_threads_add_idle((GSourceFunc)onMainThread_cb, (gpointer) d);
+	//gdk_threads_add_idle((GSourceFunc)onMainThread_cb, (gpointer) d);
 
 	pthread_mutex_lock(&d->mu);
 
@@ -1685,7 +1685,7 @@ static void rmplugin_x2go_pyhoca_cli_exited(GPid pid,
 	custom_data->connect_data = NULL;
 	custom_data->opt1 = NULL;
 
-	IDLE_ADD((GSourceFunc) rmplugin_x2go_open_dialog, custom_data);
+	//IDLE_ADD((GSourceFunc) rmplugin_x2go_open_dialog, custom_data);
 
 	// 1 Second. Give `Dialog` chance to open.
 	usleep(1000 * 1000);
@@ -2264,7 +2264,7 @@ static gchar* rmplugin_x2go_ask_session(RemminaProtocolWidget *gp, GError **erro
 
 	// Open dialog here. Dialog rmplugin_x2go_session_chooser_callback (callbackfunc)
 	// should set SET_RESUME_SESSION.
-	IDLE_ADD((GSourceFunc)rmplugin_x2go_open_dialog, custom_data);
+	//IDLE_ADD((GSourceFunc)rmplugin_x2go_open_dialog, custom_data);
 
 	guint counter = 0;
 	while (!IS_SESSION_SELECTED(gp)) {
@@ -2602,7 +2602,7 @@ static gboolean rmplugin_x2go_exec_x2go(gchar *host,
 		custom_data->connect_data = NULL;
 		custom_data->opt1 = NULL;
 
-		IDLE_ADD((GSourceFunc) rmplugin_x2go_open_dialog, custom_data);
+		//IDLE_ADD((GSourceFunc) rmplugin_x2go_open_dialog, custom_data);
 
 		g_strlcpy(errmsg, error_title, 512);
 
@@ -3083,7 +3083,7 @@ static gpointer rmplugin_x2go_main_thread(RemminaProtocolWidget* gp)
 
 	CANCEL_ASYNC
 	if (!rmplugin_x2go_main(gp)) {
-		IDLE_ADD((GSourceFunc) rmplugin_x2go_cleanup, gp);
+		//IDLE_ADD((GSourceFunc) rmplugin_x2go_cleanup, gp);
 	}
 
 	return NULL;

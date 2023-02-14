@@ -56,14 +56,14 @@ typedef struct _RemminaProtocolWidgetPriv RemminaProtocolWidgetPriv;
 typedef struct _RemminaProtocolPlugin RemminaProtocolPlugin;
 
 struct _RemminaProtocolWidget {
-	GtkEventBox			event_box;
+	GtkBox			event_box;
 	RemminaConnectionObject *	cnnobj;
 	RemminaProtocolWidgetPriv *	priv;
 	RemminaProtocolPlugin * plugin;
 };
 
 struct _RemminaProtocolWidgetClass {
-	GtkEventBoxClass	parent_class;
+	GtkBoxClass	parent_class;
 
 	void			(*connect)(RemminaProtocolWidget *gp);
 	void			(*disconnect)(RemminaProtocolWidget *gp);
@@ -169,8 +169,8 @@ void remmina_protocol_widget_send_keys_signals(GtkWidget *widget, const guint *k
 /* Check if the plugin accepts keystrokes */
 gboolean remmina_protocol_widget_plugin_receives_keystrokes(RemminaProtocolWidget *gp);
 /* Send to the plugin some keystrokes */
-void remmina_protocol_widget_send_keystrokes(RemminaProtocolWidget *gp, GtkMenuItem *widget);
-void remmina_protocol_widget_send_clipboard(RemminaProtocolWidget *gp, GtkMenuItem *widget);
+void remmina_protocol_widget_send_keystrokes(RemminaProtocolWidget *gp, GtkButton *widget);
+void remmina_protocol_widget_send_clipboard(RemminaProtocolWidget *gp, GtkButton *widget);
 /* Take screenshot of plugin */
 gboolean remmina_protocol_widget_plugin_screenshot(RemminaProtocolWidget *gp, RemminaPluginScreenshotData *rpsd);
 /* Deal with the remimna connection window map/unmap events */

@@ -213,7 +213,7 @@ void gvnc_plugin_paste_text(RemminaProtocolWidget *gp, const gchar *text)
 	}
 }
 
-static void gvnc_plugin_clipboard_cb(GtkClipboard *cb, GdkEvent *event, RemminaProtocolWidget *gp)
+static void gvnc_plugin_clipboard_cb(GdkClipboard *cb, GdkEvent *event, RemminaProtocolWidget *gp)
 {
 	TRACE_CALL(__func__);
 	//GVncPluginData *gpdata = GET_PLUGIN_DATA(gp);
@@ -234,7 +234,7 @@ static void gvnc_plugin_clipboard_cb(GtkClipboard *cb, GdkEvent *event, RemminaP
 
 
 /* text was actually requested */
-static void gvnc_plugin_clipboard_copy(GtkClipboard *clipboard G_GNUC_UNUSED, GtkSelectionData *data, guint info G_GNUC_UNUSED, RemminaProtocolWidget *gp)
+static void gvnc_plugin_clipboard_copy(GdkClipboard *clipboard G_GNUC_UNUSED, GtkSelectionData *data, guint info G_GNUC_UNUSED, RemminaProtocolWidget *gp)
 {
 	TRACE_CALL(__func__);
 	GVncPluginData *gpdata = GET_PLUGIN_DATA(gp);
@@ -251,7 +251,7 @@ static void gvnc_plugin_cut_text(VncDisplay *vnc G_GNUC_UNUSED, const gchar *tex
 
 	REMMINA_PLUGIN_DEBUG("Got clipboard request for “%s”", text);
 
-	GtkClipboard *cb;
+	GdkClipboard *cb;
 	gsize a, b;
 	GtkTargetEntry targets[] = {
 		{ g_strdup("UTF8_STRING"),   0, 0 },
@@ -272,7 +272,7 @@ static void gvnc_plugin_cut_text(VncDisplay *vnc G_GNUC_UNUSED, const gchar *tex
 		gtk_clipboard_set_with_owner(cb,
 					     targets,
 					     G_N_ELEMENTS(targets),
-					     (GtkClipboardGetFunc)gvnc_plugin_clipboard_copy,
+					     (GdkClipboardGetFunc)gvnc_plugin_clipboard_copy,
 					     NULL,
 					     G_OBJECT(gp));
 	}
@@ -303,7 +303,7 @@ static void gvnc_plugin_on_bell(RemminaProtocolWidget *gp)
 
 	if (remmina_plugin_service->file_get_int(remminafile, "disableserverbell", FALSE))
 		return;
-	GdkWindow *window = gtk_widget_get_window(GTK_WIDGET(gp));
+	GdkSurface *window = gtk_widget_get_window(GTK_WIDGET(gp));
 
 	if (window)
 		gdk_window_beep(window);
@@ -685,7 +685,7 @@ static void gvnc_plugin_init(RemminaProtocolWidget *gp)
 	GVncPluginData *gpdata;
 	//VncGrabSequence *seq;
 
-	GtkClipboard *cb;
+	GdkClipboard *cb;
 
 	gpdata = g_new0(GVncPluginData, 1);
 	g_object_set_data_full(G_OBJECT(gp), "plugin-data", gpdata, g_free);

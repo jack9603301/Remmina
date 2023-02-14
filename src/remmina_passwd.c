@@ -57,8 +57,8 @@ void remmina_passwd_repwd_on_changed(GtkEditable *editable, RemminaPasswdDialog 
 
 	provider = gtk_css_provider_new();
 
-	password = gtk_entry_get_text(remmina_passwd_dialog->entry_password);
-	verify = gtk_entry_get_text(remmina_passwd_dialog->entry_verify);
+	password = gtk_editable_get_text(remmina_passwd_dialog->entry_password);
+	verify = gtk_editable_get_text(remmina_passwd_dialog->entry_verify);
 	if (g_strcmp0(password, verify) == 0) {
 		color = g_strdup("green");
 		sensitive = TRUE;
@@ -76,8 +76,8 @@ void remmina_passwd_repwd_on_changed(GtkEditable *editable, RemminaPasswdDialog 
 						"  color: %s;\n"
 						"}\n"
 						, color)
-					, -1, NULL);
-	gtk_style_context_add_provider_for_screen(gdk_screen_get_default(),
+					, -1);
+	gtk_style_context_add_provider_for_display(gdk_display_get_default(),
 						  GTK_STYLE_PROVIDER(provider),
 						  GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
 
@@ -102,7 +102,7 @@ static void remmina_passwd_cancel_clicked(GtkButton *btn, gpointer user_data)
 static void remmina_passwd_submit_clicked(GtkButton *btn, gpointer user_data)
 {
 	TRACE_CALL(__func__);
-	remmina_passwd_dialog->password = gtk_entry_get_text(
+	remmina_passwd_dialog->password = gtk_editable_get_text(
 			GTK_ENTRY(remmina_passwd_dialog->entry_verify));
 	gtk_dialog_response (remmina_passwd_dialog->dialog, GTK_RESPONSE_ACCEPT);
 }
@@ -123,8 +123,8 @@ gboolean remmina_passwd(GtkWindow *parent, gchar **unlock_password)
 	remmina_passwd_dialog->entry_verify = GTK_ENTRY(GET_OBJ("entry_verify"));
 	gtk_entry_set_activates_default(GTK_ENTRY(remmina_passwd_dialog->entry_verify), TRUE);
 	remmina_passwd_dialog->button_submit = GTK_BUTTON(GET_OBJ("button_submit"));
-	gtk_widget_set_can_default(GTK_WIDGET(remmina_passwd_dialog->button_submit), TRUE);
-	gtk_widget_grab_default(GTK_WIDGET(remmina_passwd_dialog->button_submit));
+	//gtk_widget_set_can_default(GTK_WIDGET(remmina_passwd_dialog->button_submit), TRUE); TODO GTK4
+	//gtk_widget_grab_default(GTK_WIDGET(remmina_passwd_dialog->button_submit));
 	remmina_passwd_dialog->button_cancel = GTK_BUTTON(GET_OBJ("button_cancel"));
 
 	g_signal_connect(remmina_passwd_dialog->entry_password, "activate",
@@ -135,9 +135,9 @@ gboolean remmina_passwd(GtkWindow *parent, gchar **unlock_password)
 			 G_CALLBACK(remmina_passwd_cancel_clicked), (gpointer)remmina_passwd_dialog);
 
 	/* Connect signals */
-	gtk_builder_connect_signals(remmina_passwd_dialog->builder, NULL);
+	//gtk_builder_connect_signals(remmina_passwd_dialog->builder, NULL); TODO GTK4
 
-	int result = gtk_dialog_run(remmina_passwd_dialog->dialog);
+	int result = 0; //gtk_dialog_run(remmina_passwd_dialog->dialog);TODO GTK4
 	switch (result)
 	{
 		case GTK_RESPONSE_ACCEPT:
@@ -157,7 +157,7 @@ gboolean remmina_passwd(GtkWindow *parent, gchar **unlock_password)
 			rc = FALSE;
 			break;
 	}
-	gtk_widget_destroy(GTK_WIDGET(remmina_passwd_dialog->dialog));
+	gtk_window_destroy(GTK_WIDGET(remmina_passwd_dialog->dialog));
 	remmina_passwd_dialog->dialog = NULL;
 	return rc;
 }

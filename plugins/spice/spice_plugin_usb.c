@@ -69,7 +69,7 @@ void remmina_plugin_spice_select_usb_devices(RemminaProtocolWidget *gp)
 		0);
 	gtk_widget_show_all(dialog);
 	gtk_dialog_run(GTK_DIALOG(dialog));
-	gtk_widget_destroy(dialog);
+	gtk_window_destroy(dialog);
 }
 
 static void remmina_plugin_spice_usb_connect_failed_cb(GObject *object, SpiceUsbDevice *usb_device, GError *error, RemminaProtocolWidget *gp)
@@ -96,5 +96,5 @@ static void remmina_plugin_spice_usb_connect_failed_cb(GObject *object, SpiceUsb
 		"%s",
 		error->message);
 	gtk_dialog_run(GTK_DIALOG(dialog));
-	gtk_widget_destroy(dialog);
+	gtk_window_destroy(dialog);
 }

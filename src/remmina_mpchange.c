@@ -250,8 +250,8 @@ static void remmina_mpchange_dochange_clicked(GtkButton *btn, gpointer user_data
 	if (!gtk_tree_model_get_iter_first(GTK_TREE_MODEL(mpcp->store), &mpcp->iter))
 		return;
 
-	passwd1 = gtk_entry_get_text(mpcp->ePassword1);
-	passwd2 = gtk_entry_get_text(mpcp->ePassword2);
+	passwd1 = gtk_editable_get_text(mpcp->ePassword1);
+	passwd2 = gtk_editable_get_text(mpcp->ePassword2);
 
 	if (g_strcmp0(passwd1, passwd2) != 0) {
 		GtkWidget *msgDialog;
@@ -260,12 +260,12 @@ static void remmina_mpchange_dochange_clicked(GtkButton *btn, gpointer user_data
 			GTK_MESSAGE_ERROR,
 			GTK_BUTTONS_CLOSE,
 			_("The passwords do not match"));
-		gtk_dialog_run(GTK_DIALOG(msgDialog));
-		gtk_widget_destroy(msgDialog);
+		//gtk_dialog_run(GTK_DIALOG(msgDialog));
+		gtk_window_destroy(msgDialog);
 		return;
 	}
-	gatewaypasswd1 = gtk_entry_get_text(mpcp->eGatewayPassword1);
-	gatewaypasswd2 = gtk_entry_get_text(mpcp->eGatewayPassword2);
+	gatewaypasswd1 = gtk_editable_get_text(mpcp->eGatewayPassword1);
+	gatewaypasswd2 = gtk_editable_get_text(mpcp->eGatewayPassword2);
 	if (g_strcmp0(gatewaypasswd1, gatewaypasswd2) != 0) {
 		GtkWidget *msgDialog;
 		msgDialog = gtk_message_dialog_new(GTK_WINDOW(mpcp->dialog),
@@ -273,8 +273,8 @@ static void remmina_mpchange_dochange_clicked(GtkButton *btn, gpointer user_data
 			GTK_MESSAGE_ERROR,
 			GTK_BUTTONS_CLOSE,
 			_("The Gateway passwords do not match"));
-		gtk_dialog_run(GTK_DIALOG(msgDialog));
-		gtk_widget_destroy(msgDialog);
+		//gtk_dialog_run(GTK_DIALOG(msgDialog));
+		gtk_window_destroy(msgDialog);
 		return;
 	}
 
@@ -304,23 +304,23 @@ static gboolean remmina_mpchange_searchfield_changed_to(gpointer user_data)
 		mpcp->searchentrychange_timeout_source_id = 0;
 	}
 
-	s = gtk_entry_get_text(mpcp->eGroup);
+	s = gtk_editable_get_text(mpcp->eGroup);
 	g_free(mpcp->group);
 	mpcp->group = g_strdup(s);
 
-	s = gtk_entry_get_text(mpcp->eDomain);
+	s = gtk_editable_get_text(mpcp->eDomain);
 	g_free(mpcp->domain);
 	mpcp->domain = g_strdup(s);
 
-	s = gtk_entry_get_text(mpcp->eUsername);
+	s = gtk_editable_get_text(mpcp->eUsername);
 	g_free(mpcp->username);
 	mpcp->username = g_strdup(s);
 
-	s = gtk_entry_get_text(mpcp->eGatewayDomain);
+	s = gtk_editable_get_text(mpcp->eGatewayDomain);
 	g_free(mpcp->gatewaydomain);
 	mpcp->gatewaydomain = g_strdup(s);
 
-	s = gtk_entry_get_text(mpcp->eGatewayUsername);
+	s = gtk_editable_get_text(mpcp->eGatewayUsername);
 	g_free(mpcp->gatewayusername);
 	mpcp->gatewayusername = g_strdup(s);
 
@@ -387,8 +387,8 @@ static gboolean remmina_file_multipasswd_changer_mt(gpointer d)
 		GtkWidget *msgDialog;
 		msgDialog = gtk_message_dialog_new(mainwindow, GTK_DIALOG_MODAL, GTK_MESSAGE_WARNING, GTK_BUTTONS_OK,
 			"%s", initerror);
-		gtk_dialog_run(GTK_DIALOG(msgDialog));
-		gtk_widget_destroy(msgDialog);
+		//gtk_dialog_run(GTK_DIALOG(msgDialog));
+		gtk_window_destroy(msgDialog);
 		return FALSE;
 	}
 
@@ -406,37 +406,37 @@ static gboolean remmina_file_multipasswd_changer_mt(gpointer d)
 
 
 	mpcp->eGroup = GTK_ENTRY(GET_DIALOG_OBJECT("groupEntry"));
-	gtk_entry_set_text(mpcp->eGroup, mpcp->group);
+	gtk_editable_set_text(mpcp->eGroup, mpcp->group);
 	g_signal_connect(G_OBJECT(mpcp->eGroup), "changed", G_CALLBACK(remmina_mpchange_searchfield_changed), (gpointer)mpcp);
 	g_signal_connect(G_OBJECT(mpcp->eGroup), "stop-search", G_CALLBACK(remmina_mpchange_stopsearch), (gpointer)mpcp);
 
 	mpcp->eUsername = GTK_ENTRY(GET_DIALOG_OBJECT("usernameEntry"));
-	gtk_entry_set_text(mpcp->eUsername, mpcp->username);
+	gtk_editable_set_text(mpcp->eUsername, mpcp->username);
 	g_signal_connect(G_OBJECT(mpcp->eUsername), "changed", G_CALLBACK(remmina_mpchange_searchfield_changed), (gpointer)mpcp);
 
 	mpcp->eGatewayUsername = GTK_ENTRY(GET_DIALOG_OBJECT("gatewayUsernameEntry"));
-	gtk_entry_set_text(mpcp->eGatewayUsername, mpcp->gatewayusername);
+	gtk_editable_set_text(mpcp->eGatewayUsername, mpcp->gatewayusername);
 	g_signal_connect(G_OBJECT(mpcp->eGatewayUsername), "changed", G_CALLBACK(remmina_mpchange_searchfield_changed), (gpointer)mpcp);
 
 	mpcp->eDomain = GTK_ENTRY(GET_DIALOG_OBJECT("domainEntry"));
-	gtk_entry_set_text(mpcp->eDomain, mpcp->domain);
+	gtk_editable_set_text(mpcp->eDomain, mpcp->domain);
 	g_signal_connect(G_OBJECT(mpcp->eDomain), "changed", G_CALLBACK(remmina_mpchange_searchfield_changed), (gpointer)mpcp);
 
 	mpcp->eGatewayDomain = GTK_ENTRY(GET_DIALOG_OBJECT("gatewayDomainEntry"));
-	gtk_entry_set_text(mpcp->eGatewayDomain, mpcp->gatewaydomain);
+	gtk_editable_set_text(mpcp->eGatewayDomain, mpcp->gatewaydomain);
 	g_signal_connect(G_OBJECT(mpcp->eGatewayDomain), "changed", G_CALLBACK(remmina_mpchange_searchfield_changed), (gpointer)mpcp);
 
 	mpcp->ePassword1 = GTK_ENTRY(GET_DIALOG_OBJECT("password1Entry"));
-	gtk_entry_set_text(mpcp->ePassword1, mpcp->password);
+	gtk_editable_set_text(mpcp->ePassword1, mpcp->password);
 
 	mpcp->eGatewayPassword1 = GTK_ENTRY(GET_DIALOG_OBJECT("gatewayPassword1Entry"));
-	gtk_entry_set_text(mpcp->eGatewayPassword1, mpcp->gatewaypassword);
+	gtk_editable_set_text(mpcp->eGatewayPassword1, mpcp->gatewaypassword);
 
 	mpcp->ePassword2 = GTK_ENTRY(GET_DIALOG_OBJECT("password2Entry"));
-	gtk_entry_set_text(mpcp->ePassword2, mpcp->password);
+	gtk_editable_set_text(mpcp->ePassword2, mpcp->password);
 
 	mpcp->eGatewayPassword2 = GTK_ENTRY(GET_DIALOG_OBJECT("gatewayPassword2Entry"));
-	gtk_entry_set_text(mpcp->eGatewayPassword2, mpcp->gatewaypassword);
+	gtk_editable_set_text(mpcp->eGatewayPassword2, mpcp->gatewaypassword);
 
 	mpcp->statusLabel = GTK_LABEL(GET_DIALOG_OBJECT("statusLabel"));
 	
@@ -456,8 +456,8 @@ static gboolean remmina_file_multipasswd_changer_mt(gpointer d)
 	mpcp->btnDoChange = GTK_BUTTON(GET_DIALOG_OBJECT("btnDoChange"));
 	g_signal_connect(mpcp->btnDoChange, "clicked", G_CALLBACK(remmina_mpchange_dochange_clicked), (gpointer)mpcp);
 
-	gtk_dialog_run(dialog);
-	gtk_widget_destroy(GTK_WIDGET(dialog));
+	//gtk_dialog_run(dialog);
+	gtk_window_destroy(GTK_WIDGET(dialog));
 
 	if (mpcp->sid) {
 		g_source_remove(mpcp->sid);
@@ -476,8 +476,8 @@ static gboolean remmina_file_multipasswd_changer_mt(gpointer d)
 			GTK_MESSAGE_INFO,
 			GTK_BUTTONS_OK,
 			ngettext("%d password changed.", "%d passwords changed.", mpcp->changed_passwords_count), mpcp->changed_passwords_count);
-		gtk_dialog_run(GTK_DIALOG(msgDialog));
-		gtk_widget_destroy(msgDialog);
+		//gtk_dialog_run(GTK_DIALOG(msgDialog));
+		gtk_window_destroy(msgDialog);
 	}
 
 	// Free data
@@ -512,6 +512,6 @@ remmina_mpchange_schedule(gboolean has_domain, const gchar *group, const gchar *
 	mpcp->gatewayusername = g_strdup(gatewayusername);
 	mpcp->gatewaypassword = g_strdup(gatewaypassword);
 	mpcp->gatewaydomain = g_strdup(gatewaydomain);
-	gdk_threads_add_idle(remmina_file_multipasswd_changer_mt, (gpointer)mpcp);
+	//gdk_threads_add_idle(remmina_file_multipasswd_changer_mt, (gpointer)mpcp);
 
 }

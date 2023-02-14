@@ -40,7 +40,7 @@
 #include <string.h>
 
 #ifdef GDK_WINDOWING_X11
-#include <gdk/gdkx.h>
+//#include <gdk/gdkx.h>
 #elif defined(GDK_WINDOWING_WAYLAND)
 #include <gdk/gdkwayland.h>
 #endif

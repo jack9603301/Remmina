@@ -387,7 +387,7 @@ void remmina_exec_command(RemminaCommandType command, const gchar* data)
 	case REMMINA_COMMAND_MAIN:
 		if (mainwindow) {
 			gtk_window_present(mainwindow);
-			gtk_window_deiconify(GTK_WINDOW(mainwindow));
+			//gdk_toplevel_present(GTK_WINDOW(mainwindow));
 		}else  {
 			widget = remmina_main_new();
 			gtk_widget_show(widget);
@@ -401,7 +401,7 @@ void remmina_exec_command(RemminaCommandType command, const gchar* data)
 		prefdialog = remmina_pref_dialog_get_dialog();
 		if (prefdialog) {
 			gtk_window_present(GTK_WINDOW(prefdialog));
-			gtk_window_deiconify(GTK_WINDOW(prefdialog));
+			//gdk_toplevel_present(GTK_WINDOW(prefdialog));
 		}else  {
 			/* Create a new preference dialog */
 			widget = remmina_pref_dialog_new(atoi(data), NULL);
@@ -489,7 +489,7 @@ void remmina_exec_command(RemminaCommandType command, const gchar* data)
 		}else  {
 			widget = gtk_message_dialog_new(NULL, GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK,
 				_("Plugin %s is not registered."), data);
-			g_signal_connect(G_OBJECT(widget), "response", G_CALLBACK(gtk_widget_destroy), NULL);
+			g_signal_connect(G_OBJECT(widget), "response", G_CALLBACK(gtk_window_destroy), NULL);
 			gtk_widget_show(widget);
 			remmina_widget_pool_register(widget);
 		}

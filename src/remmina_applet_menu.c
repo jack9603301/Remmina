@@ -45,7 +45,7 @@
 #include "remmina_pref.h"
 #include "remmina/remmina_trace_calls.h"
 
-G_DEFINE_TYPE( RemminaAppletMenu, remmina_applet_menu, GTK_TYPE_MENU)
+G_DEFINE_TYPE( RemminaAppletMenu, remmina_applet_menu, GTK_TYPE_POPOVER)
 
 struct _RemminaAppletMenuPriv {
 	gboolean hide_count;
@@ -97,7 +97,7 @@ remmina_applet_menu_add_group(GtkWidget *menu, const gchar *group, gint position
 	GtkWidget *widget;
 	GtkWidget *submenu;
 
-	widget = gtk_menu_item_new_with_label(group);
+	widget = gtk_button_new_with_label(group);
 	gtk_widget_show(widget);
 
 	g_object_set_data_full(G_OBJECT(widget), "group", g_strdup(group), g_free);
@@ -106,14 +106,14 @@ remmina_applet_menu_add_group(GtkWidget *menu, const gchar *group, gint position
 		*groupmenuitem = widget;
 	}
 	if (position < 0) {
-		gtk_menu_shell_append(GTK_MENU_SHELL(menu), widget);
+		gtk_popover_menu_add_child(GTK_POPOVER_MENU(menu), widget, position);
 	}else  {
-		gtk_menu_shell_insert(GTK_MENU_SHELL(menu), widget, position);
+		gtk_popover_menu_add_child(GTK_POPOVER_MENU(menu), widget, position);
 	}
 
-	submenu = gtk_menu_new();
+	submenu = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
 	gtk_widget_show(submenu);
-	gtk_menu_item_set_submenu(GTK_MENU_ITEM(widget), submenu);
+	gtk_button_set_child(GTK_BUTTON(widget), submenu);
 
 	return submenu;
 }
@@ -127,7 +127,7 @@ static void remmina_applet_menu_increase_group_count(GtkWidget *widget)
 	cnt = GPOINTER_TO_INT(g_object_get_data(G_OBJECT(widget), "count")) + 1;
 	g_object_set_data(G_OBJECT(widget), "count", GINT_TO_POINTER(cnt));
 	s = g_strdup_printf("%s (%i)", (const gchar*)g_object_get_data(G_OBJECT(widget), "group"), cnt);
-	gtk_menu_item_set_label(GTK_MENU_ITEM(widget), s);
+	gtk_button_set_label(GTK_BUTTON(widget), s);
 	g_free(s);
 }
 
@@ -142,7 +142,7 @@ void remmina_applet_menu_add_item(RemminaAppletMenu *menu, RemminaAppletMenuItem
 	TRACE_CALL(__func__);
 	GtkWidget *submenu;
 	GtkWidget *groupmenuitem;
-	GtkMenuItem *submenuitem;
+	GtkButton *submenuitem;
 	gchar *s, *p1, *p2, *mstr;
 	GList *childs, *child;
 	gint position;
@@ -155,35 +155,35 @@ void remmina_applet_menu_add_item(RemminaAppletMenu *menu, RemminaAppletMenuItem
 		*p2++ = '\0';
 	while (p1 && p1[0]) {
 		groupmenuitem = NULL;
-		childs = gtk_container_get_children(GTK_CONTAINER(submenu));
-		position = -1;
-		for (child = g_list_first(childs); child; child = g_list_next(child)) {
-			if (!GTK_IS_MENU_ITEM(child->data))
-				continue;
-			position++;
-			submenuitem = GTK_MENU_ITEM(child->data);
-			if (gtk_menu_item_get_submenu(submenuitem)) {
-				mstr = (gchar*)g_object_get_data(G_OBJECT(submenuitem), "group");
-				if (g_strcmp0(p1, mstr) == 0) {
-					/* Found existing group menu */
-					submenu = gtk_menu_item_get_submenu(submenuitem);
-					groupmenuitem = GTK_WIDGET(submenuitem);
-					break;
-				}else  {
-					/* Redo comparison ignoring case and respecting international
-					 * collation, to set menu sort order */
-					if (strcoll(p1, mstr) < 0) {
-						submenu = remmina_applet_menu_add_group(submenu, p1, position, menuitem,
-							&groupmenuitem);
-						break;
-					}
-				}
-			}else  {
-				submenu = remmina_applet_menu_add_group(submenu, p1, position, menuitem, &groupmenuitem);
-				break;
-			}
+		// childs = gtk_container_get_children(GTK_CONTAINER(submenu));
+		// position = -1;
+		// for (child = g_list_first(childs); child; child = g_list_next(child)) {
+		// 	if (!GTK_IS_MENU_ITEM(child->data))
+		// 		continue;
+		// 	position++;
+		// 	submenuitem = GTK_BUTTON(child->data);
+		// 	if (gtk_button_get_child(submenuitem)) {
+		// 		mstr = (gchar*)g_object_get_data(G_OBJECT(submenuitem), "group");
+		// 		if (g_strcmp0(p1, mstr) == 0) {
+		// 			/* Found existing group menu */
+		// 			submenu = gtk_button_get_child(submenuitem);
+		// 			groupmenuitem = GTK_WIDGET(submenuitem);
+		// 			break;
+		// 		}else  {
+		// 			/* Redo comparison ignoring case and respecting international
+		// 			 * collation, to set menu sort order */
+		// 			if (strcoll(p1, mstr) < 0) {
+		// 				submenu = remmina_applet_menu_add_group(submenu, p1, position, menuitem,
+		// 					&groupmenuitem);
+		// 				break;
+		// 			}
+		// 		}
+		// 	}else  {
+		// 		submenu = remmina_applet_menu_add_group(submenu, p1, position, menuitem, &groupmenuitem);
+		// 		break;
+		// 	}
 
-		}
+		// }
 
 		if (!child) {
 			submenu = remmina_applet_menu_add_group(submenu, p1, -1, menuitem, &groupmenuitem);
@@ -199,24 +199,24 @@ void remmina_applet_menu_add_item(RemminaAppletMenu *menu, RemminaAppletMenuItem
 	}
 	g_free(s);
 
-	childs = gtk_container_get_children(GTK_CONTAINER(submenu));
-	position = -1;
-	for (child = g_list_first(childs); child; child = g_list_next(child)) {
-		if (!GTK_IS_MENU_ITEM(child->data))
-			continue;
-		position++;
-		submenuitem = GTK_MENU_ITEM(child->data);
-		if (gtk_menu_item_get_submenu(submenuitem))
-			continue;
-		if (!REMMINA_IS_APPLET_MENU_ITEM(submenuitem))
-			continue;
-		if (strcoll(menuitem->name, REMMINA_APPLET_MENU_ITEM(submenuitem)->name) <= 0) {
-			gtk_menu_shell_insert(GTK_MENU_SHELL(submenu), GTK_WIDGET(menuitem), position);
-			break;
-		}
-	}
+	// childs = gtk_container_get_children(GTK_CONTAINER(submenu));
+	// position = -1;
+	// for (child = g_list_first(childs); child; child = g_list_next(child)) {
+	// 	if (!GTK_IS_MENU_ITEM(child->data))
+	// 		continue;
+	// 	position++;
+	// 	submenuitem = GTK_BUTTON(child->data);
+	// 	if (gtk_button_get_child(submenuitem))
+	// 		continue;
+	// 	if (!REMMINA_IS_APPLET_MENU_ITEM(submenuitem))
+	// 		continue;
+	// 	if (strcoll(menuitem->name, REMMINA_APPLET_MENU_ITEM(submenuitem)->name) <= 0) {
+	// 		//gtk_menu_shell_insert(GTK_MENU_SHELL(submenu), GTK_WIDGET(menuitem), position); TODO GTK4
+	// 		break;
+	// 	}
+	// }
 	if (!child) {
-		gtk_menu_shell_append(GTK_MENU_SHELL(submenu), GTK_WIDGET(menuitem));
+		//gtk_menu_shell_append(GTK_MENU_SHELL(submenu), GTK_WIDGET(menuitem)); TODO GTK4
 	}
 	g_list_free(childs);
 	remmina_applet_menu_register_item(menu, menuitem);
@@ -270,12 +270,12 @@ void remmina_applet_menu_populate(RemminaAppletMenu *menu)
 		g_dir_close(dir);
 		if (count > 0) {
 			/* Separator */
-			menuitem = gtk_separator_menu_item_new();
+			menuitem = gtk_separator_new(GTK_ORIENTATION_HORIZONTAL);
 			gtk_widget_show(menuitem);
-			if (new_ontop)
-				gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), menuitem);
-			else
-				gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
+			// if (new_ontop)
+			// 	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), menuitem);
+			//else
+				//gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
 		}
 	}
 	g_free(remmina_data_dir);

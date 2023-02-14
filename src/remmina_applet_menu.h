@@ -56,13 +56,13 @@ typedef enum {
 typedef struct _RemminaAppletMenuPriv RemminaAppletMenuPriv;
 
 typedef struct _RemminaAppletMenu {
-	GtkMenu			menu;
+	GtkPopover			menu;
 
 	RemminaAppletMenuPriv * priv;
 } RemminaAppletMenu;
 
 typedef struct _RemminaAppletMenuClass {
-	GtkMenuClass parent_class;
+	GtkPopoverClass parent_class;
 
 	void (*launch_item)(RemminaAppletMenu *menu);
 	void (*edit_item)(RemminaAppletMenu *menu);

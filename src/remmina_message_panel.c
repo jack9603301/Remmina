@@ -146,12 +146,12 @@ void remmina_message_panel_setup_progress(RemminaMessagePanel *mp, const gchar *
 
 	/* A spinner */
 	w = gtk_spinner_new();
-	gtk_box_pack_start(hbox, w, FALSE, FALSE, 0);
+	gtk_box_append(hbox, w);
 	gtk_spinner_start(GTK_SPINNER(w));
 
 	/* A message */
 	w = gtk_label_new(message);
-	gtk_box_pack_start(hbox, w, TRUE, TRUE, 0);
+	gtk_box_append(hbox, w);
 
 	priv->response_callback = response_callback;
 	priv->response_callback_data = response_callback_data;
@@ -160,14 +160,14 @@ void remmina_message_panel_setup_progress(RemminaMessagePanel *mp, const gchar *
 	 * only when a response_callback function is defined. */
 	if (response_callback) {
 		w = gtk_button_new_with_label(_("Cancel"));
-		gtk_box_pack_end(hbox, w, FALSE, FALSE, 0);
+		gtk_box_append(hbox, w);
 		g_object_set_data(G_OBJECT(w), btn_response_key, (void *)GTK_RESPONSE_CANCEL);
 		g_signal_connect(G_OBJECT(w), "clicked", G_CALLBACK(remmina_message_panel_button_clicked_callback), mp);
 	}
 
-	gtk_box_pack_start(GTK_BOX(mp), GTK_WIDGET(hbox), TRUE, TRUE, 0);
+	gtk_box_append(GTK_BOX(mp), GTK_WIDGET(hbox));
 
-	gtk_widget_show_all(GTK_WIDGET(mp));
+	//gtk_widget_show_all(GTK_WIDGET(mp));
 
 }
 
@@ -192,11 +192,11 @@ void remmina_message_panel_setup_message(RemminaMessagePanel *mp, const gchar *m
 
 	/* A message */
 	w = gtk_label_new(message);
-	gtk_box_pack_start(hbox, w, TRUE, TRUE, 0);
+	gtk_box_append(hbox, w);
 
 	/* A button to confirm reading */
 	w = gtk_button_new_with_label(_("Close"));
-	gtk_box_pack_end(hbox, w, FALSE, FALSE, 0);
+	gtk_box_append(hbox, w);
 
 	priv->response_callback = response_callback;
 	priv->response_callback_data = response_callback_data;
@@ -204,9 +204,9 @@ void remmina_message_panel_setup_message(RemminaMessagePanel *mp, const gchar *m
 	g_object_set_data(G_OBJECT(w), btn_response_key, (void *)GTK_RESPONSE_OK);
 	g_signal_connect(G_OBJECT(w), "clicked", G_CALLBACK(remmina_message_panel_button_clicked_callback), mp);
 
-	gtk_box_pack_start(GTK_BOX(mp), GTK_WIDGET(hbox), TRUE, TRUE, 0);
+	gtk_box_append(GTK_BOX(mp), GTK_WIDGET(hbox));
 
-	gtk_widget_show_all(GTK_WIDGET(mp));
+	//gtk_widget_show_all(GTK_WIDGET(mp));
 
 }
 
@@ -253,15 +253,15 @@ void remmina_message_panel_setup_question(RemminaMessagePanel *mp, const gchar *
 	gtk_grid_attach(GTK_GRID(grid), w, 0, 0, 2, 1);
 
 	/* A button for yes and one for no */
-	bbox = gtk_button_box_new (GTK_ORIENTATION_HORIZONTAL);
-	gtk_button_box_set_layout(GTK_BUTTON_BOX(bbox), GTK_BUTTONBOX_START);
+	bbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
+	//gtk_button_box_set_layout(GTK_BUTTON_BOX(bbox), GTK_BUTTONBOX_START); // TODO GTK4
 	gtk_grid_attach(GTK_GRID(grid), bbox, 0, 1, 1, 1);
 	w = gtk_button_new_with_label(_("Yes"));
 	gtk_widget_set_valign(GTK_WIDGET(w), GTK_ALIGN_CENTER);
 	g_object_set_data(G_OBJECT(w), btn_response_key, (void *)GTK_RESPONSE_YES);
 
 	g_signal_connect(G_OBJECT(w), "clicked", G_CALLBACK(remmina_message_panel_button_clicked_callback), mp);
-	gtk_container_add(GTK_CONTAINER(bbox), w);
+	gtk_box_append(bbox, w);
 
 	w = gtk_button_new_with_label(_("No"));
 	gtk_widget_set_valign(GTK_WIDGET(w), GTK_ALIGN_CENTER);
@@ -271,11 +271,11 @@ void remmina_message_panel_setup_question(RemminaMessagePanel *mp, const gchar *
 	priv->response_callback_data = response_callback_data;
 
 	g_signal_connect(G_OBJECT(w), "clicked", G_CALLBACK(remmina_message_panel_button_clicked_callback), mp);
-	gtk_container_add(GTK_CONTAINER(bbox), w);
+	gtk_box_append(bbox, w);
 
-	gtk_box_pack_start(GTK_BOX(mp), GTK_WIDGET(grid), TRUE, TRUE, 0);
+	gtk_box_append(GTK_BOX(mp), GTK_WIDGET(grid));
 
-	gtk_widget_show_all(GTK_WIDGET(mp));
+	//gtk_widget_show_all(GTK_WIDGET(mp));
 
 }
 
@@ -354,7 +354,7 @@ void remmina_message_panel_setup_auth(RemminaMessagePanel *mp, RemminaMessagePan
 
 		/*
 		if (default_username && default_username[0] != '\0') {
-			gtk_entry_set_text(GTK_ENTRY(username_entry), default_username);
+			gtk_editable_set_text(GTK_ENTRY(username_entry), default_username);
 		}
 		*/
 		grid_row++;
@@ -408,7 +408,7 @@ void remmina_message_panel_setup_auth(RemminaMessagePanel *mp, RemminaMessagePan
 		gtk_grid_attach(GTK_GRID(grid), domain_entry, 1, grid_row, 2, 1);
 		gtk_entry_set_max_length(GTK_ENTRY(domain_entry), 100);
 		/* if (default_domain && default_domain[0] != '\0') {
-			gtk_entry_set_text(GTK_ENTRY(domain_entry), default_domain);
+			gtk_editable_set_text(GTK_ENTRY(domain_entry), default_domain);
 		} */
 		grid_row ++;
 	} else {
@@ -441,8 +441,8 @@ void remmina_message_panel_setup_auth(RemminaMessagePanel *mp, RemminaMessagePan
 	grid_row ++;
 
 	/* Buttons, ok and cancel */
-	bbox = gtk_button_box_new(GTK_ORIENTATION_HORIZONTAL);
-	gtk_button_box_set_layout (GTK_BUTTON_BOX (bbox), GTK_BUTTONBOX_EDGE);
+	bbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
+	//gtk_button_box_set_layout (GTK_BUTTON_BOX (bbox), GTK_BUTTONBOX_EDGE); TODO GTK4
 	gtk_box_set_spacing (GTK_BOX (bbox), 40);
 	gtk_widget_set_margin_top (GTK_WIDGET(bbox), 9);
 	gtk_widget_set_margin_bottom (GTK_WIDGET(bbox), 18);
@@ -450,15 +450,15 @@ void remmina_message_panel_setup_auth(RemminaMessagePanel *mp, RemminaMessagePan
 	gtk_widget_set_margin_end (GTK_WIDGET(bbox), 18);
 	button_ok = gtk_button_new_with_label(_("_OK"));
 	gtk_button_set_use_underline(GTK_BUTTON(button_ok), TRUE);
-	gtk_widget_set_can_default(button_ok, TRUE);
-	gtk_container_add (GTK_CONTAINER (bbox), button_ok);
+	//gtk_widget_set_can_default(button_ok, TRUE);
+	gtk_box_append (bbox, button_ok);
 	/* Buttons, ok and cancel */
 	button_cancel = gtk_button_new_with_label(_("_Cancel"));
 	gtk_button_set_use_underline(GTK_BUTTON(button_cancel), TRUE);
-	gtk_container_add (GTK_CONTAINER (bbox), button_cancel);
+	gtk_box_append(bbox, button_cancel);
 	gtk_grid_attach(GTK_GRID(grid), bbox, 0, grid_row, 3, 1);
 	/* Pack it into the panel */
-	gtk_box_pack_start(GTK_BOX(mp), grid, TRUE, TRUE, 4);
+	gtk_box_append(GTK_BOX(mp), grid);
 
 	priv->w[REMMINA_MESSAGE_PANEL_USERNAME] = username_entry;
 	priv->w[REMMINA_MESSAGE_PANEL_PASSWORD] = password_entry;
@@ -531,7 +531,7 @@ void remmina_message_panel_setup_auth_x509(RemminaMessagePanel *mp, RemminaMessa
 	gtk_widget_set_margin_end (GTK_WIDGET(widget), 6);
 	gtk_widget_show(widget);
 	gtk_grid_attach(GTK_GRID(grid), widget, 0, grid_row, 1, 1);
-	cacert_file = gtk_file_chooser_button_new(lbl_cacert, GTK_FILE_CHOOSER_ACTION_OPEN);
+	cacert_file = gtk_button_new();
 	// gtk_style_context_add_class(gtk_widget_get_style_context(username_entry), "panel_entry");
 	gtk_widget_show(cacert_file);
 	gtk_widget_set_halign(GTK_WIDGET(cacert_file), GTK_ALIGN_FILL);
@@ -553,7 +553,7 @@ void remmina_message_panel_setup_auth_x509(RemminaMessagePanel *mp, RemminaMessa
 	gtk_widget_set_margin_end (GTK_WIDGET(widget), 6);
 	gtk_widget_show(widget);
 	gtk_grid_attach(GTK_GRID(grid), widget, 0, grid_row, 1, 1);
-	cacrl_file = gtk_file_chooser_button_new(lbl_cacrl, GTK_FILE_CHOOSER_ACTION_OPEN);
+	cacrl_file = gtk_button_new();
 	// gtk_style_context_add_class(gtk_widget_get_style_context(username_entry), "panel_entry");
 	gtk_widget_show(cacrl_file);
 	gtk_widget_set_halign(GTK_WIDGET(cacrl_file), GTK_ALIGN_FILL);
@@ -575,7 +575,7 @@ void remmina_message_panel_setup_auth_x509(RemminaMessagePanel *mp, RemminaMessa
 	gtk_widget_set_margin_end (GTK_WIDGET(widget), 6);
 	gtk_widget_show(widget);
 	gtk_grid_attach(GTK_GRID(grid), widget, 0, grid_row, 1, 1);
-	clientcert_file = gtk_file_chooser_button_new(lbl_clicert, GTK_FILE_CHOOSER_ACTION_OPEN);
+	clientcert_file = gtk_button_new();
 	// gtk_style_context_add_class(gtk_widget_get_style_context(username_entry), "panel_entry");
 	gtk_widget_show(clientcert_file);
 	gtk_widget_set_halign(GTK_WIDGET(clientcert_file), GTK_ALIGN_FILL);
@@ -597,7 +597,7 @@ void remmina_message_panel_setup_auth_x509(RemminaMessagePanel *mp, RemminaMessa
 	gtk_widget_set_margin_end (GTK_WIDGET(widget), 6);
 	gtk_widget_show(widget);
 	gtk_grid_attach(GTK_GRID(grid), widget, 0, grid_row, 1, 1);
-	clientkey_file = gtk_file_chooser_button_new(lbl_clikey, GTK_FILE_CHOOSER_ACTION_OPEN);
+	clientkey_file = gtk_button_new();
 	// gtk_style_context_add_class(gtk_widget_get_style_context(username_entry), "panel_entry");
 	gtk_widget_show(clientkey_file);
 	gtk_widget_set_halign(GTK_WIDGET(clientkey_file), GTK_ALIGN_FILL);
@@ -610,28 +610,28 @@ void remmina_message_panel_setup_auth_x509(RemminaMessagePanel *mp, RemminaMessa
 	grid_row++;
 
 	/* Buttons, ok and cancel */
-	bbox = gtk_button_box_new(GTK_ORIENTATION_HORIZONTAL);
-	gtk_button_box_set_layout (GTK_BUTTON_BOX (bbox), GTK_BUTTONBOX_EDGE);
+	bbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
+	//gtk_button_box_set_layout (GTK_BUTTON_BOX (bbox), GTK_BUTTONBOX_EDGE); TODO GTK4
 	gtk_box_set_spacing (GTK_BOX (bbox), 40);
 	gtk_widget_set_margin_top (GTK_WIDGET(bbox), 9);
 	gtk_widget_set_margin_bottom (GTK_WIDGET(bbox), 18);
 	gtk_widget_set_margin_start (GTK_WIDGET(bbox), 18);
 	gtk_widget_set_margin_end (GTK_WIDGET(bbox), 18);
 	button_ok = gtk_button_new_with_label(_("_OK"));
-	gtk_widget_set_can_default (button_ok, TRUE);
+	//gtk_widget_set_can_default (button_ok, TRUE); TODO GTK4
 
 	gtk_button_set_use_underline(GTK_BUTTON(button_ok), TRUE);
 	//gtk_widget_show(button_ok);
-	gtk_container_add (GTK_CONTAINER (bbox), button_ok);
+	gtk_box_append(bbox, button_ok);
 	//gtk_grid_attach(GTK_GRID(grid), button_ok, 0, grid_row, 1, 1);
 	/* Buttons, ok and cancel */
 	button_cancel = gtk_button_new_with_label(_("_Cancel"));
 	gtk_button_set_use_underline(GTK_BUTTON(button_cancel), TRUE);
 	//gtk_widget_show(button_cancel);
-	gtk_container_add (GTK_CONTAINER (bbox), button_cancel);
+	gtk_box_append(bbox, button_cancel);
 	gtk_grid_attach(GTK_GRID(grid), bbox, 0, grid_row, 3, 1);
 	/* Pack it into the panel */
-	gtk_box_pack_start(GTK_BOX(mp), grid, TRUE, TRUE, 4);
+	gtk_box_append(GTK_BOX(mp), grid);
 
 	priv->response_callback = response_callback;
 	priv->response_callback_data = response_callback_data;
@@ -663,15 +663,15 @@ void remmina_message_panel_focus_auth_entry(RemminaMessagePanel *mp)
 
 	/* Activate default button */
 	w = priv->w[REMMINA_MESSAGE_PANEL_BUTTONTOFOCUS];
-	if (w && G_TYPE_CHECK_INSTANCE_TYPE(w, gtk_button_get_type()))
-		gtk_widget_grab_default(w);
+	// if (w && G_TYPE_CHECK_INSTANCE_TYPE(w, gtk_button_get_type()))
+	// 	gtk_widget_grab_default(w);
 
 	w = priv->w[REMMINA_MESSAGE_PANEL_USERNAME];
 	if (w == NULL)
 	{
 		w = priv->w[REMMINA_MESSAGE_PANEL_PASSWORD];
 	}else {
-		username = gtk_entry_get_text(GTK_ENTRY(w));
+		username = gtk_editable_get_text(GTK_ENTRY(w));
 		if (username[0] != 0)
 			w = priv->w[REMMINA_MESSAGE_PANEL_PASSWORD];
 	}
@@ -697,7 +697,7 @@ void remmina_message_panel_field_set_string(RemminaMessagePanel *mp, int entryid
 	if (!G_TYPE_CHECK_INSTANCE_TYPE(priv->w[entryid], gtk_entry_get_type()))
 		return;
 
-	gtk_entry_set_text(GTK_ENTRY(priv->w[entryid]), text != NULL ? text : "");
+	gtk_editable_set_text(GTK_ENTRY(priv->w[entryid]), text != NULL ? text : "");
 }
 
 gchar* remmina_message_panel_field_get_string(RemminaMessagePanel *mp, int entryid)
@@ -715,7 +715,7 @@ gchar* remmina_message_panel_field_get_string(RemminaMessagePanel *mp, int entry
 	if (!G_TYPE_CHECK_INSTANCE_TYPE(priv->w[entryid], gtk_entry_get_type()))
 		return NULL;
 
-	return g_strdup(gtk_entry_get_text(GTK_ENTRY(priv->w[entryid])));
+	return g_strdup(gtk_editable_get_text(GTK_ENTRY(priv->w[entryid])));
 }
 
 void remmina_message_panel_field_set_switch(RemminaMessagePanel *mp, int entryid, gboolean state)
@@ -766,10 +766,10 @@ void remmina_message_panel_field_set_filename(RemminaMessagePanel *mp, int entry
 	priv = remmina_message_panel_get_instance_private(mp);
 	if (priv->w[entryid] == NULL)
 		return;
-	if (!G_TYPE_CHECK_INSTANCE_TYPE(priv->w[entryid], gtk_file_chooser_button_get_type()))
-		return;
+	// if (!G_TYPE_CHECK_INSTANCE_TYPE(priv->w[entryid], gtk_file_chooser_button_get_type()))
+	// 	return;
 
-	gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(priv->w[entryid]), filename);
+	gtk_file_chooser_set_file(GTK_FILE_CHOOSER(priv->w[entryid]), filename, NULL);
 }
 
 gchar* remmina_message_panel_field_get_filename(RemminaMessagePanel *mp, int entryid)
@@ -784,10 +784,10 @@ gchar* remmina_message_panel_field_get_filename(RemminaMessagePanel *mp, int ent
 
 	if (priv->w[entryid] == NULL)
 		return NULL;
-	if (!G_TYPE_CHECK_INSTANCE_TYPE(priv->w[entryid], gtk_file_chooser_button_get_type()))
-		return NULL;
+	// if (!G_TYPE_CHECK_INSTANCE_TYPE(priv->w[entryid], gtk_file_chooser_button_get_type()))
+	// 	return NULL;
 
-	return gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(priv->w[entryid]));
+	return gtk_file_chooser_get_file(GTK_FILE_CHOOSER(priv->w[entryid]));
 }
 
 void remmina_message_panel_response(RemminaMessagePanel *mp, gint response_id)

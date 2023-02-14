@@ -95,7 +95,7 @@ void remmina_rdp_monitor_get (rfContext *rfi, gchar **monitorids, guint32 *maxwi
 	*maxheight = freerdp_settings_get_uint32(settings, FreeRDP_DesktopHeight);
 
 	display = gdk_display_get_default ();
-	n_monitors = gdk_display_get_n_monitors(display);
+	//n_monitors = gdk_display_get_n_monitors(display);
 
 	/* Get monitor at windows curently in use */
 	//w = gtk_widget_get_window(rfi->drawing_area);
@@ -122,14 +122,14 @@ void remmina_rdp_monitor_get (rfContext *rfi, gchar **monitorids, guint32 *maxwi
 			}
 		}
 
-		monitor = gdk_display_get_monitor(display, i);
+		//monitor = gdk_display_get_monitor(display, i);
 		if (monitor == NULL) {
 			REMMINA_PLUGIN_DEBUG("Monitor n %d does not exist or is not active", i);
 			index +=1;
 			continue;
 		}
 
-		monitor = gdk_display_get_monitor(display, index);
+		//monitor = gdk_display_get_monitor(display, index);
 		current = &base[index];
 		REMMINA_PLUGIN_DEBUG("Monitor n %d", index);
 		/* If the desktop env in use doesn't have the working area concept

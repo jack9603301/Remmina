@@ -53,7 +53,7 @@ static void wait_for_child(GPid pid, gint script_retval, gpointer data)
 	PCon_Spinner *pcspinner = (PCon_Spinner*)data;
 
 	gtk_spinner_stop(GTK_SPINNER(pcspinner->spinner));
-	gtk_widget_destroy(GTK_WIDGET(pcspinner->dialog));
+	gtk_window_destroy(GTK_WIDGET(pcspinner->dialog));
 	g_spawn_close_pid(pid);
 	/* TODO At the moment background processes will fail to start before the
 	 * remmina connection.
@@ -95,7 +95,7 @@ GtkDialog* remmina_ext_exec_new(RemminaFile* remminafile, const char *remmina_ex
 		pcspinner->spinner = GTK_WIDGET(GET_OBJECT("spinner"));
 		pcspinner->button_cancel = GTK_BUTTON(GET_OBJECT("button_cancel"));
 		/* Connect signals */
-		gtk_builder_connect_signals(builder, NULL);
+		//gtk_builder_connect_signals(builder, NULL); TODO GTK4
 
 		/* Exec a predefined command */
 		g_shell_parse_argv(cmd, NULL, &argv, &error);
@@ -119,7 +119,7 @@ GtkDialog* remmina_ext_exec_new(RemminaFile* remminafile, const char *remmina_ex
 		if (!error) {
 			gtk_spinner_start(GTK_SPINNER(pcspinner->spinner));
 			g_child_watch_add(child_pid, wait_for_child, (gpointer)pcspinner);
-			gtk_dialog_run(pcspinner->dialog);
+			//gtk_dialog_run(pcspinner->dialog);
 		}else  {
 			g_warning("Command %s exited with error: %s\n", cmd, error->message);
 			g_error_free(error);

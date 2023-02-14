@@ -145,10 +145,10 @@ static void remmina_chat_window_send(GtkWidget* widget, RemminaChatWindow* windo
 	remmina_chat_window_clear_send_text(widget, window);
 }
 
-static gboolean remmina_chat_window_send_text_on_key(GtkWidget* widget, GdkEventKey* event, RemminaChatWindow* window)
+static gboolean remmina_chat_window_send_text_on_key(GtkWidget* widget, GdkEvent* event, RemminaChatWindow* window)
 {
 	TRACE_CALL(__func__);
-	if (event->keyval == GDK_KEY_Return) {
+	if (gdk_key_event_get_keyval(event) == GDK_KEY_Return) {
 		remmina_chat_window_send(widget, window);
 		return TRUE;
 	}
@@ -183,11 +183,11 @@ remmina_chat_window_new(GtkWindow* parent, const gchar* chat_with)
 	gtk_widget_show(grid);
 	gtk_grid_set_row_spacing(GTK_GRID(grid), 4);
 	gtk_grid_set_column_spacing(GTK_GRID(grid), 4);
-	gtk_container_set_border_width(GTK_CONTAINER(grid), 8);
-	gtk_container_add(GTK_CONTAINER(window), grid);
+	//gtk_container_set_border_width(GTK_CONTAINER(grid), 8);
+	gtk_box_append(GTK_BOX(window), grid);
 
 	/* Chat history */
-	scrolledwindow = gtk_scrolled_window_new(NULL, NULL);
+	scrolledwindow = gtk_scrolled_window_new();
 	gtk_widget_show(scrolledwindow);
 	gtk_scrolled_window_set_min_content_height(GTK_SCROLLED_WINDOW(scrolledwindow), 100);
 	gtk_widget_set_hexpand(GTK_WIDGET(scrolledwindow), TRUE);
@@ -198,7 +198,7 @@ remmina_chat_window_new(GtkWindow* parent, const gchar* chat_with)
 	gtk_widget_show(widget);
 	gtk_text_view_set_wrap_mode(GTK_TEXT_VIEW(widget), GTK_WRAP_WORD_CHAR);
 	gtk_text_view_set_editable(GTK_TEXT_VIEW(widget), FALSE);
-	gtk_container_add(GTK_CONTAINER(scrolledwindow), widget);
+	gtk_box_append(GTK_BOX(scrolledwindow), widget);
 
 	buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(widget));
 	gtk_text_buffer_create_tag(buffer, "sender-foreground", "foreground", "blue", NULL);
@@ -207,7 +207,7 @@ remmina_chat_window_new(GtkWindow* parent, const gchar* chat_with)
 	window->history_text = widget;
 
 	/* Chat message to be sent */
-	scrolledwindow = gtk_scrolled_window_new(NULL, NULL);
+	scrolledwindow = gtk_scrolled_window_new();
 	gtk_widget_show(scrolledwindow);
 	gtk_scrolled_window_set_min_content_height(GTK_SCROLLED_WINDOW(scrolledwindow), 100);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolledwindow), GTK_POLICY_NEVER, GTK_POLICY_ALWAYS);
@@ -217,28 +217,28 @@ remmina_chat_window_new(GtkWindow* parent, const gchar* chat_with)
 	widget = gtk_text_view_new();
 	gtk_widget_show(widget);
 	gtk_text_view_set_wrap_mode(GTK_TEXT_VIEW(widget), GTK_WRAP_WORD_CHAR);
-	gtk_container_add(GTK_CONTAINER(scrolledwindow), widget);
+	gtk_box_append(GTK_BOX(scrolledwindow), widget);
 	g_signal_connect(G_OBJECT(widget), "key-press-event", G_CALLBACK(remmina_chat_window_send_text_on_key), window);
 
 	window->send_text = widget;
 
 	/* Send button */
-	image = gtk_image_new_from_icon_name("org.remmina.Remmina-document-send-symbolic", GTK_ICON_SIZE_BUTTON);
+	image = gtk_image_new_from_icon_name("org.remmina.Remmina-document-send-symbolic");
 	gtk_widget_show(image);
 
 	widget = gtk_button_new_with_mnemonic(_("_Send"));
 	gtk_widget_show(widget);
-	gtk_button_set_image(GTK_BUTTON(widget), image);
+	gtk_button_set_icon_name(GTK_BUTTON(widget), "org.remmina.Remmina-document-send-symbolic");
 	gtk_grid_attach(GTK_GRID(grid), widget, 2, 2, 1, 1);
 	g_signal_connect(G_OBJECT(widget), "clicked", G_CALLBACK(remmina_chat_window_send), window);
 
 	/* Clear button */
-	image = gtk_image_new_from_icon_name("edit-clear", GTK_ICON_SIZE_BUTTON);
+	image = gtk_image_new_from_icon_name("edit-clear");
 	gtk_widget_show(image);
 
 	widget = gtk_button_new_with_mnemonic(_("_Clear"));
 	gtk_widget_show(widget);
-	gtk_button_set_image(GTK_BUTTON(widget), image);
+	gtk_button_set_icon_name(GTK_BUTTON(widget), "edit-clear");
 	gtk_grid_attach(GTK_GRID(grid), widget, 1, 2, 1, 1);
 	g_signal_connect(G_OBJECT(widget), "clicked", G_CALLBACK(remmina_chat_window_clear_send_text), window);
 

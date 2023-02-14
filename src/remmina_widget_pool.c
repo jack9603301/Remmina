@@ -82,12 +82,12 @@ remmina_widget_pool_find(GType type, const gchar *tag)
 }
 
 GtkWidget*
-remmina_widget_pool_find_by_window(GType type, GdkWindow *window)
+remmina_widget_pool_find_by_window(GType type, GdkSurface *window)
 {
 	TRACE_CALL(__func__);
 	GtkWidget *widget;
 	gint i;
-	GdkWindow *parent;
+	GdkSurface *parent;
 
 	if (window == NULL || remmina_widget_pool == NULL)
 		return NULL;
@@ -97,10 +97,10 @@ remmina_widget_pool_find_by_window(GType type, GdkWindow *window)
 		if (!G_TYPE_CHECK_INSTANCE_TYPE(widget, type))
 			continue;
 		/* gdk_window_get_toplevel won’t work here, if the window is an embedded client. So we iterate the window tree */
-		for (parent = window; parent && parent != GDK_WINDOW_ROOT; parent = gdk_window_get_parent(parent)) {
-			if (gtk_widget_get_window(widget) == parent)
-				return widget;
-		}
+		// for (parent = window; parent ;  parent = gdk_window_get_parent(parent)) { //TODO GTK4 determine if window root
+		// 	if (gtk_widget_get_window(widget) == parent)
+		// 		return widget;
+		// } TODO GTK4
 	}
 	return NULL;
 }

@@ -154,10 +154,10 @@
 #include "remmina_plugin_manager.h"
 
 #ifdef GDK_WINDOWING_WAYLAND
-	#include <gdk/gdkwayland.h>
+//	#include <gdk/gdkwayland.h>
 #endif
 #ifdef GDK_WINDOWING_X11
-	#include <gdk/gdkx.h>
+//	#include <gdk/gdkx.h>
 #endif
 #include "remmina_stats.h"
 
@@ -391,16 +391,16 @@ JsonNode *remmina_stats_get_gtk_backend()
 
 	disp = gdk_display_get_default();
 
-#ifdef GDK_WINDOWING_WAYLAND
-	if (GDK_IS_WAYLAND_DISPLAY(disp)) {
-		bkend = "Wayland";
-	}else
-#endif
-#ifdef GDK_WINDOWING_X11
-	if (GDK_IS_X11_DISPLAY(disp)) {
-		bkend = "X11";
-	}   else
-#endif
+// #ifdef GDK_WINDOWING_WAYLAND
+// 	if (GDK_IS_WAYLAND_DISPLAY(disp)) {
+// 		bkend = "Wayland";
+// 	}else
+// #endif
+// #ifdef GDK_WINDOWING_X11
+// 	if (GDK_IS_X11_DISPLAY(disp)) {
+// 		bkend = "X11";
+// 	}   else
+// #endif
 	bkend = "n/a";
 
 	r = json_node_alloc();

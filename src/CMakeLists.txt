@@ -198,7 +198,7 @@ if(OPENSSL_FOUND)
   target_link_libraries(remmina ${OPENSSL_LIBRARIES})
 endif()
 
-option(WITH_VTE "Build with support for VTE" ON)
+option(WITH_VTE "Build with support for VTE" OFF)
 if(GTK4_FOUND AND WITH_VTE)
   set(_VTE_VERSION_NUMS 2.91 2.90)
   foreach(__VTE_VERSION ${_VTE_VERSION_NUMS})

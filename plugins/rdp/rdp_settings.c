@@ -485,7 +485,7 @@ static void remmina_rdp_settings_grid_init(RemminaPluginRdpsetGrid *grid)
 #endif
 	s = remmina_plugin_service->pref_get_value("rdp_kbd_remap");
 	if (s && s[0])
-		gtk_entry_set_text(GTK_ENTRY(widget), s);
+		gtk_editable_set_text(GTK_ENTRY(widget), s);
 	g_free(s);
 	grid->kbd_remap = widget;
 
@@ -687,7 +687,7 @@ static void remmina_rdp_settings_grid_init(RemminaPluginRdpsetGrid *grid)
 	gtk_widget_set_tooltip_text(widget, _("The maximum number of reconnect attempts upon an RDP disconnect (default: 20)"));
 	s = remmina_plugin_service->pref_get_value("rdp_reconnect_attempts");
 	if (s && s[0])
-		gtk_entry_set_text(GTK_ENTRY(widget), s);
+		gtk_editable_set_text(GTK_ENTRY(widget), s);
 	g_free(s);
 	grid->reconnect_attempts = widget;
 

@@ -43,7 +43,7 @@
 #include <gio/gio.h>
 #include <string.h>
 #ifdef GDK_WINDOWING_X11
-#include <gdk/gdkx.h>
+//#include <gdk/gdkx.h>
 #elif defined(GDK_WINDOWING_WAYLAND)
 #include <gdk/gdkwayland.h>
 #endif
@@ -162,12 +162,12 @@ gboolean remmina_gtksocket_available()
 	d = gdk_display_manager_get_default_display(dm);
 	available = FALSE;
 
-#ifdef GDK_WINDOWING_X11
-	if (GDK_IS_X11_DISPLAY(d)) {
-		/* GtkSocket support is available only under X.Org */
-		available = TRUE;
-	}
-#endif
+// #ifdef GDK_WINDOWING_X11
+// 	if (GDK_IS_X11_DISPLAY(d)) {
+// 		/* GtkSocket support is available only under X.Org */
+// 		available = TRUE;
+// 	}
+// #endif
 	return available;
 }
 
@@ -524,16 +524,16 @@ void remmina_plugin_manager_show(GtkWindow *parent)
 	GtkListStore *store;
 
 	dialog = gtk_dialog_new_with_buttons(_("Plugins"), parent, GTK_DIALOG_MODAL, _("_OK"), GTK_RESPONSE_ACCEPT, NULL);
-	g_signal_connect(G_OBJECT(dialog), "response", G_CALLBACK(gtk_widget_destroy), dialog);
+	g_signal_connect(G_OBJECT(dialog), "response", G_CALLBACK(gtk_window_destroy), dialog);
 	gtk_window_set_default_size(GTK_WINDOW(dialog), 500, 350);
 
-	scrolledwindow = gtk_scrolled_window_new(NULL, NULL);
+	scrolledwindow = gtk_scrolled_window_new();
 	gtk_widget_show(scrolledwindow);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolledwindow), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-	gtk_box_pack_start(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(dialog))), scrolledwindow, TRUE, TRUE, 0);
+	gtk_box_append(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(dialog))), scrolledwindow);
 
 	tree = gtk_tree_view_new();
-	gtk_container_add(GTK_CONTAINER(scrolledwindow), tree);
+	gtk_box_append(GTK_BOX(scrolledwindow), tree);
 	gtk_widget_show(tree);
 
 	store = gtk_list_store_new(4, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING);

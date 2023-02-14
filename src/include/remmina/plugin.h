@@ -118,7 +118,7 @@ typedef struct _RemminaToolPlugin {
 	const gchar *		domain;
 	const gchar *		version;
 
-	void (*exec_func)(GtkMenuItem* item, struct _RemminaToolPlugin* instance);
+	void (*exec_func)(GtkButton* item, struct _RemminaToolPlugin* instance);
 } RemminaToolPlugin;
 
 typedef struct _RemminaPrefPlugin {

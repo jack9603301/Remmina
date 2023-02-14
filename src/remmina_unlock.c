@@ -88,7 +88,7 @@ static void remmina_unlock_unlock_clicked(GtkButton *btn, gpointer user_data)
 	gint rc;
 
 	unlock_password = remmina_pref_get_value("unlock_password");
-	entry_passwd = gtk_entry_get_text(remmina_unlock_dialog->entry_unlock);
+	entry_passwd = gtk_editable_get_text(remmina_unlock_dialog->entry_unlock);
 	rc = remmina_sodium_pwhash_str_verify(unlock_password, entry_passwd);
 	//REMMINA_DEBUG("remmina_sodium_pwhash_str_verify returned %i", rc);
 
@@ -166,8 +166,8 @@ gint remmina_unlock_new(GtkWindow *parent)
 		remmina_unlock_dialog->entry_unlock = GTK_ENTRY(GET_OBJ("entry_unlock"));
 		gtk_entry_set_activates_default(GTK_ENTRY(remmina_unlock_dialog->entry_unlock), TRUE);
 		remmina_unlock_dialog->button_unlock = GTK_BUTTON(GET_OBJ("button_unlock"));
-		gtk_widget_set_can_default(GTK_WIDGET(remmina_unlock_dialog->button_unlock), TRUE);
-		gtk_widget_grab_default(GTK_WIDGET(remmina_unlock_dialog->button_unlock));
+		//gtk_widget_set_can_default(GTK_WIDGET(remmina_unlock_dialog->button_unlock), TRUE); TODO GTK4
+		//gtk_widget_grab_default(GTK_WIDGET(remmina_unlock_dialog->button_unlock));
 		remmina_unlock_dialog->button_unlock_cancel = GTK_BUTTON(GET_OBJ("button_unlock_cancel"));
 
 		g_signal_connect(remmina_unlock_dialog->button_unlock, "clicked",
@@ -178,7 +178,7 @@ gint remmina_unlock_new(GtkWindow *parent)
 			  G_CALLBACK (remmina_unlock_cancel_clicked), (gpointer)remmina_unlock_dialog);
 
 		/* Connect signals */
-		gtk_builder_connect_signals(remmina_unlock_dialog->builder, NULL);
+		//gtk_builder_connect_signals(remmina_unlock_dialog->builder, NULL); TODO GTK4
 
 		 g_object_set_data_full (G_OBJECT(remmina_unlock_dialog->dialog), "builder", remmina_unlock_dialog->builder, g_object_unref);
 
@@ -197,7 +197,7 @@ gint remmina_unlock_new(GtkWindow *parent)
 
 		int result = GTK_RESPONSE_NONE;
 		if (g_strcmp0(unlock_password, "") != 0) {
-			result = gtk_dialog_run (GTK_DIALOG (remmina_unlock_dialog->dialog));
+			//result = gtk_dialog_run (GTK_DIALOG (remmina_unlock_dialog->dialog));
 		} else
 			remmina_unlock_dialog->retval = lock;
 
@@ -223,7 +223,7 @@ gint remmina_unlock_new(GtkWindow *parent)
 		rc = remmina_unlock_dialog->retval;
 
 		g_free(unlock_password), unlock_password = NULL;
-		gtk_widget_destroy(GTK_WIDGET(remmina_unlock_dialog->dialog));
+		gtk_window_destroy(GTK_WIDGET(remmina_unlock_dialog->dialog));
 		remmina_unlock_dialog->dialog = NULL;
 	}
 	if (timer) g_timer_start(timer);

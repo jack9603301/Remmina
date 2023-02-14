@@ -300,7 +300,7 @@ GtkDialog* remmina_string_list_new(gboolean two_columns, const gchar *fields_sep
 	string_list->label_status = GTK_LABEL(GET_OBJECT("label_status"));
 
 	/* Connect signals */
-	gtk_builder_connect_signals(string_list->builder, NULL);
+	//gtk_builder_connect_signals(string_list->builder, NULL); TODO GTK4
 	/* Initialize the window and load the values */
 	if (!fields_separator)
 		fields_separator = STRING_DELIMITOR2;

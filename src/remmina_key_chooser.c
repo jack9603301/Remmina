@@ -40,14 +40,14 @@
 #include "remmina/remmina_trace_calls.h"
 
 /* Handle key-presses on the GtkEventBox */
-static gboolean remmina_key_chooser_dialog_on_key_press(GtkWidget *widget, GdkEventKey *event, RemminaKeyChooserArguments *arguments)
+static gboolean remmina_key_chooser_dialog_on_key_press(GtkWidget *widget, GdkKeyEvent *event, RemminaKeyChooserArguments *arguments)
 {
 	TRACE_CALL(__func__);
-	if (!arguments->use_modifiers || !event->is_modifier) {
-		arguments->state = event->state;
-		arguments->keyval = gdk_keyval_to_lower(event->keyval);
-		gtk_dialog_response(GTK_DIALOG(gtk_widget_get_toplevel(widget)),
-			event->keyval == GDK_KEY_Escape ? GTK_RESPONSE_CANCEL : GTK_RESPONSE_OK);
+	if (!arguments->use_modifiers || !gdk_key_event_is_modifier(event)) {
+		arguments->state = gdk_event_get_modifier_state(event);
+		arguments->keyval = gdk_keyval_to_lower(gdk_key_event_get_keyval(event));
+		gtk_dialog_response(GTK_DIALOG(gtk_widget_get_root(widget)),
+			gdk_key_event_get_keyval(event) == GDK_KEY_Escape ? GTK_RESPONSE_CANCEL : GTK_RESPONSE_OK);
 	}
 	return TRUE;
 }
@@ -70,8 +70,8 @@ RemminaKeyChooserArguments* remmina_key_chooser_new(GtkWindow *parent_window, gb
 	g_signal_connect(gtk_builder_get_object(builder, "eventbox_key_chooser"), "key-press-event",
 		G_CALLBACK(remmina_key_chooser_dialog_on_key_press), arguments);
 	/* Show the dialog and destroy it after the use */
-	arguments->response = gtk_dialog_run(dialog);
-	gtk_widget_destroy(GTK_WIDGET(dialog));
+	//arguments->response = gtk_dialog_run(dialog);
+	gtk_window_destroy(GTK_WIDGET(dialog));
 	/* The delete button set the keyval 0 */
 	if (arguments->response == GTK_RESPONSE_REJECT)
 		arguments->keyval = 0;
@@ -89,7 +89,7 @@ gchar* remmina_key_chooser_get_value(guint keyval, guint state)
 	return g_strdup_printf("%s%s%s%s%s%s%s",
 		(state & GDK_SHIFT_MASK) ? KEY_MODIFIER_SHIFT : "",
 		(state & GDK_CONTROL_MASK) ? KEY_MODIFIER_CTRL : "",
-		(state & GDK_MOD1_MASK) ? KEY_MODIFIER_ALT : "",
+		(state & GDK_ALT_MASK) ? KEY_MODIFIER_ALT : "",
 		(state & GDK_SUPER_MASK) ? KEY_MODIFIER_SUPER : "",
 		(state & GDK_HYPER_MASK) ? KEY_MODIFIER_HYPER : "",
 		(state & GDK_META_MASK) ? KEY_MODIFIER_META : "",

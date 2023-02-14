@@ -41,7 +41,7 @@
 #include "remmina_log.h"
 #include "remmina/remmina_trace_calls.h"
 
-G_DEFINE_TYPE( RemminaScrolledViewport, remmina_scrolled_viewport, GTK_TYPE_EVENT_BOX)
+G_DEFINE_TYPE( RemminaScrolledViewport, remmina_scrolled_viewport, GTK_TYPE_BOX)
 
 static void remmina_scrolled_viewport_get_preferred_width(GtkWidget* widget, gint* minimum_width, gint* natural_width)
 {
@@ -78,8 +78,8 @@ static gboolean remmina_scrolled_viewport_motion_timeout(gpointer data)
 	GdkDeviceManager *device_manager;
 #endif
 	GdkDevice *pointer;
-	GdkScreen *screen;
-	GdkWindow *gsvwin;
+	//GdkScreen *screen; //TODO GTK4 fix screen changes
+	GdkSurface *gsvwin;
 	gint x, y, mx, my, w, h, rootx, rooty;
 	GtkAdjustment *adj;
 	gdouble value;
@@ -92,18 +92,20 @@ static gboolean remmina_scrolled_viewport_motion_timeout(gpointer data)
 		gsv->viewport_motion_handler = 0;
 		return FALSE;
 	}
-	if (!GTK_IS_BIN(data)) {
-		gsv->viewport_motion_handler = 0;
-		return FALSE;
-	}
+	// if (!GTK_IS_BIN(data)) {
+	// 	gsv->viewport_motion_handler = 0;
+	// 	return FALSE;
+	// }
 
-	child = gtk_bin_get_child(GTK_BIN(gsv));
+	//child = gtk_bin_get_child(GTK_BIN(gsv));
 	if (!GTK_IS_VIEWPORT(child)) {
 		gsv->viewport_motion_handler = 0;
 		return FALSE;
 	}
 
-	gsvwin = gtk_widget_get_window(GTK_WIDGET(gsv));
+	//gsvwin = gtk_widget_get_window(GTK_WIDGET(gsv));
+	GtkNative* native = gtk_widget_get_native((GTK_WIDGET(gsv)));
+	gsvwin = gtk_native_get_surface(native);
 	display = gdk_display_get_default();
 	if (!display) {
 		gsv->viewport_motion_handler = 0;
@@ -117,12 +119,12 @@ static gboolean remmina_scrolled_viewport_motion_timeout(gpointer data)
 	device_manager = gdk_display_get_device_manager(display);
 	pointer = gdk_device_manager_get_client_pointer(device_manager);
 #endif
-	gdk_device_get_position(pointer, &screen, &x, &y);
+	//gdk_device_get_position(pointer, &screen, &x, &y);
 
-	w = gdk_window_get_width(gsvwin) + SCROLL_BORDER_SIZE;   // Add 2px of black scroll border
-	h = gdk_window_get_height(gsvwin) + SCROLL_BORDER_SIZE;  // Add 2px of black scroll border
+	w = gdk_surface_get_width(gsvwin) + SCROLL_BORDER_SIZE;   // Add 2px of black scroll border
+	h = gdk_surface_get_height(gsvwin) + SCROLL_BORDER_SIZE;  // Add 2px of black scroll border
 
-	gdk_window_get_root_origin(gsvwin, &rootx, &rooty );
+	//gdk_window_get_root_origin(gsvwin, &rootx, &rooty );
 
 	x -= rootx;
 	y -= rooty;
@@ -146,14 +148,14 @@ static gboolean remmina_scrolled_viewport_motion_timeout(gpointer data)
 	return TRUE;
 }
 
-static gboolean remmina_scrolled_viewport_enter(GtkWidget *widget, GdkEventCrossing *event, gpointer data)
+static gboolean remmina_scrolled_viewport_enter(GtkWidget *widget, GdkCrossingEvent *event, gpointer data)
 {
 	TRACE_CALL(__func__);
 	remmina_scrolled_viewport_remove_motion(REMMINA_SCROLLED_VIEWPORT(widget));
 	return FALSE;
 }
 
-static gboolean remmina_scrolled_viewport_leave(GtkWidget *widget, GdkEventCrossing *event, gpointer data)
+static gboolean remmina_scrolled_viewport_leave(GtkWidget *widget, GdkCrossingEvent *event, gpointer data)
 {
 	TRACE_CALL(__func__);
 	RemminaScrolledViewport *gsv = REMMINA_SCROLLED_VIEWPORT(widget);
@@ -177,8 +179,8 @@ static void remmina_scrolled_viewport_class_init(RemminaScrolledViewportClass *k
 	GtkWidgetClass *widget_class;
 	widget_class = (GtkWidgetClass*)klass;
 
-	widget_class->get_preferred_width = remmina_scrolled_viewport_get_preferred_width;
-	widget_class->get_preferred_height = remmina_scrolled_viewport_get_preferred_height;
+	// widget_class->get_preferred_width = remmina_scrolled_viewport_get_preferred_width;
+	// widget_class->get_preferred_height = remmina_scrolled_viewport_get_preferred_height; //TODO GTK4 replace with gtk_widget_measure
 
 }
 
@@ -208,7 +210,7 @@ remmina_scrolled_viewport_new(void)
 	gsv->viewport_motion_handler = 0;
 
 	gtk_widget_set_size_request(GTK_WIDGET(gsv), 1, 1);
-	gtk_widget_add_events(GTK_WIDGET(gsv), GDK_ENTER_NOTIFY_MASK | GDK_LEAVE_NOTIFY_MASK);
+	//gtk_widget_add_events(GTK_WIDGET(gsv), GDK_ENTER_NOTIFY_MASK | GDK_LEAVE_NOTIFY_MASK); //TODO GTK4
 	g_signal_connect(G_OBJECT(gsv), "destroy", G_CALLBACK(remmina_scrolled_viewport_destroy), NULL);
 	g_signal_connect(G_OBJECT(gsv), "enter-notify-event", G_CALLBACK(remmina_scrolled_viewport_enter), NULL);
 	g_signal_connect(G_OBJECT(gsv), "leave-notify-event", G_CALLBACK(remmina_scrolled_viewport_leave), NULL);

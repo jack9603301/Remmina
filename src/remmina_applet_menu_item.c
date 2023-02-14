@@ -44,7 +44,7 @@
 #include "remmina_applet_menu_item.h"
 #include "remmina/remmina_trace_calls.h"
 
-G_DEFINE_TYPE( RemminaAppletMenuItem, remmina_applet_menu_item, GTK_TYPE_MENU_ITEM)
+G_DEFINE_TYPE( RemminaAppletMenuItem, remmina_applet_menu_item, GTK_TYPE_BUTTON)
 
 #define IS_EMPTY(s) ((!s) || (s[0] == 0))
 
@@ -144,7 +144,7 @@ GtkWidget* remmina_applet_menu_item_new(RemminaAppletMenuItemType item_type, ...
 	} else {
 		icon_name = item->ssh_tunnel_enabled ? plugin->icon_name_ssh : plugin->icon_name;
 	}
-	icon = gtk_image_new_from_icon_name(icon_name, GTK_ICON_SIZE_MENU);
+	icon = gtk_image_new_from_icon_name(icon_name);
 
 	/* Create the label */
 	widget = gtk_label_new(item->name);
@@ -154,9 +154,9 @@ GtkWidget* remmina_applet_menu_item_new(RemminaAppletMenuItemType item_type, ...
 	gtk_widget_show(box);
 	gtk_widget_set_valign(widget, GTK_ALIGN_START);
 	gtk_widget_set_halign(widget, GTK_ALIGN_START);
-	gtk_container_add(GTK_CONTAINER(box), icon);
-	gtk_container_add(GTK_CONTAINER(box), widget);
-	gtk_container_add(GTK_CONTAINER(item), box);
+	gtk_box_append(box, icon);
+	gtk_box_append(box, widget);
+	gtk_box_append(GTK_BOX(item), box);
 
 	if (item->server) {
 		gtk_widget_set_tooltip_text(GTK_WIDGET(item), item->server);

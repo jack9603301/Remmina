@@ -77,13 +77,13 @@
 #include <unistd.h>
 #include <string.h>
 
-#ifdef GDK_WINDOWING_X11
-#include <X11/Xlib.h>
-#include <X11/XKBlib.h>
-#include <gdk/gdkx.h>
-#elif defined(GDK_WINDOWING_WAYLAND)
-#include <gdk/gdkwayland.h>
-#endif
+// #ifdef GDK_WINDOWING_X11
+// #include <X11/Xlib.h>
+// #include <X11/XKBlib.h>
+// #include <gdk/gdkx.h>
+// #elif defined(GDK_WINDOWING_WAYLAND)
+// #include <gdk/gdkwayland.h>
+// #endif
 
 #if defined(__FreeBSD__)
 #include <pthread_np.h>
@@ -638,20 +638,20 @@ static BOOL rf_keyboard_set_indicators(rdpContext *context, UINT16 led_flags)
 	gp = rfi->protocol_widget;
 	disp = gtk_widget_get_display(GTK_WIDGET(gp));
 
-#ifdef GDK_WINDOWING_X11
-	if (GDK_IS_X11_DISPLAY(disp)) {
-		/* TODO: We are not on the main thread. Will X.Org complain? */
-		Display *x11_display;
-		x11_display = gdk_x11_display_get_xdisplay(disp);
-		XkbLockModifiers(x11_display, XkbUseCoreKbd,
-				 LockMask | Mod2Mask,
-				 ((led_flags & KBD_SYNC_CAPS_LOCK) ? LockMask : 0) |
-				 ((led_flags & KBD_SYNC_NUM_LOCK) ? Mod2Mask : 0)
-				 );
+// #ifdef GDK_WINDOWING_X11
+// 	if (GDK_IS_X11_DISPLAY(disp)) {
+// 		/* TODO: We are not on the main thread. Will X.Org complain? */
+// 		Display *x11_display;
+// 		x11_display = gdk_x11_display_get_xdisplay(disp);
+// 		XkbLockModifiers(x11_display, XkbUseCoreKbd,
+// 				 LockMask | Mod2Mask,
+// 				 ((led_flags & KBD_SYNC_CAPS_LOCK) ? LockMask : 0) |
+// 				 ((led_flags & KBD_SYNC_NUM_LOCK) ? Mod2Mask : 0)
+// 				 );
 
-		/* TODO: Add support to KANA_LOCK and SCROLL_LOCK */
-	}
-#endif
+// 		/* TODO: Add support to KANA_LOCK and SCROLL_LOCK */
+// 	}
+// #endif
 
 	return TRUE;
 }

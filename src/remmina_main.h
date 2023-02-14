@@ -49,12 +49,12 @@ typedef struct _RemminaMain {
 	GtkBuilder *		builder;
 	GtkWindow *		window;
 	/* Menu widgets */
-	GtkMenu *		menu_popup;
+	GtkPopoverMenu *		menu_popup;
 	GtkMenuButton *		menu_header_button;
-	GtkMenu *		menu_popup_full;
-	GtkRadioMenuItem *	menuitem_view_mode_list;
-	GtkRadioMenuItem *	menuitem_view_mode_tree;
-	GtkMenuItem *		menuitem_connection_quit;
+	GtkPopoverMenu *		menu_popup_full;
+	GtkCheckButton *	menuitem_view_mode_list;
+	GtkCheckButton *	menuitem_view_mode_tree;
+	GtkButton *		menuitem_connection_quit;
 	/* Button new */
 	GtkButton *		button_new;
 	GtkButton *		button_make_default;
@@ -80,7 +80,7 @@ typedef struct _RemminaMain {
 	GtkStatusbar *		statusbar_main;
 	GtkWidget *		network_icon;
 	/* Non widget objects */
-	GtkAccelGroup *		accelgroup_shortcuts;
+	GtkShortcutController *		accelgroup_shortcuts;
 	RemminaMainPriv *	priv;
 	RemminaMonitor *	monitor;
 } RemminaMain;
