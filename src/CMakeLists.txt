@@ -227,7 +227,7 @@ if(sodium_FOUND)
   target_link_libraries(remmina sodium)
 endif()
 
-option(HAVE_LIBAPPINDICATOR "Build with support for status icon. Appindicator is required" ON)
+option(HAVE_LIBAPPINDICATOR "Build with support for status icon. Appindicator is required" OFF)
 if(GTK4_FOUND)
     if(HAVE_LIBAPPINDICATOR)
         find_required_package(APPINDICATOR)
