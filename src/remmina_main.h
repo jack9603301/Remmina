@@ -49,9 +49,9 @@ typedef struct _RemminaMain {
 	GtkBuilder *		builder;
 	GtkWindow *		window;
 	/* Menu widgets */
-	GtkPopoverMenu *		menu_popup;
+	GtkPopover *		menu_popup;
 	GtkMenuButton *		menu_header_button;
-	GtkPopoverMenu *		menu_popup_full;
+	GtkPopover *		menu_popup_full;
 	GtkCheckButton *	menuitem_view_mode_list;
 	GtkCheckButton *	menuitem_view_mode_tree;
 	GtkButton *		menuitem_connection_quit;

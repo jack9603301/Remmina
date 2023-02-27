@@ -754,7 +754,8 @@ static void remmina_main_load_files()
 
 	g_object_unref (icon);
 
-	gtk_box_append(GTK_BOX(remminamain->statusbar_main), remminamain->network_icon);
+	// gtk_box_pack_start (GTK_BOX(remminamain->statusbar_main), remminamain->network_icon, FALSE, FALSE, 0);
+	// gtk_box_append(GTK_BOX(remminamain->statusbar_main), remminamain->network_icon);
 	gtk_widget_show (remminamain->network_icon);
 
 }
@@ -1039,6 +1040,7 @@ void remmina_main_on_action_application_preferences(GSimpleAction *action, GVari
 	GtkWidget *widget = remmina_pref_dialog_new(tab_num, remminamain->window);
 
 	//gtk_widget_show_all(widget);
+	gtk_widget_show(widget);
 	/* Switch to a dark theme if the user enabled it */
 	settings = gtk_settings_get_default();
 	g_object_set(settings, "gtk-application-prefer-dark-theme", remmina_pref.dark_theme, NULL);
@@ -1586,9 +1588,9 @@ GtkWidget *remmina_main_new(void)
 		gtk_widget_set_sensitive(GTK_WIDGET(remminamain->view_toggle_button), FALSE);
 
 	/* Menu widgets */
-	remminamain->menu_popup = GTK_POPOVER_MENU(RM_GET_OBJECT("menu_popup"));
+	remminamain->menu_popup = GTK_POPOVER(RM_GET_OBJECT("menu_popup"));
 	remminamain->menu_header_button = GTK_MENU_BUTTON(RM_GET_OBJECT("menu_header_button"));
-	remminamain->menu_popup_full = GTK_POPOVER_MENU(RM_GET_OBJECT("menu_popup_full"));
+	remminamain->menu_popup_full = GTK_POPOVER(RM_GET_OBJECT("menu_popup_full"));
 	if (kioskmode && kioskmode == TRUE) {
 		gtk_widget_set_sensitive(GTK_WIDGET(remminamain->menu_popup_full), FALSE);
 		gtk_widget_set_sensitive(GTK_WIDGET(remminamain->menu_header_button), FALSE);
@@ -1610,7 +1612,7 @@ GtkWidget *remmina_main_new(void)
 	remminamain->column_files_list_plugin = GTK_TREE_VIEW_COLUMN(RM_GET_OBJECT("column_files_list_plugin"));
 	remminamain->column_files_list_date = GTK_TREE_VIEW_COLUMN(RM_GET_OBJECT("column_files_list_date"));
 	remminamain->column_files_list_notes = GTK_TREE_VIEW_COLUMN(RM_GET_OBJECT("column_files_list_notes"));
-	gtk_tree_view_column_set_fixed_width(remminamain->column_files_list_notes, 100);
+	// gtk_tree_view_column_set_fixed_width(remminamain->column_files_list_notes, 100);
 	remminamain->statusbar_main = GTK_STATUSBAR(RM_GET_OBJECT("statusbar_main"));
 	/* signals */
 	g_signal_connect(remminamain->entry_quick_connect_server, "key-release-event", G_CALLBACK(remmina_main_search_key_event), NULL);

@@ -4,11 +4,11 @@
   <requires lib="gtk+" version="3.12"/>
   <object class="GtkWindow" id="RemminaPrefDialog">
     <property name="can-focus">False</property>
-    <property name="window-position">center-on-parent</property>
+    <!-- <property name="window-position">center-on-parent</property> -->
     <property name="default-width">800</property>
     <property name="default-height">600</property>
     <property name="icon-name">org.remmina.Remmina</property>
-    <property name="gravity">center</property>
+    <!-- <property name="gravity">center</property> -->
     <signal name="destroy" handler="remmina_pref_on_dialog_destroy" swapped="no"/>
     <child>
       <object class="GtkNotebook" id="notebook_preferences">
@@ -20,7 +20,7 @@
           <object class="GtkScrolledWindow" id="scrolled_options">
             <property name="visible">True</property>
             <property name="can-focus">True</property>
-            <property name="shadow-type">in</property>
+            <!-- <property name="shadow-type">in</property> -->
             <child>
               <object class="GtkViewport">
                 <property name="visible">True</property>
@@ -41,11 +41,11 @@
                         <property name="margin-end">6</property>
                         <property name="label" translatable="yes">Double-click action</property>
                         <property name="justify">right</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">4</property>
+                        </layout>
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">4</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkComboBoxText" id="comboboxtext_options_double_click">
@@ -58,12 +58,11 @@
                           <item translatable="yes">Open connection</item>
                           <item translatable="yes">Edit settings</item>
                         </items>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="row">4</property>
+                        </layout>
                       </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">4</property>
-                        <property name="width">2</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkLabel" id="label_options_scale_quality">
@@ -74,11 +73,11 @@
                         <property name="margin-end">6</property>
                         <property name="label" translatable="yes">Scaling quality</property>
                         <property name="justify">right</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">5</property>
+                        </layout>
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">5</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkComboBoxText" id="comboboxtext_options_scale_quality">
@@ -93,12 +92,11 @@
                           <item translatable="yes">Bilinear</item>
                           <item translatable="yes">Hyper</item>
                         </items>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="row">5</property>
+                        </layout>
                       </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">5</property>
-                        <property name="width">2</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkLabel" id="label_options_scroll">
@@ -109,11 +107,11 @@
                         <property name="margin-end">6</property>
                         <property name="label" translatable="yes">Step size for auto-scroll</property>
                         <property name="justify">right</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">7</property>
+                        </layout>
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">7</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkEntry" id="entry_options_scroll">
@@ -122,12 +120,11 @@
                         <property name="margin-end">18</property>
                         <property name="max-length">3</property>
                         <property name="width-chars">24</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="row">7</property>
+                        </layout>
                       </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">7</property>
-                        <property name="width">2</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkLabel" id="label_options_recent_items">
@@ -138,11 +135,11 @@
                         <property name="margin-end">6</property>
                         <property name="label" translatable="yes">Maximal amount of recent items</property>
                         <property name="justify">right</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">6</property>
+                        </layout>
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">6</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkLabel" id="label_options_resolutions">
@@ -153,11 +150,11 @@
                         <property name="margin-end">6</property>
                         <property name="label" translatable="yes">Screen resolutions</property>
                         <property name="justify">right</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">8</property>
+                        </layout>
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">8</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkLabel" id="label_options_keystrokes">
@@ -168,11 +165,11 @@
                         <property name="margin-end">6</property>
                         <property name="label" translatable="yes">Keystrokes</property>
                         <property name="justify">right</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">9</property>
+                        </layout>
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">9</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkButton" id="button_options_keystrokes">
@@ -183,12 +180,11 @@
                         <property name="halign">start</property>
                         <property name="margin-end">18</property>
                         <signal name="clicked" handler="remmina_pref_on_button_keystrokes_clicked" swapped="no"/>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="row">9</property>
+                        </layout>
                       </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">9</property>
-                        <property name="width">2</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkLabel" id="label_options_screenshot_folder">
@@ -199,28 +195,27 @@
                         <property name="margin-end">6</property>
                         <property name="label" translatable="yes">Folder for screenshots</property>
                         <property name="justify">right</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">2</property>
+                        </layout>
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">2</property>
-                      </packing>
                     </child>
                     <child>
-                      <object class="GtkFileChooserButton" id="filechooserbutton_options_screenshots_path">
+                      <object class="GtkFileChooserWidget" id="filechooserbutton_options_screenshots_path">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="tooltip-text" translatable="yes">Choose a folder to save screenshots from Remmina in.</property>
                         <property name="margin-start">6</property>
                         <property name="margin-end">18</property>
                         <property name="action">select-folder</property>
-                        <property name="title" translatable="yes">Select a folder</property>
-                        <property name="width-chars">24</property>
+                        <!-- <property name="title" translatable="yes">Select a folder</property> -->
+                        <!-- <property name="width-chars">24</property> -->
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="row">2</property>
+                        </layout>
                       </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">2</property>
-                        <property name="width">2</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkButton" id="button_options_resolutions">
@@ -231,12 +226,11 @@
                         <property name="halign">start</property>
                         <property name="margin-end">18</property>
                         <signal name="clicked" handler="remmina_pref_on_button_resolutions_clicked" swapped="no"/>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="row">8</property>
+                        </layout>
                       </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">8</property>
-                        <property name="width">2</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkLabel" id="label_options_screenshot_name">
@@ -248,11 +242,11 @@
                         <property name="hexpand">False</property>
                         <property name="label" translatable="yes">Screenshot filenames</property>
                         <property name="justify">right</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">3</property>
+                        </layout>
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">3</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkEntry" id="entry_options_screenshot_name">
@@ -266,12 +260,11 @@
                         <property name="margin-end">18</property>
                         <property name="width-chars">24</property>
                         <property name="placeholder-text">remmina_%p_%h_%Y%m%d-%H%M%S</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="row">3</property>
+                        </layout>
                       </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">3</property>
-                        <property name="width">2</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkLabel" id="label_options_data_folder">
@@ -284,14 +277,14 @@
                         <property name="margin-top">18</property>
                         <property name="label" translatable="yes" comments="The folder where profiles are saved">Remmina data folder</property>
                         <property name="justify">right</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">0</property>
+                        </layout>
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">0</property>
-                      </packing>
                     </child>
                     <child>
-                      <object class="GtkFileChooserButton" id="filechooserbutton_options_datadir_path">
+                      <object class="GtkFileChooserWidget" id="filechooserbutton_options_datadir_path">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="tooltip-text" translatable="yes">Choose a folder to save connection profiles from Remmina in.</property>
@@ -299,14 +292,13 @@
                         <property name="margin-end">18</property>
                         <property name="margin-top">18</property>
                         <property name="action">select-folder</property>
-                        <property name="title" translatable="yes">Select a folder</property>
-                        <property name="width-chars">24</property>
+                        <!-- <property name="title" translatable="yes">Select a folder</property> -->
+                        <!-- <property name="width-chars">24</property> -->
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="row">0</property>
+                        </layout>
                       </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">0</property>
-                        <property name="width">2</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkLabel" id="label_options_remember_last_view_mode">
@@ -318,11 +310,11 @@
                         <property name="margin-end">6</property>
                         <property name="label" translatable="yes">Remember last view mode</property>
                         <property name="justify">right</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">10</property>
+                        </layout>
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">10</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkSwitch" id="switch_options_remember_last_view_mode">
@@ -331,12 +323,11 @@
                         <property name="halign">start</property>
                         <property name="valign">center</property>
                         <property name="margin-end">18</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="row">10</property>
+                        </layout>
                       </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">10</property>
-                        <property name="width">2</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkLabel" id="label_options_file_name">
@@ -348,11 +339,11 @@
                         <property name="margin-end">6</property>
                         <property name="label" translatable="yes">Template for profile filenames</property>
                         <property name="justify">right</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">1</property>
+                        </layout>
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">1</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkEntry" id="entry_options_file_name">
@@ -369,12 +360,11 @@
                         <property name="margin-end">18</property>
                         <property name="width-chars">24</property>
                         <property name="placeholder-text">%G_%P_%N_%h</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="row">1</property>
+                        </layout>
                       </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">1</property>
-                        <property name="width">2</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkLabel" id="label_options_deny_screenshot_clipboard">
@@ -386,11 +376,11 @@
                         <property name="margin-end">6</property>
                         <property name="label" translatable="yes">Prevent screenshots from entering clipboard</property>
                         <property name="justify">right</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">11</property>
+                        </layout>
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">11</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkSwitch" id="switch_options_deny_screenshot_clipboard">
@@ -399,12 +389,11 @@
                         <property name="halign">start</property>
                         <property name="valign">center</property>
                         <property name="margin-end">18</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="row">11</property>
+                        </layout>
                       </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">11</property>
-                        <property name="width">2</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkEntry" id="entry_options_recent_items">
@@ -415,11 +404,11 @@
                         <property name="max-length">2</property>
                         <property name="width-chars">24</property>
                         <property name="input-purpose">number</property>
+                        <layout>
+                          <property name="column">2</property>
+                          <property name="row">6</property>
+                        </layout>
                       </object>
-                      <packing>
-                        <property name="left-attach">2</property>
-                        <property name="top-attach">6</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkButton" id="button_options_recent_items_clear">
@@ -431,11 +420,11 @@
                         <property name="margin-start">6</property>
                         <property name="margin-end">6</property>
                         <signal name="clicked" handler="remmina_pref_dialog_clear_recent" swapped="no"/>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="row">6</property>
+                        </layout>
                       </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">6</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkLabel" id="label_options_confirm_close">
@@ -447,11 +436,11 @@
                         <property name="margin-bottom">18</property>
                         <property name="label" translatable="yes">Confirm before closing multiple tabs</property>
                         <property name="justify">right</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">12</property>
+                        </layout>
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">12</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkSwitch" id="switch_options_confirm_close">
@@ -461,12 +450,11 @@
                         <property name="valign">center</property>
                         <property name="margin-end">18</property>
                         <property name="margin-bottom">18</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="row">12</property>
+                        </layout>
                       </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">12</property>
-                        <property name="width">2</property>
-                      </packing>
                     </child>
                   </object>
                 </child>
@@ -481,16 +469,12 @@
             <property name="halign">end</property>
             <property name="label" translatable="yes">Options</property>
           </object>
-          <packing>
-            <property name="menu-label">options</property>
-            <property name="tab-fill">False</property>
-          </packing>
         </child>
         <child>
           <object class="GtkScrolledWindow" id="scrolled_appearance">
             <property name="visible">True</property>
             <property name="can-focus">True</property>
-            <property name="shadow-type">in</property>
+            <!-- <property name="shadow-type">in</property> -->
             <child>
               <object class="GtkViewport">
                 <property name="visible">True</property>
@@ -511,12 +495,12 @@
                         <property name="halign">start</property>
                         <property name="margin-start">18</property>
                         <property name="margin-end">18</property>
-                        <property name="draw-indicator">True</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">6</property>
+                        </layout>
+                        <!-- <property name="draw-indicator">True</property> -->
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">6</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkCheckButton" id="checkbutton_appearance_hide_toolbar">
@@ -527,12 +511,12 @@
                         <property name="halign">start</property>
                         <property name="margin-start">18</property>
                         <property name="margin-end">18</property>
-                        <property name="draw-indicator">True</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">5</property>
+                        </layout>
+                        <!-- <property name="draw-indicator">True</property> -->
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">5</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkLabel" id="label_appearance_view_mode">
@@ -542,11 +526,11 @@
                         <property name="margin-start">18</property>
                         <property name="margin-end">6</property>
                         <property name="label" translatable="yes">Default view</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">2</property>
+                        </layout>
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">2</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkComboBoxText" id="comboboxtext_appearance_view_mode">
@@ -560,12 +544,11 @@
                           <item translatable="yes">Scrolled fullscreen</item>
                           <item translatable="yes">Viewport fullscreen</item>
                         </items>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="row">2</property>
+                        </layout>
                       </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">2</property>
-                        <property name="width">2</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkLabel" id="label_appearance_tab_interface">
@@ -575,11 +558,11 @@
                         <property name="margin-start">18</property>
                         <property name="margin-end">6</property>
                         <property name="label" translatable="yes" context="Appearance preferences" comments="How tabs are grouped in the Remmina connection window">Tabs grouping</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">1</property>
+                        </layout>
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">1</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkComboBoxText" id="comboboxtext_appearance_tab_interface">
@@ -591,12 +574,11 @@
                           <item id="2" translatable="yes">Per connection</item>
                           <item id="3" translatable="yes">None</item>
                         </items>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="row">1</property>
+                        </layout>
                       </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">1</property>
-                        <property name="width">2</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkCheckButton" id="checkbutton_appearance_fullscreen_on_auto">
@@ -608,12 +590,27 @@
                         <property name="margin-start">18</property>
                         <property name="margin-end">18</property>
                         <property name="active">True</property>
-                        <property name="draw-indicator">True</property>
+                        <!-- <property name="draw-indicator">True</property> -->
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">7</property>
+                        </layout>
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">7</property>
-                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="label_fullscreen_toolbar_visibility">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="halign">start</property>
+                        <property name="margin-start">18</property>
+                        <property name="margin-end">6</property>
+                        <property name="label" translatable="yes">Fullscreen toolbar visibility</property>
+                        <property name="selectable">True</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">3</property>
+                        </layout>
+                      </object>
                     </child>
                     <child>
                       <object class="GtkComboBoxText" id="comboboxtext_appearance_fullscreen_toolbar_visibility">
@@ -627,27 +624,11 @@
                           <item id="1" translatable="yes">Hidden</item>
                           <item id="2" translatable="yes">Off</item>
                         </items>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="row">3</property>
+                        </layout>
                       </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">3</property>
-                        <property name="width">2</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="label_fullscreen_toolbar_visibility">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="halign">start</property>
-                        <property name="margin-start">18</property>
-                        <property name="margin-end">6</property>
-                        <property name="label" translatable="yes">Fullscreen toolbar visibility</property>
-                        <property name="selectable">True</property>
-                      </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">3</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkCheckButton" id="checkbutton_appearance_hide_searchbar">
@@ -658,12 +639,12 @@
                         <property name="halign">start</property>
                         <property name="margin-start">18</property>
                         <property name="margin-end">18</property>
-                        <property name="draw-indicator">True</property>
+                        <!-- <property name="draw-indicator">True</property> -->
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">4</property>
+                        </layout>
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">4</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkCheckButton" id="checkbutton_dark_theme">
@@ -675,12 +656,12 @@
                         <property name="halign">start</property>
                         <property name="margin-start">18</property>
                         <property name="margin-end">18</property>
-                        <property name="draw-indicator">True</property>
+                        <!-- <property name="draw-indicator">True</property> -->
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">8</property>
+                        </layout>
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">8</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkCheckButton" id="checkbutton_appearance_show_notes">
@@ -693,12 +674,12 @@
                         <property name="margin-start">18</property>
                         <property name="margin-end">18</property>
                         <property name="margin-bottom">18</property>
-                        <property name="draw-indicator">True</property>
+                        <!-- <property name="draw-indicator">True</property> -->
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">9</property>
+                        </layout>
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">9</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkLabel" id="label_appearance__grab">
@@ -709,11 +690,11 @@
                         <property name="margin-end">6</property>
                         <property name="margin-top">18</property>
                         <property name="label" translatable="yes">“Grab all keyboard events” status colour</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">0</property>
+                        </layout>
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">0</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkEntry" id="entry_grab_color">
@@ -726,11 +707,11 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="margin-top">18</property>
                         <property name="width-chars">8</property>
                         <property name="placeholder-text">#00FF00</property>
+                        <layout>
+                          <property name="column">2</property>
+                          <property name="row">0</property>
+                        </layout>
                       </object>
-                      <packing>
-                        <property name="left-attach">2</property>
-                        <property name="top-attach">0</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkSwitch" id="switch_appearance_grab_color">
@@ -742,50 +723,17 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="margin-end">6</property>
                         <property name="margin-top">18</property>
                         <signal name="notify::active" handler="remmina_prefdiag_on_grab_color_activated" swapped="no"/>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="row">0</property>
+                        </layout>
                       </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">0</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <placeholder/>
-                    </child>
-                    <child>
-                      <placeholder/>
-                    </child>
-                    <child>
-                      <placeholder/>
-                    </child>
-                    <child>
-                      <placeholder/>
-                    </child>
-                    <child>
-                      <placeholder/>
-                    </child>
-                    <child>
-                      <placeholder/>
-                    </child>
-                    <child>
-                      <placeholder/>
-                    </child>
-                    <child>
-                      <placeholder/>
-                    </child>
-                    <child>
-                      <placeholder/>
-                    </child>
-                    <child>
-                      <placeholder/>
                     </child>
                   </object>
                 </child>
               </object>
             </child>
           </object>
-          <packing>
-            <property name="position">1</property>
-          </packing>
         </child>
         <child type="tab">
           <object class="GtkLabel" id="label_tab_appearance">
@@ -794,17 +742,12 @@ It changes the background colour of connection names in the Remmina connection t
             <property name="halign">end</property>
             <property name="label" translatable="yes">Appearance</property>
           </object>
-          <packing>
-            <property name="menu-label">appearance</property>
-            <property name="position">1</property>
-            <property name="tab-fill">False</property>
-          </packing>
         </child>
         <child>
           <object class="GtkScrolledWindow" id="scrolled_applet">
             <property name="visible">True</property>
             <property name="can-focus">True</property>
-            <property name="shadow-type">in</property>
+            <!-- <property name="shadow-type">in</property> -->
             <child>
               <object class="GtkViewport">
                 <property name="visible">True</property>
@@ -827,13 +770,8 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="margin-end">18</property>
                         <property name="margin-top">18</property>
                         <property name="hexpand">True</property>
-                        <property name="draw-indicator">True</property>
+                        <!-- <property name="draw-indicator">True</property> -->
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">0</property>
-                        <property name="width">3</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkCheckButton" id="checkbutton_applet_hide_totals">
@@ -845,13 +783,8 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="margin-start">18</property>
                         <property name="margin-end">18</property>
                         <property name="hexpand">True</property>
-                        <property name="draw-indicator">True</property>
+                        <!-- <property name="draw-indicator">True</property> -->
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">1</property>
-                        <property name="width">3</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkCheckButton" id="checkbutton_applet_disable_tray">
@@ -863,14 +796,9 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="margin-start">18</property>
                         <property name="margin-end">18</property>
                         <property name="hexpand">True</property>
-                        <property name="draw-indicator">True</property>
+                        <!-- <property name="draw-indicator">True</property> -->
                         <signal name="toggled" handler="remmina_pref_dialog_disable_tray_icon_on_toggled" swapped="no"/>
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">2</property>
-                        <property name="width">3</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkCheckButton" id="checkbutton_applet_start_in_tray">
@@ -883,22 +811,14 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="margin-end">18</property>
                         <property name="margin-bottom">18</property>
                         <property name="hexpand">True</property>
-                        <property name="draw-indicator">True</property>
+                        <!-- <property name="draw-indicator">True</property> -->
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">3</property>
-                        <property name="width">3</property>
-                      </packing>
                     </child>
                   </object>
                 </child>
               </object>
             </child>
           </object>
-          <packing>
-            <property name="position">2</property>
-          </packing>
         </child>
         <child type="tab">
           <object class="GtkLabel" id="label_tab_applet">
@@ -907,17 +827,12 @@ It changes the background colour of connection names in the Remmina connection t
             <property name="halign">end</property>
             <property name="label" translatable="yes">Applet</property>
           </object>
-          <packing>
-            <property name="menu-label">applet</property>
-            <property name="position">2</property>
-            <property name="tab-fill">False</property>
-          </packing>
         </child>
         <child>
           <object class="GtkScrolledWindow" id="scrolled_keyboard">
             <property name="visible">True</property>
             <property name="can-focus">True</property>
-            <property name="shadow-type">in</property>
+            <!-- <property name="shadow-type">in</property> -->
             <child>
               <object class="GtkViewport">
                 <property name="visible">True</property>
@@ -939,10 +854,6 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="margin-top">18</property>
                         <property name="label" translatable="yes">Host key</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">0</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkButton" id="button_keyboard_host_key">
@@ -956,11 +867,6 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="margin-top">18</property>
                         <signal name="clicked" handler="remmina_pref_dialog_on_key_chooser" swapped="no"/>
                       </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">0</property>
-                        <property name="width">2</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkLabel" id="label_keyboard_fullscreen">
@@ -971,10 +877,6 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="margin-end">6</property>
                         <property name="label" translatable="yes">Show/hide fullscreen</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">1</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkButton" id="button_keyboard_fullscreen">
@@ -987,11 +889,6 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="margin-end">18</property>
                         <signal name="clicked" handler="remmina_pref_dialog_on_key_chooser" swapped="no"/>
                       </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">1</property>
-                        <property name="width">2</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkLabel" id="label_keyboard_auto_fit">
@@ -1002,10 +899,6 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="margin-end">6</property>
                         <property name="label" translatable="yes">Auto-fit window</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">2</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkButton" id="button_keyboard_auto_fit">
@@ -1018,11 +911,6 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="margin-end">18</property>
                         <signal name="clicked" handler="remmina_pref_dialog_on_key_chooser" swapped="no"/>
                       </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">2</property>
-                        <property name="width">2</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkLabel" id="label_keyboard_switch_tab">
@@ -1033,10 +921,6 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="margin-end">6</property>
                         <property name="label" translatable="yes">Switch tab pages</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">3</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkButton" id="button_keyboard_switch_tab_left">
@@ -1049,10 +933,6 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="margin-end">6</property>
                         <signal name="clicked" handler="remmina_pref_dialog_on_key_chooser" swapped="no"/>
                       </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">3</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkButton" id="button_keyboard_switch_tabright">
@@ -1065,10 +945,6 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="margin-end">18</property>
                         <signal name="clicked" handler="remmina_pref_dialog_on_key_chooser" swapped="no"/>
                       </object>
-                      <packing>
-                        <property name="left-attach">2</property>
-                        <property name="top-attach">3</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkLabel" id="label_keyboard_scaled">
@@ -1079,10 +955,6 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="margin-end">6</property>
                         <property name="label" translatable="yes">Apply/remove scaling</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">4</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkButton" id="button_keyboard_scaled">
@@ -1095,11 +967,6 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="margin-end">18</property>
                         <signal name="clicked" handler="remmina_pref_dialog_on_key_chooser" swapped="no"/>
                       </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">4</property>
-                        <property name="width">2</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkLabel" id="label_keyboard_grab_keyboard">
@@ -1110,10 +977,6 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="margin-end">6</property>
                         <property name="label" translatable="yes">Grab keyboard</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">5</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkButton" id="button_keyboard_grab_keyboard">
@@ -1126,11 +989,6 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="margin-end">18</property>
                         <signal name="clicked" handler="remmina_pref_dialog_on_key_chooser" swapped="no"/>
                       </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">5</property>
-                        <property name="width">2</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkLabel" id="label_keyboard_minimize">
@@ -1141,10 +999,6 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="margin-end">6</property>
                         <property name="label" translatable="yes">Minimize window</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">6</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkButton" id="button_keyboard_minimize">
@@ -1157,11 +1011,6 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="margin-end">18</property>
                         <signal name="clicked" handler="remmina_pref_dialog_on_key_chooser" swapped="no"/>
                       </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">6</property>
-                        <property name="width">2</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkLabel" id="label_keyboard_disconnect">
@@ -1172,10 +1021,6 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="margin-end">6</property>
                         <property name="label" translatable="yes">Disconnect</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">7</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkButton" id="button_keyboard_disconnect">
@@ -1188,11 +1033,6 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="margin-end">18</property>
                         <signal name="clicked" handler="remmina_pref_dialog_on_key_chooser" swapped="no"/>
                       </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">7</property>
-                        <property name="width">2</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkLabel" id="label_keyboard_toolbar">
@@ -1203,10 +1043,6 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="margin-end">6</property>
                         <property name="label" translatable="yes">Show/hide toolbar</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">8</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkButton" id="button_keyboard_toolbar">
@@ -1219,11 +1055,6 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="margin-end">18</property>
                         <signal name="clicked" handler="remmina_pref_dialog_on_key_chooser" swapped="no"/>
                       </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">8</property>
-                        <property name="width">2</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkLabel" id="label_keyboard_screenshot">
@@ -1235,10 +1066,6 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="label" translatable="yes">Screenshot</property>
                         <property name="ellipsize">start</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">9</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkButton" id="button_keyboard_screenshot">
@@ -1251,11 +1078,6 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="margin-end">18</property>
                         <signal name="clicked" handler="remmina_pref_dialog_on_key_chooser" swapped="no"/>
                       </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">9</property>
-                        <property name="width">2</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkLabel" id="label_keyboard_viewonly">
@@ -1267,10 +1089,6 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="label" translatable="yes">View-only mode</property>
                         <property name="ellipsize">start</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">10</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkButton" id="button_keyboard_viewonly">
@@ -1283,11 +1101,6 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="margin-end">18</property>
                         <signal name="clicked" handler="remmina_pref_dialog_on_key_chooser" swapped="no"/>
                       </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">10</property>
-                        <property name="width">2</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkLabel" id="label_keyboard_multimon">
@@ -1300,10 +1113,6 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="label" translatable="yes">Multi monitor</property>
                         <property name="ellipsize">start</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">11</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkButton" id="button_keyboard_multimon">
@@ -1317,20 +1126,12 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="margin-bottom">18</property>
                         <signal name="clicked" handler="remmina_pref_dialog_on_key_chooser" swapped="no"/>
                       </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">11</property>
-                        <property name="width">2</property>
-                      </packing>
                     </child>
                   </object>
                 </child>
               </object>
             </child>
           </object>
-          <packing>
-            <property name="position">3</property>
-          </packing>
         </child>
         <child type="tab">
           <object class="GtkLabel" id="label_tab_keyboard">
@@ -1339,17 +1140,12 @@ It changes the background colour of connection names in the Remmina connection t
             <property name="halign">end</property>
             <property name="label" translatable="yes">Keyboard</property>
           </object>
-          <packing>
-            <property name="menu-label">keyboard</property>
-            <property name="position">3</property>
-            <property name="tab-fill">False</property>
-          </packing>
         </child>
         <child>
           <object class="GtkScrolledWindow" id="scrolled_ssh">
             <property name="visible">True</property>
             <property name="can-focus">True</property>
-            <property name="shadow-type">in</property>
+            <!-- <property name="shadow-type">in</property> -->
             <child>
               <object class="GtkViewport">
                 <property name="visible">True</property>
@@ -1370,10 +1166,6 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="margin-end">6</property>
                         <property name="label" translatable="yes">Local SSH port</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">1</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkEntry" id="entry_options_ssh_port">
@@ -1384,11 +1176,6 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="max-length">5</property>
                         <property name="input-purpose">number</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">1</property>
-                        <property name="width">2</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkCheckButton" id="checkbutton_options_ssh_parseconfig">
@@ -1400,13 +1187,8 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="margin-start">18</property>
                         <property name="margin-end">18</property>
                         <property name="margin-bottom">18</property>
-                        <property name="draw-indicator">True</property>
+                        <!-- <property name="draw-indicator">True</property> -->
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">6</property>
-                        <property name="width">3</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkComboBoxText" id="comboboxtext_options_ssh_loglevel">
@@ -1423,11 +1205,6 @@ It changes the background colour of connection names in the Remmina connection t
                           <item id="4" translatable="yes">Function entering and leaving</item>
                         </items>
                       </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">0</property>
-                        <property name="width">2</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkLabel" id="label_options_ssh_loglevel">
@@ -1439,10 +1216,6 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="margin-top">18</property>
                         <property name="label" translatable="yes">SSH log level</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">0</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkLabel" id="label_options_ssh_tcp_keepidle">
@@ -1454,10 +1227,6 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="label">TCP_keepidle</property>
                         <property name="selectable">True</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">2</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkLabel" id="label_options_ssh_tcp_keepintvl">
@@ -1469,10 +1238,6 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="label">TCP_keepintvl</property>
                         <property name="selectable">True</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">3</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkLabel" id="label_options_ssh_tcp_keepcnt">
@@ -1484,10 +1249,6 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="label">TCP_keepcnt</property>
                         <property name="selectable">True</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">4</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkLabel" id="label_options_ssh_tcp_usrtimeout">
@@ -1499,10 +1260,6 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="label">TCP_user_timeout</property>
                         <property name="selectable">True</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">5</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkEntry" id="entry_options_ssh_tcp_keepidle">
@@ -1514,11 +1271,6 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="max-length">5</property>
                         <property name="input-purpose">number</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">2</property>
-                        <property name="width">2</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkEntry" id="entry_options_ssh_tcp_keepintvl">
@@ -1530,11 +1282,6 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="max-length">5</property>
                         <property name="input-purpose">number</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">3</property>
-                        <property name="width">2</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkEntry" id="entry_options_ssh_tcp_keepcnt">
@@ -1546,11 +1293,6 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="max-length">5</property>
                         <property name="input-purpose">number</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">4</property>
-                        <property name="width">2</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkEntry" id="entry_options_ssh_tcp_usrtimeout">
@@ -1562,20 +1304,12 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="max-length">5</property>
                         <property name="input-purpose">number</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">5</property>
-                        <property name="width">2</property>
-                      </packing>
                     </child>
                   </object>
                 </child>
               </object>
             </child>
           </object>
-          <packing>
-            <property name="position">4</property>
-          </packing>
         </child>
         <child type="tab">
           <object class="GtkLabel" id="label_tab_ssh">
@@ -1584,17 +1318,12 @@ It changes the background colour of connection names in the Remmina connection t
             <property name="halign">end</property>
             <property name="label" translatable="yes">SSH options</property>
           </object>
-          <packing>
-            <property name="menu-label">ssh option</property>
-            <property name="position">4</property>
-            <property name="tab-fill">False</property>
-          </packing>
         </child>
         <child>
           <object class="GtkScrolledWindow" id="scrolled_security">
             <property name="visible">True</property>
             <property name="can-focus">True</property>
-            <property name="shadow-type">in</property>
+            <!-- <property name="shadow-type">in</property> -->
             <child>
               <object class="GtkViewport">
                 <property name="visible">True</property>
@@ -1618,10 +1347,6 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="margin-top">9</property>
                         <property name="label" translatable="yes">Remmina password</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">0</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkSwitch" id="switch_security_use_primary_password">
@@ -1635,10 +1360,6 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="margin-top">9</property>
                         <signal name="notify::active" handler="remmina_prefdiag_on_use_password_activated" swapped="no"/>
                       </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">0</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkLabel" id="label_security_lock_interval">
@@ -1649,10 +1370,6 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="margin-start">18</property>
                         <property name="label" translatable="yes">Valid for</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">1</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkEntry" id="unlock_timeout">
@@ -1666,10 +1383,6 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="placeholder-text" translatable="yes">timeout in seconds (default 300)</property>
                         <property name="input-purpose">number</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">1</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkLabel" id="label_security_lock_connection">
@@ -1681,10 +1394,6 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="margin-start">18</property>
                         <property name="label" translatable="yes" comments="“Require to connect” is “Require the Remmina password before to connect”, the Remmina password is the Master/Principal Password, that is used to protect Remmina from unauthorized use.">Require to connect</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">2</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkLabel" id="label_security_lock_edit">
@@ -1696,10 +1405,6 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="margin-start">18</property>
                         <property name="label" translatable="yes" comments="Creation, editing, copying, and deletions require the primary password">Require to modify</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">3</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkLabel" id="label_security_lock_view_passwords">
@@ -1711,10 +1416,6 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="margin-start">18</property>
                         <property name="label" translatable="yes" comments="“Require to view passwords” is “Require the Remmina password before to connect”, the Remmina password is the Master/Principal Password, that is used to protect Remmina from unauthorized use.">Require to view passwords</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">4</property>
-                      </packing>
                     </child>
                    <child>
                       <object class="GtkSwitch" id="switch_security_lock_connect">
@@ -1725,10 +1426,6 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="margin-start">6</property>
                         <property name="margin-end">18</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">2</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkSwitch" id="switch_security_lock_edit">
@@ -1739,10 +1436,6 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="margin-start">6</property>
                         <property name="margin-end">18</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">3</property>
-                      </packing>
                     </child>
                    <child>
                       <object class="GtkSwitch" id="switch_security_lock_view_passwords">
@@ -1753,10 +1446,6 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="margin-start">6</property>
                         <property name="margin-end">18</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">4</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkLabel">
@@ -1767,10 +1456,6 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="margin-start">18</property>
                         <property name="label" translatable="yes">Encryption</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">5</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkComboBoxText" id="comboboxtext_security_enc_method">
@@ -1790,10 +1475,6 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                           <item id="3" translatable="yes">Sensitive (+1 GiB, ~2014 CPU)</item>
                         </items>
                       </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">5</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkLabel" id="label_security_enable_audit">
@@ -1805,10 +1486,6 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-top">9</property>
                         <property name="label" translatable="yes">Auditing log</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">6</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkSwitch" id="switch_security_audit">
@@ -1819,10 +1496,6 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-start">6</property>
                         <property name="margin-end">18</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">6</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkLabel" id="label_security_trust_fingerprints">
@@ -1835,10 +1508,6 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-top">9</property>
                         <property name="label" translatable="yes">Trust all certificates</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">7</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkSwitch" id="switch_security_trust_all">
@@ -1849,19 +1518,12 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-start">6</property>
                         <property name="margin-end">18</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">7</property>
-                      </packing>
                     </child>
                   </object>
                 </child>
               </object>
             </child>
           </object>
-          <packing>
-            <property name="position">5</property>
-          </packing>
         </child>
         <child type="tab">
           <object class="GtkLabel" id="label_tab_security">
@@ -1870,17 +1532,12 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
             <property name="halign">end</property>
             <property name="label" translatable="yes">Security</property>
           </object>
-          <packing>
-            <property name="menu-label">security</property>
-            <property name="position">5</property>
-            <property name="tab-fill">False</property>
-          </packing>
         </child>
         <child>
           <object class="GtkScrolledWindow" id="scrolled_terminal">
             <property name="visible">True</property>
             <property name="can-focus">True</property>
-            <property name="shadow-type">in</property>
+            <!-- <property name="shadow-type">in</property> -->
             <child>
               <object class="GtkViewport">
                 <property name="visible">True</property>
@@ -1901,10 +1558,6 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-top">18</property>
                         <property name="label" translatable="yes">Terminal font</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">0</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkLabel" id="label_terminal_scrollback_lines">
@@ -1914,10 +1567,6 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-start">18</property>
                         <property name="label" translatable="yes">Scrollback lines</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">3</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkFontButton" id="fontbutton_terminal_font">
@@ -1933,11 +1582,6 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="use-font">True</property>
                         <property name="use-size">True</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">0</property>
-                        <property name="width">8</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkEntry" id="entry_scrollback_lines">
@@ -1948,11 +1592,6 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-end">18</property>
                         <property name="input-purpose">number</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">3</property>
-                        <property name="width">8</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkLabel" id="label_keyboard_copy">
@@ -1962,10 +1601,6 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-start">18</property>
                         <property name="label" translatable="yes">Shortcuts for copying and pasting</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">4</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkLabel" id="label_keyboard_select_all">
@@ -1975,10 +1610,6 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-start">18</property>
                         <property name="label" translatable="yes">Select all shortcuts</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">5</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkButton" id="button_keyboard_copy">
@@ -1991,11 +1622,6 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-end">6</property>
                         <signal name="clicked" handler="remmina_pref_dialog_on_key_chooser" swapped="no"/>
                       </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">4</property>
-                        <property name="width">4</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkButton" id="button_keyboard_select_all">
@@ -2009,11 +1635,6 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-end">18</property>
                         <signal name="clicked" handler="remmina_pref_dialog_on_key_chooser" swapped="no"/>
                       </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">5</property>
-                        <property name="width">8</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkLabel">
@@ -2023,10 +1644,6 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-start">18</property>
                         <property name="label" translatable="yes">Use default system font</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">1</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkSwitch" id="switch_terminal_font_system">
@@ -2036,11 +1653,6 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-start">6</property>
                         <signal name="notify::active" handler="remmina_pref_dialog_vte_font_on_toggled" swapped="no"/>
                       </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">1</property>
-                        <property name="width">8</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkSwitch" id="switch_terminal_bold">
@@ -2050,11 +1662,6 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="halign">start</property>
                         <property name="margin-start">6</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">2</property>
-                        <property name="width">8</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkLabel">
@@ -2064,10 +1671,6 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-start">18</property>
                         <property name="label" translatable="yes">Show bold text in bright colors</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">2</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkLabel" id="label_color_chooser">
@@ -2078,27 +1681,18 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-bottom">18</property>
                         <property name="label" translatable="yes">Colour theme</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">17</property>
-                      </packing>
                     </child>
                     <child>
-                      <object class="GtkFileChooserButton" id="button_term_cs">
+                      <object class="GtkFileChooserWidget" id="button_term_cs">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="tooltip-text" translatable="yes">Choose a colour scheme file. Usually available in /usr/share/remmina/theme. https://github.com/mbadolato/iTerm2-Color-Schemes has more details.</property>
                         <property name="margin-start">6</property>
                         <property name="margin-end">18</property>
                         <property name="margin-bottom">18</property>
-                        <property name="title" translatable="yes">Pick a terminal colouring file</property>
-                        <signal name="file-set" handler="remmina_pref_on_color_scheme_selected" swapped="no"/>
+                        <!-- <property name="title" translatable="yes">Pick a terminal colouring file</property> -->
+                        <!-- <signal name="file-set" handler="remmina_pref_on_color_scheme_selected" swapped="no"/> -->
                       </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">17</property>
-                        <property name="width">8</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkLabel" id="label_terminal_bright_colors">
@@ -2108,10 +1702,6 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-start">18</property>
                         <property name="label" translatable="yes">Bright colours</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">16</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkColorButton" id="colorbutton_color8">
@@ -2122,10 +1712,6 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-end">6</property>
                         <property name="title" translatable="yes">Pick a light black colour</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">16</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkColorButton" id="colorbutton_color9">
@@ -2136,10 +1722,6 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-end">6</property>
                         <property name="title" translatable="yes">Pick a light red colour</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">2</property>
-                        <property name="top-attach">16</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkColorButton" id="colorbutton_color10">
@@ -2150,10 +1732,6 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-end">6</property>
                         <property name="title" translatable="yes">Pick a bright green colour</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">3</property>
-                        <property name="top-attach">16</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkColorButton" id="colorbutton_color11">
@@ -2164,10 +1742,6 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-end">6</property>
                         <property name="title" translatable="yes">Pick a bright yellow colour</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">4</property>
-                        <property name="top-attach">16</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkColorButton" id="colorbutton_color12">
@@ -2178,10 +1752,6 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-end">6</property>
                         <property name="title" translatable="yes">Pick a bright blue colour</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">5</property>
-                        <property name="top-attach">16</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkColorButton" id="colorbutton_color13">
@@ -2192,10 +1762,6 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-end">6</property>
                         <property name="title" translatable="yes">Pick a light magenta colour</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">6</property>
-                        <property name="top-attach">16</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkColorButton" id="colorbutton_color14">
@@ -2206,10 +1772,6 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-end">6</property>
                         <property name="title" translatable="yes">Pick a light cyan colour</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">7</property>
-                        <property name="top-attach">16</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkColorButton" id="colorbutton_color15">
@@ -2220,10 +1782,6 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-end">18</property>
                         <property name="title" translatable="yes">Pick a light white colour</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">8</property>
-                        <property name="top-attach">16</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkColorButton" id="colorbutton_color0">
@@ -2234,10 +1792,6 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-end">6</property>
                         <property name="title" translatable="yes">Pick a black colour</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">15</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkColorButton" id="colorbutton_color1">
@@ -2248,10 +1802,6 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-end">6</property>
                         <property name="title" translatable="yes">Pick a red colour</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">2</property>
-                        <property name="top-attach">15</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkColorButton" id="colorbutton_color2">
@@ -2262,10 +1812,6 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-end">6</property>
                         <property name="title" translatable="yes">Pick a green colour</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">3</property>
-                        <property name="top-attach">15</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkColorButton" id="colorbutton_color3">
@@ -2276,10 +1822,6 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-end">6</property>
                         <property name="title" translatable="yes">Pick a yellow colour</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">4</property>
-                        <property name="top-attach">15</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkColorButton" id="colorbutton_color4">
@@ -2290,10 +1832,6 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-end">6</property>
                         <property name="title" translatable="yes">Pick a blue colour</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">5</property>
-                        <property name="top-attach">15</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkColorButton" id="colorbutton_color5">
@@ -2304,10 +1842,6 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-end">6</property>
                         <property name="title" translatable="yes">Pick a magenta colour</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">6</property>
-                        <property name="top-attach">15</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkColorButton" id="colorbutton_color6">
@@ -2318,10 +1852,6 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-end">6</property>
                         <property name="title" translatable="yes">Pick a cyan colour</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">7</property>
-                        <property name="top-attach">15</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkColorButton" id="colorbutton_color7">
@@ -2332,10 +1862,6 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-end">18</property>
                         <property name="title" translatable="yes">Pick a white colour</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">8</property>
-                        <property name="top-attach">15</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkLabel" id="label_terminal_normal_colors">
@@ -2345,10 +1871,6 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-start">18</property>
                         <property name="label" translatable="yes">Normal colours</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">15</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkLabel" id="label_terminal_cursor_color">
@@ -2358,10 +1880,6 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-start">18</property>
                         <property name="label" translatable="yes">Cursor colour</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">11</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkColorButton" id="colorbutton_cursor">
@@ -2373,11 +1891,6 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-end">18</property>
                         <property name="title" translatable="yes">Cursor colour</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">11</property>
-                        <property name="width">8</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkLabel" id="label_terminal_background">
@@ -2387,10 +1900,6 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-start">18</property>
                         <property name="label" translatable="yes">Background colour</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">9</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkColorButton" id="colorbutton_background">
@@ -2402,11 +1911,6 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-end">18</property>
                         <property name="title" translatable="yes">Background colour</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">9</property>
-                        <property name="width">8</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkColorButton" id="colorbutton_foreground">
@@ -2418,11 +1922,6 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-end">18</property>
                         <property name="title" translatable="yes">Foreground colour</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">8</property>
-                        <property name="width">8</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkLabel" id="label_terminal_foreground">
@@ -2432,10 +1931,6 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-start">18</property>
                         <property name="label" translatable="yes">Foreground colour</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">8</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkLabel" id="label_terminal_increase_font">
@@ -2445,10 +1940,6 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-start">18</property>
                         <property name="label" translatable="yes">Increase and decrease font size</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">6</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkButton" id="button_keyboard_increase_font">
@@ -2461,11 +1952,6 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-end">6</property>
                         <signal name="clicked" handler="remmina_pref_dialog_on_key_chooser" swapped="no"/>
                       </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">6</property>
-                        <property name="width">4</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkLabel" id="label_keyboard_search_text">
@@ -2475,10 +1961,6 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-start">18</property>
                         <property name="label" translatable="yes">Search text shortcut</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">7</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkButton" id="button_keyboard_search_text">
@@ -2492,11 +1974,6 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-end">18</property>
                         <signal name="clicked" handler="remmina_pref_dialog_on_key_chooser" swapped="no"/>
                       </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">7</property>
-                        <property name="width">8</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkLabel" id="label_terminal_bold_color">
@@ -2506,10 +1983,6 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-start">18</property>
                         <property name="label" translatable="yes">Bold colour</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">14</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkColorButton" id="colorbutton_colorBD">
@@ -2521,11 +1994,6 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-end">18</property>
                         <property name="title" translatable="yes">Bold colour</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">14</property>
-                        <property name="width">8</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkLabel" id="label_terminal_highlight">
@@ -2535,10 +2003,6 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-start">18</property>
                         <property name="label" translatable="yes">Highlight colour</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">10</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkLabel" id="label_terminal_highlight_foreground">
@@ -2548,10 +2012,6 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-start">18</property>
                         <property name="label" translatable="yes">Highlight foreground colour</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">11</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkLabel" id="label_terminal_cursor_foregorund">
@@ -2561,10 +2021,6 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-start">18</property>
                         <property name="label" translatable="yes">Cursor foreground colour</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">13</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkColorButton" id="colorbutton_highlight">
@@ -2576,11 +2032,6 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-end">18</property>
                         <property name="title" translatable="yes">Highlight colour</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">10</property>
-                        <property name="width">8</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkColorButton" id="colorbutton_highlight_foreground">
@@ -2592,11 +2043,6 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-end">18</property>
                         <property name="title" translatable="yes">Highlight foreground colour</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">11</property>
-                        <property name="width">8</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkColorButton" id="colorbutton_cursor_foreground">
@@ -2608,11 +2054,6 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-end">18</property>
                         <property name="title" translatable="yes">Cursor foreground colour</property>
                       </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">13</property>
-                        <property name="width">8</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkButton" id="button_keyboard_decrease_font">
@@ -2625,11 +2066,6 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-end">18</property>
                         <signal name="clicked" handler="remmina_pref_dialog_on_key_chooser" swapped="no"/>
                       </object>
-                      <packing>
-                        <property name="left-attach">5</property>
-                        <property name="top-attach">6</property>
-                        <property name="width">4</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkButton" id="button_keyboard_paste">
@@ -2642,20 +2078,12 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-end">18</property>
                         <signal name="clicked" handler="remmina_pref_dialog_on_key_chooser" swapped="no"/>
                       </object>
-                      <packing>
-                        <property name="left-attach">5</property>
-                        <property name="top-attach">4</property>
-                        <property name="width">4</property>
-                      </packing>
                     </child>
                   </object>
                 </child>
               </object>
             </child>
           </object>
-          <packing>
-            <property name="position">6</property>
-          </packing>
         </child>
         <child type="tab">
           <object class="GtkLabel" id="label_tab_terminal">
@@ -2664,11 +2092,6 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
             <property name="halign">end</property>
             <property name="label" translatable="yes">Terminal</property>
           </object>
-          <packing>
-            <property name="menu-label">terminal</property>
-            <property name="position">6</property>
-            <property name="tab-fill">False</property>
-          </packing>
         </child>
       </object>
     </child>
@@ -2676,12 +2099,12 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
       <object class="GtkHeaderBar">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
-        <property name="title" translatable="yes">Remmina Preferences</property>
-        <property name="show-close-button">True</property>
+        <!-- <property name="title" translatable="yes">Remmina Preferences</property> -->
+        <!-- <property name="show-close-button">True</property> -->
         <child>
           <object class="GtkButton" id="button_close">
             <property name="label" translatable="yes">Close</property>
-            <property name="use-action-appearance">True</property>
+            <!-- <property name="use-action-appearance">True</property> -->
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
