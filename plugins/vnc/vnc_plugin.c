@@ -1293,14 +1293,6 @@ static gboolean remmina_plugin_vnc_main(RemminaProtocolWidget *gp)
 
 		remmina_plugin_vnc_update_quality(cl, quality);
 		remmina_plugin_vnc_update_colordepth(cl, colordepth);
-		if ((cl->format.depth == 8) && (quality == 9))
-			cl->appData.encodingsString = "copyrect zlib hextile raw";
-		else if ((cl->format.depth == 8) && (quality == 2))
-			cl->appData.encodingsString = "zrle ultra copyrect hextile zlib corre rre raw";
-		else if ((cl->format.depth == 8) && (quality == 1))
-			cl->appData.encodingsString = "zrle ultra copyrect hextile zlib corre rre raw";
-		else if ((cl->format.depth == 8) && (quality == 0))
-			cl->appData.encodingsString = "zrle ultra copyrect hextile zlib corre rre raw";
 		SetFormatAndEncodings(cl);
 
 		if (remmina_plugin_service->file_get_int(remminafile, "disableencryption", FALSE)) {
