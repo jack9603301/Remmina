@@ -127,7 +127,8 @@ void remmina_log_start(void)
 		/* Header bar */
 		GtkWidget *header = gtk_header_bar_new ();
 		gtk_header_bar_set_show_title_buttons (GTK_HEADER_BAR (header), TRUE);
-		//gtk_header_bar_set_title (GTK_HEADER_BAR (header), _("Remmina debugging window"));
+		GtkLabel* header_title = gtk_label_new_with_mnemonic(_("Remmina debugging window"));
+		gtk_header_bar_set_title_widget (GTK_HEADER_BAR (header), header_title);
 		//gtk_header_bar_set_has_subtitle (GTK_HEADER_BAR (header), FALSE); TODO GTK4
 		/* Stats */
 		GtkWidget *getstat = gtk_button_new ();
@@ -148,7 +149,7 @@ void remmina_log_start(void)
 		g_signal_connect(getstat, "button-press-event", G_CALLBACK(remmina_log_stats), NULL);
 		g_signal_connect(start, "notify::active", G_CALLBACK(remmina_log_start_stop), NULL);
 		g_signal_connect(G_OBJECT(log_window), "destroy", G_CALLBACK(remmina_log_end), NULL);
-		//gtk_widget_show_all(log_window);
+		gtk_widget_show(log_window);
 	}
 
 	remmina_log_print(_("This window can help you find connection problems.\n"
@@ -185,7 +186,7 @@ static gboolean remmina_log_print_real(gpointer data)
 	if (log_window && logstart) {
 		gtk_text_buffer_get_end_iter(REMMINA_LOG_WINDOW(log_window)->log_buffer, &iter);
 		gtk_text_buffer_insert(REMMINA_LOG_WINDOW(log_window)->log_buffer, &iter, (const gchar*)data, -1);
-		//IDLE_ADD(remmina_log_scroll_to_end, NULL);
+		IDLE_ADD(remmina_log_scroll_to_end, NULL);
 	}
 	g_free(data);
 	return FALSE;
@@ -199,7 +200,7 @@ void remmina_log_print(const gchar *text)
 	if (!log_window)
 		return;
 
-	//IDLE_ADD(remmina_log_print_real, g_strdup(text));
+	IDLE_ADD(remmina_log_print_real, g_strdup(text));
 }
 
 void _remmina_info(const gchar *fmt, ...)
@@ -223,7 +224,7 @@ void _remmina_info(const gchar *fmt, ...)
 		free(bufn);
 		return;
 	}
-	//IDLE_ADD(remmina_log_print_real, bufn);
+	IDLE_ADD(remmina_log_print_real, bufn);
 }
 
 void _remmina_message(const gchar *fmt, ...)
@@ -247,7 +248,7 @@ void _remmina_message(const gchar *fmt, ...)
 	/* freed in remmina_log_print_real */
 	gchar *bufn = g_strconcat("(MESSAGE) - ", buf_tmp, NULL);
 
-	//IDLE_ADD(remmina_log_print_real, bufn);
+	IDLE_ADD(remmina_log_print_real, bufn);
 }
 
 /**
@@ -279,7 +280,7 @@ void _remmina_debug(const gchar *fun, const gchar *fmt, ...)
 	/* freed in remmina_log_print_real */
 	gchar *bufn = g_strconcat("(DEBUG) - ", buf_tmp, NULL);
 
-	//IDLE_ADD(remmina_log_print_real, bufn);
+	IDLE_ADD(remmina_log_print_real, bufn);
 }
 
 void _remmina_warning(const gchar *fun, const gchar *fmt, ...)
@@ -306,7 +307,7 @@ void _remmina_warning(const gchar *fun, const gchar *fmt, ...)
 	/* freed in remmina_log_print_real */
 	gchar *bufn = g_strconcat("(WARN) - ", buf_tmp, NULL);
 
-	//IDLE_ADD(remmina_log_print_real, bufn);
+	IDLE_ADD(remmina_log_print_real, bufn);
 }
 
 void _remmina_audit(const gchar *fun, const gchar *fmt, ...)
@@ -375,7 +376,7 @@ void _remmina_error(const gchar *fun, const gchar *fmt, ...)
 	/* freed in remmina_log_print_real */
 	gchar *bufn = g_strconcat("(ERROR) - ", buf_tmp, NULL);
 
-	//IDLE_ADD(remmina_log_print_real, bufn);
+	IDLE_ADD(remmina_log_print_real, bufn);
 }
 
 void _remmina_critical(const gchar *fun, const gchar *fmt, ...)
@@ -402,7 +403,7 @@ void _remmina_critical(const gchar *fun, const gchar *fmt, ...)
 	/* freed in remmina_log_print_real */
 	gchar *bufn = g_strconcat("(CRIT) - ", buf_tmp, NULL);
 
-	//IDLE_ADD(remmina_log_print_real, bufn);
+	IDLE_ADD(remmina_log_print_real, bufn);
 }
 
 // Only prints into Remmina's own debug window. (Not stdout!)
@@ -419,7 +420,7 @@ void remmina_log_printf(const gchar *fmt, ...)
 	text = g_strdup_vprintf(fmt, args);
 	va_end(args);
 
-	//IDLE_ADD(remmina_log_print_real, text);
+	IDLE_ADD(remmina_log_print_real, text);
 }
 
 static gboolean remmina_log_on_keypress(GtkWidget *widget, GdkEvent *event, gpointer user_data)
@@ -452,14 +453,14 @@ static void remmina_log_window_init(RemminaLogWindow *logwin)
 	scrolledwindow = gtk_scrolled_window_new();
 	gtk_widget_show(scrolledwindow);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolledwindow), GTK_POLICY_NEVER, GTK_POLICY_ALWAYS);
-	gtk_box_append(GTK_BOX(logwin), scrolledwindow);
+	gtk_window_set_child((logwin), scrolledwindow);
 
 	widget = gtk_text_view_new();
 	gtk_widget_show(widget);
 	gtk_text_view_set_wrap_mode(GTK_TEXT_VIEW(widget), GTK_WRAP_WORD_CHAR);
 	gtk_text_view_set_editable(GTK_TEXT_VIEW(widget), FALSE);
 	gtk_text_view_set_monospace(GTK_TEXT_VIEW(widget), TRUE);
-	gtk_box_append(GTK_BOX(scrolledwindow), widget);
+	gtk_scrolled_window_set_child((scrolledwindow), widget);
 	logwin->log_view = widget;
 	logwin->log_buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(widget));
 

@@ -2589,7 +2589,7 @@ remmina_ssh_tunnel_main_thread(gpointer data)
 	tunnel->thread = 0;
 
 	/* Do after tunnel thread cleanup */
-	//IDLE_ADD((GSourceFunc)remmina_ssh_notify_tunnel_main_thread_end, (gpointer)tunnel);
+	IDLE_ADD((GSourceFunc)remmina_ssh_notify_tunnel_main_thread_end, (gpointer)tunnel);
 
 	return NULL;
 }

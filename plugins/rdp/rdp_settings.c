@@ -417,7 +417,7 @@ static void remmina_rdp_settings_grid_init(RemminaPluginRdpsetGrid *grid)
 	g_signal_connect(G_OBJECT(grid), "destroy", G_CALLBACK(remmina_rdp_settings_grid_destroy), NULL);
 	gtk_grid_set_row_homogeneous(GTK_GRID(grid), FALSE);
 	gtk_grid_set_column_homogeneous(GTK_GRID(grid), FALSE);
-	gtk_container_set_border_width(GTK_CONTAINER(grid), 8);
+	//gtk_container_set_border_width(GTK_CONTAINER(grid), 8);
 	gtk_grid_set_row_spacing(GTK_GRID(grid), 4);
 	gtk_grid_set_column_spacing(GTK_GRID(grid), 4);
 
@@ -474,7 +474,7 @@ static void remmina_rdp_settings_grid_init(RemminaPluginRdpsetGrid *grid)
 	gtk_widget_set_halign(GTK_WIDGET(widget), GTK_ALIGN_END);
 	gtk_widget_set_valign(GTK_WIDGET(widget), GTK_ALIGN_CENTER);
 	gtk_grid_attach(GTK_GRID(grid), widget, 2, 3, 1, 1);
-	gtk_entry_set_width_chars(GTK_ENTRY(widget), 32);
+	//gtk_entry_set_width_chars(GTK_ENTRY(widget), 32);
 #if FREERDP_CHECK_VERSION(2, 3, 0)
 	/* This is the default, but we set it to make things crystal clear */
 	gtk_widget_set_sensitive (widget, TRUE);

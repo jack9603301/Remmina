@@ -1284,7 +1284,7 @@ static gboolean remmina_protocol_widget_xport_tunnel_disconnect_callback(Remmina
 	if (REMMINA_SSH(tunnel)->error)
 		remmina_protocol_widget_set_error(gp, "%s", REMMINA_SSH(tunnel)->error);
 
-	//IDLE_ADD((GSourceFunc)remmina_protocol_widget_close_connection, gp);
+	IDLE_ADD((GSourceFunc)remmina_protocol_widget_close_connection, gp);
 	return TRUE;
 }
 #endif

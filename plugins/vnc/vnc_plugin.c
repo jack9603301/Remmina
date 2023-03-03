@@ -765,7 +765,7 @@ static void remmina_plugin_vnc_rfb_cuttext(rfbClient *cl, const char *text, int 
 	param->text = g_malloc(textlen);
 	memcpy(param->text, text, textlen);
 	param->textlen = textlen;
-	//IDLE_ADD((GSourceFunc)remmina_plugin_vnc_queue_cuttext, param);
+	IDLE_ADD((GSourceFunc)remmina_plugin_vnc_queue_cuttext, param);
 }
 
 static char *
@@ -1054,13 +1054,13 @@ static void remmina_plugin_vnc_rfb_chat(rfbClient *cl, int value, char *text)
 	gp = (RemminaProtocolWidget *)(rfbClientGetClientData(cl, NULL));
 	switch (value) {
 	case rfbTextChatOpen:
-		//IDLE_ADD((GSourceFunc)remmina_plugin_vnc_open_chat, gp);
+		IDLE_ADD((GSourceFunc)remmina_plugin_vnc_open_chat, gp);
 		break;
 	case rfbTextChatClose:
 		/* Do nothing… but wait for the next rfbTextChatFinished signal */
 		break;
 	case rfbTextChatFinished:
-		//IDLE_ADD((GSourceFunc)remmina_plugin_vnc_close_chat, gp);
+		IDLE_ADD((GSourceFunc)remmina_plugin_vnc_close_chat, gp);
 		break;
 	default:
 		/* value is the text length */
@@ -1379,7 +1379,7 @@ static gboolean remmina_plugin_vnc_main(RemminaProtocolWidget *gp)
 		}
 		gpdata->running = FALSE;
 	} else {
-		//IDLE_ADD((GSourceFunc)remmina_plugin_vnc_main_loop, gp);
+		IDLE_ADD((GSourceFunc)remmina_plugin_vnc_main_loop, gp);
 	}
 
 	return FALSE;

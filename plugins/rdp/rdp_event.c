@@ -920,7 +920,7 @@ void remmina_rdp_event_init(RemminaProtocolWidget *gp)
 
 	rfi->drawing_area = gtk_drawing_area_new();
 	gtk_widget_show(rfi->drawing_area);
-	gtk_container_add(GTK_CONTAINER(gp), rfi->drawing_area);
+	//gtk_container_add(GTK_CONTAINER(gp), rfi->drawing_area);
 
 	// gtk_widget_add_events(rfi->drawing_area, GDK_POINTER_MOTION_MASK
 	// 		      | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK

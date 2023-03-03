@@ -69,7 +69,7 @@
 typedef void (*PThreadCleanupFunc)(void *);
 
 
-//#define IDLE_ADD        gdk_threads_add_idle
+#define IDLE_ADD        g_idle_add
 #define TIMEOUT_ADD     gdk_threads_add_timeout
 #define CANCEL_ASYNC    pthread_setcanceltype(PTHREAD_CANCEL_ASYNCHRONOUS, NULL); pthread_testcancel();
 #define CANCEL_DEFER    pthread_setcanceltype(PTHREAD_CANCEL_DEFERRED, NULL);
