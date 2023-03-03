@@ -146,7 +146,7 @@ void remmina_log_start(void)
 
 		gtk_window_set_titlebar (GTK_WINDOW (log_window), header);
 
-		g_signal_connect(getstat, "button-press-event", G_CALLBACK(remmina_log_stats), NULL);
+		g_signal_connect(getstat, "clicked", G_CALLBACK(remmina_log_stats), NULL);
 		g_signal_connect(start, "notify::active", G_CALLBACK(remmina_log_start_stop), NULL);
 		g_signal_connect(G_OBJECT(log_window), "destroy", G_CALLBACK(remmina_log_end), NULL);
 		gtk_widget_show(log_window);
