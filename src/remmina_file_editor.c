@@ -298,6 +298,12 @@ static void remmina_file_editor_button_on_toggled(GtkToggleButton *togglebutton,
 	gtk_widget_set_sensitive(widget, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(togglebutton)));
 }
 
+static void remmina_file_editor_button_on_checked(GtkCheckButton *checkbutton, GtkWidget *widget)
+{
+	TRACE_CALL(__func__);
+	gtk_widget_set_sensitive(widget, gtk_check_button_get_active(checkbutton));
+}
+
 static void remmina_file_editor_create_notebook_container(RemminaFileEditor *gfe)
 {
 	TRACE_CALL(__func__);
@@ -310,11 +316,11 @@ static void remmina_file_editor_create_notebook_container(RemminaFileEditor *gfe
 				       GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
 	gtk_widget_show(gfe->priv->config_scrollable);
 
-	gtk_box_append(GTK_BOX(gfe->priv->config_viewport), gfe->priv->config_container);
+	gtk_viewport_set_child(gfe->priv->config_viewport, gfe->priv->config_container);
 	//gtk_container_set_border_width(GTK_CONTAINER(gfe->priv->config_viewport), 2);
 	gtk_widget_show(gfe->priv->config_viewport);
-	gtk_box_append(GTK_BOX(gfe->priv->config_scrollable), gfe->priv->config_viewport);
-	//gtk_container_set_border_width(GTK_CONTAINER(gfe->priv->config_container), 2);
+	gtk_scrolled_window_set_child(gfe->priv->config_scrollable, gfe->priv->config_viewport);
+	gtk_scrolled_window_set_min_content_height(gfe->priv->config_scrollable, 400);
 	gtk_widget_show(gfe->priv->config_container);
 
 	gtk_box_append(GTK_BOX(gfe->priv->config_box), gfe->priv->config_scrollable);
@@ -362,7 +368,7 @@ static void remmina_file_editor_ssh_tunnel_server_custom_radio_on_toggled(GtkTog
 	gtk_widget_set_sensitive(GTK_WIDGET(gfe->priv->ssh_tunnel_server_entry),
 				 gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(gfe->priv->ssh_tunnel_enabled_check)) &&
 				 (gfe->priv->ssh_tunnel_server_custom_radio == NULL ||
-				  gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(gfe->priv->ssh_tunnel_server_custom_radio))));
+				  gtk_check_button_get_active(gfe->priv->ssh_tunnel_server_custom_radio)));
 }
 
 static void remmina_file_editor_ssh_tunnel_enabled_check_on_toggled(GtkToggleButton *togglebutton,
@@ -594,7 +600,7 @@ static void remmina_file_editor_create_resolution(RemminaFileEditor *gfe, const 
 	gtk_widget_show(widget);
 	gtk_box_append(GTK_BOX(hbox), widget);
 	gfe->priv->resolution_iws_radio = widget;
-	//widget = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(gfe->priv->resolution_iws_radio), _("Use client resolution"));
+	widget = gtk_check_button_new_with_label(_("Use client resolution"));
 	gtk_widget_show(widget);
 	gtk_box_append(GTK_BOX(hbox), widget);
 	gfe->priv->resolution_auto_radio = widget;
@@ -605,7 +611,7 @@ static void remmina_file_editor_create_resolution(RemminaFileEditor *gfe, const 
 	gtk_widget_show(hbox);
 	gtk_grid_attach(GTK_GRID(grid), hbox, 1, row + 1, 1, 1);
 
-	//widget = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(gfe->priv->resolution_iws_radio), _("Custom"));
+	widget = gtk_check_button_new_with_label(_("Custom"));
 	gtk_widget_show(widget);
 	gtk_box_append(GTK_BOX(hbox), widget);
 	gfe->priv->resolution_custom_radio = widget;
@@ -624,13 +630,13 @@ static void remmina_file_editor_create_resolution(RemminaFileEditor *gfe, const 
 			 G_CALLBACK(remmina_file_editor_button_on_toggled), gfe->priv->resolution_custom_combo);
 
 	if (res_mode == RES_USE_CUSTOM)
-		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(gfe->priv->resolution_custom_radio), TRUE);
+		gtk_check_button_set_active(gfe->priv->resolution_custom_radio, TRUE);
 	else if (res_mode == RES_USE_CLIENT)
-		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(gfe->priv->resolution_auto_radio), TRUE);
+		gtk_check_button_set_active(gfe->priv->resolution_auto_radio, TRUE);
 	else
-		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(gfe->priv->resolution_iws_radio), TRUE);
+		gtk_check_button_set_active(gfe->priv->resolution_iws_radio, TRUE);
 
-	gtk_widget_set_sensitive(gfe->priv->resolution_custom_combo, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(gfe->priv->resolution_custom_radio)));
+	gtk_widget_set_sensitive(gfe->priv->resolution_custom_combo, gtk_check_button_get_active(gfe->priv->resolution_custom_radio));
 
 	g_free(res_str);
 }
@@ -769,7 +775,7 @@ static GtkWidget *remmina_file_editor_create_check(RemminaFileEditor *gfe, GtkWi
 	gtk_grid_attach(GTK_GRID(grid), widget, top, row, 1, 1);
 
 	if (value)
-		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widget), TRUE);
+		gtk_check_button_set_active(widget, TRUE);
 
 	return widget;
 }
@@ -804,7 +810,7 @@ remmina_file_editor_create_chooser(RemminaFileEditor *gfe, GtkWidget *grid, gint
 
 	check = gtk_check_button_new();
 	gtk_widget_show(check);
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(check), (value && value[0] == '/'));
+	gtk_check_button_set_active(check, (value && value[0] == '/'));
 	gtk_box_append(GTK_BOX(hbox), check);
 
 	widget = gtk_button_new();
@@ -815,8 +821,8 @@ remmina_file_editor_create_chooser(RemminaFileEditor *gfe, GtkWidget *grid, gint
 		gtk_file_chooser_set_file(GTK_FILE_CHOOSER(widget), value, NULL);
 	gtk_box_append(GTK_BOX(hbox), widget);
 
-	g_signal_connect(G_OBJECT(check), "toggled", G_CALLBACK(remmina_file_editor_button_on_toggled), widget);
-	remmina_file_editor_button_on_toggled(GTK_TOGGLE_BUTTON(check), widget);
+	g_signal_connect(G_OBJECT(check), "toggled", G_CALLBACK(remmina_file_editor_button_on_checked), widget);
+	remmina_file_editor_button_on_checked(check, widget);
 
 	return widget;
 }
@@ -1187,8 +1193,7 @@ static void remmina_file_editor_create_ssh_tunnel_tab(RemminaFileEditor *gfe, Re
 		// 2
 		row++;
 
-		// widget = gtk_radio_button_new_with_label_from_widget(
-		// 	GTK_RADIO_BUTTON(priv->ssh_tunnel_server_default_radio), _("Custom"));
+		widget = gtk_check_button_new_with_label(_("Custom"));
 		gtk_grid_attach(GTK_GRID(grid), widget, 0, row, 1, 1);
 		g_signal_connect(G_OBJECT(widget), "toggled",
 				 G_CALLBACK(remmina_file_editor_ssh_tunnel_server_custom_radio_on_toggled), gfe);
@@ -1291,16 +1296,16 @@ static void remmina_file_editor_create_ssh_tunnel_tab(RemminaFileEditor *gfe, Re
 	if (ssh_setting == REMMINA_PROTOCOL_SSH_SETTING_TUNNEL) {
 		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->ssh_tunnel_enabled_check),
 					     remmina_file_get_int(priv->remmina_file, "ssh_tunnel_enabled", FALSE));
-		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->ssh_tunnel_loopback_check),
+		gtk_check_button_set_active(priv->ssh_tunnel_loopback_check,
 					     remmina_file_get_int(priv->remmina_file, "ssh_tunnel_loopback", FALSE));
 
-		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(cs ? priv->ssh_tunnel_server_custom_radio : priv->ssh_tunnel_server_default_radio), TRUE);
+		gtk_check_button_set_active(cs ? priv->ssh_tunnel_server_custom_radio : priv->ssh_tunnel_server_default_radio, TRUE);
 		gtk_editable_set_text(GTK_ENTRY(priv->ssh_tunnel_server_entry),
 				   cs ? cs : "");
 	} else if (ssh_setting == REMMINA_PROTOCOL_SSH_SETTING_REVERSE_TUNNEL) {
 		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->ssh_tunnel_enabled_check),
 					     remmina_file_get_int(priv->remmina_file, "ssh_tunnel_enabled", FALSE));
-		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->ssh_tunnel_loopback_check),
+		gtk_check_button_set_active(priv->ssh_tunnel_loopback_check,
 					     remmina_file_get_int(priv->remmina_file, "ssh_tunnel_loopback", FALSE));
 		gtk_editable_set_text(GTK_ENTRY(priv->ssh_tunnel_server_entry),
 				   cs ? cs : "");
@@ -1356,11 +1361,9 @@ static void remmina_file_editor_protocol_combo_on_changed(GtkComboBox *combo, Re
 	gchar *protocol;
 
 	if (priv->config_container) {
-		gtk_window_destroy(priv->config_container);
 		priv->config_container = NULL;
-		gtk_window_destroy(priv->config_viewport);
 		priv->config_viewport = NULL;
-		gtk_window_destroy(priv->config_scrollable);
+		gtk_box_remove(priv->config_box, priv->config_scrollable);
 		priv->config_scrollable = NULL;
 	}
 
@@ -1401,7 +1404,7 @@ static void remmina_file_editor_save_behavior_tab(RemminaFileEditor *gfe)
 	remmina_file_set_string(priv->remmina_file, "precommand", gtk_editable_get_text(GTK_ENTRY(priv->behavior_precommand_entry)));
 	remmina_file_set_string(priv->remmina_file, "postcommand", gtk_editable_get_text(GTK_ENTRY(priv->behavior_postcommand_entry)));
 
-	gboolean autostart_enabled = (priv->behavior_autostart_check ? gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->behavior_autostart_check)) : FALSE);
+	gboolean autostart_enabled = (priv->behavior_autostart_check ? gtk_check_button_get_active(priv->behavior_autostart_check) : FALSE);
 	remmina_file_set_int(priv->remmina_file, "enable-autostart", autostart_enabled);
 	gboolean lock_enabled = (priv->behavior_lock_check ? gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->behavior_lock_check)) : FALSE);
 	remmina_file_set_int(priv->remmina_file, "profile-lock", lock_enabled);
@@ -1417,7 +1420,7 @@ static void remmina_file_editor_save_ssh_tunnel_tab(RemminaFileEditor *gfe)
 	ssh_tunnel_enabled = (priv->ssh_tunnel_enabled_check ? gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->ssh_tunnel_enabled_check)) : FALSE);
 	remmina_file_set_int(priv->remmina_file,
 			     "ssh_tunnel_loopback",
-			     (priv->ssh_tunnel_loopback_check ? gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->ssh_tunnel_loopback_check)) : FALSE));
+			     (priv->ssh_tunnel_loopback_check ? gtk_check_button_get_active(priv->ssh_tunnel_loopback_check) : FALSE));
 	remmina_file_set_int(priv->remmina_file, "ssh_tunnel_enabled", ssh_tunnel_enabled);
 	remmina_file_set_string(priv->remmina_file, "ssh_tunnel_auth",
 				remmina_public_combo_get_active_text(GTK_COMBO_BOX(priv->ssh_tunnel_auth_combo)));
@@ -2017,9 +2020,10 @@ GtkWidget *remmina_file_editor_new_from_file(RemminaFile *remminafile)
 	g_signal_connect(G_OBJECT(widget), "changed", G_CALLBACK(remmina_file_editor_protocol_combo_on_changed), gfe);
 
 	/* Create the "Preference" frame */
-	widget = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
+	widget = gtk_box_new(GTK_ORIENTATION_VERTICAL, 20);
 	gtk_widget_show(widget);
 	gtk_box_append(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(gfe))), widget);
+	gtk_widget_set_valign(gtk_dialog_get_content_area(GTK_DIALOG(gfe)), GTK_ALIGN_FILL);
 	priv->config_box = widget;
 
 	priv->config_container = NULL;

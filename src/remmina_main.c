@@ -746,8 +746,13 @@ static void remmina_main_load_files()
 		connection_tooltip = g_strdup(_("Network status: offline"));
 	}
 
-	if (GTK_IS_WIDGET(remminamain->network_icon))
-		gtk_window_destroy(remminamain->network_icon);
+	if (GTK_IS_WIDGET(remminamain->network_icon)){
+		if (g_object_is_floating(remminamain->network_icon)){
+			g_object_ref_sink(remminamain->network_icon);
+		}
+		g_object_unref(remminamain->network_icon);
+	}
+		
 	GIcon *icon = g_themed_icon_new (neticon);
 	remminamain->network_icon = gtk_image_new_from_gicon (icon);
 	gtk_widget_set_tooltip_text (remminamain->network_icon, connection_tooltip);
