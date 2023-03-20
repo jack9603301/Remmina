@@ -120,11 +120,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
           </packing> -->
         </child>
         <child>
-          <object class="GtkPopoverMenuBar" id="menubar_main">
+          <object class="GtkPopoverMenu" id="menubar_main">
             <!-- <property name="app-paintable">True</property> -->
             <property name="can-focus">False</property>
             <child>
-              <object class="GtkPopover" id="menuitem_popup">
+              <object class="GtkPopover">
                 <!-- <property name="app-paintable">True</property> -->
                 <property name="can-focus">False</property>
                 <!-- <property name="label">Popup menu</property> -->       
@@ -215,7 +215,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
               </object>
             </child>
             <child>
-            
               <object class="GtkPopover" id="menu_popup_full">
                 <property name="autohide">True</property>
                 <child>
@@ -427,6 +426,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
           <object class="GtkScrolledWindow" id="scrolled_files_list">
             <property name="visible">True</property>
             <property name="can-focus">True</property>
+            <property name="vexpand">True</property>
             <child>
               <object class="GtkTreeView" id="tree_files_list">
                 <property name="visible">True</property>
