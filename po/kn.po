@@ -4,13 +4,13 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
 # anonymous <noreply@weblate.org>, 2019.
 # Antenore Gatta <antenore@simbiosi.org>, 2021.
-# Allan Nordhøy <epost@anotheragency.no>, 2022.
+# Allan Nordhøy <epost@anotheragency.no>, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: remmina\n"
 "Report-Msgid-Bugs-To: l10n@lists.remmina.org\n"
-"POT-Creation-Date: 2023-01-07 12:47+0000\n"
-"PO-Revision-Date: 2022-11-27 08:48+0000\n"
+"POT-Creation-Date: 2023-03-27 12:04+0000\n"
+"PO-Revision-Date: 2023-02-04 06:38+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Kannada <https://hosted.weblate.org/projects/remmina/remmina/"
 "kn/>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.15-dev\n"
+"X-Generator: Weblate 4.16-dev\n"
 "X-Launchpad-Export-Date: 2014-09-20 14:24+0000\n"
 
 #: src/remmina_sftp_plugin.c:309 src/remmina_sftp_plugin.c:353
@@ -79,8 +79,8 @@ msgstr "ಹೊಸ ಟರ್ಮಿನಲ್ ನಿಂದ ಎಸ್ ಎಸ್ ಎ�
 
 #: src/remmina_sftp_plugin.c:352 src/remmina_message_panel.c:329
 #: src/remmina_file_editor.c:1254 src/remmina_ssh_plugin.c:1504
-#: plugins/rdp/rdp_plugin.c:2813 plugins/vnc/vnc_plugin.c:2054
-#: plugins/vnc/vnc_plugin.c:2066 plugins/www/www_plugin.c:908
+#: plugins/rdp/rdp_plugin.c:2813 plugins/vnc/vnc_plugin.c:2079
+#: plugins/vnc/vnc_plugin.c:2091 plugins/www/www_plugin.c:908
 #: plugins/x2go/x2go_plugin.c:482 plugins/x2go/x2go_plugin.c:3396
 #: data/ui/remmina_mpc.glade:122
 #, fuzzy
@@ -255,28 +255,28 @@ msgstr "ಮೆಟಾ+"
 msgid "<None>"
 msgstr "<None>"
 
-#: src/remmina_pref_dialog.c:93 src/remmina_file_editor.c:549
+#: src/remmina_pref_dialog.c:94 src/remmina_file_editor.c:549
 #, fuzzy
 msgid "Resolutions"
 msgstr "ನಿರ್ಣಯಗಳು"
 
-#: src/remmina_pref_dialog.c:93 src/remmina_file_editor.c:549
+#: src/remmina_pref_dialog.c:94 src/remmina_file_editor.c:549
 #, fuzzy
 msgid "Configure the available resolutions"
 msgstr "ಲಭ್ಯವಿರುವ ನಿರ್ಣಯಗಳನ್ನು ಸಂರಚಿಸಿ"
 
-#: src/remmina_pref_dialog.c:145
+#: src/remmina_pref_dialog.c:146
 #, fuzzy
 msgid "Recent lists cleared."
 msgstr "ಇತ್ತೀಚಿನ ಪಟ್ಟಿಗಳನ್ನು ತೆರವುಗೊಳಿಸಲಾಗಿದೆ."
 
-#: src/remmina_pref_dialog.c:157 src/rcw.c:2071
+#: src/remmina_pref_dialog.c:158 src/rcw.c:2071
 #: data/ui/remmina_preferences.glade:169 data/ui/remmina_preferences.glade:179
 #, fuzzy
 msgid "Keystrokes"
 msgstr "ಕೀಸ್ಟ್ರೋಕ್ ಗಳು"
 
-#: src/remmina_pref_dialog.c:157
+#: src/remmina_pref_dialog.c:158
 #, fuzzy
 msgid "Configure the keystrokes"
 msgstr "ಕೀಸ್ಟ್ರೋಕ್ ಗಳನ್ನು ಕಾನ್ಫಿಗರ್ ಮಾಡಿ"
@@ -911,7 +911,7 @@ msgid "Go to parent folder"
 msgstr "ಪೋಷಕ ಫೋಲ್ಡರ್ ಗೆ ಹೋಗಿ"
 
 #: src/remmina_ftp_client.c:781 plugins/rdp/rdp_plugin.c:2908
-#: plugins/vnc/vnc_plugin.c:2109
+#: plugins/vnc/vnc_plugin.c:2134
 #, fuzzy
 msgid "Refresh"
 msgstr "ರಿಫ್ರೆಶ್"
@@ -1126,123 +1126,123 @@ msgstr "ಸರ್ವರ್"
 msgid "Install the %s protocol plugin first."
 msgstr "ಮೊದಲು [ಎಕ್ಸ್12ಎಕ್ಸ್] ಪ್ರೊಟೋಕಾಲ್ ಪ್ಲಗಿನ್ ಅನ್ನು ಸ್ಥಾಪಿಸಿ."
 
-#: src/remmina_ssh.c:735
+#: src/remmina_ssh.c:744
 #, fuzzy, c-format
 msgid "Could not authenticate with TOTP/OTP/2FA. %s"
 msgstr "TTP/ಒಟಿಪಿ/2ಎಫ್ ಎ ಜೊತೆ ದೃಢೀಕರಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. [ಎಕ್ಸ್42ಎಕ್ಸ್]"
 
-#: src/remmina_ssh.c:794 src/remmina_ssh.c:1175
+#: src/remmina_ssh.c:803 src/remmina_ssh.c:1184
 #, fuzzy, c-format
 msgid "Could not authenticate with SSH password. %s"
 msgstr "ಎಸ್ ಎಸ್ ಎಚ್ ಪಾಸ್ ವರ್ಡ್ ನೊಂದಿಗೆ ದೃಢೀಕರಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. [ಎಕ್ಸ್42ಎಕ್ಸ್]"
 
-#: src/remmina_ssh.c:821 src/remmina_ssh.c:888
+#: src/remmina_ssh.c:830 src/remmina_ssh.c:897
 #, fuzzy
 msgid "No saved SSH password supplied. Asking user to enter it."
 msgstr ""
 "ಉಳಿಸಿದ ಎಸ್ ಎಸ್ ಎಚ್ ಪಾಸ್ ಫ್ರೇಸ್ ಪೂರೈಸಿಲ್ಲ. ಅದನ್ನು ನಮೂದಿಸುವಂತೆ ಬಳಕೆದಾರನಿಗೆ ಕೇಳುವುದು."
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:826 src/remmina_ssh.c:867 src/remmina_ssh.c:893
-#: src/remmina_ssh.c:932 src/remmina_ssh.c:1245
+#: src/remmina_ssh.c:835 src/remmina_ssh.c:876 src/remmina_ssh.c:902
+#: src/remmina_ssh.c:941 src/remmina_ssh.c:1254
 #, fuzzy, c-format
 msgid "Could not authenticate with public SSH key. %s"
 msgstr "ಸಾರ್ವಜನಿಕ ಎಸ್ ಎಸ್ ಎಚ್ ಕೀಲಿಯೊಂದಿಗೆ ದೃಢೀಕರಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. [ಎಕ್ಸ್44ಎಕ್ಸ್]"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:835
+#: src/remmina_ssh.c:844
 #, fuzzy, c-format
 msgid "SSH certificate cannot be imported. %s"
 msgstr "ಎಸ್ ಎಸ್ ಎಚ್ ಪ್ರಮಾಣಪತ್ರವನ್ನು ಆಮದು ಮಾಡಲು ಸಾಧ್ಯವಿಲ್ಲ. [ಎಕ್ಸ್36ಎಕ್ಸ್]"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:844
+#: src/remmina_ssh.c:853
 #, fuzzy, c-format
 msgid "SSH certificate cannot be copied into the private SSH key. %s"
 msgstr ""
 "ಎಸ್ ಎಸ್ ಎಚ್ ಪ್ರಮಾಣಪತ್ರವನ್ನು ಖಾಸಗಿ ಎಸ್ ಎಸ್ ಎಚ್ ಕೀಲಿಯಲ್ಲಿ ನಕಲು ಮಾಡಲು ಸಾಧ್ಯವಿಲ್ಲ. [ಎಕ್ಸ್59ಎಕ್ಸ್]"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:854
+#: src/remmina_ssh.c:863
 #, fuzzy, c-format
 msgid "Could not authenticate using SSH certificate. %s"
 msgstr "ಎಸ್ ಎಸ್ ಎಚ್ ಪ್ರಮಾಣಪತ್ರ ಬಳಸಿ ದೃಢೀಕರಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. [ಎಕ್ಸ್46ಎಕ್ಸ್]"
 
-#: src/remmina_ssh.c:868
+#: src/remmina_ssh.c:877
 #, fuzzy
 msgid "SSH identity file not selected."
 msgstr "ಎಸ್ಎಸ್ಎಚ್ ಗುರುತಿನ ಫೈಲ್ ಆಯ್ಕೆಯಾಗಿಲ್ಲ."
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:879
+#: src/remmina_ssh.c:888
 #, fuzzy, c-format
 msgid "Public SSH key cannot be imported. %s"
 msgstr "ಸಾರ್ವಜನಿಕ ಎಸ್ ಎಸ್ ಎಚ್ ಕೀಲಿಯನ್ನು ಆಮದು ಮಾಡಲು ಸಾಧ್ಯವಿಲ್ಲ. [ಎಕ್ಸ್35ಎಕ್ಸ್]"
 
-#: src/remmina_ssh.c:977
+#: src/remmina_ssh.c:986
 #, fuzzy, c-format
 msgid "Could not authenticate automatically with public SSH key. %s"
 msgstr ""
 "ಸಾರ್ವಜನಿಕ ಎಸ್ ಎಸ್ ಎಚ್ ಕೀಲಿಯೊಂದಿಗೆ ಸ್ವಯಂಚಾಲಿತವಾಗಿ ದೃಢೀಕರಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. "
 "[ಎಕ್ಸ್58ಎಕ್ಸ್]"
 
-#: src/remmina_ssh.c:1022
+#: src/remmina_ssh.c:1031
 #, fuzzy, c-format
 msgid "Could not authenticate automatically with SSH agent. %s"
 msgstr ""
 "ಎಸ್ ಎಸ್ ಎಚ್ ಏಜೆಂಟ್ ನೊಂದಿಗೆ ಸ್ವಯಂಚಾಲಿತವಾಗಿ ದೃಢೀಕರಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. [ಎಕ್ಸ್53ಎಕ್ಸ್]"
 
-#: src/remmina_ssh.c:1068 src/remmina_ssh.c:1355
+#: src/remmina_ssh.c:1077 src/remmina_ssh.c:1364
 #, fuzzy, c-format
 msgid "Could not authenticate with SSH GSSAPI/Kerberos. %s"
 msgstr ""
 "ಎಸ್ ಎಸ್ ಎಚ್ ಜಿಎಸ್ಎಸ್ಎಪಿಐ/ಕೆರ್ಬರ್ರೋಸ್ ಅವರೊಂದಿಗೆ ದೃಢೀಕರಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. [ಎಕ್ಸ್49ಎಕ್ಸ್]"
 
-#: src/remmina_ssh.c:1097
+#: src/remmina_ssh.c:1106
 #, fuzzy
 msgid "The public SSH key changed!"
 msgstr "ಸಾರ್ವಜನಿಕ ಎಸ್ ಎಸ್ ಎಚ್ ಕೀಲಿ ಬದಲಾಗಿದೆ!"
 
-#: src/remmina_ssh.c:1210
+#: src/remmina_ssh.c:1219
 #, fuzzy, c-format
 msgid "Could not authenticate with keyboard-interactive. %s"
 msgstr "ಕೀಲಿಮಣೆ-ಸಂವಾದಾತ್ಮಕದೊಂದಿಗೆ ದೃಢೀಕರಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. [ಎಕ್ಸ್50ಎಕ್ಸ್]"
 
-#: src/remmina_ssh.c:1312
+#: src/remmina_ssh.c:1321
 #, fuzzy, c-format
 msgid "Could not authenticate with automatic public SSH key. %s"
 msgstr ""
 "ಸ್ವಯಂಚಾಲಿತ ಸಾರ್ವಜನಿಕ ಎಸ್ಎಸ್ಎಚ್ ಕೀಲಿಯೊಂದಿಗೆ ದೃಢೀಕರಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. [ಎಕ್ಸ್54ಎಕ್ಸ್]"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:1420
+#: src/remmina_ssh.c:1429
 #, fuzzy, c-format
 msgid "Could not fetch the server's public SSH key. %s"
 msgstr "ಸರ್ವರ್ ನ ಸಾರ್ವಜನಿಕ ಎಸ್ ಎಸ್ ಎಚ್ ಕೀಲಿಯನ್ನು ತರಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. [ಎಕ್ಸ್45ಎಕ್ಸ್]"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:1427
+#: src/remmina_ssh.c:1436
 #, fuzzy, c-format
 msgid "Could not fetch public SSH key. %s"
 msgstr "ಸಾರ್ವಜನಿಕ ಎಸ್ ಎಸ್ ಎಚ್ ಕೀಲಿಯನ್ನು ತರಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. [ಎಕ್ಸ್32ಎಕ್ಸ್]"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:1435
+#: src/remmina_ssh.c:1444
 #, fuzzy, c-format
 msgid "Could not fetch checksum of the public SSH key. %s"
 msgstr "ಸಾರ್ವಜನಿಕ ಎಸ್ ಎಸ್ ಎಚ್ ಕೀಲಿಯ ಚೆಕ್ ಸಮ್ ಅನ್ನು ಪಡೆಯಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. [ಎಕ್ಸ್48ಎಕ್ಸ್]"
 
-#: src/remmina_ssh.c:1448
+#: src/remmina_ssh.c:1457
 #, fuzzy
 msgid "The server is unknown. The public key fingerprint is:"
 msgstr "ಸರ್ವರ್ ತಿಳಿದಿಲ್ಲ. ಸಾರ್ವಜನಿಕ ಕೀ ಫಿಂಗರ್ ಪ್ರಿಂಟ್ ಹೀಗಿದೆ:"
 
-#: src/remmina_ssh.c:1450 src/remmina_ssh.c:1456
+#: src/remmina_ssh.c:1459 src/remmina_ssh.c:1465
 #, fuzzy
 msgid "Do you trust the new public key?"
 msgstr "ಹೊಸ ಸಾರ್ವಜನಿಕ ಕೀಲಿಯನ್ನು ನೀವು ನಂಬುತ್ತೀರಾ?"
 
-#: src/remmina_ssh.c:1453
+#: src/remmina_ssh.c:1462
 #, fuzzy
 msgid ""
 "Warning: The server has changed its public key. This means you are either "
@@ -1254,161 +1254,161 @@ msgstr ""
 "ಅಥವಾ ನಿರ್ವಾಹಕನು ಕೀಲಿಯನ್ನು ಬದಲಾಯಿಸಿದನು. ಹೊಸ ಸಾರ್ವಜನಿಕ ಕೀ ಫಿಂಗರ್ ಪ್ರಿಂಟ್ ಹೀಗಿದೆ:"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:1478
+#: src/remmina_ssh.c:1487
 #, fuzzy, c-format
 msgid "Could not check list of known SSH hosts. %s"
 msgstr "ತಿಳಿದಿರುವ ಎಸ್ ಎಸ್ ಎಚ್ ಆತಿಥೇಯರ ಪಟ್ಟಿಯನ್ನು ಪರಿಶೀಲಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. [ಎಕ್ಸ್41ಎಕ್ಸ್]"
 
-#: src/remmina_ssh.c:1487
+#: src/remmina_ssh.c:1496
 #, fuzzy
 msgid "SSH password"
 msgstr "ಎಸ್ ಎಸ್ ಎಚ್ ಪಾಸ್ ವರ್ಡ್"
 
-#: src/remmina_ssh.c:1494 src/remmina_ssh.c:1538
+#: src/remmina_ssh.c:1503 src/remmina_ssh.c:1547
 #, fuzzy
 msgid "Password for private SSH key"
 msgstr "ಖಾಸಗಿ ಕೀಲಿಯನ್ನು ಅನ್ ಲಾಕ್ ಮಾಡಲು ಪಾಸ್ ವರ್ಡ್"
 
-#: src/remmina_ssh.c:1499
+#: src/remmina_ssh.c:1508
 #, fuzzy
 msgid "SSH Kerberos/GSSAPI"
 msgstr "ಎಸ್ ಎಸ್ ಎಚ್ ಕೆರ್ಬರ್ರೋಸ್/ಜಿಎಸ್ಎಸ್ಎಪಿಐ"
 
-#: src/remmina_ssh.c:1504
+#: src/remmina_ssh.c:1513
 #, fuzzy
 msgid "Enter TOTP/OTP/2FA code"
 msgstr "TTP/ಒಟಿಪಿ/2ಎಫ್ ಎ ಕೋಡ್ ನಮೂದಿಸಿ"
 
-#: src/remmina_ssh.c:1534 src/remmina_ssh.c:1560
+#: src/remmina_ssh.c:1543 src/remmina_ssh.c:1569
 #, fuzzy
 msgid "SSH tunnel credentials"
 msgstr "ಎಸ್ ಎಸ್ ಎಚ್ ಸುರಂಗ ರುಜುವಾತುಗಳು"
 
-#: src/remmina_ssh.c:1534 src/remmina_ssh.c:1560
+#: src/remmina_ssh.c:1543 src/remmina_ssh.c:1569
 #, fuzzy
 msgid "SSH credentials"
 msgstr "ಎಸ್.ಎಸ್.ಎಚ್ ರುಜುವಾತುಗಳು"
 
-#: src/remmina_ssh.c:1611
+#: src/remmina_ssh.c:1620
 #, fuzzy
 msgid "Keyboard interactive login, TOTP/OTP/2FA"
 msgstr "ಕೀಬೋರ್ಡ್ ಸಂವಾದಾತ್ಮಕ ಲಾಗಿನ್, ಟಿಒಟಿಪಿ/ಒಟಿಪಿ/2ಎಫ್ ಎ"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:1836
+#: src/remmina_ssh.c:1845
 #, fuzzy, c-format
 msgid "Could not start SSH session. %s"
 msgstr "ಎಸ್ ಎಸ್ ಎಚ್ ಸೆಷನ್ ಪ್ರಾರಂಭಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. [ಎಕ್ಸ್29ಎಕ್ಸ್]"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2235
+#: src/remmina_ssh.c:2244
 #, fuzzy, c-format
 msgid "Could not create channel. %s"
 msgstr "ಚಾನಲ್ ರಚಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. [ಎಕ್ಸ್26ಎಕ್ಸ್]"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2246
+#: src/remmina_ssh.c:2255
 #, fuzzy, c-format
 msgid "Could not connect to SSH tunnel. %s"
 msgstr "ಎಸ್ ಎಸ್ ಎಚ್ ಸುರಂಗಕ್ಕೆ ಸಂಪರ್ಕ ಸಾಧಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. [ಎಕ್ಸ್33ಎಕ್ಸ್]"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2316 src/remmina_ssh.c:2337 src/remmina_ssh.c:2346
+#: src/remmina_ssh.c:2325 src/remmina_ssh.c:2346 src/remmina_ssh.c:2355
 #, fuzzy, c-format
 msgid "Could not request port forwarding. %s"
 msgstr "ಪೋರ್ಟ್ ಫಾರ್ವರ್ಡ್ ಮಾಡಲು ವಿನಂತಿಸಲಾಗಲಿಲ್ಲ. [ಎಕ್ಸ್35ಎಕ್ಸ್]"
 
-#: src/remmina_ssh.c:2376
+#: src/remmina_ssh.c:2385
 #, fuzzy
 msgid "The server did not respond."
 msgstr "ಸರ್ವರ್ ಪ್ರತಿಕ್ರಿಯಿಸಲಿಲ್ಲ."
 
-#: src/remmina_ssh.c:2416
+#: src/remmina_ssh.c:2425
 #, fuzzy, c-format
 msgid "Cannot connect to local port %i."
 msgstr "ಸ್ಥಳೀಯ ಪೋರ್ಟ್ [ಎಕ್ಸ್29ಎಕ್ಸ್] ಗೆ ಸಂಪರ್ಕಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ."
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2465
+#: src/remmina_ssh.c:2474
 #, fuzzy, c-format
 msgid "Could not write to SSH channel. %s"
 msgstr "ಎಸ್ ಎಸ್ ಎಚ್ ಚಾನೆಲ್ ಗೆ ಬರೆಯಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. [ಎಕ್ಸ್32ಎಕ್ಸ್]"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2472
+#: src/remmina_ssh.c:2481
 #, fuzzy, c-format
 msgid "Could not read from tunnel listening socket. %s"
 msgstr "ಸುರಂಗ ಆಲಿಸುವ ಸಾಕೆಟ್ ನಿಂದ ಓದಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. [ಎಕ್ಸ್45ಎಕ್ಸ್]"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2492
+#: src/remmina_ssh.c:2501
 #, fuzzy, c-format
 msgid "Could not poll SSH channel. %s"
 msgstr "ಎಸ್ ಎಸ್ ಎಚ್ ಚಾನೆಲ್ ಅನ್ನು ಪೋಲ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. [ಎಕ್ಸ್28ಎಕ್ಸ್]"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2499
+#: src/remmina_ssh.c:2508
 #, fuzzy, c-format
 msgid "Could not read SSH channel in a non-blocking way. %s"
 msgstr "ತಡೆರಹಿತ ರೀತಿಯಲ್ಲಿ ಎಸ್ ಎಸ್ ಎಚ್ ಚಾನೆಲ್ ಓದಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. [ಎಕ್ಸ್50ಎಕ್ಸ್]"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2518
+#: src/remmina_ssh.c:2527
 #, fuzzy, c-format
 msgid "Could not send data to tunnel listening socket. %s"
 msgstr "ಸುರಂಗ ಆಲಿಸುವ ಸಾಕೆಟ್ ಗೆ ಡೇಟಾವನ್ನು ಕಳುಹಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. [ಎಕ್ಸ್48ಎಕ್ಸ್]"
 
-#: src/remmina_ssh.c:2620
+#: src/remmina_ssh.c:2629
 #, fuzzy
 msgid "Assign a destination port."
 msgstr "ಗಮ್ಯಸ್ಥಾನ ಬಂದರನ್ನು ನಿಯೋಜಿಸಿ."
 
-#: src/remmina_ssh.c:2627
+#: src/remmina_ssh.c:2636
 #, fuzzy
 msgid "Could not create socket."
 msgstr "ಸಾಕೆಟ್ ರಚಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ."
 
-#: src/remmina_ssh.c:2637
+#: src/remmina_ssh.c:2646
 #, fuzzy
 msgid "Could not bind server socket to local port."
 msgstr "ಸರ್ವರ್ ಸಾಕೆಟ್ ಅನ್ನು ಸ್ಥಳೀಯ ಪೋರ್ಟ್ ಗೆ ಬಂಧಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ."
 
-#: src/remmina_ssh.c:2643
+#: src/remmina_ssh.c:2652
 #, fuzzy
 msgid "Could not listen to local port."
 msgstr "ಸ್ಥಳೀಯ ಬಂದರನ್ನು ಕೇಳಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ."
 
 #. TRANSLATORS: Do not translate pthread
-#: src/remmina_ssh.c:2653 src/remmina_ssh.c:2670 src/remmina_ssh.c:2688
+#: src/remmina_ssh.c:2662 src/remmina_ssh.c:2679 src/remmina_ssh.c:2697
 #, fuzzy
 msgid "Could not start pthread."
 msgstr "ಪ್ಥ್ರೆಡ್ ಪ್ರಾರಂಭಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ."
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2780
+#: src/remmina_ssh.c:2789
 #, fuzzy, c-format
 msgid "Could not create SFTP session. %s"
 msgstr "ಎಸ್ ಎಫ್ ಟಿಪಿ ಸೆಷನ್ ರಚಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. [ಎಕ್ಸ್31ಎಕ್ಸ್]"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2785
+#: src/remmina_ssh.c:2794
 #, fuzzy, c-format
 msgid "Could not start SFTP session. %s"
 msgstr "ಎಸ್ ಎಫ್ ಟಿಪಿ ಸೆಷನ್ ಪ್ರಾರಂಭಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. [ಎಕ್ಸ್30ಎಕ್ಸ್]"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2877
+#: src/remmina_ssh.c:2886
 #, fuzzy, c-format
 msgid "Could not open channel. %s"
 msgstr "ಚಾನಲ್ ತೆರೆಯಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. [ಎಕ್ಸ್24ಎಕ್ಸ್]"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2920
+#: src/remmina_ssh.c:2929
 #, fuzzy, c-format
 msgid "Could not request shell. %s"
 msgstr "ಶೆಲ್ ಅನ್ನು ವಿನಂತಿಸಲಾಗಲಿಲ್ಲ. [ಎಕ್ಸ್25ಎಕ್ಸ್]"
 
-#: src/remmina_ssh.c:3050
+#: src/remmina_ssh.c:3059
 #, fuzzy
 msgid "Could not create PTY device."
 msgstr "PTವೈ ಸಾಧನವನ್ನು ರಚಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ."
@@ -1443,7 +1443,7 @@ msgstr ""
 msgid "Are you sure you want to delete “%s”?"
 msgstr "ನೀವು ಖಚಿತವಾಗಿಯೂ \"%s\" ಅನ್ನು ಅಳಿಸಲು ಬಯಸುತ್ತೀರೆ?"
 
-#: src/remmina_main.c:1126
+#: src/remmina_main.c:1133
 #, c-format
 msgid ""
 "Unable to import:\n"
@@ -1452,24 +1452,24 @@ msgstr ""
 "ಆಮದು ಮಾಡಲಾಗುತ್ತಿಲ್ಲ:\n"
 "%s"
 
-#: src/remmina_main.c:1152 data/ui/remmina_main.glade:286
+#: src/remmina_main.c:1159 data/ui/remmina_main.glade:286
 msgid "Import"
 msgstr "ಆಮದು ಮಾಡು"
 
-#: src/remmina_main.c:1175 src/remmina_file_editor.c:1819
+#: src/remmina_main.c:1182 src/remmina_file_editor.c:1819
 #, fuzzy
 msgid "_Save"
 msgstr "ಉಳಿಸಿ (_S)"
 
-#: src/remmina_main.c:1181
+#: src/remmina_main.c:1188
 msgid "This protocol does not support exporting."
 msgstr "ಈ ಪ್ರೊಟೋಕೊಲ್ ನಿರ್ಯಾತಮಾಡಲು ಸಪೋರ್ಟ್ ಮಾಡುವುದಿಲ್ಲ"
 
-#: src/remmina_main.c:1492
+#: src/remmina_main.c:1501
 msgid "Remmina Remote Desktop Client"
 msgstr "ರೆಮ್ಮಿನ ದೂರದ ಗಣಕತೆರೆ"
 
-#: src/remmina_main.c:1494
+#: src/remmina_main.c:1503
 #, fuzzy
 msgid "Remmina Kiosk"
 msgstr "ರೆಮ್ಮಿನಾ ಕಿಯೋಸ್ಕ್"
@@ -1879,30 +1879,30 @@ msgstr "ನಿರ್ಗಮಿಸು (_Q)"
 
 #. TRANSLATORS: Applet name as per the Freedesktop Desktop entry specification https://specifications.freedesktop.org/desktop-entry-spec/latest/
 #. TRANSLATORS: Applet Name as per the Freedesktop Desktop entry specification https://specifications.freedesktop.org/desktop-entry-spec/latest/
-#: src/remmina_icon.c:294 src/remmina_icon.c:447
+#: src/remmina_icon.c:294 src/remmina_icon.c:452
 #, fuzzy
 msgid "Remmina Applet"
 msgstr "ರೆಮ್ಮಿನಾ ಆಪಲ್ಟ್"
 
 #. TRANSLATORS: Applet comment/description as per the Freedesktop Desktop entry specification https://specifications.freedesktop.org/desktop-entry-spec/latest/
-#: src/remmina_icon.c:296 src/remmina_icon.c:449
+#: src/remmina_icon.c:296 src/remmina_icon.c:454
 #, fuzzy
 msgid "Connect to remote desktops through the applet menu"
 msgstr "ಆಪಲ್ಟ್ ಮೆನು ಮೂಲಕ ದೂರದ ಡೆಸ್ಕ್ ಟಾಪ್ ಗಳಿಗೆ ಸಂಪರ್ಕಿಸಿ"
 
-#: src/remmina_icon.c:360
+#: src/remmina_icon.c:365
 #, fuzzy
 msgid "StatusNotifier/Appindicator support in “"
 msgstr "ಸ್ಥಿತಿಅಧಿಸೂಚಕ/ಅಪ್ಇಂಡಿಕೇಟರ್ ಬೆಂಬಲ \""
 
 #. TRANSLATORS: %s is a placeholder for "StatusNotifier/Appindicator suppor in “DESKTOP NAME”: "
-#: src/remmina_icon.c:367
+#: src/remmina_icon.c:372
 #, fuzzy, c-format
 msgid "%s your desktop does support it"
 msgstr "[ಎಕ್ಸ್0ಎಕ್ಸ್] ನಿಮ್ಮ ಡೆಸ್ಕ್ ಟಾಪ್ ಅದನ್ನು ಬೆಂಬಲಿಸುತ್ತದೆ"
 
 #. TRANSLATORS: %s is a placeholder for "StatusNotifier/Appindicator suppor in “DESKTOP NAME”: "
-#: src/remmina_icon.c:369
+#: src/remmina_icon.c:374
 #, fuzzy, c-format
 msgid "%s and Remmina has built-in (compiled) support for libappindicator."
 msgstr ""
@@ -1910,7 +1910,7 @@ msgstr ""
 "ಹೊಂದಿದೆ."
 
 #. TRANSLATORS: %s is a placeholder for "StatusNotifier/Appindicator suppor in “DESKTOP NAME”: "
-#: src/remmina_icon.c:372
+#: src/remmina_icon.c:377
 #, fuzzy, c-format
 msgid ""
 "%s not supported natively by your Desktop Environment. libappindicator will "
@@ -1920,7 +1920,7 @@ msgstr ""
 "ಜಿಟಿಕೆಸ್ಟೇಟಸ್ಐಕಾನ್ /ಎಕ್ಸ್ ಎಂಬೆಡ್ ಗೆ ಹಿಂತಿರುಗಲು ಪ್ರಯತ್ನಿಸುತ್ತದೆ"
 
 #. TRANSLATORS: %s is a placeholder for "StatusNotifier/Appindicator suppor in “DESKTOP NAME”: "
-#: src/remmina_icon.c:376
+#: src/remmina_icon.c:381
 #, fuzzy, c-format
 msgid "%s You may need to install, and use XApp Status Applet"
 msgstr ""
@@ -1928,13 +1928,13 @@ msgstr ""
 "ಬಳಸಬೇಕಾಗಬಹುದು"
 
 #. TRANSLATORS: %s is a placeholder for "StatusNotifier/Appindicator suppor in “DESKTOP NAME”: "
-#: src/remmina_icon.c:379
+#: src/remmina_icon.c:384
 #, fuzzy, c-format
 msgid "%s You may need to install, and use KStatusNotifierItem"
 msgstr "[ಎಕ್ಸ್0ಎಕ್ಸ್] ನೀವು ಸ್ಥಾಪಿಸಬೇಕಾಗಬಹುದು, ಮತ್ತು ಕೆTATATATAPtatPtat"
 
 #. TRANSLATORS: %s is a placeholder for "StatusNotifier/Appindicator suppor in “DESKTOP NAME”: "
-#: src/remmina_icon.c:382
+#: src/remmina_icon.c:387
 #, fuzzy, c-format
 msgid "%s You may need to install, and use XEmbed SNI Proxy"
 msgstr ""
@@ -1942,7 +1942,7 @@ msgstr ""
 "ಬಳಸಬೇಕಾಗಬಹುದು"
 
 #. TRANSLATORS: %s is a placeholder for "StatusNotifier/Appindicator suppor in “DESKTOP NAME”: "
-#: src/remmina_icon.c:385
+#: src/remmina_icon.c:390
 #, fuzzy, c-format
 msgid "%s You may need to install, and use Gnome Shell Extension Appindicator"
 msgstr ""
@@ -2066,7 +2066,7 @@ msgid "_Find text"
 msgstr "ಪಠ್ಯ_Find"
 
 #: src/remmina_ssh_plugin.c:1505 plugins/spice/spice_plugin.c:676
-#: plugins/vnc/vnc_plugin.c:2055 plugins/vnc/vnc_plugin.c:2067
+#: plugins/vnc/vnc_plugin.c:2080 plugins/vnc/vnc_plugin.c:2092
 #, fuzzy
 msgid "User password"
 msgstr "ಬಳಕೆದಾರ ಪಾಸ್ ವರ್ಡ್"
@@ -2209,25 +2209,25 @@ msgid "<Choose a quality level to edit…>"
 msgstr "<ಸಂಪಾದಿಸಲು ಗುಣಮಟ್ಟದ ಮಟ್ಟವನ್ನು ಆಯ್ಕೆಮಾಡಿ...>"
 
 #: plugins/rdp/rdp_settings.c:280 plugins/rdp/rdp_plugin.c:2664
-#: plugins/vnc/vnc_plugin.c:2004
+#: plugins/vnc/vnc_plugin.c:2029
 #, fuzzy
 msgid "Poor (fastest)"
 msgstr "ಕಳಪೆ (ವೇಗದ)"
 
 #: plugins/rdp/rdp_settings.c:282 plugins/rdp/rdp_plugin.c:2665
-#: plugins/vnc/vnc_plugin.c:2003
+#: plugins/vnc/vnc_plugin.c:2028
 #, fuzzy
 msgid "Medium"
 msgstr "ಮಾದ್ಯಮ"
 
 #: plugins/rdp/rdp_settings.c:284 plugins/rdp/rdp_plugin.c:2666
-#: plugins/vnc/vnc_plugin.c:2001
+#: plugins/vnc/vnc_plugin.c:2026
 #, fuzzy
 msgid "Good"
 msgstr "ಒಳ್ಳೆಯದು"
 
 #: plugins/rdp/rdp_settings.c:286 plugins/rdp/rdp_plugin.c:2667
-#: plugins/vnc/vnc_plugin.c:2002
+#: plugins/vnc/vnc_plugin.c:2027
 #, fuzzy
 msgid "Best (slowest)"
 msgstr "ಅತ್ಯುತ್ತಮ (ನಿಧಾನ)"
@@ -2329,7 +2329,7 @@ msgid "Input device settings"
 msgstr "ಇನ್ ಪುಟ್ ಸಾಧನ ಸೆಟ್ಟಿಂಗ್ ಗಳು"
 
 #: plugins/rdp/rdp_settings.c:656 plugins/rdp/rdp_plugin.c:2820
-#: plugins/vnc/vnc_plugin.c:2087
+#: plugins/vnc/vnc_plugin.c:2112
 #, fuzzy
 msgid "Disable smooth scrolling"
 msgstr "ನಯವಾದ ಸ್ಕ್ರಾಲಿಂಗ್ ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಿ"
@@ -2527,7 +2527,7 @@ msgstr "GPTAM PP ಪ್ರೋಗ್ರೆಸ್ಸಿವ್ (32 ಬಿಪಿಪ�
 msgid "RemoteFX (32 bpp)"
 msgstr "ರಿಮೋಟ್ ಎಫ್ ಎಕ್ಸ್ (32 ಬಿಪಿಪಿ)"
 
-#: plugins/rdp/rdp_plugin.c:2639 plugins/vnc/vnc_plugin.c:1992
+#: plugins/rdp/rdp_plugin.c:2639 plugins/vnc/vnc_plugin.c:2017
 #, fuzzy
 msgid "True colour (32 bpp)"
 msgstr "ನಿಜವಾದ ಬಣ್ಣ (32 ಬಿಪಿಪಿ)"
@@ -2537,7 +2537,7 @@ msgstr "ನಿಜವಾದ ಬಣ್ಣ (32 ಬಿಪಿಪಿ)"
 msgid "True colour (24 bpp)"
 msgstr "ನಿಜವಾದ ಬಣ್ಣ (24 ಬಿಪಿಪಿ)"
 
-#: plugins/rdp/rdp_plugin.c:2641 plugins/vnc/vnc_plugin.c:1993
+#: plugins/rdp/rdp_plugin.c:2641 plugins/vnc/vnc_plugin.c:2018
 #, fuzzy
 msgid "High colour (16 bpp)"
 msgstr "ಅಧಿಕ ಬಣ್ಣ (16 ಬಿಪಿಪಿ)"
@@ -2547,7 +2547,7 @@ msgstr "ಅಧಿಕ ಬಣ್ಣ (16 ಬಿಪಿಪಿ)"
 msgid "High colour (15 bpp)"
 msgstr "ಅಧಿಕ ಬಣ್ಣ (15 ಬಿಪಿಪಿ)"
 
-#: plugins/rdp/rdp_plugin.c:2643 plugins/vnc/vnc_plugin.c:1994
+#: plugins/rdp/rdp_plugin.c:2643 plugins/vnc/vnc_plugin.c:2019
 #, fuzzy
 msgid "256 colours (8 bpp)"
 msgstr "256 ಬಣ್ಣಗಳು (8 ಬಿಪಿಪಿ)"
@@ -2840,8 +2840,8 @@ msgstr "ಬಹು ಮಾನಿಟರ್ ಗಳ ಮೇಲೆ ಪರದೆಯನ�
 msgid "List monitor IDs"
 msgstr "ಮಾನಿಟರ್ ಐಡಿಗಳನ್ನು ಪಟ್ಟಿ ಮಾಡಿ"
 
-#: plugins/rdp/rdp_plugin.c:2825 plugins/vnc/vnc_plugin.c:2056
-#: plugins/vnc/vnc_plugin.c:2068 plugins/gvnc/gvnc_plugin.c:848
+#: plugins/rdp/rdp_plugin.c:2825 plugins/vnc/vnc_plugin.c:2081
+#: plugins/vnc/vnc_plugin.c:2093 plugins/gvnc/gvnc_plugin.c:848
 #, fuzzy
 msgid "Colour depth"
 msgstr "ಬಣ್ಣದ ಆಳ"
@@ -2851,8 +2851,8 @@ msgstr "ಬಣ್ಣದ ಆಳ"
 msgid "Network connection type"
 msgstr "ನೆಟ್ವರ್ಕ್ ಸಂಪರ್ಕ ಪ್ರಕಾರ"
 
-#: plugins/rdp/rdp_plugin.c:2842 plugins/vnc/vnc_plugin.c:2057
-#: plugins/vnc/vnc_plugin.c:2069
+#: plugins/rdp/rdp_plugin.c:2842 plugins/vnc/vnc_plugin.c:2082
+#: plugins/vnc/vnc_plugin.c:2094
 #, fuzzy
 msgid "Quality"
 msgstr "ಗುಣಮಟ್ಟ"
@@ -3067,7 +3067,7 @@ msgstr "ಸಮಾನಾಂತರ ಪೋರ್ಟ್ ಗಳನ್ನು ಹಂಚ
 msgid "Share a smart card"
 msgstr "ಸ್ಮಾರ್ಟ್ ಕಾರ್ಡ್ ಹಂಚಿಕೊಳ್ಳಿ"
 
-#: plugins/rdp/rdp_plugin.c:2880 plugins/vnc/vnc_plugin.c:2092
+#: plugins/rdp/rdp_plugin.c:2880 plugins/vnc/vnc_plugin.c:2117
 #, fuzzy
 msgid "Turn off clipboard sync"
 msgstr "ಕ್ಲಿಪ್ ಬೋರ್ಡ್ ಸಿಂಕ್ ಆಫ್ ಮಾಡಿ"
@@ -3088,7 +3088,7 @@ msgid "It disables CAL and hwId is set to 0"
 msgstr "ಇದು ಸಿಎಎಲ್ ಅನ್ನು ನಿಷ್ಕ್ರಿಯಗೊಳಿಸುತ್ತದೆ ಮತ್ತು ಎಚ್ ವೈಐಡಿಯನ್ನು 0 ಗೆ ಹೊಂದಿಸಲಾಗಿದೆ"
 
 #: plugins/rdp/rdp_plugin.c:2883 plugins/spice/spice_plugin.c:704
-#: plugins/vnc/vnc_plugin.c:2088 plugins/www/www_plugin.c:936
+#: plugins/vnc/vnc_plugin.c:2113 plugins/www/www_plugin.c:936
 #: plugins/gvnc/gvnc_plugin.c:866
 #, fuzzy
 msgid "Forget passwords after use"
@@ -3154,15 +3154,15 @@ msgid "Update framebuffer even when not visible"
 msgstr ""
 
 #: plugins/rdp/rdp_plugin.c:2907 plugins/spice/spice_plugin.c:707
-#: plugins/spice/spice_plugin.c:715 plugins/vnc/vnc_plugin.c:2094
-#: plugins/vnc/vnc_plugin.c:2107 plugins/gvnc/gvnc_plugin.c:869
+#: plugins/spice/spice_plugin.c:715 plugins/vnc/vnc_plugin.c:2119
+#: plugins/vnc/vnc_plugin.c:2132 plugins/gvnc/gvnc_plugin.c:869
 #: plugins/gvnc/gvnc_plugin.c:878
 #, fuzzy
 msgid "View only"
 msgstr "ಮಾತ್ರ ವೀಕ್ಷಿಸಿ"
 
 #: plugins/rdp/rdp_plugin.c:2912 plugins/spice/spice_plugin.c:717
-#: plugins/vnc/vnc_plugin.c:2111
+#: plugins/vnc/vnc_plugin.c:2136
 #, fuzzy
 msgid "Send Ctrl+Alt+Delete"
 msgstr "ಕಳುಹಿಸು Ttt0+At+ಅಳಿಸು"
@@ -3329,62 +3329,62 @@ msgstr "ಮುಚ್ಚು (_C)"
 msgid "USB redirection error"
 msgstr "ಯುಎಸ್ ಬಿ ಮರುನಿರ್ದೇಶನ ದೋಷ"
 
-#: plugins/vnc/vnc_plugin.c:791
+#: plugins/vnc/vnc_plugin.c:792
 #, fuzzy
 msgid "Enter VNC password"
 msgstr "ವಿಎನ್ ಸಿ ಪಾಸ್ ವರ್ಡ್ ನಮೂದಿಸಿ"
 
-#: plugins/vnc/vnc_plugin.c:844 plugins/gvnc/gvnc_plugin.c:538
+#: plugins/vnc/vnc_plugin.c:845 plugins/gvnc/gvnc_plugin.c:538
 #, fuzzy
 msgid "Enter VNC authentication credentials"
 msgstr "ವಿಎನ್ ಸಿ ದೃಢೀಕರಣ ರುಜುವಾತುಗಳನ್ನು ನಮೂದಿಸಿ"
 
-#: plugins/vnc/vnc_plugin.c:952
+#: plugins/vnc/vnc_plugin.c:953
 #, fuzzy
 msgid "Unable to connect to VNC server"
 msgstr "ವಿಎನ್ ಸಿ ಸರ್ವರ್ ಗೆ ಸಂಪರ್ಕಿಸಲು ಅಸಮರ್ಥವಾಗಿದೆ"
 
-#: plugins/vnc/vnc_plugin.c:953
+#: plugins/vnc/vnc_plugin.c:954
 #, fuzzy, c-format
 msgid "Couldn’t convert '%s' to host address"
 msgstr "'[ಎಕ್ಸ್18ಎಕ್ಸ್]' ಅನ್ನು ಹೋಸ್ಟ್ ವಿಳಾಸಕ್ಕೆ ಪರಿವರ್ತಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ"
 
-#: plugins/vnc/vnc_plugin.c:954
+#: plugins/vnc/vnc_plugin.c:955
 #, fuzzy, c-format
 msgid "VNC connection failed: %s"
 msgstr "ವಿಎನ್ ಸಿ ಸಂಪರ್ಕ ವಿಫಲವಾಗಿದೆ: [ಎಕ್ಸ್ 23ಎಕ್ಸ್]"
 
-#: plugins/vnc/vnc_plugin.c:955
+#: plugins/vnc/vnc_plugin.c:956
 #, fuzzy
 msgid "Your connection has been rejected."
 msgstr "ನಿಮ್ಮ ಸಂಪರ್ಕವನ್ನು ತಿರಸ್ಕರಿಸಲಾಗಿದೆ."
 
-#: plugins/vnc/vnc_plugin.c:982
+#: plugins/vnc/vnc_plugin.c:983
 #, fuzzy, c-format
 msgid "The VNC server requested an unknown authentication method. %s"
 msgstr "ವಿಎನ್ ಸಿ ಸರ್ವರ್ ಅಜ್ಞಾತ ದೃಢೀಕರಣ ವಿಧಾನವನ್ನು ವಿನಂತಿಸಿತು. [ಎಕ್ಸ್59ಎಕ್ಸ್]"
 
-#: plugins/vnc/vnc_plugin.c:984
+#: plugins/vnc/vnc_plugin.c:985
 #, fuzzy
 msgid "Please retry after turning on encryption for this profile."
 msgstr "ಈ ಪ್ರೊಫೈಲ್ ಗಾಗಿ ಗೂಢಲಿಪೀಕರಣವನ್ನು ಆನ್ ಮಾಡಿದ ನಂತರ ದಯವಿಟ್ಟು ಮರುಪ್ರಯತ್ನಿಸಿ."
 
-#: plugins/vnc/vnc_plugin.c:1718
+#: plugins/vnc/vnc_plugin.c:1719
 #, fuzzy, c-format
 msgid "Connected to %s via VNC"
 msgstr "ಎಸ್ ಎಸ್ ಎಚ್ ಮೂಲಕ [ಎಕ್ಸ್14ಎಕ್ಸ್] ಗೆ ಸಂಪರ್ಕಿಸುತ್ತಿದೆ…"
 
-#: plugins/vnc/vnc_plugin.c:1725
+#: plugins/vnc/vnc_plugin.c:1726
 #, fuzzy, c-format
 msgid "Connected to %s:%d via VNC"
 msgstr "ಎಸ್ ಎಸ್ ಎಚ್ ಮೂಲಕ [ಎಕ್ಸ್14ಎಕ್ಸ್] ಗೆ ಸಂಪರ್ಕಿಸುತ್ತಿದೆ…"
 
-#: plugins/vnc/vnc_plugin.c:1745
+#: plugins/vnc/vnc_plugin.c:1749
 #, c-format
 msgid "Disconnected from %s:%d via VNC"
 msgstr ""
 
-#: plugins/vnc/vnc_plugin.c:2009
+#: plugins/vnc/vnc_plugin.c:2034
 #, fuzzy
 msgid ""
 "Connect to VNC using a repeater:\n"
@@ -3403,7 +3403,7 @@ msgstr ""
 "    ಪುನರಾವರ್ತಿತ, ಉದಾ. ಎಕ್ಸ್11ವಿಎನ್ ಸಿಯೊಂದಿಗೆ:\n"
 "    ಎಕ್ಸ್11ವಿಎನ್ ಸಿ -ರಿಪೀಟರ್ ಅನ್ನು ಸಂಪರ್ಕಿಸಿ=ಐಡಿ:123456789+10.10.10.12:5500"
 
-#: plugins/vnc/vnc_plugin.c:2018
+#: plugins/vnc/vnc_plugin.c:2043
 #, fuzzy
 msgid ""
 "Listening for remote VNC connection:\n"
@@ -3420,7 +3420,7 @@ msgstr ""
 "    ರೆಮ್ಮಿನಾ, ಉದಾ. ಎಕ್ಸ್11ವಿಎನ್ ಸಿಯೊಂದಿಗೆ:\n"
 "    ಎಕ್ಸ್11ವಿಎನ್ ಸಿ -ಪ್ರದರ್ಶನ :0 -ಸಂಪರ್ಕ 192.168.1.36:8888"
 
-#: plugins/vnc/vnc_plugin.c:2026
+#: plugins/vnc/vnc_plugin.c:2051
 msgid ""
 "Overriding the pre-set VNC encoding quality:\n"
 "\n"
@@ -3433,49 +3433,49 @@ msgid ""
 "corre rre raw”"
 msgstr ""
 
-#: plugins/vnc/vnc_plugin.c:2053
+#: plugins/vnc/vnc_plugin.c:2078
 #, fuzzy
 msgid "Repeater"
 msgstr "ಪುನರಾವರ್ತಿತ"
 
-#: plugins/vnc/vnc_plugin.c:2065
+#: plugins/vnc/vnc_plugin.c:2090
 #, fuzzy
 msgid "Listen on port"
 msgstr "ಪೋರ್ಟ್ ನಲ್ಲಿ ಆಲಿಸಿ"
 
-#: plugins/vnc/vnc_plugin.c:2085
+#: plugins/vnc/vnc_plugin.c:2110
 msgid "Override pre-set VNC encodings"
 msgstr ""
 
-#: plugins/vnc/vnc_plugin.c:2086
+#: plugins/vnc/vnc_plugin.c:2111
 msgid "Force tight encoding"
 msgstr ""
 
-#: plugins/vnc/vnc_plugin.c:2086
+#: plugins/vnc/vnc_plugin.c:2111
 msgid "Enabling this may help when the remote desktop looks scrambled"
 msgstr ""
 
-#: plugins/vnc/vnc_plugin.c:2089 plugins/gvnc/gvnc_plugin.c:867
+#: plugins/vnc/vnc_plugin.c:2114 plugins/gvnc/gvnc_plugin.c:867
 #, fuzzy
 msgid "Ignore remote bell messages"
 msgstr "ರಿಮೋಟ್ ಬೆಲ್ ಸಂದೇಶಗಳನ್ನು ಕಡೆಗಣಿಸಿ"
 
-#: plugins/vnc/vnc_plugin.c:2090 plugins/vnc/vnc_plugin.c:2108
+#: plugins/vnc/vnc_plugin.c:2115 plugins/vnc/vnc_plugin.c:2133
 #, fuzzy
 msgid "Prevent local interaction on the server"
 msgstr "ಸರ್ವರ್ ನಲ್ಲಿ ಸ್ಥಳೀಯ ಸಂವಹನವನ್ನು ತಡೆಗಟ್ಟಿ"
 
-#: plugins/vnc/vnc_plugin.c:2091
+#: plugins/vnc/vnc_plugin.c:2116
 #, fuzzy
 msgid "Show remote cursor"
 msgstr "ರಿಮೋಟ್ ಕರ್ಸರ್ ತೋರಿಸು"
 
-#: plugins/vnc/vnc_plugin.c:2093
+#: plugins/vnc/vnc_plugin.c:2118
 #, fuzzy
 msgid "Turn off encryption"
 msgstr "ಗೂಢಲಿಪೀಕರಣ ವನ್ನು ಆಫ್ ಮಾಡಿ"
 
-#: plugins/vnc/vnc_plugin.c:2110
+#: plugins/vnc/vnc_plugin.c:2135
 #, fuzzy
 msgid "Open Chat…"
 msgstr "ಚಾಟ್ ತೆರೆಯಿರಿ…"
@@ -4542,17 +4542,12 @@ msgid "About"
 msgstr "ನಮ್ಮ ಬಗ್ಗೆ"
 
 #: data/ui/remmina_about.glade:35
-#, fuzzy
-#| msgid ""
-#| "Copyright © 2014–2022 Antenore Gatta, Giovanni Panozzo.\n"
-#| "Copyright © 2009–2014 Vic Lee\n"
-#| "More details in COPYING"
 msgid ""
 "Copyright © 2014–2023 Antenore Gatta, Giovanni Panozzo.\n"
 "Copyright © 2009–2014 Vic Lee\n"
 "More details in COPYING"
 msgstr ""
-"ಕೃತಿಸ್ವಾಮ್ಯ © 2014–2022 ಆಂಟೆನೋರೆ ಗಟ್ಟಾ, ಜಿಯೋವಾನಿ ಪನೋಜೋ.\n"
+"ಕೃತಿಸ್ವಾಮ್ಯ © 2014–2023 ಆಂಟೆನೋರೆ ಗಟ್ಟಾ, ಜಿಯೋವಾನಿ ಪನೋಜೋ.\n"
 "ಕೃತಿಸ್ವಾಮ್ಯ © 2009–2014 ವಿಕ್ ಲೀ\n"
 "ನಕಲು ಮಾಡುವಲ್ಲಿ ಹೆಚ್ಚಿನ ವಿವರಗಳು"
 

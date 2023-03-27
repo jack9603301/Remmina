@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: remmina\n"
 "Report-Msgid-Bugs-To: l10n@lists.remmina.org\n"
-"POT-Creation-Date: 2023-01-07 12:47+0000\n"
+"POT-Creation-Date: 2023-03-27 12:04+0000\n"
 "PO-Revision-Date: 2022-11-27 08:48+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Bengali <https://hosted.weblate.org/projects/remmina/remmina/"
@@ -80,8 +80,8 @@ msgstr "একটি নতুন টার্মিনাল থেকে এ�
 
 #: src/remmina_sftp_plugin.c:352 src/remmina_message_panel.c:329
 #: src/remmina_file_editor.c:1254 src/remmina_ssh_plugin.c:1504
-#: plugins/rdp/rdp_plugin.c:2813 plugins/vnc/vnc_plugin.c:2054
-#: plugins/vnc/vnc_plugin.c:2066 plugins/www/www_plugin.c:908
+#: plugins/rdp/rdp_plugin.c:2813 plugins/vnc/vnc_plugin.c:2079
+#: plugins/vnc/vnc_plugin.c:2091 plugins/www/www_plugin.c:908
 #: plugins/x2go/x2go_plugin.c:482 plugins/x2go/x2go_plugin.c:3396
 #: data/ui/remmina_mpc.glade:122
 #, fuzzy
@@ -256,28 +256,28 @@ msgstr "মেটা+"
 msgid "<None>"
 msgstr "<None>"
 
-#: src/remmina_pref_dialog.c:93 src/remmina_file_editor.c:549
+#: src/remmina_pref_dialog.c:94 src/remmina_file_editor.c:549
 #, fuzzy
 msgid "Resolutions"
 msgstr "রেজোলিউশন"
 
-#: src/remmina_pref_dialog.c:93 src/remmina_file_editor.c:549
+#: src/remmina_pref_dialog.c:94 src/remmina_file_editor.c:549
 #, fuzzy
 msgid "Configure the available resolutions"
 msgstr "উপলব্ধ রেজোলিউশনগুলি কনফিগার করুন"
 
-#: src/remmina_pref_dialog.c:145
+#: src/remmina_pref_dialog.c:146
 #, fuzzy
 msgid "Recent lists cleared."
 msgstr "সাম্প্রতিক তালিকাগুলি পরিষ্কার করা হয়েছে।"
 
-#: src/remmina_pref_dialog.c:157 src/rcw.c:2071
+#: src/remmina_pref_dialog.c:158 src/rcw.c:2071
 #: data/ui/remmina_preferences.glade:169 data/ui/remmina_preferences.glade:179
 #, fuzzy
 msgid "Keystrokes"
 msgstr "কীস্ট্রোক"
 
-#: src/remmina_pref_dialog.c:157
+#: src/remmina_pref_dialog.c:158
 #, fuzzy
 msgid "Configure the keystrokes"
 msgstr "কীস্ট্রোকগুলি কনফিগার করুন"
@@ -912,7 +912,7 @@ msgid "Go to parent folder"
 msgstr "মূল ফোল্ডারে যান"
 
 #: src/remmina_ftp_client.c:781 plugins/rdp/rdp_plugin.c:2908
-#: plugins/vnc/vnc_plugin.c:2109
+#: plugins/vnc/vnc_plugin.c:2134
 #, fuzzy
 msgid "Refresh"
 msgstr "রেফ্রেস করুন"
@@ -1126,17 +1126,17 @@ msgstr "সার্ভার"
 msgid "Install the %s protocol plugin first."
 msgstr "প্রথমে [এক্স12এক্স] প্রোটোকল প্লাগইন ইনস্টল করুন।"
 
-#: src/remmina_ssh.c:735
+#: src/remmina_ssh.c:744
 #, fuzzy, c-format
 msgid "Could not authenticate with TOTP/OTP/2FA. %s"
 msgstr "TTTপি/ওটিপি/2এফএ দিয়ে প্রমাণীকরণ করা যায়নি। [এক্স42এক্স]"
 
-#: src/remmina_ssh.c:794 src/remmina_ssh.c:1175
+#: src/remmina_ssh.c:803 src/remmina_ssh.c:1184
 #, fuzzy, c-format
 msgid "Could not authenticate with SSH password. %s"
 msgstr "এসএসএইচ পাসওয়ার্ড দিয়ে প্রমাণীকরণ করা যায়নি। [এক্স৪২এক্স]"
 
-#: src/remmina_ssh.c:821 src/remmina_ssh.c:888
+#: src/remmina_ssh.c:830 src/remmina_ssh.c:897
 #, fuzzy
 msgid "No saved SSH password supplied. Asking user to enter it."
 msgstr ""
@@ -1144,100 +1144,100 @@ msgstr ""
 "বলা হচ্ছে।"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:826 src/remmina_ssh.c:867 src/remmina_ssh.c:893
-#: src/remmina_ssh.c:932 src/remmina_ssh.c:1245
+#: src/remmina_ssh.c:835 src/remmina_ssh.c:876 src/remmina_ssh.c:902
+#: src/remmina_ssh.c:941 src/remmina_ssh.c:1254
 #, fuzzy, c-format
 msgid "Could not authenticate with public SSH key. %s"
 msgstr "পাবলিক এসএসএইচ কী দিয়ে প্রমাণীকরণ করা যায়নি। [এক্স৪৪এক্স]"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:835
+#: src/remmina_ssh.c:844
 #, fuzzy, c-format
 msgid "SSH certificate cannot be imported. %s"
 msgstr "এসএসএইচ শংসাপত্র আমদানি করা যাবে না। [এক্স৩৬এক্স]"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:844
+#: src/remmina_ssh.c:853
 #, fuzzy, c-format
 msgid "SSH certificate cannot be copied into the private SSH key. %s"
 msgstr "এসএসএইচ শংসাপত্রটি ব্যক্তিগত এসএসএইচ কীতে অনুলিপি করা যাবে না। [এক্স৫৯এক্স]"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:854
+#: src/remmina_ssh.c:863
 #, fuzzy, c-format
 msgid "Could not authenticate using SSH certificate. %s"
 msgstr "এসএসএইচ শংসাপত্র ব্যবহার করে প্রমাণীকরণ করা যায়নি। [এক্স৪৬এক্স]"
 
-#: src/remmina_ssh.c:868
+#: src/remmina_ssh.c:877
 #, fuzzy
 msgid "SSH identity file not selected."
 msgstr "এসএসএইচ পরিচয় ফাইল নির্বাচিত হয়নি।"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:879
+#: src/remmina_ssh.c:888
 #, fuzzy, c-format
 msgid "Public SSH key cannot be imported. %s"
 msgstr "পাবলিক এসএসএইচ কী আমদানি করা যাবে না। [এক্স৩৫এক্স]"
 
-#: src/remmina_ssh.c:977
+#: src/remmina_ssh.c:986
 #, fuzzy, c-format
 msgid "Could not authenticate automatically with public SSH key. %s"
 msgstr "পাবলিক এসএসএইচ কী দিয়ে স্বয়ংক্রিয়ভাবে প্রমাণীকরণ করা যায়নি। [এক্স৫৮এক্স]"
 
-#: src/remmina_ssh.c:1022
+#: src/remmina_ssh.c:1031
 #, fuzzy, c-format
 msgid "Could not authenticate automatically with SSH agent. %s"
 msgstr "এসএসএইচ এজেন্টের সাথে স্বয়ংক্রিয়ভাবে প্রমাণীকরণ করা যায়নি। [এক্স৫৩এক্স]"
 
-#: src/remmina_ssh.c:1068 src/remmina_ssh.c:1355
+#: src/remmina_ssh.c:1077 src/remmina_ssh.c:1364
 #, fuzzy, c-format
 msgid "Could not authenticate with SSH GSSAPI/Kerberos. %s"
 msgstr "এসএসএইচ জিএসএসএপিআই/কের্বেরোস দিয়ে প্রমাণীকরণ করা যায়নি। [এক্স৪৯এক্স]"
 
-#: src/remmina_ssh.c:1097
+#: src/remmina_ssh.c:1106
 #, fuzzy
 msgid "The public SSH key changed!"
 msgstr "পাবলিক এসএসএইচ কী পরিবর্তিত হয়েছে!"
 
-#: src/remmina_ssh.c:1210
+#: src/remmina_ssh.c:1219
 #, fuzzy, c-format
 msgid "Could not authenticate with keyboard-interactive. %s"
 msgstr "কীবোর্ড-ইন্টারেক্টিভ দিয়ে প্রমাণীকরণ করা যায়নি। [এক্স৫০এক্স]"
 
-#: src/remmina_ssh.c:1312
+#: src/remmina_ssh.c:1321
 #, fuzzy, c-format
 msgid "Could not authenticate with automatic public SSH key. %s"
 msgstr "স্বয়ংক্রিয় পাবলিক এসএসএইচ কী দিয়ে প্রমাণীকরণ করা যায়নি। [এক্স৫৪এক্স]"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:1420
+#: src/remmina_ssh.c:1429
 #, fuzzy, c-format
 msgid "Could not fetch the server's public SSH key. %s"
 msgstr "সার্ভারের পাবলিক এসএসএইচ কী আনা যায়নি। [এক্স৪৫এক্স]"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:1427
+#: src/remmina_ssh.c:1436
 #, fuzzy, c-format
 msgid "Could not fetch public SSH key. %s"
 msgstr "পাবলিক এসএসএইচ কী আনতে পারেনি। [এক্স৩২এক্স]"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:1435
+#: src/remmina_ssh.c:1444
 #, fuzzy, c-format
 msgid "Could not fetch checksum of the public SSH key. %s"
 msgstr "পাবলিক এসএসএইচ কী-র চেকসাম আনতে পারেনি। [এক্স৪৮এক্স]"
 
-#: src/remmina_ssh.c:1448
+#: src/remmina_ssh.c:1457
 #, fuzzy
 msgid "The server is unknown. The public key fingerprint is:"
 msgstr "সার্ভারটি অজানা। পাবলিক কী ফিঙ্গারপ্রিন্ট হল:"
 
-#: src/remmina_ssh.c:1450 src/remmina_ssh.c:1456
+#: src/remmina_ssh.c:1459 src/remmina_ssh.c:1465
 #, fuzzy
 msgid "Do you trust the new public key?"
 msgstr "আপনি কি নতুন পাবলিক কীবিশ্বাস করেন?"
 
-#: src/remmina_ssh.c:1453
+#: src/remmina_ssh.c:1462
 #, fuzzy
 msgid ""
 "Warning: The server has changed its public key. This means you are either "
@@ -1249,161 +1249,161 @@ msgstr ""
 "অথবা প্রশাসক চাবি পরিবর্তন করেছেন। নতুন পাবলিক কী ফিঙ্গারপ্রিন্টটি হল:"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:1478
+#: src/remmina_ssh.c:1487
 #, fuzzy, c-format
 msgid "Could not check list of known SSH hosts. %s"
 msgstr "পরিচিত এসএসএইচ হোস্টগুলির তালিকা পরীক্ষা করা যায়নি। [এক্স৪১এক্স]"
 
-#: src/remmina_ssh.c:1487
+#: src/remmina_ssh.c:1496
 #, fuzzy
 msgid "SSH password"
 msgstr "এসএসএইচ পাসওয়ার্ড"
 
-#: src/remmina_ssh.c:1494 src/remmina_ssh.c:1538
+#: src/remmina_ssh.c:1503 src/remmina_ssh.c:1547
 #, fuzzy
 msgid "Password for private SSH key"
 msgstr "ব্যক্তিগত কী আনলক করতে পাসওয়ার্ড"
 
-#: src/remmina_ssh.c:1499
+#: src/remmina_ssh.c:1508
 #, fuzzy
 msgid "SSH Kerberos/GSSAPI"
 msgstr "এসএসএইচ কের্বেরোস/জিএসএসএপিআই"
 
-#: src/remmina_ssh.c:1504
+#: src/remmina_ssh.c:1513
 #, fuzzy
 msgid "Enter TOTP/OTP/2FA code"
 msgstr "TTTপি/ওটিপি/2এফএ কোড লিখুন"
 
-#: src/remmina_ssh.c:1534 src/remmina_ssh.c:1560
+#: src/remmina_ssh.c:1543 src/remmina_ssh.c:1569
 #, fuzzy
 msgid "SSH tunnel credentials"
 msgstr "এসএসএইচ টানেল প্রমাণপত্রাদি"
 
-#: src/remmina_ssh.c:1534 src/remmina_ssh.c:1560
+#: src/remmina_ssh.c:1543 src/remmina_ssh.c:1569
 #, fuzzy
 msgid "SSH credentials"
 msgstr "এসএসএইচ প্রমাণপত্রাদি"
 
-#: src/remmina_ssh.c:1611
+#: src/remmina_ssh.c:1620
 #, fuzzy
 msgid "Keyboard interactive login, TOTP/OTP/2FA"
 msgstr "কীবোর্ড ইন্টারেক্টিভ লগইন, টিওটিপি/ওটিপি/২এফএ"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:1836
+#: src/remmina_ssh.c:1845
 #, fuzzy, c-format
 msgid "Could not start SSH session. %s"
 msgstr "এসএসএইচ সেশন শুরু করা যায়নি। [এক্স২৯এক্স]"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2235
+#: src/remmina_ssh.c:2244
 #, fuzzy, c-format
 msgid "Could not create channel. %s"
 msgstr "চ্যানেল তৈরি করা যায়নি। [এক্স২৬এক্স]"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2246
+#: src/remmina_ssh.c:2255
 #, fuzzy, c-format
 msgid "Could not connect to SSH tunnel. %s"
 msgstr "এসএসএইচ টানেলের সাথে সংযোগ করা যায়নি। [এক্স৩৩এক্স]"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2316 src/remmina_ssh.c:2337 src/remmina_ssh.c:2346
+#: src/remmina_ssh.c:2325 src/remmina_ssh.c:2346 src/remmina_ssh.c:2355
 #, fuzzy, c-format
 msgid "Could not request port forwarding. %s"
 msgstr "পোর্ট ফরোয়ার্ডিংয়ের অনুরোধ করা যায়নি। [এক্স৩৫এক্স]"
 
-#: src/remmina_ssh.c:2376
+#: src/remmina_ssh.c:2385
 #, fuzzy
 msgid "The server did not respond."
 msgstr "সার্ভারটি সাড়া দেয়নি।"
 
-#: src/remmina_ssh.c:2416
+#: src/remmina_ssh.c:2425
 #, fuzzy, c-format
 msgid "Cannot connect to local port %i."
 msgstr "স্থানীয় পোর্টের [এক্স২৯এক্স] সাথে সংযোগ করা যাচ্ছে না।"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2465
+#: src/remmina_ssh.c:2474
 #, fuzzy, c-format
 msgid "Could not write to SSH channel. %s"
 msgstr "এসএসএইচ চ্যানেলে লিখতে পারেনি। [এক্স৩২এক্স]"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2472
+#: src/remmina_ssh.c:2481
 #, fuzzy, c-format
 msgid "Could not read from tunnel listening socket. %s"
 msgstr "টানেল শ্রবণ সকেট থেকে পড়া যায়নি। [এক্স৪৫এক্স]"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2492
+#: src/remmina_ssh.c:2501
 #, fuzzy, c-format
 msgid "Could not poll SSH channel. %s"
 msgstr "এসএসএইচ চ্যানেলটি পোল করা যায়নি। [এক্স২৮এক্স]"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2499
+#: src/remmina_ssh.c:2508
 #, fuzzy, c-format
 msgid "Could not read SSH channel in a non-blocking way. %s"
 msgstr "এসএসএইচ চ্যানেলটি অবরোধবিহীন উপায়ে পড়া যায়নি। [এক্স৫০এক্স]"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2518
+#: src/remmina_ssh.c:2527
 #, fuzzy, c-format
 msgid "Could not send data to tunnel listening socket. %s"
 msgstr "টানেল শ্রবণ সকেটে তথ্য পাঠাতে পারেনি। [এক্স৪৮এক্স]"
 
-#: src/remmina_ssh.c:2620
+#: src/remmina_ssh.c:2629
 #, fuzzy
 msgid "Assign a destination port."
 msgstr "একটি গন্তব্য বন্দর বরাদ্দ করুন।"
 
-#: src/remmina_ssh.c:2627
+#: src/remmina_ssh.c:2636
 #, fuzzy
 msgid "Could not create socket."
 msgstr "সকেট তৈরি করা যায়নি।"
 
-#: src/remmina_ssh.c:2637
+#: src/remmina_ssh.c:2646
 #, fuzzy
 msgid "Could not bind server socket to local port."
 msgstr "সার্ভার সকেটকে স্থানীয় পোর্টে আবদ্ধ করা যায়নি।"
 
-#: src/remmina_ssh.c:2643
+#: src/remmina_ssh.c:2652
 #, fuzzy
 msgid "Could not listen to local port."
 msgstr "স্থানীয় বন্দরের কথা শুনতে পারেনি।"
 
 #. TRANSLATORS: Do not translate pthread
-#: src/remmina_ssh.c:2653 src/remmina_ssh.c:2670 src/remmina_ssh.c:2688
+#: src/remmina_ssh.c:2662 src/remmina_ssh.c:2679 src/remmina_ssh.c:2697
 #, fuzzy
 msgid "Could not start pthread."
 msgstr "থ্রেড শুরু করা যায়নি।"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2780
+#: src/remmina_ssh.c:2789
 #, fuzzy, c-format
 msgid "Could not create SFTP session. %s"
 msgstr "এসএফটিপি সেশন তৈরি করা যায়নি। [এক্স৩১এক্স]"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2785
+#: src/remmina_ssh.c:2794
 #, fuzzy, c-format
 msgid "Could not start SFTP session. %s"
 msgstr "এসএফটিপি সেশন শুরু করা যায়নি। [এক্স৩০এক্স]"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2877
+#: src/remmina_ssh.c:2886
 #, fuzzy, c-format
 msgid "Could not open channel. %s"
 msgstr "চ্যানেল খোলা যায়নি। [এক্স২৪এক্স]"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2920
+#: src/remmina_ssh.c:2929
 #, fuzzy, c-format
 msgid "Could not request shell. %s"
 msgstr "শেলের অনুরোধ করা যায়নি। [এক্স২৫এক্স]"
 
-#: src/remmina_ssh.c:3050
+#: src/remmina_ssh.c:3059
 #, fuzzy
 msgid "Could not create PTY device."
 msgstr "পিটিওয়াই ডিভাইস তৈরি করা যায়নি।"
@@ -1439,7 +1439,7 @@ msgid "Are you sure you want to delete “%s”?"
 msgstr ""
 "বর্তমানে উইন্ডোতে %i টি সক্রিয় সংযোগ রয়েছে। আপনি নিশ্চিত যে এটি বন্ধ করতে চান?"
 
-#: src/remmina_main.c:1126
+#: src/remmina_main.c:1133
 #, fuzzy, c-format
 msgid ""
 "Unable to import:\n"
@@ -1448,27 +1448,27 @@ msgstr ""
 "আমদানি করতে অক্ষম:\n"
 "[এক্স১৮এক্স]"
 
-#: src/remmina_main.c:1152 data/ui/remmina_main.glade:286
+#: src/remmina_main.c:1159 data/ui/remmina_main.glade:286
 #, fuzzy
 msgid "Import"
 msgstr "আমদানি"
 
-#: src/remmina_main.c:1175 src/remmina_file_editor.c:1819
+#: src/remmina_main.c:1182 src/remmina_file_editor.c:1819
 #, fuzzy
 msgid "_Save"
 msgstr "_সংরক্ষণ"
 
-#: src/remmina_main.c:1181
+#: src/remmina_main.c:1188
 #, fuzzy
 msgid "This protocol does not support exporting."
 msgstr "এই প্রোটোকল রপ্তানি সমর্থন করে না।"
 
-#: src/remmina_main.c:1492
+#: src/remmina_main.c:1501
 #, fuzzy
 msgid "Remmina Remote Desktop Client"
 msgstr "Remmina দূরবর্তী ডেস্কটপ ক্লায়েন্ট"
 
-#: src/remmina_main.c:1494
+#: src/remmina_main.c:1503
 #, fuzzy
 msgid "Remmina Kiosk"
 msgstr "রেমিনা কিয়স্ক"
@@ -1875,36 +1875,36 @@ msgstr "_Quit"
 
 #. TRANSLATORS: Applet name as per the Freedesktop Desktop entry specification https://specifications.freedesktop.org/desktop-entry-spec/latest/
 #. TRANSLATORS: Applet Name as per the Freedesktop Desktop entry specification https://specifications.freedesktop.org/desktop-entry-spec/latest/
-#: src/remmina_icon.c:294 src/remmina_icon.c:447
+#: src/remmina_icon.c:294 src/remmina_icon.c:452
 #, fuzzy
 msgid "Remmina Applet"
 msgstr "রেমিনা অ্যাপলেট"
 
 #. TRANSLATORS: Applet comment/description as per the Freedesktop Desktop entry specification https://specifications.freedesktop.org/desktop-entry-spec/latest/
-#: src/remmina_icon.c:296 src/remmina_icon.c:449
+#: src/remmina_icon.c:296 src/remmina_icon.c:454
 #, fuzzy
 msgid "Connect to remote desktops through the applet menu"
 msgstr "অ্যাপলেট মেনুর মাধ্যমে দূরবর্তী ডেস্কটপগুলিতে সংযোগ করুন"
 
-#: src/remmina_icon.c:360
+#: src/remmina_icon.c:365
 #, fuzzy
 msgid "StatusNotifier/Appindicator support in “"
 msgstr "স্ট্যাটাসনোটিফার/অ্যাপইন্ডিকেটর সাপোর্ট ইন \""
 
 #. TRANSLATORS: %s is a placeholder for "StatusNotifier/Appindicator suppor in “DESKTOP NAME”: "
-#: src/remmina_icon.c:367
+#: src/remmina_icon.c:372
 #, fuzzy, c-format
 msgid "%s your desktop does support it"
 msgstr "[এক্স০এক্স] আপনার ডেস্কটপ এটি সমর্থন করে"
 
 #. TRANSLATORS: %s is a placeholder for "StatusNotifier/Appindicator suppor in “DESKTOP NAME”: "
-#: src/remmina_icon.c:369
+#: src/remmina_icon.c:374
 #, fuzzy, c-format
 msgid "%s and Remmina has built-in (compiled) support for libappindicator."
 msgstr "[এক্স০এক্স] এবং রেমিনা লিবাপইন্ডিকেটরের জন্য বিল্ট-ইন (সংকলিত) সমর্থন করেছে।"
 
 #. TRANSLATORS: %s is a placeholder for "StatusNotifier/Appindicator suppor in “DESKTOP NAME”: "
-#: src/remmina_icon.c:372
+#: src/remmina_icon.c:377
 #, fuzzy, c-format
 msgid ""
 "%s not supported natively by your Desktop Environment. libappindicator will "
@@ -1914,27 +1914,27 @@ msgstr ""
 "GTGTTTTTআইকন/এক্সএম্বেড-এ ফিরে যাওয়ার চেষ্টা করবে"
 
 #. TRANSLATORS: %s is a placeholder for "StatusNotifier/Appindicator suppor in “DESKTOP NAME”: "
-#: src/remmina_icon.c:376
+#: src/remmina_icon.c:381
 #, fuzzy, c-format
 msgid "%s You may need to install, and use XApp Status Applet"
 msgstr ""
 "[এক্স০এক্স] আপনাকে এক্সঅ্যাপ স্ট্যাটাস অ্যাপলেট ইনস্টল এবং ব্যবহার করতে হতে পারে"
 
 #. TRANSLATORS: %s is a placeholder for "StatusNotifier/Appindicator suppor in “DESKTOP NAME”: "
-#: src/remmina_icon.c:379
+#: src/remmina_icon.c:384
 #, fuzzy, c-format
 msgid "%s You may need to install, and use KStatusNotifierItem"
 msgstr ""
 "[এক্স০এক্স] আপনাকে কেস্ট্যাটাসনোটিটারআইটেম ইনস্টল করতে এবং ব্যবহার করতে হতে পারে"
 
 #. TRANSLATORS: %s is a placeholder for "StatusNotifier/Appindicator suppor in “DESKTOP NAME”: "
-#: src/remmina_icon.c:382
+#: src/remmina_icon.c:387
 #, fuzzy, c-format
 msgid "%s You may need to install, and use XEmbed SNI Proxy"
 msgstr "[এক্স০এক্স] আপনাকে এক্সএম্বেড এসএনআই প্রক্সি ইনস্টল এবং ব্যবহার করতে হতে পারে"
 
 #. TRANSLATORS: %s is a placeholder for "StatusNotifier/Appindicator suppor in “DESKTOP NAME”: "
-#: src/remmina_icon.c:385
+#: src/remmina_icon.c:390
 #, fuzzy, c-format
 msgid "%s You may need to install, and use Gnome Shell Extension Appindicator"
 msgstr "[এক্স০এক্স] আপনাকে Gt"
@@ -2056,7 +2056,7 @@ msgid "_Find text"
 msgstr "_Find লেখা"
 
 #: src/remmina_ssh_plugin.c:1505 plugins/spice/spice_plugin.c:676
-#: plugins/vnc/vnc_plugin.c:2055 plugins/vnc/vnc_plugin.c:2067
+#: plugins/vnc/vnc_plugin.c:2080 plugins/vnc/vnc_plugin.c:2092
 #, fuzzy
 msgid "User password"
 msgstr "ব্যবহারকারীর পাসওয়ার্ড"
@@ -2198,25 +2198,25 @@ msgid "<Choose a quality level to edit…>"
 msgstr "< সম্পাদনা করার জন্য একটি গুণমানের স্তর চয়ন করুন... >"
 
 #: plugins/rdp/rdp_settings.c:280 plugins/rdp/rdp_plugin.c:2664
-#: plugins/vnc/vnc_plugin.c:2004
+#: plugins/vnc/vnc_plugin.c:2029
 #, fuzzy
 msgid "Poor (fastest)"
 msgstr "দরিদ্র (দ্রুততম)"
 
 #: plugins/rdp/rdp_settings.c:282 plugins/rdp/rdp_plugin.c:2665
-#: plugins/vnc/vnc_plugin.c:2003
+#: plugins/vnc/vnc_plugin.c:2028
 #, fuzzy
 msgid "Medium"
 msgstr "মাঝারি"
 
 #: plugins/rdp/rdp_settings.c:284 plugins/rdp/rdp_plugin.c:2666
-#: plugins/vnc/vnc_plugin.c:2001
+#: plugins/vnc/vnc_plugin.c:2026
 #, fuzzy
 msgid "Good"
 msgstr "ভালো"
 
 #: plugins/rdp/rdp_settings.c:286 plugins/rdp/rdp_plugin.c:2667
-#: plugins/vnc/vnc_plugin.c:2002
+#: plugins/vnc/vnc_plugin.c:2027
 #, fuzzy
 msgid "Best (slowest)"
 msgstr "সেরা (ধীরগতির)"
@@ -2318,7 +2318,7 @@ msgid "Input device settings"
 msgstr "ইনপুট ডিভাইস সেটিংস"
 
 #: plugins/rdp/rdp_settings.c:656 plugins/rdp/rdp_plugin.c:2820
-#: plugins/vnc/vnc_plugin.c:2087
+#: plugins/vnc/vnc_plugin.c:2112
 #, fuzzy
 msgid "Disable smooth scrolling"
 msgstr "মসৃণ স্ক্রোলিং অক্ষম করুন"
@@ -2517,7 +2517,7 @@ msgstr "জিএফএক্স আরএফএক্স প্রোগ্র�
 msgid "RemoteFX (32 bpp)"
 msgstr "রিমোটএফএক্স (32 বিপিপি)"
 
-#: plugins/rdp/rdp_plugin.c:2639 plugins/vnc/vnc_plugin.c:1992
+#: plugins/rdp/rdp_plugin.c:2639 plugins/vnc/vnc_plugin.c:2017
 #, fuzzy
 msgid "True colour (32 bpp)"
 msgstr "আসল রঙ (32 বিপিপি)"
@@ -2527,7 +2527,7 @@ msgstr "আসল রঙ (32 বিপিপি)"
 msgid "True colour (24 bpp)"
 msgstr "আসল রঙ (24 বিপিপি)"
 
-#: plugins/rdp/rdp_plugin.c:2641 plugins/vnc/vnc_plugin.c:1993
+#: plugins/rdp/rdp_plugin.c:2641 plugins/vnc/vnc_plugin.c:2018
 #, fuzzy
 msgid "High colour (16 bpp)"
 msgstr "উচ্চ রঙ (16 বিপিপি)"
@@ -2537,7 +2537,7 @@ msgstr "উচ্চ রঙ (16 বিপিপি)"
 msgid "High colour (15 bpp)"
 msgstr "উচ্চ রঙ (15 বিপিপি)"
 
-#: plugins/rdp/rdp_plugin.c:2643 plugins/vnc/vnc_plugin.c:1994
+#: plugins/rdp/rdp_plugin.c:2643 plugins/vnc/vnc_plugin.c:2019
 #, fuzzy
 msgid "256 colours (8 bpp)"
 msgstr "256 রঙ (8 বিপিপি)"
@@ -2830,8 +2830,8 @@ msgstr "একাধিক মনিটরের উপর স্প্যান
 msgid "List monitor IDs"
 msgstr "মনিটর আইডি তালিকা"
 
-#: plugins/rdp/rdp_plugin.c:2825 plugins/vnc/vnc_plugin.c:2056
-#: plugins/vnc/vnc_plugin.c:2068 plugins/gvnc/gvnc_plugin.c:848
+#: plugins/rdp/rdp_plugin.c:2825 plugins/vnc/vnc_plugin.c:2081
+#: plugins/vnc/vnc_plugin.c:2093 plugins/gvnc/gvnc_plugin.c:848
 #, fuzzy
 msgid "Colour depth"
 msgstr "রঙ গভীরতা"
@@ -2840,8 +2840,8 @@ msgstr "রঙ গভীরতা"
 msgid "Network connection type"
 msgstr "নতুন সংযোগ"
 
-#: plugins/rdp/rdp_plugin.c:2842 plugins/vnc/vnc_plugin.c:2057
-#: plugins/vnc/vnc_plugin.c:2069
+#: plugins/rdp/rdp_plugin.c:2842 plugins/vnc/vnc_plugin.c:2082
+#: plugins/vnc/vnc_plugin.c:2094
 #, fuzzy
 msgid "Quality"
 msgstr "কোয়ালিটি"
@@ -3057,7 +3057,7 @@ msgstr "সমান্তরাল পোর্টগুলি শেয়া�
 msgid "Share a smart card"
 msgstr "একটি স্মার্ট কার্ড শেয়ার করুন"
 
-#: plugins/rdp/rdp_plugin.c:2880 plugins/vnc/vnc_plugin.c:2092
+#: plugins/rdp/rdp_plugin.c:2880 plugins/vnc/vnc_plugin.c:2117
 #, fuzzy
 msgid "Turn off clipboard sync"
 msgstr "ক্লিপবোর্ড সিঙ্ক বন্ধ করুন"
@@ -3078,7 +3078,7 @@ msgid "It disables CAL and hwId is set to 0"
 msgstr "এটি সিএএল অক্ষম করে এবং এইচডব্লিউআইডি 0-এ সেট করা হয়"
 
 #: plugins/rdp/rdp_plugin.c:2883 plugins/spice/spice_plugin.c:704
-#: plugins/vnc/vnc_plugin.c:2088 plugins/www/www_plugin.c:936
+#: plugins/vnc/vnc_plugin.c:2113 plugins/www/www_plugin.c:936
 #: plugins/gvnc/gvnc_plugin.c:866
 #, fuzzy
 msgid "Forget passwords after use"
@@ -3144,15 +3144,15 @@ msgid "Update framebuffer even when not visible"
 msgstr ""
 
 #: plugins/rdp/rdp_plugin.c:2907 plugins/spice/spice_plugin.c:707
-#: plugins/spice/spice_plugin.c:715 plugins/vnc/vnc_plugin.c:2094
-#: plugins/vnc/vnc_plugin.c:2107 plugins/gvnc/gvnc_plugin.c:869
+#: plugins/spice/spice_plugin.c:715 plugins/vnc/vnc_plugin.c:2119
+#: plugins/vnc/vnc_plugin.c:2132 plugins/gvnc/gvnc_plugin.c:869
 #: plugins/gvnc/gvnc_plugin.c:878
 #, fuzzy
 msgid "View only"
 msgstr "শুধুমাত্র দেখুন"
 
 #: plugins/rdp/rdp_plugin.c:2912 plugins/spice/spice_plugin.c:717
-#: plugins/vnc/vnc_plugin.c:2111
+#: plugins/vnc/vnc_plugin.c:2136
 #, fuzzy
 msgid "Send Ctrl+Alt+Delete"
 msgstr "Tttআরএল+অল্ট+মুছুন পাঠান"
@@ -3319,62 +3319,62 @@ msgstr "_Close"
 msgid "USB redirection error"
 msgstr "ইউএসবি পুনঃনির্দেশক ত্রুটি"
 
-#: plugins/vnc/vnc_plugin.c:791
+#: plugins/vnc/vnc_plugin.c:792
 #, fuzzy
 msgid "Enter VNC password"
 msgstr "ভিএনসি পাসওয়ার্ড লিখুন"
 
-#: plugins/vnc/vnc_plugin.c:844 plugins/gvnc/gvnc_plugin.c:538
+#: plugins/vnc/vnc_plugin.c:845 plugins/gvnc/gvnc_plugin.c:538
 #, fuzzy
 msgid "Enter VNC authentication credentials"
 msgstr "ভিএনসি প্রমাণীকরণ প্রমাণপত্রাদি লিখুন"
 
-#: plugins/vnc/vnc_plugin.c:952
+#: plugins/vnc/vnc_plugin.c:953
 #, fuzzy
 msgid "Unable to connect to VNC server"
 msgstr "ভিএনসি সার্ভারে সংযোগ করতে অক্ষম"
 
-#: plugins/vnc/vnc_plugin.c:953
+#: plugins/vnc/vnc_plugin.c:954
 #, fuzzy, c-format
 msgid "Couldn’t convert '%s' to host address"
 msgstr "'[এক্স18এক্স]' হোস্ট ঠিকানায় রূপান্তর করা যায়নি"
 
-#: plugins/vnc/vnc_plugin.c:954
+#: plugins/vnc/vnc_plugin.c:955
 #, fuzzy, c-format
 msgid "VNC connection failed: %s"
 msgstr "ভিএনসি সংযোগ ব্যর্থ হয়েছে: [এক্স২৩এক্স]"
 
-#: plugins/vnc/vnc_plugin.c:955
+#: plugins/vnc/vnc_plugin.c:956
 #, fuzzy
 msgid "Your connection has been rejected."
 msgstr "আপনার সংযোগ প্রত্যাখ্যান করা হয়েছে।"
 
-#: plugins/vnc/vnc_plugin.c:982
+#: plugins/vnc/vnc_plugin.c:983
 #, fuzzy, c-format
 msgid "The VNC server requested an unknown authentication method. %s"
 msgstr "ভিএনসি সার্ভার একটি অজানা প্রমাণীকরণ পদ্ধতির অনুরোধ করেছিল। [এক্স৫৯এক্স]"
 
-#: plugins/vnc/vnc_plugin.c:984
+#: plugins/vnc/vnc_plugin.c:985
 #, fuzzy
 msgid "Please retry after turning on encryption for this profile."
 msgstr "এই প্রোফাইলের জন্য এনক্রিপশন চালু করার পরে অনুগ্রহ করে পুনরায় চেষ্টা করুন।"
 
-#: plugins/vnc/vnc_plugin.c:1718
+#: plugins/vnc/vnc_plugin.c:1719
 #, fuzzy, c-format
 msgid "Connected to %s via VNC"
 msgstr "এসএসএইচ-এর মাধ্যমে [এক্স১৪এক্স] এর সাথে সংযোগ করা হচ্ছে…"
 
-#: plugins/vnc/vnc_plugin.c:1725
+#: plugins/vnc/vnc_plugin.c:1726
 #, fuzzy, c-format
 msgid "Connected to %s:%d via VNC"
 msgstr "এসএসএইচ-এর মাধ্যমে [এক্স১৪এক্স] এর সাথে সংযোগ করা হচ্ছে…"
 
-#: plugins/vnc/vnc_plugin.c:1745
+#: plugins/vnc/vnc_plugin.c:1749
 #, c-format
 msgid "Disconnected from %s:%d via VNC"
 msgstr ""
 
-#: plugins/vnc/vnc_plugin.c:2009
+#: plugins/vnc/vnc_plugin.c:2034
 #, fuzzy
 msgid ""
 "Connect to VNC using a repeater:\n"
@@ -3393,7 +3393,7 @@ msgstr ""
 "    পুনরাবৃত্তিকারী, যেমন এক্স11ভিএনসি সহ:\n"
 "    এক্স১১ভিএনসি -রিপিটার=আইডি সংযোগ করুন:123456789+১০.১০.১০.১২:৫৫০০"
 
-#: plugins/vnc/vnc_plugin.c:2018
+#: plugins/vnc/vnc_plugin.c:2043
 #, fuzzy
 msgid ""
 "Listening for remote VNC connection:\n"
@@ -3410,7 +3410,7 @@ msgstr ""
 "    রেমসিনা, যেমন এক্স১১ভিএনসি সহ:\n"
 "    এক্স১১ভিএনসি -ডিসপ্লে :০ -সংযোগ ১৯২.১৬৮.১.৩৬:৮৮৮৮"
 
-#: plugins/vnc/vnc_plugin.c:2026
+#: plugins/vnc/vnc_plugin.c:2051
 msgid ""
 "Overriding the pre-set VNC encoding quality:\n"
 "\n"
@@ -3423,49 +3423,49 @@ msgid ""
 "corre rre raw”"
 msgstr ""
 
-#: plugins/vnc/vnc_plugin.c:2053
+#: plugins/vnc/vnc_plugin.c:2078
 #, fuzzy
 msgid "Repeater"
 msgstr "পুনরাবৃত্তিকারী"
 
-#: plugins/vnc/vnc_plugin.c:2065
+#: plugins/vnc/vnc_plugin.c:2090
 #, fuzzy
 msgid "Listen on port"
 msgstr "বন্দরে শুনুন"
 
-#: plugins/vnc/vnc_plugin.c:2085
+#: plugins/vnc/vnc_plugin.c:2110
 msgid "Override pre-set VNC encodings"
 msgstr ""
 
-#: plugins/vnc/vnc_plugin.c:2086
+#: plugins/vnc/vnc_plugin.c:2111
 msgid "Force tight encoding"
 msgstr ""
 
-#: plugins/vnc/vnc_plugin.c:2086
+#: plugins/vnc/vnc_plugin.c:2111
 msgid "Enabling this may help when the remote desktop looks scrambled"
 msgstr ""
 
-#: plugins/vnc/vnc_plugin.c:2089 plugins/gvnc/gvnc_plugin.c:867
+#: plugins/vnc/vnc_plugin.c:2114 plugins/gvnc/gvnc_plugin.c:867
 #, fuzzy
 msgid "Ignore remote bell messages"
 msgstr "দূরবর্তী বেল বার্তাগুলি উপেক্ষা করুন"
 
-#: plugins/vnc/vnc_plugin.c:2090 plugins/vnc/vnc_plugin.c:2108
+#: plugins/vnc/vnc_plugin.c:2115 plugins/vnc/vnc_plugin.c:2133
 #, fuzzy
 msgid "Prevent local interaction on the server"
 msgstr "সার্ভারে স্থানীয় মিথস্ক্রিয়া প্রতিরোধ করুন"
 
-#: plugins/vnc/vnc_plugin.c:2091
+#: plugins/vnc/vnc_plugin.c:2116
 #, fuzzy
 msgid "Show remote cursor"
 msgstr "দূরবর্তী কার্সার দেখান"
 
-#: plugins/vnc/vnc_plugin.c:2093
+#: plugins/vnc/vnc_plugin.c:2118
 #, fuzzy
 msgid "Turn off encryption"
 msgstr "এনক্রিপশন বন্ধ করুন"
 
-#: plugins/vnc/vnc_plugin.c:2110
+#: plugins/vnc/vnc_plugin.c:2135
 #, fuzzy
 msgid "Open Chat…"
 msgstr "চ্যাট খুলুন…"

@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: remmina\n"
 "Report-Msgid-Bugs-To: l10n@lists.remmina.org\n"
-"POT-Creation-Date: 2023-01-07 12:47+0000\n"
+"POT-Creation-Date: 2023-03-27 12:04+0000\n"
 "PO-Revision-Date: 2023-01-07 18:51+0000\n"
 "Last-Translator: Oğuz Ersen <oguz@ersen.moe>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/remmina/remmina/"
@@ -77,8 +77,8 @@ msgstr "Yeni uçbirimden SSH ile bağlan"
 
 #: src/remmina_sftp_plugin.c:352 src/remmina_message_panel.c:329
 #: src/remmina_file_editor.c:1254 src/remmina_ssh_plugin.c:1504
-#: plugins/rdp/rdp_plugin.c:2813 plugins/vnc/vnc_plugin.c:2054
-#: plugins/vnc/vnc_plugin.c:2066 plugins/www/www_plugin.c:908
+#: plugins/rdp/rdp_plugin.c:2813 plugins/vnc/vnc_plugin.c:2079
+#: plugins/vnc/vnc_plugin.c:2091 plugins/www/www_plugin.c:908
 #: plugins/x2go/x2go_plugin.c:482 plugins/x2go/x2go_plugin.c:3396
 #: data/ui/remmina_mpc.glade:122
 msgid "Username"
@@ -229,24 +229,24 @@ msgstr "Meta+"
 msgid "<None>"
 msgstr "<Yok>"
 
-#: src/remmina_pref_dialog.c:93 src/remmina_file_editor.c:549
+#: src/remmina_pref_dialog.c:94 src/remmina_file_editor.c:549
 msgid "Resolutions"
 msgstr "Çözünürlük"
 
-#: src/remmina_pref_dialog.c:93 src/remmina_file_editor.c:549
+#: src/remmina_pref_dialog.c:94 src/remmina_file_editor.c:549
 msgid "Configure the available resolutions"
 msgstr "Kullanılabilir çözünürlükleri yapılandır"
 
-#: src/remmina_pref_dialog.c:145
+#: src/remmina_pref_dialog.c:146
 msgid "Recent lists cleared."
 msgstr "Geçmiş listesi temizlendi."
 
-#: src/remmina_pref_dialog.c:157 src/rcw.c:2071
+#: src/remmina_pref_dialog.c:158 src/rcw.c:2071
 #: data/ui/remmina_preferences.glade:169 data/ui/remmina_preferences.glade:179
 msgid "Keystrokes"
 msgstr "Tuş vuruşları"
 
-#: src/remmina_pref_dialog.c:157
+#: src/remmina_pref_dialog.c:158
 msgid "Configure the keystrokes"
 msgstr "Tuş vuruşlarını yapılandır"
 
@@ -827,7 +827,7 @@ msgid "Go to parent folder"
 msgstr "Üst klasöre git"
 
 #: src/remmina_ftp_client.c:781 plugins/rdp/rdp_plugin.c:2908
-#: plugins/vnc/vnc_plugin.c:2109
+#: plugins/vnc/vnc_plugin.c:2134
 msgid "Refresh"
 msgstr "Yenile"
 
@@ -1011,111 +1011,111 @@ msgstr "Sunucu"
 msgid "Install the %s protocol plugin first."
 msgstr "Önce %s iletişim kuralı eklentisini kurun."
 
-#: src/remmina_ssh.c:735
+#: src/remmina_ssh.c:744
 #, c-format
 msgid "Could not authenticate with TOTP/OTP/2FA. %s"
 msgstr "TOTP/OTP/2FA ile kimlik doğrulanamadı. %s"
 
-#: src/remmina_ssh.c:794 src/remmina_ssh.c:1175
+#: src/remmina_ssh.c:803 src/remmina_ssh.c:1184
 #, c-format
 msgid "Could not authenticate with SSH password. %s"
 msgstr "SSH parolası ile kimlik doğrulanamadı. %s"
 
-#: src/remmina_ssh.c:821 src/remmina_ssh.c:888
+#: src/remmina_ssh.c:830 src/remmina_ssh.c:897
 msgid "No saved SSH password supplied. Asking user to enter it."
 msgstr "Kayıtlı SSH parolası sağlanmadı. Kullanıcının girmesi isteniyor."
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:826 src/remmina_ssh.c:867 src/remmina_ssh.c:893
-#: src/remmina_ssh.c:932 src/remmina_ssh.c:1245
+#: src/remmina_ssh.c:835 src/remmina_ssh.c:876 src/remmina_ssh.c:902
+#: src/remmina_ssh.c:941 src/remmina_ssh.c:1254
 #, c-format
 msgid "Could not authenticate with public SSH key. %s"
 msgstr "Genel SSH anahtarıyla kimlik doğrulanamadı. %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:835
+#: src/remmina_ssh.c:844
 #, c-format
 msgid "SSH certificate cannot be imported. %s"
 msgstr "SSH sertifikası alınamıyor. %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:844
+#: src/remmina_ssh.c:853
 #, c-format
 msgid "SSH certificate cannot be copied into the private SSH key. %s"
 msgstr "SSH sertifikası özel SSH anahtarı içerisine kopyalanamıyor. %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:854
+#: src/remmina_ssh.c:863
 #, c-format
 msgid "Could not authenticate using SSH certificate. %s"
 msgstr "SSH sertifikası kullanılarak kimlik doğrulanamadı. %s"
 
-#: src/remmina_ssh.c:868
+#: src/remmina_ssh.c:877
 msgid "SSH identity file not selected."
 msgstr "SSH kimlik dosyası seçilmemiş."
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:879
+#: src/remmina_ssh.c:888
 #, c-format
 msgid "Public SSH key cannot be imported. %s"
 msgstr "Genel SSH anahtarı alınamıyor. %s"
 
-#: src/remmina_ssh.c:977
+#: src/remmina_ssh.c:986
 #, c-format
 msgid "Could not authenticate automatically with public SSH key. %s"
 msgstr "Genel SSH anahtarıyla kendiliğinden kimlik doğrulanamadı. %s"
 
-#: src/remmina_ssh.c:1022
+#: src/remmina_ssh.c:1031
 #, c-format
 msgid "Could not authenticate automatically with SSH agent. %s"
 msgstr "SSH aracısıyla kendiliğinden kimlik doğrulanamadı. %s"
 
-#: src/remmina_ssh.c:1068 src/remmina_ssh.c:1355
+#: src/remmina_ssh.c:1077 src/remmina_ssh.c:1364
 #, c-format
 msgid "Could not authenticate with SSH GSSAPI/Kerberos. %s"
 msgstr "SSH GSSAPI/Kerberos ile kimlik doğrulanamadı. %s"
 
-#: src/remmina_ssh.c:1097
+#: src/remmina_ssh.c:1106
 msgid "The public SSH key changed!"
 msgstr "Genel SSH anahtarı değişti!"
 
-#: src/remmina_ssh.c:1210
+#: src/remmina_ssh.c:1219
 #, c-format
 msgid "Could not authenticate with keyboard-interactive. %s"
 msgstr "Klavye etkileşimiyle kimlik doğrulanamadı. %s"
 
-#: src/remmina_ssh.c:1312
+#: src/remmina_ssh.c:1321
 #, c-format
 msgid "Could not authenticate with automatic public SSH key. %s"
 msgstr "Otomatik genel SSH anahtarıyla kimlik doğrulanamadı. %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:1420
+#: src/remmina_ssh.c:1429
 #, c-format
 msgid "Could not fetch the server's public SSH key. %s"
 msgstr "Sunucunun genel SSH anahtarı alınamadı. %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:1427
+#: src/remmina_ssh.c:1436
 #, c-format
 msgid "Could not fetch public SSH key. %s"
 msgstr "Genel SSH anahtarı alınamadı. %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:1435
+#: src/remmina_ssh.c:1444
 #, c-format
 msgid "Could not fetch checksum of the public SSH key. %s"
 msgstr "Genel SSH anahtarının sağlama toplamı alınamadı. %s"
 
-#: src/remmina_ssh.c:1448
+#: src/remmina_ssh.c:1457
 msgid "The server is unknown. The public key fingerprint is:"
 msgstr "Bilinmeyen sunucu. Genel anahtar parmak izi:"
 
-#: src/remmina_ssh.c:1450 src/remmina_ssh.c:1456
+#: src/remmina_ssh.c:1459 src/remmina_ssh.c:1465
 msgid "Do you trust the new public key?"
 msgstr "Yeni genel anahtara güveniyor musunuz?"
 
-#: src/remmina_ssh.c:1453
+#: src/remmina_ssh.c:1462
 msgid ""
 "Warning: The server has changed its public key. This means you are either "
 "under attack,\n"
@@ -1126,148 +1126,148 @@ msgstr ""
 "yönetici anahtarı değiştirdi. Yeni genel anahtar parmak izi:"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:1478
+#: src/remmina_ssh.c:1487
 #, c-format
 msgid "Could not check list of known SSH hosts. %s"
 msgstr "Bilinen SSH ana makine listesi denetlenemedi: %s"
 
-#: src/remmina_ssh.c:1487
+#: src/remmina_ssh.c:1496
 msgid "SSH password"
 msgstr "SSH parolası"
 
-#: src/remmina_ssh.c:1494 src/remmina_ssh.c:1538
+#: src/remmina_ssh.c:1503 src/remmina_ssh.c:1547
 msgid "Password for private SSH key"
 msgstr "Özel SSH anahtarı için parola"
 
-#: src/remmina_ssh.c:1499
+#: src/remmina_ssh.c:1508
 msgid "SSH Kerberos/GSSAPI"
 msgstr "SSH Kerberos/GSSAPI"
 
-#: src/remmina_ssh.c:1504
+#: src/remmina_ssh.c:1513
 msgid "Enter TOTP/OTP/2FA code"
 msgstr "TOTP/OTP/2FA kodu gir"
 
-#: src/remmina_ssh.c:1534 src/remmina_ssh.c:1560
+#: src/remmina_ssh.c:1543 src/remmina_ssh.c:1569
 msgid "SSH tunnel credentials"
 msgstr "SSH tüneli kimlik bilgileri"
 
-#: src/remmina_ssh.c:1534 src/remmina_ssh.c:1560
+#: src/remmina_ssh.c:1543 src/remmina_ssh.c:1569
 msgid "SSH credentials"
 msgstr "SSH kimlik bilgileri"
 
-#: src/remmina_ssh.c:1611
+#: src/remmina_ssh.c:1620
 msgid "Keyboard interactive login, TOTP/OTP/2FA"
 msgstr "Klavye etkileşimli oturum açış, TOTP/OTP/2FA"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:1836
+#: src/remmina_ssh.c:1845
 #, c-format
 msgid "Could not start SSH session. %s"
 msgstr "SSH oturumu başlatılamadı: %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2235
+#: src/remmina_ssh.c:2244
 #, c-format
 msgid "Could not create channel. %s"
 msgstr "Kanal oluşturulamadı: %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2246
+#: src/remmina_ssh.c:2255
 #, c-format
 msgid "Could not connect to SSH tunnel. %s"
 msgstr "SSH tüneline bağlanılamadı: %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2316 src/remmina_ssh.c:2337 src/remmina_ssh.c:2346
+#: src/remmina_ssh.c:2325 src/remmina_ssh.c:2346 src/remmina_ssh.c:2355
 #, c-format
 msgid "Could not request port forwarding. %s"
 msgstr "Bağlantı noktası yönlendirme isteği yapılamadı: %s"
 
-#: src/remmina_ssh.c:2376
+#: src/remmina_ssh.c:2385
 msgid "The server did not respond."
 msgstr "Sunucu yanıt vermedi."
 
-#: src/remmina_ssh.c:2416
+#: src/remmina_ssh.c:2425
 #, c-format
 msgid "Cannot connect to local port %i."
 msgstr "Yerel bağlantı noktasına bağlanılamıyor %i."
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2465
+#: src/remmina_ssh.c:2474
 #, c-format
 msgid "Could not write to SSH channel. %s"
 msgstr "SSH kanalına yazılamadı. %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2472
+#: src/remmina_ssh.c:2481
 #, c-format
 msgid "Could not read from tunnel listening socket. %s"
 msgstr "Tünel dinleme soketinden okunamadı: %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2492
+#: src/remmina_ssh.c:2501
 #, c-format
 msgid "Could not poll SSH channel. %s"
 msgstr "SSH kanalı sorgulanamadı. %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2499
+#: src/remmina_ssh.c:2508
 #, c-format
 msgid "Could not read SSH channel in a non-blocking way. %s"
 msgstr "SSH kanalı bloklanmayan bir şekilde okunamadı. %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2518
+#: src/remmina_ssh.c:2527
 #, c-format
 msgid "Could not send data to tunnel listening socket. %s"
 msgstr "Tünel dinleme soketine veri gönderilemedi: %s"
 
-#: src/remmina_ssh.c:2620
+#: src/remmina_ssh.c:2629
 msgid "Assign a destination port."
 msgstr "Hedef bağlantı noktası ata."
 
-#: src/remmina_ssh.c:2627
+#: src/remmina_ssh.c:2636
 msgid "Could not create socket."
 msgstr "Soket oluşturulamadı."
 
-#: src/remmina_ssh.c:2637
+#: src/remmina_ssh.c:2646
 msgid "Could not bind server socket to local port."
 msgstr "Sunucu soketi yerel bağlantı noktasına bağlanamadı."
 
-#: src/remmina_ssh.c:2643
+#: src/remmina_ssh.c:2652
 msgid "Could not listen to local port."
 msgstr "Yerel bağlantı noktası dinlenemedi."
 
 #. TRANSLATORS: Do not translate pthread
-#: src/remmina_ssh.c:2653 src/remmina_ssh.c:2670 src/remmina_ssh.c:2688
+#: src/remmina_ssh.c:2662 src/remmina_ssh.c:2679 src/remmina_ssh.c:2697
 msgid "Could not start pthread."
 msgstr "Pthread başlatılamadı."
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2780
+#: src/remmina_ssh.c:2789
 #, c-format
 msgid "Could not create SFTP session. %s"
 msgstr "SFTP oturumu oluşturulamadı: %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2785
+#: src/remmina_ssh.c:2794
 #, c-format
 msgid "Could not start SFTP session. %s"
 msgstr "SSH oturumu başlatılamadı: %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2877
+#: src/remmina_ssh.c:2886
 #, c-format
 msgid "Could not open channel. %s"
 msgstr "Kanal açılamadı: %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2920
+#: src/remmina_ssh.c:2929
 #, c-format
 msgid "Could not request shell. %s"
 msgstr "Kabuk istenemedi: %s"
 
-#: src/remmina_ssh.c:3050
+#: src/remmina_ssh.c:3059
 msgid "Could not create PTY device."
 msgstr "PTY aygıtı oluşturulamadı."
 
@@ -1300,7 +1300,7 @@ msgstr "Ağ durumu: çevrim dışı"
 msgid "Are you sure you want to delete “%s”?"
 msgstr "“%s”i silmek istediğinizden emin misiniz?"
 
-#: src/remmina_main.c:1126
+#: src/remmina_main.c:1133
 #, c-format
 msgid ""
 "Unable to import:\n"
@@ -1309,23 +1309,23 @@ msgstr ""
 "İçeri aktarılamıyor:\n"
 "%s"
 
-#: src/remmina_main.c:1152 data/ui/remmina_main.glade:286
+#: src/remmina_main.c:1159 data/ui/remmina_main.glade:286
 msgid "Import"
 msgstr "İçeri Aktar"
 
-#: src/remmina_main.c:1175 src/remmina_file_editor.c:1819
+#: src/remmina_main.c:1182 src/remmina_file_editor.c:1819
 msgid "_Save"
 msgstr "_Kaydet"
 
-#: src/remmina_main.c:1181
+#: src/remmina_main.c:1188
 msgid "This protocol does not support exporting."
 msgstr "Bu iletişim kuralı dışarı çıkartmayı desteklemiyor."
 
-#: src/remmina_main.c:1492
+#: src/remmina_main.c:1501
 msgid "Remmina Remote Desktop Client"
 msgstr "Remmina Uzak Masaüstü İstemcisi"
 
-#: src/remmina_main.c:1494
+#: src/remmina_main.c:1503
 msgid "Remmina Kiosk"
 msgstr "Remmina Kiosk"
 
@@ -1688,34 +1688,34 @@ msgstr "_Çık"
 
 #. TRANSLATORS: Applet name as per the Freedesktop Desktop entry specification https://specifications.freedesktop.org/desktop-entry-spec/latest/
 #. TRANSLATORS: Applet Name as per the Freedesktop Desktop entry specification https://specifications.freedesktop.org/desktop-entry-spec/latest/
-#: src/remmina_icon.c:294 src/remmina_icon.c:447
+#: src/remmina_icon.c:294 src/remmina_icon.c:452
 msgid "Remmina Applet"
 msgstr "Remmina Küçük Uygulama"
 
 #. TRANSLATORS: Applet comment/description as per the Freedesktop Desktop entry specification https://specifications.freedesktop.org/desktop-entry-spec/latest/
-#: src/remmina_icon.c:296 src/remmina_icon.c:449
+#: src/remmina_icon.c:296 src/remmina_icon.c:454
 msgid "Connect to remote desktops through the applet menu"
 msgstr "Uzak masaüstüne küçük uygulama menüsü ile bağlan"
 
-#: src/remmina_icon.c:360
+#: src/remmina_icon.c:365
 msgid "StatusNotifier/Appindicator support in “"
 msgstr "StatusNotifier/Appindicator desteği - “"
 
 #. TRANSLATORS: %s is a placeholder for "StatusNotifier/Appindicator suppor in “DESKTOP NAME”: "
-#: src/remmina_icon.c:367
+#: src/remmina_icon.c:372
 #, c-format
 msgid "%s your desktop does support it"
 msgstr "%s masaüstünüz destekliyor"
 
 #. TRANSLATORS: %s is a placeholder for "StatusNotifier/Appindicator suppor in “DESKTOP NAME”: "
-#: src/remmina_icon.c:369
+#: src/remmina_icon.c:374
 #, c-format
 msgid "%s and Remmina has built-in (compiled) support for libappindicator."
 msgstr ""
 "%s ve Remmina libappindicator için yerleşik (derlenmiş) desteğe sahiptir."
 
 #. TRANSLATORS: %s is a placeholder for "StatusNotifier/Appindicator suppor in “DESKTOP NAME”: "
-#: src/remmina_icon.c:372
+#: src/remmina_icon.c:377
 #, c-format
 msgid ""
 "%s not supported natively by your Desktop Environment. libappindicator will "
@@ -1725,25 +1725,25 @@ msgstr ""
 "libappindicator onun yerine GtkStatusIcon/xembed kullanmaya çalışacak"
 
 #. TRANSLATORS: %s is a placeholder for "StatusNotifier/Appindicator suppor in “DESKTOP NAME”: "
-#: src/remmina_icon.c:376
+#: src/remmina_icon.c:381
 #, c-format
 msgid "%s You may need to install, and use XApp Status Applet"
 msgstr "%s XApp Durum Uygulamasını kurmanız ve kullanmanız gerekebilir"
 
 #. TRANSLATORS: %s is a placeholder for "StatusNotifier/Appindicator suppor in “DESKTOP NAME”: "
-#: src/remmina_icon.c:379
+#: src/remmina_icon.c:384
 #, c-format
 msgid "%s You may need to install, and use KStatusNotifierItem"
 msgstr "%s KStatusNotifierItem kurmanız ve kullanmanız gerekebilir"
 
 #. TRANSLATORS: %s is a placeholder for "StatusNotifier/Appindicator suppor in “DESKTOP NAME”: "
-#: src/remmina_icon.c:382
+#: src/remmina_icon.c:387
 #, c-format
 msgid "%s You may need to install, and use XEmbed SNI Proxy"
 msgstr "%s XEmbed SNI Proxy kurmanız ve kullanmanız gerekebilir"
 
 #. TRANSLATORS: %s is a placeholder for "StatusNotifier/Appindicator suppor in “DESKTOP NAME”: "
-#: src/remmina_icon.c:385
+#: src/remmina_icon.c:390
 #, c-format
 msgid "%s You may need to install, and use Gnome Shell Extension Appindicator"
 msgstr ""
@@ -1846,7 +1846,7 @@ msgid "_Find text"
 msgstr "Metin _bul"
 
 #: src/remmina_ssh_plugin.c:1505 plugins/spice/spice_plugin.c:676
-#: plugins/vnc/vnc_plugin.c:2055 plugins/vnc/vnc_plugin.c:2067
+#: plugins/vnc/vnc_plugin.c:2080 plugins/vnc/vnc_plugin.c:2092
 msgid "User password"
 msgstr "Kullanıcı parolası"
 
@@ -1967,22 +1967,22 @@ msgid "<Choose a quality level to edit…>"
 msgstr "<Düzenlenecek nitelik düzeyi seç…>"
 
 #: plugins/rdp/rdp_settings.c:280 plugins/rdp/rdp_plugin.c:2664
-#: plugins/vnc/vnc_plugin.c:2004
+#: plugins/vnc/vnc_plugin.c:2029
 msgid "Poor (fastest)"
 msgstr "Zayıf (en hızlı)"
 
 #: plugins/rdp/rdp_settings.c:282 plugins/rdp/rdp_plugin.c:2665
-#: plugins/vnc/vnc_plugin.c:2003
+#: plugins/vnc/vnc_plugin.c:2028
 msgid "Medium"
 msgstr "Orta"
 
 #: plugins/rdp/rdp_settings.c:284 plugins/rdp/rdp_plugin.c:2666
-#: plugins/vnc/vnc_plugin.c:2001
+#: plugins/vnc/vnc_plugin.c:2026
 msgid "Good"
 msgstr "İyi"
 
 #: plugins/rdp/rdp_settings.c:286 plugins/rdp/rdp_plugin.c:2667
-#: plugins/vnc/vnc_plugin.c:2002
+#: plugins/vnc/vnc_plugin.c:2027
 msgid "Best (slowest)"
 msgstr "En iyi (en yavaş)"
 
@@ -2065,7 +2065,7 @@ msgid "Input device settings"
 msgstr "Girdi aygıtı ayarları"
 
 #: plugins/rdp/rdp_settings.c:656 plugins/rdp/rdp_plugin.c:2820
-#: plugins/vnc/vnc_plugin.c:2087
+#: plugins/vnc/vnc_plugin.c:2112
 msgid "Disable smooth scrolling"
 msgstr "Düzgün kaydırmayı devre dışı bırak"
 
@@ -2251,7 +2251,7 @@ msgstr "GFX RFX Aşamalı (32 bit)"
 msgid "RemoteFX (32 bpp)"
 msgstr "RemoteFX (32 bit)"
 
-#: plugins/rdp/rdp_plugin.c:2639 plugins/vnc/vnc_plugin.c:1992
+#: plugins/rdp/rdp_plugin.c:2639 plugins/vnc/vnc_plugin.c:2017
 msgid "True colour (32 bpp)"
 msgstr "Gerçek renk (32 bpp)"
 
@@ -2259,7 +2259,7 @@ msgstr "Gerçek renk (32 bpp)"
 msgid "True colour (24 bpp)"
 msgstr "Gerçek renk (24 bpp)"
 
-#: plugins/rdp/rdp_plugin.c:2641 plugins/vnc/vnc_plugin.c:1993
+#: plugins/rdp/rdp_plugin.c:2641 plugins/vnc/vnc_plugin.c:2018
 msgid "High colour (16 bpp)"
 msgstr "Yüksek renk (16 bpp)"
 
@@ -2267,7 +2267,7 @@ msgstr "Yüksek renk (16 bpp)"
 msgid "High colour (15 bpp)"
 msgstr "Yüksek renk (15 bpp)"
 
-#: plugins/rdp/rdp_plugin.c:2643 plugins/vnc/vnc_plugin.c:1994
+#: plugins/rdp/rdp_plugin.c:2643 plugins/vnc/vnc_plugin.c:2019
 msgid "256 colours (8 bpp)"
 msgstr "256 renk (8 bpp)"
 
@@ -2528,8 +2528,8 @@ msgstr "Ekranı birden çok monitöre yay"
 msgid "List monitor IDs"
 msgstr "Ekran kimliklerini listele"
 
-#: plugins/rdp/rdp_plugin.c:2825 plugins/vnc/vnc_plugin.c:2056
-#: plugins/vnc/vnc_plugin.c:2068 plugins/gvnc/gvnc_plugin.c:848
+#: plugins/rdp/rdp_plugin.c:2825 plugins/vnc/vnc_plugin.c:2081
+#: plugins/vnc/vnc_plugin.c:2093 plugins/gvnc/gvnc_plugin.c:848
 msgid "Colour depth"
 msgstr "Renk derinliği"
 
@@ -2537,8 +2537,8 @@ msgstr "Renk derinliği"
 msgid "Network connection type"
 msgstr "Ağ bağlantı türü"
 
-#: plugins/rdp/rdp_plugin.c:2842 plugins/vnc/vnc_plugin.c:2057
-#: plugins/vnc/vnc_plugin.c:2069
+#: plugins/rdp/rdp_plugin.c:2842 plugins/vnc/vnc_plugin.c:2082
+#: plugins/vnc/vnc_plugin.c:2094
 msgid "Quality"
 msgstr "Nitelik"
 
@@ -2711,7 +2711,7 @@ msgstr "Paralel bağlantı noktası paylaş"
 msgid "Share a smart card"
 msgstr "Akıllı kartı paylaş"
 
-#: plugins/rdp/rdp_plugin.c:2880 plugins/vnc/vnc_plugin.c:2092
+#: plugins/rdp/rdp_plugin.c:2880 plugins/vnc/vnc_plugin.c:2117
 msgid "Turn off clipboard sync"
 msgstr "Pano eşzamanlamayı kapat"
 
@@ -2728,7 +2728,7 @@ msgid "It disables CAL and hwId is set to 0"
 msgstr "CAL'yi devre dışı bırakır ve hwld'yi 0 olarak ayarlar"
 
 #: plugins/rdp/rdp_plugin.c:2883 plugins/spice/spice_plugin.c:704
-#: plugins/vnc/vnc_plugin.c:2088 plugins/www/www_plugin.c:936
+#: plugins/vnc/vnc_plugin.c:2113 plugins/www/www_plugin.c:936
 #: plugins/gvnc/gvnc_plugin.c:866
 msgid "Forget passwords after use"
 msgstr "Kullandıktan sonra parolaları unut"
@@ -2782,14 +2782,14 @@ msgid "Update framebuffer even when not visible"
 msgstr "Görünmüyorken bile çerçeve arabelleğini güncelle"
 
 #: plugins/rdp/rdp_plugin.c:2907 plugins/spice/spice_plugin.c:707
-#: plugins/spice/spice_plugin.c:715 plugins/vnc/vnc_plugin.c:2094
-#: plugins/vnc/vnc_plugin.c:2107 plugins/gvnc/gvnc_plugin.c:869
+#: plugins/spice/spice_plugin.c:715 plugins/vnc/vnc_plugin.c:2119
+#: plugins/vnc/vnc_plugin.c:2132 plugins/gvnc/gvnc_plugin.c:869
 #: plugins/gvnc/gvnc_plugin.c:878
 msgid "View only"
 msgstr "Yalnızca görüntüle"
 
 #: plugins/rdp/rdp_plugin.c:2912 plugins/spice/spice_plugin.c:717
-#: plugins/vnc/vnc_plugin.c:2111
+#: plugins/vnc/vnc_plugin.c:2136
 msgid "Send Ctrl+Alt+Delete"
 msgstr "Gönder Ctrl+Alt+Delete"
 
@@ -2930,57 +2930,57 @@ msgstr "_Kapat"
 msgid "USB redirection error"
 msgstr "USB yönlendirme hatası"
 
-#: plugins/vnc/vnc_plugin.c:791
+#: plugins/vnc/vnc_plugin.c:792
 msgid "Enter VNC password"
 msgstr "VNC parolası girin"
 
-#: plugins/vnc/vnc_plugin.c:844 plugins/gvnc/gvnc_plugin.c:538
+#: plugins/vnc/vnc_plugin.c:845 plugins/gvnc/gvnc_plugin.c:538
 msgid "Enter VNC authentication credentials"
 msgstr "VNC kimlik doğrulama bilgilerini girin"
 
-#: plugins/vnc/vnc_plugin.c:952
+#: plugins/vnc/vnc_plugin.c:953
 msgid "Unable to connect to VNC server"
 msgstr "VNC sunucusuna bağlanılamıyor"
 
-#: plugins/vnc/vnc_plugin.c:953
+#: plugins/vnc/vnc_plugin.c:954
 #, c-format
 msgid "Couldn’t convert '%s' to host address"
 msgstr "'%s', ana makine adresine dönüştürülemedi"
 
-#: plugins/vnc/vnc_plugin.c:954
+#: plugins/vnc/vnc_plugin.c:955
 #, c-format
 msgid "VNC connection failed: %s"
 msgstr "VNC bağlantısı sağlanamadı: %s"
 
-#: plugins/vnc/vnc_plugin.c:955
+#: plugins/vnc/vnc_plugin.c:956
 msgid "Your connection has been rejected."
 msgstr "Bağlantı isteğiniz reddedildi."
 
-#: plugins/vnc/vnc_plugin.c:982
+#: plugins/vnc/vnc_plugin.c:983
 #, c-format
 msgid "The VNC server requested an unknown authentication method. %s"
 msgstr "VNC sunucusu bilinmeyen bir kimlik doğrulama yöntemi istedi. %s"
 
-#: plugins/vnc/vnc_plugin.c:984
+#: plugins/vnc/vnc_plugin.c:985
 msgid "Please retry after turning on encryption for this profile."
 msgstr "Lütfen bu profil için şifrelemeyi açtıktan sonra yeniden deneyin."
 
-#: plugins/vnc/vnc_plugin.c:1718
+#: plugins/vnc/vnc_plugin.c:1719
 #, c-format
 msgid "Connected to %s via VNC"
 msgstr "VNC ile %s'ye bağlanıldı"
 
-#: plugins/vnc/vnc_plugin.c:1725
+#: plugins/vnc/vnc_plugin.c:1726
 #, c-format
 msgid "Connected to %s:%d via VNC"
 msgstr "VNC ile %s:%d'ye bağlanıldı"
 
-#: plugins/vnc/vnc_plugin.c:1745
+#: plugins/vnc/vnc_plugin.c:1749
 #, c-format
 msgid "Disconnected from %s:%d via VNC"
 msgstr "VNC ile %s:%d'den bağlantı kesildi"
 
-#: plugins/vnc/vnc_plugin.c:2009
+#: plugins/vnc/vnc_plugin.c:2034
 msgid ""
 "Connect to VNC using a repeater:\n"
 "  • The server field must contain the repeater ID, e.g. ID:123456789\n"
@@ -2999,7 +2999,7 @@ msgstr ""
 "    örn. x11vnc ile:\n"
 "    x11vnc -connect repeater=ID:123456789+10.10.10.12:5500"
 
-#: plugins/vnc/vnc_plugin.c:2018
+#: plugins/vnc/vnc_plugin.c:2043
 msgid ""
 "Listening for remote VNC connection:\n"
 "  • The “Listen on port” field is the port Remmina will listen to,\n"
@@ -3015,7 +3015,7 @@ msgstr ""
 "    bağlanacaksınız, örn. x11vnc ile:\n"
 "    x11vnc -display :0 -connect 192.168.1.36:8888"
 
-#: plugins/vnc/vnc_plugin.c:2026
+#: plugins/vnc/vnc_plugin.c:2051
 msgid ""
 "Overriding the pre-set VNC encoding quality:\n"
 "\n"
@@ -3037,43 +3037,43 @@ msgstr ""
 "  • “En iyi (en yavaş)” kodlamayı şuna ayarlar: “copyrect zrle ultra zlib "
 "hextile corre rre raw”"
 
-#: plugins/vnc/vnc_plugin.c:2053
+#: plugins/vnc/vnc_plugin.c:2078
 msgid "Repeater"
 msgstr "Yineleyici"
 
-#: plugins/vnc/vnc_plugin.c:2065
+#: plugins/vnc/vnc_plugin.c:2090
 msgid "Listen on port"
 msgstr "Dinlenecek bağlantı noktası"
 
-#: plugins/vnc/vnc_plugin.c:2085
+#: plugins/vnc/vnc_plugin.c:2110
 msgid "Override pre-set VNC encodings"
 msgstr "Önceden tanımlı VNC kodlamalarını görmezden gel"
 
-#: plugins/vnc/vnc_plugin.c:2086
+#: plugins/vnc/vnc_plugin.c:2111
 msgid "Force tight encoding"
 msgstr "Sıkı kodlamaya zorla"
 
-#: plugins/vnc/vnc_plugin.c:2086
+#: plugins/vnc/vnc_plugin.c:2111
 msgid "Enabling this may help when the remote desktop looks scrambled"
 msgstr "Bunu etkinleştirmek uzak masaüstünün karmaşık görünmesini önleyebilir"
 
-#: plugins/vnc/vnc_plugin.c:2089 plugins/gvnc/gvnc_plugin.c:867
+#: plugins/vnc/vnc_plugin.c:2114 plugins/gvnc/gvnc_plugin.c:867
 msgid "Ignore remote bell messages"
 msgstr "Uzak zil iletilerini yok say"
 
-#: plugins/vnc/vnc_plugin.c:2090 plugins/vnc/vnc_plugin.c:2108
+#: plugins/vnc/vnc_plugin.c:2115 plugins/vnc/vnc_plugin.c:2133
 msgid "Prevent local interaction on the server"
 msgstr "Sunucuda yerel etkileşimi önle"
 
-#: plugins/vnc/vnc_plugin.c:2091
+#: plugins/vnc/vnc_plugin.c:2116
 msgid "Show remote cursor"
 msgstr "Uzaktaki imleci göster"
 
-#: plugins/vnc/vnc_plugin.c:2093
+#: plugins/vnc/vnc_plugin.c:2118
 msgid "Turn off encryption"
 msgstr "Şifrelemeyi kapat"
 
-#: plugins/vnc/vnc_plugin.c:2110
+#: plugins/vnc/vnc_plugin.c:2135
 msgid "Open Chat…"
 msgstr "Sohbeti Aç…"
 

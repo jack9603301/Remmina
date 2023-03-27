@@ -1022,10 +1022,18 @@ void remmina_main_on_accel_application_preferences(GSimpleAction *action, GVaria
 	remmina_main_on_action_application_preferences(NULL, v, NULL);
 }
 
+void remmina_main_reload_preferences()
+{
+	GtkSettings *settings;
+	settings = gtk_settings_get_default();
+	g_object_set(settings, "gtk-application-prefer-dark-theme", remmina_pref.dark_theme, NULL);
+	remmina_main_on_action_search_toggle(NULL,NULL,NULL);
+	gtk_tree_view_column_set_visible(remminamain->column_files_list_notes, remmina_pref.always_show_notes);
+}
+
 void remmina_main_on_action_application_preferences(GSimpleAction *action, GVariant *param, gpointer data)
 {
 	TRACE_CALL(__func__);
-	GtkSettings *settings;
 
 	REMMINA_DEBUG("Opening the preferences");
 	gint32 tab_num;
@@ -1046,9 +1054,8 @@ void remmina_main_on_action_application_preferences(GSimpleAction *action, GVari
 
 	//gtk_widget_show_all(widget);
 	gtk_widget_show(widget);
-	/* Switch to a dark theme if the user enabled it */
-	settings = gtk_settings_get_default();
-	g_object_set(settings, "gtk-application-prefer-dark-theme", remmina_pref.dark_theme, NULL);
+	/* Reload to use new preferences */
+	remmina_main_reload_preferences();
 }
 
 void remmina_main_on_action_application_default(GSimpleAction *action, GVariant *param, gpointer data)
@@ -1342,6 +1349,8 @@ void remmina_main_on_action_search_toggle(GSimpleAction *action, GVariant *param
 {
 	TRACE_CALL(__func__);
 	REMMINA_DEBUG("Search toggle triggered");
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(remminamain->search_toggle), !remmina_pref.hide_searchbar);
+
 	gboolean toggle_status = gtk_toggle_button_get_active(remminamain->search_toggle);
 
 	gtk_search_bar_set_search_mode(remminamain->search_bar, toggle_status);
