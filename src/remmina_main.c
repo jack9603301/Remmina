@@ -98,7 +98,7 @@ static GActionEntry app_actions[] = {
 	{ "default",	 remmina_main_on_action_application_default,	 NULL, NULL, NULL },
 	{ "mpchange",	 remmina_main_on_action_application_mpchange,	 NULL, NULL, NULL },
 	{ "plugins",	 remmina_main_on_action_application_plugins,	 NULL, NULL, NULL },
-	{ "preferences", remmina_main_on_action_application_preferences, "i",  NULL, NULL },
+	{ "preferences", remmina_main_on_action_application_preferences, NULL,  NULL, NULL },
 	{ "dark",	 remmina_main_on_action_application_dark_theme,	 NULL, NULL, NULL },
 	{ "debug",	 remmina_main_on_action_help_debug,		 NULL, NULL, NULL },
 	{ "community",	 remmina_main_on_action_help_community,		 NULL, NULL, NULL },
@@ -1409,16 +1409,16 @@ void remmina_main_file_list_on_row_activated(GtkTreeView *tree, GtkTreePath *pat
 }
 
 /* Show the popup menu by the right button mouse click */
-gboolean remmina_main_file_list_on_button_press(GtkWidget *widget, GdkButtonEvent *event, gpointer user_data)
+gboolean remmina_main_file_list_on_button_press(GtkGestureClick* self, gint n_press, gdouble x, gdouble y, gpointer user_data)
 {
 	TRACE_CALL(__func__);
-	if (gdk_button_event_get_button(event) == MOUSE_BUTTON_RIGHT) {
-		// if (!kioskmode && kioskmode == FALSE)
-// #if GTK_CHECK_VERSION(3, 22, 0)
-// 			gtk_menu_popup_at_pointer(GTK_MENU(remminamain->menu_popup), (GdkEvent *)event);
-// #else
-// 			gtk_menu_popup(remminamain->menu_popup, NULL, NULL, NULL, NULL, event->button, event->time);
-// #endif
+	if (!kioskmode && kioskmode == FALSE){
+		if (gtk_gesture_single_get_current_button(self) == MOUSE_BUTTON_RIGHT){
+			//get coordinates of click
+			GdkRectangle coords = {.x = x, .y = y, .width = 0, .height = 0};
+			gtk_popover_set_pointing_to(remminamain->menu_popup, &coords);
+			gtk_popover_popup(remminamain->menu_popup);
+		}
 	}
 	return FALSE;
 }
@@ -1593,7 +1593,7 @@ GtkWidget *remmina_main_new(void)
 	TRACE_CALL(__func__);
 	GSimpleActionGroup *actions;
 	GtkShortcutController *accel_group = NULL;
-
+	
 	remminamain = g_new0(RemminaMain, 1);
 	remminamain->priv = g_new0(RemminaMainPriv, 1);
 	/* Assign UI widgets to the private members */
@@ -1617,9 +1617,13 @@ GtkWidget *remmina_main_new(void)
 		gtk_widget_set_sensitive(GTK_WIDGET(remminamain->view_toggle_button), FALSE);
 
 	/* Menu widgets */
-	remminamain->menu_popup = GTK_POPOVER(RM_GET_OBJECT("menu_popup"));
 	remminamain->menu_header_button = GTK_MENU_BUTTON(RM_GET_OBJECT("menu_header_button"));
-	remminamain->menu_popup_full = GTK_POPOVER(RM_GET_OBJECT("menu_popup_full"));
+	GMenu* menu = G_MENU(RM_GET_OBJECT("menu_bar_options"));
+	remminamain->menu_popup_full = gtk_popover_menu_new_from_model(menu);
+	gtk_menu_button_set_popover(remminamain->menu_header_button, remminamain->menu_popup_full);
+
+	menu = G_MENU(RM_GET_OBJECT("menu_bar_connection_click"));
+	remminamain->menu_popup = gtk_popover_menu_new_from_model(menu);
 	if (kioskmode && kioskmode == TRUE) {
 		gtk_widget_set_sensitive(GTK_WIDGET(remminamain->menu_popup_full), FALSE);
 		gtk_widget_set_sensitive(GTK_WIDGET(remminamain->menu_header_button), FALSE);
@@ -1635,6 +1639,12 @@ GtkWidget *remmina_main_new(void)
 	remminamain->entry_quick_connect_server = GTK_ENTRY(RM_GET_OBJECT("entry_quick_connect_server"));
 	/* Other widgets */
 	remminamain->tree_files_list = GTK_TREE_VIEW(RM_GET_OBJECT("tree_files_list"));
+	gtk_widget_set_parent(remminamain->menu_popup, remminamain->tree_files_list);
+	//listen for right click
+	GtkGesture *gesture = gtk_gesture_click_new();
+  	gtk_gesture_single_set_button(GTK_GESTURE_SINGLE(gesture), MOUSE_BUTTON_RIGHT);
+	g_signal_connect (gesture, "pressed", G_CALLBACK (remmina_main_file_list_on_button_press), NULL);
+	gtk_widget_add_controller(remminamain->tree_files_list, GTK_EVENT_CONTROLLER (gesture));
 	remminamain->column_files_list_name = GTK_TREE_VIEW_COLUMN(RM_GET_OBJECT("column_files_list_name"));
 	remminamain->column_files_list_group = GTK_TREE_VIEW_COLUMN(RM_GET_OBJECT("column_files_list_group"));
 	remminamain->column_files_list_server = GTK_TREE_VIEW_COLUMN(RM_GET_OBJECT("column_files_list_server"));

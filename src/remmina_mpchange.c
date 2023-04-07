@@ -512,6 +512,6 @@ remmina_mpchange_schedule(gboolean has_domain, const gchar *group, const gchar *
 	mpcp->gatewayusername = g_strdup(gatewayusername);
 	mpcp->gatewaypassword = g_strdup(gatewaypassword);
 	mpcp->gatewaydomain = g_strdup(gatewaydomain);
-	//gdk_threads_add_idle(remmina_file_multipasswd_changer_mt, (gpointer)mpcp);
+	g_idle_add(remmina_file_multipasswd_changer_mt, (gpointer)mpcp);
 
 }

@@ -120,6 +120,71 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
           </packing> -->
         </child>
         <child>
+          <menu id='menu_bar_options'>
+            <section>
+              <item>
+                <attribute name='label' translatable='yes'>_Preferences</attribute>
+                <attribute name='action'>app.preferences</attribute>
+              </item>
+              <item>
+                <attribute name='label' translatable='yes'>Multi password changer</attribute>
+                <attribute name='action'>app.mpchange</attribute>
+              </item>
+              <item>
+                <attribute name='label' translatable='yes'>Debugging</attribute>
+                <attribute name='action'>app.debug</attribute>
+              </item>
+              <item>
+                <attribute name='label' translatable='yes'>Import</attribute>
+                <attribute name='action'>app.import</attribute>
+              </item>
+              <item>
+                <attribute name='label' translatable='yes'>Export</attribute>
+                <attribute name='action'>app.export</attribute>
+              </item>
+              <item>
+                <attribute name='label' translatable='yes'>Plugins</attribute>
+                <attribute name='action'>app.plugins</attribute>
+              </item>
+            </section>
+            <section>
+              <item>
+                <attribute name='label' translatable='yes'>Make Remmina your default remote desktop client</attribute>
+                <attribute name='action'>app.default</attribute>
+              </item>
+            </section>
+            <section>
+              <item>
+                <attribute name='label' translatable='yes'>Homepage</attribute>
+                <attribute name='action'>app.homepage</attribute>
+              </item>
+              <item>
+                <attribute name='label' translatable='yes'>Donations</attribute>
+                <attribute name='action'>app.donations</attribute>
+              </item>
+              <item>
+                <attribute name='label' translatable='yes'>Wiki</attribute>
+                <attribute name='action'>app.wiki</attribute>
+              </item>
+              <item>
+                <attribute name='label' translatable='yes'>Community</attribute>
+                <attribute name='action'>app.community</attribute>
+              </item>
+            </section>
+            <section>
+              <item>
+                <attribute name='label' translatable='yes'>About</attribute>
+                <attribute name='action'>app.about</attribute>
+              </item>
+              <item>
+                <attribute name='label' translatable='yes'>_Quit</attribute>
+                <attribute name='action'>app.quit</attribute>
+              </item>
+            </section>
+          </menu>
+        </child>
+        
+        <child>
           <object class="GtkPopoverMenu" id="menubar_main">
             <!-- <property name="app-paintable">True</property> -->
             <property name="can-focus">False</property>
@@ -214,207 +279,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
                 </child>
               </object>
             </child>
-            <child>
-              <object class="GtkPopover" id="menu_popup_full">
-                <property name="autohide">True</property>
-                <child>
-                  <object class="GtkBox" id="menu_popup_gtk_box">
-                    <property name="visible">True</property>
-                    <!-- <property name="margin">10</property> -->
-                    <property name="orientation">vertical</property>
-                    <child>
-                      <object class="GtkButton" id="button_edit_preferences">
-                        <property name="visible">True</property>
-                        <!-- <property name="app-paintable">True</property> -->
-                        <property name="can-focus">False</property>
-                        <property name="action-name">app.preferences</property>
-                        <property name="action-target">0</property>
-                        <property name="label" translatable="yes">_Preferences</property>
-                        <property name="use-underline">True</property>
-                        <!-- <accelerator key="p" signal="activate" modifiers="GDK_CONTROL_MASK"/> -->
-                        <property name="has-frame">False</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkButton" id="button_tools_mpchange">
-                        <property name="visible">True</property>
-                        <!-- <property name="app-paintable">True</property> -->
-                        <property name="can-focus">False</property>
-                        <property name="action-name">app.mpchange</property>
-                        <property name="label" translatable="yes">Multi password changer</property>
-                        <property name="use-underline">True</property>
-                        <property name="has-frame">False</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkButton" id="button_help_debug">
-                        <property name="visible">True</property>
-                        <!-- <property name="app-paintable">True</property> -->
-                        <property name="can-focus">False</property>
-                        <property name="action-name">app.debug</property>
-                        <property name="label" translatable="yes">Debugging</property>
-                        <property name="use-underline">True</property>
-                        <property name="has-frame">False</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkButton" id="button_tools_import">
-                        <property name="visible">True</property>
-                        <!-- <property name="app-paintable">True</property> -->
-                        <property name="can-focus">False</property>
-                        <property name="action-name">main.import</property>
-                        <property name="label" translatable="yes">Import</property>
-                        <property name="use-underline">True</property>
-                        <property name="has-frame">False</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkButton" id="button_tools_export">
-                        <property name="visible">True</property>
-                        <!-- <property name="app-paintable">True</property> -->
-                        <property name="can-focus">False</property>
-                        <property name="action-name">main.export</property>
-                        <property name="label" translatable="yes">Export</property>
-                        <property name="use-underline">True</property>
-                        <property name="has-frame">False</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkButton" id="button_tools_plugins">
-                        <property name="visible">True</property>
-                        <!-- <property name="app-paintable">True</property> -->
-                        <property name="can-focus">False</property>
-                        <property name="action-name">app.plugins</property>
-                        <property name="label" translatable="yes">Plugins</property>
-                        <property name="use-underline">True</property>
-                        <property name="has-frame">False</property>
 
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkSeparator" id="button_help_separator">
-                        <property name="visible">True</property>
-                        <!-- <property name="app-paintable">True</property> -->
-                        <property name="can-focus">False</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkButton" id="button_set_default">
-                        <property name="visible">True</property>
-                        <!-- <property name="app-paintable">True</property> -->
-                        <property name="can-focus">False</property>
-                        <property name="action-name">app.default</property>
-                        <property name="label" translatable="yes">Make Remmina your default remote desktop client</property>
-                        <property name="use-underline">True</property>
-                        <property name="has-frame">False</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkSeparator" id="button_help_separator2">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkButton" id="button_help_homepage">
-                        <property name="visible">True</property>
-                        <!-- <property name="app-paintable">True</property> -->
-                        <property name="can-focus">False</property>
-                        <property name="action-name">app.homepage</property>
-                        <property name="label" translatable="yes">Homepage</property>
-                        <property name="use-underline">True</property>
-                        <property name="has-frame">False</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkButton" id="button_help_donations">
-                        <property name="visible">True</property>
-                        <!-- <property name="app-paintable">True</property> -->
-                        <property name="can-focus">False</property>
-                        <property name="action-name">app.donations</property>
-                        <property name="label" translatable="yes">Donations</property>
-                        <property name="use-underline">True</property>
-                        <property name="has-frame">False</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkButton" id="button_help_wiki">
-                        <property name="visible">True</property>
-                        <!-- <property name="app-paintable">True</property> -->
-                        <property name="can-focus">False</property>
-                        <property name="action-name">app.wiki</property>
-                        <property name="label" translatable="yes">Wiki</property>
-                        <property name="use-underline">True</property>
-                        <property name="has-frame">False</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkButton" id="button_help_community">
-                        <property name="visible">True</property>
-                        <!-- <property name="app-paintable">True</property> -->
-                        <property name="can-focus">False</property>
-                        <property name="action-name">app.community</property>
-                        <property name="label" translatable="yes" comments="Remmina community website">Community</property>
-                        <property name="use-underline">True</property>
-                        <property name="has-frame">False</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkSeparator" id="button_tools_separator">
-                        <property name="visible">True</property>
-                        <!-- <property name="app-paintable">True</property> -->
-                        <property name="can-focus">False</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkButton" id="button_help_about">
-                        <property name="visible">True</property>
-                        <!-- <property name="app-paintable">True</property> -->
-                        <property name="can-focus">False</property>
-                        <property name="action-name">app.about</property>
-                        <property name="label" translatable="yes">About</property>
-                        <property name="has-frame">False</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkButton" id="button_connection_quit">
-                        <property name="visible">True</property>
-                        <!-- <property name="app-paintable">True</property> -->
-                        <property name="can-focus">False</property>
-                        <property name="action-name">app.quit</property>
-                        <property name="label" translatable="yes">_Quit</property>
-                        <property name="use-underline">True</property>
-                        <!-- <accelerator key="q" signal="activate" modifiers="GDK_CONTROL_MASK"/> -->
-                        <property name="has-frame">False</property>
-                      </object>
-                    </child>
-                  </object>
-                </child>
-                <!-- <child>
-                  <object class="GtkBox" id="gtk_box">
-                    <property name="visible">True</property>
-                    <property name="margin">10</property>
-                    <child>
-                      <object class="GtkModelButton" id="GtkModelButton">
-                        <property name="visible">True</property>
-                        <property name="action-name">win.foo</property>
-                        <property name="text" translatable="yes">Foo</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkModelButton" id="GtkModelButton2">
-                        <property name="visible">True</property>
-                        <property name="action-name">win.bar</property>
-                        <property name="text" translatable="yes">Bar</property>
-                      </object>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="submenu">more</property>
-                  </packing>
-                </child> -->
-              </object>
-            </child>
           </object>
           <!-- <packing>
             <property name="expand">False</property>
@@ -440,6 +305,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
                   <object class="GtkTreeSelection" id="treeview-selection3">
                     <property name="mode">multiple</property>
                   </object>
+                </child>
+                <child>
+                  <menu id='menu_bar_connection_click'>
+                    <section>
+                      <item>
+                        <attribute name='label' translatable='yes'>Connect</attribute>
+                        <attribute name='action'>main.connect</attribute>
+                      </item>
+                    </section>
+                    <section>
+                      <item>
+                        <attribute name='label' translatable='yes'>Copy</attribute>
+                        <attribute name='action'>main.copy</attribute>
+                      </item>
+                      <item>
+                        <attribute name='label' translatable='yes'>Edit</attribute>
+                        <attribute name='action'>main.edit</attribute>
+                      </item>
+                      <item>
+                        <attribute name='label' translatable='yes'>Delete</attribute>
+                        <attribute name='action'>app.delete</attribute>
+                      </item>
+                      <item>
+                        <attribute name='label' translatable='yes'>Tools</attribute>
+                        <attribute name='action'>app.exttools</attribute>
+                      </item>
+                      <item>
+                        <attribute name='label' translatable='yes'>Collapse all</attribute>
+                        <attribute name='action'>app.collapse</attribute>
+                      </item>
+                      <item>
+                        <attribute name='label' translatable='yes'>Expand all</attribute>
+                        <attribute name='action'>app.expand</attribute>
+                      </item>
+                    </section>
+                  </menu>
                 </child>
                 <child>
                   <object class="GtkTreeViewColumn" id="column_files_list_name">
@@ -628,7 +529,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
-            <property name="popover">menu_popup_full</property>
             <!-- <property name="use-popover">True</property> -->
             <child>
               <object class="GtkImage" id="image_menu">

@@ -105,11 +105,11 @@ remmina_applet_menu_add_group(GtkWidget *menu, const gchar *group, gint position
 	if (groupmenuitem) {
 		*groupmenuitem = widget;
 	}
-	// if (position < 0) {
-	// 	gtk_popover_menu_add_child(GTK_POPOVER_MENU(menu), widget, position);
-	// }else  {
-	// 	gtk_popover_menu_add_child(GTK_POPOVER_MENU(menu), widget, position);
-	// }
+	if (position < 0) {
+		gtk_popover_menu_add_child(GTK_POPOVER_MENU(menu), widget, position);
+	}else  {
+		gtk_popover_menu_add_child(GTK_POPOVER_MENU(menu), widget, position);
+	}
 
 	submenu = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
 	gtk_widget_show(submenu);
