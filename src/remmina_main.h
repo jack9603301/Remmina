@@ -48,6 +48,7 @@ typedef struct _RemminaMainPriv RemminaMainPriv;
 typedef struct _RemminaMain {
 	GtkBuilder *		builder;
 	GtkWindow *		window;
+	GtkHeaderBar * 	header;
 	/* Menu widgets */
 	GtkPopover *		menu_popup;
 	GtkMenuButton *		menu_header_button;

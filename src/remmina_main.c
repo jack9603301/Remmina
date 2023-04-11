@@ -1604,6 +1604,9 @@ GtkWidget *remmina_main_new(void)
 		gtk_window_set_default_size(remminamain->window, 800, 400);
 		gtk_window_set_resizable(remminamain->window, FALSE);
 	}
+	/* Header */
+    remminamain->header = GTK_HEADER_BAR(RM_GET_OBJECT("main_headerbar"));
+
 	/* New Button */
 	remminamain->button_new = GTK_BUTTON(RM_GET_OBJECT("button_new"));
 	if (kioskmode && kioskmode == TRUE)
@@ -1621,7 +1624,7 @@ GtkWidget *remmina_main_new(void)
 	GMenu* menu = G_MENU(RM_GET_OBJECT("menu_bar_options"));
 	remminamain->menu_popup_full = gtk_popover_menu_new_from_model(menu);
 	gtk_menu_button_set_popover(remminamain->menu_header_button, remminamain->menu_popup_full);
-
+	
 	menu = G_MENU(RM_GET_OBJECT("menu_bar_connection_click"));
 	remminamain->menu_popup = gtk_popover_menu_new_from_model(menu);
 	if (kioskmode && kioskmode == TRUE) {
