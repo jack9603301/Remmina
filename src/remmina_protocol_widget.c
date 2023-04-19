@@ -332,6 +332,7 @@ void remmina_protocol_widget_open_connection(RemminaProtocolWidget *gp)
 	s = g_strdup_printf(_("Connecting to “%s”…"), (name ? name : "*"));
 
 	mp = remmina_message_panel_new();
+	gtk_widget_set_hexpand(mp, TRUE);
 	remmina_message_panel_setup_progress(mp, s, cancel_open_connection_cb, gp);
 	g_free(s);
 	gp->priv->connect_message_panel = mp;
@@ -832,19 +833,26 @@ void remmina_protocol_widget_call_feature_by_ref(RemminaProtocolWidget *gp, cons
 	gp->priv->plugin->call_feature(gp, feature);
 }
 
-static gboolean remmina_protocol_widget_on_key_press(GtkWidget *widget, GdkKeyEvent *event, RemminaProtocolWidget *gp)
+static gboolean remmina_protocol_widget_on_key_press(GtkEventControllerKey *self, guint keyval,
+																				guint keycode,
+																				GdkModifierType state, 
+																				RemminaProtocolWidget *gp)
 {
 	TRACE_CALL(__func__);
 	if (gp->priv->hostkey_func)
-		return gp->priv->hostkey_func(gp, gdk_key_event_get_keyval(event), FALSE);
+		return gp->priv->hostkey_func(gp, keyval, FALSE);
 	return FALSE;
 }
 
-static gboolean remmina_protocol_widget_on_key_release(GtkWidget *widget, GdkKeyEvent *event, RemminaProtocolWidget *gp)
+static gboolean remmina_protocol_widget_on_key_release(GtkEventControllerKey* self,
+																		guint keyval,
+																		guint keycode,
+																		GdkModifierType state,
+																		RemminaProtocolWidget *gp)
 {
 	TRACE_CALL(__func__);
 	if (gp->priv->hostkey_func)
-		return gp->priv->hostkey_func(gp, gdk_key_event_get_keyval(event), TRUE);
+		return gp->priv->hostkey_func(gp, keyval, TRUE);
 
 	return FALSE;
 }
@@ -852,8 +860,12 @@ static gboolean remmina_protocol_widget_on_key_release(GtkWidget *widget, GdkKey
 void remmina_protocol_widget_register_hostkey(RemminaProtocolWidget *gp, GtkWidget *widget)
 {
 	TRACE_CALL(__func__);
-	g_signal_connect(G_OBJECT(widget), "key-press-event", G_CALLBACK(remmina_protocol_widget_on_key_press), gp);
-	g_signal_connect(G_OBJECT(widget), "key-release-event", G_CALLBACK(remmina_protocol_widget_on_key_release), gp);
+
+	GtkEventControllerKey* key_event_controller = gtk_event_controller_key_new();
+	gtk_widget_add_controller(widget, key_event_controller);
+
+	g_signal_connect(key_event_controller, "key-pressed", G_CALLBACK(remmina_protocol_widget_on_key_press), gp);
+	g_signal_connect(key_event_controller, "key-released", G_CALLBACK(remmina_protocol_widget_on_key_release), gp);
 }
 
 void remmina_protocol_widget_set_hostkey_func(RemminaProtocolWidget *gp, RemminaHostkeyFunc func)

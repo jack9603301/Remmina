@@ -352,9 +352,9 @@ static void rcw_class_init(RemminaConnectionWindowClass *klass)
 					, -1);
 #endif
 
-	// gtk_style_context_add_provider_for_screen(gdk_screen_get_default(),
-	// 					  GTK_STYLE_PROVIDER(provider),
-	// 					  GTK_STYLE_PROVIDER_PRIORITY_APPLICATION); TODO GTK4
+	gtk_style_context_add_provider_for_display(gdk_display_get_default(),
+						  GTK_STYLE_PROVIDER(provider),
+						  GTK_STYLE_PROVIDER_PRIORITY_APPLICATION); // TODO GTK4
 
 	g_object_unref(provider);
 
@@ -2809,7 +2809,7 @@ static gboolean rcw_floating_toolbar_on_leave(GtkEventController *event_controll
 	GdkEvent* event = gtk_event_controller_get_current_event(event_controller);
 	if (event == NULL){
 		return FALSE;
-	}
+	} //TODO determine why nulls occur
 	if (gdk_crossing_event_get_detail(event) != GDK_NOTIFY_INFERIOR) 
 		rcw_floating_toolbar_show(cnnwin, FALSE);
 	return TRUE;
@@ -3299,11 +3299,14 @@ static gboolean rcw_state_event(GtkWidget *widget, gpointer user_data)
 	return FALSE;
 }
 
-static gboolean rcw_map_event(GtkWidget *widget, GdkEvent *event, gpointer data)
+static gboolean rcw_map_event(GdkSurface *surface, gpointer data)
 {
 	TRACE_CALL(__func__);
 
-
+	GtkWidget* widget = gtk_native_get_for_surface(surface);
+	if (widget == NULL){
+		return FALSE;
+	}
 
 	RemminaConnectionWindow *cnnwin = (RemminaConnectionWindow *)widget;
 	RemminaConnectionObject *cnnobj;
@@ -3319,9 +3322,14 @@ static gboolean rcw_map_event(GtkWidget *widget, GdkEvent *event, gpointer data)
 	return FALSE;
 }
 
-static gboolean rcw_unmap_event(GtkWidget *widget, GdkEvent *event, gpointer data)
+static gboolean rcw_unmap_event(GdkSurface *surface, gpointer data)
 {
 	TRACE_CALL(__func__);
+
+	GtkWidget* widget = gtk_native_get_for_surface(surface);
+	if (widget == NULL){
+		return FALSE;
+	}
 
 	RemminaConnectionWindow *cnnwin = (RemminaConnectionWindow *)widget;
 	RemminaConnectionObject *cnnobj;
@@ -3337,7 +3345,7 @@ static gboolean rcw_unmap_event(GtkWidget *widget, GdkEvent *event, gpointer dat
 	return FALSE;
 }
 
-static gboolean rcw_map_event_fullscreen(GtkWidget *widget, GdkEvent *event, gpointer data)
+static gboolean rcw_map_event_fullscreen(GtkWidget *widget,  gpointer data)
 {
 	TRACE_CALL(__func__);
 	RemminaConnectionObject *cnnobj;
@@ -3400,14 +3408,26 @@ static gboolean rcw_map_event_fullscreen(GtkWidget *widget, GdkEvent *event, gpo
 void rcw_property_notification_check(GObject* self, GParamSpec* pspec, gpointer user_data)
 {
 	REMMINA_DEBUG("rcw_property_notification_check %s", g_param_spec_get_name(pspec));
-	//map-event
+	if (strcmp(g_param_spec_get_name(pspec), "mapped") == 0) {
+		GdkSurface* surface = GDK_SURFACE(self);
+		if (gdk_surface_get_mapped(surface)){
+			rcw_map_event(self, user_data);
+		}
+		else{
+			rcw_unmap_event(self, user_data);
+		}
+	}
+	if (strcmp(g_param_spec_get_name(pspec), "default-width") == 0 ||
+				strcmp(g_param_spec_get_name(pspec), "default-height") == 0 ||
+				strcmp(g_param_spec_get_name(pspec), "maximized") == 0 ||
+				strcmp(g_param_spec_get_name(pspec), "fullscreened")== 0) {
+		rcw_state_event(self, user_data);
+		rcw_on_configure(self, user_data);
+
+	}
+			
 	//map-event (fullscreen)
-	//unmap-event
-	//delete-event
-	//window-state-event
 	//configure-event
-	//focus-in-event
-	//focus-out-event
 }
 
 
@@ -3422,19 +3442,17 @@ rcw_new(gboolean fullscreen, int full_screen_target_monitor)
 
 	if (fullscreen){
 		/* Put the window in fullscreen after it is mapped to have it appear on the same monitor */
-		g_signal_connect(G_OBJECT(cnnwin), "notify", G_CALLBACK(rcw_map_event_fullscreen), GINT_TO_POINTER(full_screen_target_monitor));
+		g_signal_connect(G_OBJECT(cnnwin), "notify", G_CALLBACK(rcw_property_notification_check), GINT_TO_POINTER(full_screen_target_monitor));
 	}
 	else{
-		//g_signal_connect(G_OBJECT(cnnwin), "notify", G_CALLBACK(rcw_map_event), NULL);
-		g_signal_connect(G_OBJECT(cnnwin), "notify", G_CALLBACK(rcw_property_notification_check), NULL);
+		g_signal_connect(G_OBJECT(cnnwin), "notify", G_CALLBACK(rcw_property_notification_check), NULL);		
 	}
-	// g_signal_connect(G_OBJECT(cnnwin), "notify", G_CALLBACK(rcw_unmap_event), NULL);
 
 	//gtk_container_set_border_width(GTK_CONTAINER(cnnwin), 0);
-	// g_signal_connect(G_OBJECT(cnnwin), "toolbar-place", G_CALLBACK(rcw_toolbar_place_signal), NULL);
+	g_signal_connect(G_OBJECT(cnnwin), "toolbar-place", G_CALLBACK(rcw_toolbar_place_signal), NULL);
 
-	// g_signal_connect(G_OBJECT(cnnwin), "notify", G_CALLBACK(rcw_delete_event), NULL);
-	// g_signal_connect(G_OBJECT(cnnwin), "destroy", G_CALLBACK(rcw_destroy), NULL);
+	g_signal_connect(G_OBJECT(cnnwin), "close-request", G_CALLBACK(rcw_delete_event), NULL);
+	g_signal_connect(G_OBJECT(cnnwin), "destroy", G_CALLBACK(rcw_destroy), NULL);
 
 	/* Under Xorg focus-in-event and focus-out-event don’t work when keyboard is grabbed
 	 * via gdk_device_grab. So we listen for window-state-event to detect focus in and focus out.
@@ -3444,23 +3462,17 @@ rcw_new(gboolean fullscreen, int full_screen_target_monitor)
 
 	// g_signal_connect(G_OBJECT(cnnwin), "notify", G_CALLBACK(rcw_state_event), NULL);
 	GtkEventControllerFocus* focus_event_controller = gtk_event_controller_focus_new();
+	// gtk_event_controller_set_propagation_phase(focus_event_controller, GTK_PHASE_CAPTURE);
 	gtk_widget_add_controller(G_OBJECT(cnnwin), focus_event_controller);
 	g_signal_connect(focus_event_controller, "enter", G_CALLBACK(rcw_focus_in_event), cnnwin);
 	g_signal_connect(focus_event_controller, "leave", G_CALLBACK(rcw_focus_out_event), cnnwin);
-	// g_signal_connect(G_OBJECT(cnnwin), "focus-in-event", G_CALLBACK(rcw_focus_in_event), NULL);
-	// g_signal_connect(G_OBJECT(cnnwin), "focus-out-event", G_CALLBACK(rcw_focus_out_event), NULL);
 
 
 	GtkEventControllerMotion* motion_event_controller = gtk_event_controller_motion_new();
+	// gtk_event_controller_set_propagation_phase(motion_event_controller, GTK_PHASE_CAPTURE);
 	gtk_widget_add_controller(G_OBJECT(cnnwin), motion_event_controller);
 	g_signal_connect(motion_event_controller, "enter", G_CALLBACK(rcw_on_enter_notify_event), cnnwin);
 	g_signal_connect(motion_event_controller, "leave", G_CALLBACK(rcw_on_leave_notify_event), cnnwin);
-	
-	// g_signal_connect(G_OBJECT(cnnwin), "enter-notify-event", G_CALLBACK(rcw_on_enter_notify_event), NULL);
-	// g_signal_connect(G_OBJECT(cnnwin), "leave-notify-event", G_CALLBACK(rcw_on_leave_notify_event), NULL);
-
-
-	// g_signal_connect(G_OBJECT(cnnwin), "notify", G_CALLBACK(rcw_on_configure), NULL);
 
 	return cnnwin;
 }
@@ -3823,6 +3835,7 @@ static RemminaConnectionWindow *rcw_create_scrolled(gint width, gint height, gbo
 
 	cnnwin = rcw_new(FALSE, 0);
 	gtk_widget_realize(GTK_WIDGET(cnnwin));
+	g_signal_connect(gtk_native_get_surface(cnnwin), "notify", G_CALLBACK(rcw_property_notification_check), NULL);
 
 	gtk_window_set_default_size(GTK_WINDOW(cnnwin), width, height);
 	g_object_set(settings, "gtk-application-prefer-dark-theme", remmina_pref.dark_theme, NULL);
@@ -3957,9 +3970,11 @@ static void rcw_create_overlay_ftb_overlay(RemminaConnectionWindow *cnnwin)
 	rcw_floating_toolbar_show(cnnwin, TRUE);
 
 	GtkEventControllerMotion* motion_event_controller = gtk_event_controller_motion_new();
+	// gtk_event_controller_set_propagation_phase(motion_event_controller, GTK_PHASE_CAPTURE);
 	gtk_widget_add_controller(G_OBJECT(priv->overlay_ftb_overlay), motion_event_controller);
 
 	GtkEventControllerScroll* scroll_event_controller = gtk_event_controller_scroll_new(GTK_EVENT_CONTROLLER_SCROLL_NONE);
+	// gtk_event_controller_set_propagation_phase(scroll_event_controller, GTK_PHASE_CAPTURE);
 	gtk_widget_add_controller(G_OBJECT(priv->overlay_ftb_overlay), scroll_event_controller);
 
 	g_signal_connect(motion_event_controller, "enter", G_CALLBACK(rcw_floating_toolbar_on_enter), cnnwin);
@@ -4078,6 +4093,7 @@ RemminaConnectionWindow *rcw_create_fullscreen(GtkWindow *old, gint view_mode)
 	cnnwin = rcw_new(TRUE, full_screen_target_monitor);
 	gtk_widget_set_name(GTK_WIDGET(cnnwin), "remmina-connection-window-fullscreen");
 	gtk_widget_realize(GTK_WIDGET(cnnwin));
+	g_signal_connect(gtk_native_get_surface(cnnwin), "notify", G_CALLBACK(rcw_property_notification_check), NULL);
 
 	if (!view_mode)
 		view_mode = VIEWPORT_FULLSCREEN_MODE;
@@ -4491,12 +4507,12 @@ static gboolean open_connection_last_stage(gpointer user_data)
 	return FALSE;
 }
 
-static void rpw_size_allocated_on_connection(GtkWidget *w, GdkRectangle *allocation, gpointer user_data)
+static void rpw_size_allocated_on_connection(GtkWidget *w, gpointer user_data)
 {
 	RemminaProtocolWidget *gp = (RemminaProtocolWidget *)w;
 
 	/* Disconnect signal handler to avoid to be called again after a normal resize */
-	g_signal_handler_disconnect(w, gp->cnnobj->deferred_open_size_allocate_handler);
+	// g_signal_handler_disconnect(w, gp->cnnobj->deferred_open_size_allocate_handler);
 
 	/* Allow extra 100 ms for size allocation (do we really need it?) */
 	g_timeout_add(100, open_connection_last_stage, gp);
@@ -4677,6 +4693,7 @@ GtkWidget *rcw_open_from_file_full(RemminaFile *remminafile, GCallback disconnec
 	gtk_widget_show(cnnobj->proto);
 
 	GtkEventControllerMotion* motion_event_controller = gtk_event_controller_motion_new();
+	// gtk_event_controller_set_propagation_phase(motion_event_controller, GTK_PHASE_CAPTURE);
 	gtk_widget_add_controller(G_OBJECT(cnnobj->proto), motion_event_controller);
 
 
@@ -4759,8 +4776,10 @@ GtkWidget *rcw_open_from_file_full(RemminaFile *remminafile, GCallback disconnec
 	 * we should wait for a size allocation from GTK for cnnobj->proto
 	 * before connecting */
 
-	// cnnobj->deferred_open_size_allocate_handler = g_signal_connect(G_OBJECT(cnnobj->proto), "size-allocate", G_CALLBACK(rpw_size_allocated_on_connection), NULL); TODO gtk4
 
+	//Seems to have changed in GTK4. Is it still necessary?
+	// cnnobj->deferred_open_size_allocate_handler = g_signal_connect(G_OBJECT(cnnobj->proto), "size-allocate", G_CALLBACK(rpw_size_allocated_on_connection), NULL);
+	rpw_size_allocated_on_connection(cnnobj->proto, NULL);
 	return cnnobj->proto;
 }
 
@@ -4790,35 +4809,38 @@ void rco_destroy_message_panel(RemminaConnectionObject *cnnobj, RemminaMessagePa
 	RemminaMessagePanel *lastPanel;
 	gboolean was_visible;
 	GtkWidget *page;
-
+	GtkWidget* child;
 	page = nb_find_page_by_cnnobj(cnnobj->cnnwin->priv->notebook, cnnobj);
-	// childs = gtk_container_get_children(GTK_CONTAINER(page));
-	// cc = g_list_first(childs);
-	// while (cc != NULL) {
-	// 	if ((RemminaMessagePanel *)cc->data == mp)
-	// 		break;
-	// 	cc = g_list_next(cc);
-	// }
-	// g_list_free(childs);
 
-	if (cc == NULL) {
+
+	child = gtk_widget_get_first_child(page);
+	while(child != NULL){
+		if ((RemminaMessagePanel *)child == mp){
+				break;
+		}
+		child = gtk_widget_get_next_sibling(child);
+	}
+
+	if (child == NULL) {
 		printf("Remmina: Warning. There was a request to destroy a RemminaMessagePanel that is not on the page\n");
 		return;
 	}
 	was_visible = gtk_widget_is_visible(GTK_WIDGET(mp));
-	gtk_window_destroy(GTK_WIDGET(mp));
+	gtk_box_remove(page, (mp));
 
 	/* And now, show the last remaining message panel, if needed */
 	if (was_visible) {
-		// childs = gtk_container_get_children(GTK_CONTAINER(page));
-		// cc = g_list_first(childs);
-		// lastPanel = NULL;
-		// while (cc != NULL) {
-		// 	if (G_TYPE_CHECK_INSTANCE_TYPE(cc->data, REMMINA_TYPE_MESSAGE_PANEL))
-		// 		lastPanel = (RemminaMessagePanel *)cc->data;
-		// 	cc = g_list_next(cc);
-		// }
-		// g_list_free(childs);
+
+
+		lastPanel = NULL;
+		child = gtk_widget_get_first_child(page);
+		while(child != NULL){
+			if  (G_TYPE_CHECK_INSTANCE_TYPE(child, REMMINA_TYPE_MESSAGE_PANEL)){
+					lastPanel = child;
+			}
+			child = gtk_widget_get_next_sibling(child);
+		}
+
 		if (lastPanel)
 			gtk_widget_show(GTK_WIDGET(lastPanel));
 	}
@@ -4834,7 +4856,7 @@ void rco_show_message_panel(RemminaConnectionObject *cnnobj, RemminaMessagePanel
 {
 	TRACE_CALL(__func__);
 	GList *childs, *cc;
-	GtkWidget *page;
+	GtkWidget *page, *child;
 
 	/* Hides all RemminaMessagePanels childs of cnnobj->page */
 	page = nb_find_page_by_cnnobj(cnnobj->cnnwin->priv->notebook, cnnobj);
@@ -4847,12 +4869,20 @@ void rco_show_message_panel(RemminaConnectionObject *cnnobj, RemminaMessagePanel
 	// }
 	// g_list_free(childs);
 
+	child = gtk_widget_get_first_child(page);
+	while(child != NULL){
+		if (G_TYPE_CHECK_INSTANCE_TYPE(child, REMMINA_TYPE_MESSAGE_PANEL)){
+				gtk_widget_hide(child);
+		}
+		child = gtk_widget_get_next_sibling(child);
+	}
+
 	/* Add the new message panel at the top of cnnobj->page */
 	gtk_box_append(GTK_BOX(page), GTK_WIDGET(mp));
-	//gtk_box_reorder_child(GTK_BOX(page), GTK_WIDGET(mp), 0);
+	gtk_box_reorder_child_after(GTK_BOX(page), GTK_WIDGET(mp), NULL);
 
 	/* Show the message panel */
-	//gtk_widget_show_all(GTK_WIDGET(mp));
+	gtk_widget_show(GTK_WIDGET(mp));
 
 	/* Focus the correct field of the RemminaMessagePanel */
 	remmina_message_panel_focus_auth_entry(mp);

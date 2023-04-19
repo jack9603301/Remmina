@@ -436,7 +436,7 @@ void remmina_plugin_ssh_vte_terminal_set_encoding_and_pty(VteTerminal *terminal,
 }
 
 static gboolean
-remmina_plugin_ssh_on_focus_in(GtkWidget *widget, GdkFocusEvent *event, RemminaProtocolWidget *gp)
+remmina_plugin_ssh_on_focus_in(GtkWidget *widget, RemminaProtocolWidget *gp)
 {
 	TRACE_CALL(__func__);
 	RemminaPluginSshData *gpdata = GET_PLUGIN_DATA(gp);
@@ -796,9 +796,13 @@ void remmina_plugin_ssh_call_sftp(RemminaProtocolWidget *gp)
 }
 
 gboolean
-remmina_ssh_plugin_popup_menu(GtkWidget *widget, GdkEvent *event, GtkWidget *menu)
+remmina_ssh_plugin_popup_menu(GtkGestureClick* self,
+										gint n_press,
+										gdouble x,
+										gdouble y,
+										gpointer menu)
 {
-// 	if ((get_event_type(event) == GDK_BUTTON_PRESS) && (gdk_button_event_get_button((GdkButtonEvent *)event) == 3)) {
+	//if ((get_event_type(event) == GDK_BUTTON_PRESS) && (gdk_button_event_get_button((GdkButtonEvent *)event) == 3)) {
 // #if GTK_CHECK_VERSION(3, 22, 0)
 // 		gtk_menu_popup_at_pointer(GTK_MENU(menu), NULL);
 // #else
@@ -806,7 +810,7 @@ remmina_ssh_plugin_popup_menu(GtkWidget *widget, GdkEvent *event, GtkWidget *men
 // 			       ((GdkEventButton *)event)->button, gtk_get_current_event_time());
 // #endif
 // 		return TRUE;
-// 	}
+	//} TODO GTK4
 
 	return FALSE;
 }
@@ -849,7 +853,12 @@ void remmina_plugin_ssh_popup_ui(RemminaProtocolWidget *gp)
 	// gtk_menu_shell_append(GTK_MENU_SHELL(menu), find_text);
 	// gtk_menu_shell_append(GTK_MENU_SHELL(menu), sftp);
 
-	g_signal_connect(G_OBJECT(gpdata->vte), "button_press_event",
+	GtkGesture* click_gesture = gtk_gesture_click_new();
+	// gtk_event_controller_set_propagation_phase (GTK_EVENT_CONTROLLER(click_gesture),
+    //                                           GTK_PHASE_CAPTURE );
+	gtk_widget_add_controller(G_OBJECT(gpdata->vte), GTK_EVENT_CONTROLLER(click_gesture));
+
+	g_signal_connect(click_gesture, "pressed",
 			 G_CALLBACK(remmina_ssh_plugin_popup_menu), menu);
 
 	g_signal_connect(G_OBJECT(select_all), "activate",
@@ -965,8 +974,19 @@ remmina_plugin_ssh_init(RemminaProtocolWidget *gp)
 
 	hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
 	gtk_widget_show(hbox);
-	gtk_box_append(GTK_BOX(gp), hbox);
-	g_signal_connect(G_OBJECT(hbox), "focus-in-event", G_CALLBACK(remmina_plugin_ssh_on_focus_in), gp);
+
+	
+
+	GtkEventControllerFocus* focus_event_controller = gtk_event_controller_focus_new();
+	gtk_event_controller_set_propagation_phase(focus_event_controller, GTK_PHASE_BUBBLE);
+	gtk_widget_add_controller(G_OBJECT(hbox), focus_event_controller);
+	g_signal_connect(focus_event_controller, "enter", G_CALLBACK(remmina_plugin_ssh_on_focus_in), gp);
+
+	if (gtk_widget_get_can_focus(hbox)){
+		REMMINA_DEBUG("can focus fine...");
+	}else{
+		REMMINA_DEBUG("here's our issue!");
+	}
 
 	vte = vte_terminal_new();
 	//gtk_widget_show(vte);
@@ -1274,7 +1294,8 @@ remmina_plugin_ssh_init(RemminaProtocolWidget *gp)
 	g_signal_connect(G_OBJECT(vte), "eof", G_CALLBACK(remmina_plugin_ssh_eof), gp);
 	g_signal_connect(G_OBJECT(vte), "child-exited", G_CALLBACK(remmina_plugin_ssh_eof), gp);
 	remmina_plugin_ssh_popup_ui(gp);
-	//gtk_widget_show_all(hbox);
+	gtk_box_append(GTK_BOX(gp), hbox);
+	gtk_widget_show(hbox);
 }
 
 /**

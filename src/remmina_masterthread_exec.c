@@ -129,7 +129,7 @@ void remmina_masterthread_exec_and_wait(RemminaMTExecData *d)
 	pthread_cleanup_push(remmina_masterthread_exec_cleanup_handler, (void*)d);
 	pthread_mutex_init(&d->pt_mutex, NULL);
 	pthread_cond_init(&d->pt_cond, NULL);
-	//gdk_threads_add_idle((GSourceFunc)remmina_masterthread_exec_callback, (gpointer)d);
+	g_idle_add((GSourceFunc)remmina_masterthread_exec_callback, (gpointer)d);
 	pthread_mutex_lock(&d->pt_mutex);
 	while (!d->complete)
 		pthread_cond_wait(&d->pt_cond, &d->pt_mutex);

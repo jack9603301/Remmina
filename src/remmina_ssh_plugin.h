@@ -61,7 +61,7 @@ void remmina_plugin_ssh_vte_copy_clipboard(gpointer vte);
 void remmina_plugin_ssh_vte_paste_clipboard(gpointer vte);
 void remmina_plugin_ssh_vte_decrease_font(gpointer vte);
 void remmina_plugin_ssh_vte_increase_font(gpointer vte);
-gboolean remmina_ssh_plugin_popup_menu(GtkWidget *widget, GdkEvent *event, GtkWidget *menu);
+gboolean remmina_ssh_plugin_popup_menu(GtkGestureClick* self, gint n_press, gdouble x, gdouble y, gpointer menu);
 #endif
 
 G_END_DECLS

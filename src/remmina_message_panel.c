@@ -93,6 +93,7 @@ RemminaMessagePanel *remmina_message_panel_new()
 		"orientation", GTK_ORIENTATION_VERTICAL,
 		"spacing", 0,
 		NULL);
+	// gtk_widget_set_size_request(mp, 0, 60);
 
 	priv = remmina_message_panel_get_instance_private(mp);
 
@@ -100,7 +101,7 @@ RemminaMessagePanel *remmina_message_panel_new()
 	priv->response_callback_data = NULL;
 
 	/* Set widget class, for CSS styling */
-	// gtk_widget_set_name(GTK_WIDGET(mp), "remmina-cw-message-panel");
+	gtk_widget_set_name(GTK_WIDGET(mp), "remmina-cw-message-panel");
 	gtk_style_context_add_class(gtk_widget_get_style_context(GTK_WIDGET(mp)), "message_panel");
 	gtk_style_context_add_class(gtk_widget_get_style_context(GTK_WIDGET(mp)), "background");
 
@@ -133,7 +134,7 @@ void remmina_message_panel_setup_progress(RemminaMessagePanel *mp, const gchar *
 	 */
 
 	TRACE_CALL(__func__);
-	GtkBox *hbox;
+	GtkCenterBox *hbox;
 	GtkWidget *w;
 	RemminaMessagePanelPrivate *priv = remmina_message_panel_get_instance_private(mp);
 
@@ -142,16 +143,16 @@ void remmina_message_panel_setup_progress(RemminaMessagePanel *mp, const gchar *
 		raise(SIGINT);
 	}
 
-	hbox = GTK_BOX(gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0));
-
+	hbox = (gtk_center_box_new());
+	gtk_widget_set_hexpand(hbox, TRUE);
 	/* A spinner */
 	w = gtk_spinner_new();
-	gtk_box_append(hbox, w);
+	gtk_center_box_set_start_widget(hbox, w);
 	gtk_spinner_start(GTK_SPINNER(w));
 
 	/* A message */
 	w = gtk_label_new(message);
-	gtk_box_append(hbox, w);
+	gtk_center_box_set_center_widget(hbox, w);
 
 	priv->response_callback = response_callback;
 	priv->response_callback_data = response_callback_data;
@@ -160,7 +161,7 @@ void remmina_message_panel_setup_progress(RemminaMessagePanel *mp, const gchar *
 	 * only when a response_callback function is defined. */
 	if (response_callback) {
 		w = gtk_button_new_with_label(_("Cancel"));
-		gtk_box_append(hbox, w);
+		gtk_center_box_set_end_widget(hbox, w);
 		g_object_set_data(G_OBJECT(w), btn_response_key, (void *)GTK_RESPONSE_CANCEL);
 		g_signal_connect(G_OBJECT(w), "clicked", G_CALLBACK(remmina_message_panel_button_clicked_callback), mp);
 	}
