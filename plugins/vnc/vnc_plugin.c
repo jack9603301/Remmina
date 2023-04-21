@@ -1984,7 +1984,7 @@ static void remmina_plugin_vnc_init(RemminaProtocolWidget *gp)
 
 	gpdata->drawing_area = gtk_drawing_area_new();
 	gtk_widget_show(gpdata->drawing_area);
-	gtk_container_add(GTK_CONTAINER(gp), gpdata->drawing_area);
+	gtk_box_append((gp), gpdata->drawing_area);
 
 	// gtk_widget_add_events(
 	// 	gpdata->drawing_area,

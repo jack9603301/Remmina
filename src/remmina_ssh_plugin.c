@@ -975,21 +975,17 @@ remmina_plugin_ssh_init(RemminaProtocolWidget *gp)
 	hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
 	gtk_widget_show(hbox);
 
-	
+
 
 	GtkEventControllerFocus* focus_event_controller = gtk_event_controller_focus_new();
 	gtk_event_controller_set_propagation_phase(focus_event_controller, GTK_PHASE_BUBBLE);
 	gtk_widget_add_controller(G_OBJECT(hbox), focus_event_controller);
 	g_signal_connect(focus_event_controller, "enter", G_CALLBACK(remmina_plugin_ssh_on_focus_in), gp);
 
-	if (gtk_widget_get_can_focus(hbox)){
-		REMMINA_DEBUG("can focus fine...");
-	}else{
-		REMMINA_DEBUG("here's our issue!");
-	}
 
 	vte = vte_terminal_new();
-	//gtk_widget_show(vte);
+
+	gtk_widget_set_hexpand(vte, TRUE);
 	vte_terminal_set_size(VTE_TERMINAL(vte), 80, 25);
 	vte_terminal_set_scroll_on_keystroke(VTE_TERMINAL(vte), TRUE);
 #if !VTE_CHECK_VERSION(0, 38, 0)

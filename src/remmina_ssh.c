@@ -3038,8 +3038,8 @@ remmina_ssh_shell_thread(gpointer data)
 
 	shell->thread = 0;
 
-	// if (shell->exit_callback)
-	// 	IDLE_ADD((GSourceFunc)remmina_ssh_call_exit_callback_on_main_thread, (gpointer)shell);
+	if (shell->exit_callback)
+	 	IDLE_ADD((GSourceFunc)remmina_ssh_call_exit_callback_on_main_thread, (gpointer)shell);
 	return NULL;
 }
 

@@ -552,7 +552,7 @@ static void rcw_keyboard_grab(RemminaConnectionWindow *cnnwin)
 // #else
 // 	GdkDeviceManager *manager;
 // #endif
-// 	//GdkGrabStatus ggs;
+// 	GdkGrabStatus ggs;
 // 	GdkDevice *keyboard = NULL;
 
 // 	if (cnnwin->priv->kbcaptured) {
@@ -579,24 +579,24 @@ static void rcw_keyboard_grab(RemminaConnectionWindow *cnnwin)
 // #if DEBUG_KB_GRABBING
 // 		printf("DEBUG_KB_GRABBING: profile asks for grabbing, let’s try.\n");
 // #endif
-		/* Up to GTK version 3.20 we can grab the keyboard with gdk_device_grab().
-		 * in GTK 3.20 gdk_seat_grab() should be used instead of gdk_device_grab().
-		 * There is a bug in GTK up to 3.22: When gdk_device_grab() fails
-		 * the widget is hidden:
-		 * https://gitlab.gnome.org/GNOME/gtk/commit/726ad5a5ae7c4f167e8dd454cd7c250821c400ab
-		 * The bugfix will be released with GTK 3.24.
-		 * Also please note that the newer gdk_seat_grab() is still calling gdk_device_grab().
-		 *
-		 * Warning: gdk_seat_grab() will call XGrabKeyboard() or XIGrabDevice()
-		 * which in turn will generate a core X input event FocusOut and FocusIn
-		 * but not Xinput2 events.
-		 * In some cases, GTK is unable to neutralize FocusIn and FocusOut core
-		 * events (ie: i3wm+Plasma with GDK_CORE_DEVICE_EVENTS=1 because detail=NotifyNonlinear
-		 * instead of detail=NotifyAncestor/detail=NotifyInferior)
-		 * Receiving a FocusOut event for Remmina at this time will cause an infinite loop.
-		 * Therefore is important for GTK to use Xinput2 instead of core X events
-		 * by unsetting GDK_CORE_DEVICE_EVENTS
-		 */
+// 		/* Up to GTK version 3.20 we can grab the keyboard with gdk_device_grab().
+// 		 * in GTK 3.20 gdk_seat_grab() should be used instead of gdk_device_grab().
+// 		 * There is a bug in GTK up to 3.22: When gdk_device_grab() fails
+// 		 * the widget is hidden:
+// 		 * https://gitlab.gnome.org/GNOME/gtk/commit/726ad5a5ae7c4f167e8dd454cd7c250821c400ab
+// 		 * The bugfix will be released with GTK 3.24.
+// 		 * Also please note that the newer gdk_seat_grab() is still calling gdk_device_grab().
+// 		 *
+// 		 * Warning: gdk_seat_grab() will call XGrabKeyboard() or XIGrabDevice()
+// 		 * which in turn will generate a core X input event FocusOut and FocusIn
+// 		 * but not Xinput2 events.
+// 		 * In some cases, GTK is unable to neutralize FocusIn and FocusOut core
+// 		 * events (ie: i3wm+Plasma with GDK_CORE_DEVICE_EVENTS=1 because detail=NotifyNonlinear
+// 		 * instead of detail=NotifyAncestor/detail=NotifyInferior)
+// 		 * Receiving a FocusOut event for Remmina at this time will cause an infinite loop.
+// 		 * Therefore is important for GTK to use Xinput2 instead of core X events
+// 		 * by unsetting GDK_CORE_DEVICE_EVENTS
+// 		 */
 // #if GTK_CHECK_VERSION(3, 20, 0)
 // 		ggs = gdk_seat_grab(seat, gtk_widget_get_window(GTK_WIDGET(cnnwin)),
 // 				    GDK_SEAT_CAPABILITY_KEYBOARD, TRUE, NULL, NULL, NULL, NULL);
@@ -623,7 +623,8 @@ static void rcw_keyboard_grab(RemminaConnectionWindow *cnnwin)
 // 		}
 // 	} else {
 // 		rcw_kp_ungrab(cnnwin);
-// 	} //TODO GTK4
+// 	} 
+//TODO GTK4
 }
 
 static void rcw_close_all_connections(RemminaConnectionWindow *cnnwin)
@@ -938,7 +939,7 @@ static GtkWidget *rco_create_scrolled_container(RemminaScaleMode scalemode, int 
 		scrolled_container = gtk_scrolled_window_new();
 		rco_set_scrolled_policy(scalemode, GTK_SCROLLED_WINDOW(scrolled_container));
 		//gtk_container_set_border_width(GTK_CONTAINER(scrolled_container), 0);
-		gtk_widget_set_can_focus(scrolled_container, FALSE);
+		gtk_widget_set_focusable(scrolled_container, FALSE);
 	}
 
 	gtk_widget_set_name(scrolled_container, "remmina-scrolled-container");
@@ -958,9 +959,9 @@ gboolean rcw_toolbar_autofit_restore(RemminaConnectionWindow *cnnwin)
 
 	cnnwin->priv->tar_eventsource = 0;
 
-	if (priv->toolbar_is_reconfiguring)
+	if (priv->toolbar_is_reconfiguring){
 		return G_SOURCE_REMOVE;
-
+	}
 	if (!(cnnobj = rcw_get_visible_cnnobj(cnnwin))) return FALSE;
 
 	if (cnnobj->connected && GTK_IS_SCROLLED_WINDOW(cnnobj->scrolled_container)) {
@@ -969,13 +970,15 @@ gboolean rcw_toolbar_autofit_restore(RemminaConnectionWindow *cnnwin)
 		gtk_widget_get_allocation(cnnobj->scrolled_container, &ca);
 		gtk_widget_get_allocation(priv->toolbar, &ta);
 		if (remmina_pref.toolbar_placement == TOOLBAR_PLACEMENT_LEFT ||
-		    remmina_pref.toolbar_placement == TOOLBAR_PLACEMENT_RIGHT)
+		    remmina_pref.toolbar_placement == TOOLBAR_PLACEMENT_RIGHT){
 			gtk_window_set_default_size(GTK_WINDOW(cnnobj->cnnwin), MAX(1, dwidth + ta.width + nba.width - ca.width),
 					  MAX(1, dheight + nba.height - ca.height));
-		else
+		}
+		else{
+			gtk_window_unmaximize(GTK_WINDOW(cnnobj->cnnwin));
 			gtk_window_set_default_size(GTK_WINDOW(cnnobj->cnnwin), MAX(1, dwidth + nba.width - ca.width),
 					  MAX(1, dheight + ta.height + nba.height - ca.height));
-		//(GTK_CONTAINER(cnnobj->cnnwin));
+		}
 	}
 	if (GTK_IS_SCROLLED_WINDOW(cnnobj->scrolled_container)) {
 		RemminaScaleMode scalemode = get_current_allowed_scale_mode(cnnobj, NULL, NULL);
@@ -989,14 +992,18 @@ static void rcw_toolbar_autofit(GtkWidget *toggle, RemminaConnectionWindow *cnnw
 {
 	TRACE_CALL(__func__);
 	RemminaConnectionObject *cnnobj;
-
-	if (cnnwin->priv->toolbar_is_reconfiguring)
+	if (cnnwin->priv->toolbar_is_reconfiguring){
 		return;
-	if (!(cnnobj = rcw_get_visible_cnnobj(cnnwin))) return;
+	}
+		
+	if (!(cnnobj = rcw_get_visible_cnnobj(cnnwin))) {
+		return;
+	}
 
 	if (GTK_IS_SCROLLED_WINDOW(cnnobj->scrolled_container)) {
-		// if ((gdk_window_get_state(gtk_widget_get_window(GTK_WIDGET(cnnwin))) & GDK_TOPLEVEL_STATE_MAXIMIZED) != 0)
-		// 	gtk_window_unmaximize(GTK_WINDOW(cnnwin)); TODO GTK4
+		if (gtk_window_is_fullscreen(cnnwin)){
+			gtk_window_unfullscreen(GTK_WINDOW(cnnwin)); //TODO GTK4
+		}
 
 		/* It’s tricky to make the toolbars disappear automatically, while keeping scrollable.
 		 * Please tell me if you know a better way to do this */
@@ -3721,7 +3728,7 @@ static void rcw_on_switch_page(GtkNotebook *notebook, GtkWidget *newpage, guint 
 	cnnobj_newpage = g_object_get_data(G_OBJECT(newpage), "cnnobj");
 	if (priv->spf_eventsourceid)
 		g_source_remove(priv->spf_eventsourceid);
-	//priv->spf_eventsourceid = g_idle_add(rcw_on_switch_page_finalsel, cnnobj_newpage);
+	priv->spf_eventsourceid = g_idle_add(rcw_on_switch_page_finalsel, cnnobj_newpage);
 }
 
 static void rcw_on_page_added(GtkNotebook *notebook, GtkWidget *child, guint page_num,
@@ -3818,8 +3825,7 @@ rcw_create_notebook(RemminaConnectionWindow *cnnwin)
 	g_signal_connect(G_OBJECT(notebook), "switch-page", G_CALLBACK(rcw_on_switch_page), cnnwin);
 	g_signal_connect(G_OBJECT(notebook), "page-added", G_CALLBACK(rcw_on_page_added), cnnwin);
 	g_signal_connect(G_OBJECT(notebook), "page-removed", G_CALLBACK(rcw_on_page_removed), cnnwin);
-	gtk_widget_set_can_focus(GTK_WIDGET(notebook), FALSE);
-
+	gtk_widget_set_focusable(GTK_WIDGET(notebook), FALSE);
 	return notebook;
 }
 
@@ -4071,16 +4077,17 @@ RemminaConnectionWindow *rcw_create_fullscreen(GtkWindow *old, gint view_mode)
 #if GTK_CHECK_VERSION(3, 22, 0)
 	GtkNative* native = gtk_widget_get_native((GTK_WIDGET(cnnwin)));
 	GdkSurface *window = gtk_native_get_surface(native);
-		old_window = window;
-		//old_display = gdk_window_get_display(old_window);
-		//old_monitor = gdk_display_get_monitor_at_window(old_display, old_window);
-		//n_monitors = gdk_display_get_n_monitors(old_display);
-		for (i = 0; i < n_monitors; ++i) {
-			// if (gdk_display_get_monitor(old_display, i) == old_monitor) {
-			// 	full_screen_target_monitor = i;
-			// 	break;
-			// }
-		}
+		// old_window = gtk_native_get_surface(gtk_widget_get_native(old));
+		// old_display = gdk_surface_get_display(old_window);
+		// old_monitor = gdk_display_get_monitor_at_surface(old_display, old_window);
+		// GListModel* list = gdk_display_get_monitors(old_display);
+		// n_monitors = g_list_model_get_n_items(list);//   ); gdk_display_get_n_monitors(old_display);
+		// for (i = 0; i < n_monitors; ++i) {
+		// 	if (g_list_model_get_item(list, i) == old_monitor) {
+		// 		full_screen_target_monitor = i;
+		// 		break;
+		// 	}
+		// }
 #else
 	GtkNative* native = gtk_widget_get_native((GTK_WIDGET(cnnwin)));
 	GdkSurface *window = gtk_native_get_surface(native);
