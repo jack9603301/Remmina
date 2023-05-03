@@ -213,19 +213,29 @@
                       </item>
                       <item>
                         <attribute name="label" translatable="yes">Delete</attribute>
-                        <attribute name="action">app.delete</attribute>
+                        <attribute name="action">main.delete</attribute>
                       </item>
                       <item>
                         <attribute name="label" translatable="yes">Tools</attribute>
-                        <attribute name="action">app.exttools</attribute>
+                        <attribute name="action">main.exttools</attribute>
                       </item>
                       <item>
                         <attribute name="label" translatable="yes">Collapse all</attribute>
-                        <attribute name="action">app.collapse</attribute>
+                        <attribute name="action">main.collapse</attribute>
                       </item>
                       <item>
                         <attribute name="label" translatable="yes">Expand all</attribute>
-                        <attribute name="action">app.expand</attribute>
+                        <attribute name="action">main.expand</attribute>
+                      </item>
+                    </section>
+                  </menu>
+                </child>
+                <child>
+                  <menu id="menu_bar_rc">
+                    <section>
+                      <item>
+                        <attribute name="label" translatable="yes">Delete</attribute>
+                        <attribute name="action">main.delete_multiple</attribute>
                       </item>
                     </section>
                   </menu>
