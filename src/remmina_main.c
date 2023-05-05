@@ -112,6 +112,7 @@ static GActionEntry main_actions[] = {
 	{ "connect",  remmina_main_on_action_connection_connect,	NULL, NULL, NULL },
 	{ "copy",     remmina_main_on_action_connection_copy,		NULL, NULL, NULL },
 	{ "delete",   remmina_main_on_action_connection_delete,		NULL, NULL, NULL },
+	{ "delete_multiple", remmina_main_on_action_connection_delete_multiple, NULL, NULL, NULL },
 	{ "edit",     remmina_main_on_action_connection_edit,		NULL, NULL, NULL },
 	{ "exttools", remmina_main_on_action_connection_external_tools, NULL, NULL, NULL },
 	{ "new",      remmina_main_on_action_connection_new,		NULL, NULL, NULL },
@@ -1014,6 +1015,83 @@ void remmina_main_on_action_connection_delete(GSimpleAction *action, GVariant *p
 	remmina_main_clear_selection_data();
 }
 
+void remmina_main_handle_message_close(GtkDialog *self, gint response_id, gpointer user_data)
+{
+	gtk_window_destroy(self);
+}
+
+void remmina_main_handle_delete_multiple(GtkDialog *self, gint response_id, gpointer user_data)
+{
+	GtkTreeSelection *sel = gtk_tree_view_get_selection(remminamain->tree_files_list);
+	GtkTreeModel *model = gtk_tree_view_get_model(remminamain->tree_files_list);
+	GList *list = gtk_tree_selection_get_selected_rows(sel, &model);
+	gchar *file_to_delete;
+
+	// Delete files if Yes is clicked
+	if (response_id == GTK_RESPONSE_YES) {
+		while (list) {
+			GtkTreePath *path = list->data;
+			GtkTreeIter iter;
+			
+			if (!gtk_tree_model_get_iter(model, &iter, path)) {
+				GtkWidget *dialog_warning;
+				dialog_warning = gtk_message_dialog_new(remminamain->window, GTK_DIALOG_MODAL, GTK_MESSAGE_WARNING, GTK_BUTTONS_OK, 
+					_("Failed to delete files!"));
+				gtk_window_set_modal(GTK_DIALOG(dialog_warning), true);
+				g_signal_connect(dialog_warning, "response", G_CALLBACK(remmina_main_handle_message_close), NULL);
+				gtk_widget_show(dialog_warning);
+				gtk_window_destroy(self);
+				remmina_main_clear_selection_data();
+				return;
+			}
+
+			gtk_tree_model_get(model, &iter, 
+					FILENAME_COLUMN, &file_to_delete, -1);
+
+			RemminaFile *remminafile = remmina_file_load(file_to_delete);
+
+			if (((remmina_pref_get_boolean("lock_edit")
+					&& remmina_pref_get_boolean("use_primary_password"))
+					|| remmina_file_get_int (remminafile, "profile-lock", FALSE))
+				&& remmina_unlock_new(remminamain->window) == 0)
+				return;
+
+			if (remminafile) {
+				remmina_file_free(remminafile);
+				remminafile = NULL;
+			}
+
+			gchar *delfilename = g_strdup(file_to_delete);
+			remmina_file_delete(delfilename);
+			g_free(delfilename), delfilename = NULL;
+			remmina_icon_populate_menu();
+			remmina_main_load_files();
+			list = g_list_next(list);
+		}
+	}
+	
+	gtk_window_destroy(self);
+	remmina_main_clear_selection_data();
+
+}
+
+void remmina_main_on_action_connection_delete_multiple(GSimpleAction *action, GVariant *param, gpointer data)
+{
+	TRACE_CALL(__func__);
+	GtkWidget *dialog;
+	
+
+	dialog = gtk_message_dialog_new(remminamain->window, GTK_DIALOG_MODAL, GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO,
+				_("Are you sure you want to delete the selected files?"));
+
+	gtk_window_set_modal(GTK_DIALOG(dialog), true);
+	g_signal_connect(dialog, "response", G_CALLBACK(remmina_main_handle_delete_multiple), NULL);
+	gtk_widget_show(dialog);
+
+	
+}
+
+
 void remmina_main_on_accel_application_preferences(GSimpleAction *action, GVariant *param, gpointer data)
 {
 	TRACE_CALL(__func__);
@@ -1409,18 +1487,25 @@ void remmina_main_file_list_on_row_activated(GtkTreeView *tree, GtkTreePath *pat
 }
 
 /* Show the popup menu by the right button mouse click */
-gboolean remmina_main_file_list_on_button_press(GtkGestureClick* self, gint n_press, gdouble x, gdouble y, gpointer user_data)
+void remmina_main_file_list_on_button_press(GtkGestureClick* self, gint n_press, gdouble x, gdouble y, gpointer user_data)
 {
 	TRACE_CALL(__func__);
-	if (!kioskmode && kioskmode == FALSE){
-		if (gtk_gesture_single_get_current_button(self) == MOUSE_BUTTON_RIGHT){
+	if (gtk_gesture_single_get_current_button(self) == MOUSE_BUTTON_RIGHT) {
+		if (!kioskmode && kioskmode == FALSE) {
 			//get coordinates of click
-			GdkRectangle coords = {.x = x, .y = y, .width = 0, .height = 0};
-			gtk_popover_set_pointing_to(remminamain->menu_popup, &coords);
-			gtk_popover_popup(remminamain->menu_popup);
+			GdkRectangle coords = {.x = x, .y = y, .width = 0, .height = 0};		
+			// For now, if more than one selected row, display only a delete menu option
+			if (gtk_tree_selection_count_selected_rows(gtk_tree_view_get_selection(remminamain->tree_files_list)) > 1) {
+				gtk_popover_set_pointing_to(remminamain->menu_popup_delete_rc, &coords);
+				gtk_popover_popup(remminamain->menu_popup_delete_rc);
+
+			}
+			else {
+				gtk_popover_set_pointing_to(remminamain->menu_popup, &coords);
+				gtk_popover_popup(remminamain->menu_popup);
+			}
 		}
 	}
-	return FALSE;
 }
 
 /* Show the popup menu by the menu key */
@@ -1626,6 +1711,9 @@ GtkWidget *remmina_main_new(void)
 	
 	menu = G_MENU(RM_GET_OBJECT("menu_bar_connection_click"));
 	remminamain->menu_popup = gtk_popover_menu_new_from_model(menu);
+	menu = G_MENU(RM_GET_OBJECT("menu_bar_rc"));
+	remminamain->menu_popup_delete_rc = gtk_popover_menu_new_from_model(menu);
+
 	if (kioskmode && kioskmode == TRUE) {
 		gtk_widget_set_sensitive(GTK_WIDGET(remminamain->menu_popup_full), FALSE);
 		gtk_widget_set_sensitive(GTK_WIDGET(remminamain->menu_header_button), FALSE);
@@ -1642,11 +1730,14 @@ GtkWidget *remmina_main_new(void)
 	/* Other widgets */
 	remminamain->tree_files_list = GTK_TREE_VIEW(RM_GET_OBJECT("tree_files_list"));
 	gtk_widget_set_parent(remminamain->menu_popup, remminamain->tree_files_list);
+	gtk_widget_set_parent(remminamain->menu_popup_delete_rc, remminamain->tree_files_list);
 	//listen for right click
 	GtkGesture *gesture = gtk_gesture_click_new();
   	gtk_gesture_single_set_button(GTK_GESTURE_SINGLE(gesture), MOUSE_BUTTON_RIGHT);
 	g_signal_connect (gesture, "pressed", G_CALLBACK (remmina_main_file_list_on_button_press), NULL);
+	gtk_event_controller_set_propagation_phase(gesture, GTK_PHASE_TARGET);
 	gtk_widget_add_controller(remminamain->tree_files_list, GTK_EVENT_CONTROLLER (gesture));
+
 	remminamain->column_files_list_name = GTK_TREE_VIEW_COLUMN(RM_GET_OBJECT("column_files_list_name"));
 	remminamain->column_files_list_group = GTK_TREE_VIEW_COLUMN(RM_GET_OBJECT("column_files_list_group"));
 	remminamain->column_files_list_server = GTK_TREE_VIEW_COLUMN(RM_GET_OBJECT("column_files_list_server"));
