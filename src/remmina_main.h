@@ -53,6 +53,7 @@ typedef struct _RemminaMain {
 	GtkPopover *		menu_popup;
 	GtkMenuButton *		menu_header_button;
 	GtkPopover *		menu_popup_full;
+	GtkPopover *		menu_popup_delete_rc;
 	GtkCheckButton *	menuitem_view_mode_list;
 	GtkCheckButton *	menuitem_view_mode_tree;
 	GtkButton *		menuitem_connection_quit;
@@ -124,6 +125,7 @@ void remmina_main_on_action_application_quit(GSimpleAction *action, GVariant *pa
 void remmina_main_on_action_connection_connect(GSimpleAction *action, GVariant *param, gpointer data);
 void remmina_main_on_action_connection_copy(GSimpleAction *action, GVariant *param, gpointer data);
 void remmina_main_on_action_connection_delete(GSimpleAction *action, GVariant *param, gpointer data);
+void remmina_main_on_action_connection_delete_multiple(GSimpleAction *action, GVariant *param, gpointer data);
 void remmina_main_on_action_connection_edit(GSimpleAction *action, GVariant *param, gpointer data);
 void remmina_main_on_action_connection_external_tools(GSimpleAction *action, GVariant *param, gpointer data);
 void remmina_main_on_action_connection_new(GSimpleAction *action, GVariant *param, gpointer data);
