@@ -1493,7 +1493,6 @@ static gboolean remmina_main_add_tool_plugin(gchar *name, RemminaPlugin *plugin,
 
 	gtk_widget_show(menuitem);
 	//gtk_menu_shell_append(GTK_MENU_SHELL(remminamain->menu_popup_full), menuitem);
-	REMMINA_DEBUG("\n\n\ndo we add this window?\n\n\n");
 	g_signal_connect(G_OBJECT(menuitem), "activate", G_CALLBACK(tool_plugin->exec_func), tool_plugin);
 	return FALSE;
 }

@@ -646,6 +646,15 @@ static void rcw_close_all_connections(RemminaConnectionWindow *cnnwin)
 	}
 }
 
+void rcw_delete_response( GtkDialog* self, gint response_id, gpointer user_data){
+	gtk_window_destroy(self);
+	if (response_id != GTK_RESPONSE_YES){
+		return;
+	}
+	rcw_close_all_connections(user_data);
+	
+}
+
 gboolean rcw_delete(RemminaConnectionWindow *cnnwin)
 {
 	TRACE_CALL(__func__);
@@ -680,14 +689,13 @@ gboolean rcw_delete(RemminaConnectionWindow *cnnwin)
 				dialog = gtk_message_dialog_new(GTK_WINDOW(cnnwin), GTK_DIALOG_MODAL, GTK_MESSAGE_QUESTION,
 								GTK_BUTTONS_YES_NO,
 								_("Are you sure you want to close this last active connection?"));
-				//i = gtk_dialog_run(GTK_DIALOG(dialog));
-				gtk_window_destroy(dialog);
-				if (i != GTK_RESPONSE_YES)
-					return FALSE;
+				gtk_window_set_modal(dialog, TRUE);
+				g_signal_connect(dialog, "response", rcw_delete_response, cnnwin);
+				gtk_widget_show(dialog);
 			}
 		}
 	}
-	rcw_close_all_connections(cnnwin);
+	
 
 	return TRUE;
 }
@@ -1301,13 +1309,21 @@ static void rcw_migrate(RemminaConnectionWindow *from, RemminaConnectionWindow *
 
 			/* Reparent the viewport (which is inside scrolled_container) to the new page */
 			g_object_ref(cnnobj->viewport);
-			//gtk_container_remove(GTK_CONTAINER(old_scrolled_container), cnnobj->viewport);
-			gtk_box_append(GTK_BOX(cnnobj->scrolled_container), cnnobj->viewport);
-			g_object_unref(cnnobj->viewport);
+			if (GTK_IS_SCROLLED_WINDOW(cnnobj->scrolled_container)){
+				gtk_box_remove((old_scrolled_container), cnnobj->viewport);
+				gtk_scrolled_window_set_child((cnnobj->scrolled_container), cnnobj->viewport);
+				g_object_unref(cnnobj->viewport);
+			}
+			else{
+				gtk_scrolled_window_set_child((old_scrolled_container), NULL);
+				gtk_box_append(GTK_BOX(cnnobj->scrolled_container), cnnobj->viewport);
+				g_object_unref(cnnobj->viewport);
+			}
+			
 
 			/* Destroy old scrolled_container. Not really needed, it will be destroyed
 			 * when removing the page from the notepad */
-			gtk_window_destroy(old_scrolled_container);
+			gtk_box_remove(frompage, old_scrolled_container);
 
 		}
 
@@ -1321,7 +1337,7 @@ static void rcw_migrate(RemminaConnectionWindow *from, RemminaConnectionWindow *
 
 static void rcw_switch_viewmode(RemminaConnectionWindow *cnnwin, int newmode)
 {
-	//GdkSurfaceState s;
+	gboolean is_maximized;
 	RemminaConnectionWindow *newwin;
 	gint old_width, old_height;
 	int old_mode;
@@ -1334,13 +1350,13 @@ static void rcw_switch_viewmode(RemminaConnectionWindow *cnnwin, int newmode)
 		if (old_mode == SCROLLED_WINDOW_MODE) {
 			/* We are leaving SCROLLED_WINDOW_MODE, save W,H, and maximized
 			 * status before self destruction of cnnwin */
-			//gtk_window_get_size(GTK_WINDOW(cnnwin), &old_width, &old_height);
-			//s = gdk_window_get_state(gtk_widget_get_window(GTK_WIDGET(cnnwin)));
+			gtk_window_get_default_size(GTK_WINDOW(cnnwin), &old_width, &old_height);
+			is_maximized = gtk_window_is_maximized(cnnwin);
 		}
 		newwin = rcw_create_fullscreen(GTK_WINDOW(cnnwin), cnnwin->priv->fss_view_mode);
 		rcw_migrate(cnnwin, newwin);
 		if (old_mode == SCROLLED_WINDOW_MODE) {
-			//newwin->priv->ss_maximized = (s & GDK_WINDOW_STATE_MAXIMIZED) ? TRUE : FALSE; TODO GTK4
+			newwin->priv->ss_maximized = is_maximized;
 			newwin->priv->ss_width = old_width;
 			newwin->priv->ss_height = old_height;
 		}
@@ -2031,7 +2047,7 @@ static void rcw_toolbar_tools(GtkWidget *toggle, RemminaConnectionWindow *cnnwin
 	const RemminaProtocolFeature *feature;
 	GtkWidget *menu;
 	GtkWidget *menuitem = NULL;
-	GtkPopoverMenu *submenu_keystrokes;
+	GtkPopover *submenu_keystrokes;
 	const gchar *domain;
 	gboolean enabled;
 	gchar **keystrokes;
@@ -2061,6 +2077,7 @@ static void rcw_toolbar_tools(GtkWidget *toggle, RemminaConnectionWindow *cnnwin
 			rcw_set_tooltip(menuitem, "", GPOINTER_TO_UINT(feature->opt3), 0);
 		gtk_widget_show(menuitem);
 		//gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
+		//gtk_box_append(menuitem);
 
 		enabled = remmina_protocol_widget_query_feature_by_ref(REMMINA_PROTOCOL_WIDGET(cnnobj->proto), feature);
 		if (enabled) {
@@ -2080,7 +2097,7 @@ static void rcw_toolbar_tools(GtkWidget *toggle, RemminaConnectionWindow *cnnwin
 		if (g_strv_length(keystrokes)) {
 			/* Add a keystrokes submenu */
 			menuitem = gtk_button_new_with_label(_("Keystrokes"));
-			submenu_keystrokes = GTK_POPOVER_MENU(gtk_popover_new());
+			submenu_keystrokes = GTK_POPOVER_MENU(gtk_popover_menu_new_from_model(NULL));
 			gtk_button_set_child(GTK_BUTTON(menuitem), GTK_WIDGET(submenu_keystrokes));
 			gtk_widget_show(menuitem);
 			//gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
@@ -2293,7 +2310,7 @@ static void rcw_toolbar_minimize(GtkWidget *toggle, RemminaConnectionWindow *cnn
 		return;
 
 	rcw_floating_toolbar_show(cnnwin, FALSE);
-	//gtk_toplevel_minimize(GTK_WINDOW(cnnwin));
+	gdk_toplevel_minimize(GTK_WINDOW(cnnwin));
 }
 
 static void rcw_toolbar_disconnect(GtkWidget *toggle, RemminaConnectionWindow *cnnwin)
@@ -2361,7 +2378,7 @@ rcw_create_toolbar(RemminaConnectionWindow *cnnwin, gint mode)
 	/* Menu */
 	toolitem = gtk_toggle_button_new();
 	gtk_button_set_icon_name(GTK_BUTTON(toolitem), "view-more-symbolic");
-	gtk_button_set_label(GTK_BUTTON(toolitem), _("_Menu"));
+	//gtk_button_set_label(GTK_BUTTON(toolitem), _("_Menu"));
 	gtk_widget_set_tooltip_text(toolitem, _("Menu"));
 	gtk_box_append((toolbar), toolitem);
 	gtk_widget_show(GTK_WIDGET(toolitem));
@@ -2557,7 +2574,6 @@ rcw_create_toolbar(RemminaConnectionWindow *cnnwin, gint mode)
 	/* Tools */
 	toolitem = gtk_toggle_button_new();
 	gtk_button_set_icon_name(GTK_BUTTON(toolitem), "org.remmina.Remmina-system-run-symbolic");
-	gtk_button_set_label(GTK_BUTTON(toolitem), _("_Tools"));
 	gtk_widget_set_tooltip_text(toolitem, _("Tools"));
 	gtk_box_append(GTK_BOX(toolbar), toolitem);
 	gtk_widget_show(GTK_WIDGET(toolitem));
@@ -2801,7 +2817,7 @@ static void print_crossing_event(GdkEventCrossing *event) {
 }
 #endif
 
-static gboolean rcw_floating_toolbar_on_enter(GtkWidget *widget, GdkCrossingEvent *event,
+static gboolean rcw_floating_toolbar_on_enter(GtkWidget* self, gdouble x, gdouble y,
 					      RemminaConnectionWindow *cnnwin)
 {
 	TRACE_CALL(__func__);
@@ -3098,7 +3114,7 @@ static gboolean rcw_after_configure_scrolled(gpointer user_data)
 		cnnobj = g_object_get_data(
 			G_OBJECT(gtk_notebook_get_nth_page(GTK_NOTEBOOK(cnnwin->priv->notebook), ipg)),
 			"cnnobj");
-		if (GDK_TOPLEVEL_STATE_MAXIMIZED) {
+		if (gtk_window_is_maximized(cnnwin)) {
 			remmina_file_set_int(cnnobj->remmina_file, "window_maximize", TRUE);
 		} else {
 			//gtk_window_get_size(GTK_WINDOW(cnnobj->cnnwin), &width, &height);
@@ -3794,7 +3810,7 @@ rcw_on_notebook_create_window(GtkNotebook *notebook, GtkWidget *page, gint x, gi
 		 * the dropped connectionand move our cnnobj there. Width and
 		 * height of the new window are cloned from the current window */
 		srctag = (gchar *)g_object_get_data(G_OBJECT(srccnnwin), "tag");
-		//gtk_window_get_size(GTK_WINDOW(srccnnwin), &width, &height);
+		gtk_window_get_default_size(GTK_WINDOW(srccnnwin), &width, &height);
 		dstcnnwin = rcw_create_scrolled(width, height, FALSE);  // New dropped window is never maximized
 		g_object_set_data_full(G_OBJECT(dstcnnwin), "tag", g_strdup(srctag), (GDestroyNotify)g_free);
 		/* when returning, GTK will move the whole tab to the new notebook.
@@ -3948,7 +3964,7 @@ static void rcw_create_overlay_ftb_overlay(RemminaConnectionWindow *cnnwin)
 	}
 
 
-	gtk_revealer_set_child(GTK_BOX(revealer), priv->floating_toolbar_widget);
+	gtk_revealer_set_child((revealer), priv->floating_toolbar_widget);
 	gtk_widget_set_halign(GTK_WIDGET(revealer), GTK_ALIGN_CENTER);
 	gtk_widget_set_valign(GTK_WIDGET(revealer), GTK_ALIGN_START);
 
@@ -3958,7 +3974,7 @@ static void rcw_create_overlay_ftb_overlay(RemminaConnectionWindow *cnnwin)
 
 	fr = gtk_frame_new(NULL);
 	gtk_box_append(GTK_BOX(priv->overlay_ftb_overlay), fr);
-	gtk_frame_set_child(GTK_BOX(fr), vbox);
+	gtk_frame_set_child((fr), vbox);
 
 	gtk_widget_show(vbox);
 	gtk_widget_show(revealer);
@@ -4108,8 +4124,8 @@ RemminaConnectionWindow *rcw_create_fullscreen(GtkWindow *old, gint view_mode)
 	notebook = rcw_create_notebook(cnnwin);
 
 	cnnwin->priv->overlay = gtk_overlay_new();
-	gtk_box_append(GTK_BOX(cnnwin), cnnwin->priv->overlay);
-	gtk_box_append(GTK_BOX(cnnwin->priv->overlay), GTK_WIDGET(notebook));
+	gtk_window_set_child((cnnwin), cnnwin->priv->overlay);
+	gtk_overlay_set_child((cnnwin->priv->overlay), GTK_WIDGET(notebook));
 	gtk_widget_show(GTK_WIDGET(cnnwin->priv->overlay));
 
 	cnnwin->priv->notebook = notebook;
@@ -4430,7 +4446,8 @@ void rco_on_disconnect(RemminaProtocolWidget *gp, gpointer data)
 		/* Destroy scrolled_container (and viewport) and all its children the plugin created
 		 * on it, so they will not receive GUI signals */
 		if (cnnobj->scrolled_container) {
-			gtk_window_destroy(cnnobj->scrolled_container);
+			gtk_widget_unparent(cnnobj->scrolled_container);
+			//g_object_unref(cnnobj->scrolled_container);
 			cnnobj->scrolled_container = NULL;
 		}
 		cnnobj->viewport = NULL;
