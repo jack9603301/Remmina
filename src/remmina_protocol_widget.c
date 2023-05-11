@@ -505,16 +505,16 @@ gboolean remmina_protocol_widget_plugin_receives_keystrokes(RemminaProtocolWidge
 /**
  * Send to the plugin some keystrokes.
  */
-void remmina_protocol_widget_send_keystrokes(RemminaProtocolWidget *gp, GtkButton* widget)
+void remmina_protocol_widget_send_keystrokes(RemminaProtocolWidget *gp, gchar* widget)
 {
 	TRACE_CALL(__func__);
-	gchar *keystrokes = g_object_get_data(G_OBJECT(widget), "keystrokes");
+	gchar *keystrokes = widget;
 	guint *keyvals;
 	gint i;
 	GdkDevice* keymap = gdk_seat_get_keyboard (gdk_display_get_default_seat(gdk_display_get_default()));//gdk_keymap_get_for_display(gdk_display_get_default());
 	gunichar character;
 	guint keyval;
-	GdkKeymapKey *keys;
+	GdkKeymapKey *keys = NULL;
 	gint n_keys;
 
 	/* Single keystroke replace */
@@ -565,11 +565,11 @@ void remmina_protocol_widget_send_keystrokes(RemminaProtocolWidget *gp, GtkButto
 			/* Decode character if it’s not a special character */
 			if (character) {
 				/* get keyval without modifications */
-				// if (!gdk_keymap_get_entries_for_keyval(keymap, keyval, &keys, &n_keys)) {
-				// 	g_warning("keyval 0x%04x has no keycode!", keyval);
-				// 	iter = g_utf8_find_next_char(iter, NULL);
-				// 	continue;
-				// }
+				if (!gdk_display_map_keyval(gdk_display_get_default(), keyval, &keys, &n_keys)) {
+					g_warning("keyval 0x%04x has no keycode!", keyval);
+					iter = g_utf8_find_next_char(iter, NULL);
+					continue;
+				}
 			}
 			/* Add modifier keys */
 			n_keys = 0;
@@ -2107,12 +2107,13 @@ GtkWidget *remmina_protocol_widget_new(void)
  * press the keys and release them in reversed order. */
 void remmina_protocol_widget_send_keys_signals(GtkWidget *widget, const guint *keyvals, int keyvals_length, GdkEventType action)
 {
-	// TRACE_CALL(__func__);
-	// int i;
-	// GdkKeyEvent *event;
-	// gboolean result;
-	// //GdkKeymap *keymap = gdk_keymap_get_for_display(gdk_display_get_default());
-	// GdkDisplay* display = gdk_display_get_default();
+	TRACE_CALL(__func__);
+	int i;
+	GdkKeyEvent *event;
+	gboolean result;
+	//GdkKeymap *keymap = gdk_keymap_get_for_display(gdk_display_get_default());
+	GdkDisplay* display = gdk_display_get_default();
+	GdkDevice* keyboard_device = gdk_seat_get_keyboard (gdk_display_get_default_seat (display));
 	// event.window = gtk_widget_get_window(widget);
 	// event.send_event = TRUE;
 	// event.time = GDK_CURRENT_TIME;
@@ -2121,28 +2122,28 @@ void remmina_protocol_widget_send_keys_signals(GtkWidget *widget, const guint *k
 	// event.string = "";
 	// event.group = 0;
 
-	// if (action & GDK_KEY_PRESS) {
-	// 	/* Press the requested buttons */
-	// 	event.type = GDK_KEY_PRESS;
-	// 	for (i = 0; i < keyvals_length; i++) {
-	// 		event.keyval = keyvals[i];
-	// 		event.hardware_keycode = remmina_public_get_keycode_for_keyval(display, event.keyval);
-	// 		event.is_modifier = (int)remmina_public_get_modifier_for_keycode(display, event.hardware_keycode);
-	// 		REMMINA_DEBUG("Sending keyval: %u, hardware_keycode: %u", event.keyval, event.hardware_keycode);
-	// 		g_signal_emit_by_name(G_OBJECT(widget), "key-press-event", &event, &result);
-	// 	}
-	// }
+	if (action & GDK_KEY_PRESS) {
+		/* Press the requested buttons */
+		// event.type = GDK_KEY_PRESS;
+		for (i = 0; i < keyvals_length; i++) {
+			// event.keyval = keyvals[i];
+			// event.hardware_keycode = remmina_public_get_keycode_for_keyval(display, event.keyval);
+			// event.is_modifier = (int)remmina_public_get_modifier_for_keycode(display, event.hardware_keycode);
+			// REMMINA_DEBUG("Sending keyval: %u, hardware_keycode: %u", event.keyval, event.hardware_keycode);
+			g_signal_emit_by_name(G_OBJECT(widget), "key-press-event", &event, &result);
+		}
+	}
 
-	// if (action & GDK_KEY_RELEASE) {
-	// 	/* Release the requested buttons in reverse order */
-	// 	event.type = GDK_KEY_RELEASE;
-	// 	for (i = (keyvals_length - 1); i >= 0; i--) {
-	// 		event.keyval = keyvals[i];
-	// 		event.hardware_keycode = remmina_public_get_keycode_for_keyval(keymap, event.keyval);
-	// 		event.is_modifier = (int)remmina_public_get_modifier_for_keycode(keymap, event.hardware_keycode);
-	// 		g_signal_emit_by_name(G_OBJECT(widget), "key-release-event", &event, &result);
-	// 	}
-	// } //TODO GTK4 figure out immutable events
+	if (action & GDK_KEY_RELEASE) {
+		/* Release the requested buttons in reverse order */
+		// event.type = GDK_KEY_RELEASE;
+		for (i = (keyvals_length - 1); i >= 0; i--) {
+			// event.keyval = keyvals[i];
+			// event.hardware_keycode = remmina_public_get_keycode_for_keyval(keymap, event.keyval);
+			// event.is_modifier = (int)remmina_public_get_modifier_for_keycode(keymap, event.hardware_keycode);
+			g_signal_emit_by_name(G_OBJECT(widget), "key-release-event", &event, &result);
+		}
+	} //TODO GTK4 figure out immutable events
 }
 
 void remmina_protocol_widget_update_remote_resolution(RemminaProtocolWidget *gp)

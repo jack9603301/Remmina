@@ -169,7 +169,7 @@ void remmina_protocol_widget_send_keys_signals(GtkWidget *widget, const guint *k
 /* Check if the plugin accepts keystrokes */
 gboolean remmina_protocol_widget_plugin_receives_keystrokes(RemminaProtocolWidget *gp);
 /* Send to the plugin some keystrokes */
-void remmina_protocol_widget_send_keystrokes(RemminaProtocolWidget *gp, GtkButton *widget);
+void remmina_protocol_widget_send_keystrokes(RemminaProtocolWidget *gp, gchar *widget);
 void remmina_protocol_widget_send_clipboard(RemminaProtocolWidget *gp, GtkButton *widget);
 /* Take screenshot of plugin */
 gboolean remmina_protocol_widget_plugin_screenshot(RemminaProtocolWidget *gp, RemminaPluginScreenshotData *rpsd);

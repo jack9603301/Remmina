@@ -128,6 +128,7 @@ struct _RemminaConnectionWindowPriv {
 	GtkWidget *					fullscreen_scaler_button;
 	GtkWidget *					scaler_option_button;
 
+	GtkWidget *					toolbar_menu;
 	GtkWidget *					pin_button;
 	gboolean					pin_down;
 
@@ -195,8 +196,15 @@ void rcw_grab_focus(RemminaConnectionWindow *cnnwin);
 static GtkWidget *rcw_create_toolbar(RemminaConnectionWindow *cnnwin, gint mode);
 static void rcw_place_toolbar(GtkBox *toolbar, GtkGrid *grid, GtkWidget *sibling, int toolbar_placement);
 static void rcw_keyboard_grab(RemminaConnectionWindow *cnnwin);
+static void rcw_run_feature(GSimpleAction *action, GVariant *param, gpointer data);
+static void rcw_handle_keystrokes(GSimpleAction *action, GVariant *param, gpointer data);
 static GtkWidget *rcw_append_new_page(RemminaConnectionWindow *cnnwin, RemminaConnectionObject *cnnobj);
 
+
+static GActionEntry rcw_actions[] = {
+	{ "feature",	 rcw_run_feature,	 NULL, NULL, NULL },
+	{ "keystrokes",	 rcw_handle_keystrokes,	 NULL, NULL, NULL },
+};
 
 static void rcw_ftb_drag_begin(GtkWidget *widget, GtkDragSource *context, gpointer user_data);
 
@@ -541,6 +549,33 @@ static void rcw_pointer_grab(RemminaConnectionWindow *cnnwin)
 
 // #endif TODO GTK$
 }
+
+static void rcw_run_feature(GSimpleAction *action, GVariant *param, gpointer data){
+	TRACE_CALL(__func__);
+	RemminaProtocolFeature *feature;
+	GtkWidget* proto;
+
+	if(data == NULL){
+		return;
+	}
+
+	feature = (RemminaProtocolFeature *)g_object_get_data(G_OBJECT(action), "feature-type");
+	proto = (RemminaProtocolFeature *)g_object_get_data(G_OBJECT(action), "proto");
+	remmina_protocol_widget_call_feature_by_ref(REMMINA_PROTOCOL_WIDGET(proto), feature);
+}
+
+static void rcw_handle_keystrokes(GSimpleAction *action, GVariant *param, gpointer data){
+	TRACE_CALL(__func__);
+	gchar* keystrokes;
+
+	if(data == NULL){
+		return;
+	}
+
+	keystrokes = (gchar*)g_object_get_data(G_OBJECT(action), "keystrokes");
+	remmina_protocol_widget_send_keystrokes(REMMINA_PROTOCOL_WIDGET(data), keystrokes);
+}
+
 
 static void rcw_keyboard_grab(RemminaConnectionWindow *cnnwin)
 {
@@ -2012,7 +2047,7 @@ static void rcw_toolbar_menu(GtkWidget *toggle, RemminaConnectionWindow *cnnwin)
 
 	if (cnnwin->priv->toolbar_is_reconfiguring)
 		return;
-
+	REMMINA_DEBUG("Clicked the menu");
 	if (!(cnnobj = rcw_get_visible_cnnobj(cnnwin))) return;
 	priv = cnnobj->cnnwin->priv;
 
@@ -2039,20 +2074,141 @@ static void rcw_toolbar_menu(GtkWidget *toggle, RemminaConnectionWindow *cnnwin)
 // 	g_signal_connect(G_OBJECT(menu), "deactivate", G_CALLBACK(rcw_toolbar_menu_popdown), cnnwin);
 }
 
-static void rcw_toolbar_tools(GtkWidget *toggle, RemminaConnectionWindow *cnnwin)
-{
-	TRACE_CALL(__func__);
+
+static void rcw_create_toolbar_actions(GSimpleActionGroup* actions, RemminaConnectionWindow *cnnwin){
 	RemminaConnectionWindowPriv *priv;
 	RemminaConnectionObject *cnnobj;
 	const RemminaProtocolFeature *feature;
-	GtkWidget *menu;
-	GtkWidget *menuitem = NULL;
+	GMenu *menu;
+	GtkPopoverMenu* popover_menu;
 	GtkPopover *submenu_keystrokes;
 	const gchar *domain;
 	gboolean enabled;
 	gchar **keystrokes;
 	gchar **keystroke_values;
 	gint i;
+	char* label;
+
+	if (!(cnnobj = rcw_get_visible_cnnobj(cnnwin))) return;
+
+	domain = remmina_protocol_widget_get_domain(REMMINA_PROTOCOL_WIDGET(cnnobj->proto));
+	cnnwin->priv->toolbar_menu = g_menu_new();
+	for (feature = remmina_protocol_widget_get_features(REMMINA_PROTOCOL_WIDGET(cnnobj->proto)); feature && feature->type;
+	     feature++) {
+		if (feature->type != REMMINA_PROTOCOL_FEATURE_TYPE_TOOL)
+			continue;
+
+		if (feature->opt1)
+			label = g_dgettext(domain, (const gchar *)feature->opt1);
+
+		enabled = remmina_protocol_widget_query_feature_by_ref(REMMINA_PROTOCOL_WIDGET(cnnobj->proto), feature);
+		if (enabled) {
+			//create action name based on menu label
+			char name[80];
+			strcpy(name, label);
+			char str[80];
+			strcpy(str, "rcw.");
+			//replace white_space with _
+			char* ptr = name;
+			while(*ptr){
+				if (*ptr == ' '){
+					*ptr = '_';
+				}
+				ptr++;
+			}
+			strcat(str, name);
+
+			GActionEntry entry = {name, rcw_run_feature, NULL, NULL, NULL};
+			g_action_map_add_action_entries(actions, &entry, 1, NULL);
+			GSimpleAction *action = g_simple_action_new (name, NULL);
+
+			GMenuItem* menuitem = g_menu_item_new(label, str);
+			//save these to be accessed in callback 
+			g_object_set_data((action), "feature-type", (gpointer)feature);
+			g_object_set_data((action), "proto", (gpointer)cnnobj->proto);
+
+			g_signal_connect (action, "activate", G_CALLBACK (rcw_run_feature), menuitem);
+			g_action_map_add_action (G_ACTION_MAP (actions), G_ACTION (action));
+			
+			g_menu_append_item(cnnwin->priv->toolbar_menu, menuitem);
+		} 
+	}
+
+	/* If the plugin accepts keystrokes include the keystrokes menu */
+	if (remmina_protocol_widget_plugin_receives_keystrokes(REMMINA_PROTOCOL_WIDGET(cnnobj->proto))) {
+		/* Get the registered keystrokes list */
+		keystrokes = g_strsplit(remmina_pref.keystrokes, STRING_DELIMITOR, -1);
+		if (g_strv_length(keystrokes)) {
+			/* Add a keystrokes submenu */
+			GMenu* submenu = g_menu_new();
+			/* Add each registered keystroke */
+			for (i = 0; i < g_strv_length(keystrokes); i++) {
+				keystroke_values = g_strsplit(keystrokes[i], STRING_DELIMITOR2, -1);
+				if (g_strv_length(keystroke_values) > 1) {
+					/* Add the keystroke if no description was available */
+					char name[80];
+					strcpy(name, keystroke_values[0]);
+					char str[80];
+					strcpy(str, "rcw.");
+					char* ptr = name;
+					while(*ptr){
+						if (*ptr == ' '){
+							*ptr = '_';
+						}
+						ptr++;
+					}
+					strcat(str, name);
+					GActionEntry entry = {name, rcw_run_feature, NULL, NULL, NULL};
+			
+					g_action_map_add_action_entries(actions, &entry, 1, NULL);
+					GSimpleAction *action = g_simple_action_new (name, NULL);
+
+					GMenuItem* menuitem = g_menu_item_new(
+						g_strdup(keystroke_values[strlen(keystroke_values[0]) ? 0 : 1]), str);
+
+					g_object_set_data(G_OBJECT(action), "keystrokes", g_strdup(keystroke_values[1]));
+					g_signal_connect(G_OBJECT(action), "activate",
+								 G_CALLBACK(rcw_handle_keystrokes),
+								 REMMINA_PROTOCOL_WIDGET(cnnobj->proto));
+
+					g_action_map_add_action (G_ACTION_MAP (actions), G_ACTION (action));
+					g_menu_append_item(submenu, menuitem);
+				}
+				g_strfreev(keystroke_values);
+			}
+
+			// menuitem = gtk_button_new_with_label(_("Send clipboard content as keystrokes"));
+			// static gchar k_tooltip[] =
+			// 	N_("CAUTION: Pasted text will be sent as a sequence of key-codes as if typed on your local keyboard.\n"
+			// 	"\n"
+			// 	"  • For best results use same keyboard settings for both, client and server.\n"
+			// 	"\n"
+			// 	"  • If client-keyboard is different from server-keyboard the received text can contain wrong or erroneous characters.\n"
+			// 	"\n"
+			// 	"  • Unicode characters and other special characters that can't be translated to local key-codes won’t be sent to the server.\n"
+			// 	"\n");
+			// gtk_widget_set_tooltip_text(menuitem, k_tooltip);
+			// //gtk_menu_shell_append(GTK_MENU_SHELL(submenu_keystrokes), menuitem);
+			// g_signal_connect_swapped(G_OBJECT(menuitem), "activate",
+			// 			 G_CALLBACK(remmina_protocol_widget_send_clipboard),
+			// 			 REMMINA_PROTOCOL_WIDGET(cnnobj->proto));
+			// gtk_widget_show(menuitem);
+			g_menu_append_submenu(cnnwin->priv->toolbar_menu, "Keystrokes", submenu);
+
+		}
+		g_strfreev(keystrokes);
+	}
+}
+
+
+static void rcw_toolbar_tools(GtkWidget *toggle, RemminaConnectionWindow *cnnwin)
+{
+	TRACE_CALL(__func__);
+	RemminaConnectionWindowPriv *priv;
+	RemminaConnectionObject *cnnobj;
+	const RemminaProtocolFeature *feature;
+	GtkPopoverMenu* popover_menu;
+
 
 	if (cnnwin->priv->toolbar_is_reconfiguring)
 		return;
@@ -2064,87 +2220,12 @@ static void rcw_toolbar_tools(GtkWidget *toggle, RemminaConnectionWindow *cnnwin
 
 	priv->sticky = TRUE;
 
-	domain = remmina_protocol_widget_get_domain(REMMINA_PROTOCOL_WIDGET(cnnobj->proto));
-	menu = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);;
-	for (feature = remmina_protocol_widget_get_features(REMMINA_PROTOCOL_WIDGET(cnnobj->proto)); feature && feature->type;
-	     feature++) {
-		if (feature->type != REMMINA_PROTOCOL_FEATURE_TYPE_TOOL)
-			continue;
+	popover_menu = gtk_popover_menu_new_from_model(cnnwin->priv->toolbar_menu);
+	gtk_widget_set_parent(popover_menu, toggle);
+	gtk_popover_popup(GTK_POPOVER(popover_menu));
+	
+	g_signal_connect(G_OBJECT(popover_menu), "closed", G_CALLBACK(rcw_toolbar_tools_popdown), cnnwin);
 
-		if (feature->opt1)
-			menuitem = gtk_button_new_with_label(g_dgettext(domain, (const gchar *)feature->opt1));
-		if (feature->opt3)
-			rcw_set_tooltip(menuitem, "", GPOINTER_TO_UINT(feature->opt3), 0);
-		gtk_widget_show(menuitem);
-		//gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
-		//gtk_box_append(menuitem);
-
-		enabled = remmina_protocol_widget_query_feature_by_ref(REMMINA_PROTOCOL_WIDGET(cnnobj->proto), feature);
-		if (enabled) {
-			g_object_set_data(G_OBJECT(menuitem), "feature-type", (gpointer)feature);
-
-			g_signal_connect(G_OBJECT(menuitem), "activate",
-					 G_CALLBACK(rco_call_protocol_feature_activate), cnnobj);
-		} else {
-			gtk_widget_set_sensitive(menuitem, FALSE);
-		}
-	}
-
-	/* If the plugin accepts keystrokes include the keystrokes menu */
-	if (remmina_protocol_widget_plugin_receives_keystrokes(REMMINA_PROTOCOL_WIDGET(cnnobj->proto))) {
-		/* Get the registered keystrokes list */
-		keystrokes = g_strsplit(remmina_pref.keystrokes, STRING_DELIMITOR, -1);
-		if (g_strv_length(keystrokes)) {
-			/* Add a keystrokes submenu */
-			menuitem = gtk_button_new_with_label(_("Keystrokes"));
-			submenu_keystrokes = GTK_POPOVER_MENU(gtk_popover_menu_new_from_model(NULL));
-			gtk_button_set_child(GTK_BUTTON(menuitem), GTK_WIDGET(submenu_keystrokes));
-			gtk_widget_show(menuitem);
-			//gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
-			/* Add each registered keystroke */
-			for (i = 0; i < g_strv_length(keystrokes); i++) {
-				keystroke_values = g_strsplit(keystrokes[i], STRING_DELIMITOR2, -1);
-				if (g_strv_length(keystroke_values) > 1) {
-					/* Add the keystroke if no description was available */
-					menuitem = gtk_button_new_with_label(
-						g_strdup(keystroke_values[strlen(keystroke_values[0]) ? 0 : 1]));
-					g_object_set_data(G_OBJECT(menuitem), "keystrokes", g_strdup(keystroke_values[1]));
-					g_signal_connect_swapped(G_OBJECT(menuitem), "activate",
-								 G_CALLBACK(remmina_protocol_widget_send_keystrokes),
-								 REMMINA_PROTOCOL_WIDGET(cnnobj->proto));
-					gtk_widget_show(menuitem);
-					//gtk_menu_shell_append(GTK_MENU_SHELL(submenu_keystrokes), menuitem);
-				}
-				g_strfreev(keystroke_values);
-			}
-			menuitem = gtk_button_new_with_label(_("Send clipboard content as keystrokes"));
-			static gchar k_tooltip[] =
-				N_("CAUTION: Pasted text will be sent as a sequence of key-codes as if typed on your local keyboard.\n"
-				"\n"
-				"  • For best results use same keyboard settings for both, client and server.\n"
-				"\n"
-				"  • If client-keyboard is different from server-keyboard the received text can contain wrong or erroneous characters.\n"
-				"\n"
-				"  • Unicode characters and other special characters that can't be translated to local key-codes won’t be sent to the server.\n"
-				"\n");
-			gtk_widget_set_tooltip_text(menuitem, k_tooltip);
-			//gtk_menu_shell_append(GTK_MENU_SHELL(submenu_keystrokes), menuitem);
-			g_signal_connect_swapped(G_OBJECT(menuitem), "activate",
-						 G_CALLBACK(remmina_protocol_widget_send_clipboard),
-						 REMMINA_PROTOCOL_WIDGET(cnnobj->proto));
-			gtk_widget_show(menuitem);
-		}
-		g_strfreev(keystrokes);
-	}
-
-	g_signal_connect(G_OBJECT(menu), "deactivate", G_CALLBACK(rcw_toolbar_tools_popdown), cnnwin);
-
-// #if GTK_CHECK_VERSION(3, 22, 0)
-// 	gtk_menu_popup_at_widget(GTK_MENU(menu), GTK_WIDGET(toggle),
-// 				 GDK_GRAVITY_SOUTH_WEST, GDK_GRAVITY_NORTH_WEST, NULL);
-// #else
-// 	gtk_menu_popup(GTK_MENU(menu), NULL, NULL, remmina_public_popup_position, widget, 0, gtk_get_current_event_time());
-// #endif
 }
 
 static void rcw_toolbar_duplicate(GtkWidget *toggle, RemminaConnectionWindow *cnnwin)
@@ -3430,7 +3511,7 @@ static gboolean rcw_map_event_fullscreen(GtkWidget *widget,  gpointer data)
 
 void rcw_property_notification_check(GObject* self, GParamSpec* pspec, gpointer user_data)
 {
-	REMMINA_DEBUG("rcw_property_notification_check %s", g_param_spec_get_name(pspec));
+
 	if (strcmp(g_param_spec_get_name(pspec), "mapped") == 0) {
 		GdkSurface* surface = GDK_SURFACE(self);
 		if (gdk_surface_get_mapped(surface)){
@@ -4610,6 +4691,7 @@ GtkWidget *rcw_open_from_file_full(RemminaFile *remminafile, GCallback disconnec
 	gint view_mode;
 	const gchar *msg;
 	RemminaScaleMode scalemode;
+	GSimpleActionGroup *actions;
 
 	if (disconnect_cb) {
 		g_print("disconnect_cb is deprecated inside rcw_open_from_file_full() and should be null\n");
@@ -4801,9 +4883,16 @@ GtkWidget *rcw_open_from_file_full(RemminaFile *remminafile, GCallback disconnec
 	 * before connecting */
 
 
+
 	//Seems to have changed in GTK4. Is it still necessary?
 	// cnnobj->deferred_open_size_allocate_handler = g_signal_connect(G_OBJECT(cnnobj->proto), "size-allocate", G_CALLBACK(rpw_size_allocated_on_connection), NULL);
-	rpw_size_allocated_on_connection(cnnobj->proto, NULL);
+	//rpw_size_allocated_on_connection(cnnobj->proto, NULL);
+	open_connection_last_stage(cnnobj->proto);
+
+	actions = g_simple_action_group_new();	
+	g_action_map_add_action_entries(G_ACTION_MAP(actions), rcw_actions, G_N_ELEMENTS(rcw_actions), cnnobj->cnnwin);
+	gtk_widget_insert_action_group(GTK_WIDGET(cnnobj->cnnwin), "rcw", G_ACTION_GROUP(actions));
+	rcw_create_toolbar_actions(actions, cnnobj->cnnwin);
 	return cnnobj->proto;
 }
 
