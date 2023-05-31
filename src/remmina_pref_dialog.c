@@ -99,6 +99,45 @@ void remmina_pref_on_button_resolutions_clicked(GtkWidget *widget, gpointer user
 	gtk_window_destroy(GTK_WIDGET(dialog));
 }
 
+
+static void
+on_open_response (GtkDialog *dialog, int response, gpointer user_data)
+{
+  if (response == GTK_RESPONSE_ACCEPT)
+    {
+      GtkFileChooser *chooser = GTK_FILE_CHOOSER (dialog);
+
+      g_autoptr(GFile) file = gtk_file_chooser_get_file (chooser);
+
+	  gchar* type = g_object_get_data(user_data, "dir");
+	  if (g_strcmp0("data", type) == 0){
+		remmina_pref.datadir_path = g_file_get_path(file);
+	  }
+	  else  if (g_strcmp0("screenshots", type) == 0){
+		remmina_pref.screenshot_path = g_file_get_path(file);
+	  }
+	  
+
+	  gtk_button_set_label(GTK_BUTTON(user_data), g_file_get_path(file));
+    }
+
+  gtk_window_destroy (GTK_WINDOW (dialog));
+}
+
+
+void remmina_pref_on_choose_path_clicked(GtkWidget *widget, gpointer user_data)
+{
+	GtkWidget *dialog;
+	GtkFileChooserAction action = GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER;
+
+	dialog = gtk_file_chooser_dialog_new("Open File", NULL, action, _("_Cancel"), GTK_RESPONSE_CANCEL,
+                                        _("_Open"), GTK_RESPONSE_ACCEPT, NULL);
+
+	g_signal_connect(dialog, "response", G_CALLBACK(on_open_response),  widget);
+
+	gtk_window_present(GTK_WINDOW (dialog));
+}
+
 /* Re-initialize the remmina_pref_init to reload the color scheme when a color scheme
  * file is selected*/
 void remmina_pref_on_color_scheme_selected(GtkWidget *widget, gpointer user_data)
@@ -224,12 +263,12 @@ void remmina_pref_on_dialog_destroy(GtkWidget *widget, gpointer user_data)
 	gboolean b;
 	GdkRGBA color;
 	gboolean rebuild_remmina_icon = FALSE;
-
-	remmina_pref.datadir_path = gtk_file_chooser_get_file(remmina_pref_dialog->filechooserbutton_options_datadir_path);
+	//TODO store paths differently so they're not the label as it causes very large buttons with long paths
+	remmina_pref.datadir_path = gtk_button_get_label(remmina_pref_dialog->filechooserbutton_options_datadir_path);
 	if (remmina_pref.datadir_path == NULL)
 		remmina_pref.datadir_path = g_strdup("");
 	remmina_pref.remmina_file_name = gtk_editable_get_text(remmina_pref_dialog->entry_options_file_name);
-	remmina_pref.screenshot_path = gtk_file_chooser_get_file(remmina_pref_dialog->filechooserbutton_options_screenshots_path);
+	remmina_pref.screenshot_path = gtk_button_get_label(remmina_pref_dialog->filechooserbutton_options_screenshots_path);
 	remmina_pref.screenshot_name = gtk_editable_get_text(remmina_pref_dialog->entry_options_screenshot_name);
 	remmina_pref.deny_screenshot_clipboard = gtk_switch_get_active(GTK_SWITCH(remmina_pref_dialog->switch_options_deny_screenshot_clipboard));
 	remmina_pref.save_view_mode = gtk_switch_get_active(GTK_SWITCH(remmina_pref_dialog->switch_options_remember_last_view_mode));
@@ -241,7 +280,7 @@ void remmina_pref_on_dialog_destroy(GtkWidget *widget, gpointer user_data)
 	remmina_pref.enc_mode = gtk_combo_box_get_active(remmina_pref_dialog->comboboxtext_security_enc_method);
 	remmina_pref.audit = gtk_switch_get_active(GTK_SWITCH(remmina_pref_dialog->switch_security_audit));
 	remmina_pref.trust_all = gtk_switch_get_active(GTK_SWITCH(remmina_pref_dialog->switch_security_trust_all));
-	remmina_pref.screenshot_path = gtk_file_chooser_get_file(remmina_pref_dialog->filechooserbutton_options_screenshots_path);
+	remmina_pref.screenshot_path = gtk_button_get_label(remmina_pref_dialog->filechooserbutton_options_screenshots_path);
 	remmina_pref.fullscreen_on_auto = gtk_check_button_get_active(GTK_CHECK_BUTTON(remmina_pref_dialog->checkbutton_appearance_fullscreen_on_auto));
 	remmina_pref.always_show_tab = gtk_check_button_get_active(GTK_CHECK_BUTTON(remmina_pref_dialog->checkbutton_appearance_show_tabs));
 	remmina_pref.always_show_notes = gtk_check_button_get_active(GTK_CHECK_BUTTON(remmina_pref_dialog->checkbutton_appearance_show_notes));
@@ -648,9 +687,9 @@ static void remmina_pref_dialog_init(void)
 	gtk_combo_box_set_active(remmina_pref_dialog->comboboxtext_options_ssh_loglevel, remmina_pref.ssh_loglevel);
 	///////
 	if (remmina_pref.datadir_path != NULL && strlen(remmina_pref.datadir_path) > 0)
-		gtk_file_chooser_set_file(remmina_pref_dialog->filechooserbutton_options_datadir_path, g_file_new_for_path(remmina_pref.datadir_path), NULL);
+		gtk_button_set_label(remmina_pref_dialog->filechooserbutton_options_datadir_path, remmina_pref.datadir_path);
 	else
-		gtk_file_chooser_set_file(remmina_pref_dialog->filechooserbutton_options_datadir_path, remmina_file_get_datadir(), NULL);
+		gtk_button_set_label(remmina_pref_dialog->filechooserbutton_options_datadir_path, remmina_file_get_datadir());
 	if (remmina_pref.remmina_file_name != NULL)
 		gtk_editable_set_text(remmina_pref_dialog->entry_options_file_name, remmina_pref.remmina_file_name);
 	else
@@ -658,9 +697,9 @@ static void remmina_pref_dialog_init(void)
 	///////
 
 	if (remmina_pref.screenshot_path != NULL)
-		gtk_file_chooser_set_file(remmina_pref_dialog->filechooserbutton_options_screenshots_path, g_file_new_for_path(remmina_pref.screenshot_path), NULL);
+		gtk_button_set_label(remmina_pref_dialog->filechooserbutton_options_screenshots_path, remmina_pref.screenshot_path);
 	else
-		gtk_file_chooser_set_file(remmina_pref_dialog->filechooserbutton_options_screenshots_path, g_get_home_dir(), NULL);
+		gtk_button_set_label(remmina_pref_dialog->filechooserbutton_options_screenshots_path, g_get_home_dir());
 	if (remmina_pref.screenshot_name != NULL)
 		gtk_editable_set_text(remmina_pref_dialog->entry_options_screenshot_name, remmina_pref.screenshot_name);
 	else
@@ -706,9 +745,11 @@ GtkWidget *remmina_pref_dialog_new(gint default_tab, GtkWindow *parent)
 
 	remmina_pref_dialog->notebook_preferences = GTK_NOTEBOOK(GET_OBJECT("notebook_preferences"));
 
-	remmina_pref_dialog->filechooserbutton_options_datadir_path = GTK_FILE_CHOOSER(GET_OBJECT("filechooserbutton_options_datadir_path"));
+	remmina_pref_dialog->filechooserbutton_options_datadir_path = GTK_BUTTON(GET_OBJECT("filechooserbutton_options_datadir_path"));
+	g_object_set_data(remmina_pref_dialog->filechooserbutton_options_datadir_path, "dir", "data");
 	remmina_pref_dialog->entry_options_file_name = GTK_ENTRY(GET_OBJECT("entry_options_file_name"));
 	remmina_pref_dialog->filechooserbutton_options_screenshots_path = GTK_FILE_CHOOSER(GET_OBJECT("filechooserbutton_options_screenshots_path"));
+	g_object_set_data(remmina_pref_dialog->filechooserbutton_options_screenshots_path, "dir", "screenshots");
 	remmina_pref_dialog->entry_options_screenshot_name = GTK_ENTRY(GET_OBJECT("entry_options_screenshot_name"));
 	remmina_pref_dialog->switch_options_deny_screenshot_clipboard = GTK_SWITCH(GET_OBJECT("switch_options_deny_screenshot_clipboard"));
 	remmina_pref_dialog->switch_options_remember_last_view_mode = GTK_SWITCH(GET_OBJECT("switch_options_remember_last_view_mode"));
