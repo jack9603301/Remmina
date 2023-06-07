@@ -46,16 +46,16 @@
 #define KEY_CHOOSER_NONE _("<None>")
 
 typedef struct _RemminaKeyChooserArguments {
-	guint		keyval;
-	guint		state;
+	gchar*		val;
 	gboolean	use_modifiers;
-	gint		response;
+	GtkWidget* 	widget;
+	GtkDialog*	dialog;
 } RemminaKeyChooserArguments;
 
 G_BEGIN_DECLS
 
 /* Show a key chooser dialog and return the keyval for the selected key */
-RemminaKeyChooserArguments *remmina_key_chooser_new(GtkWindow *parent_window, gboolean use_modifiers);
+void remmina_key_chooser_new(GtkWindow *parent_window, gboolean use_modifiers, GtkWidget *widget);
 /* Get the uppercase character value of a keyval */
 gchar *remmina_key_chooser_get_value(guint keyval, guint state);
 /* Get the keyval of a (lowercase) character value */

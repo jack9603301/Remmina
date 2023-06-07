@@ -74,13 +74,7 @@ void remmina_pref_dialog_on_key_chooser(GtkWidget *widget, gpointer user_data)
 
 	g_return_if_fail(GTK_IS_BUTTON(widget));
 
-	arguments = remmina_key_chooser_new(GTK_WINDOW(remmina_pref_dialog->dialog), FALSE);
-	if (arguments->response != GTK_RESPONSE_CANCEL && arguments->response != GTK_RESPONSE_DELETE_EVENT) {
-		gchar *val = remmina_key_chooser_get_value(arguments->keyval, arguments->state);
-		gtk_button_set_label(GTK_BUTTON(widget), val);
-		g_free(val);
-	}
-	g_free(arguments);
+	remmina_key_chooser_new(GTK_WINDOW(remmina_pref_dialog->dialog), FALSE, widget);
 }
 
 /* Show the available resolutions list dialog */
