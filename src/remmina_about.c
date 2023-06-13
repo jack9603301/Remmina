@@ -45,10 +45,13 @@ void remmina_about_open(GtkWindow *parent)
 {
 	TRACE_CALL(__func__);
 
-	GtkBuilder *builder = remmina_public_gtk_builder_new_from_resource ("/org/remmina/Remmina/src/../data/ui/remmina_about.glade");
-	GtkDialog *dialog = GTK_DIALOG(gtk_builder_get_object(builder, "dialog_remmina_about"));
+	GtkBuilder *builder = gtk_builder_new_from_resource ("/org/remmina/Remmina/src/../data/ui/remmina_about.glade");
 
+	GtkWindow *dialog = GTK_WINDOW(gtk_builder_get_object(builder, "dialog_remmina_about"));
+	
+	// Set the version of Remmina to about dialog
 	gtk_about_dialog_set_version(GTK_ABOUT_DIALOG(dialog), VERSION " (git " REMMINA_GIT_REVISION ")");
+	
 	// TRANSLATORS: translator-credits should be replaced with a formatted list of translators in your own language
 	gtk_about_dialog_set_translator_credits(GTK_ABOUT_DIALOG(dialog), _("translator-credits"));
 
