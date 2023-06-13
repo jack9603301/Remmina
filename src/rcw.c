@@ -2208,6 +2208,7 @@ static void rcw_toolbar_tools(GtkWidget *toggle, RemminaConnectionWindow *cnnwin
 	RemminaConnectionObject *cnnobj;
 	const RemminaProtocolFeature *feature;
 	GtkPopoverMenu* popover_menu;
+	GSimpleActionGroup *actions;
 
 
 	if (cnnwin->priv->toolbar_is_reconfiguring)
@@ -2219,6 +2220,11 @@ static void rcw_toolbar_tools(GtkWidget *toggle, RemminaConnectionWindow *cnnwin
 		return;
 
 	priv->sticky = TRUE;
+
+	actions = g_simple_action_group_new();	
+	g_action_map_add_action_entries(G_ACTION_MAP(actions), rcw_actions, G_N_ELEMENTS(rcw_actions), cnnobj->cnnwin);
+	gtk_widget_insert_action_group(GTK_WIDGET(cnnobj->cnnwin), "rcw", G_ACTION_GROUP(actions));
+	rcw_create_toolbar_actions(actions, cnnobj->cnnwin);
 
 	popover_menu = gtk_popover_menu_new_from_model(cnnwin->priv->toolbar_menu);
 	gtk_widget_set_parent(popover_menu, toggle);
@@ -2391,7 +2397,7 @@ static void rcw_toolbar_minimize(GtkWidget *toggle, RemminaConnectionWindow *cnn
 		return;
 
 	rcw_floating_toolbar_show(cnnwin, FALSE);
-	gdk_toplevel_minimize(GTK_WINDOW(cnnwin));
+	gtk_window_minimize(GTK_WINDOW(cnnwin));
 }
 
 static void rcw_toolbar_disconnect(GtkWidget *toggle, RemminaConnectionWindow *cnnwin)
@@ -4889,10 +4895,6 @@ GtkWidget *rcw_open_from_file_full(RemminaFile *remminafile, GCallback disconnec
 	//rpw_size_allocated_on_connection(cnnobj->proto, NULL);
 	open_connection_last_stage(cnnobj->proto);
 
-	actions = g_simple_action_group_new();	
-	g_action_map_add_action_entries(G_ACTION_MAP(actions), rcw_actions, G_N_ELEMENTS(rcw_actions), cnnobj->cnnwin);
-	gtk_widget_insert_action_group(GTK_WIDGET(cnnobj->cnnwin), "rcw", G_ACTION_GROUP(actions));
-	rcw_create_toolbar_actions(actions, cnnobj->cnnwin);
 	return cnnobj->proto;
 }
 

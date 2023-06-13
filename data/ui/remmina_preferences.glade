@@ -1381,13 +1381,13 @@ It changes the background colour of connection names in the Remmina connection t
             <child>
               <object class="GtkViewport">
                 <property name="visible">True</property>
-                <property name="can-focus">False</property>
+                <property name="can-focus">True</property>
                 <property name="tooltip-text" translatable="yes">Time in seconds before Remmina will lock the session and asks for a password again. Default: 300 Seconds.</property>
                 <child>
                   <!-- n-columns=2 n-rows=7 -->
                   <object class="GtkGrid">
                     <property name="visible">True</property>
-                    <property name="can-focus">False</property>
+                    <property name="can-focus">True</property>
                     <property name="halign">start</property>
                     <property name="valign">start</property>
                     <child>
@@ -1400,6 +1400,10 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="margin-start">18</property>
                         <property name="margin-top">9</property>
                         <property name="label" translatable="yes">Remmina password</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">0</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -1413,6 +1417,10 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="margin-end">18</property>
                         <property name="margin-top">9</property>
                         <signal name="notify::active" handler="remmina_prefdiag_on_use_password_activated" swapped="no"/>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="row">0</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -1423,6 +1431,10 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="valign">center</property>
                         <property name="margin-start">18</property>
                         <property name="label" translatable="yes">Valid for</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">1</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -1436,6 +1448,10 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="width-chars">24</property>
                         <property name="placeholder-text" translatable="yes">timeout in seconds (default 300)</property>
                         <property name="input-purpose">number</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="row">1</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -1447,6 +1463,10 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="valign">center</property>
                         <property name="margin-start">18</property>
                         <property name="label" translatable="yes" comments="“Require to connect” is “Require the Remmina password before to connect”, the Remmina password is the Master/Principal Password, that is used to protect Remmina from unauthorized use.">Require to connect</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">2</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -1458,6 +1478,10 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="valign">center</property>
                         <property name="margin-start">18</property>
                         <property name="label" translatable="yes" comments="Creation, editing, copying, and deletions require the primary password">Require to modify</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">3</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -1469,6 +1493,10 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="valign">center</property>
                         <property name="margin-start">18</property>
                         <property name="label" translatable="yes" comments="“Require to view passwords” is “Require the Remmina password before to connect”, the Remmina password is the Master/Principal Password, that is used to protect Remmina from unauthorized use.">Require to view passwords</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">4</property>
+                        </layout>
                       </object>
                     </child>
                    <child>
@@ -1479,6 +1507,10 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="valign">center</property>
                         <property name="margin-start">6</property>
                         <property name="margin-end">18</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="row">2</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -1489,6 +1521,10 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="valign">center</property>
                         <property name="margin-start">6</property>
                         <property name="margin-end">18</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="row">3</property>
+                        </layout>
                       </object>
                     </child>
                    <child>
@@ -1499,6 +1535,10 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="valign">center</property>
                         <property name="margin-start">6</property>
                         <property name="margin-end">18</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="row">4</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -1509,6 +1549,10 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="valign">center</property>
                         <property name="margin-start">18</property>
                         <property name="label" translatable="yes">Encryption</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">5</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -1528,6 +1572,10 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                           <item id="2" translatable="yes">Strong (+256 MiB, ~2009 CPU)</item>
                           <item id="3" translatable="yes">Sensitive (+1 GiB, ~2014 CPU)</item>
                         </items>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="row">5</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -1539,6 +1587,10 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-start">18</property>
                         <property name="margin-top">9</property>
                         <property name="label" translatable="yes">Auditing log</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">6</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -1549,6 +1601,10 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="valign">center</property>
                         <property name="margin-start">6</property>
                         <property name="margin-end">18</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="row">6</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -1561,6 +1617,10 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-start">18</property>
                         <property name="margin-top">9</property>
                         <property name="label" translatable="yes">Trust all certificates</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">7</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -1571,6 +1631,10 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="valign">center</property>
                         <property name="margin-start">6</property>
                         <property name="margin-end">18</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="row">7</property>
+                        </layout>
                       </object>
                     </child>
                   </object>

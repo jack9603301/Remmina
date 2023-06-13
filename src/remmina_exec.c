@@ -387,7 +387,6 @@ void remmina_exec_command(RemminaCommandType command, const gchar* data)
 	case REMMINA_COMMAND_MAIN:
 		if (mainwindow) {
 			gtk_window_present(mainwindow);
-			//gdk_toplevel_present(GTK_WINDOW(mainwindow));
 		}else  {
 			widget = remmina_main_new();
 			gtk_widget_show(widget);
