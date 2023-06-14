@@ -645,3 +645,4 @@ gboolean remmina_plugin_manager_is_encrypted_setting(RemminaProtocolPlugin *pp, 
 
 	return TRUE;
 }
+

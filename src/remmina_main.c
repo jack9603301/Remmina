@@ -138,14 +138,15 @@ static char *quick_connect_plugin_list[] =
  */
 static void remmina_main_save_size(void)
 {
-	// TRACE_CALL(__func__);
-	// GtkWidget* widget = gtk_widget_get_window(GTK_WIDGET(remminamain->window));
-	// if ((gdk_window_get_state(widget) & gtk_window_is_maximized(gtk_widget_get_window(widget))) == 0) {
-	// 	gtk_window_get_size(remminamain->window, &remmina_pref.main_width, &remmina_pref.main_height);
-	// 	remmina_pref.main_maximize = FALSE;
-	// } else {
-	// 	remmina_pref.main_maximize = TRUE;
-	// } TODO GTK4
+	TRACE_CALL(__func__);
+	
+	if (gtk_window_is_maximized(remminamain->window) == FALSE) {
+	 	remmina_pref.main_width = gtk_widget_get_width(GTK_WIDGET(remminamain->window));
+	 	remmina_pref.main_height = gtk_widget_get_height(GTK_WIDGET(remminamain->window));
+	 	remmina_pref.main_maximize = FALSE;
+	} else {
+	 	remmina_pref.main_maximize = TRUE;
+	}
 }
 
 static void remmina_main_save_expanded_group_func(GtkTreeView *tree_view, GtkTreePath *path, gpointer user_data)
@@ -1270,13 +1271,23 @@ void remmina_main_on_action_tools_export(GSimpleAction *action, GVariant *param,
 	RemminaFile *remminafile;
 	GtkWidget *dialog;
 
-	if (!remminamain->priv->selected_filename)
-		return;
-
-	remminafile = remmina_file_load(remminamain->priv->selected_filename);
-	if (remminafile == NULL){
+	if (!remminamain->priv->selected_filename){
+		dialog = gtk_message_dialog_new(remminamain->window, GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK,
+						_("Select the connection profile."));
+		g_signal_connect(G_OBJECT(dialog), "response", G_CALLBACK(gtk_window_destroy), NULL);
+		gtk_widget_show(dialog);
 		return;
 	}
+	
+	remminafile = remmina_file_load(remminamain->priv->selected_filename);
+	if (remminafile == NULL){
+		dialog = gtk_message_dialog_new(remminamain->window, GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK,
+						_("Remmina couldn't export."));
+		g_signal_connect(G_OBJECT(dialog), "response", G_CALLBACK(gtk_window_destroy), NULL);
+		gtk_widget_show(dialog);
+		return;
+	}
+	
 	plugin = remmina_plugin_manager_get_export_file_handler(remminafile);
 	if (plugin) {
 		dialog = gtk_file_chooser_dialog_new(plugin->export_hints, remminamain->window,
@@ -1290,6 +1301,7 @@ void remmina_main_on_action_tools_export(GSimpleAction *action, GVariant *param,
 						_("This protocol does not support exporting."));
 		g_signal_connect(G_OBJECT(dialog), "response", G_CALLBACK(gtk_window_destroy), NULL);
 		gtk_widget_show(dialog);
+		return;
 	}
 }
 
@@ -1813,4 +1825,3 @@ void remmina_main_show_warning_dialog(const gchar *message) {
         gtk_window_destroy(dialog);
     }
 }
-
