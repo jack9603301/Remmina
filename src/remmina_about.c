@@ -45,7 +45,7 @@ void remmina_about_open(GtkWindow *parent)
 {
 	TRACE_CALL(__func__);
 
-	GtkBuilder *builder = gtk_builder_new_from_resource ("/org/remmina/Remmina/src/../data/ui/remmina_about.glade");
+	GtkBuilder *builder = remmina_public_gtk_builder_new_from_resource("/org/remmina/Remmina/src/../data/ui/remmina_about.glade");
 
 	GtkWindow *dialog = GTK_WINDOW(gtk_builder_get_object(builder, "dialog_remmina_about"));
 	
@@ -59,8 +59,8 @@ void remmina_about_open(GtkWindow *parent)
 		gtk_window_set_transient_for(GTK_WINDOW(dialog), parent);
 		gtk_window_set_destroy_with_parent(GTK_WINDOW(dialog), TRUE);
 	}
-
-	g_signal_connect(dialog, "response", G_CALLBACK(gtk_window_destroy), NULL);
+	
+	// g_signal_connect(dialog, "response", G_CALLBACK(gtk_window_destroy), NULL);
 	gtk_window_present(GTK_WINDOW(dialog));
 
 	g_object_unref(G_OBJECT(builder));
