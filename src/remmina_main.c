@@ -1813,3 +1813,4 @@ void remmina_main_show_warning_dialog(const gchar *message) {
         gtk_window_destroy(dialog);
     }
 }
+
