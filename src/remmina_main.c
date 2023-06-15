@@ -1450,14 +1450,16 @@ void remmina_main_on_action_collapse(GSimpleAction *action, GVariant *param, gpo
 	gtk_tree_view_collapse_all(remminamain->tree_files_list);
 }
 
+// TODO GTK4
 void remmina_main_on_action_search_toggle(GSimpleAction *action, GVariant *param, gpointer data)
 {
 	TRACE_CALL(__func__);
 	REMMINA_DEBUG("Search toggle triggered");
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(remminamain->search_toggle), !remmina_pref.hide_searchbar);
-
+	
 	gboolean toggle_status = gtk_toggle_button_get_active(remminamain->search_toggle);
-
+	remmina_pref.hide_searchbar = toggle_status;
+	
 	gtk_search_bar_set_search_mode(remminamain->search_bar, toggle_status);
 	if (toggle_status) {
 		REMMINA_DEBUG("Search toggle is active");

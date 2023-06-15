@@ -60,8 +60,9 @@ void remmina_about_open(GtkWindow *parent)
 		gtk_window_set_destroy_with_parent(GTK_WINDOW(dialog), TRUE);
 	}
 	
-	// g_signal_connect(dialog, "response", G_CALLBACK(gtk_window_destroy), NULL);
+	// g_signal_connect(dialog, "response", G_CALLBACK(gtk_window_destroy), NULL); TODO gtk4
+	
 	gtk_window_present(GTK_WINDOW(dialog));
-
 	g_object_unref(G_OBJECT(builder));
 }
+
