@@ -1698,7 +1698,6 @@ GtkWidget *remmina_main_new(void)
 	remminamain->builder = remmina_public_gtk_builder_new_from_resource("/org/remmina/Remmina/src/../data/ui/remmina_main.glade");
 	remminamain->window = GTK_WINDOW(RM_GET_OBJECT("RemminaMain"));
 	if (kioskmode && kioskmode == TRUE) {
-		//gtk_window_set_position(remminamain->window, GTK_WIN_POS_CENTER_ALWAYS); //TODO GTK4 figure out window -> surface changes 
 		gtk_window_set_default_size(remminamain->window, 800, 400);
 		gtk_window_set_resizable(remminamain->window, FALSE);
 	}
@@ -1812,7 +1811,7 @@ void remmina_main_show_dialog(GtkMessageType msg, GtkButtonsType buttons, const 
 
 	if (remminamain->window) {
 		dialog = gtk_message_dialog_new(remminamain->window, GTK_DIALOG_MODAL, msg, buttons, "%s", message);
-		//gtk_dialog_run(GTK_DIALOG(dialog));
+		gtk_widget_show(GTK_DIALOG(dialog));
 		gtk_window_destroy(dialog);
 	}
 }
@@ -1823,7 +1822,7 @@ void remmina_main_show_warning_dialog(const gchar *message) {
     if (remminamain->window) {
         dialog = gtk_message_dialog_new(remminamain->window, GTK_DIALOG_MODAL, GTK_MESSAGE_WARNING, GTK_BUTTONS_CLOSE,
                                         message, g_get_application_name());
-        //gtk_dialog_run(GTK_DIALOG(dialog));
+        gtk_widget_show(GTK_DIALOG(dialog));
         gtk_window_destroy(dialog);
     }
 }
