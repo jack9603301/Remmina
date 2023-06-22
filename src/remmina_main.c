@@ -138,14 +138,15 @@ static char *quick_connect_plugin_list[] =
  */
 static void remmina_main_save_size(void)
 {
-	// TRACE_CALL(__func__);
-	// GtkWidget* widget = gtk_widget_get_window(GTK_WIDGET(remminamain->window));
-	// if ((gdk_window_get_state(widget) & gtk_window_is_maximized(gtk_widget_get_window(widget))) == 0) {
-	// 	gtk_window_get_size(remminamain->window, &remmina_pref.main_width, &remmina_pref.main_height);
-	// 	remmina_pref.main_maximize = FALSE;
-	// } else {
-	// 	remmina_pref.main_maximize = TRUE;
-	// } TODO GTK4
+	TRACE_CALL(__func__);
+	
+	if (gtk_window_is_maximized(remminamain->window) == FALSE) {
+	 	remmina_pref.main_width = gtk_widget_get_width(GTK_WIDGET(remminamain->window));
+	 	remmina_pref.main_height = gtk_widget_get_height(GTK_WIDGET(remminamain->window));
+	 	remmina_pref.main_maximize = FALSE;
+	} else {
+	 	remmina_pref.main_maximize = TRUE;
+	}
 }
 
 static void remmina_main_save_expanded_group_func(GtkTreeView *tree_view, GtkTreePath *path, gpointer user_data)
@@ -1270,13 +1271,23 @@ void remmina_main_on_action_tools_export(GSimpleAction *action, GVariant *param,
 	RemminaFile *remminafile;
 	GtkWidget *dialog;
 
-	if (!remminamain->priv->selected_filename)
-		return;
-
-	remminafile = remmina_file_load(remminamain->priv->selected_filename);
-	if (remminafile == NULL){
+	if (!remminamain->priv->selected_filename){
+		dialog = gtk_message_dialog_new(remminamain->window, GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK,
+						_("Select the connection profile."));
+		g_signal_connect(G_OBJECT(dialog), "response", G_CALLBACK(gtk_window_destroy), NULL);
+		gtk_widget_show(dialog);
 		return;
 	}
+	
+	remminafile = remmina_file_load(remminamain->priv->selected_filename);
+	if (remminafile == NULL){
+		dialog = gtk_message_dialog_new(remminamain->window, GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK,
+						_("Remmina couldn't export."));
+		g_signal_connect(G_OBJECT(dialog), "response", G_CALLBACK(gtk_window_destroy), NULL);
+		gtk_widget_show(dialog);
+		return;
+	}
+	
 	plugin = remmina_plugin_manager_get_export_file_handler(remminafile);
 	if (plugin) {
 		dialog = gtk_file_chooser_dialog_new(plugin->export_hints, remminamain->window,
@@ -1290,6 +1301,7 @@ void remmina_main_on_action_tools_export(GSimpleAction *action, GVariant *param,
 						_("This protocol does not support exporting."));
 		g_signal_connect(G_OBJECT(dialog), "response", G_CALLBACK(gtk_window_destroy), NULL);
 		gtk_widget_show(dialog);
+		return;
 	}
 }
 
@@ -1442,10 +1454,11 @@ void remmina_main_on_action_search_toggle(GSimpleAction *action, GVariant *param
 {
 	TRACE_CALL(__func__);
 	REMMINA_DEBUG("Search toggle triggered");
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(remminamain->search_toggle), !remmina_pref.hide_searchbar);
-
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(remminamain->search_toggle), remmina_pref.hide_searchbar);
+	
 	gboolean toggle_status = gtk_toggle_button_get_active(remminamain->search_toggle);
-
+	remmina_pref.hide_searchbar = !toggle_status;
+	
 	gtk_search_bar_set_search_mode(remminamain->search_bar, toggle_status);
 	if (toggle_status) {
 		REMMINA_DEBUG("Search toggle is active");
@@ -1747,7 +1760,7 @@ GtkWidget *remmina_main_new(void)
 	// gtk_tree_view_column_set_fixed_width(remminamain->column_files_list_notes, 100);
 	remminamain->statusbar_main = GTK_STATUSBAR(RM_GET_OBJECT("statusbar_main"));
 	/* signals */
-	g_signal_connect(remminamain->entry_quick_connect_server, "key-release-event", G_CALLBACK(remmina_main_search_key_event), NULL);
+	// g_signal_connect(remminamain->entry_quick_connect_server, "key-release-event", G_CALLBACK(remmina_main_search_key_event), NULL); TODO GTK4
 	g_signal_connect(remminamain->tree_files_list, "row-activated", G_CALLBACK(remmina_main_tree_row_activated), NULL);
 	/* Non widget objects */
 	actions = g_simple_action_group_new();

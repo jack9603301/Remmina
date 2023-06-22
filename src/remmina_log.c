@@ -51,6 +51,7 @@ gboolean logstart;
 #define REMMINA_IS_LOG_WINDOW(obj)            (G_TYPE_CHECK_INSTANCE_TYPE((obj), REMMINA_TYPE_LOG_WINDOW))
 #define REMMINA_IS_LOG_WINDOW_CLASS(klass)    (G_TYPE_CHECK_CLASS_TYPE((klass), REMMINA_TYPE_LOG_WINDOW))
 #define REMMINA_LOG_WINDOW_GET_CLASS(obj)     (G_TYPE_INSTANCE_GET_CLASS((obj), REMMINA_TYPE_LOG_WINDOW, RemminaLogWindowClass))
+#define REMMINA_LOG_WINDOW_TEXT_VIEW_MARGIN   7
 
 typedef struct _RemminaLogWindow {
 	GtkWindow window;
@@ -129,7 +130,7 @@ void remmina_log_start(void)
 		gtk_header_bar_set_show_title_buttons (GTK_HEADER_BAR (header), TRUE);
 		GtkLabel* header_title = gtk_label_new_with_mnemonic(_("Remmina debugging window"));
 		gtk_header_bar_set_title_widget (GTK_HEADER_BAR (header), header_title);
-		//gtk_header_bar_set_has_subtitle (GTK_HEADER_BAR (header), FALSE); TODO GTK4
+		
 		/* Stats */
 		GtkWidget *getstat = gtk_button_new ();
 		gtk_widget_set_tooltip_text (getstat, _("Paste system info in the Remmina debugging window"));
@@ -138,6 +139,7 @@ void remmina_log_start(void)
 		g_object_unref (icon);
 		gtk_button_set_child (GTK_BUTTON (getstat), image);
 		gtk_header_bar_pack_start (GTK_HEADER_BAR (header), getstat);
+		
 		/* Start logging */
 		GtkWidget *start = gtk_switch_new ();
 		logstart = TRUE;
@@ -460,10 +462,16 @@ static void remmina_log_window_init(RemminaLogWindow *logwin)
 	gtk_text_view_set_wrap_mode(GTK_TEXT_VIEW(widget), GTK_WRAP_WORD_CHAR);
 	gtk_text_view_set_editable(GTK_TEXT_VIEW(widget), FALSE);
 	gtk_text_view_set_monospace(GTK_TEXT_VIEW(widget), TRUE);
+	/* set margin */
+	gtk_text_view_set_left_margin(GTK_TEXT_VIEW(widget), REMMINA_LOG_WINDOW_TEXT_VIEW_MARGIN);
+	gtk_text_view_set_right_margin(GTK_TEXT_VIEW(widget), REMMINA_LOG_WINDOW_TEXT_VIEW_MARGIN);
+	gtk_text_view_set_top_margin(GTK_TEXT_VIEW(widget), REMMINA_LOG_WINDOW_TEXT_VIEW_MARGIN);
+	gtk_text_view_set_bottom_margin(GTK_TEXT_VIEW(widget), REMMINA_LOG_WINDOW_TEXT_VIEW_MARGIN);
+	
 	gtk_scrolled_window_set_child((scrolledwindow), widget);
 	logwin->log_view = widget;
 	logwin->log_buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(widget));
 
-	g_signal_connect(G_OBJECT(logwin->log_view), "key-press-event", G_CALLBACK(remmina_log_on_keypress), (gpointer)logwin);
+	// g_signal_connect(G_OBJECT(logwin->log_view), "key-press-event", G_CALLBACK(remmina_log_on_keypress), (gpointer)logwin); TODO GTK4
 }
 
