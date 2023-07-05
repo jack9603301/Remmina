@@ -123,6 +123,8 @@ static void remmina_plugin_exec_init(RemminaProtocolWidget *gp)
 	gtk_text_view_set_editable(GTK_TEXT_VIEW(gpdata->log_view), FALSE);
 	gtk_text_view_set_left_margin (GTK_TEXT_VIEW (gpdata->log_view), 20);
 	gtk_text_view_set_right_margin (GTK_TEXT_VIEW (gpdata->log_view), 20);
+	gtk_widget_set_hexpand(gpdata->log_view, TRUE);
+	gtk_widget_set_vexpand(gpdata->log_view, TRUE);
 	gpdata->log_buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (gpdata->log_view));
 	gpdata->sw = gtk_scrolled_window_new ();
 	gtk_widget_set_size_request (gpdata->sw, 640, 480);
