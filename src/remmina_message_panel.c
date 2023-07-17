@@ -181,7 +181,7 @@ void remmina_message_panel_setup_message(RemminaMessagePanel *mp, const gchar *m
 	 */
 
 	TRACE_CALL(__func__);
-	GtkBox *hbox;
+	GtkCenterBox *cbox;
 	GtkWidget *w;
 	RemminaMessagePanelPrivate *priv = remmina_message_panel_get_instance_private(mp);
 
@@ -189,15 +189,15 @@ void remmina_message_panel_setup_message(RemminaMessagePanel *mp, const gchar *m
 		printf("WARNING: %s called in a subthread. This should not happen.\n", __func__);
 	}
 
-	hbox = GTK_BOX(gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0));
+	cbox = GTK_BOX(gtk_center_box_new());
 
 	/* A message */
 	w = gtk_label_new(message);
-	gtk_box_append(hbox, w);
+	gtk_center_box_set_center_widget(cbox, w);
 
 	/* A button to confirm reading */
 	w = gtk_button_new_with_label(_("Close"));
-	gtk_box_append(hbox, w);
+	gtk_center_box_set_end_widget(cbox, w);
 
 	priv->response_callback = response_callback;
 	priv->response_callback_data = response_callback_data;
@@ -205,7 +205,7 @@ void remmina_message_panel_setup_message(RemminaMessagePanel *mp, const gchar *m
 	g_object_set_data(G_OBJECT(w), btn_response_key, (void *)GTK_RESPONSE_OK);
 	g_signal_connect(G_OBJECT(w), "clicked", G_CALLBACK(remmina_message_panel_button_clicked_callback), mp);
 
-	gtk_box_append(GTK_BOX(mp), GTK_WIDGET(hbox));
+	gtk_box_append(GTK_BOX(mp), GTK_WIDGET(cbox));
 
 	//gtk_widget_show_all(GTK_WIDGET(mp));
 

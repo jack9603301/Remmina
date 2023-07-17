@@ -112,7 +112,7 @@ static void onMainThread_schedule_callback_and_wait(struct onMainThread_cb_data 
 	pthread_cleanup_push(onMainThread_cleanup_handler, d);
 	pthread_mutex_init(&d->mu, NULL);
 	pthread_mutex_lock(&d->mu);
-	//gdk_threads_add_idle((GSourceFunc)onMainThread_cb, (gpointer)d);
+	g_idle_add((GSourceFunc)onMainThread_cb, (gpointer)d);
 
 	pthread_mutex_lock(&d->mu);
 
@@ -268,14 +268,13 @@ gboolean remmina_plugin_vnc_setcursor(RemminaProtocolWidget *gp)
 	gpdata->queuecursor_handler = 0;
 
 	if (gpdata->queuecursor_surface) {
-		cur = gdk_cursor_new_from_surface(gdk_display_get_default(), gpdata->queuecursor_surface, gpdata->queuecursor_x,
-						  gpdata->queuecursor_y);
-		gdk_window_set_cursor(gtk_widget_get_window(gpdata->drawing_area), cur);
+		cur = gdk_cursor_new_from_name("help", NULL);
+		gtk_widget_set_cursor(gpdata->drawing_area, cur);
 		g_object_unref(cur);
 		cairo_surface_destroy(gpdata->queuecursor_surface);
 		gpdata->queuecursor_surface = NULL;
 	} else {
-		gdk_window_set_cursor(gtk_widget_get_window(gpdata->drawing_area), NULL);
+		gtk_widget_set_cursor(gpdata->drawing_area, cur);
 	}
 	UNLOCK_BUFFER(FALSE);
 
@@ -292,8 +291,8 @@ static void remmina_plugin_vnc_queuecursor(RemminaProtocolWidget *gp, cairo_surf
 	gpdata->queuecursor_surface = surface;
 	gpdata->queuecursor_x = x;
 	gpdata->queuecursor_y = y;
-	// if (!gpdata->queuecursor_handler)
-	// 	gpdata->queuecursor_handler = IDLE_ADD((GSourceFunc)remmina_plugin_vnc_setcursor, gp);
+	if (!gpdata->queuecursor_handler)
+		gpdata->queuecursor_handler = IDLE_ADD((GSourceFunc)remmina_plugin_vnc_setcursor, gp);
 }
 
 typedef struct _RemminaKeyVal {
@@ -564,7 +563,7 @@ static gboolean remmina_plugin_vnc_queue_draw_area_real(RemminaProtocolWidget *g
 		gpdata->queuedraw_handler = 0;
 		UNLOCK_BUFFER(FALSE);
 
-		gtk_widget_queue_draw_area(GTK_WIDGET(gp), x, y, w, h);
+		gtk_widget_queue_draw(GTK_WIDGET(gp));
 	}
 	return FALSE;
 }
@@ -590,7 +589,7 @@ static void remmina_plugin_vnc_queue_draw_area(RemminaProtocolWidget *gp, gint x
 		gpdata->queuedraw_y = y;
 		gpdata->queuedraw_w = w;
 		gpdata->queuedraw_h = h;
-		//gpdata->queuedraw_handler = IDLE_ADD((GSourceFunc)remmina_plugin_vnc_queue_draw_area_real, gp);
+		gpdata->queuedraw_handler = IDLE_ADD((GSourceFunc)remmina_plugin_vnc_queue_draw_area_real, gp);
 	}
 	UNLOCK_BUFFER(TRUE);
 }
@@ -903,7 +902,7 @@ static void remmina_plugin_vnc_rfb_cursor_shape(rfbClient *cl, int xhot, int yho
 	RemminaProtocolWidget *gp = rfbClientGetClientData(cl, NULL);
 	RemminaPluginVncData *gpdata = GET_PLUGIN_DATA(gp);
 
-	if (!gtk_widget_get_window(GTK_WIDGET(gp)))
+	if (!gtk_widget_get_realized(GTK_WIDGET(gp)))
 		return;
 
 	if (width && height) {
@@ -929,23 +928,23 @@ static void remmina_plugin_vnc_rfb_cursor_shape(rfbClient *cl, int xhot, int yho
 
 static void remmina_plugin_vnc_rfb_bell(rfbClient *cl)
 {
-	TRACE_CALL(__func__);
-	REMMINA_PLUGIN_DEBUG("Bell message received");
-	RemminaProtocolWidget *gp;
-	RemminaFile *remminafile;
-	GdkSurface *window;
+	// TRACE_CALL(__func__);
+	// REMMINA_PLUGIN_DEBUG("Bell message received");
+	// RemminaProtocolWidget *gp;
+	// RemminaFile *remminafile;
+	// GdkSurface *window;
 
-	gp = (RemminaProtocolWidget *)(rfbClientGetClientData(cl, NULL));
-	remminafile = remmina_plugin_service->protocol_plugin_get_file(gp);
+	// gp = (RemminaProtocolWidget *)(rfbClientGetClientData(cl, NULL));
+	// remminafile = remmina_plugin_service->protocol_plugin_get_file(gp);
 
-	if (remmina_plugin_service->file_get_int(remminafile, "disableserverbell", FALSE))
-		return;
+	// if (remmina_plugin_service->file_get_int(remminafile, "disableserverbell", FALSE))
+	// 	return;
 
-	window = gtk_widget_get_window(GTK_WIDGET(gp));
+	// window = gtk_widget_get_window(GTK_WIDGET(gp));
 
-	if (window)
-		gdk_window_beep(window);
-	REMMINA_PLUGIN_DEBUG("Beep emitted");
+	// if (window)
+	// 	gdk_window_beep(window);
+	// REMMINA_PLUGIN_DEBUG("Beep emitted"); TODOD GTK4
 }
 
 /* Translate known VNC messages. It’s for intltool only, not for gcc */
@@ -1681,7 +1680,7 @@ static void remmina_plugin_vnc_on_realize(RemminaProtocolWidget *gp, gpointer da
 		pixbuf = gdk_pixbuf_new_from_xpm_data(dot_cursor_xpm);
 		cursor = gdk_cursor_new_from_pixbuf(gdk_display_get_default(), pixbuf, dot_cursor_x_hot, dot_cursor_y_hot);
 		g_object_unref(pixbuf);
-		gdk_window_set_cursor(gtk_widget_get_window(GTK_WIDGET(gp)), cursor);
+		gtk_widget_set_cursor(GTK_WIDGET(gp), cursor);
 		g_object_unref(cursor);
 	}
 }
@@ -1711,7 +1710,7 @@ static gboolean remmina_plugin_vnc_open_connection(RemminaProtocolWidget *gp)
 	g_signal_connect(G_OBJECT(gpdata->drawing_area), "key-press-event", G_CALLBACK(remmina_plugin_vnc_on_key), gp);
 	g_signal_connect(G_OBJECT(gpdata->drawing_area), "key-release-event", G_CALLBACK(remmina_plugin_vnc_on_key), gp);
 
-	if (!remmina_plugin_service->file_get_int(remminafile, "disableclipboard", FALSE))
+	//if (!remmina_plugin_service->file_get_int(remminafile, "disableclipboard", FALSE))
 		// gpdata->clipboard_handler = g_signal_connect(G_OBJECT(gtk_clipboard_get(GDK_SELECTION_CLIPBOARD)),
 		// 					     "owner-change", G_CALLBACK(remmina_plugin_vnc_on_cuttext), gp); TODO GTK4
 
