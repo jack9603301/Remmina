@@ -982,6 +982,8 @@ static GtkWidget *rco_create_scrolled_container(RemminaScaleMode scalemode, int 
 		scrolled_container = gtk_scrolled_window_new();
 		rco_set_scrolled_policy(scalemode, GTK_SCROLLED_WINDOW(scrolled_container));
 		//gtk_container_set_border_width(GTK_CONTAINER(scrolled_container), 0);
+		gtk_widget_set_vexpand(scrolled_container, TRUE);
+		gtk_widget_set_hexpand(scrolled_container, TRUE);
 		gtk_widget_set_focusable(scrolled_container, FALSE);
 	}
 
@@ -1231,14 +1233,18 @@ static void remmina_protocol_widget_update_alignment(RemminaConnectionObject *cn
 				//gtk_frame_set_shadow_type(GTK_FRAME(cnnobj->aspectframe), GTK_SHADOW_NONE); TODO GTK4
 				g_object_ref(cnnobj->proto);
 				//gtk_container_remove(GTK_CONTAINER(cnnobj->viewport), cnnobj->proto);
-				gtk_box_append(GTK_BOX(cnnobj->viewport), cnnobj->aspectframe);
-				gtk_box_append(GTK_BOX(cnnobj->aspectframe), cnnobj->proto);
+				gtk_viewport_set_child((cnnobj->viewport), cnnobj->aspectframe);
+				gtk_aspect_frame_set_child((cnnobj->aspectframe), cnnobj->proto);
 				g_object_unref(cnnobj->proto);
 				gtk_widget_show(cnnobj->aspectframe);
 				if (cnnobj != NULL && cnnobj->cnnwin != NULL && cnnobj->cnnwin->priv->notebook != NULL)
 					rcw_grab_focus(cnnobj->cnnwin);
 			} else {
 				//gtk_aspect_frame_set(GTK_ASPECT_FRAME(cnnobj->aspectframe), 0.5, 0.5, aratio, FALSE); TODO GTK4
+				gtk_aspect_frame_set_xalign(cnnobj->aspectframe, 0.5);
+				gtk_aspect_frame_set_yalign(cnnobj->aspectframe, 0.5);
+				gtk_aspect_frame_set_ratio(cnnobj->aspectframe, aratio);
+				gtk_aspect_frame_set_obey_child(cnnobj->aspectframe, FALSE);
 			}
 		} else {
 			/* We do not need an aspectframe as a parent of proto */
@@ -1250,7 +1256,7 @@ static void remmina_protocol_widget_update_alignment(RemminaConnectionObject *cn
 				//gtk_container_remove(GTK_CONTAINER(cnnobj->viewport), cnnobj->aspectframe);
 				g_object_unref(cnnobj->aspectframe);
 				cnnobj->aspectframe = NULL;
-				gtk_box_append(GTK_BOX(cnnobj->viewport), cnnobj->proto);
+				gtk_viewport_set_child((cnnobj->viewport), cnnobj->proto);
 				g_object_unref(cnnobj->proto);
 				if (cnnobj != NULL && cnnobj->cnnwin != NULL && cnnobj->cnnwin->priv->notebook != NULL)
 					rcw_grab_focus(cnnobj->cnnwin);

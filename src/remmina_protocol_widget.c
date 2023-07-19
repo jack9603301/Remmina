@@ -218,7 +218,7 @@ void remmina_protocol_widget_grab_focus(RemminaProtocolWidget *gp)
 	TRACE_CALL(__func__);
 	GtkWidget *child;
 
-	//child = gtk_bin_get_child(GTK_BIN(gp));
+	child = g_object_get_data((gp), "child_plugin");
 
 	if (child) {
 		gtk_widget_set_can_focus(child, TRUE);
