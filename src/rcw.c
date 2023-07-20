@@ -3210,7 +3210,7 @@ static gboolean rcw_after_configure_scrolled(gpointer user_data)
 		if (gtk_window_is_maximized(cnnwin)) {
 			remmina_file_set_int(cnnobj->remmina_file, "window_maximize", TRUE);
 		} else {
-			//gtk_window_get_size(GTK_WINDOW(cnnobj->cnnwin), &width, &height);
+			gtk_window_get_default_size(GTK_WINDOW(cnnobj->cnnwin), &width, &height);
 			remmina_file_set_int(cnnobj->remmina_file, "window_width", width);
 			remmina_file_set_int(cnnobj->remmina_file, "window_height", height);
 			remmina_file_set_int(cnnobj->remmina_file, "window_maximize", FALSE);

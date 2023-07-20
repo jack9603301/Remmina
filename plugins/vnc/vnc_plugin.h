@@ -116,6 +116,7 @@ typedef struct _RemminaPluginVncData {
 	pthread_mutex_t		buffer_mutex;
 
 	float		scroll_x_accumulator, scroll_y_accumulator;
+	gdouble 	cur_pos_x, cur_pos_y;
 
 } RemminaPluginVncData;
 
