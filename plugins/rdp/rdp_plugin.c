@@ -2560,9 +2560,7 @@ static void remmina_rdp_call_feature(RemminaProtocolWidget *gp, const RemminaPro
 
 	case REMMINA_RDP_FEATURE_TOOL_REFRESH:
 		if (rfi)
-			gtk_widget_queue_draw_area(rfi->drawing_area, 0, 0,
-						   remmina_plugin_service->protocol_plugin_get_width(gp),
-						   remmina_plugin_service->protocol_plugin_get_height(gp));
+			gtk_widget_queue_draw(rfi->drawing_area);
 		else
 			REMMINA_PLUGIN_DEBUG("Remmina RDP plugin warning: Null value for rfi by REMMINA_RDP_FEATURE_TOOL_REFRESH");
 		break;

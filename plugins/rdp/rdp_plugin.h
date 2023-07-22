@@ -357,6 +357,8 @@ struct rf_context {
 	gint			scale_height;
 	gdouble			scale_x;
 	gdouble			scale_y;
+	gdouble 		cur_pos_x;
+	gdouble			cur_pos_y;
 	guint			delayed_monitor_layout_handler;
 	gboolean		use_client_keymap;
 

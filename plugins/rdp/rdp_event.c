@@ -293,7 +293,7 @@ void remmina_rdp_event_update_regions(RemminaProtocolWidget *gp, RemminaPluginRd
 		if (rfi->scale == REMMINA_PROTOCOL_WIDGET_SCALE_MODE_SCALED)
 			remmina_rdp_event_scale_area(gp, &x, &y, &w, &h);
 
-		gtk_widget_queue_draw_area(rfi->drawing_area, x, y, w, h);
+		gtk_widget_queue_draw(rfi->drawing_area);
 	}
 	g_free(ui->reg.ureg);
 }
@@ -306,7 +306,7 @@ void remmina_rdp_event_update_rect(RemminaProtocolWidget *gp, gint x, gint y, gi
 	if (rfi->scale == REMMINA_PROTOCOL_WIDGET_SCALE_MODE_SCALED)
 		remmina_rdp_event_scale_area(gp, &x, &y, &w, &h);
 
-	gtk_widget_queue_draw_area(rfi->drawing_area, x, y, w, h);
+	gtk_widget_queue_draw(rfi->drawing_area);
 }
 
 static void remmina_rdp_event_update_scale_factor(RemminaProtocolWidget *gp)
@@ -340,11 +340,10 @@ static void remmina_rdp_event_update_scale_factor(RemminaProtocolWidget *gp)
 	}
 }
 
-static gboolean remmina_rdp_event_on_draw(GtkWidget *widget, cairo_t *context, RemminaProtocolWidget *gp)
+static gboolean remmina_rdp_event_on_draw(GtkWidget *widget, cairo_t *context, int width, int height, RemminaProtocolWidget *gp)
 {
 	TRACE_CALL(__func__);
 	rfContext *rfi = GET_PLUGIN_DATA(gp);
-	guint width, height;
 	gchar *msg;
 	cairo_text_extents_t extents;
 
@@ -558,11 +557,12 @@ static void remmina_rdp_event_reverse_translate_pos_reverse(RemminaProtocolWidge
 	}
 }
 
-static gboolean remmina_rdp_event_on_motion(GtkWidget *widget, GdkMotionEvent *event, RemminaProtocolWidget *gp)
+static gboolean remmina_rdp_event_on_motion(GtkWidget *widget, gdouble x, gdouble y, RemminaProtocolWidget *gp)
 {
 	TRACE_CALL(__func__);
 	RemminaPluginRdpEvent rdp_event = { 0 };
 	RemminaFile *remminafile;
+	rfContext *rfi = GET_PLUGIN_DATA(gp);
 
 	remminafile = remmina_plugin_service->protocol_plugin_get_file(gp);
 	if (remmina_plugin_service->file_get_int(remminafile, "viewonly", FALSE))
@@ -571,17 +571,16 @@ static gboolean remmina_rdp_event_on_motion(GtkWidget *widget, GdkMotionEvent *e
 	rdp_event.type = REMMINA_RDP_EVENT_TYPE_MOUSE;
 	rdp_event.mouse_event.flags = PTR_FLAGS_MOVE;
 	rdp_event.mouse_event.extended = FALSE;
-	double* x;
-	double* y;
-	gdk_event_get_position (event,x, y);
 
+	rfi->cur_pos_x = x;
+	rfi->cur_pos_y = y;
 	remmina_rdp_event_translate_pos(gp, x, y, &rdp_event.mouse_event.x, &rdp_event.mouse_event.y);
 	remmina_rdp_event_event_push(gp, &rdp_event);
 
 	return TRUE;
 }
 
-static gboolean remmina_rdp_event_on_button(GtkWidget *widget, GdkButtonEvent *event, RemminaProtocolWidget *gp)
+static gboolean remmina_rdp_event_on_button_press(GtkGestureClick *self, gint n_press, gdouble x, gdouble y, RemminaProtocolWidget *gp)
 {
 	TRACE_CALL(__func__);
 	gint flag;
@@ -595,9 +594,6 @@ static gboolean remmina_rdp_event_on_button(GtkWidget *widget, GdkButtonEvent *e
 	if (remmina_plugin_service->file_get_int(remminafile, "viewonly", FALSE))
 		return FALSE;
 
-	/* We bypass 2button-press and 3button-press events */
-	if ((gdk_event_get_event_type(event) != GDK_BUTTON_PRESS) && (gdk_event_get_event_type(event) != GDK_BUTTON_RELEASE))
-		return TRUE;
 
 	flag = 0;
 
@@ -609,7 +605,7 @@ static gboolean remmina_rdp_event_on_button(GtkWidget *widget, GdkButtonEvent *e
 		secondary = PTR_FLAGS_BUTTON2;
 	}
 
-	switch (gdk_button_event_get_button(event)) {
+	switch (gtk_gesture_single_get_current_button(self)) {
 	case 1:
 		flag |= primary;
 		break;
@@ -633,15 +629,11 @@ static gboolean remmina_rdp_event_on_button(GtkWidget *widget, GdkButtonEvent *e
 		return FALSE;
 	}
 
-	if (gdk_event_get_event_type(event) == GDK_BUTTON_PRESS) {
-		if (extended)
-			flag |= PTR_XFLAGS_DOWN;
-		else
-			flag |= PTR_FLAGS_DOWN;
-	}
-	double* x;
-	double* y;
-	gdk_event_get_position (event,x, y);
+	if (extended)
+		flag |= PTR_XFLAGS_DOWN;
+	else
+		flag |= PTR_FLAGS_DOWN;
+
 
 	rdp_event.type = REMMINA_RDP_EVENT_TYPE_MOUSE;
 	remmina_rdp_event_translate_pos(gp, x, y, &rdp_event.mouse_event.x, &rdp_event.mouse_event.y);
@@ -655,19 +647,89 @@ static gboolean remmina_rdp_event_on_button(GtkWidget *widget, GdkButtonEvent *e
 	return TRUE;
 }
 
-static gboolean remmina_rdp_event_on_scroll(GtkWidget *widget, GdkScrollEvent *event, RemminaProtocolWidget *gp)
+
+
+static gboolean remmina_rdp_event_on_button_release(GtkGestureClick *self,  gint n_press, gdouble x, gdouble y, RemminaProtocolWidget *gp)
 {
 	TRACE_CALL(__func__);
 	gint flag;
+	gboolean extended = FALSE;
 	RemminaPluginRdpEvent rdp_event = { 0 };
-	float windows_delta;
+	gint primary, secondary;
+
 	RemminaFile *remminafile;
 
 	remminafile = remmina_plugin_service->protocol_plugin_get_file(gp);
 	if (remmina_plugin_service->file_get_int(remminafile, "viewonly", FALSE))
 		return FALSE;
 
+
 	flag = 0;
+
+	if (remmina_plugin_service->file_get_int(remminafile, "left-handed", FALSE)) {
+		primary = PTR_FLAGS_BUTTON2;
+		secondary = PTR_FLAGS_BUTTON1;
+	} else {
+		primary = PTR_FLAGS_BUTTON1;
+		secondary = PTR_FLAGS_BUTTON2;
+	}
+
+	switch (gtk_gesture_single_get_current_button(self)) {
+	case 1:
+		flag |= primary;
+		break;
+	case 2:
+		flag |= PTR_FLAGS_BUTTON3;
+		break;
+	case 3:
+		flag |= secondary;
+		break;
+	case 8:                 /* back */
+	case 97:                /* Xming */
+		extended = TRUE;
+		flag |= PTR_XFLAGS_BUTTON1;
+		break;
+	case 9:                 /* forward */
+	case 112:               /* Xming */
+		extended = TRUE;
+		flag |= PTR_XFLAGS_BUTTON2;
+		break;
+	default:
+		return FALSE;
+	}
+
+
+
+	rdp_event.type = REMMINA_RDP_EVENT_TYPE_MOUSE;
+	remmina_rdp_event_translate_pos(gp, x, y, &rdp_event.mouse_event.x, &rdp_event.mouse_event.y);
+
+	if (flag != 0) {
+		rdp_event.mouse_event.flags = flag;
+		rdp_event.mouse_event.extended = extended;
+		remmina_rdp_event_event_push(gp, &rdp_event);
+	}
+
+	return TRUE;
+}
+
+
+
+
+static gboolean remmina_rdp_event_on_scroll(GtkWidget *widget, gdouble x, gdouble y, RemminaProtocolWidget *gp)
+{
+	TRACE_CALL(__func__);
+	gint flag;
+	RemminaPluginRdpEvent rdp_event = { 0 };
+	float windows_delta;
+	RemminaFile *remminafile;
+	rfContext *rfi = GET_PLUGIN_DATA(gp);
+
+	remminafile = remmina_plugin_service->protocol_plugin_get_file(gp);
+	if (remmina_plugin_service->file_get_int(remminafile, "viewonly", FALSE))
+		return FALSE;
+
+	flag = 0;
+	GdkEvent* event = gtk_event_controller_get_current_event((GtkEventController*)widget);
 	rdp_event.type = REMMINA_RDP_EVENT_TYPE_MOUSE;
 
 	/* See [MS-RDPBCGR] TS_POINTER_EVENT and WM_MOUSEWHEEL message */
@@ -703,12 +765,16 @@ static gboolean remmina_rdp_event_on_scroll(GtkWidget *widget, GdkScrollEvent *e
 		return FALSE;
 	}
 
-	double* x;
-	double* y;
-	gdk_event_get_position (event,x, y);
+	
+	// Getting position currently doesn't work, unfortunately.
+	// We'll have to save mouse position when it moves.
+	// See https://gitlab.gnome.org/GNOME/gtk/-/issues/5134 and https://discourse.gnome.org/t/gtk-4-gtkeventcontrollerscroll-how-to-access-mouse-coordinates/3585
+	// gdk_event_get_position(event, &pos_x, &pos_y); 
 
 	rdp_event.mouse_event.flags = flag;
 	rdp_event.mouse_event.extended = FALSE;
+	x = rfi->cur_pos_x;
+	y = rfi->cur_pos_y;
 	remmina_rdp_event_translate_pos(gp, x, y, &rdp_event.mouse_event.x, &rdp_event.mouse_event.y);
 	remmina_rdp_event_event_push(gp, &rdp_event);
 
@@ -749,7 +815,10 @@ static void remmina_rdp_event_init_keymap(rfContext *rfi, const gchar *strmap)
 	}
 }
 
-static gboolean remmina_rdp_event_on_key(GtkWidget *widget, GdkKeyEvent *event, RemminaProtocolWidget *gp)
+
+
+
+static gboolean remmina_rdp_event_on_key_real(GtkWidget *widget, guint keyval, guint keycode, GdkModifierType state, RemminaProtocolWidget *gp, gboolean is_pressed)
 {
 	TRACE_CALL(__func__);
 	guint32 unicode_keyval;
@@ -771,16 +840,16 @@ static gboolean remmina_rdp_event_on_key(GtkWidget *widget, GdkKeyEvent *event, 
 #ifdef ENABLE_GTK_INSPECTOR_KEY
 	/* GTK inspector key is propagated up. Disabled by default.
 	 * enable it by defining ENABLE_GTK_INSPECTOR_KEY */
-	if ((event->state & GDK_CONTROL_MASK) != 0 && (event->keyval == GDK_KEY_I || event->keyval == GDK_KEY_D))
+	if ((state & GDK_CONTROL_MASK) != 0 && (keyval == GDK_KEY_I || keyval == GDK_KEY_D))
 		return FALSE;
 
 #endif
 
 	rdp_event.type = REMMINA_RDP_EVENT_TYPE_SCANCODE;
-	rdp_event.key_event.up = (gdk_event_get_event_type(event) == GDK_KEY_PRESS ? false : true);
+	rdp_event.key_event.up = !is_pressed;
 	rdp_event.key_event.extended = false;
 
-	switch (gdk_key_event_get_keyval(event)) {
+	switch (keyval) {
 	case GDK_KEY_Pause:
 		/*
 		 * See https://msdn.microsoft.com/en-us/library/cc240584.aspx
@@ -802,58 +871,69 @@ static gboolean remmina_rdp_event_on_key(GtkWidget *widget, GdkKeyEvent *event, 
 		break;
 
 	default:
-		// if (!rfi->use_client_keymap) {
-		// 	hardware_keycode = event->hardware_keycode;
-		// 	if (rfi->keymap) {
-		// 		for (ik = 0; ik < rfi->keymap->len; ik++) {
-		// 			kep = &g_array_index(rfi->keymap, RemminaPluginRdpKeymapEntry, ik);
-		// 			if (hardware_keycode == kep->orig_keycode) {
-		// 				hardware_keycode = kep->translated_keycode;
-		// 				break;
-		// 			}
-		// 		}
-		// 	}
-		// 	scancode = freerdp_keyboard_get_rdp_scancode_from_x11_keycode(hardware_keycode);
-		// 	if (scancode) {
-		// 		rdp_event.key_event.key_code = scancode & 0xFF;
-		// 		rdp_event.key_event.extended = scancode & 0x100;
-		// 		remmina_rdp_event_event_push(gp, &rdp_event);
-		// 		keypress_list_add(gp, rdp_event);
-		// 	}
-		// } else {
-		// 	unicode_keyval = gdk_keyval_to_unicode(event->keyval);
-		// 	/* Decide when whe should send a keycode or a Unicode character.
-		// 	 * - All non char keys (Shift, Alt, Super) should be sent as keycode
-		// 	 * - Space should be sent as keycode (see issue #1364)
-		// 	 * - All special keys (F1-F10, numeric pad, Home/End/Arrows/PgUp/PgDn/Insert/Delete) keycode
-		// 	 * - All key pressed while Ctrl or Alt or Super is down are not decoded by gdk_keyval_to_unicode(), so send it as keycode
-		// 	 * - All keycodes not translatable to unicode chars, as keycode
-		// 	 * - The rest as Unicode char
-		// 	 */
-		// 	if (event->keyval >= 0xfe00 ||                                                  // Arrows, Shift, Alt, Fn, num keypad…
-		// 	    event->hardware_keycode == 0x41 ||                                          // Spacebar
-		// 	    unicode_keyval == 0 ||                                                      // Impossible to translate
-		// 	    (event->state & (GDK_MOD1_MASK | GDK_CONTROL_MASK | GDK_SUPER_MASK)) != 0   // A modifier not recognized by gdk_keyval_to_unicode()
-		// 	    ) {
-		// 		scancode = freerdp_keyboard_get_rdp_scancode_from_x11_keycode(event->hardware_keycode);
-		// 		rdp_event.key_event.key_code = scancode & 0xFF;
-		// 		rdp_event.key_event.extended = scancode & 0x100;
-		// 		if (rdp_event.key_event.key_code) {
-		// 			remmina_rdp_event_event_push(gp, &rdp_event);
-		// 			keypress_list_add(gp, rdp_event);
-		// 		}
-		// 	} else {
-		// 		rdp_event.type = REMMINA_RDP_EVENT_TYPE_SCANCODE_UNICODE;
-		// 		rdp_event.key_event.unicode_code = unicode_keyval;
-		// 		rdp_event.key_event.extended = false;
-		// 		remmina_rdp_event_event_push(gp, &rdp_event);
-		// 		keypress_list_add(gp, rdp_event);
-		// 	}
-		// }
+		if (!rfi->use_client_keymap) {
+			hardware_keycode = keycode;
+			if (rfi->keymap) {
+				for (ik = 0; ik < rfi->keymap->len; ik++) {
+					kep = &g_array_index(rfi->keymap, RemminaPluginRdpKeymapEntry, ik);
+					if (hardware_keycode == kep->orig_keycode) {
+						hardware_keycode = kep->translated_keycode;
+						break;
+					}
+				}
+			}
+			scancode = freerdp_keyboard_get_rdp_scancode_from_x11_keycode(hardware_keycode);
+			if (scancode) {
+				rdp_event.key_event.key_code = scancode & 0xFF;
+				rdp_event.key_event.extended = scancode & 0x100;
+				remmina_rdp_event_event_push(gp, &rdp_event);
+				keypress_list_add(gp, rdp_event);
+			}
+		} else {
+			unicode_keyval = gdk_keyval_to_unicode(keyval);
+			/* Decide when whe should send a keycode or a Unicode character.
+			 * - All non char keys (Shift, Alt, Super) should be sent as keycode
+			 * - Space should be sent as keycode (see issue #1364)
+			 * - All special keys (F1-F10, numeric pad, Home/End/Arrows/PgUp/PgDn/Insert/Delete) keycode
+			 * - All key pressed while Ctrl or Alt or Super is down are not decoded by gdk_keyval_to_unicode(), so send it as keycode
+			 * - All keycodes not translatable to unicode chars, as keycode
+			 * - The rest as Unicode char
+			 */
+			if (keyval >= 0xfe00 ||                                                  		 // Arrows, Shift, Alt, Fn, num keypad…
+			    keycode == 0x41 ||                                         					 // Spacebar
+			    unicode_keyval == 0 ||                                                      // Impossible to translate
+			    (state & (GDK_ALT_MASK | GDK_CONTROL_MASK | GDK_SUPER_MASK)) != 0   // A modifier not recognized by gdk_keyval_to_unicode()
+			    ) {
+				scancode = freerdp_keyboard_get_rdp_scancode_from_x11_keycode(hardware_keycode);
+				rdp_event.key_event.key_code = scancode & 0xFF;
+				rdp_event.key_event.extended = scancode & 0x100;
+				if (rdp_event.key_event.key_code) {
+					remmina_rdp_event_event_push(gp, &rdp_event);
+					keypress_list_add(gp, rdp_event);
+				}
+			} else {
+				rdp_event.type = REMMINA_RDP_EVENT_TYPE_SCANCODE_UNICODE;
+				rdp_event.key_event.unicode_code = unicode_keyval;
+				rdp_event.key_event.extended = false;
+				remmina_rdp_event_event_push(gp, &rdp_event);
+				keypress_list_add(gp, rdp_event);
+			}
+		}
 		break;
 	}
 
 	return TRUE;
+}
+
+
+static gboolean remmina_rdp_event_on_key_press(GtkWidget *widget, guint keyval, guint keycode, GdkModifierType state, RemminaProtocolWidget *gp)
+{
+	remmina_rdp_event_on_key_real(widget, keyval, keycode, state, gp, TRUE);
+}
+
+static gboolean remmina_rdp_event_on_key_release(GtkWidget *widget, guint keyval, guint keycode, GdkModifierType state, RemminaProtocolWidget *gp)
+{
+	remmina_rdp_event_on_key_real(widget, keyval, keycode, state, gp, False);
 }
 
 gboolean remmina_rdp_event_on_clipboard(GdkClipboard *GdkClipboard, GdkEvent *event, RemminaProtocolWidget *gp)
@@ -920,6 +1000,10 @@ void remmina_rdp_event_init(RemminaProtocolWidget *gp)
 
 	rfi->drawing_area = gtk_drawing_area_new();
 	gtk_widget_show(rfi->drawing_area);
+	gtk_widget_set_hexpand(rfi->drawing_area, TRUE);
+	gtk_widget_set_vexpand(rfi->drawing_area, TRUE);
+	gtk_box_append((gp), rfi->drawing_area);
+	g_object_set_data_full(G_OBJECT(gp), "child_plugin", rfi->drawing_area, g_free);
 	//gtk_container_add(GTK_CONTAINER(gp), rfi->drawing_area);
 
 	// gtk_widget_add_events(rfi->drawing_area, GDK_POINTER_MOTION_MASK
@@ -943,25 +1027,61 @@ void remmina_rdp_event_init(RemminaProtocolWidget *gp)
 	/* Read special keymap from profile file, if exists */
 	remmina_rdp_event_init_keymap(rfi, remmina_plugin_service->pref_get_value("rdp_map_keycode"));
 
-	if (rfi->use_client_keymap && rfi->keymap)
+	if (rfi->use_client_keymap && rfi->keymap){
 		fprintf(stderr, "RDP profile error: you cannot define both rdp_map_hardware_keycode and have 'Use client keyboard mapping' enabled\n");
+	}
 
-	g_signal_connect(G_OBJECT(rfi->drawing_area), "draw",
-			 G_CALLBACK(remmina_rdp_event_on_draw), gp);
-	g_signal_connect(G_OBJECT(rfi->drawing_area), "configure-event",
+
+
+	// g_signal_connect(G_OBJECT(rfi->drawing_area), "draw",
+	// 		 G_CALLBACK(remmina_rdp_event_on_draw), gp);
+	gtk_drawing_area_set_draw_func(rfi->drawing_area, remmina_rdp_event_on_draw, gp, NULL);
+
+
+	// g_signal_connect(G_OBJECT(rfi->drawing_area), "configure-event",
+	// 		 G_CALLBACK(remmina_rdp_event_on_configure), gp);
+	g_signal_connect(G_OBJECT(rfi->drawing_area), "notify::content-height",
 			 G_CALLBACK(remmina_rdp_event_on_configure), gp);
-	g_signal_connect(G_OBJECT(rfi->drawing_area), "motion-notify-event",
-			 G_CALLBACK(remmina_rdp_event_on_motion), gp);
-	g_signal_connect(G_OBJECT(rfi->drawing_area), "button-press-event",
-			 G_CALLBACK(remmina_rdp_event_on_button), gp);
-	g_signal_connect(G_OBJECT(rfi->drawing_area), "button-release-event",
-			 G_CALLBACK(remmina_rdp_event_on_button), gp);
-	g_signal_connect(G_OBJECT(rfi->drawing_area), "scroll-event",
-			 G_CALLBACK(remmina_rdp_event_on_scroll), gp);
-	g_signal_connect(G_OBJECT(rfi->drawing_area), "key-press-event",
-			 G_CALLBACK(remmina_rdp_event_on_key), gp);
-	g_signal_connect(G_OBJECT(rfi->drawing_area), "key-release-event",
-			 G_CALLBACK(remmina_rdp_event_on_key), gp);
+	g_signal_connect(G_OBJECT(rfi->drawing_area), "notify::content-width",
+			 G_CALLBACK(remmina_rdp_event_on_configure), gp);
+
+
+	// g_signal_connect(G_OBJECT(rfi->drawing_area), "motion-notify-event",
+	// 		 G_CALLBACK(remmina_rdp_event_on_motion), gp);
+	GtkEventControllerMotion* motion_event_controller = gtk_event_controller_motion_new();
+	gtk_widget_add_controller(G_OBJECT(rfi->drawing_area), motion_event_controller);
+	g_signal_connect(motion_event_controller, "motion", G_CALLBACK(remmina_rdp_event_on_motion), gp);
+
+
+	// g_signal_connect(G_OBJECT(rfi->drawing_area), "button-press-event",
+	// 		 G_CALLBACK(remmina_rdp_event_on_button), gp);
+	gtk_widget_set_focusable(GTK_WIDGET(rfi->drawing_area), TRUE);
+	GtkGesture *gesture = gtk_gesture_click_new();
+	gtk_gesture_single_set_button(gesture, 0);
+	g_signal_connect (gesture, "pressed", G_CALLBACK (remmina_rdp_event_on_button_press), gp);
+	g_signal_connect (gesture, "released", G_CALLBACK (remmina_rdp_event_on_button_release), gp);
+	gtk_event_controller_set_propagation_phase(gesture, GTK_PHASE_TARGET);
+	gtk_widget_add_controller(rfi->drawing_area, GTK_EVENT_CONTROLLER (gesture));
+	
+	// g_signal_connect(G_OBJECT(rfi->drawing_area), "scroll-event",
+	// 		 G_CALLBACK(remmina_rdp_event_on_scroll), gp);
+	GtkEventControllerScroll* scroll_event_controller = gtk_event_controller_scroll_new(GTK_EVENT_CONTROLLER_SCROLL_BOTH_AXES );
+	gtk_widget_add_controller(G_OBJECT(rfi->drawing_area), scroll_event_controller);
+	g_signal_connect(scroll_event_controller, "scroll", G_CALLBACK(remmina_rdp_event_on_scroll), gp);
+
+
+	// g_signal_connect(G_OBJECT(rfi->drawing_area), "key-press-event",
+	// 		 G_CALLBACK(remmina_rdp_event_on_key), gp);
+	// g_signal_connect(G_OBJECT(rfi->drawing_area), "key-release-event",
+	// 		 G_CALLBACK(remmina_rdp_event_on_key), gp);
+
+	GtkEventControllerKey* key_event_controller = gtk_event_controller_key_new();
+	gtk_widget_add_controller(G_OBJECT(rfi->drawing_area), key_event_controller);
+	g_signal_connect(key_event_controller, "key-pressed", G_CALLBACK(remmina_rdp_event_on_key_press), gp);
+	g_signal_connect(key_event_controller, "key-released", G_CALLBACK(remmina_rdp_event_on_key_release), gp);
+
+
+
 	g_signal_connect(G_OBJECT(rfi->drawing_area), "focus-in-event",
 			 G_CALLBACK(remmina_rdp_event_on_focus_in), gp);
 	/** Fixme: This comment
@@ -1158,7 +1278,7 @@ static void remmina_rdp_event_connected(RemminaProtocolWidget *gp, RemminaPlugin
 	gtk_widget_realize(rfi->drawing_area);
 
 	remmina_rdp_event_create_cairo_surface(rfi);
-	gtk_widget_queue_draw_area(rfi->drawing_area, 0, 0, gdi->width, gdi->height);
+	gtk_widget_queue_draw(rfi->drawing_area);
 
 	remmina_rdp_event_update_scale(gp);
 
@@ -1201,7 +1321,7 @@ static BOOL remmina_rdp_event_create_cursor(RemminaProtocolWidget *gp, RemminaPl
 	cairo_surface_mark_dirty(surface);
 	cairo_surface_destroy(surface);
 	free(data);
-	((rfPointer *)ui->cursor.pointer)->cursor = gdk_cursor_new_from_pixbuf(rfi->display, pixbuf, pointer->xPos, pointer->yPos);
+	((rfPointer *)ui->cursor.pointer)->cursor = gdk_cursor_new_from_name("default", NULL);//gdk_cursor_new_from_pixbuf(rfi->display, pixbuf, pointer->xPos, pointer->yPos);
 	g_object_unref(pixbuf);
 
 	return TRUE;
@@ -1216,39 +1336,39 @@ static void remmina_rdp_event_free_cursor(RemminaProtocolWidget *gp, RemminaPlug
 
 static BOOL remmina_rdp_event_set_pointer_position(RemminaProtocolWidget *gp, gint x, gint y)
 {
-	TRACE_CALL(__func__);
-	GdkSurface *w, *nw;
-	gint nx, ny, wx, wy;
+// 	TRACE_CALL(__func__);
+// 	GdkSurface *w, *nw;
+// 	gint nx, ny, wx, wy;
 
-#if GTK_CHECK_VERSION(3, 20, 0)
-	GdkSeat *seat;
-#else
-	GdkDeviceManager *manager;
-#endif
-	GdkDevice *dev;
-	rfContext *rfi = GET_PLUGIN_DATA(gp);
+// #if GTK_CHECK_VERSION(3, 20, 0)
+// 	GdkSeat *seat;
+// #else
+// 	GdkDeviceManager *manager;
+// #endif
+// 	GdkDevice *dev;
+// 	rfContext *rfi = GET_PLUGIN_DATA(gp);
 
-	if (rfi == NULL)
-		return FALSE;
+// 	if (rfi == NULL)
+// 		return FALSE;
 
-	w = gtk_widget_get_window(rfi->drawing_area);
-#if GTK_CHECK_VERSION(3, 20, 0)
-	seat = gdk_display_get_default_seat(gdk_display_get_default());
-	dev = gdk_seat_get_pointer(seat);
-#else
-	manager = gdk_display_get_device_manager(gdk_display_get_default());
-	dev = gdk_device_manager_get_client_pointer(manager);
-#endif
+// 	w = gtk_widget_get_window(rfi->drawing_area);
+// #if GTK_CHECK_VERSION(3, 20, 0)
+// 	seat = gdk_display_get_default_seat(gdk_display_get_default());
+// 	dev = gdk_seat_get_pointer(seat);
+// #else
+// 	manager = gdk_display_get_device_manager(gdk_display_get_default());
+// 	dev = gdk_device_manager_get_client_pointer(manager);
+// #endif
 
-	//nw = gdk_device_get_window_at_position(dev, NULL, NULL);
+// 	//nw = gdk_device_get_window_at_position(dev, NULL, NULL);
 
-	if (nw == w) {
-		nx = 0;
-		ny = 0;
-		remmina_rdp_event_reverse_translate_pos_reverse(gp, x, y, &nx, &ny);
-		gdk_window_get_root_coords(w, nx, ny, &wx, &wy);
-		gdk_device_warp(dev, gdk_window_get_screen(w), wx, wy);
-	}
+// 	if (nw == w) {
+// 		nx = 0;
+// 		ny = 0;
+// 		remmina_rdp_event_reverse_translate_pos_reverse(gp, x, y, &nx, &ny);
+// 		gdk_window_get_root_coords(w, nx, ny, &wx, &wy);
+// 		gdk_device_warp(dev, gdk_window_get_screen(w), wx, wy);
+// 	}
 	return TRUE;
 }
 
@@ -1267,7 +1387,7 @@ static void remmina_rdp_event_cursor(RemminaProtocolWidget *gp, RemminaPluginRdp
 		break;
 
 	case REMMINA_RDP_POINTER_SET:
-		gdk_window_set_cursor(gtk_widget_get_window(rfi->drawing_area), ui->cursor.pointer->cursor);
+		gtk_widget_set_cursor((rfi->drawing_area), ui->cursor.pointer->cursor);
 		ui->retval = 1;
 		break;
 
@@ -1276,13 +1396,13 @@ static void remmina_rdp_event_cursor(RemminaProtocolWidget *gp, RemminaPluginRdp
 		break;
 
 	case REMMINA_RDP_POINTER_NULL:
-		gdk_window_set_cursor(gtk_widget_get_window(rfi->drawing_area),
+		gtk_widget_set_cursor((rfi->drawing_area),
 				      gdk_cursor_new_from_name("none", NULL));
 		ui->retval = 1;
 		break;
 
 	case REMMINA_RDP_POINTER_DEFAULT:
-		gdk_window_set_cursor(gtk_widget_get_window(rfi->drawing_area), NULL);
+		gtk_widget_set_cursor((rfi->drawing_area), NULL);
 		ui->retval = 1;
 		break;
 	}
@@ -1422,8 +1542,8 @@ static void remmina_rdp_event_queue_ui(RemminaProtocolWidget *gp, RemminaPluginR
 
 	g_async_queue_push(rfi->ui_queue, ui);
 
-	// if (!rfi->ui_handler)
-	// 	rfi->ui_handler = IDLE_ADD((GSourceFunc)remmina_rdp_event_process_ui_queue, gp);
+	if (!rfi->ui_handler)
+		rfi->ui_handler = IDLE_ADD((GSourceFunc)remmina_rdp_event_process_ui_queue, gp);
 
 	if (ui_sync_save) {
 		/* Wait for main thread function completion before returning */
