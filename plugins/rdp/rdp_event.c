@@ -101,7 +101,7 @@ gboolean remmina_rdp_event_on_unmap(RemminaProtocolWidget *gp)
 	return FALSE;
 }
 
-static gboolean remmina_rdp_event_on_focus_in(GtkWidget *widget, GdkKeyEvent *event, RemminaProtocolWidget *gp)
+static gboolean remmina_rdp_event_on_focus_in(GtkWidget *widget, RemminaProtocolWidget *gp)
 {
 	TRACE_CALL(__func__);
 
@@ -116,8 +116,8 @@ static gboolean remmina_rdp_event_on_focus_in(GtkWidget *widget, GdkKeyEvent *ev
 #endif
 	GdkDevice *keyboard = NULL;
 
-	const gchar *wname = gtk_widget_get_name(gtk_widget_get_toplevel(widget));
-	REMMINA_PLUGIN_DEBUG("Top level name is: %s", wname);
+	// const gchar *wname = gtk_widget_get_name(gtk_widget_get_toplevel(widget));
+	// REMMINA_PLUGIN_DEBUG("Top level name is: %s", wname);
 
 	if (!rfi || !rfi->connected || rfi->is_reconnecting)
 		return FALSE;
@@ -132,7 +132,9 @@ static gboolean remmina_rdp_event_on_focus_in(GtkWidget *widget, GdkKeyEvent *ev
 	manager = gdk_display_get_device_manager(gdk_display_get_default());
 	keyboard = gdk_device_manager_get_client_pointer(manager);
 #endif
-	gdk_window_get_device_position(gdk_get_default_root_window(), keyboard, NULL, NULL, &state);
+	GtkNative* native = gtk_widget_get_native((GTK_WIDGET(widget)));
+	GdkSurface *surface = gtk_native_get_surface(native);
+	gdk_surface_get_device_position(surface, keyboard, NULL, NULL, &state);
 
 	// if (state & GDK_LOCK_MASK)
 	// 	toggle_keys_state |= KBD_SYNC_CAPS_LOCK;
@@ -1082,8 +1084,11 @@ void remmina_rdp_event_init(RemminaProtocolWidget *gp)
 
 
 
-	g_signal_connect(G_OBJECT(rfi->drawing_area), "focus-in-event",
-			 G_CALLBACK(remmina_rdp_event_on_focus_in), gp);
+	// g_signal_connect(G_OBJECT(rfi->drawing_area), "focus-in-event",
+	// 		 G_CALLBACK(remmina_rdp_event_on_focus_in), gp);
+	GtkEventControllerFocus* focus_event_controller = gtk_event_controller_focus_new();
+	gtk_widget_add_controller(G_OBJECT(rfi->drawing_area), focus_event_controller);
+	g_signal_connect(focus_event_controller, "enter", G_CALLBACK(remmina_rdp_event_on_focus_in), gp);
 	/** Fixme: This comment
 	 * needed for TS_SUPPRESS_OUTPUT_PDU
 	 * But it works only when we stay in the same window mode, if we switch to
