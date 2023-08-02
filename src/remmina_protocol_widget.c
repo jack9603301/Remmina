@@ -2130,7 +2130,7 @@ void remmina_protocol_widget_send_keys_signals(GtkWidget *widget, const guint *k
 			// event.hardware_keycode = remmina_public_get_keycode_for_keyval(display, event.keyval);
 			// event.is_modifier = (int)remmina_public_get_modifier_for_keycode(display, event.hardware_keycode);
 			// REMMINA_DEBUG("Sending keyval: %u, hardware_keycode: %u", event.keyval, event.hardware_keycode);
-			g_signal_emit_by_name(G_OBJECT(widget), "key-press-event", &event, &result);
+			//g_signal_emit_by_name(G_OBJECT(widget), "key-press-event", &event, &result);
 		}
 	}
 
@@ -2141,7 +2141,7 @@ void remmina_protocol_widget_send_keys_signals(GtkWidget *widget, const guint *k
 			// event.keyval = keyvals[i];
 			// event.hardware_keycode = remmina_public_get_keycode_for_keyval(keymap, event.keyval);
 			// event.is_modifier = (int)remmina_public_get_modifier_for_keycode(keymap, event.hardware_keycode);
-			g_signal_emit_by_name(G_OBJECT(widget), "key-release-event", &event, &result);
+			//g_signal_emit_by_name(G_OBJECT(widget), "key-release-event", &event, &result);
 		}
 	} //TODO GTK4 figure out immutable events
 }

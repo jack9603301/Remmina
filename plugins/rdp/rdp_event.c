@@ -101,7 +101,7 @@ gboolean remmina_rdp_event_on_unmap(RemminaProtocolWidget *gp)
 	return FALSE;
 }
 
-static gboolean remmina_rdp_event_on_focus_in(GtkWidget *widget, RemminaProtocolWidget *gp)
+static gboolean remmina_rdp_event_on_focus_in(GtkEventControllerFocus *widget, RemminaProtocolWidget *gp)
 {
 	TRACE_CALL(__func__);
 
@@ -132,7 +132,7 @@ static gboolean remmina_rdp_event_on_focus_in(GtkWidget *widget, RemminaProtocol
 	manager = gdk_display_get_device_manager(gdk_display_get_default());
 	keyboard = gdk_device_manager_get_client_pointer(manager);
 #endif
-	GtkNative* native = gtk_widget_get_native((GTK_WIDGET(widget)));
+	GtkNative* native = gtk_widget_get_native((GTK_WIDGET(rfi->drawing_area)));
 	GdkSurface *surface = gtk_native_get_surface(native);
 	gdk_surface_get_device_position(surface, keyboard, NULL, NULL, &state);
 
@@ -234,6 +234,36 @@ static void keypress_list_add(RemminaProtocolWidget *gp, RemminaPluginRdpEvent r
 		g_array_append_val(rfi->pressed_keys, rdp_event);
 }
 
+static void remmina_rdp_event_update_scale_factor(RemminaProtocolWidget *gp)
+{
+	TRACE_CALL(__func__);
+	GtkAllocation a;
+	gint rdwidth, rdheight;
+	gint gpwidth, gpheight;
+	rfContext *rfi = GET_PLUGIN_DATA(gp);
+
+	gtk_widget_get_allocation((gp), &a);
+	gpwidth = a.width;
+	gpheight = a.height;
+
+	if (rfi->scale == REMMINA_PROTOCOL_WIDGET_SCALE_MODE_SCALED) {
+		if ((gpwidth > 1) && (gpheight > 1)) {
+			rdwidth = remmina_plugin_service->protocol_plugin_get_width(gp);
+			rdheight = remmina_plugin_service->protocol_plugin_get_height(gp);
+
+			rfi->scale_width = gpwidth;
+			rfi->scale_height = gpheight;
+
+			rfi->scale_x = (gdouble)rfi->scale_width / (gdouble)rdwidth;
+			rfi->scale_y = (gdouble)rfi->scale_height / (gdouble)rdheight;
+		}
+	} else {
+		rfi->scale_width = 0;
+		rfi->scale_height = 0;
+		rfi->scale_x = 0;
+		rfi->scale_y = 0;
+	}
+}
 
 static void remmina_rdp_event_scale_area(RemminaProtocolWidget *gp, gint *x, gint *y, gint *w, gint *h)
 {
@@ -250,6 +280,7 @@ static void remmina_rdp_event_scale_area(RemminaProtocolWidget *gp, gint *x, gin
 
 	if ((width == 0) || (height == 0))
 		return;
+	remmina_rdp_event_update_scale_factor(gp);
 
 	if ((rfi->scale_width == width) && (rfi->scale_height == height)) {
 		/* Same size, just copy the pixels */
@@ -311,36 +342,7 @@ void remmina_rdp_event_update_rect(RemminaProtocolWidget *gp, gint x, gint y, gi
 	gtk_widget_queue_draw(rfi->drawing_area);
 }
 
-static void remmina_rdp_event_update_scale_factor(RemminaProtocolWidget *gp)
-{
-	TRACE_CALL(__func__);
-	GtkAllocation a;
-	gint rdwidth, rdheight;
-	gint gpwidth, gpheight;
-	rfContext *rfi = GET_PLUGIN_DATA(gp);
 
-	gtk_widget_get_allocation(GTK_WIDGET(gp), &a);
-	gpwidth = a.width;
-	gpheight = a.height;
-
-	if (rfi->scale == REMMINA_PROTOCOL_WIDGET_SCALE_MODE_SCALED) {
-		if ((gpwidth > 1) && (gpheight > 1)) {
-			rdwidth = remmina_plugin_service->protocol_plugin_get_width(gp);
-			rdheight = remmina_plugin_service->protocol_plugin_get_height(gp);
-
-			rfi->scale_width = gpwidth;
-			rfi->scale_height = gpheight;
-
-			rfi->scale_x = (gdouble)rfi->scale_width / (gdouble)rdwidth;
-			rfi->scale_y = (gdouble)rfi->scale_height / (gdouble)rdheight;
-		}
-	} else {
-		rfi->scale_width = 0;
-		rfi->scale_height = 0;
-		rfi->scale_x = 0;
-		rfi->scale_y = 0;
-	}
-}
 
 static gboolean remmina_rdp_event_on_draw(GtkWidget *widget, cairo_t *context, int width, int height, RemminaProtocolWidget *gp)
 {

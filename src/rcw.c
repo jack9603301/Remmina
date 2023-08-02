@@ -3373,7 +3373,7 @@ static void rcw_init(RemminaConnectionWindow *cnnwin)
 	remmina_widget_pool_register(GTK_WIDGET(cnnwin));
 }
 
-static gboolean rcw_focus_in_event(GtkWidget *widget, gpointer user_data)
+static gboolean rcw_focus_in_event(GtkEventControllerFocus *widget, gpointer user_data)
 {
 	TRACE_CALL(__func__);
 #if DEBUG_KB_GRABBING
@@ -3383,7 +3383,7 @@ static gboolean rcw_focus_in_event(GtkWidget *widget, gpointer user_data)
 	return FALSE;
 }
 
-static gboolean rcw_focus_out_event(GtkWidget *widget, gpointer user_data)
+static gboolean rcw_focus_out_event(GtkEventControllerFocus *widget, gpointer user_data)
 {
 	TRACE_CALL(__func__);
 #if DEBUG_KB_GRABBING
@@ -4717,6 +4717,8 @@ GtkWidget *rcw_open_from_file_full(RemminaFile *remminafile, GCallback disconnec
 
 	/* Create the RemminaProtocolWidget */
 	cnnobj->proto = remmina_protocol_widget_new();
+	gtk_widget_set_hexpand(cnnobj->proto, TRUE);
+	gtk_widget_set_vexpand(cnnobj->proto, TRUE);
 	remmina_protocol_widget_setup((RemminaProtocolWidget *)cnnobj->proto, remminafile, cnnobj);
 	if (remmina_protocol_widget_has_error((RemminaProtocolWidget *)cnnobj->proto)) {
 		GtkWindow *wparent;
