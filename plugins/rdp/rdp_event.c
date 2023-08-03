@@ -280,7 +280,6 @@ static void remmina_rdp_event_scale_area(RemminaProtocolWidget *gp, gint *x, gin
 
 	if ((width == 0) || (height == 0))
 		return;
-	remmina_rdp_event_update_scale_factor(gp);
 
 	if ((rfi->scale_width == width) && (rfi->scale_height == height)) {
 		/* Same size, just copy the pixels */
@@ -498,7 +497,7 @@ void remmina_rdp_event_send_delayed_monitor_layout(RemminaProtocolWidget *gp)
 		rfi->delayed_monitor_layout_handler = g_timeout_add(500, (GSourceFunc)remmina_rdp_event_delayed_monitor_layout, gp);
 }
 
-static gboolean remmina_rdp_event_on_configure(GtkWidget *widget, RemminaProtocolWidget *gp)
+static gboolean remmina_rdp_event_on_resize(GtkWidget *widget, gint width, gint height, RemminaProtocolWidget *gp)
 {
 	TRACE_CALL(__func__);
 	/* Called when gp changes its size or position */
@@ -1042,12 +1041,9 @@ void remmina_rdp_event_init(RemminaProtocolWidget *gp)
 	gtk_drawing_area_set_draw_func(rfi->drawing_area, remmina_rdp_event_on_draw, gp, NULL);
 
 
-	// g_signal_connect(G_OBJECT(rfi->drawing_area), "configure-event",
-	// 		 G_CALLBACK(remmina_rdp_event_on_configure), gp);
-	g_signal_connect(G_OBJECT(rfi->drawing_area), "notify::content-height",
-			 G_CALLBACK(remmina_rdp_event_on_configure), gp);
-	g_signal_connect(G_OBJECT(rfi->drawing_area), "notify::content-width",
-			 G_CALLBACK(remmina_rdp_event_on_configure), gp);
+	g_signal_connect(G_OBJECT(rfi->drawing_area), "resize",
+			 G_CALLBACK(remmina_rdp_event_on_resize), gp);
+
 
 
 	// g_signal_connect(G_OBJECT(rfi->drawing_area), "motion-notify-event",
@@ -1178,6 +1174,7 @@ void remmina_rdp_event_uninit(RemminaProtocolWidget *gp)
 	while ((ui = (RemminaPluginRdpUiObject *)g_async_queue_try_pop(rfi->ui_queue)) != NULL)
 		remmina_rdp_event_free_event(gp, ui);
 	if (rfi->surface) {
+		cairo_surface_flush(rfi->surface);
 		cairo_surface_mark_dirty(rfi->surface);
 		cairo_surface_destroy(rfi->surface);
 		rfi->surface = NULL;
@@ -1219,6 +1216,7 @@ static void remmina_rdp_event_create_cairo_surface(rfContext *rfi)
 		return;
 
 	if (rfi->surface) {
+		cairo_surface_flush(rfi->surface);
 		cairo_surface_mark_dirty(rfi->surface);
 		cairo_surface_destroy(rfi->surface);
 		rfi->surface = NULL;
@@ -1248,6 +1246,7 @@ void remmina_rdp_event_update_scale(RemminaProtocolWidget *gp)
 	if (rfi->surface && (cairo_image_surface_get_width(rfi->surface) != gdi->width ||
 			     cairo_image_surface_get_height(rfi->surface) != gdi->height)) {
 		/* Destroys and recreate rfi->surface with new width and height */
+		cairo_surface_flush(rfi->surface);
 		cairo_surface_mark_dirty(rfi->surface);
 		cairo_surface_destroy(rfi->surface);
 		rfi->surface = NULL;
@@ -1435,7 +1434,7 @@ static void remmina_rdp_ui_event_destroy_cairo_surface(RemminaProtocolWidget *gp
 {
 	TRACE_CALL(__func__);
 	rfContext *rfi = GET_PLUGIN_DATA(gp);
-
+	cairo_surface_flush(rfi->surface);
 	cairo_surface_mark_dirty(rfi->surface);
 	cairo_surface_destroy(rfi->surface);
 	rfi->surface = NULL;

@@ -1066,6 +1066,8 @@ void rco_get_monitor_geometry(RemminaConnectionObject *cnnobj, GdkRectangle *sz)
 	 * of the monitor (or workarea) where cnnobj->cnnwin is located */
 
 	GdkRectangle monitor_geometry;
+	GdkDisplay *display;
+	GdkMonitor *monitor;
 
 	sz->x = sz->y = sz->width = sz->height = 0;
 
@@ -1076,41 +1078,16 @@ void rco_get_monitor_geometry(RemminaConnectionObject *cnnobj, GdkRectangle *sz)
 	if (!gtk_widget_is_visible(GTK_WIDGET(cnnobj->cnnwin)))
 		return;
 
-#if GTK_CHECK_VERSION(3, 22, 0)
-	GdkDisplay *display;
-	GdkMonitor *monitor;
 	display = gtk_widget_get_display(GTK_WIDGET(cnnobj->cnnwin));
 	GtkNative* native = gtk_widget_get_native((GTK_WIDGET(cnnobj->cnnwin)));
-	GdkSurface *window = gtk_native_get_surface(native);
-	//monitor = gdk_display_get_monitor_at_window(display, window);
-#else
-	GdkScreen *screen;
-	gint monitor;
-	screen = gtk_window_get_screen(GTK_WINDOW(cnnobj->cnnwin));
-	GtkNative* native = gtk_widget_get_native((GTK_WIDGET(cnnobj->cnnwin)));
-	GdkSurface *window = gtk_native_get_surface(native);
-	monitor = gdk_screen_get_monitor_at_window(screen, window);
-#endif
+	GdkSurface *surface = gtk_native_get_surface(native);
+	monitor = gdk_display_get_monitor_at_surface(display, surface);
 
-// #if GTK_CHECK_VERSION(3, 22, 0)
-// 	//gdk_monitor_get_workarea(monitor, &monitor_geometry);
-// 	/* Under Wayland, GTK 3.22, all values returned by gdk_monitor_get_geometry()
-// 	 * and gdk_monitor_get_workarea() seem to have been divided by the
-// 	 * gdk scale factor, so we need to adjust the returned rect
-// 	 * undoing the division */
-// #ifdef GDK_WINDOWING_WAYLAND
-// 	if (GDK_IS_WAYLAND_DISPLAY(display)) {
-// 		int monitor_scale_factor = gdk_monitor_get_scale_factor(monitor);
-// 		monitor_geometry.width *= monitor_scale_factor;
-// 		monitor_geometry.height *= monitor_scale_factor;
-// 	}
-// #endif
-// #elif gdk_screen_get_monitor_workarea
-// 	gdk_screen_get_monitor_workarea(screen, monitor, &monitor_geometry);
-// #else
-// 	gdk_screen_get_monitor_geometry(screen, monitor, &monitor_geometry);
-// #endif
-	*sz = monitor_geometry;
+	int monitor_scale_factor = gdk_monitor_get_scale_factor(monitor);
+	monitor_geometry.width *= monitor_scale_factor;
+	monitor_geometry.height *= monitor_scale_factor;
+	//TODO GTK4 get workarea for various backgrounds
+
 }
 
 static void rco_check_resize(RemminaConnectionObject *cnnobj)

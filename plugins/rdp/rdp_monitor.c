@@ -165,17 +165,17 @@ void remmina_rdp_monitor_get (rfContext *rfi, gchar **monitorids, guint32 *maxwi
 			freerdp_settings_set_uint32(settings, FreeRDP_MonitorLocalShiftX, current->x);
 			freerdp_settings_set_uint32(settings, FreeRDP_MonitorLocalShiftY, current->y);
 		}
-		if (gdk_monitor_is_primary(monitor)) {
-			REMMINA_PLUGIN_DEBUG ("Primary monitor found with id: %d", index);
-			current->is_primary = TRUE;
-			primary_found = TRUE;
-			if (current->x != 0 || current->y != 0)
-			{
-				REMMINA_PLUGIN_DEBUG ("Primary monitor not at 0,0 coordinates: %d", index);
-				freerdp_settings_set_uint32(settings, FreeRDP_MonitorLocalShiftX, current->x);
-				freerdp_settings_set_uint32(settings, FreeRDP_MonitorLocalShiftY, current->y);
-			}
-		} else {
+		// if (gdk_monitor_is_primary(monitor)) {
+		// 	REMMINA_PLUGIN_DEBUG ("Primary monitor found with id: %d", index);
+		// 	current->is_primary = TRUE;
+		// 	primary_found = TRUE;
+		// 	if (current->x != 0 || current->y != 0)
+		// 	{
+		// 		REMMINA_PLUGIN_DEBUG ("Primary monitor not at 0,0 coordinates: %d", index);
+		// 		freerdp_settings_set_uint32(settings, FreeRDP_MonitorLocalShiftX, current->x);
+		// 		freerdp_settings_set_uint32(settings, FreeRDP_MonitorLocalShiftY, current->y);
+		// 	}
+		// } else { //TODO GTK4 how check if monitor is primary
 			if (!primary_found && current->x == 0 &&
 					current->y == 0)
 			{
@@ -186,7 +186,7 @@ void remmina_rdp_monitor_get (rfContext *rfi, gchar **monitorids, guint32 *maxwi
 				primary_found = TRUE;
 				REMMINA_PLUGIN_DEBUG ("Primary monitor set to id: %d", index);
 			}
-		}
+		// }
 		REMMINA_PLUGIN_DEBUG ("Local X Shift: %d", freerdp_settings_get_uint32(settings, FreeRDP_MonitorLocalShiftX));
 		REMMINA_PLUGIN_DEBUG ("Local Y Shift: %d", freerdp_settings_get_uint32(settings, FreeRDP_MonitorLocalShiftY));
 		//current->x =
