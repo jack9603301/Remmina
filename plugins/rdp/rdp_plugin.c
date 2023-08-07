@@ -2530,6 +2530,8 @@ static void remmina_rdp_call_feature(RemminaProtocolWidget *gp, const RemminaPro
 	case REMMINA_RDP_FEATURE_UNFOCUS:
 		remmina_rdp_event_unfocus(gp);
 		break;
+	case REMMINA_RDP_FEATURE_VIEWONLY:
+		break;
 
 	case REMMINA_RDP_FEATURE_SCALE:
 		if (rfi) {

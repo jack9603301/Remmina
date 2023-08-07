@@ -68,7 +68,7 @@
 #include "remmina/remmina_trace_calls.h"
 
 #ifdef GDK_WINDOWING_WAYLAND
-//#include <gdk/gdkwayland.h>
+#include <gdk/wayland/gdkwayland.h>
 #endif
 
 
@@ -129,6 +129,7 @@ struct _RemminaConnectionWindowPriv {
 	GtkWidget *					scaler_option_button;
 
 	GtkWidget *					toolbar_menu;
+	GtkWidget *					preference_menu;
 	GtkWidget *					pin_button;
 	gboolean					pin_down;
 
@@ -1058,6 +1059,67 @@ static void rcw_toolbar_autofit(GtkWidget *toggle, RemminaConnectionWindow *cnnw
 	}
 }
 
+
+
+
+
+
+#ifdef GDK_WINDOWING_WAYLAND
+// Below code queries the Wayland backend to determine montior geometry
+
+struct wl_ctx {
+  struct wl_list outputs;
+  GdkRectangle *rect
+};
+
+struct result {
+  struct wl_ctx *wl_ctx;
+  struct wl_output *output;
+  struct wl_list link;
+};
+
+static void output_handle_geometry(void *data, struct wl_output *wl_output, int32_t x, int32_t y, int32_t physical_width,
+                                	int32_t physical_height, int32_t subpixel,  const char *make, const char *model,
+                                	int32_t output_transform)
+{
+	struct result *out = (struct result *)data;
+	out->wl_ctx->rect->height = physical_height;
+	out->wl_ctx->rect->width = physical_width;
+	out->wl_ctx->rect->x = x;
+	out->wl_ctx->rect->y = y;
+}
+
+static void output_handle_mode(void *data, struct wl_output *wl_output,uint32_t flags, int32_t width, 
+							int32_t height, int32_t refresh) {}
+static void output_handle_done(void *data, struct wl_output *wl_output) {}
+static void output_handle_scale(void *data, struct wl_output *wl_output, int32_t scale) {}
+
+static const struct wl_output_listener output_listener = 
+{
+	output_handle_geometry, 
+	output_handle_mode, 
+	output_handle_done, 
+	output_handle_scale,
+};
+
+static void global_registry_handler(void *data, struct wl_registry *registry, uint32_t id, const char *interface, uint32_t version) {
+	if (!strcmp(interface, "wl_output")) {
+		struct wl_ctx *wl_ctx = (struct wl_ctx *)data;
+		struct result *output = malloc(sizeof(struct result));
+		output->wl_ctx = wl_ctx;
+		output->output = wl_registry_bind(registry, id, &wl_output_interface, version);
+		wl_list_insert(&wl_ctx->outputs, &output->link);
+		wl_output_add_listener(output->output, &output_listener, output);
+  	}
+}
+
+static void global_registry_remover(void *data, struct wl_registry *registry, uint32_t id) {}
+
+static const struct wl_registry_listener registry_listener = {global_registry_handler, global_registry_remover};
+
+#endif
+
+
 void rco_get_monitor_geometry(RemminaConnectionObject *cnnobj, GdkRectangle *sz)
 {
 	TRACE_CALL(__func__);
@@ -1082,11 +1144,37 @@ void rco_get_monitor_geometry(RemminaConnectionObject *cnnobj, GdkRectangle *sz)
 	GtkNative* native = gtk_widget_get_native((GTK_WIDGET(cnnobj->cnnwin)));
 	GdkSurface *surface = gtk_native_get_surface(native);
 	monitor = gdk_display_get_monitor_at_surface(display, surface);
+#ifdef GDK_WINDOWING_WAYLAND
+		struct wl_display *wl_display = wl_display_connect(NULL);
+		if (wl_display == NULL){
+			REMMINA_DEBUG("failed to connect to wl display");
+			return;
+		}
+		struct wl_registry* wl_registry = wl_display_get_registry(wl_display);
+
+		struct wl_ctx wl_ctx;
+		wl_list_init(&wl_ctx.outputs);
+		wl_ctx.rect = sz;
+		
+		wl_registry_add_listener(wl_registry, &registry_listener, &wl_ctx);
+		wl_display_dispatch(wl_display);
+		wl_display_roundtrip(wl_display);
+
+		struct result *out, *tmp;
+		wl_list_for_each_safe(out, tmp, &wl_ctx.outputs, link) {
+			wl_output_destroy(out->output);
+			wl_list_remove(&out->link);
+			free(out);
+		}
+		wl_registry_destroy(wl_registry);
+		wl_display_disconnect(wl_display);
+#endif
+
 
 	int monitor_scale_factor = gdk_monitor_get_scale_factor(monitor);
 	monitor_geometry.width *= monitor_scale_factor;
 	monitor_geometry.height *= monitor_scale_factor;
-	//TODO GTK4 get workarea for various backgrounds
+	//TODO GTK4 get workarea for x11 backgrounds
 
 }
 
@@ -1764,6 +1852,164 @@ static void rcw_toolbar_scaled_mode(GtkWidget *toggle, RemminaConnectionWindow *
 	rco_change_scalemode(cnnobj, bdyn, bscale);
 }
 
+
+static void rcw_create_toolbar_actions(GSimpleActionGroup* actions, RemminaConnectionWindow *cnnwin){
+	RemminaConnectionWindowPriv *priv;
+	RemminaConnectionObject *cnnobj;
+	const RemminaProtocolFeature *feature;
+	GMenu *menu;
+	GtkPopoverMenu* popover_menu;
+	GtkPopover *submenu_keystrokes;
+	const gchar *domain;
+	gboolean enabled;
+	gchar **keystrokes;
+	gchar **keystroke_values;
+	gint i;
+	char* label;
+
+	if (!(cnnobj = rcw_get_visible_cnnobj(cnnwin))) return;
+	gboolean pref_separator = FALSE;
+
+
+	domain = remmina_protocol_widget_get_domain(REMMINA_PROTOCOL_WIDGET(cnnobj->proto));
+	cnnwin->priv->toolbar_menu = g_menu_new();
+	cnnwin->priv->preference_menu = g_menu_new();
+	for (feature = remmina_protocol_widget_get_features(REMMINA_PROTOCOL_WIDGET(cnnobj->proto)); feature && feature->type;
+	     feature++) {
+		if (feature->type == REMMINA_PROTOCOL_FEATURE_TYPE_TOOL){
+			if (feature->opt1)
+				label = g_dgettext(domain, (const gchar *)feature->opt1);
+
+			enabled = remmina_protocol_widget_query_feature_by_ref(REMMINA_PROTOCOL_WIDGET(cnnobj->proto), feature);
+			if (enabled) {
+				//create action name based on menu label
+				char name[80];
+				strcpy(name, label);
+				char str[80];
+				strcpy(str, "rcw.");
+				//replace white_space with _
+				char* ptr = name;
+				while(*ptr){
+					if (*ptr == ' '){
+						*ptr = '_';
+					}
+					ptr++;
+				}
+				strcat(str, name);
+
+				GActionEntry entry = {name, rcw_run_feature, NULL, NULL, NULL};
+				g_action_map_add_action_entries(actions, &entry, 1, NULL);
+				GSimpleAction *action = g_simple_action_new (name, NULL);
+
+				GMenuItem* menuitem = g_menu_item_new(label, str);
+				//save these to be accessed in callback 
+				g_object_set_data((action), "feature-type", (gpointer)feature);
+				g_object_set_data((action), "proto", (gpointer)cnnobj->proto);
+
+				g_signal_connect (action, "activate", G_CALLBACK (rcw_run_feature), menuitem);
+				g_action_map_add_action (G_ACTION_MAP (actions), G_ACTION (action));
+				
+				g_menu_append_item(cnnwin->priv->toolbar_menu, menuitem);
+			}
+		}
+		else if (feature->type == REMMINA_PROTOCOL_FEATURE_TYPE_PREF){
+			if (pref_separator){
+				
+			}
+			enabled = remmina_protocol_widget_query_feature_by_ref(REMMINA_PROTOCOL_WIDGET(cnnobj->proto), feature);
+			switch (GPOINTER_TO_INT(feature->opt1)) {
+				case REMMINA_PROTOCOL_FEATURE_PREF_RADIO:
+					rcw_toolbar_preferences_radio(cnnobj, cnnobj->remmina_file, actions, feature,
+									domain, enabled);
+					pref_separator = TRUE;
+					break;
+				case REMMINA_PROTOCOL_FEATURE_PREF_CHECK:
+					rcw_toolbar_preferences_check(cnnobj, actions, feature,
+									domain, enabled);
+					break;
+			}
+		}
+		
+		else{
+			continue;
+		}
+			
+
+		
+		
+	}
+
+	/* If the plugin accepts keystrokes include the keystrokes menu */
+	if (remmina_protocol_widget_plugin_receives_keystrokes(REMMINA_PROTOCOL_WIDGET(cnnobj->proto))) {
+		/* Get the registered keystrokes list */
+		keystrokes = g_strsplit(remmina_pref.keystrokes, STRING_DELIMITOR, -1);
+		if (g_strv_length(keystrokes)) {
+			/* Add a keystrokes submenu */
+			GMenu* submenu = g_menu_new();
+			/* Add each registered keystroke */
+			for (i = 0; i < g_strv_length(keystrokes); i++) {
+				keystroke_values = g_strsplit(keystrokes[i], STRING_DELIMITOR2, -1);
+				if (g_strv_length(keystroke_values) > 1) {
+					/* Add the keystroke if no description was available */
+					char name[80];
+					strcpy(name, keystroke_values[0]);
+					char str[80];
+					strcpy(str, "rcw.");
+					char* ptr = name;
+					while(*ptr){
+						if (*ptr == ' '){
+							*ptr = '_';
+						}
+						ptr++;
+					}
+					strcat(str, name);
+					GActionEntry entry = {name, rcw_run_feature, NULL, NULL, NULL};
+			
+					g_action_map_add_action_entries(actions, &entry, 1, NULL);
+					GSimpleAction *action = g_simple_action_new (name, NULL);
+
+					GMenuItem* menuitem = g_menu_item_new(
+						g_strdup(keystroke_values[strlen(keystroke_values[0]) ? 0 : 1]), str);
+
+					g_object_set_data(G_OBJECT(action), "keystrokes", g_strdup(keystroke_values[1]));
+					g_signal_connect(G_OBJECT(action), "activate",
+								 G_CALLBACK(rcw_handle_keystrokes),
+								 REMMINA_PROTOCOL_WIDGET(cnnobj->proto));
+
+					g_action_map_add_action (G_ACTION_MAP (actions), G_ACTION (action));
+					g_menu_append_item(submenu, menuitem);
+				}
+				g_strfreev(keystroke_values);
+			}
+
+			// menuitem = gtk_button_new_with_label(_("Send clipboard content as keystrokes"));
+			// static gchar k_tooltip[] =
+			// 	N_("CAUTION: Pasted text will be sent as a sequence of key-codes as if typed on your local keyboard.\n"
+			// 	"\n"
+			// 	"  • For best results use same keyboard settings for both, client and server.\n"
+			// 	"\n"
+			// 	"  • If client-keyboard is different from server-keyboard the received text can contain wrong or erroneous characters.\n"
+			// 	"\n"
+			// 	"  • Unicode characters and other special characters that can't be translated to local key-codes won’t be sent to the server.\n"
+			// 	"\n");
+			// gtk_widget_set_tooltip_text(menuitem, k_tooltip);
+			// //gtk_menu_shell_append(GTK_MENU_SHELL(submenu_keystrokes), menuitem);
+			// g_signal_connect_swapped(G_OBJECT(menuitem), "activate",
+			// 			 G_CALLBACK(remmina_protocol_widget_send_clipboard),
+			// 			 REMMINA_PROTOCOL_WIDGET(cnnobj->proto));
+			// gtk_widget_show(menuitem);
+			g_menu_append_submenu(cnnwin->priv->toolbar_menu, "Keystrokes", submenu);
+
+		}
+		g_strfreev(keystrokes);
+	}
+}
+
+
+
+
+
+
 static void rcw_toolbar_multi_monitor_mode(GtkWidget *toggle, RemminaConnectionWindow *cnnwin)
 {
 	TRACE_CALL(__func__);
@@ -1858,16 +2104,24 @@ static void rco_call_protocol_feature_radio(GtkButton *menuitem, RemminaConnecti
 	// }
 }
 
-static void rco_call_protocol_feature_check(GtkButton *menuitem, RemminaConnectionObject *cnnobj)
+static void rco_call_protocol_feature_check(GSimpleAction* action, gpointer *data)
 {
 	TRACE_CALL(__func__);
 	RemminaProtocolFeature *feature;
 	gboolean value;
+	RemminaConnectionObject* cnnobj;
+	GtkWidget* proto;
 
-	feature = (RemminaProtocolFeature *)g_object_get_data(G_OBJECT(menuitem), "feature-type");
-	// value = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem));
-	// remmina_file_set_int(cnnobj->remmina_file, (const gchar *)feature->opt2, value);
-	// remmina_protocol_widget_call_feature_by_ref(REMMINA_PROTOCOL_WIDGET(cnnobj->proto), feature);
+	
+	value = g_variant_get_boolean(g_action_get_state(action));
+	gboolean new_state = value;
+	
+	feature = (RemminaProtocolFeature *)g_object_get_data(G_OBJECT(action), "feature-type");
+	cnnobj = (RemminaConnectionObject *)g_object_get_data(G_OBJECT(action), "cnnobj");
+
+	remmina_file_set_int(cnnobj->remmina_file, (const gchar *)feature->opt2, !value);
+	g_action_change_state(action, g_variant_new_boolean(new_state));
+	remmina_protocol_widget_call_feature_by_ref(REMMINA_PROTOCOL_WIDGET(cnnobj->proto), feature);
 }
 
 static void rco_call_protocol_feature_activate(GtkButton *menuitem, RemminaConnectionObject *cnnobj)
@@ -1880,7 +2134,7 @@ static void rco_call_protocol_feature_activate(GtkButton *menuitem, RemminaConne
 }
 
 void rcw_toolbar_preferences_radio(RemminaConnectionObject *cnnobj, RemminaFile *remminafile,
-				   GtkWidget *menu, const RemminaProtocolFeature *feature, const gchar *domain, gboolean enabled)
+				   GSimpleActionGroup* actions, const RemminaProtocolFeature *feature, const gchar *domain, gboolean enabled)
 {
 	TRACE_CALL(__func__);
 	GtkWidget *menuitem;
@@ -1890,31 +2144,67 @@ void rcw_toolbar_preferences_radio(RemminaConnectionObject *cnnobj, RemminaFile 
 	const gchar *value;
 
 	group = NULL;
+	gboolean initial_value = 1;
+	GVariant* variant = g_variant_new_boolean(initial_value);
+
 	value = remmina_file_get_string(remminafile, (const gchar *)feature->opt2);
 	list = (const gchar **)feature->opt3;
 	for (i = 0; list[i]; i += 2) {
 		menuitem = gtk_toggle_button_new_with_label(g_dgettext(domain, list[i + 1]));
+		char* label = g_dgettext(domain, list[i + 1]);
 		//group = gtk_radio_menu_item_get_group(GTK_RADIO_MENU_ITEM(menuitem));
-		gtk_widget_show(menuitem);
+		//gtk_widget_show(menuitem);
 		//gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
 
 		if (enabled) {
-			g_object_set_data(G_OBJECT(menuitem), "feature-type", (gpointer)feature);
-			g_object_set_data(G_OBJECT(menuitem), "feature-value", (gpointer)list[i]);
+			//create action name based on menu label
+			char name[80];
+			strcpy(name, label);
+			char str[80];
+			strcpy(str, "rcw.");
+			//replace white_space with _
+			char* ptr = name;
+			while(*ptr){
+				if (*ptr == ' '){
+					*ptr = '_';
+				}
+				ptr++;
+			}
+			strcat(str, name);
 
-			if (value && g_strcmp0(list[i], value) == 0)
-				gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(menuitem), TRUE);
+			
 
-			g_signal_connect(G_OBJECT(menuitem), "toggled",
-					 G_CALLBACK(rco_call_protocol_feature_radio), cnnobj);
-		} else {
+			GActionEntry entry = {name, rcw_run_feature, NULL, NULL, NULL};
+			g_action_map_add_action_entries(actions, &entry, 1, NULL);
+			GSimpleAction *action = g_simple_action_new_stateful (name, NULL, variant);
+
+			GMenuItem* menuitem = g_menu_item_new(label, str);
+			//save these to be accessed in callback 
+			g_object_set_data((action), "feature-type", (gpointer)feature);
+			g_object_set_data((action), "proto", (gpointer)cnnobj->proto);
+
+			g_signal_connect (action, "activate", G_CALLBACK (rcw_run_feature), menuitem);
+			g_action_map_add_action (G_ACTION_MAP (actions), G_ACTION (action));
+			
+			g_menu_append_item(cnnobj->cnnwin->priv->preference_menu, menuitem);
+
+			// g_object_set_data(G_OBJECT(menuitem), "feature-type", (gpointer)feature);
+			// g_object_set_data(G_OBJECT(menuitem), "feature-value", (gpointer)list[i]);
+
+			// if (value && g_strcmp0(list[i], value) == 0)
+			// 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(menuitem), TRUE);
+
+			// g_signal_connect(G_OBJECT(menuitem), "toggled",
+			// 		 G_CALLBACK(rco_call_protocol_feature_radio), cnnobj);
+		} 
+		else {
 			gtk_widget_set_sensitive(menuitem, FALSE);
 		}
 	}
 }
 
 void rcw_toolbar_preferences_check(RemminaConnectionObject *cnnobj,
-				   GtkWidget *menu, const RemminaProtocolFeature *feature,
+				   GSimpleActionGroup* actions, const RemminaProtocolFeature *feature,
 				   const gchar *domain, gboolean enabled)
 {
 	TRACE_CALL(__func__);
@@ -1922,17 +2212,51 @@ void rcw_toolbar_preferences_check(RemminaConnectionObject *cnnobj,
 
 	menuitem = gtk_toggle_button_new_with_label(g_dgettext(domain, (const gchar *)feature->opt3));
 	gtk_widget_show(menuitem);
-	//gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
+	gboolean initial_value = 1;
+	GVariant* variant = g_variant_new_boolean(initial_value);
 
 	if (enabled) {
-		g_object_set_data(G_OBJECT(menuitem), "feature-type", (gpointer)feature);
+			char* label = g_dgettext(domain, (const gchar *)feature->opt3);
+			//create action name based on menu label
+			char name[80];
+			strcpy(name, label);
+			char str[80];
+			strcpy(str, "rcw.");
+			//replace white_space with _
+			char* ptr = name;
+			while(*ptr){
+				if (*ptr == ' '){
+					*ptr = '_';
+				}
+				ptr++;
+			}
+			strcat(str, name);
 
-		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(menuitem),
-					       remmina_file_get_int(cnnobj->remmina_file, (const gchar *)feature->opt2, FALSE));
+			
 
-		g_signal_connect(G_OBJECT(menuitem), "toggled",
-				 G_CALLBACK(rco_call_protocol_feature_check), cnnobj);
-	} else {
+			GActionEntry entry = {name, rcw_run_feature, NULL, NULL, NULL};
+			g_action_map_add_action_entries(actions, &entry, 1, NULL);
+			GSimpleAction *action = g_simple_action_new_stateful (name, NULL, variant);
+
+			GMenuItem* menuitem = g_menu_item_new(label, str);
+			//save these to be accessed in callback 
+			g_object_set_data((action), "feature-type", (gpointer)feature);
+			g_object_set_data((action), "cnnobj", (gpointer)cnnobj);
+
+			g_signal_connect (action, "activate", G_CALLBACK (rco_call_protocol_feature_check), NULL);
+			g_action_map_add_action (G_ACTION_MAP (actions), G_ACTION (action));
+			
+			g_menu_append_item(cnnobj->cnnwin->priv->preference_menu, menuitem);
+
+		// g_object_set_data(G_OBJECT(menuitem), "feature-type", (gpointer)feature);
+
+		// gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(menuitem),
+		// 			       remmina_file_get_int(cnnobj->remmina_file, (const gchar *)feature->opt2, FALSE));
+
+		// g_signal_connect(G_OBJECT(menuitem), "toggled",
+		// 		 G_CALLBACK(rco_call_protocol_feature_check), cnnobj);
+	} 
+	else {
 		gtk_widget_set_sensitive(menuitem, FALSE);
 	}
 }
@@ -1948,6 +2272,9 @@ static void rcw_toolbar_preferences(GtkWidget *toggle, RemminaConnectionWindow *
 	gboolean separator;
 	gchar *domain;
 	gboolean enabled;
+	GtkPopoverMenu* popover_menu;
+	GSimpleActionGroup *actions;
+
 
 	if (cnnwin->priv->toolbar_is_reconfiguring)
 		return;
@@ -1961,36 +2288,56 @@ static void rcw_toolbar_preferences(GtkWidget *toggle, RemminaConnectionWindow *
 
 	separator = FALSE;
 
-	domain = remmina_protocol_widget_get_domain(REMMINA_PROTOCOL_WIDGET(cnnobj->proto));
-	menu = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);;
-	for (feature = remmina_protocol_widget_get_features(REMMINA_PROTOCOL_WIDGET(cnnobj->proto)); feature && feature->type;
-	     feature++) {
-		if (feature->type != REMMINA_PROTOCOL_FEATURE_TYPE_PREF)
-			continue;
 
-		if (separator) {
-			menuitem = gtk_separator_new(GTK_ORIENTATION_HORIZONTAL);
-			gtk_widget_show(menuitem);
-			//gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
-			separator = FALSE;
-		}
-		enabled = remmina_protocol_widget_query_feature_by_ref(REMMINA_PROTOCOL_WIDGET(cnnobj->proto), feature);
-		switch (GPOINTER_TO_INT(feature->opt1)) {
-		case REMMINA_PROTOCOL_FEATURE_PREF_RADIO:
-			rcw_toolbar_preferences_radio(cnnobj, cnnobj->remmina_file, menu, feature,
-						      domain, enabled);
-			separator = TRUE;
-			break;
-		case REMMINA_PROTOCOL_FEATURE_PREF_CHECK:
-			rcw_toolbar_preferences_check(cnnobj, menu, feature,
-						      domain, enabled);
-			break;
-		}
-	}
 
-	g_free(domain);
+	actions = g_simple_action_group_new();	
+	g_action_map_add_action_entries(G_ACTION_MAP(actions), rcw_actions, G_N_ELEMENTS(rcw_actions), cnnobj->cnnwin);
+	gtk_widget_insert_action_group(GTK_WIDGET(cnnobj->cnnwin), "rcw", G_ACTION_GROUP(actions));
+	rcw_create_toolbar_actions(actions, cnnobj->cnnwin);
 
-	g_signal_connect(G_OBJECT(menu), "deactivate", G_CALLBACK(rcw_toolbar_preferences_popdown), cnnwin);
+	popover_menu = gtk_popover_menu_new_from_model(cnnwin->priv->preference_menu);
+	gtk_widget_set_parent(popover_menu, toggle);
+	gtk_popover_popup(GTK_POPOVER(popover_menu));
+	
+	g_signal_connect(G_OBJECT(popover_menu), "closed", G_CALLBACK(rcw_toolbar_preferences_popdown), cnnwin);
+
+
+
+
+	// domain = remmina_protocol_widget_get_domain(REMMINA_PROTOCOL_WIDGET(cnnobj->proto));
+	// menu = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);;
+
+	// cnnwin->priv->preference_menu = g_menu_new();
+	
+
+	// for (feature = remmina_protocol_widget_get_features(REMMINA_PROTOCOL_WIDGET(cnnobj->proto)); feature && feature->type;
+	//      feature++) {
+	// 	if (feature->type != REMMINA_PROTOCOL_FEATURE_TYPE_PREF)
+	// 		continue;
+
+	// 	if (separator) {
+	// 		menuitem = gtk_separator_new(GTK_ORIENTATION_HORIZONTAL);
+	// 		gtk_widget_show(menuitem);
+	// 		//gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
+	// 		separator = FALSE;
+	// 	}
+	// 	enabled = remmina_protocol_widget_query_feature_by_ref(REMMINA_PROTOCOL_WIDGET(cnnobj->proto), feature);
+	// 	switch (GPOINTER_TO_INT(feature->opt1)) {
+	// 	case REMMINA_PROTOCOL_FEATURE_PREF_RADIO:
+	// 		// rcw_toolbar_preferences_radio(cnnobj, cnnobj->remmina_file, menu, feature,
+	// 		// 			      domain, enabled);
+	// 		separator = TRUE;
+	// 		break;
+	// 	case REMMINA_PROTOCOL_FEATURE_PREF_CHECK:
+	// 		rcw_toolbar_preferences_check(cnnobj, menu, feature,
+	// 					      domain, enabled);
+	// 		break;
+	// 	}
+	// }
+
+	// g_free(domain);
+
+	// g_signal_connect(G_OBJECT(menu), "deactivate", G_CALLBACK(rcw_toolbar_preferences_popdown), cnnwin);
 
 // #if GTK_CHECK_VERSION(3, 22, 0)
 // 	gtk_menu_popup_at_widget(GTK_MENU(menu), GTK_WIDGET(toggle),
@@ -2058,130 +2405,7 @@ static void rcw_toolbar_menu(GtkWidget *toggle, RemminaConnectionWindow *cnnwin)
 }
 
 
-static void rcw_create_toolbar_actions(GSimpleActionGroup* actions, RemminaConnectionWindow *cnnwin){
-	RemminaConnectionWindowPriv *priv;
-	RemminaConnectionObject *cnnobj;
-	const RemminaProtocolFeature *feature;
-	GMenu *menu;
-	GtkPopoverMenu* popover_menu;
-	GtkPopover *submenu_keystrokes;
-	const gchar *domain;
-	gboolean enabled;
-	gchar **keystrokes;
-	gchar **keystroke_values;
-	gint i;
-	char* label;
 
-	if (!(cnnobj = rcw_get_visible_cnnobj(cnnwin))) return;
-
-	domain = remmina_protocol_widget_get_domain(REMMINA_PROTOCOL_WIDGET(cnnobj->proto));
-	cnnwin->priv->toolbar_menu = g_menu_new();
-	for (feature = remmina_protocol_widget_get_features(REMMINA_PROTOCOL_WIDGET(cnnobj->proto)); feature && feature->type;
-	     feature++) {
-		if (feature->type != REMMINA_PROTOCOL_FEATURE_TYPE_TOOL)
-			continue;
-
-		if (feature->opt1)
-			label = g_dgettext(domain, (const gchar *)feature->opt1);
-
-		enabled = remmina_protocol_widget_query_feature_by_ref(REMMINA_PROTOCOL_WIDGET(cnnobj->proto), feature);
-		if (enabled) {
-			//create action name based on menu label
-			char name[80];
-			strcpy(name, label);
-			char str[80];
-			strcpy(str, "rcw.");
-			//replace white_space with _
-			char* ptr = name;
-			while(*ptr){
-				if (*ptr == ' '){
-					*ptr = '_';
-				}
-				ptr++;
-			}
-			strcat(str, name);
-
-			GActionEntry entry = {name, rcw_run_feature, NULL, NULL, NULL};
-			g_action_map_add_action_entries(actions, &entry, 1, NULL);
-			GSimpleAction *action = g_simple_action_new (name, NULL);
-
-			GMenuItem* menuitem = g_menu_item_new(label, str);
-			//save these to be accessed in callback 
-			g_object_set_data((action), "feature-type", (gpointer)feature);
-			g_object_set_data((action), "proto", (gpointer)cnnobj->proto);
-
-			g_signal_connect (action, "activate", G_CALLBACK (rcw_run_feature), menuitem);
-			g_action_map_add_action (G_ACTION_MAP (actions), G_ACTION (action));
-			
-			g_menu_append_item(cnnwin->priv->toolbar_menu, menuitem);
-		} 
-	}
-
-	/* If the plugin accepts keystrokes include the keystrokes menu */
-	if (remmina_protocol_widget_plugin_receives_keystrokes(REMMINA_PROTOCOL_WIDGET(cnnobj->proto))) {
-		/* Get the registered keystrokes list */
-		keystrokes = g_strsplit(remmina_pref.keystrokes, STRING_DELIMITOR, -1);
-		if (g_strv_length(keystrokes)) {
-			/* Add a keystrokes submenu */
-			GMenu* submenu = g_menu_new();
-			/* Add each registered keystroke */
-			for (i = 0; i < g_strv_length(keystrokes); i++) {
-				keystroke_values = g_strsplit(keystrokes[i], STRING_DELIMITOR2, -1);
-				if (g_strv_length(keystroke_values) > 1) {
-					/* Add the keystroke if no description was available */
-					char name[80];
-					strcpy(name, keystroke_values[0]);
-					char str[80];
-					strcpy(str, "rcw.");
-					char* ptr = name;
-					while(*ptr){
-						if (*ptr == ' '){
-							*ptr = '_';
-						}
-						ptr++;
-					}
-					strcat(str, name);
-					GActionEntry entry = {name, rcw_run_feature, NULL, NULL, NULL};
-			
-					g_action_map_add_action_entries(actions, &entry, 1, NULL);
-					GSimpleAction *action = g_simple_action_new (name, NULL);
-
-					GMenuItem* menuitem = g_menu_item_new(
-						g_strdup(keystroke_values[strlen(keystroke_values[0]) ? 0 : 1]), str);
-
-					g_object_set_data(G_OBJECT(action), "keystrokes", g_strdup(keystroke_values[1]));
-					g_signal_connect(G_OBJECT(action), "activate",
-								 G_CALLBACK(rcw_handle_keystrokes),
-								 REMMINA_PROTOCOL_WIDGET(cnnobj->proto));
-
-					g_action_map_add_action (G_ACTION_MAP (actions), G_ACTION (action));
-					g_menu_append_item(submenu, menuitem);
-				}
-				g_strfreev(keystroke_values);
-			}
-
-			// menuitem = gtk_button_new_with_label(_("Send clipboard content as keystrokes"));
-			// static gchar k_tooltip[] =
-			// 	N_("CAUTION: Pasted text will be sent as a sequence of key-codes as if typed on your local keyboard.\n"
-			// 	"\n"
-			// 	"  • For best results use same keyboard settings for both, client and server.\n"
-			// 	"\n"
-			// 	"  • If client-keyboard is different from server-keyboard the received text can contain wrong or erroneous characters.\n"
-			// 	"\n"
-			// 	"  • Unicode characters and other special characters that can't be translated to local key-codes won’t be sent to the server.\n"
-			// 	"\n");
-			// gtk_widget_set_tooltip_text(menuitem, k_tooltip);
-			// //gtk_menu_shell_append(GTK_MENU_SHELL(submenu_keystrokes), menuitem);
-			// g_signal_connect_swapped(G_OBJECT(menuitem), "activate",
-			// 			 G_CALLBACK(remmina_protocol_widget_send_clipboard),
-			// 			 REMMINA_PROTOCOL_WIDGET(cnnobj->proto));
-			// gtk_widget_show(menuitem);
-			g_menu_append_submenu(cnnwin->priv->toolbar_menu, "Keystrokes", submenu);
-
-		}
-		g_strfreev(keystrokes);
-	}
-}
 
 
 static void rcw_toolbar_tools(GtkWidget *toggle, RemminaConnectionWindow *cnnwin)
