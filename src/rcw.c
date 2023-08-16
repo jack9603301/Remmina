@@ -86,6 +86,7 @@ G_DEFINE_TYPE(RemminaConnectionWindow, rcw, GTK_TYPE_WINDOW)
 #define TB_HIDE_TIME_TIME 1500
 
 #define FULL_SCREEN_TARGET_MONITOR_UNDEFINED -1
+#define FULL_SCREEN_TARGET_MONITOR_ZERO -2
 
 struct _RemminaConnectionWindowPriv {
 	GtkNotebook *					notebook;
@@ -150,6 +151,7 @@ struct _RemminaConnectionWindowPriv {
 	 * to restore a scrolled window mode after coming from fullscreen */
 	gint						ss_width, ss_height;
 	gboolean					ss_maximized;
+	gint						active_monitor;
 
 	gboolean					kbcaptured;
 	gboolean					pointer_captured;
@@ -1461,6 +1463,11 @@ static void rcw_switch_viewmode(RemminaConnectionWindow *cnnwin, int newmode)
 		}
 		newwin = rcw_create_fullscreen(GTK_WINDOW(cnnwin), cnnwin->priv->fss_view_mode);
 		rcw_migrate(cnnwin, newwin);
+		gtk_widget_show(GTK_WIDGET(newwin));
+		GtkWindowGroup *wingrp = gtk_window_group_new();
+		gtk_window_group_add_window(wingrp, GTK_WINDOW(newwin));
+		gtk_window_set_transient_for(GTK_WINDOW(newwin), NULL);
+
 		if (old_mode == SCROLLED_WINDOW_MODE) {
 			newwin->priv->ss_maximized = is_maximized;
 			newwin->priv->ss_width = old_width;
@@ -1527,6 +1534,10 @@ static void rco_viewport_fullscreen_mode(GtkWidget *widget, RemminaConnectionObj
 	cnnobj->cnnwin->priv->fss_view_mode = VIEWPORT_FULLSCREEN_MODE;
 	newwin = rcw_create_fullscreen(GTK_WINDOW(cnnobj->cnnwin), VIEWPORT_FULLSCREEN_MODE);
 	rcw_migrate(cnnobj->cnnwin, newwin);
+	gtk_widget_show(GTK_WIDGET(newwin));
+	GtkWindowGroup *wingrp = gtk_window_group_new();
+	gtk_window_group_add_window(wingrp, GTK_WINDOW(newwin));
+	gtk_window_set_transient_for(GTK_WINDOW(newwin), NULL);
 }
 
 static void rco_scrolled_fullscreen_mode(GtkWidget *widget, RemminaConnectionObject *cnnobj)
@@ -1539,6 +1550,10 @@ static void rco_scrolled_fullscreen_mode(GtkWidget *widget, RemminaConnectionObj
 	cnnobj->cnnwin->priv->fss_view_mode = SCROLLED_FULLSCREEN_MODE;
 	newwin = rcw_create_fullscreen(GTK_WINDOW(cnnobj->cnnwin), SCROLLED_FULLSCREEN_MODE);
 	rcw_migrate(cnnobj->cnnwin, newwin);
+	gtk_widget_show(GTK_WIDGET(newwin));
+	GtkWindowGroup *wingrp = gtk_window_group_new();
+	gtk_window_group_add_window(wingrp, GTK_WINDOW(newwin));
+	gtk_window_set_transient_for(GTK_WINDOW(newwin), NULL);
 }
 
 static void rcw_fullscreen_option_popdown(GtkWidget *widget, RemminaConnectionWindow *cnnwin)
@@ -3583,16 +3598,17 @@ static gboolean rcw_map_event_fullscreen(GtkWidget *widget,  gpointer data)
 {
 	TRACE_CALL(__func__);
 	RemminaConnectionObject *cnnobj;
+	RemminaConnectionWindow* cnnwin = (RemminaConnectionWindow*)data;
 	gint target_monitor;
 
-	REMMINA_DEBUG("Mapping: %s", gtk_widget_get_name(widget));
+	REMMINA_DEBUG("Mapping: %s", gtk_widget_get_name(cnnwin));
 
-	if (!REMMINA_IS_CONNECTION_WINDOW(widget)) {
+	if (!REMMINA_IS_CONNECTION_WINDOW(cnnwin)) {
 		REMMINA_DEBUG("Remmina Connection Window undefined, cannot go fullscreen");
 		return FALSE;
 	}
 
-	cnnobj = rcw_get_visible_cnnobj((RemminaConnectionWindow *)widget);
+	cnnobj = rcw_get_visible_cnnobj((RemminaConnectionWindow *)cnnwin);
 	if (!cnnobj) {
 		REMMINA_DEBUG("Remmina Connection Object undefined, cannot go fullscreen");
 		return FALSE;
@@ -3612,18 +3628,21 @@ static gboolean rcw_map_event_fullscreen(GtkWidget *widget,  gpointer data)
 		REMMINA_DEBUG("Fullscreen on one monitor");
 	}
 
-	target_monitor = GPOINTER_TO_INT(data);
+	target_monitor = cnnwin->priv->active_monitor;
+	if (target_monitor == FULL_SCREEN_TARGET_MONITOR_ZERO){
+		target_monitor = FULL_SCREEN_TARGET_MONITOR_UNDEFINED; //TODO GTK4 handle monitors with fullscreen
+	}
 
 #if GTK_CHECK_VERSION(3, 18, 0)
 	if (remmina_pref.fullscreen_on_auto) {
 		if (target_monitor == FULL_SCREEN_TARGET_MONITOR_UNDEFINED)
-			gtk_window_fullscreen(GTK_WINDOW(widget));
+			gtk_window_fullscreen(GTK_WINDOW(cnnwin));
 		else
-			gtk_window_fullscreen_on_monitor(GTK_WINDOW(widget),
+			gtk_window_fullscreen_on_monitor(GTK_WINDOW(cnnwin),
 							 target_monitor);
 	} else {
 		REMMINA_DEBUG("Fullscreen managed by WM or by the user, as per settings");
-		gtk_window_fullscreen(GTK_WINDOW(widget));
+		gtk_window_fullscreen(GTK_WINDOW(cnnwin));
 	}
 #else
 	REMMINA_DEBUG("Cannot fullscreen on a specific monitor, feature available from GTK 3.18");
@@ -3655,17 +3674,16 @@ void rcw_property_notification_check(GObject* self, GParamSpec* pspec, gpointer 
 			rcw_unmap_event(self, user_data);
 		}
 	}
-	if (strcmp(g_param_spec_get_name(pspec), "default-width") == 0 ||
-				strcmp(g_param_spec_get_name(pspec), "default-height") == 0 ||
-				strcmp(g_param_spec_get_name(pspec), "maximized") == 0 ||
-				strcmp(g_param_spec_get_name(pspec), "fullscreened")== 0) {
-		rcw_state_event(self, user_data);
-		rcw_on_configure(self, user_data);
 
+	if (strcmp(g_param_spec_get_name(pspec), "default-width") == 0 || strcmp(g_param_spec_get_name(pspec), "default-height") == 0) {
+		rcw_on_configure(self, user_data);
+	}	
+				
+	if (strcmp(g_param_spec_get_name(pspec), "maximized") == 0 || strcmp(g_param_spec_get_name(pspec), "fullscreened")== 0) {
+		rcw_state_event(self, user_data);
 	}
 			
 	//map-event (fullscreen)
-	//configure-event
 }
 
 
@@ -3677,14 +3695,9 @@ rcw_new(gboolean fullscreen, int full_screen_target_monitor)
 
 	cnnwin = RCW(g_object_new(REMMINA_TYPE_CONNECTION_WINDOW, NULL));
 	cnnwin->priv->on_delete_confirm_mode = RCW_ONDELETE_CONFIRM_IF_2_OR_MORE;
+	cnnwin->priv->active_monitor = full_screen_target_monitor;
 
-	if (fullscreen){
-		/* Put the window in fullscreen after it is mapped to have it appear on the same monitor */
-		g_signal_connect(G_OBJECT(cnnwin), "notify", G_CALLBACK(rcw_property_notification_check), GINT_TO_POINTER(full_screen_target_monitor));
-	}
-	else{
-		g_signal_connect(G_OBJECT(cnnwin), "notify", G_CALLBACK(rcw_property_notification_check), NULL);		
-	}
+	g_signal_connect(G_OBJECT(cnnwin), "notify", G_CALLBACK(rcw_property_notification_check), NULL);		
 
 	//gtk_container_set_border_width(GTK_CONTAINER(cnnwin), 0);
 	g_signal_connect(G_OBJECT(cnnwin), "toolbar-place", G_CALLBACK(rcw_toolbar_place_signal), NULL);
@@ -4327,11 +4340,13 @@ RemminaConnectionWindow *rcw_create_fullscreen(GtkWindow *old, gint view_mode)
 			window));
 #endif
 	}
-
+	if (full_screen_target_monitor == 0){
+		full_screen_target_monitor = FULL_SCREEN_TARGET_MONITOR_ZERO;
+	}
 	cnnwin = rcw_new(TRUE, full_screen_target_monitor);
 	gtk_widget_set_name(GTK_WIDGET(cnnwin), "remmina-connection-window-fullscreen");
 	gtk_widget_realize(GTK_WIDGET(cnnwin));
-	g_signal_connect(gtk_native_get_surface(cnnwin), "notify", G_CALLBACK(rcw_property_notification_check), NULL);
+	g_signal_connect(gtk_native_get_surface(cnnwin), "notify", G_CALLBACK(rcw_property_notification_check), cnnwin);
 
 	if (!view_mode)
 		view_mode = VIEWPORT_FULLSCREEN_MODE;
@@ -4355,10 +4370,8 @@ RemminaConnectionWindow *rcw_create_fullscreen(GtkWindow *old, gint view_mode)
 	//gtk_drag_dest_set_track_motion(GTK_WIDGET(cnnwin->priv->notebook), TRUE); TODO GTK4
 	// g_signal_connect(GTK_WIDGET(cnnwin->priv->overlay), "drag-drop", G_CALLBACK(rcw_ftb_drag_drop), cnnwin);
 
-	gtk_widget_show(GTK_WIDGET(cnnwin));
-	GtkWindowGroup *wingrp = gtk_window_group_new();
-	gtk_window_group_add_window(wingrp, GTK_WINDOW(cnnwin));
-	gtk_window_set_transient_for(GTK_WINDOW(cnnwin), NULL);
+
+
 
 	return cnnwin;
 }
@@ -4916,6 +4929,12 @@ GtkWidget *rcw_open_from_file_full(RemminaFile *remminafile, GCallback disconnec
 		case SCROLLED_FULLSCREEN_MODE:
 		case VIEWPORT_FULLSCREEN_MODE:
 			cnnobj->cnnwin = rcw_create_fullscreen(NULL, view_mode);
+			rcw_update_tag(cnnobj->cnnwin, cnnobj);
+			rcw_append_new_page(cnnobj->cnnwin, cnnobj);
+			gtk_widget_show(GTK_WIDGET(cnnobj->cnnwin));
+			GtkWindowGroup *wingrp = gtk_window_group_new();
+			gtk_window_group_add_window(wingrp, GTK_WINDOW(cnnobj->cnnwin));
+			gtk_window_set_transient_for(GTK_WINDOW(cnnobj->cnnwin), NULL);
 			break;
 		case SCROLLED_WINDOW_MODE:
 		default:
@@ -4923,10 +4942,11 @@ GtkWidget *rcw_open_from_file_full(RemminaFile *remminafile, GCallback disconnec
 			height = remmina_file_get_int(cnnobj->remmina_file, "window_height", 480);
 			maximize = remmina_file_get_int(cnnobj->remmina_file, "window_maximize", FALSE) ? TRUE : FALSE;
 			cnnobj->cnnwin = rcw_create_scrolled(width, height, maximize);
+			rcw_update_tag(cnnobj->cnnwin, cnnobj);
+			rcw_append_new_page(cnnobj->cnnwin, cnnobj);
 			break;
 		}
-		rcw_update_tag(cnnobj->cnnwin, cnnobj);
-		rcw_append_new_page(cnnobj->cnnwin, cnnobj);
+		
 	} else {
 		newpage = rcw_append_new_page(cnnobj->cnnwin, cnnobj);
 		gtk_window_present(GTK_WINDOW(cnnobj->cnnwin));
