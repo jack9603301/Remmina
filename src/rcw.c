@@ -1898,7 +1898,6 @@ static void rcw_create_toolbar_connection_menu(GSimpleActionGroup* actions, Remm
 	RemminaConnectionObject *cnnobj;
 	GMenu *menu;
 	gint i;
-	char* label;
 	GtkWidget *menuitem;
 	gchar filename[MAX_PATH_LEN];
 	GDir *dir;
@@ -1946,8 +1945,13 @@ static void rcw_create_toolbar_connection_menu(GSimpleActionGroup* actions, Remm
 				continue;
 			}
 
-			GSimpleAction *action = g_simple_action_new (name, NULL);
-			menuitem = g_menu_item_new(name, "rcw.launch");
+			char detailed_action[80];
+			char new_name[80];
+
+			rcw_create_action_names(new_name, detailed_action, name, "");
+
+			GSimpleAction *action = g_simple_action_new (new_name, NULL);
+			menuitem = g_menu_item_new(name, detailed_action);
 			if (menuitem != NULL) {
 				//add to group submenu
 				if (group == NULL || group[0] == '\0'){
@@ -1962,7 +1966,8 @@ static void rcw_create_toolbar_connection_menu(GSimpleActionGroup* actions, Remm
 				}
 				
 				//save these to be accessed in callback 
-				g_object_set_data((action), "proto", (gpointer)cnnobj->proto);
+				char* saved_filename = g_strdup(filename);//(char*) malloc(sizeof(filename));
+				g_object_set_data((action), "filename", (gpointer)saved_filename);
 
 				g_signal_connect (action, "activate", G_CALLBACK (rcw_toolbar_menu_on_launch_item), menuitem);
 				g_action_map_add_action (G_ACTION_MAP (actions), G_ACTION (action));
@@ -2003,12 +2008,11 @@ static void rcw_create_toolbar_actions(GSimpleActionGroup* actions, RemminaConne
 			enabled = remmina_protocol_widget_query_feature_by_ref(REMMINA_PROTOCOL_WIDGET(cnnobj->proto), feature);
 			if (enabled) {
 				char name[80];
-				char str[80];
-				rcw_create_action_names(name, str, label, "");
+				char detailed_action[80];
+				rcw_create_action_names(name, detailed_action, label, "");
 
 				GSimpleAction *action = g_simple_action_new (name, NULL);
-
-				GMenuItem* menuitem = g_menu_item_new(label, str);
+				GMenuItem* menuitem = g_menu_item_new(label, detailed_action);
 				//save these to be accessed in callback 
 				g_object_set_data((action), "feature-type", (gpointer)feature);
 				g_object_set_data((action), "proto", (gpointer)cnnobj->proto);
@@ -2060,8 +2064,8 @@ static void rcw_create_toolbar_actions(GSimpleActionGroup* actions, RemminaConne
 					/* Add the keystroke if no description was available */
 					char name[80];
 					strcpy(name, keystroke_values[0]);
-					char str[80];
-					strcpy(str, "rcw.");
+					char detailed_action[80];
+					strcpy(detailed_action, "rcw.");
 					char* ptr = name;
 					while(*ptr){
 						if (*ptr == ' '){
@@ -2069,11 +2073,11 @@ static void rcw_create_toolbar_actions(GSimpleActionGroup* actions, RemminaConne
 						}
 						ptr++;
 					}
-					strcat(str, name);
+					strcat(detailed_action, name);
 					GSimpleAction *action = g_simple_action_new (name, NULL);
 
 					GMenuItem* menuitem = g_menu_item_new(
-						g_strdup(keystroke_values[strlen(keystroke_values[0]) ? 0 : 1]), str);
+						g_strdup(keystroke_values[strlen(keystroke_values[0]) ? 0 : 1]), detailed_action);
 
 					g_object_set_data(G_OBJECT(action), "keystrokes", g_strdup(keystroke_values[1]));
 					g_signal_connect(G_OBJECT(action), "activate",
@@ -2260,12 +2264,12 @@ void rcw_toolbar_preferences_radio(RemminaConnectionObject *cnnobj, RemminaFile 
 
 		if (enabled) {
 			char name[80];
-			char str[80];
-			rcw_create_action_names(name, str, label, "radio");
+			char detailed_action[80];
+			rcw_create_action_names(name, detailed_action, label, "radio");
 
 			GSimpleAction *action = g_simple_action_new_stateful ("radio", variant_type, g_variant_new_string(name));
 
-			GMenuItem* menuitem = g_menu_item_new(label, str);
+			GMenuItem* menuitem = g_menu_item_new(label, detailed_action);
 			//save these to be accessed in callback 
 			g_object_set_data((action), "feature-type", (gpointer)feature);
 			g_object_set_data((action), "cnnobj", (gpointer)cnnobj);
@@ -2301,12 +2305,12 @@ void rcw_toolbar_preferences_check(RemminaConnectionObject *cnnobj,
 
 		char* label = g_dgettext(domain, (const gchar *)feature->opt3);
 		char name[80];
-		char str[80];
-		rcw_create_action_names(name, str, label, "");
+		char detailed_action[80];
+		rcw_create_action_names(name, detailed_action, label, "");
 
 		GSimpleAction *action = g_simple_action_new_stateful (name, NULL, variant);
 
-		GMenuItem* menuitem = g_menu_item_new(label, str);
+		GMenuItem* menuitem = g_menu_item_new(label, detailed_action);
 		//save these to be accessed in callback 
 		g_object_set_data((action), "feature-type", (gpointer)feature);
 		g_object_set_data((action), "cnnobj", (gpointer)cnnobj);
@@ -2365,19 +2369,10 @@ static void rcw_toolbar_menu_on_launch_item(GSimpleAction *action, GVariant *var
 	TRACE_CALL(__func__);
 	gchar *s;
 
-	// switch (menuitem->item_type) {
-	// case REMMINA_APPLET_MENU_ITEM_NEW:
-	// 	remmina_exec_command(REMMINA_COMMAND_NEW, NULL);
-	// 	break;
-	// case REMMINA_APPLET_MENU_ITEM_FILE:
-	// 	remmina_exec_command(REMMINA_COMMAND_CONNECT, menuitem->filename);
-	// 	break;
-	// case REMMINA_APPLET_MENU_ITEM_DISCOVERED:
-	// 	s = g_strdup_printf("%s,%s", menuitem->protocol, menuitem->name);
-	// 	remmina_exec_command(REMMINA_COMMAND_NEW, s);
-	// 	g_free(s);
-	// 	break;
-	// }
+	s = (gchar*)g_object_get_data(G_OBJECT(action), "filename");
+
+	remmina_exec_command(REMMINA_COMMAND_CONNECT, s);
+	g_free(s);
 }
 
 static void rcw_toolbar_menu(GtkWidget *toggle, RemminaConnectionWindow *cnnwin)
@@ -2404,7 +2399,7 @@ static void rcw_toolbar_menu(GtkWidget *toggle, RemminaConnectionWindow *cnnwin)
 	gtk_widget_set_parent(popover_menu, toggle);
 	gtk_popover_popup(GTK_POPOVER(popover_menu));
 	
-	g_signal_connect(G_OBJECT(popover_menu), "closed", G_CALLBACK(rcw_toolbar_tools_popdown), cnnwin);
+	g_signal_connect(G_OBJECT(popover_menu), "closed", G_CALLBACK(rcw_toolbar_menu_popdown), cnnwin);
 
 	// g_signal_connect(G_OBJECT(menu), "launch-item", G_CALLBACK(rcw_toolbar_menu_on_launch_item), NULL);
 	// menuitem = gtk_separator_new(GTK_ORIENTATION_HORIZONTAL);
