@@ -131,6 +131,7 @@ struct _RemminaConnectionWindowPriv {
 
 	GtkWidget *					toolbar_menu;
 	GtkWidget *					preference_menu;
+	GtkWidget *					connections_menu;
 	GtkWidget *					pin_button;
 	gboolean					pin_down;
 
@@ -200,6 +201,7 @@ static GtkWidget *rcw_create_toolbar(RemminaConnectionWindow *cnnwin, gint mode)
 static void rcw_place_toolbar(GtkBox *toolbar, GtkGrid *grid, GtkWidget *sibling, int toolbar_placement);
 static void rcw_keyboard_grab(RemminaConnectionWindow *cnnwin);
 static void rcw_run_feature(GSimpleAction *action, GVariant *param, gpointer data);
+static void rcw_toolbar_menu_on_launch_item(GSimpleAction *action, GVariant *param, gpointer data);
 static void rcw_handle_keystrokes(GSimpleAction *action, GVariant *param, gpointer data);
 static GtkWidget *rcw_append_new_page(RemminaConnectionWindow *cnnwin, RemminaConnectionObject *cnnobj);
 
@@ -207,6 +209,7 @@ static GtkWidget *rcw_append_new_page(RemminaConnectionWindow *cnnwin, RemminaCo
 static GActionEntry rcw_actions[] = {
 	{ "feature",	 rcw_run_feature,	 NULL, NULL, NULL },
 	{ "keystrokes",	 rcw_handle_keystrokes,	 NULL, NULL, NULL },
+	{ "launch",	 rcw_toolbar_menu_on_launch_item,	 NULL, NULL, NULL },
 };
 
 static void rcw_ftb_drag_begin(GtkWidget *widget, GtkDragSource *context, gpointer user_data);
@@ -1890,12 +1893,92 @@ static void rcw_create_action_names(char *name, char *str, char *label, char *gr
 }
 
 
+static void rcw_create_toolbar_connection_menu(GSimpleActionGroup* actions, RemminaConnectionWindow *cnnwin){
+	RemminaConnectionWindowPriv *priv;
+	RemminaConnectionObject *cnnobj;
+	GMenu *menu;
+	gint i;
+	char* label;
+	GtkWidget *menuitem;
+	gchar filename[MAX_PATH_LEN];
+	GDir *dir;
+	gchar *remmina_data_dir;
+
+	if (!(cnnobj = rcw_get_visible_cnnobj(cnnwin))) return;
+
+	menu = cnnwin->priv->connections_menu = g_menu_new();
+
+	// get all groups
+	remmina_data_dir = remmina_file_get_datadir();
+	dir = g_dir_open(remmina_data_dir, 0, NULL);
+	char* groups = remmina_file_manager_get_groups();
+
+	// create a sub_menu for each group
+	GHashTable* group_map = g_hash_table_new(g_int_hash, g_int_equal); //TODO GTK4 clean up
+	char* group_name = strtok(groups, ",");
+	while (group_name != NULL){
+		GMenu* submenu = g_menu_new();
+		g_menu_append_item(menu, g_menu_item_new_submenu(group_name, submenu));
+		g_hash_table_insert(group_map, group_name, submenu);
+		group_name = strtok(NULL, ",");
+	}
+	
+	if (dir != NULL) {
+		/* Iterate all remote desktop profiles */
+		const gchar* name;
+		
+		while ((name = g_dir_read_name(dir)) != NULL) {
+			const gchar* group = NULL;
+			if (!g_str_has_suffix(name, ".remmina"))
+				continue;
+			g_snprintf(filename, sizeof(filename), "%s/%s", remmina_data_dir, name);
+
+			//get info about the connection
+			GKeyFile** gkeyfile = g_key_file_new();
+			if (!g_key_file_load_from_file(gkeyfile, filename, G_KEY_FILE_NONE, NULL)) {
+				g_key_file_free(gkeyfile);
+				continue;
+			}
+			name = g_key_file_get_string(gkeyfile, "remmina", "name", NULL);
+			group = g_key_file_get_string(gkeyfile, "remmina", "group", NULL);
+			g_key_file_free(gkeyfile);
+			if (name == NULL){
+				continue;
+			}
+
+			GSimpleAction *action = g_simple_action_new (name, NULL);
+			menuitem = g_menu_item_new(name, "rcw.launch");
+			if (menuitem != NULL) {
+				//add to group submenu
+				if (group == NULL || group[0] == '\0'){
+					g_menu_append_item(menu,menuitem);
+				}
+				else{
+					
+					GMenu* submenu = g_hash_table_lookup(group_map, group);
+					if (submenu != NULL){
+						g_menu_append_item(submenu,menuitem);
+					}
+				}
+				
+				//save these to be accessed in callback 
+				g_object_set_data((action), "proto", (gpointer)cnnobj->proto);
+
+				g_signal_connect (action, "activate", G_CALLBACK (rcw_toolbar_menu_on_launch_item), menuitem);
+				g_action_map_add_action (G_ACTION_MAP (actions), G_ACTION (action));
+			}
+		}
+		g_dir_close(dir);
+	}
+	g_free(remmina_data_dir);
+}
+
+
 static void rcw_create_toolbar_actions(GSimpleActionGroup* actions, RemminaConnectionWindow *cnnwin){
 	RemminaConnectionWindowPriv *priv;
 	RemminaConnectionObject *cnnobj;
 	const RemminaProtocolFeature *feature;
 	GMenu *menu;
-	GtkPopoverMenu* popover_menu;
 	GtkPopover *submenu_keystrokes;
 	const gchar *domain;
 	gboolean enabled;
@@ -1923,8 +2006,6 @@ static void rcw_create_toolbar_actions(GSimpleActionGroup* actions, RemminaConne
 				char str[80];
 				rcw_create_action_names(name, str, label, "");
 
-				GActionEntry entry = {name, rcw_run_feature, NULL, NULL, NULL};
-				g_action_map_add_action_entries(actions, &entry, 1, NULL);
 				GSimpleAction *action = g_simple_action_new (name, NULL);
 
 				GMenuItem* menuitem = g_menu_item_new(label, str);
@@ -1989,9 +2070,6 @@ static void rcw_create_toolbar_actions(GSimpleActionGroup* actions, RemminaConne
 						ptr++;
 					}
 					strcat(str, name);
-					GActionEntry entry = {name, rcw_run_feature, NULL, NULL, NULL};
-			
-					g_action_map_add_action_entries(actions, &entry, 1, NULL);
 					GSimpleAction *action = g_simple_action_new (name, NULL);
 
 					GMenuItem* menuitem = g_menu_item_new(
@@ -2185,8 +2263,6 @@ void rcw_toolbar_preferences_radio(RemminaConnectionObject *cnnobj, RemminaFile 
 			char str[80];
 			rcw_create_action_names(name, str, label, "radio");
 
-			GActionEntry entry = {"radio", rcw_run_feature, NULL, NULL, NULL};
-			g_action_map_add_action_entries(actions, &entry, 1, NULL);
 			GSimpleAction *action = g_simple_action_new_stateful ("radio", variant_type, g_variant_new_string(name));
 
 			GMenuItem* menuitem = g_menu_item_new(label, str);
@@ -2228,8 +2304,6 @@ void rcw_toolbar_preferences_check(RemminaConnectionObject *cnnobj,
 		char str[80];
 		rcw_create_action_names(name, str, label, "");
 
-		GActionEntry entry = {name, rcw_run_feature, NULL, NULL, NULL};
-		g_action_map_add_action_entries(actions, &entry, 1, NULL);
 		GSimpleAction *action = g_simple_action_new_stateful (name, NULL, variant);
 
 		GMenuItem* menuitem = g_menu_item_new(label, str);
@@ -2286,24 +2360,24 @@ static void rcw_toolbar_preferences(GtkWidget *toggle, RemminaConnectionWindow *
 	//TODO GTK4 handle menu separator
 }
 
-static void rcw_toolbar_menu_on_launch_item(RemminaAppletMenu *menu, RemminaAppletMenuItem *menuitem, gpointer data)
+static void rcw_toolbar_menu_on_launch_item(GSimpleAction *action, GVariant *variant, gpointer data)
 {
 	TRACE_CALL(__func__);
 	gchar *s;
 
-	switch (menuitem->item_type) {
-	case REMMINA_APPLET_MENU_ITEM_NEW:
-		remmina_exec_command(REMMINA_COMMAND_NEW, NULL);
-		break;
-	case REMMINA_APPLET_MENU_ITEM_FILE:
-		remmina_exec_command(REMMINA_COMMAND_CONNECT, menuitem->filename);
-		break;
-	case REMMINA_APPLET_MENU_ITEM_DISCOVERED:
-		s = g_strdup_printf("%s,%s", menuitem->protocol, menuitem->name);
-		remmina_exec_command(REMMINA_COMMAND_NEW, s);
-		g_free(s);
-		break;
-	}
+	// switch (menuitem->item_type) {
+	// case REMMINA_APPLET_MENU_ITEM_NEW:
+	// 	remmina_exec_command(REMMINA_COMMAND_NEW, NULL);
+	// 	break;
+	// case REMMINA_APPLET_MENU_ITEM_FILE:
+	// 	remmina_exec_command(REMMINA_COMMAND_CONNECT, menuitem->filename);
+	// 	break;
+	// case REMMINA_APPLET_MENU_ITEM_DISCOVERED:
+	// 	s = g_strdup_printf("%s,%s", menuitem->protocol, menuitem->name);
+	// 	remmina_exec_command(REMMINA_COMMAND_NEW, s);
+	// 	g_free(s);
+	// 	break;
+	// }
 }
 
 static void rcw_toolbar_menu(GtkWidget *toggle, RemminaConnectionWindow *cnnwin)
@@ -2311,7 +2385,7 @@ static void rcw_toolbar_menu(GtkWidget *toggle, RemminaConnectionWindow *cnnwin)
 	TRACE_CALL(__func__);
 	RemminaConnectionWindowPriv *priv;
 	RemminaConnectionObject *cnnobj;
-	GtkWidget *menu;
+	GtkPopoverMenu* popover_menu;
 	GtkWidget *menuitem = NULL;
 
 	if (cnnwin->priv->toolbar_is_reconfiguring)
@@ -2325,13 +2399,18 @@ static void rcw_toolbar_menu(GtkWidget *toggle, RemminaConnectionWindow *cnnwin)
 
 	priv->sticky = TRUE;
 
-	menu = remmina_applet_menu_new();
-	remmina_applet_menu_set_hide_count(REMMINA_APPLET_MENU(menu), remmina_pref.applet_hide_count);
-	remmina_applet_menu_populate(REMMINA_APPLET_MENU(menu));
 
-	g_signal_connect(G_OBJECT(menu), "launch-item", G_CALLBACK(rcw_toolbar_menu_on_launch_item), NULL);
-	menuitem = gtk_separator_new(GTK_ORIENTATION_HORIZONTAL);
-	gtk_widget_show(menuitem);
+	popover_menu = gtk_popover_menu_new_from_model(cnnwin->priv->connections_menu);
+	gtk_widget_set_parent(popover_menu, toggle);
+	gtk_popover_popup(GTK_POPOVER(popover_menu));
+	
+	g_signal_connect(G_OBJECT(popover_menu), "closed", G_CALLBACK(rcw_toolbar_tools_popdown), cnnwin);
+
+	// g_signal_connect(G_OBJECT(menu), "launch-item", G_CALLBACK(rcw_toolbar_menu_on_launch_item), NULL);
+	// menuitem = gtk_separator_new(GTK_ORIENTATION_HORIZONTAL);
+	// gtk_widget_show(menuitem);
+
+
 	//gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
 // #if GTK_CHECK_VERSION(3, 22, 0)
 // 	gtk_menu_popup_at_widget(GTK_MENU(menu), GTK_WIDGET(toggle),
@@ -4629,6 +4708,7 @@ void rco_on_connect(RemminaProtocolWidget *gp, RemminaConnectionObject *cnnobj)
 	g_action_map_add_action_entries(G_ACTION_MAP(actions), rcw_actions, G_N_ELEMENTS(rcw_actions), cnnobj->cnnwin);
 	gtk_widget_insert_action_group(GTK_WIDGET(cnnobj->cnnwin), "rcw", G_ACTION_GROUP(actions));
 	rcw_create_toolbar_actions(actions, cnnobj->cnnwin);
+	rcw_create_toolbar_connection_menu(actions, cnnobj->cnnwin);
 
 	rco_update_toolbar(cnnobj);
 
