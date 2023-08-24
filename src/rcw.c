@@ -688,7 +688,7 @@ static void rcw_close_all_connections(RemminaConnectionWindow *cnnwin)
 }
 
 void rcw_delete_response( GtkDialog* self, gint response_id, gpointer user_data){
-	gtk_window_destroy(self);
+	gtk_window_destroy(GTK_WINDOW(self));
 	if (response_id != GTK_RESPONSE_YES){
 		return;
 	}
@@ -720,10 +720,9 @@ gboolean rcw_delete(RemminaConnectionWindow *cnnwin)
 			dialog = gtk_message_dialog_new(GTK_WINDOW(cnnwin), GTK_DIALOG_MODAL, GTK_MESSAGE_QUESTION,
 							GTK_BUTTONS_YES_NO,
 							_("Are you sure you want to close %i active connections in the current window?"), nopen);
-			//i = gtk_dialog_run(GTK_DIALOG(dialog));
-			gtk_window_destroy(dialog);
-			if (i != GTK_RESPONSE_YES)
-				return FALSE;
+			gtk_window_set_modal(dialog, TRUE);
+			g_signal_connect(dialog, "response", rcw_delete_response, cnnwin);
+			gtk_widget_show(dialog);
 		}
 		else if (nopen == 1) {
 			if (remmina_pref.confirm_close) {
@@ -1422,11 +1421,11 @@ static void rcw_migrate(RemminaConnectionWindow *from, RemminaConnectionWindow *
 			g_object_ref(cnnobj->viewport);
 			if (GTK_IS_SCROLLED_WINDOW(cnnobj->scrolled_container)){
 				gtk_box_remove((old_scrolled_container), cnnobj->viewport);
-				gtk_scrolled_window_set_child((cnnobj->scrolled_container), cnnobj->viewport);
+				gtk_scrolled_window_set_child(GTK_SCROLLED_WINDOW(cnnobj->scrolled_container), cnnobj->viewport);
 				g_object_unref(cnnobj->viewport);
 			}
 			else{
-				gtk_scrolled_window_set_child((old_scrolled_container), NULL);
+				gtk_scrolled_window_set_child(GTK_SCROLLED_WINDOW(old_scrolled_container), NULL);
 				gtk_box_append(GTK_BOX(cnnobj->scrolled_container), cnnobj->viewport);
 				g_object_unref(cnnobj->viewport);
 			}
@@ -4062,7 +4061,7 @@ static void rcw_on_page_removed(GtkNotebook *notebook, GtkWidget *child, guint p
 	TRACE_CALL(__func__);
 
 	if (gtk_notebook_get_n_pages(GTK_NOTEBOOK(cnnwin->priv->notebook)) <= 0)
-		gtk_window_destroy(GTK_WIDGET(cnnwin));
+		gtk_window_destroy(GTK_WINDOW(cnnwin));
 
 }
 
@@ -4231,7 +4230,7 @@ static void rcw_create_overlay_ftb_overlay(RemminaConnectionWindow *cnnwin)
 	priv = cnnwin->priv;
 
 	if (priv->overlay_ftb_overlay != NULL) {
-		gtk_window_destroy(priv->overlay_ftb_overlay);
+		gtk_window_destroy(GTK_WINDOW(priv->overlay_ftb_overlay));
 		priv->overlay_ftb_overlay = NULL;
 		priv->revealer = NULL;
 	}
@@ -4902,7 +4901,7 @@ static void rcw_gtksocket_not_available_dialog_response(GtkDialog *			self,
 	// The user would need to manually click the close button.
 	if (cnnobj) rco_disconnect_current_page(cnnobj);
 
-	gtk_window_destroy(GTK_WIDGET(self));
+	gtk_window_destroy(GTK_WINDOW(self));
 }
 
 GtkWidget *rcw_open_from_file_full(RemminaFile *remminafile, GCallback disconnect_cb, gpointer data, guint *handler)
@@ -4941,7 +4940,7 @@ GtkWidget *rcw_open_from_file_full(RemminaFile *remminafile, GCallback disconnec
 		dialog = gtk_message_dialog_new(wparent, GTK_DIALOG_DESTROY_WITH_PARENT,
 						GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, "%s", msg);
 		//gtk_dialog_run(GTK_DIALOG(dialog));
-		gtk_window_destroy(dialog);
+		gtk_window_destroy(GTK_WINDOW(dialog));
 		/* We should destroy cnnobj->proto and cnnobj now… TODO: Fix this leak */
 		return NULL;
 	}
@@ -4980,7 +4979,7 @@ GtkWidget *rcw_open_from_file_full(RemminaFile *remminafile, GCallback disconnec
 	cnnobj->scrolled_container = rco_create_scrolled_container(scalemode, view_mode);
 
 	if (GTK_IS_SCROLLED_WINDOW(cnnobj->scrolled_container)){
-		gtk_scrolled_window_set_child(cnnobj->scrolled_container, cnnobj->viewport);
+		gtk_scrolled_window_set_child(GTK_SCROLLED_WINDOW(cnnobj->scrolled_container), cnnobj->viewport);
 	}
 	else{
 		gtk_box_append(GTK_BOX(cnnobj->scrolled_container), cnnobj->viewport);

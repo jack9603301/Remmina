@@ -360,7 +360,7 @@ static UINT remmina_rdp_cliprdr_server_format_list(CliprdrClientContext *context
 	  when setting clipboard owner later.
 	  We put it directly in the clipboard cache (clipboard->srv_data),
 	  so remmina will never ask it to the server via ClientFormatDataRequest */
-	gint n_targets;
+	gint n_targets = 0;
 	// GtkTargetEntry *target_table = gtk_target_table_new_from_list(list, &n_targets);
 	// if (target_table)
 	// 	gtk_target_table_free(target_table, n_targets);
@@ -659,7 +659,7 @@ void remmina_rdp_cliprdr_request_data(GdkClipboard *GdkClipboard, guint info, Re
 			if (rc == 0)
 				break;
 
-			gtk_main_iteration_do(FALSE);
+			// gtk_main_iteration_do(FALSE);
 		}
 
 		if (rc != 0) {
@@ -710,12 +710,12 @@ CLIPRDR_FORMAT_LIST *remmina_rdp_cliprdr_get_client_format_list(RemminaProtocolW
 {
 	TRACE_CALL(__func__);
 
-	GdkClipboard *GdkClipboard;
-	rfContext *rfi = GET_PLUGIN_DATA(gp);
+	// GdkClipboard *GdkClipboard;
+	// rfContext *rfi = GET_PLUGIN_DATA(gp);
 	// GdkAtom *targets;
 	gboolean result = 0;
 	gint loccount, srvcount;
-	gint formatId, i;
+	gint i; //formatId;
 	CLIPRDR_FORMAT *formats;
 	struct retp_t {
 		CLIPRDR_FORMAT_LIST	pFormatList;
@@ -779,35 +779,35 @@ static void remmina_rdp_cliprdr_mt_get_format_list(RemminaProtocolWidget *gp, Re
 void remmina_rdp_cliprdr_get_clipboard_data(RemminaProtocolWidget *gp, RemminaPluginRdpUiObject *ui)
 {
 	TRACE_CALL(__func__);
-	GdkClipboard *GdkClipboard;
+	// GdkClipboard *GdkClipboard;
 	UINT8 *inbuf = NULL;
 	UINT8 *outbuf = NULL;
 	GdkPixbuf *image = NULL;
 	int size = 0;
-	rfContext *rfi = GET_PLUGIN_DATA(gp);
+	// rfContext *rfi = GET_PLUGIN_DATA(gp);
 	RemminaPluginRdpEvent rdp_event = { 0 };
 
 	// GdkClipboard = gtk_widget_get_clipboard(rfi->drawing_area, GDK_SELECTION_CLIPBOARD);
-	if (GdkClipboard) {
-		switch (ui->clipboard.format) {
-		case CF_TEXT:
-		case CF_UNICODETEXT:
-		case CB_FORMAT_HTML:
-		{
-			inbuf = (UINT8 *)gtk_clipboard_wait_for_text(GdkClipboard);
-			break;
-		}
+	// if (GdkClipboard) {
+	// 	switch (ui->clipboard.format) {
+	// 	case CF_TEXT:
+	// 	case CF_UNICODETEXT:
+	// 	case CB_FORMAT_HTML:
+	// 	{
+	// 		inbuf = (UINT8 *)gtk_clipboard_wait_for_text(GdkClipboard);
+	// 		break;
+	// 	}
 
-		case CB_FORMAT_PNG:
-		case CB_FORMAT_JPEG:
-		case CF_DIB:
-		case CF_DIBV5:
-		{
-			image = gtk_clipboard_wait_for_image(GdkClipboard);
-			break;
-		}
-		}
-	}
+	// 	case CB_FORMAT_PNG:
+	// 	case CB_FORMAT_JPEG:
+	// 	case CF_DIB:
+	// 	case CF_DIBV5:
+	// 	{
+	// 		image = gtk_clipboard_wait_for_image(GdkClipboard);
+	// 		break;
+	// 	}
+	// 	}
+	// }
 
 	/* No data received, send nothing */
 	if (inbuf != NULL || image != NULL) {
@@ -873,12 +873,12 @@ void remmina_rdp_cliprdr_get_clipboard_data(RemminaProtocolWidget *gp, RemminaPl
 void remmina_rdp_cliprdr_set_clipboard_data(RemminaProtocolWidget *gp, RemminaPluginRdpUiObject *ui)
 {
 	TRACE_CALL(__func__);
-	GdkClipboard *GdkClipboard;
-	gint n_targets;
-	rfContext *rfi = GET_PLUGIN_DATA(gp);
+	// GdkClipboard *GdkClipboard;
+	// gint n_targets = 0;
+	// rfContext *rfi = GET_PLUGIN_DATA(gp);
 
 	// GdkClipboard = gtk_widget_get_clipboard(rfi->drawing_area, GDK_SELECTION_CLIPBOARD);
-	if (GdkClipboard) {
+	// if (GdkClipboard) {
 		//GtkTargetEntry *targets = gtk_target_table_new_from_list(ui->clipboard.targetlist, &n_targets);
 		// if (!targets) {
 		// 	/* If no targets exists, this is an internal error, because
@@ -887,12 +887,12 @@ void remmina_rdp_cliprdr_set_clipboard_data(RemminaProtocolWidget *gp, RemminaPl
 		// 	g_warning("[RDP] internal error: no targets to insert into the local clipboard");
 		// }
 
-		REMMINA_PLUGIN_DEBUG("setting clipboard with owner to me: %p", gp);
-		gtk_clipboard_set_with_owner(GdkClipboard,  n_targets,
-							remmina_rdp_cliprdr_request_data,
-							remmina_rdp_cliprdr_empty_clipboard, G_OBJECT(gp));
+		// REMMINA_PLUGIN_DEBUG("setting clipboard with owner to me: %p", gp);
+		// gtk_clipboard_set_with_owner(GdkClipboard,  n_targets,
+		// 					remmina_rdp_cliprdr_request_data,
+		// 					remmina_rdp_cliprdr_empty_clipboard, G_OBJECT(gp));
 		// gtk_target_table_free(targets, n_targets);
-	}
+	// } TODO GTK4
 }
 
 void remmina_rdp_cliprdr_detach_owner(RemminaProtocolWidget *gp)
@@ -901,7 +901,7 @@ void remmina_rdp_cliprdr_detach_owner(RemminaProtocolWidget *gp)
 	 * If it’s an owner, detach it from the clipboard */
 	TRACE_CALL(__func__);
 	rfContext *rfi = GET_PLUGIN_DATA(gp);
-	GdkClipboard *GdkClipboard;
+	// GdkClipboard *GdkClipboard;
 
 	if (!rfi || !rfi->drawing_area) return;
 

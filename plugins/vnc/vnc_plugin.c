@@ -56,10 +56,7 @@
 
 static RemminaPluginService *remmina_plugin_service = NULL;
 
-static int dot_cursor_x_hot = 2;
-static int dot_cursor_y_hot = 2;
-static const gchar *dot_cursor_xpm[] =
-{ "5 5 3 1", "  c None", ".	c #000000", "+	c #FFFFFF", " ... ", ".+++.", ".+ +.", ".+++.", " ... " };
+
 
 
 #define LOCK_BUFFER(t)      if (t) { CANCEL_DEFER } pthread_mutex_lock(&gpdata->buffer_mutex);
@@ -267,7 +264,7 @@ gboolean remmina_plugin_vnc_setcursor(RemminaProtocolWidget *gp)
 {
 	TRACE_CALL(__func__);
 	RemminaPluginVncData *gpdata = GET_PLUGIN_DATA(gp);
-	GdkCursor *cur;
+	GdkCursor *cur = NULL;
 
 	LOCK_BUFFER(FALSE);
 	gpdata->queuecursor_handler = 0;
@@ -561,14 +558,10 @@ static gboolean remmina_plugin_vnc_queue_draw_area_real(RemminaProtocolWidget *g
 {
 	TRACE_CALL(__func__);
 	RemminaPluginVncData *gpdata = GET_PLUGIN_DATA(gp);
-	gint x, y, w, h;
 
 	if (GTK_IS_WIDGET(gp) && gpdata->connected) {
 		LOCK_BUFFER(FALSE);
-		x = gpdata->queuedraw_x;
-		y = gpdata->queuedraw_y;
-		w = gpdata->queuedraw_w;
-		h = gpdata->queuedraw_h;
+
 		gpdata->queuedraw_handler = 0;
 		UNLOCK_BUFFER(FALSE);
 
@@ -1461,10 +1454,10 @@ static gboolean remmina_plugin_vnc_on_button_press(GtkGestureClick *self, gint n
 		return FALSE;
 
 	/* We only accept 3 buttons */
-	if (gtk_gesture_single_get_current_button(self) < 1 || gtk_gesture_single_get_current_button(self) > 3)
+	if (gtk_gesture_single_get_current_button(GTK_GESTURE_SINGLE(self)) < 1 || gtk_gesture_single_get_current_button(GTK_GESTURE_SINGLE(self)) > 3)
 		return FALSE;
 
-	mask = (1 << (gtk_gesture_single_get_current_button(self) - 1));
+	mask = (1 << (gtk_gesture_single_get_current_button(GTK_GESTURE_SINGLE(self)) - 1));
 	gpdata->button_mask = (gpdata->button_mask | mask);
 
 
@@ -1489,10 +1482,10 @@ static gboolean remmina_plugin_vnc_on_button_release(GtkGestureClick *self, gint
 		return FALSE;
 
 	/* We only accept 3 buttons */
-	if (gtk_gesture_single_get_current_button(self) < 1 || gtk_gesture_single_get_current_button(self) > 3)
+	if (gtk_gesture_single_get_current_button(GTK_GESTURE_SINGLE(self)) < 1 || gtk_gesture_single_get_current_button(GTK_GESTURE_SINGLE(self)) > 3)
 		return FALSE;
 
-	mask = (1 << (gtk_gesture_single_get_current_button(self) - 1));
+	mask = (1 << (gtk_gesture_single_get_current_button(GTK_GESTURE_SINGLE(self)) - 1));
 	gpdata->button_mask = (gpdata->button_mask & (0xff - mask));
 
 
@@ -1724,18 +1717,15 @@ static void remmina_plugin_vnc_on_realize(RemminaProtocolWidget *gp, gpointer da
 	TRACE_CALL(__func__);
 	RemminaFile *remminafile;
 	GdkCursor *cursor;
-	GdkPixbuf *pixbuf;
 
 	remminafile = remmina_plugin_service->protocol_plugin_get_file(gp);
 
 	if (remmina_plugin_service->file_get_int(remminafile, "showcursor", FALSE)) {
 		/* Hide local cursor (show a small dot instead) */
-		pixbuf = gdk_pixbuf_new_from_xpm_data(dot_cursor_xpm);
-		cursor = gdk_cursor_new_from_pixbuf(gdk_display_get_default(), pixbuf, dot_cursor_x_hot, dot_cursor_y_hot);
-		g_object_unref(pixbuf);
+		cursor = gdk_cursor_new_from_name("none", NULL);
 		gtk_widget_set_cursor(GTK_WIDGET(gp), cursor);
 		g_object_unref(cursor);
-	}
+	} 
 }
 
 /******************************************************************************************/
@@ -1759,24 +1749,24 @@ static gboolean remmina_plugin_vnc_open_connection(RemminaProtocolWidget *gp)
 
 
 	gtk_widget_set_focusable(GTK_WIDGET(gpdata->drawing_area), TRUE);
-	GtkGesture *gesture = gtk_gesture_click_new();
+	GtkGestureSingle *gesture = (GtkGestureSingle*)gtk_gesture_click_new();
 	gtk_gesture_single_set_button(gesture, 0);
 	g_signal_connect (gesture, "pressed", G_CALLBACK (remmina_plugin_vnc_on_button_press), gp);
 	g_signal_connect (gesture, "released", G_CALLBACK (remmina_plugin_vnc_on_button_release), gp);
-	gtk_event_controller_set_propagation_phase(gesture, GTK_PHASE_TARGET);
+	gtk_event_controller_set_propagation_phase(GTK_EVENT_CONTROLLER(gesture), GTK_PHASE_TARGET);
 	gtk_widget_add_controller(gpdata->drawing_area, GTK_EVENT_CONTROLLER (gesture));
 
 
-	GtkEventControllerMotion* motion_event_controller = gtk_event_controller_motion_new();
-	gtk_widget_add_controller(G_OBJECT(gpdata->drawing_area), motion_event_controller);
+	GtkEventControllerMotion* motion_event_controller = (GtkEventControllerMotion*)gtk_event_controller_motion_new();
+	gtk_widget_add_controller(GTK_WIDGET(gpdata->drawing_area), GTK_EVENT_CONTROLLER(motion_event_controller));
 	g_signal_connect(motion_event_controller, "motion", G_CALLBACK(remmina_plugin_vnc_on_motion), gp);
 
-	GtkEventControllerScroll* scroll_event_controller = gtk_event_controller_scroll_new(GTK_EVENT_CONTROLLER_SCROLL_BOTH_AXES );
-	gtk_widget_add_controller(G_OBJECT(gpdata->drawing_area), scroll_event_controller);
+	GtkEventControllerScroll* scroll_event_controller = (GtkEventControllerScroll*)gtk_event_controller_scroll_new(GTK_EVENT_CONTROLLER_SCROLL_BOTH_AXES );
+	gtk_widget_add_controller(GTK_WIDGET(gpdata->drawing_area), GTK_EVENT_CONTROLLER(scroll_event_controller));
 	g_signal_connect(scroll_event_controller, "scroll", G_CALLBACK(remmina_plugin_vnc_on_scroll), gp);
 
-	GtkEventControllerKey* key_event_controller = gtk_event_controller_key_new();
-	gtk_widget_add_controller(G_OBJECT(gpdata->drawing_area), key_event_controller);
+	GtkEventControllerKey* key_event_controller = (GtkEventControllerKey*)gtk_event_controller_key_new();
+	gtk_widget_add_controller(GTK_WIDGET(gpdata->drawing_area), GTK_EVENT_CONTROLLER(key_event_controller));
 	g_signal_connect(key_event_controller, "key-pressed", G_CALLBACK(remmina_plugin_vnc_on_key_press), gp);
 	g_signal_connect(key_event_controller, "key-released", G_CALLBACK(remmina_plugin_vnc_on_key_release), gp);
 
@@ -1998,7 +1988,6 @@ static gboolean remmina_plugin_vnc_on_size_allocate(GtkWidget *widget, GtkAlloca
 		sprintf(str, "DEBUG: %d x %d", alloc->width, alloc->height);
 		TRACE_CALL(str);
 		if (gpdata->client){
-			rfbClient *cl;
 			SendExtDesktopSize(gpdata->client, alloc->width, alloc->height);
 		}
 	}
@@ -2006,10 +1995,10 @@ static gboolean remmina_plugin_vnc_on_size_allocate(GtkWidget *widget, GtkAlloca
 }
 #endif
 
-static gboolean remmina_plugin_vnc_on_draw(GtkWidget *widget, cairo_t *context, int width, int height, RemminaProtocolWidget *gp)
+static void remmina_plugin_vnc_on_draw(GtkDrawingArea *widget, cairo_t *context, int width, int height, void *gp)
 {
 	TRACE_CALL(__func__);
-	RemminaPluginVncData *gpdata = GET_PLUGIN_DATA(gp);
+	RemminaPluginVncData *gpdata = GET_PLUGIN_DATA((RemminaProtocolWidget*)gp);
 	cairo_surface_t *surface;
 	GtkAllocation widget_allocation;
 
@@ -2018,14 +2007,14 @@ static gboolean remmina_plugin_vnc_on_draw(GtkWidget *widget, cairo_t *context, 
 	surface = gpdata->rgb_buffer;
 	if (!surface) {
 		UNLOCK_BUFFER(FALSE);
-		return FALSE;
+		return;
 	}
 
 	width = remmina_plugin_service->protocol_plugin_get_width(gp);
 	height = remmina_plugin_service->protocol_plugin_get_height(gp);
 
 	if ((remmina_plugin_service->remmina_protocol_widget_get_current_scale_mode(gp) != REMMINA_PROTOCOL_WIDGET_SCALE_MODE_NONE)) {
-		gtk_widget_get_allocation(widget, &widget_allocation);
+		gtk_widget_get_allocation(GTK_WIDGET(widget), &widget_allocation);
 		cairo_scale(context,
 			    (double)widget_allocation.width / width,
 			    (double)widget_allocation.height / height);
@@ -2036,7 +2025,7 @@ static gboolean remmina_plugin_vnc_on_draw(GtkWidget *widget, cairo_t *context, 
 	cairo_fill(context);
 
 	UNLOCK_BUFFER(FALSE);
-	return TRUE;
+	return;
 }
 
 static void remmina_plugin_vnc_init(RemminaProtocolWidget *gp)
@@ -2058,7 +2047,7 @@ static void remmina_plugin_vnc_init(RemminaProtocolWidget *gp)
 	gtk_widget_show(gpdata->drawing_area);
 	gtk_widget_set_hexpand(gpdata->drawing_area, TRUE);
 	gtk_widget_set_vexpand(gpdata->drawing_area, TRUE);
-	gtk_box_append((gp), gpdata->drawing_area);
+	gtk_box_append(GTK_BOX(gp), gpdata->drawing_area);
 	g_object_set_data_full(G_OBJECT(gp), "child_plugin", gpdata->drawing_area, g_free);
 	
 
@@ -2071,7 +2060,7 @@ static void remmina_plugin_vnc_init(RemminaProtocolWidget *gp)
 	}
 
 
-	gtk_drawing_area_set_draw_func(gpdata->drawing_area, remmina_plugin_vnc_on_draw, gp, NULL);
+	gtk_drawing_area_set_draw_func(GTK_DRAWING_AREA(gpdata->drawing_area), remmina_plugin_vnc_on_draw, gp, NULL);
 
 
 #if LIBVNCSERVER_CHECK_VERSION_VERSION(0, 9, 14)

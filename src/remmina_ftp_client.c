@@ -417,7 +417,7 @@ remmina_ftp_client_get_download_dir(RemminaFTPClient *client)
 	// 	priv->working_directory = gtk_file_chooser_get_current_folder(GTK_FILE_CHOOSER(dialog));
 	// 	localdir = gtk_file_chooser_get_file(GTK_FILE_CHOOSER(dialog));
 	// }TODO GTK4
-	gtk_window_destroy(dialog);
+	gtk_window_destroy(GTK_WINDOW(dialog));
 	return localdir;
 }
 
@@ -548,7 +548,7 @@ static void remmina_ftp_client_action_delete(GObject *object, RemminaFTPClient *
 	dialog = gtk_message_dialog_new(GTK_WINDOW(gtk_widget_get_root(GTK_WIDGET(client))), GTK_DIALOG_MODAL,
 		GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO, _("Are you sure to delete the selected files on server?"));
 	//response = gtk_dialog_run(GTK_DIALOG(dialog)); TODO GTK4
-	gtk_window_destroy(dialog);
+	gtk_window_destroy(GTK_WINDOW(dialog));
 	if (response != GTK_RESPONSE_YES)
 		return;
 
@@ -622,7 +622,7 @@ static void remmina_ftp_client_action_upload(GObject *object, RemminaFTPClient *
 	// }
 	type = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(upload_folder_check)) ?
 	       REMMINA_FTP_FILE_TYPE_DIR : REMMINA_FTP_FILE_TYPE_FILE;
-	gtk_window_destroy(dialog);
+	gtk_window_destroy(GTK_WINDOW(dialog));
 	if (!files)
 		return;
 

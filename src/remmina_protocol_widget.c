@@ -473,7 +473,7 @@ void remmina_protocol_widget_close_connection(RemminaProtocolWidget *gp)
 		return;
 
 	if (gp->priv->chat_window) {
-		gtk_window_destroy(gp->priv->chat_window);
+		gtk_window_destroy(GTK_WINDOW(gp->priv->chat_window));
 		gp->priv->chat_window = NULL;
 	}
 
@@ -2036,7 +2036,7 @@ void remmina_protocol_widget_chat_close(RemminaProtocolWidget *gp)
 {
 	TRACE_CALL(__func__);
 	if (gp->priv->chat_window)
-		gtk_window_destroy(gp->priv->chat_window);
+		gtk_window_destroy((gp->priv->chat_window));
 }
 
 void remmina_protocol_widget_chat_receive(RemminaProtocolWidget *gp, const gchar *text)

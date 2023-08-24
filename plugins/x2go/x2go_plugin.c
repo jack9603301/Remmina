@@ -455,7 +455,7 @@ static gboolean rmplugin_x2go_session_chooser_row_activated(GtkTreeView *treevie
 		// stored, a session is selected. So we use the gpointer as a gboolean.
 		SET_SESSION_SELECTED(gp, (gpointer) TRUE);
 		gtk_widget_hide(GTK_WIDGET(dialog));
-		gtk_window_destroy(GTK_WIDGET(dialog));
+		gtk_window_destroy(GTK_WINDOW(dialog));
 	}
 
 	return G_SOURCE_REMOVE;
@@ -1365,7 +1365,7 @@ static gboolean rmplugin_x2go_session_chooser_callback(X2GoCustomUserData* custo
 		// than 0 stored, a session is selected. So we use the gpointer as a gboolean.
 		SET_SESSION_SELECTED(gp, (gpointer) TRUE);
 
-		gtk_window_destroy(GTK_WIDGET(self));
+		gtk_window_destroy(GTK_WINDOW(self));
 
 		return G_SOURCE_REMOVE;
 	}
@@ -1453,7 +1453,7 @@ static gboolean rmplugin_x2go_session_chooser_callback(X2GoCustomUserData* custo
 	// than 0 stored, a session is selected. So we use the gpointer as a gboolean.
 	SET_SESSION_SELECTED(gp, (gpointer) TRUE);
 
-	gtk_window_destroy(GTK_WIDGET(self));
+	gtk_window_destroy(GTK_WINDOW(self));
 
 	return G_SOURCE_REMOVE;
 }

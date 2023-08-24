@@ -258,7 +258,7 @@ static void remmina_file_editor_browse_avahi(GtkWidget *button, RemminaFileEdito
 	// } else {
 		host = NULL;
 	// }
-	gtk_window_destroy(dialog);
+	gtk_window_destroy(GTK_WINDOW(dialog));
 
 	if (host) {
 		//gtk_editable_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(gfe->priv->server_combo))), host); TODO GTK4
@@ -319,7 +319,7 @@ static void remmina_file_editor_create_notebook_container(RemminaFileEditor *gfe
 	gtk_viewport_set_child(gfe->priv->config_viewport, gfe->priv->config_container);
 	//gtk_container_set_border_width(GTK_CONTAINER(gfe->priv->config_viewport), 2);
 	gtk_widget_show(gfe->priv->config_viewport);
-	gtk_scrolled_window_set_child(gfe->priv->config_scrollable, gfe->priv->config_viewport);
+	gtk_scrolled_window_set_child(GTK_SCROLLED_WINDOW(gfe->priv->config_scrollable), gfe->priv->config_viewport);
 	gtk_scrolled_window_set_min_content_height(gfe->priv->config_scrollable, 400);
 	gtk_widget_show(gfe->priv->config_container);
 
@@ -559,7 +559,7 @@ static void remmina_file_editor_browse_resolution(GtkWidget *button, RemminaFile
 	g_free(remmina_pref.resolutions);
 	remmina_pref.resolutions = remmina_string_list_get_text();
 	g_signal_connect(G_OBJECT(dialog), "destroy", G_CALLBACK(remmina_file_editor_update_resolution), gfe);
-	gtk_window_destroy(GTK_WIDGET(dialog));
+	gtk_window_destroy(GTK_WINDOW(dialog));
 }
 
 static void remmina_file_editor_create_resolution(RemminaFileEditor *gfe, const RemminaProtocolSetting *setting,
@@ -1722,7 +1722,7 @@ static void remmina_file_editor_on_default(GtkWidget *button, RemminaFileEditor 
 	dialog = gtk_message_dialog_new(GTK_WINDOW(gfe), GTK_DIALOG_MODAL, GTK_MESSAGE_INFO,
 					GTK_BUTTONS_OK, _("Default settings saved."));
 	//gtk_dialog_run(GTK_DIALOG(dialog)); TODO GTK4
-	gtk_window_destroy(dialog);
+	gtk_window_destroy(GTK_WINDOW(dialog));
 }
 
 static void remmina_file_editor_on_save(GtkWidget *button, RemminaFileEditor *gfe)
@@ -1742,7 +1742,7 @@ static void remmina_file_editor_on_save(GtkWidget *button, RemminaFileEditor *gf
 	remmina_file_save(gfe->priv->remmina_file);
 	remmina_icon_populate_menu();
 
-	gtk_window_destroy(GTK_WIDGET(gfe));
+	gtk_window_destroy(GTK_WINDOW(gfe));
 }
 
 static void remmina_file_editor_on_connect(GtkWidget *button, RemminaFileEditor *gfe)
@@ -1762,7 +1762,7 @@ static void remmina_file_editor_on_connect(GtkWidget *button, RemminaFileEditor 
 	/* Put server into name for "Quick Connect" */
 	if (remmina_file_get_filename(gf) == NULL)
 		remmina_file_set_string(gf, "name", remmina_file_get_string(gf, "server"));
-	gtk_window_destroy(GTK_WIDGET(gfe));
+	gtk_window_destroy(GTK_WINDOW(gfe));
 	gf->prevent_saving = TRUE;
 	rcw_open_from_file(gf);
 }
@@ -1790,14 +1790,14 @@ static void remmina_file_editor_on_save_connect(GtkWidget *button, RemminaFileEd
 	/* Put server into name for Quick Connect */
 	if (remmina_file_get_filename(gf) == NULL)
 		remmina_file_set_string(gf, "name", remmina_file_get_string(gf, "server"));
-	gtk_window_destroy(GTK_WIDGET(gfe));
+	gtk_window_destroy(GTK_WINDOW(gfe));
 	rcw_open_from_file(gf);
 }
 
 static void remmina_file_editor_on_cancel(GtkWidget *button, RemminaFileEditor *gfe)
 {
 	TRACE_CALL(__func__);
-	gtk_window_destroy(GTK_WIDGET(gfe));
+	gtk_window_destroy(GTK_WINDOW(gfe));
 }
 
 static void remmina_file_editor_init(RemminaFileEditor *gfe)
@@ -2070,7 +2070,7 @@ GtkWidget *remmina_file_editor_new_copy(const gchar *filename)
 		dialog = gtk_message_dialog_new(NULL, GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE,
 						_("Could not find the file “%s”."), filename);
 		//gtk_dialog_run(GTK_DIALOG(dialog));TODO GTK4
-		gtk_window_destroy(dialog);
+		gtk_window_destroy(GTK_WINDOW(dialog));
 		return NULL;
 	}
 }
@@ -2089,7 +2089,7 @@ GtkWidget *remmina_file_editor_new_from_filename(const gchar *filename)
 		GtkWidget *dialog = gtk_message_dialog_new(NULL, GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE,
 							   _("Could not find the file “%s”."), filename);
 		//gtk_dialog_run(GTK_DIALOG(dialog));
-		gtk_window_destroy(dialog);
+		gtk_window_destroy(GTK_WINDOW(dialog));
 		return NULL;
 	}
 }

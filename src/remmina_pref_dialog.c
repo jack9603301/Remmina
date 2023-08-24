@@ -90,7 +90,7 @@ void remmina_pref_on_button_resolutions_clicked(GtkWidget *widget, gpointer user
 	//gtk_dialog_run(dialog);
 	g_free(remmina_pref.resolutions);
 	remmina_pref.resolutions = remmina_string_list_get_text();
-	gtk_window_destroy(GTK_WIDGET(dialog));
+	gtk_window_destroy(GTK_WINDOW(dialog));
 }
 
 
@@ -178,7 +178,7 @@ void remmina_pref_dialog_clear_recent(GtkWidget *widget, gpointer user_data)
 						   GTK_DIALOG_MODAL, GTK_MESSAGE_INFO, GTK_BUTTONS_OK,
 						   _("Recent lists cleared.")));
 	//gtk_dialog_run(dialog);
-	gtk_window_destroy(GTK_WIDGET(dialog));
+	gtk_window_destroy(GTK_WINDOW(dialog));
 }
 
 /* Configure custom keystrokes to send to the plugins */
@@ -193,7 +193,7 @@ void remmina_pref_on_button_keystrokes_clicked(GtkWidget *widget, gpointer user_
 	//gtk_dialog_run(dialog);
 	g_free(remmina_pref.keystrokes);
 	remmina_pref.keystrokes = remmina_string_list_get_text();
-	gtk_window_destroy(GTK_WIDGET(dialog));
+	gtk_window_destroy(GTK_WINDOW(dialog));
 }
 
 void remmina_prefdiag_on_grab_color_activated(GtkSwitch *widget, gpointer user_data)
@@ -240,7 +240,7 @@ void remmina_prefdiag_on_use_password_activated(GtkSwitch *sw, gpointer user_dat
 void remmina_pref_dialog_on_action_close(GSimpleAction *action, GVariant *param, gpointer data)
 {
 	TRACE_CALL(__func__);
-	gtk_window_destroy(GTK_WIDGET(remmina_pref_dialog->dialog));
+	gtk_window_destroy(GTK_WINDOW(remmina_pref_dialog->dialog));
 	/* Reload to use new preferences */
 	remmina_main_reload_preferences();
 }
@@ -248,7 +248,7 @@ void remmina_pref_dialog_on_action_close(GSimpleAction *action, GVariant *param,
 void remmina_pref_dialog_on_close_clicked(GtkWidget *widget, RemminaPrefDialog *dialog)
 {
 	TRACE_CALL(__func__);
-	gtk_window_destroy(GTK_WIDGET(remmina_pref_dialog->dialog));
+	gtk_window_destroy(GTK_WINDOW(remmina_pref_dialog->dialog));
 }
 
 void remmina_pref_on_dialog_destroy(GtkWidget *widget, gpointer user_data)

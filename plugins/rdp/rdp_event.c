@@ -80,10 +80,10 @@ gboolean remmina_rdp_event_on_unmap(RemminaProtocolWidget *gp)
 	if (rfi == NULL)
 		return false;
 
-	GtkWidget *toplevel = gtk_widget_get_toplevel(GTK_WIDGET(gp));
-	GdkSurface *window = gtk_widget_get_window(toplevel);
+	//GtkWidget *toplevel = gtk_widget_get_toplevel(GTK_WIDGET(gp));
+	GtkWindow *window = (GtkWindow*)remmina_plugin_service->protocol_widget_gtkwindow(gp);
 
-	if (gdk_window_get_fullscreen_mode(window) == GDK_FULLSCREEN_ON_ALL_MONITORS) {
+	if (gtk_window_is_fullscreen(window) == TRUE) {
 		REMMINA_PLUGIN_DEBUG("Unmap event received, but cannot enable TS_SUPPRESS_OUTPUT_PDU when in fullscreen");
 		return FALSE;
 	}
@@ -242,7 +242,7 @@ static void remmina_rdp_event_update_scale_factor(RemminaProtocolWidget *gp)
 	gint gpwidth, gpheight;
 	rfContext *rfi = GET_PLUGIN_DATA(gp);
 
-	gtk_widget_get_allocation((gp), &a);
+	gtk_widget_get_allocation(GTK_WIDGET(gp), &a);
 	gpwidth = a.width;
 	gpheight = a.height;
 
@@ -343,22 +343,22 @@ void remmina_rdp_event_update_rect(RemminaProtocolWidget *gp, gint x, gint y, gi
 
 
 
-static gboolean remmina_rdp_event_on_draw(GtkWidget *widget, cairo_t *context, int width, int height, RemminaProtocolWidget *gp)
+static void remmina_rdp_event_on_draw(GtkDrawingArea *widget, cairo_t *context, int width, int height, gpointer gp)
 {
 	TRACE_CALL(__func__);
-	rfContext *rfi = GET_PLUGIN_DATA(gp);
+	rfContext *rfi = GET_PLUGIN_DATA((RemminaProtocolWidget*)gp);
 	gchar *msg;
 	cairo_text_extents_t extents;
 
 	if (!rfi || !rfi->connected)
-		return FALSE;
+		return;
 
 
 	if (rfi->is_reconnecting) {
 		/* FreeRDP is reconnecting, just show a message to the user */
 
-		width = gtk_widget_get_allocated_width(widget);
-		height = gtk_widget_get_allocated_height(widget);
+		width = gtk_widget_get_allocated_width(GTK_WIDGET(widget));
+		height = gtk_widget_get_allocated_height(GTK_WIDGET(widget));
 
 		/* Draw text */
 		msg = g_strdup_printf(_("Reconnection attempt %d of %d…"),
@@ -375,7 +375,7 @@ static gboolean remmina_rdp_event_on_draw(GtkWidget *widget, cairo_t *context, i
 		/* Standard drawing: We copy the surface from RDP */
 
 		if (!rfi->surface)
-			return FALSE;
+			return;
 
 		if (rfi->scale == REMMINA_PROTOCOL_WIDGET_SCALE_MODE_SCALED)
 			cairo_scale(context, rfi->scale_x, rfi->scale_y);
@@ -388,7 +388,6 @@ static gboolean remmina_rdp_event_on_draw(GtkWidget *widget, cairo_t *context, i
 		cairo_paint(context);
 	}
 
-	return TRUE;
 }
 
 static gboolean remmina_rdp_event_delayed_monitor_layout(RemminaProtocolWidget *gp)
@@ -608,7 +607,7 @@ static gboolean remmina_rdp_event_on_button_press(GtkGestureClick *self, gint n_
 		secondary = PTR_FLAGS_BUTTON2;
 	}
 
-	switch (gtk_gesture_single_get_current_button(self)) {
+	switch (gtk_gesture_single_get_current_button(GTK_GESTURE_SINGLE(self))) {
 	case 1:
 		flag |= primary;
 		break;
@@ -677,7 +676,7 @@ static gboolean remmina_rdp_event_on_button_release(GtkGestureClick *self,  gint
 		secondary = PTR_FLAGS_BUTTON2;
 	}
 
-	switch (gtk_gesture_single_get_current_button(self)) {
+	switch (gtk_gesture_single_get_current_button(GTK_GESTURE_SINGLE(self))) {
 	case 1:
 		flag |= primary;
 		break;
@@ -723,7 +722,7 @@ static gboolean remmina_rdp_event_on_scroll(GtkWidget *widget, gdouble x, gdoubl
 	TRACE_CALL(__func__);
 	gint flag;
 	RemminaPluginRdpEvent rdp_event = { 0 };
-	float windows_delta;
+	// float windows_delta;
 	RemminaFile *remminafile;
 	rfContext *rfi = GET_PLUGIN_DATA(gp);
 
@@ -907,6 +906,7 @@ static gboolean remmina_rdp_event_on_key_real(GtkWidget *widget, guint keyval, g
 			    unicode_keyval == 0 ||                                                      // Impossible to translate
 			    (state & (GDK_ALT_MASK | GDK_CONTROL_MASK | GDK_SUPER_MASK)) != 0   // A modifier not recognized by gdk_keyval_to_unicode()
 			    ) {
+				hardware_keycode = keycode;
 				scancode = freerdp_keyboard_get_rdp_scancode_from_x11_keycode(hardware_keycode);
 				rdp_event.key_event.key_code = scancode & 0xFF;
 				rdp_event.key_event.extended = scancode & 0x100;
@@ -931,12 +931,12 @@ static gboolean remmina_rdp_event_on_key_real(GtkWidget *widget, guint keyval, g
 
 static gboolean remmina_rdp_event_on_key_press(GtkWidget *widget, guint keyval, guint keycode, GdkModifierType state, RemminaProtocolWidget *gp)
 {
-	remmina_rdp_event_on_key_real(widget, keyval, keycode, state, gp, TRUE);
+	return remmina_rdp_event_on_key_real(widget, keyval, keycode, state, gp, TRUE);
 }
 
 static gboolean remmina_rdp_event_on_key_release(GtkWidget *widget, guint keyval, guint keycode, GdkModifierType state, RemminaProtocolWidget *gp)
 {
-	remmina_rdp_event_on_key_real(widget, keyval, keycode, state, gp, False);
+	return remmina_rdp_event_on_key_real(widget, keyval, keycode, state, gp, False);
 }
 
 gboolean remmina_rdp_event_on_clipboard(GdkClipboard *GdkClipboard, GdkEvent *event, RemminaProtocolWidget *gp)
@@ -1005,7 +1005,7 @@ void remmina_rdp_event_init(RemminaProtocolWidget *gp)
 	gtk_widget_show(rfi->drawing_area);
 	gtk_widget_set_hexpand(rfi->drawing_area, TRUE);
 	gtk_widget_set_vexpand(rfi->drawing_area, TRUE);
-	gtk_box_append((gp), rfi->drawing_area);
+	gtk_box_append(GTK_BOX(gp), rfi->drawing_area);
 	g_object_set_data_full(G_OBJECT(gp), "child_plugin", rfi->drawing_area, g_free);
 	//gtk_container_add(GTK_CONTAINER(gp), rfi->drawing_area);
 
@@ -1036,9 +1036,7 @@ void remmina_rdp_event_init(RemminaProtocolWidget *gp)
 
 
 
-	// g_signal_connect(G_OBJECT(rfi->drawing_area), "draw",
-	// 		 G_CALLBACK(remmina_rdp_event_on_draw), gp);
-	gtk_drawing_area_set_draw_func(rfi->drawing_area, remmina_rdp_event_on_draw, gp, NULL);
+	gtk_drawing_area_set_draw_func(GTK_DRAWING_AREA(rfi->drawing_area), remmina_rdp_event_on_draw, gp, NULL);
 
 
 	g_signal_connect(G_OBJECT(rfi->drawing_area), "resize",
@@ -1046,46 +1044,36 @@ void remmina_rdp_event_init(RemminaProtocolWidget *gp)
 
 
 
-	// g_signal_connect(G_OBJECT(rfi->drawing_area), "motion-notify-event",
-	// 		 G_CALLBACK(remmina_rdp_event_on_motion), gp);
-	GtkEventControllerMotion* motion_event_controller = gtk_event_controller_motion_new();
-	gtk_widget_add_controller(G_OBJECT(rfi->drawing_area), motion_event_controller);
+
+	GtkEventControllerMotion* motion_event_controller = (GtkEventControllerMotion*)gtk_event_controller_motion_new();
+	gtk_widget_add_controller(GTK_WIDGET(rfi->drawing_area), GTK_EVENT_CONTROLLER(motion_event_controller));
 	g_signal_connect(motion_event_controller, "motion", G_CALLBACK(remmina_rdp_event_on_motion), gp);
 
 
-	// g_signal_connect(G_OBJECT(rfi->drawing_area), "button-press-event",
-	// 		 G_CALLBACK(remmina_rdp_event_on_button), gp);
+
 	gtk_widget_set_focusable(GTK_WIDGET(rfi->drawing_area), TRUE);
 	GtkGesture *gesture = gtk_gesture_click_new();
-	gtk_gesture_single_set_button(gesture, 0);
+	gtk_gesture_single_set_button((GtkGestureSingle*)gesture, 0);
 	g_signal_connect (gesture, "pressed", G_CALLBACK (remmina_rdp_event_on_button_press), gp);
 	g_signal_connect (gesture, "released", G_CALLBACK (remmina_rdp_event_on_button_release), gp);
-	gtk_event_controller_set_propagation_phase(gesture, GTK_PHASE_TARGET);
+	gtk_event_controller_set_propagation_phase(GTK_EVENT_CONTROLLER(gesture), GTK_PHASE_TARGET);
 	gtk_widget_add_controller(rfi->drawing_area, GTK_EVENT_CONTROLLER (gesture));
 	
-	// g_signal_connect(G_OBJECT(rfi->drawing_area), "scroll-event",
-	// 		 G_CALLBACK(remmina_rdp_event_on_scroll), gp);
-	GtkEventControllerScroll* scroll_event_controller = gtk_event_controller_scroll_new(GTK_EVENT_CONTROLLER_SCROLL_BOTH_AXES );
-	gtk_widget_add_controller(G_OBJECT(rfi->drawing_area), scroll_event_controller);
+
+	GtkEventControllerScroll* scroll_event_controller = (GtkEventControllerScroll*)gtk_event_controller_scroll_new(GTK_EVENT_CONTROLLER_SCROLL_BOTH_AXES );
+	gtk_widget_add_controller(GTK_WIDGET(rfi->drawing_area), GTK_EVENT_CONTROLLER(scroll_event_controller));
 	g_signal_connect(scroll_event_controller, "scroll", G_CALLBACK(remmina_rdp_event_on_scroll), gp);
 
 
-	// g_signal_connect(G_OBJECT(rfi->drawing_area), "key-press-event",
-	// 		 G_CALLBACK(remmina_rdp_event_on_key), gp);
-	// g_signal_connect(G_OBJECT(rfi->drawing_area), "key-release-event",
-	// 		 G_CALLBACK(remmina_rdp_event_on_key), gp);
 
-	GtkEventControllerKey* key_event_controller = gtk_event_controller_key_new();
-	gtk_widget_add_controller(G_OBJECT(rfi->drawing_area), key_event_controller);
+	GtkEventControllerKey* key_event_controller = (GtkEventControllerKey*)gtk_event_controller_key_new();
+	gtk_widget_add_controller(GTK_WIDGET(rfi->drawing_area), GTK_EVENT_CONTROLLER(key_event_controller));
 	g_signal_connect(key_event_controller, "key-pressed", G_CALLBACK(remmina_rdp_event_on_key_press), gp);
 	g_signal_connect(key_event_controller, "key-released", G_CALLBACK(remmina_rdp_event_on_key_release), gp);
 
 
-
-	// g_signal_connect(G_OBJECT(rfi->drawing_area), "focus-in-event",
-	// 		 G_CALLBACK(remmina_rdp_event_on_focus_in), gp);
-	GtkEventControllerFocus* focus_event_controller = gtk_event_controller_focus_new();
-	gtk_widget_add_controller(G_OBJECT(rfi->drawing_area), focus_event_controller);
+	GtkEventControllerFocus* focus_event_controller = (GtkEventControllerFocus*)gtk_event_controller_focus_new();
+	gtk_widget_add_controller(GTK_WIDGET(rfi->drawing_area), GTK_EVENT_CONTROLLER(focus_event_controller));
 	g_signal_connect(focus_event_controller, "enter", G_CALLBACK(remmina_rdp_event_on_focus_in), gp);
 	/** Fixme: This comment
 	 * needed for TS_SUPPRESS_OUTPUT_PDU
@@ -1277,9 +1265,7 @@ static void remmina_rdp_event_connected(RemminaProtocolWidget *gp, RemminaPlugin
 {
 	TRACE_CALL(__func__);
 	rfContext *rfi = GET_PLUGIN_DATA(gp);
-	rdpGdi *gdi;
 
-	gdi = ((rdpContext *)rfi)->gdi;
 
 	gtk_widget_realize(rfi->drawing_area);
 
@@ -1299,14 +1285,14 @@ static void remmina_rdp_event_reconnect_progress(RemminaProtocolWidget *gp, Remm
 	TRACE_CALL(__func__);
 	rfContext *rfi = GET_PLUGIN_DATA(gp);
 
-	gdk_window_invalidate_rect(gtk_widget_get_window(rfi->drawing_area), NULL, TRUE);
+	gtk_widget_queue_draw(rfi->drawing_area);
 }
 
 static BOOL remmina_rdp_event_create_cursor(RemminaProtocolWidget *gp, RemminaPluginRdpUiObject *ui)
 {
 	TRACE_CALL(__func__);
 	GdkPixbuf *pixbuf;
-	rfContext *rfi = GET_PLUGIN_DATA(gp);
+	// rfContext *rfi = GET_PLUGIN_DATA(gp);
 	rdpPointer *pointer = (rdpPointer *)ui->cursor.pointer;
 	cairo_surface_t *surface;
 	UINT8 *data = malloc(pointer->width * pointer->height * 4);

@@ -157,7 +157,7 @@ gboolean remmina_passwd(GtkWindow *parent, gchar **unlock_password)
 			rc = FALSE;
 			break;
 	}
-	gtk_window_destroy(GTK_WIDGET(remmina_passwd_dialog->dialog));
+	gtk_window_destroy(GTK_WINDOW(remmina_passwd_dialog->dialog));
 	remmina_passwd_dialog->dialog = NULL;
 	return rc;
 }

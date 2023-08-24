@@ -710,7 +710,7 @@ remmina_sftp_client_sftp_session_opendir(RemminaSFTPClient *client, const gchar 
 						_("Could not open the folder “%s”. %s"), dir,
 						ssh_get_error(REMMINA_SSH(client->sftp)->session));
 		//gtk_dialog_run(GTK_DIALOG(dialog));
-		gtk_window_destroy(dialog);
+		gtk_window_destroy(GTK_WINDOW(dialog));
 		return NULL;
 	}
 	return sftpdir;
@@ -726,7 +726,7 @@ remmina_sftp_client_sftp_session_closedir(RemminaSFTPClient *client, sftp_dir sf
 						GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK,
 						_("Could not read from the folder. %s"), ssh_get_error(REMMINA_SSH(client->sftp)->session));
 		//gtk_dialog_run(GTK_DIALOG(dialog));
-		gtk_window_destroy(dialog);
+		gtk_window_destroy(GTK_WINDOW(dialog));
 		return FALSE;
 	}
 	sftp_closedir(sftpdir);
@@ -847,7 +847,7 @@ remmina_sftp_client_on_canceltask(RemminaSFTPClient *client, gint taskid, gpoint
 					GTK_DIALOG_MODAL, GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO,
 					_("Are you sure you want to cancel the file transfer in progress?"));
 	//ret = gtk_dialog_run(GTK_DIALOG(dialog));
-	gtk_window_destroy(dialog);
+	gtk_window_destroy(GTK_WINDOW(dialog));
 	if (ret == GTK_RESPONSE_YES) {
 		/* Make sure we are still handling the same task before we clear the flag */
 		if (client->taskid == taskid) client->taskid = 0;
@@ -882,7 +882,7 @@ remmina_sftp_client_on_deletefile(RemminaSFTPClient *client, gint type, gchar *n
 						_("Could not delete “%s”. %s"),
 						name, ssh_get_error(REMMINA_SSH(client->sftp)->session));
 		//gtk_dialog_run(GTK_DIALOG(dialog));
-		gtk_window_destroy(dialog);
+		gtk_window_destroy(GTK_WINDOW(dialog));
 		return FALSE;
 	}
 	return TRUE;
@@ -999,7 +999,7 @@ remmina_sftp_client_confirm_resume(RemminaSFTPClient *client, const gchar *path)
 	gtk_box_append(GTK_BOX(vbox), widget);
 
 	//response = gtk_dialog_run(GTK_DIALOG(dialog));
-	gtk_window_destroy(dialog);
+	gtk_window_destroy(GTK_WINDOW(dialog));
 	return response;
 }
 

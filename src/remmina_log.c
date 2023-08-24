@@ -468,7 +468,7 @@ static void remmina_log_window_init(RemminaLogWindow *logwin)
 	gtk_text_view_set_top_margin(GTK_TEXT_VIEW(widget), REMMINA_LOG_WINDOW_TEXT_VIEW_MARGIN);
 	gtk_text_view_set_bottom_margin(GTK_TEXT_VIEW(widget), REMMINA_LOG_WINDOW_TEXT_VIEW_MARGIN);
 	
-	gtk_scrolled_window_set_child((scrolledwindow), widget);
+	gtk_scrolled_window_set_child(GTK_SCROLLED_WINDOW(scrolledwindow), widget);
 	logwin->log_view = widget;
 	logwin->log_buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(widget));
 

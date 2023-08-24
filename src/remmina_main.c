@@ -198,7 +198,7 @@ void remmina_main_destroy()
 
 	if (remminamain) {
 		if (remminamain->window)
-			gtk_window_destroy(GTK_WIDGET(remminamain->window));
+			gtk_window_destroy(GTK_WINDOW(remminamain->window));
 
 		g_object_unref(remminamain->builder);
 		remmina_string_array_free(remminamain->priv->expanded_group);
@@ -313,7 +313,7 @@ static void remmina_main_show_snap_welcome()
 				remmina_pref.prevent_snap_welcome_message = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dsa));
 				remmina_pref_save();
 			}
-			gtk_window_destroy(dlg);
+			gtk_window_destroy(GTK_WINDOW(dlg));
 			g_object_unref(dlgbuilder);
 		}
 	}
@@ -1012,13 +1012,13 @@ void remmina_main_on_action_connection_delete(GSimpleAction *action, GVariant *p
 	// 	remmina_icon_populate_menu();
 	// 	remmina_main_load_files();
 	// }
-	gtk_window_destroy(dialog);
+	gtk_window_destroy(GTK_WINDOW(dialog));
 	remmina_main_clear_selection_data();
 }
 
 void remmina_main_handle_message_close(GtkDialog *self, gint response_id, gpointer user_data)
 {
-	gtk_window_destroy(self);
+	gtk_window_destroy(GTK_WINDOW(self));
 }
 
 void remmina_main_handle_delete_multiple(GtkDialog *self, gint response_id, gpointer user_data)
@@ -1041,7 +1041,7 @@ void remmina_main_handle_delete_multiple(GtkDialog *self, gint response_id, gpoi
 				gtk_window_set_modal(GTK_DIALOG(dialog_warning), true);
 				g_signal_connect(dialog_warning, "response", G_CALLBACK(remmina_main_handle_message_close), NULL);
 				gtk_widget_show(dialog_warning);
-				gtk_window_destroy(self);
+				gtk_window_destroy(GTK_WINDOW(self));
 				remmina_main_clear_selection_data();
 				return;
 			}
@@ -1071,7 +1071,7 @@ void remmina_main_handle_delete_multiple(GtkDialog *self, gint response_id, gpoi
 		}
 	}
 	
-	gtk_window_destroy(self);
+	gtk_window_destroy(GTK_WINDOW(self));
 	remmina_main_clear_selection_data();
 
 }
@@ -1236,7 +1236,7 @@ static void remmina_main_action_tools_import_on_response(GtkDialog *dialog, gint
 		files = g_slist_append(files, path);
 		remmina_main_import_file_list(files);
 	}
-	gtk_window_destroy(GTK_WIDGET(dialog));
+	gtk_window_destroy(GTK_WINDOW(dialog));
 }
 
 void remmina_main_on_action_tools_import(GSimpleAction *action, GVariant *param, gpointer data)
@@ -1812,7 +1812,7 @@ void remmina_main_show_dialog(GtkMessageType msg, GtkButtonsType buttons, const 
 	if (remminamain->window) {
 		dialog = gtk_message_dialog_new(remminamain->window, GTK_DIALOG_MODAL, msg, buttons, "%s", message);
 		//gtk_dialog_run(GTK_DIALOG(dialog));
-		gtk_window_destroy(dialog);
+		gtk_window_destroy(GTK_WINDOW(dialog));
 	}
 }
 
@@ -1823,6 +1823,6 @@ void remmina_main_show_warning_dialog(const gchar *message) {
         dialog = gtk_message_dialog_new(remminamain->window, GTK_DIALOG_MODAL, GTK_MESSAGE_WARNING, GTK_BUTTONS_CLOSE,
                                         message, g_get_application_name());
         //gtk_dialog_run(GTK_DIALOG(dialog));
-        gtk_window_destroy(dialog);
+        gtk_window_destroy(GTK_WINDOW(dialog));
     }
 }

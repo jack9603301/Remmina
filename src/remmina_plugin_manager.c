@@ -270,6 +270,7 @@ RemminaPluginService remmina_plugin_manager_service =
 	remmina_protocol_widget_set_error,
 	remmina_protocol_widget_has_error,
 	remmina_protocol_widget_gtkviewport,
+	remmina_protocol_widget_get_gtkwindow,
 	remmina_protocol_widget_is_closed,
 	remmina_protocol_widget_get_file,
 	remmina_protocol_widget_panel_auth,
@@ -534,7 +535,7 @@ void remmina_plugin_manager_show(GtkWindow *parent)
 	gtk_box_append(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(dialog))), scrolledwindow);
 
 	tree = gtk_tree_view_new();
-	gtk_scrolled_window_set_child(scrolledwindow, tree);
+	gtk_scrolled_window_set_child(GTK_SCROLLED_WINDOW(scrolledwindow), tree);
 	gtk_widget_show(tree);
 
 	store = gtk_list_store_new(4, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING);

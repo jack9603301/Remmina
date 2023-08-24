@@ -262,7 +262,7 @@ static void remmina_mpchange_dochange_clicked(GtkButton *btn, gpointer user_data
 			GTK_BUTTONS_CLOSE,
 			_("The passwords do not match"));
 		//gtk_dialog_run(GTK_DIALOG(msgDialog));
-		gtk_window_destroy(msgDialog);
+		gtk_window_destroy(GTK_WINDOW(msgDialog));
 		return;
 	}
 	gatewaypasswd1 = gtk_editable_get_text(mpcp->eGatewayPassword1);
@@ -275,7 +275,7 @@ static void remmina_mpchange_dochange_clicked(GtkButton *btn, gpointer user_data
 			GTK_BUTTONS_CLOSE,
 			_("The Gateway passwords do not match"));
 		//gtk_dialog_run(GTK_DIALOG(msgDialog));
-		gtk_window_destroy(msgDialog);
+		gtk_window_destroy(GTK_WINDOW(msgDialog));
 		return;
 	}
 
@@ -297,7 +297,7 @@ static void remmina_mpchange_dochange_clicked(GtkButton *btn, gpointer user_data
 		//Currently looping as opposed to repeat calling the function with
 		//g_idle_add to work with gtk4 changes. Needs improved
 	}
-	gtk_window_destroy(mpcp->dialog);
+	gtk_window_destroy(GTK_WINDOW(mpcp->dialog));
 
 }
 
@@ -307,13 +307,13 @@ static void remmina_mpchange_cancelchange_clicked(GtkButton *btn, gpointer user_
 {
 	TRACE_CALL(__func__);
 	struct mpchanger_params* mpcp = (struct mpchanger_params*)user_data;
-	gtk_window_destroy(mpcp->dialog);
+	gtk_window_destroy(GTK_WINDOW(mpcp->dialog));
 
 }
 
 static void remmina_mpchange_handle_dialog_response(GtkDialog *self, gpointer user_data)
 {
-	gtk_window_destroy(self);
+	gtk_window_destroy(GTK_WINDOW(self));
 
 }
 

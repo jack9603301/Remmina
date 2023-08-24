@@ -223,7 +223,7 @@ gint remmina_unlock_new(GtkWindow *parent)
 		rc = remmina_unlock_dialog->retval;
 
 		g_free(unlock_password), unlock_password = NULL;
-		gtk_window_destroy(GTK_WIDGET(remmina_unlock_dialog->dialog));
+		gtk_window_destroy(GTK_WINDOW(remmina_unlock_dialog->dialog));
 		remmina_unlock_dialog->dialog = NULL;
 	}
 	if (timer) g_timer_start(timer);

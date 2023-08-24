@@ -53,7 +53,7 @@ static void wait_for_child(GPid pid, gint script_retval, gpointer data)
 	PCon_Spinner *pcspinner = (PCon_Spinner*)data;
 
 	gtk_spinner_stop(GTK_SPINNER(pcspinner->spinner));
-	gtk_window_destroy(GTK_WIDGET(pcspinner->dialog));
+	gtk_window_destroy(GTK_WINDOW(pcspinner->dialog));
 	g_spawn_close_pid(pid);
 	/* TODO At the moment background processes will fail to start before the
 	 * remmina connection.

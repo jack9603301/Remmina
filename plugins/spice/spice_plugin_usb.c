@@ -36,6 +36,12 @@
 
 static void remmina_plugin_spice_usb_connect_failed_cb(GObject *, SpiceUsbDevice *, GError *, RemminaProtocolWidget *);
 
+
+
+void spice_dialog_response( GtkDialog* self, gint response_id, gpointer user_data){
+	gtk_window_destroy(GTK_WINDOW(self));
+}
+
 void remmina_plugin_spice_select_usb_devices(RemminaProtocolWidget *gp)
 {
 	TRACE_CALL(__func__);
@@ -67,9 +73,9 @@ void remmina_plugin_spice_select_usb_devices(RemminaProtocolWidget *gp)
 		TRUE,
 		TRUE,
 		0);
-	gtk_widget_show_all(dialog);
-	gtk_dialog_run(GTK_DIALOG(dialog));
-	gtk_window_destroy(dialog);
+	gtk_window_set_modal(dialog, TRUE);
+	g_signal_connect(dialog, "response", spice_dialog_response, cnnwin);
+	gtk_widget_show(dialog);
 }
 
 static void remmina_plugin_spice_usb_connect_failed_cb(GObject *object, SpiceUsbDevice *usb_device, GError *error, RemminaProtocolWidget *gp)
@@ -95,6 +101,8 @@ static void remmina_plugin_spice_usb_connect_failed_cb(GObject *object, SpiceUsb
 	gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(dialog),
 		"%s",
 		error->message);
-	gtk_dialog_run(GTK_DIALOG(dialog));
-	gtk_window_destroy(dialog);
+	gtk_window_set_modal(dialog, TRUE);
+	g_signal_connect(dialog, "response", spice_dialog_response, cnnwin);
+	gtk_widget_show(dialog);
+	
 }

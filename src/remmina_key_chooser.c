@@ -65,7 +65,7 @@ static gboolean remmina_key_chooser_dialog_on_response(GtkDialog* self,
 	else if(response_id == GTK_RESPONSE_OK ){
 		gtk_button_set_label(GTK_BUTTON(args->widget), args->val);
 	}
-	gtk_window_destroy(self);
+	gtk_window_destroy(GTK_WINDOW(self));
   }
 
 /* Show a key chooser dialog and return the keyval for the selected key */
