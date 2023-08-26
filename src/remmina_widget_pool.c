@@ -87,7 +87,7 @@ remmina_widget_pool_find_by_window(GType type, GdkSurface *window)
 	TRACE_CALL(__func__);
 	GtkWidget *widget;
 	gint i;
-	GdkSurface *parent;
+	// GdkSurface *parent;
 
 	if (window == NULL || remmina_widget_pool == NULL)
 		return NULL;

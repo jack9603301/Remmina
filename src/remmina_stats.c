@@ -382,14 +382,14 @@ JsonNode *remmina_stats_get_gtk_backend()
 {
 	TRACE_CALL(__func__);
 	JsonNode *r;
-	GdkDisplay *disp;
+	// GdkDisplay *disp;
 	gchar *bkend;
 
 	/** @warning this function is usually executed on a dedicated thread,
 	 * not on the main thread
 	 */
 
-	disp = gdk_display_get_default();
+	// disp = gdk_display_get_default();
 
 // #ifdef GDK_WINDOWING_WAYLAND
 // 	if (GDK_IS_WAYLAND_DISPLAY(disp)) {

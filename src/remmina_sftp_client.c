@@ -58,10 +58,10 @@
 
 G_DEFINE_TYPE(RemminaSFTPClient, remmina_sftp_client, REMMINA_TYPE_FTP_CLIENT)
 
-// #define SET_CURSOR(cur) \
-// 	if (GDK_IS_WINDOW(gtk_widget_get_window(GTK_WIDGET(client)))) \
-// 	{ \
-// 		gdk_window_set_cursor(gtk_widget_get_window(GTK_WIDGET(client)), cur); \
+// #define SET_CURSOR(cur) 
+// 	if (GDK_IS_WINDOW(gtk_widget_get_window(GTK_WIDGET(client)))) 
+// 	{ 
+// 		gdk_window_set_cursor(gtk_widget_get_window(GTK_WIDGET(client)), cur); 
 // 	}
 
 static void

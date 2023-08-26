@@ -218,7 +218,7 @@ void remmina_protocol_widget_grab_focus(RemminaProtocolWidget *gp)
 	TRACE_CALL(__func__);
 	GtkWidget *child;
 
-	child = g_object_get_data((gp), "child_plugin");
+	child = (GtkWidget*)g_object_get_data(G_OBJECT(gp), "child_plugin");
 
 	if (child) {
 		gtk_widget_set_can_focus(child, TRUE);
@@ -332,7 +332,7 @@ void remmina_protocol_widget_open_connection(RemminaProtocolWidget *gp)
 	s = g_strdup_printf(_("Connecting to “%s”…"), (name ? name : "*"));
 
 	mp = remmina_message_panel_new();
-	gtk_widget_set_hexpand(mp, TRUE);
+	gtk_widget_set_hexpand(GTK_WIDGET(mp), TRUE);
 	remmina_message_panel_setup_progress(mp, s, cancel_open_connection_cb, gp);
 	g_free(s);
 	gp->priv->connect_message_panel = mp;
@@ -511,7 +511,7 @@ void remmina_protocol_widget_send_keystrokes(RemminaProtocolWidget *gp, gchar* w
 	gchar *keystrokes = widget;
 	guint *keyvals;
 	gint i;
-	GdkDevice* keymap = gdk_seat_get_keyboard (gdk_display_get_default_seat(gdk_display_get_default()));//gdk_keymap_get_for_display(gdk_display_get_default());
+	// GdkDevice* keymap = gdk_seat_get_keyboard (gdk_display_get_default_seat(gdk_display_get_default()));//gdk_keymap_get_for_display(gdk_display_get_default());
 	gunichar character;
 	guint keyval;
 	GdkKeymapKey *keys = NULL;
@@ -603,7 +603,7 @@ void remmina_protocol_widget_send_clip_strokes(GdkClipboard *clipboard, const gc
 	gchar *text = g_utf8_normalize(clip_text, -1, G_NORMALIZE_DEFAULT_COMPOSE);
 	guint *keyvals;
 	gint i;
-	GdkDevice* keymap = gdk_seat_get_keyboard (gdk_display_get_default_seat (gdk_display_get_default())); // gdk_keymap_get_for_display(gdk_display_get_default());
+	// GdkDevice* keymap = gdk_seat_get_keyboard (gdk_display_get_default_seat (gdk_display_get_default())); // gdk_keymap_get_for_display(gdk_display_get_default());
 	gunichar character;
 	guint keyval;
 	GdkKeymapKey *keys;
@@ -695,9 +695,9 @@ void remmina_protocol_widget_send_clip_strokes(GdkClipboard *clipboard, const gc
 void remmina_protocol_widget_send_clipboard(RemminaProtocolWidget *gp, GtkButton *widget)
 {
 	TRACE_CALL(__func__);
-	GdkClipboard *clipboard;
+	// GdkClipboard *clipboard;
 
-	clipboard = gdk_display_get_clipboard(gdk_display_get_default());
+	// clipboard = gdk_display_get_clipboard(gdk_display_get_default());
 
 	/* Request the contents of the clipboard, contents_received will be
 	 * called when we do get the contents.
@@ -861,8 +861,8 @@ void remmina_protocol_widget_register_hostkey(RemminaProtocolWidget *gp, GtkWidg
 {
 	TRACE_CALL(__func__);
 
-	GtkEventControllerKey* key_event_controller = gtk_event_controller_key_new();
-	gtk_widget_add_controller(widget, key_event_controller);
+	GtkEventControllerKey* key_event_controller = (GtkEventControllerKey*)gtk_event_controller_key_new();
+	gtk_widget_add_controller(widget, GTK_EVENT_CONTROLLER(key_event_controller));
 
 	g_signal_connect(key_event_controller, "key-pressed", G_CALLBACK(remmina_protocol_widget_on_key_press), gp);
 	g_signal_connect(key_event_controller, "key-released", G_CALLBACK(remmina_protocol_widget_on_key_release), gp);
@@ -2036,7 +2036,7 @@ void remmina_protocol_widget_chat_close(RemminaProtocolWidget *gp)
 {
 	TRACE_CALL(__func__);
 	if (gp->priv->chat_window)
-		gtk_window_destroy((gp->priv->chat_window));
+		gtk_window_destroy(GTK_WINDOW(gp->priv->chat_window));
 }
 
 void remmina_protocol_widget_chat_receive(RemminaProtocolWidget *gp, const gchar *text)
@@ -2109,11 +2109,11 @@ void remmina_protocol_widget_send_keys_signals(GtkWidget *widget, const guint *k
 {
 	TRACE_CALL(__func__);
 	int i;
-	GdkKeyEvent *event;
-	gboolean result;
+	// GdkKeyEvent *event;
+	// gboolean result;
 	//GdkKeymap *keymap = gdk_keymap_get_for_display(gdk_display_get_default());
-	GdkDisplay* display = gdk_display_get_default();
-	GdkDevice* keyboard_device = gdk_seat_get_keyboard (gdk_display_get_default_seat (display));
+	// GdkDisplay* display = gdk_display_get_default();
+	// GdkDevice* keyboard_device = gdk_seat_get_keyboard (gdk_display_get_default_seat (display));
 	// event.window = gtk_widget_get_window(widget);
 	// event.send_event = TRUE;
 	// event.time = GDK_CURRENT_TIME;

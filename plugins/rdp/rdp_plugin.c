@@ -630,13 +630,13 @@ static BOOL rf_play_sound(rdpContext *context, const PLAY_SOUND_UPDATE *play_sou
 static BOOL rf_keyboard_set_indicators(rdpContext *context, UINT16 led_flags)
 {
 	TRACE_CALL(__func__);
-	rfContext *rfi;
-	RemminaProtocolWidget *gp;
-	GdkDisplay *disp;
+	// rfContext *rfi;
+	// RemminaProtocolWidget *gp;
+	// GdkDisplay *disp;
 
-	rfi = (rfContext *)context;
-	gp = rfi->protocol_widget;
-	disp = gtk_widget_get_display(GTK_WIDGET(gp));
+	// rfi = (rfContext *)context;
+	// gp = rfi->protocol_widget;
+	// disp = gtk_widget_get_display(GTK_WIDGET(gp));
 
 // #ifdef GDK_WINDOWING_X11
 // 	if (GDK_IS_X11_DISPLAY(disp)) {

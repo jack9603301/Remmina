@@ -88,7 +88,7 @@ static void remmina_unlock_unlock_clicked(GtkButton *btn, gpointer user_data)
 	gint rc;
 
 	unlock_password = remmina_pref_get_value("unlock_password");
-	entry_passwd = gtk_editable_get_text(remmina_unlock_dialog->entry_unlock);
+	entry_passwd = gtk_editable_get_text(GTK_EDITABLE(remmina_unlock_dialog->entry_unlock));
 	rc = remmina_sodium_pwhash_str_verify(unlock_password, entry_passwd);
 	//REMMINA_DEBUG("remmina_sodium_pwhash_str_verify returned %i", rc);
 

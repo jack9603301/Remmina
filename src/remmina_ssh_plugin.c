@@ -631,7 +631,7 @@ remmina_search_widget_update_regex(RemminaPluginSshData *gpdata)
 	GError *error = NULL;
 
 	RemminaSshSearch *search_widget = gpdata->search_widget;
-	char const *search_text = gtk_editable_get_text(GTK_ENTRY(search_widget->search_entry));
+	char const *search_text = gtk_editable_get_text(GTK_EDITABLE(search_widget->search_entry));
 	gboolean caseless = gtk_toggle_button_get_active(search_widget->match_case_checkbutton) == FALSE;
 
 	char *pattern;
@@ -751,9 +751,9 @@ GtkWidget *remmina_plugin_pop_search_new(GtkWidget *relative_to, RemminaProtocol
 	// 		       search_widget->revealer, "reveal-child",
 	// 		       G_BINDING_DEFAULT | G_BINDING_SYNC_CREATE);
 
-	// g_signal_connect_swapped(search_widget->search_entry, "next-match", G_CALLBACK(remmina_search_widget_search_forward), gpdata);
-	// g_signal_connect_swapped(search_widget->search_entry, "previous-match", G_CALLBACK(remmina_search_widget_search_backward), gpdata);
-	// g_signal_connect_swapped(search_widget->search_entry, "search-changed", G_CALLBACK(remmina_search_widget_update_regex), gpdata);
+	g_signal_connect_swapped(search_widget->search_entry, "next-match", G_CALLBACK(remmina_search_widget_search_forward), gpdata);
+	g_signal_connect_swapped(search_widget->search_entry, "previous-match", G_CALLBACK(remmina_search_widget_search_backward), gpdata);
+	g_signal_connect_swapped(search_widget->search_entry, "search-changed", G_CALLBACK(remmina_search_widget_update_regex), gpdata);
 
 	// g_signal_connect_swapped(search_widget->search_next_button, "clicked", G_CALLBACK(remmina_search_widget_search_forward), gpdata);
 	// g_signal_connect_swapped(search_widget->search_prev_button, "clicked", G_CALLBACK(remmina_search_widget_search_backward), gpdata);
@@ -763,7 +763,7 @@ GtkWidget *remmina_plugin_pop_search_new(GtkWidget *relative_to, RemminaProtocol
 	// g_signal_connect_swapped(search_widget->regex_checkbutton, "toggled", G_CALLBACK(remmina_search_widget_update_regex), gpdata);
 	// g_signal_connect_swapped(search_widget->match_case_checkbutton, "toggled", G_CALLBACK(remmina_search_widget_update_regex), gpdata);
 
-	// g_signal_connect(search_widget->wrap_around_checkbutton, "toggled", G_CALLBACK(remmina_search_widget_wrap_around_toggled), gpdata);
+	g_signal_connect(search_widget->wrap_around_checkbutton, "toggled", G_CALLBACK(remmina_search_widget_wrap_around_toggled), gpdata);
 
 	// remmina_search_widget_update_sensitivity(search_widget);
 	return search_widget->window;
@@ -778,7 +778,7 @@ void remmina_plugin_pop_search(RemminaProtocolWidget *gp)
 
 	REMMINA_DEBUG("Before popover");
 	GtkWidget *window = remmina_plugin_pop_search_new(gpdata->vte, gp);
-	GtkWidget *toplevel = gtk_widget_get_root(gpdata->vte);
+	GtkRoot *toplevel = gtk_widget_get_root(gpdata->vte);
 
 	if (GTK_IS_WINDOW(toplevel)) {
 		parent = GTK_WINDOW(toplevel);
@@ -856,7 +856,7 @@ void remmina_plugin_ssh_popup_ui(RemminaProtocolWidget *gp)
 	GtkGesture* click_gesture = gtk_gesture_click_new();
 	// gtk_event_controller_set_propagation_phase (GTK_EVENT_CONTROLLER(click_gesture),
     //                                           GTK_PHASE_CAPTURE );
-	gtk_widget_add_controller(G_OBJECT(gpdata->vte), GTK_EVENT_CONTROLLER(click_gesture));
+	gtk_widget_add_controller(GTK_WIDGET(gpdata->vte), GTK_EVENT_CONTROLLER(click_gesture));
 
 	g_signal_connect(click_gesture, "pressed",
 			 G_CALLBACK(remmina_ssh_plugin_popup_menu), menu);
@@ -977,9 +977,9 @@ remmina_plugin_ssh_init(RemminaProtocolWidget *gp)
 
 
 
-	GtkEventControllerFocus* focus_event_controller = gtk_event_controller_focus_new();
-	gtk_event_controller_set_propagation_phase(focus_event_controller, GTK_PHASE_BUBBLE);
-	gtk_widget_add_controller(G_OBJECT(hbox), focus_event_controller);
+	GtkEventControllerFocus* focus_event_controller = (GtkEventControllerFocus*)gtk_event_controller_focus_new();
+	gtk_event_controller_set_propagation_phase(GTK_EVENT_CONTROLLER(focus_event_controller), GTK_PHASE_BUBBLE);
+	gtk_widget_add_controller(GTK_WIDGET(hbox), GTK_EVENT_CONTROLLER(focus_event_controller));
 	g_signal_connect(focus_event_controller, "enter", G_CALLBACK(remmina_plugin_ssh_on_focus_in), gp);
 
 

@@ -57,7 +57,7 @@ static void view_popup_menu_onDoSomething(GtkWidget *menuitem, gpointer userdata
 gboolean remmina_external_tools_from_filename(RemminaMain *remminamain, gchar* remminafilename)
 {
 	TRACE_CALL(__func__);
-	GtkWidget *menu, *menuitem;
+	GtkWidget *menuitem;
 	gchar dirname[MAX_PATH_LEN];
 	gchar filename[MAX_PATH_LEN];
 	GDir* dir;
@@ -69,7 +69,7 @@ gboolean remmina_external_tools_from_filename(RemminaMain *remminamain, gchar* r
 	if (dir == NULL)
 		return FALSE;
 
-	menu = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
+	// menu = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
 
 	while ((name = g_dir_read_name(dir)) != NULL) {
 		if (!g_str_has_prefix(name, "remmina_"))
