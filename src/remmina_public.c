@@ -551,6 +551,7 @@ gboolean remmina_public_get_modifier_for_keycode(GdkDisplay *display, guint16 ke
 // #else
 // 	return FALSE;
 // #endif
+	return FALSE; //TODO GTK4
 }
 
 /* Load a GtkBuilder object from a filename */

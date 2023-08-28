@@ -46,7 +46,7 @@ static gboolean remmina_key_chooser_dialog_on_key_press(GtkEventControllerKey* s
   GdkModifierType state, RemminaKeyChooserArguments *arguments)
 {
 	TRACE_CALL(__func__);
-	if (!arguments->use_modifiers || !gdk_key_event_is_modifier(gtk_event_controller_get_current_event(self))) {
+	if (!arguments->use_modifiers || !gdk_key_event_is_modifier(gtk_event_controller_get_current_event(GTK_EVENT_CONTROLLER(self)))) {
 		arguments->val = remmina_key_chooser_get_value(keyval, state);
 		gtk_dialog_response(arguments->dialog, keyval == GDK_KEY_Escape ? GTK_RESPONSE_CANCEL : GTK_RESPONSE_OK);
 		
@@ -54,7 +54,7 @@ static gboolean remmina_key_chooser_dialog_on_key_press(GtkEventControllerKey* s
 	return TRUE;
 }
 
-static gboolean remmina_key_chooser_dialog_on_response(GtkDialog* self,
+static void remmina_key_chooser_dialog_on_response(GtkDialog* self,
   gint response_id,
   gpointer user_data)
 {
@@ -65,7 +65,7 @@ static gboolean remmina_key_chooser_dialog_on_response(GtkDialog* self,
 	else if(response_id == GTK_RESPONSE_OK ){
 		gtk_button_set_label(GTK_BUTTON(args->widget), args->val);
 	}
-	gtk_window_destroy(GTK_WINDOW(self));
+	gtk_window_destroy(GTK_WINDOW(self)); 
   }
 
 /* Show a key chooser dialog and return the keyval for the selected key */
@@ -86,16 +86,15 @@ void remmina_key_chooser_new(GtkWindow *parent_window, gboolean use_modifiers, G
 	arguments->dialog = dialog;
 	gtk_window_set_transient_for(GTK_WINDOW(dialog), parent_window);
 	/* Connect the GtkEventBox signal */
-	GtkEventControllerKey* key_event_controller = gtk_event_controller_key_new();
-	GtkBox* eventbox_key_chooser = gtk_builder_get_object(builder, "eventbox_key_chooser");
-	gtk_widget_add_controller(dialog, key_event_controller);
-	gtk_window_set_modal(dialog, true);
+	GtkEventControllerKey* key_event_controller = (GtkEventControllerKey*)gtk_event_controller_key_new();
+	// GtkBox* eventbox_key_chooser = GTK_BOX(gtk_builder_get_object(builder, "eventbox_key_chooser"));
+	gtk_widget_add_controller(GTK_WIDGET(dialog), GTK_EVENT_CONTROLLER(key_event_controller));
+	gtk_window_set_modal(GTK_WINDOW(dialog), true);
 
 	g_signal_connect(key_event_controller, "key-released",
 		G_CALLBACK(remmina_key_chooser_dialog_on_key_press), arguments);
 	g_signal_connect(dialog, "response",
 		G_CALLBACK(remmina_key_chooser_dialog_on_response), arguments);
-	gtk_widget_show(dialog);
 }
 
 /* Get the uppercase character value of a keyval */

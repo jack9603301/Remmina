@@ -117,17 +117,17 @@ remmina_cell_renderer_pixbuf_new(void)
 /* --------------------- RemminaFTPClient ----------------------------*/
 G_DEFINE_TYPE( RemminaFTPClient, remmina_ftp_client, GTK_TYPE_GRID)
 
-// #define BUSY_CURSOR \
-// 	if (GDK_IS_WINDOW(gtk_widget_get_window(GTK_WIDGET(client)))) \
-// 	{ \
-// 		gdk_window_set_cursor(gtk_widget_get_window(GTK_WIDGET(client)), gdk_cursor_new_from_name("wait", NULL)); \
-// 		gdk_display_flush(gdk_display_get_default()); \
+// #define BUSY_CURSOR 
+// 	if (GDK_IS_WINDOW(gtk_widget_get_window(GTK_WIDGET(client)))) 
+// 	{
+// 		gdk_window_set_cursor(gtk_widget_get_window(GTK_WIDGET(client)), gdk_cursor_new_from_name("wait", NULL)); 
+// 		gdk_display_flush(gdk_display_get_default()); 
 // 	}
 
-// #define NORMAL_CURSOR \
-// 	if (GDK_IS_WINDOW(gtk_widget_get_window(GTK_WIDGET(client)))) \
-// 	{ \
-// 		gdk_window_set_cursor(gtk_widget_get_window(GTK_WIDGET(client)), NULL); \
+// #define NORMAL_CURSOR 
+// 	if (GDK_IS_WINDOW(gtk_widget_get_window(GTK_WIDGET(client)))) 
+// 	{ 
+// 		gdk_window_set_cursor(gtk_widget_get_window(GTK_WIDGET(client)), NULL); 
 // 	} //TODO GTK4
 
 struct _RemminaFTPClientPriv {
@@ -359,11 +359,11 @@ static void remmina_ftp_client_open_dir(RemminaFTPClient *client, const gchar *d
 	//NORMAL_CURSOR TODO GTK4
 }
 
-static void remmina_ftp_client_dir_on_activate(GtkWidget *widget, RemminaFTPClient *client)
-{
-	TRACE_CALL(__func__);
-	remmina_ftp_client_open_dir(client, gtk_editable_get_text(GTK_ENTRY(widget)));
-}
+// static void remmina_ftp_client_dir_on_activate(GtkWidget *widget, RemminaFTPClient *client)
+// {
+// 	TRACE_CALL(__func__);
+// 	remmina_ftp_client_open_dir(client, gtk_editable_get_text(GTK_ENTRY(widget)));
+// } TODO GTK4
 
 static void remmina_ftp_client_dir_on_changed(GtkWidget *widget, RemminaFTPClient *client)
 {
@@ -410,7 +410,7 @@ remmina_ftp_client_get_download_dir(RemminaFTPClient *client)
 		GTK_WINDOW(gtk_widget_get_root(GTK_WIDGET(client))), GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,
 		"_Cancel", GTK_RESPONSE_CANCEL, "_OK", GTK_RESPONSE_ACCEPT, NULL);
 	if (priv->working_directory) {
-		gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(dialog), priv->working_directory, NULL);
+		gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(dialog), g_file_new_for_path(priv->working_directory), NULL);
 	}
 	// if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
 	// 	g_free(priv->working_directory);
@@ -456,7 +456,7 @@ static gboolean remmina_ftp_client_task_list_on_query_tooltip(GtkWidget *widget,
 	GtkTreePath *path = NULL;
 	gchar *tmp;
 
-	if (!gtk_tree_view_get_tooltip_context(GTK_TREE_VIEW(priv->task_list_view), &x, &y, keyboard_tip, NULL, &path, &iter)) {
+	if (!gtk_tree_view_get_tooltip_context(GTK_TREE_VIEW(priv->task_list_view), x, y, keyboard_tip, NULL, &path, &iter)) {
 		return FALSE;
 	}
 
@@ -608,7 +608,7 @@ static void remmina_ftp_client_action_upload(GObject *object, RemminaFTPClient *
 		GTK_RESPONSE_CANCEL, "_OK", GTK_RESPONSE_ACCEPT, NULL);
 	gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(dialog), TRUE);
 	if (priv->working_directory) {
-		gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(dialog), priv->working_directory, NULL);
+		gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(dialog), g_file_new_for_path(priv->working_directory), NULL);
 	}
 	upload_folder_check = gtk_check_button_new_with_label(_("Upload folder"));
 	gtk_widget_show(upload_folder_check);
@@ -660,11 +660,11 @@ static void remmina_ftp_client_action_upload(GObject *object, RemminaFTPClient *
 static void remmina_ftp_client_popup_menu(RemminaFTPClient *client, GdkButtonEvent *event)
 {
 	TRACE_CALL(__func__);
-	GtkWidget *menu;
+	// GtkWidget *menu;
 	GtkWidget *menuitem;
 	GtkWidget *image;
 
-	menu = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
+	// menu = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0); TODO GTK4
 
 	menuitem = gtk_button_new_with_label(_("Download"));
 	gtk_widget_show(menuitem);
@@ -702,9 +702,9 @@ static gboolean remmina_ftp_client_file_list_on_button_press(GtkWidget *widget, 
 	gchar *name;
 	gchar *localdir;
 
-	if (gdk_button_event_get_button(event) == 3) {
+	if (gdk_button_event_get_button(GDK_EVENT(event)) == 3) {
 		remmina_ftp_client_popup_menu(client, event);
-	}else if (gdk_button_event_get_button(event) == 1 && gdk_event_get_event_type(event) == GDK_BUTTON_PRESS) { //TODO gtk4 use GestureMultiPress
+	}else if (gdk_button_event_get_button(GDK_EVENT(event)) == 1 && gdk_event_get_event_type(GDK_EVENT(event)) == GDK_BUTTON_PRESS) { //TODO gtk4 use GestureMultiPress
 		list = gtk_tree_selection_get_selected_rows(
 			gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->file_list_view)), NULL);
 		if (list) {

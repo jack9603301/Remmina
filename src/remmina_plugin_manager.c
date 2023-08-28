@@ -154,13 +154,13 @@ static gboolean remmina_plugin_manager_register_plugin(RemminaPlugin *plugin)
 
 gboolean remmina_gtksocket_available()
 {
-	GdkDisplayManager* dm;
-	GdkDisplay* d;
-	gboolean available;
+	// GdkDisplayManager* dm;
+	// GdkDisplay* d;
+	// gboolean available;
 
-	dm = gdk_display_manager_get();
-	d = gdk_display_manager_get_default_display(dm);
-	available = FALSE;
+	// dm = gdk_display_manager_get();
+	// d = gdk_display_manager_get_default_display(dm);
+	// available = FALSE;
 
 // #ifdef GDK_WINDOWING_X11
 // 	if (GDK_IS_X11_DISPLAY(d)) {
@@ -168,7 +168,8 @@ gboolean remmina_gtksocket_available()
 // 		available = TRUE;
 // 	}
 // #endif
-	return available;
+	// return available;
+	return FALSE; //TODO GTK4
 }
 
 RemminaPluginService remmina_plugin_manager_service =
@@ -524,7 +525,10 @@ void remmina_plugin_manager_show(GtkWindow *parent)
 	GtkTreeViewColumn *column;
 	GtkListStore *store;
 
-	dialog = gtk_dialog_new_with_buttons(_("Plugins"), parent, GTK_DIALOG_MODAL, NULL);
+	dialog = gtk_dialog_new();
+	gtk_widget_set_parent(dialog, GTK_WIDGET(parent));
+	gtk_window_set_modal(GTK_WINDOW(dialog), TRUE);
+	gtk_window_set_title(GTK_WINDOW(dialog), _("Plugins"));
 	g_signal_connect(G_OBJECT(dialog), "response", G_CALLBACK(gtk_window_destroy), dialog);
 	gtk_window_set_default_size(GTK_WINDOW(dialog), 500, 320);
 

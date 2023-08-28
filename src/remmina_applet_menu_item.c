@@ -149,13 +149,11 @@ GtkWidget* remmina_applet_menu_item_new(RemminaAppletMenuItemType item_type, ...
 	/* Create the label */
 	widget = gtk_label_new(item->name);
 	box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 6);
-	gtk_widget_show(widget);
-	gtk_widget_show(icon);
-	gtk_widget_show(box);
+
 	gtk_widget_set_valign(widget, GTK_ALIGN_START);
 	gtk_widget_set_halign(widget, GTK_ALIGN_START);
-	gtk_box_append(box, icon);
-	gtk_box_append(box, widget);
+	gtk_box_append(GTK_BOX(box), icon);
+	gtk_box_append(GTK_BOX(box), widget);
 	gtk_box_append(GTK_BOX(item), box);
 
 	if (item->server) {

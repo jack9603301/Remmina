@@ -46,7 +46,7 @@
 #define KEY_CHOOSER_NONE _("<None>")
 
 typedef struct _RemminaKeyChooserArguments {
-	gchar*		val;
+	const gchar*		val;
 	gboolean	use_modifiers;
 	GtkWidget* 	widget;
 	GtkDialog*	dialog;

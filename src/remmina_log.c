@@ -128,8 +128,8 @@ void remmina_log_start(void)
 		/* Header bar */
 		GtkWidget *header = gtk_header_bar_new ();
 		gtk_header_bar_set_show_title_buttons (GTK_HEADER_BAR (header), TRUE);
-		GtkLabel* header_title = gtk_label_new_with_mnemonic(_("Remmina debugging window"));
-		gtk_header_bar_set_title_widget (GTK_HEADER_BAR (header), header_title);
+		GtkLabel* header_title = (GtkLabel*)gtk_label_new_with_mnemonic(_("Remmina debugging window"));
+		gtk_header_bar_set_title_widget (GTK_HEADER_BAR (header), GTK_WIDGET(header_title));
 		
 		/* Stats */
 		GtkWidget *getstat = gtk_button_new ();
@@ -434,8 +434,8 @@ static gboolean remmina_log_on_keypress(GtkWidget *widget, GdkEvent *event, gpoi
 
 	GdkKeyEvent *e = (GdkKeyEvent *)event;
 
-	if ((gdk_event_get_modifier_state(e) & GDK_CONTROL_MASK) == GDK_CONTROL_MASK) {
-		if (gdk_key_event_get_keyval(e) == GDK_KEY_t) {
+	if ((gdk_event_get_modifier_state(GDK_EVENT(e)) & GDK_CONTROL_MASK) == GDK_CONTROL_MASK) {
+		if (gdk_key_event_get_keyval(GDK_EVENT(e)) == GDK_KEY_t) {
 			remmina_log_stats();
 		}
 		return TRUE;
@@ -455,7 +455,7 @@ static void remmina_log_window_init(RemminaLogWindow *logwin)
 	scrolledwindow = gtk_scrolled_window_new();
 	gtk_widget_show(scrolledwindow);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolledwindow), GTK_POLICY_NEVER, GTK_POLICY_ALWAYS);
-	gtk_window_set_child((logwin), scrolledwindow);
+	gtk_window_set_child(GTK_WINDOW(logwin), scrolledwindow);
 
 	widget = gtk_text_view_new();
 	gtk_widget_show(widget);
@@ -472,6 +472,8 @@ static void remmina_log_window_init(RemminaLogWindow *logwin)
 	logwin->log_view = widget;
 	logwin->log_buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(widget));
 
-	// g_signal_connect(G_OBJECT(logwin->log_view), "key-press-event", G_CALLBACK(remmina_log_on_keypress), (gpointer)logwin); TODO GTK4
+	GtkEventControllerKey* key_event_controller = (GtkEventControllerKey*)gtk_event_controller_key_new();
+	gtk_widget_add_controller(GTK_WIDGET(logwin->log_view), GTK_EVENT_CONTROLLER(key_event_controller));
+	g_signal_connect(key_event_controller, "key-pressed", G_CALLBACK(remmina_log_on_keypress), (gpointer)logwin);
 }
 

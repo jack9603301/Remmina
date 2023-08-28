@@ -57,8 +57,8 @@ void remmina_passwd_repwd_on_changed(GtkEditable *editable, RemminaPasswdDialog 
 
 	provider = gtk_css_provider_new();
 
-	password = gtk_editable_get_text(remmina_passwd_dialog->entry_password);
-	verify = gtk_editable_get_text(remmina_passwd_dialog->entry_verify);
+	password = gtk_editable_get_text(GTK_EDITABLE(remmina_passwd_dialog->entry_password));
+	verify = gtk_editable_get_text(GTK_EDITABLE(remmina_passwd_dialog->entry_verify));
 	if (g_strcmp0(password, verify) == 0) {
 		color = g_strdup("green");
 		sensitive = TRUE;
@@ -103,7 +103,7 @@ static void remmina_passwd_submit_clicked(GtkButton *btn, gpointer user_data)
 {
 	TRACE_CALL(__func__);
 	remmina_passwd_dialog->password = gtk_editable_get_text(
-			GTK_ENTRY(remmina_passwd_dialog->entry_verify));
+			GTK_EDITABLE(remmina_passwd_dialog->entry_verify));
 	gtk_dialog_response (remmina_passwd_dialog->dialog, GTK_RESPONSE_ACCEPT);
 }
 
