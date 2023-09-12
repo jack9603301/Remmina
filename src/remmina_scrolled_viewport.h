@@ -60,7 +60,7 @@ typedef struct _RemminaScrolledViewport {
 } RemminaScrolledViewport;
 
 typedef struct _RemminaScrolledViewportClass {
-	GtkWidgetClass parent_class;
+	GtkBoxClass parent_class;
 } RemminaScrolledViewportClass;
 
 GType remmina_scrolled_viewport_get_type(void)

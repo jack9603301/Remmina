@@ -44,7 +44,7 @@ G_BEGIN_DECLS
 G_DECLARE_DERIVABLE_TYPE(RemminaMessagePanel, remmina_message_panel, REMMINA, MESSAGE_PANEL, GtkBox)
 
 struct _RemminaMessagePanelClass {
-	GtkWidgetClass	parent_class;
+	GtkBoxClass	parent_class;
 	void		(*response) (RemminaMessagePanel *mp, gint response_id);
 };
 

@@ -589,6 +589,7 @@ static gboolean remmina_rdp_event_on_button_press(GtkGestureClick *self, gint n_
 	gboolean extended = FALSE;
 	RemminaPluginRdpEvent rdp_event = { 0 };
 	gint primary, secondary;
+	rfContext *rfi = GET_PLUGIN_DATA(gp);
 
 	RemminaFile *remminafile;
 
@@ -636,7 +637,7 @@ static gboolean remmina_rdp_event_on_button_press(GtkGestureClick *self, gint n_
 	else
 		flag |= PTR_FLAGS_DOWN;
 
-
+	gtk_widget_grab_focus(rfi->drawing_area);
 	rdp_event.type = REMMINA_RDP_EVENT_TYPE_MOUSE;
 	remmina_rdp_event_translate_pos(gp, x, y, &rdp_event.mouse_event.x, &rdp_event.mouse_event.y);
 
@@ -1056,7 +1057,6 @@ void remmina_rdp_event_init(RemminaProtocolWidget *gp)
 	gtk_gesture_single_set_button((GtkGestureSingle*)gesture, 0);
 	g_signal_connect (gesture, "pressed", G_CALLBACK (remmina_rdp_event_on_button_press), gp);
 	g_signal_connect (gesture, "released", G_CALLBACK (remmina_rdp_event_on_button_release), gp);
-	gtk_event_controller_set_propagation_phase(GTK_EVENT_CONTROLLER(gesture), GTK_PHASE_TARGET);
 	gtk_widget_add_controller(rfi->drawing_area, GTK_EVENT_CONTROLLER (gesture));
 	
 
