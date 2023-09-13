@@ -310,17 +310,15 @@ static void remmina_file_editor_create_notebook_container(RemminaFileEditor *gfe
 	/* Create the notebook */
 	gfe->priv->config_container = gtk_notebook_new();
 	gfe->priv->config_viewport = gtk_viewport_new(NULL, NULL);
+	gtk_viewport_set_scroll_to_focus(gfe->priv->config_viewport, FALSE);
 	gfe->priv->config_scrollable = gtk_scrolled_window_new();
-	//gtk_container_set_border_width(GTK_CONTAINER(gfe->priv->config_scrollable), 2);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(gfe->priv->config_scrollable),
-				       GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
-	gtk_widget_show(gfe->priv->config_scrollable);
+				       GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+	gtk_widget_set_vexpand(gfe->priv->config_scrollable, TRUE);
 
 	gtk_viewport_set_child(GTK_VIEWPORT(gfe->priv->config_viewport), gfe->priv->config_container);
-	//gtk_container_set_border_width(GTK_CONTAINER(gfe->priv->config_viewport), 2);
 	gtk_widget_show(gfe->priv->config_viewport);
 	gtk_scrolled_window_set_child(GTK_SCROLLED_WINDOW(gfe->priv->config_scrollable), gfe->priv->config_viewport);
-	gtk_scrolled_window_set_min_content_height(GTK_SCROLLED_WINDOW(gfe->priv->config_scrollable), 400);
 	gtk_widget_show(gfe->priv->config_container);
 
 	gtk_box_append(GTK_BOX(gfe->priv->config_box), gfe->priv->config_scrollable);
