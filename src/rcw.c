@@ -206,6 +206,7 @@ static void rcw_keyboard_grab(RemminaConnectionWindow *cnnwin);
 static void rcw_run_feature(GSimpleAction *action, GVariant *param, gpointer data);
 static void rcw_toolbar_menu_on_launch_item(GSimpleAction *action, GVariant *param, gpointer data);
 static void rcw_handle_keystrokes(GSimpleAction *action, GVariant *param, gpointer data);
+static void rco_switch_page_activate(GSimpleAction *action, GVariant *param, gpointer data);
 static GtkWidget *rcw_append_new_page(RemminaConnectionWindow *cnnwin, RemminaConnectionObject *cnnobj);
 void rcw_toolbar_preferences_check(RemminaConnectionObject *cnnobj, GSimpleActionGroup* actions, const RemminaProtocolFeature *feature,
 	const gchar *domain, gboolean enabled);
@@ -216,6 +217,7 @@ static GActionEntry rcw_actions[] = {
 	{ "feature",	 rcw_run_feature,	 NULL, NULL, NULL },
 	{ "keystrokes",	 rcw_handle_keystrokes,	 NULL, NULL, NULL },
 	{ "launch",	 rcw_toolbar_menu_on_launch_item,	 NULL, NULL, NULL },
+	{ "switch",	 rco_switch_page_activate,	 NULL, NULL, NULL },
 };
 
 static void rcw_ftb_drag_begin(GtkWidget *widget, GtkDragSource *context, gpointer user_data);
@@ -1626,6 +1628,28 @@ static void rcw_scaler_keep_aspect(GtkWidget *widget, RemminaConnectionWindow *c
 	remmina_protocol_widget_update_alignment(cnnobj);
 }
 
+// create properly formatted action name based on menu label
+static void rcw_create_action_names(char *name, char *str, const char *label, char *group){
+	strcpy(name, label);
+	strcpy(str, "rcw.");
+	//replace white_space with _
+	char* ptr = name;
+	while(*ptr){
+		if (*ptr == ' ' || *ptr == '(' || *ptr == ')' || *ptr == '-'){
+			*ptr = '_';
+		}
+		ptr++;
+	}
+	if (strcmp(group, "") == 0){
+		strcat(str, name);
+	}
+	else{
+		strcat(str, group);
+		strcat(str, "::");
+		strcat(str, name);
+	}
+}
+
 static void rcw_toolbar_scaler_option(GtkWidget *toggle, RemminaConnectionWindow *cnnwin)
 {
 	TRACE_CALL(__func__);
@@ -1676,14 +1700,30 @@ static void rcw_toolbar_scaler_option(GtkWidget *toggle, RemminaConnectionWindow
 // #endif
 }
 
-void rco_switch_page_activate(GtkButton *menuitem, RemminaConnectionObject *cnnobj)
+void rco_switch_page_activate(GSimpleAction *action, GVariant *param, gpointer data)
 {
 	TRACE_CALL(__func__);
-	RemminaConnectionWindowPriv *priv = cnnobj->cnnwin->priv;
 	gint page_num;
+	RemminaConnectionObject* cnnobj;
+	
 
-	page_num = GPOINTER_TO_INT(g_object_get_data(G_OBJECT(menuitem), "new-page-num"));
+	if(data == NULL){
+			return;
+		}
+
+	
+
+	page_num = GPOINTER_TO_INT(g_object_get_data(G_OBJECT(action), "new-page-num"));
+	cnnobj = (RemminaConnectionObject *)g_object_get_data(G_OBJECT(action), "cnnobj");
+
+	RemminaConnectionWindowPriv *priv = cnnobj->cnnwin->priv;
 	gtk_notebook_set_current_page(GTK_NOTEBOOK(priv->notebook), page_num);
+
+	// RemminaConnectionWindowPriv *priv = cnnobj->cnnwin->priv;
+	// gint page_num;
+
+	// page_num = GPOINTER_TO_INT(g_object_get_data(G_OBJECT(menuitem), "new-page-num"));
+	// gtk_notebook_set_current_page(GTK_NOTEBOOK(priv->notebook), page_num);
 }
 
 void rcw_toolbar_switch_page_popdown(GtkWidget *widget, RemminaConnectionWindow *cnnwin)
@@ -1702,12 +1742,10 @@ static void rcw_toolbar_switch_page(GtkWidget *toggle, RemminaConnectionWindow *
 	TRACE_CALL(__func__);
 
 	RemminaConnectionWindowPriv *priv = cnnwin->priv;
-	RemminaConnectionObject *cnnobj;
-
+	RemminaConnectionObject *cnnobj, *cur_cnnobj;
+	GtkPopoverMenu* popover_menu;
 	GtkWidget *menu;
-	GtkWidget *menuitem;
-	GtkWidget *image;
-	gint i, n;
+	gint i, n, cur;
 
 	if (priv->toolbar_is_reconfiguring)
 		return;
@@ -1718,26 +1756,52 @@ static void rcw_toolbar_switch_page(GtkWidget *toggle, RemminaConnectionWindow *
 
 	priv->sticky = TRUE;
 
-	menu = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);;
-
+	menu = g_menu_new();
+	cur = gtk_notebook_get_current_page(GTK_NOTEBOOK(priv->notebook));
+	cur_cnnobj = rcw_get_cnnobj_at_page(cnnobj->cnnwin, cur);
 	n = gtk_notebook_get_n_pages(GTK_NOTEBOOK(priv->notebook));
 	for (i = 0; i < n; i++) {
+		// if (i != cur){
 		cnnobj = rcw_get_cnnobj_at_page(cnnobj->cnnwin, i);
+		
+		char name[80];
+		char detailed_action[80];
+		char label[80];
+		char* trail = "switch";
+		
+		char* label_base = remmina_file_get_string(cnnobj->remmina_file, "name");
+		strcpy(label, label_base);
+		strcat(label, trail);
+		rcw_create_action_names(name, detailed_action, label, "");
 
-		menuitem = gtk_button_new_with_label(remmina_file_get_string(cnnobj->remmina_file, "name"));
-		gtk_widget_show(menuitem);
-		//gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
+		// REMMINA_DEBUG("name: %s", name);
+		// REMMINA_DEBUG("label: %s", label);
+		// REMMINA_DEBUG("label_base: %s", label_base);
+		// REMMINA_DEBUG("detailed_action: %s", detailed_action);
 
-		image = gtk_image_new_from_icon_name(remmina_file_get_icon_name(cnnobj->remmina_file));
-		gtk_widget_show(image);
+		GSimpleAction *action = g_simple_action_new (g_strdup(name), NULL);
+		GMenuItem* menuitem = g_menu_item_new(label_base, detailed_action);
+		//save these to be accessed in callback 
+		g_object_set_data(G_OBJECT(action), "cnnobj", (gpointer)cnnobj);
+		g_object_set_data(G_OBJECT(action), "new-page-num", GINT_TO_POINTER(i));
 
-		g_object_set_data(G_OBJECT(menuitem), "new-page-num", GINT_TO_POINTER(i));
-		g_signal_connect(G_OBJECT(menuitem), "activate", G_CALLBACK(rco_switch_page_activate), cnnobj);
-		if (i == gtk_notebook_get_current_page(GTK_NOTEBOOK(priv->notebook)))
-			gtk_widget_set_sensitive(menuitem, FALSE);
+		g_signal_connect (action, "activate", G_CALLBACK (rco_switch_page_activate), menuitem);
+		g_action_map_add_action (G_ACTION_MAP (cur_cnnobj->action_group), G_ACTION (action));
+		
+		
+		g_menu_append_item(G_MENU(menu), menuitem);
+
+
+		// }
+			
 	}
 
-	g_signal_connect(G_OBJECT(menu), "deactivate", G_CALLBACK(rcw_toolbar_switch_page_popdown),
+
+	popover_menu = (GtkPopoverMenu*)gtk_popover_menu_new_from_model(G_MENU_MODEL(menu));
+	gtk_widget_set_parent(GTK_WIDGET(popover_menu), toggle);
+	gtk_popover_popup(GTK_POPOVER(popover_menu));
+
+	g_signal_connect(G_OBJECT(popover_menu), "closed", G_CALLBACK(rcw_toolbar_switch_page_popdown),
 			 cnnwin);
 
 // #if GTK_CHECK_VERSION(3, 22, 0)
@@ -1836,29 +1900,6 @@ static void rcw_toolbar_scaled_mode(GtkWidget *toggle, RemminaConnectionWindow *
 
 	rco_change_scalemode(cnnobj, bdyn, bscale);
 }
-
-// create properly formatted action name based on menu label
-static void rcw_create_action_names(char *name, char *str, const char *label, char *group){
-	strcpy(name, label);
-	strcpy(str, "rcw.");
-	//replace white_space with _
-	char* ptr = name;
-	while(*ptr){
-		if (*ptr == ' ' || *ptr == '(' || *ptr == ')'){
-			*ptr = '_';
-		}
-		ptr++;
-	}
-	if (strcmp(group, "") == 0){
-		strcat(str, name);
-	}
-	else{
-		strcat(str, group);
-		strcat(str, "::");
-		strcat(str, name);
-	}
-}
-
 
 static void rcw_create_toolbar_connection_menu(GSimpleActionGroup* actions, RemminaConnectionWindow *cnnwin){
 	RemminaConnectionObject *cnnobj;
