@@ -771,7 +771,10 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="margin-end">18</property>
                         <property name="margin-top">18</property>
                         <property name="hexpand">True</property>
-                        <!-- <property name="draw-indicator">True</property> -->
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">0</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -784,7 +787,10 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="margin-start">18</property>
                         <property name="margin-end">18</property>
                         <property name="hexpand">True</property>
-                        <!-- <property name="draw-indicator">True</property> -->
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">1</property>
+                        </layout>->
                       </object>
                     </child>
                     <child>
@@ -797,7 +803,10 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="margin-start">18</property>
                         <property name="margin-end">18</property>
                         <property name="hexpand">True</property>
-                        <!-- <property name="draw-indicator">True</property> -->
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">2</property>
+                        </layout>
                         <signal name="toggled" handler="remmina_pref_dialog_disable_tray_icon_on_toggled" swapped="no"/>
                       </object>
                     </child>
@@ -812,7 +821,10 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="margin-end">18</property>
                         <property name="margin-bottom">18</property>
                         <property name="hexpand">True</property>
-                        <!-- <property name="draw-indicator">True</property> -->
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">3</property>
+                        </layout>>
                       </object>
                     </child>
                   </object>
@@ -854,6 +866,10 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="margin-end">6</property>
                         <property name="margin-top">18</property>
                         <property name="label" translatable="yes">Host key</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">0</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -866,6 +882,10 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="margin-start">6</property>
                         <property name="margin-end">18</property>
                         <property name="margin-top">18</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="row">0</property>
+                        </layout>
                         <signal name="clicked" handler="remmina_pref_dialog_on_key_chooser" swapped="no"/>
                       </object>
                     </child>
@@ -877,6 +897,10 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="margin-start">18</property>
                         <property name="margin-end">6</property>
                         <property name="label" translatable="yes">Show/hide fullscreen</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">1</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -888,6 +912,10 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="receives-default">True</property>
                         <property name="margin-start">6</property>
                         <property name="margin-end">18</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="row">1</property>
+                        </layout>
                         <signal name="clicked" handler="remmina_pref_dialog_on_key_chooser" swapped="no"/>
                       </object>
                     </child>
@@ -899,6 +927,10 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="margin-start">18</property>
                         <property name="margin-end">6</property>
                         <property name="label" translatable="yes">Auto-fit window</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">2</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -910,6 +942,10 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="receives-default">True</property>
                         <property name="margin-start">6</property>
                         <property name="margin-end">18</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="row">2</property>
+                        </layout>
                         <signal name="clicked" handler="remmina_pref_dialog_on_key_chooser" swapped="no"/>
                       </object>
                     </child>
@@ -920,6 +956,10 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="halign">start</property>
                         <property name="margin-start">18</property>
                         <property name="margin-end">6</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">3</property>
+                        </layout>
                         <property name="label" translatable="yes">Switch tab pages</property>
                       </object>
                     </child>
@@ -932,6 +972,10 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="receives-default">True</property>
                         <property name="margin-start">6</property>
                         <property name="margin-end">6</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="row">3</property>
+                        </layout>
                         <signal name="clicked" handler="remmina_pref_dialog_on_key_chooser" swapped="no"/>
                       </object>
                     </child>
@@ -944,6 +988,10 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="receives-default">True</property>
                         <property name="margin-start">6</property>
                         <property name="margin-end">18</property>
+                        <layout>
+                          <property name="column">2</property>
+                          <property name="row">3</property>
+                        </layout>
                         <signal name="clicked" handler="remmina_pref_dialog_on_key_chooser" swapped="no"/>
                       </object>
                     </child>
@@ -954,6 +1002,10 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="halign">start</property>
                         <property name="margin-start">18</property>
                         <property name="margin-end">6</property>
+                         <layout>
+                          <property name="column">0</property>
+                          <property name="row">4</property>
+                        </layout>
                         <property name="label" translatable="yes">Apply/remove scaling</property>
                       </object>
                     </child>
@@ -966,6 +1018,10 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="receives-default">True</property>
                         <property name="margin-start">6</property>
                         <property name="margin-end">18</property>
+                         <layout>
+                          <property name="column">1</property>
+                          <property name="row">4</property>
+                        </layout>
                         <signal name="clicked" handler="remmina_pref_dialog_on_key_chooser" swapped="no"/>
                       </object>
                     </child>
@@ -976,6 +1032,10 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="halign">start</property>
                         <property name="margin-start">18</property>
                         <property name="margin-end">6</property>
+                         <layout>
+                          <property name="column">0</property>
+                          <property name="row">5</property>
+                        </layout>
                         <property name="label" translatable="yes">Grab keyboard</property>
                       </object>
                     </child>
@@ -988,6 +1048,10 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="receives-default">True</property>
                         <property name="margin-start">6</property>
                         <property name="margin-end">18</property>
+                         <layout>
+                          <property name="column">1</property>
+                          <property name="row">5</property>
+                        </layout>
                         <signal name="clicked" handler="remmina_pref_dialog_on_key_chooser" swapped="no"/>
                       </object>
                     </child>
@@ -998,6 +1062,10 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="halign">start</property>
                         <property name="margin-start">18</property>
                         <property name="margin-end">6</property>
+                         <layout>
+                          <property name="column">0</property>
+                          <property name="row">6</property>
+                        </layout>
                         <property name="label" translatable="yes">Minimize window</property>
                       </object>
                     </child>
@@ -1010,6 +1078,10 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="receives-default">True</property>
                         <property name="margin-start">6</property>
                         <property name="margin-end">18</property>
+                         <layout>
+                          <property name="column">1</property>
+                          <property name="row">6</property>
+                        </layout>
                         <signal name="clicked" handler="remmina_pref_dialog_on_key_chooser" swapped="no"/>
                       </object>
                     </child>
@@ -1020,6 +1092,10 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="halign">start</property>
                         <property name="margin-start">18</property>
                         <property name="margin-end">6</property>
+                         <layout>
+                          <property name="column">0</property>
+                          <property name="row">7</property>
+                        </layout>
                         <property name="label" translatable="yes">Disconnect</property>
                       </object>
                     </child>
@@ -1032,6 +1108,10 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="receives-default">True</property>
                         <property name="margin-start">6</property>
                         <property name="margin-end">18</property>
+                         <layout>
+                          <property name="column">1</property>
+                          <property name="row">7</property>
+                        </layout>
                         <signal name="clicked" handler="remmina_pref_dialog_on_key_chooser" swapped="no"/>
                       </object>
                     </child>
@@ -1042,6 +1122,10 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="halign">start</property>
                         <property name="margin-start">18</property>
                         <property name="margin-end">6</property>
+                         <layout>
+                          <property name="column">0</property>
+                          <property name="row">8</property>
+                        </layout>
                         <property name="label" translatable="yes">Show/hide toolbar</property>
                       </object>
                     </child>
@@ -1054,6 +1138,10 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="receives-default">True</property>
                         <property name="margin-start">6</property>
                         <property name="margin-end">18</property>
+                         <layout>
+                          <property name="column">1</property>
+                          <property name="row">8</property>
+                        </layout>
                         <signal name="clicked" handler="remmina_pref_dialog_on_key_chooser" swapped="no"/>
                       </object>
                     </child>
@@ -1064,6 +1152,10 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="halign">start</property>
                         <property name="margin-start">18</property>
                         <property name="margin-end">6</property>
+                         <layout>
+                          <property name="column">0</property>
+                          <property name="row">9</property>
+                        </layout>
                         <property name="label" translatable="yes">Screenshot</property>
                         <property name="ellipsize">start</property>
                       </object>
@@ -1077,6 +1169,10 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="receives-default">True</property>
                         <property name="margin-start">6</property>
                         <property name="margin-end">18</property>
+                         <layout>
+                          <property name="column">1</property>
+                          <property name="row">9</property>
+                        </layout>
                         <signal name="clicked" handler="remmina_pref_dialog_on_key_chooser" swapped="no"/>
                       </object>
                     </child>
@@ -1087,6 +1183,10 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="halign">start</property>
                         <property name="margin-start">18</property>
                         <property name="margin-end">6</property>
+                         <layout>
+                          <property name="column">0</property>
+                          <property name="row">10</property>
+                        </layout>
                         <property name="label" translatable="yes">View-only mode</property>
                         <property name="ellipsize">start</property>
                       </object>
@@ -1100,6 +1200,10 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="receives-default">True</property>
                         <property name="margin-start">6</property>
                         <property name="margin-end">18</property>
+                         <layout>
+                          <property name="column">1</property>
+                          <property name="row">10</property>
+                        </layout>
                         <signal name="clicked" handler="remmina_pref_dialog_on_key_chooser" swapped="no"/>
                       </object>
                     </child>
@@ -1113,6 +1217,10 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="margin-bottom">18</property>
                         <property name="label" translatable="yes">Multi monitor</property>
                         <property name="ellipsize">start</property>
+                         <layout>
+                          <property name="column">0</property>
+                          <property name="row">11</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -1125,6 +1233,10 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="margin-start">6</property>
                         <property name="margin-end">18</property>
                         <property name="margin-bottom">18</property>
+                         <layout>
+                          <property name="column">1</property>
+                          <property name="row">11</property>
+                        </layout>
                         <signal name="clicked" handler="remmina_pref_dialog_on_key_chooser" swapped="no"/>
                       </object>
                     </child>
@@ -1675,6 +1787,10 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-start">18</property>
                         <property name="margin-top">18</property>
                         <property name="label" translatable="yes">Terminal font</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">0</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -1684,11 +1800,15 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="halign">start</property>
                         <property name="margin-start">18</property>
                         <property name="label" translatable="yes">Scrollback lines</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">3</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
                       <object class="GtkFontButton" id="fontbutton_terminal_font">
-                        <property name="width-request">200</property>
+                        <!-- <property name="width-request">200</property> -->
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">True</property>
@@ -1699,6 +1819,11 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="preview-text"/>
                         <property name="use-font">True</property>
                         <property name="use-size">True</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="row">0</property>
+                          <property name="column-span">3</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -1709,6 +1834,11 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-start">6</property>
                         <property name="margin-end">18</property>
                         <property name="input-purpose">number</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="row">3</property>
+                          <property name="column-span">3</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -1718,6 +1848,10 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="halign">start</property>
                         <property name="margin-start">18</property>
                         <property name="label" translatable="yes">Shortcuts for copying and pasting</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">4</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -1727,6 +1861,10 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="halign">start</property>
                         <property name="margin-start">18</property>
                         <property name="label" translatable="yes">Select all shortcuts</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">5</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -1739,6 +1877,11 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-start">6</property>
                         <property name="margin-end">6</property>
                         <signal name="clicked" handler="remmina_pref_dialog_on_key_chooser" swapped="no"/>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="row">4</property>
+                          <property name="column-span">3</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -1752,6 +1895,10 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-start">6</property>
                         <property name="margin-end">18</property>
                         <signal name="clicked" handler="remmina_pref_dialog_on_key_chooser" swapped="no"/>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="row">5</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -1761,6 +1908,10 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="halign">start</property>
                         <property name="margin-start">18</property>
                         <property name="label" translatable="yes">Use default system font</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">1</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -1770,6 +1921,10 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="halign">start</property>
                         <property name="margin-start">6</property>
                         <signal name="notify::active" handler="remmina_pref_dialog_vte_font_on_toggled" swapped="no"/>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="row">1</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -1779,6 +1934,10 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="tooltip-text" translatable="yes">Selecting “SGR 1” also switches to the bright counterparts of the first 8 palette colours (in addition to making text bold).</property>
                         <property name="halign">start</property>
                         <property name="margin-start">6</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="row">2</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -1788,6 +1947,10 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="halign">start</property>
                         <property name="margin-start">18</property>
                         <property name="label" translatable="yes">Show bold text in bright colors</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">2</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -1798,18 +1961,28 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-start">18</property>
                         <property name="margin-bottom">18</property>
                         <property name="label" translatable="yes">Colour theme</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">17</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkFileChooserWidget" id="button_term_cs">
+                      <object class="GtkButton" id="button_term_cs">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="tooltip-text" translatable="yes">Choose a colour scheme file. Usually available in /usr/share/remmina/theme. https://github.com/mbadolato/iTerm2-Color-Schemes has more details.</property>
                         <property name="margin-start">6</property>
                         <property name="margin-end">18</property>
                         <property name="margin-bottom">18</property>
+                        <property name="label">Pick a terminal colouring file</property>
                         <!-- <property name="title" translatable="yes">Pick a terminal colouring file</property> -->
                         <!-- <signal name="file-set" handler="remmina_pref_on_color_scheme_selected" swapped="no"/> -->
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="row">17</property>
+                          <property name="column-span">5</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -1819,6 +1992,10 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="halign">start</property>
                         <property name="margin-start">18</property>
                         <property name="label" translatable="yes">Bright colours</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">16</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -1826,9 +2003,14 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">True</property>
+                        <property name="halign">start</property>
                         <property name="margin-start">6</property>
-                        <property name="margin-end">6</property>
+                        <property name="margin-end">18</property>
                         <property name="title" translatable="yes">Pick a light black colour</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="row">16</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -1839,6 +2021,10 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-start">6</property>
                         <property name="margin-end">6</property>
                         <property name="title" translatable="yes">Pick a light red colour</property>
+                        <layout>
+                          <property name="column">2</property>
+                          <property name="row">16</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -1849,6 +2035,10 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-start">6</property>
                         <property name="margin-end">6</property>
                         <property name="title" translatable="yes">Pick a bright green colour</property>
+                        <layout>
+                          <property name="column">3</property>
+                          <property name="row">16</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -1859,6 +2049,10 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-start">6</property>
                         <property name="margin-end">6</property>
                         <property name="title" translatable="yes">Pick a bright yellow colour</property>
+                        <layout>
+                          <property name="column">4</property>
+                          <property name="row">16</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -1866,9 +2060,14 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">True</property>
+                        <property name="halign">start</property>
                         <property name="margin-start">6</property>
-                        <property name="margin-end">6</property>
+                        <property name="margin-end">18</property>
                         <property name="title" translatable="yes">Pick a bright blue colour</property>
+                        <layout>
+                          <property name="column">5</property>
+                          <property name="row">16</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -1879,6 +2078,10 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-start">6</property>
                         <property name="margin-end">6</property>
                         <property name="title" translatable="yes">Pick a light magenta colour</property>
+                        <layout>
+                          <property name="column">6</property>
+                          <property name="row">16</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -1889,6 +2092,10 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-start">6</property>
                         <property name="margin-end">6</property>
                         <property name="title" translatable="yes">Pick a light cyan colour</property>
+                        <layout>
+                          <property name="column">7</property>
+                          <property name="row">16</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -1899,6 +2106,10 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-start">6</property>
                         <property name="margin-end">18</property>
                         <property name="title" translatable="yes">Pick a light white colour</property>
+                        <layout>
+                          <property name="column">8</property>
+                          <property name="row">16</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -1906,9 +2117,14 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">True</property>
+                        <property name="halign">start</property>
                         <property name="margin-start">6</property>
-                        <property name="margin-end">6</property>
+                        <property name="margin-end">18</property>
                         <property name="title" translatable="yes">Pick a black colour</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="row">15</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -1919,6 +2135,10 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-start">6</property>
                         <property name="margin-end">6</property>
                         <property name="title" translatable="yes">Pick a red colour</property>
+                        <layout>
+                          <property name="column">2</property>
+                          <property name="row">15</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -1929,6 +2149,10 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-start">6</property>
                         <property name="margin-end">6</property>
                         <property name="title" translatable="yes">Pick a green colour</property>
+                        <layout>
+                          <property name="column">3</property>
+                          <property name="row">15</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -1939,6 +2163,10 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-start">6</property>
                         <property name="margin-end">6</property>
                         <property name="title" translatable="yes">Pick a yellow colour</property>
+                        <layout>
+                          <property name="column">4</property>
+                          <property name="row">15</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -1946,9 +2174,14 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">True</property>
+                        <property name="halign">start</property>
                         <property name="margin-start">6</property>
-                        <property name="margin-end">6</property>
+                        <property name="margin-end">18</property>
                         <property name="title" translatable="yes">Pick a blue colour</property>
+                        <layout>
+                          <property name="column">5</property>
+                          <property name="row">15</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -1959,6 +2192,10 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-start">6</property>
                         <property name="margin-end">6</property>
                         <property name="title" translatable="yes">Pick a magenta colour</property>
+                        <layout>
+                          <property name="column">6</property>
+                          <property name="row">15</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -1969,6 +2206,10 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-start">6</property>
                         <property name="margin-end">6</property>
                         <property name="title" translatable="yes">Pick a cyan colour</property>
+                        <layout>
+                          <property name="column">7</property>
+                          <property name="row">15</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -1979,6 +2220,10 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-start">6</property>
                         <property name="margin-end">18</property>
                         <property name="title" translatable="yes">Pick a white colour</property>
+                        <layout>
+                          <property name="column">8</property>
+                          <property name="row">15</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -1988,6 +2233,10 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="halign">start</property>
                         <property name="margin-start">18</property>
                         <property name="label" translatable="yes">Normal colours</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">15</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -1997,6 +2246,10 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="halign">start</property>
                         <property name="margin-start">18</property>
                         <property name="label" translatable="yes">Cursor colour</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">12</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -2008,6 +2261,10 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-start">6</property>
                         <property name="margin-end">18</property>
                         <property name="title" translatable="yes">Cursor colour</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="row">12</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -2017,6 +2274,10 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="halign">start</property>
                         <property name="margin-start">18</property>
                         <property name="label" translatable="yes">Background colour</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">9</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -2028,6 +2289,10 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-start">6</property>
                         <property name="margin-end">18</property>
                         <property name="title" translatable="yes">Background colour</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="row">9</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -2039,6 +2304,10 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-start">6</property>
                         <property name="margin-end">18</property>
                         <property name="title" translatable="yes">Foreground colour</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="row">8</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -2048,6 +2317,10 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="halign">start</property>
                         <property name="margin-start">18</property>
                         <property name="label" translatable="yes">Foreground colour</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">8</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -2057,6 +2330,11 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="halign">start</property>
                         <property name="margin-start">18</property>
                         <property name="label" translatable="yes">Increase and decrease font size</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">6</property>
+                          <property name="column-span">3</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -2069,6 +2347,11 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-start">6</property>
                         <property name="margin-end">6</property>
                         <signal name="clicked" handler="remmina_pref_dialog_on_key_chooser" swapped="no"/>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="row">6</property>
+                          <property name="column-span">3</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -2078,6 +2361,10 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="halign">start</property>
                         <property name="margin-start">18</property>
                         <property name="label" translatable="yes">Search text shortcut</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">7</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -2091,6 +2378,10 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-start">6</property>
                         <property name="margin-end">18</property>
                         <signal name="clicked" handler="remmina_pref_dialog_on_key_chooser" swapped="no"/>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="row">7</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -2100,6 +2391,10 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="halign">start</property>
                         <property name="margin-start">18</property>
                         <property name="label" translatable="yes">Bold colour</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">14</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -2111,6 +2406,10 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-start">6</property>
                         <property name="margin-end">18</property>
                         <property name="title" translatable="yes">Bold colour</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="row">14</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -2120,6 +2419,10 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="halign">start</property>
                         <property name="margin-start">18</property>
                         <property name="label" translatable="yes">Highlight colour</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">10</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -2129,6 +2432,10 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="halign">start</property>
                         <property name="margin-start">18</property>
                         <property name="label" translatable="yes">Highlight foreground colour</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">11</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -2138,6 +2445,10 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="halign">start</property>
                         <property name="margin-start">18</property>
                         <property name="label" translatable="yes">Cursor foreground colour</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">13</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -2149,6 +2460,10 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-start">6</property>
                         <property name="margin-end">18</property>
                         <property name="title" translatable="yes">Highlight colour</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="row">10</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -2160,6 +2475,10 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-start">6</property>
                         <property name="margin-end">18</property>
                         <property name="title" translatable="yes">Highlight foreground colour</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="row">11</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -2171,6 +2490,10 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-start">6</property>
                         <property name="margin-end">18</property>
                         <property name="title" translatable="yes">Cursor foreground colour</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="row">13</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -2183,6 +2506,11 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-start">6</property>
                         <property name="margin-end">18</property>
                         <signal name="clicked" handler="remmina_pref_dialog_on_key_chooser" swapped="no"/>
+                        <layout>
+                          <property name="column">5</property>
+                          <property name="row">6</property>
+                          <property name="column-span">3</property>
+                        </layout>
                       </object>
                     </child>
                     <child>
@@ -2195,6 +2523,11 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-start">6</property>
                         <property name="margin-end">18</property>
                         <signal name="clicked" handler="remmina_pref_dialog_on_key_chooser" swapped="no"/>
+                        <layout>
+                          <property name="column">5</property>
+                          <property name="row">4</property>
+                          <property name="column-span">3</property>
+                        </layout>
                       </object>
                     </child>
                   </object>

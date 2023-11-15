@@ -526,14 +526,14 @@ void remmina_plugin_manager_show(GtkWindow *parent)
 	GtkListStore *store;
 
 	dialog = gtk_dialog_new();
-	gtk_widget_set_parent(dialog, GTK_WIDGET(parent));
+	gtk_window_set_transient_for(dialog, GTK_WIDGET(parent));
 	gtk_window_set_modal(GTK_WINDOW(dialog), TRUE);
 	gtk_window_set_title(GTK_WINDOW(dialog), _("Plugins"));
 	g_signal_connect(G_OBJECT(dialog), "response", G_CALLBACK(gtk_window_destroy), dialog);
 	gtk_window_set_default_size(GTK_WINDOW(dialog), 500, 320);
 
 	scrolledwindow = gtk_scrolled_window_new();
-	gtk_widget_set_vexpand(scrolledwindow, true);
+	gtk_widget_set_vexpand(scrolledwindow, TRUE);
 	gtk_widget_show(scrolledwindow);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolledwindow), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 	gtk_box_append(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(dialog))), scrolledwindow);

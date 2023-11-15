@@ -875,10 +875,14 @@ void remmina_main_on_action_connection_new(GSimpleAction *action, GVariant *para
 	remmina_main_load_files();
 }
 
-static gboolean remmina_main_search_key_event(GtkWidget *search_entry, GdkKeyEvent *event, gpointer user_data)
+static gboolean remmina_main_search_key_event(GtkEventControllerKey* self,
+												guint keyval,
+												guint keycode,
+												GdkModifierType state,
+												RemminaProtocolWidget *gp)
 {
 	TRACE_CALL(__func__);
-	if (gdk_key_event_get_keyval(GDK_EVENT(event)) == GDK_KEY_Escape) {
+	if (keyval == GDK_KEY_Escape) {
 		gtk_editable_set_text(GTK_EDITABLE(remminamain->entry_quick_connect_server), "");
 		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(RM_GET_OBJECT("search_toggle")), FALSE);
 		return TRUE;

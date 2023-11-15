@@ -95,6 +95,7 @@ void remmina_key_chooser_new(GtkWindow *parent_window, gboolean use_modifiers, G
 		G_CALLBACK(remmina_key_chooser_dialog_on_key_press), arguments);
 	g_signal_connect(dialog, "response",
 		G_CALLBACK(remmina_key_chooser_dialog_on_response), arguments);
+	gtk_widget_show(dialog);
 }
 
 /* Get the uppercase character value of a keyval */
