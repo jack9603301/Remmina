@@ -261,7 +261,7 @@ static void remmina_file_editor_browse_avahi(GtkWidget *button, RemminaFileEdito
 	gtk_window_destroy(GTK_WINDOW(dialog));
 
 	if (host) {
-		//gtk_editable_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(gfe->priv->server_combo))), host); TODO GTK4
+		gtk_combo_box_text_prepend_text(gfe->priv->server_combo, host);
 		g_free(host);
 	}
 }

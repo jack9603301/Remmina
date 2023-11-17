@@ -165,6 +165,10 @@ static void remmina_mpchange_file_list_callback(RemminaFile *remminafile, gpoint
 
 }
 
+void remmina_mpchange_dialog_callback( GtkDialog* self, gint response_id, gpointer user_data){
+	gtk_window_destroy(GTK_WINDOW(self));
+}
+
 static void remmina_mpchange_checkbox_toggle(GtkCellRendererToggle *cell, gchar *path_string, gpointer user_data)
 {
 	TRACE_CALL(__func__);
@@ -261,8 +265,8 @@ static void remmina_mpchange_dochange_clicked(GtkButton *btn, gpointer user_data
 			GTK_MESSAGE_ERROR,
 			GTK_BUTTONS_CLOSE,
 			_("The passwords do not match"));
-		//gtk_dialog_run(GTK_DIALOG(msgDialog));
-		gtk_window_destroy(GTK_WINDOW(msgDialog));
+		g_signal_connect(msgDialog, "response", G_CALLBACK(remmina_mpchange_dialog_callback), NULL);
+		gtk_widget_show(msgDialog);
 		return;
 	}
 	gatewaypasswd1 = gtk_editable_get_text(GTK_EDITABLE(mpcp->eGatewayPassword1));
@@ -274,8 +278,8 @@ static void remmina_mpchange_dochange_clicked(GtkButton *btn, gpointer user_data
 			GTK_MESSAGE_ERROR,
 			GTK_BUTTONS_CLOSE,
 			_("The Gateway passwords do not match"));
-		//gtk_dialog_run(GTK_DIALOG(msgDialog));
-		gtk_window_destroy(GTK_WINDOW(msgDialog));
+		g_signal_connect(msgDialog, "response", G_CALLBACK(remmina_mpchange_dialog_callback), NULL);
+		gtk_widget_show(msgDialog);
 		return;
 	}
 
@@ -356,6 +360,7 @@ static void remmina_mpchange_cleanup(GtkDialog *self, gpointer user_data)
 	g_free(mpcp->gatewaypassword);
 	g_free(mpcp->gatewaydomain);
 	g_free(mpcp);
+	gtk_window_destroy(self);
 
 }
 
@@ -483,7 +488,7 @@ static gboolean remmina_file_multipasswd_changer_mt(gpointer d)
 	gtk_editable_set_text(GTK_EDITABLE(mpcp->eUsername), mpcp->username);
 	g_signal_connect(G_OBJECT(mpcp->eUsername), "changed", G_CALLBACK(remmina_mpchange_searchfield_changed), (gpointer)mpcp);
 
-	mpcp->eGatewayUsername = GTK_ENTRY(GET_DIALOG_OBJECT("gatewayUsernameEntry"));
+	mpcp->eGatewayUsername = GTK_SEARCH_ENTRY(GET_DIALOG_OBJECT("gatewayUsernameEntry"));
 	gtk_editable_set_text(GTK_EDITABLE(mpcp->eGatewayUsername), mpcp->gatewayusername);
 	g_signal_connect(G_OBJECT(mpcp->eGatewayUsername), "changed", G_CALLBACK(remmina_mpchange_searchfield_changed), (gpointer)mpcp);
 
@@ -530,7 +535,6 @@ static gboolean remmina_file_multipasswd_changer_mt(gpointer d)
 
 	gtk_window_set_modal(GTK_WINDOW(dialog), true);
 	gtk_widget_show(GTK_WIDGET(dialog));
-	//gtk_window_destroy(GTK_WIDGET(dialog));
 
 
 

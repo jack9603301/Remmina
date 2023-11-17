@@ -986,6 +986,20 @@ void remmina_main_on_action_connection_edit(GSimpleAction *action, GVariant *par
 		remmina_main_select_file(remminamain->priv->selected_filename);
 }
 
+void remmina_main_handle_delete_single(GtkDialog *self, gint response_id, gpointer user_data)
+{
+	if (response_id == GTK_RESPONSE_YES) {
+		gchar *delfilename = g_strdup(remminamain->priv->selected_filename);
+		remmina_file_delete(delfilename);
+		g_free(delfilename), delfilename = NULL;
+		remmina_icon_populate_menu();
+		remmina_main_load_files();
+		
+	}
+	gtk_window_destroy(GTK_WINDOW(self));
+	remmina_main_clear_selection_data();
+}
+
 void remmina_main_on_action_connection_delete(GSimpleAction *action, GVariant *param, gpointer data)
 {
 	TRACE_CALL(__func__);
@@ -1009,15 +1023,9 @@ void remmina_main_on_action_connection_delete(GSimpleAction *action, GVariant *p
 
 	dialog = gtk_message_dialog_new(remminamain->window, GTK_DIALOG_MODAL, GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO,
 					_("Are you sure you want to delete “%s”?"), remminamain->priv->selected_name);
-	// if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_YES) {
-	// 	gchar *delfilename = g_strdup(remminamain->priv->selected_filename);
-	// 	remmina_file_delete(delfilename);
-	// 	g_free(delfilename), delfilename = NULL;
-	// 	remmina_icon_populate_menu();
-	// 	remmina_main_load_files();
-	// }
-	gtk_window_destroy(GTK_WINDOW(dialog));
-	remmina_main_clear_selection_data();
+	g_signal_connect(dialog, "response", G_CALLBACK(remmina_main_handle_delete_single), NULL);
+
+	gtk_widget_show(GTK_WINDOW(dialog));
 }
 
 void remmina_main_handle_message_close(GtkDialog *self, gint response_id, gpointer user_data)
@@ -1752,7 +1760,6 @@ GtkWidget *remmina_main_new(void)
 	GtkGesture *gesture = gtk_gesture_click_new();
   	gtk_gesture_single_set_button(GTK_GESTURE_SINGLE(gesture), MOUSE_BUTTON_RIGHT);
 	g_signal_connect (gesture, "pressed", G_CALLBACK (remmina_main_file_list_on_button_press), NULL);
-	gtk_event_controller_set_propagation_phase(GTK_EVENT_CONTROLLER(gesture), GTK_PHASE_TARGET);
 	gtk_widget_add_controller(GTK_WIDGET(remminamain->tree_files_list), GTK_EVENT_CONTROLLER (gesture));
 
 	remminamain->column_files_list_name = GTK_TREE_VIEW_COLUMN(RM_GET_OBJECT("column_files_list_name"));

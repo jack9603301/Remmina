@@ -1977,7 +1977,7 @@ static void remmina_plugin_vnc_keystroke(RemminaProtocolWidget *gp, const guint 
 }
 
 #if LIBVNCSERVER_CHECK_VERSION_VERSION(0, 9, 14)
-static gboolean remmina_plugin_vnc_on_size_allocate(GtkWidget *widget, GtkAllocation *alloc, RemminaProtocolWidget *gp)
+static gboolean remmina_plugin_vnc_on_size_allocate(GtkWidget *widget, gint width, gint height, RemminaProtocolWidget *gp)
 {
 	TRACE_CALL(__func__);
 	RemminaScaleMode scale_mode = remmina_plugin_service->remmina_protocol_widget_get_current_scale_mode(gp);
@@ -1985,10 +1985,10 @@ static gboolean remmina_plugin_vnc_on_size_allocate(GtkWidget *widget, GtkAlloca
 
 	if (scale_mode == REMMINA_PROTOCOL_WIDGET_SCALE_MODE_DYNRES){
 		char str[1024];
-		sprintf(str, "DEBUG: %d x %d", alloc->width, alloc->height);
+		sprintf(str, "DEBUG: %d x %d", width, height);
 		TRACE_CALL(str);
 		if (gpdata->client){
-			SendExtDesktopSize(gpdata->client, alloc->width, alloc->height);
+			SendExtDesktopSize(gpdata->client, width, height);
 		}
 	}
 	return TRUE;
@@ -2055,8 +2055,9 @@ static void remmina_plugin_vnc_init(RemminaProtocolWidget *gp)
 	gtk_widget_set_can_focus(gpdata->drawing_area, TRUE);
 
 	if (!disable_smooth_scrolling) {
-		REMMINA_PLUGIN_DEBUG("Adding GDK_SMOOTH_SCROLL_MASK");
-		//gtk_widget_add_events(gpdata->drawing_area, GDK_SMOOTH_SCROLL_MASK);
+		// REMMINA_PLUGIN_DEBUG("Adding GDK_SMOOTH_SCROLL_MASK");
+		// GtkEventControllerScroll* scroll_event_controller = (GtkEventControllerScroll*)gtk_event_controller_scroll_new(GDK_SMOOTH_SCROLL_MASK );
+		// gtk_widget_add_controller(GTK_WIDGET(gpdata->drawing_area), GTK_EVENT_CONTROLLER(scroll_event_controller)); TODO GTK4 seems like smooth scroll flag is gone
 	}
 
 
@@ -2064,7 +2065,7 @@ static void remmina_plugin_vnc_init(RemminaProtocolWidget *gp)
 
 
 #if LIBVNCSERVER_CHECK_VERSION_VERSION(0, 9, 14)
-	//g_signal_connect(G_OBJECT(gpdata->drawing_area), "resize", G_CALLBACK(remmina_plugin_vnc_on_size_allocate), gp);
+	g_signal_connect(G_OBJECT(gpdata->drawing_area), "resize", G_CALLBACK(remmina_plugin_vnc_on_size_allocate), gp);
 #endif
 	gpdata->auth_first = TRUE;
 	gpdata->clipboard_timer = g_date_time_new_now_utc();

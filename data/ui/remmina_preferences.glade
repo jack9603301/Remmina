@@ -25,12 +25,14 @@
             <child>
               <object class="GtkViewport">
                 <property name="visible">True</property>
-                <property name="can-focus">False</property>
+                <property name="can-focus">True</property>
+                <property name="focusable">True</property>
                 <child>
                   <!-- n-columns=3 n-rows=15 -->
                   <object class="GtkGrid" id="grid_options">
                     <property name="visible">True</property>
-                    <property name="can-focus">False</property>
+                    <property name="can-focus">True</property>
+                    <property name="focusable">True</property>
                     <property name="row-spacing">5</property>
                     <property name="column-spacing">7</property>
                     <child>
@@ -479,12 +481,14 @@
             <child>
               <object class="GtkViewport">
                 <property name="visible">True</property>
-                <property name="can-focus">False</property>
+                <property name="can-focus">True</property>
+                <property name="focusable">True</property>ty>
                 <child>
                   <!-- n-columns=3 n-rows=9 -->
                   <object class="GtkGrid" id="grid_appearance">
                     <property name="visible">True</property>
-                    <property name="can-focus">False</property>
+                    <property name="can-focus">True</property>
+                    <property name="focusable">True</property>
                     <property name="row-spacing">5</property>
                     <property name="column-spacing">7</property>
                     <child>
@@ -752,12 +756,14 @@ It changes the background colour of connection names in the Remmina connection t
             <child>
               <object class="GtkViewport">
                 <property name="visible">True</property>
-                <property name="can-focus">False</property>
+                <property name="can-focus">True</property>
+                <property name="focusable">True</property>erty>
                 <child>
                   <!-- n-columns=3 n-rows=4 -->
                   <object class="GtkGrid" id="grid_applet">
                     <property name="visible">True</property>
-                    <property name="can-focus">False</property>
+                    <property name="can-focus">True</property>
+                    <property name="focusable">True</property>
                     <property name="row-spacing">5</property>
                     <property name="column-spacing">7</property>
                     <child>
@@ -849,12 +855,14 @@ It changes the background colour of connection names in the Remmina connection t
             <child>
               <object class="GtkViewport">
                 <property name="visible">True</property>
-                <property name="can-focus">False</property>
+                <property name="can-focus">True</property>
+                <property name="focusable">True</property>
                 <child>
                   <!-- n-columns=3 n-rows=12 -->
                   <object class="GtkGrid" id="grid_keyboard">
                     <property name="visible">True</property>
-                    <property name="can-focus">False</property>
+                    <property name="can-focus">True</property>
+                    <property name="focusable">True</property>
                     <property name="row-spacing">5</property>
                     <property name="column-spacing">7</property>
                     <child>
@@ -1263,11 +1271,13 @@ It changes the background colour of connection names in the Remmina connection t
               <object class="GtkViewport">
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
+                <property name="focusable">True</property>
                 <child>
                   <!-- n-columns=3 n-rows=7 -->
                   <object class="GtkGrid" id="grid_ssh">
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
+                    <property name="focusable">True</property>
                     <property name="row-spacing">5</property>
                     <property name="column-spacing">7</property>
                     <child>
@@ -1494,12 +1504,14 @@ It changes the background colour of connection names in the Remmina connection t
               <object class="GtkViewport">
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
+                <property name="focusable">True</property>
                 <property name="tooltip-text" translatable="yes">Time in seconds before Remmina will lock the session and asks for a password again. Default: 300 Seconds.</property>
                 <child>
                   <!-- n-columns=2 n-rows=7 -->
                   <object class="GtkGrid">
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
+                    <property name="focusable">True</property>
                     <property name="halign">start</property>
                     <property name="valign">start</property>
                     <child>
@@ -1771,12 +1783,14 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
             <child>
               <object class="GtkViewport">
                 <property name="visible">True</property>
-                <property name="can-focus">False</property>
+                <property name="can-focus">True</property>
+                <property name="focusable">True</property>
                 <child>
                   <!-- n-columns=9 n-rows=18 -->
                   <object class="GtkGrid" id="grid_terminal">
                     <property name="visible">True</property>
-                    <property name="can-focus">False</property>
+                    <property name="can-focus">True</property>
+                    <property name="focusable">True</property>
                     <property name="row-spacing">5</property>
                     <property name="column-spacing">7</property>
                     <child>
@@ -1976,6 +1990,7 @@ Except the "Weak" method, all the others are recommended, "Keystore" is the defa
                         <property name="margin-end">18</property>
                         <property name="margin-bottom">18</property>
                         <property name="label">Pick a terminal colouring file</property>
+                        <signal name="clicked" handler="remmina_pref_on_choose_colour_clicked" swapped="no"/>
                         <!-- <property name="title" translatable="yes">Pick a terminal colouring file</property> -->
                         <!-- <signal name="file-set" handler="remmina_pref_on_color_scheme_selected" swapped="no"/> -->
                         <layout>

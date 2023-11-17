@@ -131,6 +131,19 @@ void remmina_pref_on_choose_path_clicked(GtkWidget *widget, gpointer user_data)
 	gtk_window_present(GTK_WINDOW (dialog));
 }
 
+void remmina_pref_on_choose_colour_clicked(GtkWidget *widget, gpointer user_data)
+{
+	GtkWidget *dialog;
+	GtkFileChooserAction action = GTK_FILE_CHOOSER_ACTION_OPEN;
+
+	dialog = gtk_file_chooser_dialog_new("Open File", NULL, action, _("_Cancel"), GTK_RESPONSE_CANCEL,
+                                        _("_Open"), GTK_RESPONSE_ACCEPT, NULL);
+
+	g_signal_connect(dialog, "response", G_CALLBACK(on_open_response),  widget);
+
+	gtk_window_present(GTK_WINDOW (dialog));
+}
+
 /* Re-initialize the remmina_pref_init to reload the color scheme when a color scheme
  * file is selected*/
 void remmina_pref_on_color_scheme_selected(GtkWidget *widget, gpointer user_data)
