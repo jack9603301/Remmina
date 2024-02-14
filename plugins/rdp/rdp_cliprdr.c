@@ -764,6 +764,8 @@ static void remmina_rdp_cliprdr_mt_get_format_list(RemminaProtocolWidget *gp, Re
 void read_text_callback(GdkClipboard *clipboard, GAsyncResult *res, gpointer user_data)
 {
 	char* inbuf = gdk_clipboard_read_text_finish(clipboard, res, NULL);
+	RemminaProtocolWidget *gp= (RemminaPluginRdpUiObject*)user_data;
+	RemminaPluginRdpUiObject *ui = (RemminaPluginRdpUiObject *)g_object_get_data(G_OBJECT(gp), "ui");
 	UINT8 *outbuf = NULL;
 	int size = 0;
 	RemminaPluginRdpEvent rdp_event = { 0 };
@@ -796,8 +798,11 @@ void read_text_callback(GdkClipboard *clipboard, GAsyncResult *res, gpointer use
 
 void read_image_callback(GdkClipboard *clipboard, GAsyncResult *res, gpointer user_data)
 {
-	UINT8 *inbuf = gdk_clipboard_read_texxture_finish(clipboard, res, NULL)
+	UINT8 *inbuf = gdk_clipboard_read_texxture_finish(clipboard, res, NULL);
+	RemminaProtocolWidget *gp= (RemminaPluginRdpUiObject*)user_data;
+	RemminaPluginRdpUiObject *ui = (RemminaPluginRdpUiObject *)g_object_get_data(G_OBJECT(gp), "ui");
 	UINT8 *outbuf = NULL;
+	GdkPixbuf *image = NULL;
 	int size = 0;
 	RemminaPluginRdpEvent rdp_event = { 0 };
 
@@ -839,6 +844,12 @@ void read_image_callback(GdkClipboard *clipboard, GAsyncResult *res, gpointer us
 			}
 		}
 	}
+
+
+	rdp_event.type = REMMINA_RDP_EVENT_TYPE_CLIPBOARD_SEND_CLIENT_FORMAT_DATA_RESPONSE;
+	rdp_event.clipboard_formatdataresponse.data = outbuf;
+	rdp_event.clipboard_formatdataresponse.size = size;
+	remmina_rdp_event_event_push(gp, &rdp_event);
 }
 
 void remmina_rdp_cliprdr_get_clipboard_data(RemminaProtocolWidget *gp, RemminaPluginRdpUiObject *ui)
@@ -851,7 +862,7 @@ void remmina_rdp_cliprdr_get_clipboard_data(RemminaProtocolWidget *gp, RemminaPl
 	
 	rfContext *rfi = GET_PLUGIN_DATA(gp);
 	
-	g_object_set_data(G_OBJECT(action), "cnnobj", (gpointer)cnnobj);
+	g_object_set_data(G_OBJECT(gp), "ui", (gpointer)ui);
 	display = gdk_display_get_default();
 	clipboard = gdk_display_get_clipboard(display);
 	if (clipboard) {
