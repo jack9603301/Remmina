@@ -242,6 +242,7 @@ static UINT remmina_rdp_cliprdr_server_format_list(CliprdrClientContext *context
 						 gp, VERSION);
 
 	//GtkTargetList *list = gtk_target_list_new(NULL, 0);
+	GPtrArray* formats = g_ptr_array_new();
 
 	if (clipboard->srv_clip_data_wait == SCDW_BUSY_WAIT) {
 		REMMINA_PLUGIN_DEBUG("gp=%p: we already have a FormatDataRequest in progress to the server, aborting", gp);
@@ -264,6 +265,7 @@ static UINT remmina_rdp_cliprdr_server_format_list(CliprdrClientContext *context
 			// /* Add also the older UTF8_STRING format for older applications */
 			// atom = gdk_atom_intern("UTF8_STRING", TRUE);
 			// gtk_target_list_add(list, atom, 0, CF_UNICODETEXT);
+			g_ptr_array_add(formats, (gpointer)CF_UNICODETEXT);
 		} else if (format->formatId == CF_TEXT) {
 			serverFormatName = "CF_TEXT";
 			gtkFormatName = "text/plain";
@@ -272,6 +274,7 @@ static UINT remmina_rdp_cliprdr_server_format_list(CliprdrClientContext *context
 			// /* Add also the older TEXT format for older applications */
 			// atom = gdk_atom_intern("TEXT", TRUE);
 			// gtk_target_list_add(list, atom, 0, CF_TEXT);
+			g_ptr_array_add(formats, (gpointer)CF_TEXT);
 		} else if (format->formatId == CF_DIB) {
 			serverFormatName = "CF_DIB";
 			if (has_dib_level < 1)
@@ -285,21 +288,25 @@ static UINT remmina_rdp_cliprdr_server_format_list(CliprdrClientContext *context
 			gtkFormatName = "image/jpeg";
 			// GdkAtom atom = gdk_atom_intern(gtkFormatName, TRUE);
 			// gtk_target_list_add(list, atom, 0, CB_FORMAT_JPEG);
+			g_ptr_array_add(formats, (gpointer)CB_FORMAT_JPEG);
 		} else if (format->formatId == CB_FORMAT_PNG) {
 			serverFormatName = "CB_FORMAT_PNG";
 			gtkFormatName = "image/png";
 			// GdkAtom atom = gdk_atom_intern(gtkFormatName, TRUE);
 			// gtk_target_list_add(list, atom, 0, CB_FORMAT_PNG);
+			g_ptr_array_add(formats, (gpointer)CB_FORMAT_PNG);
 		} else if (format->formatId == CB_FORMAT_HTML) {
 			serverFormatName = "CB_FORMAT_HTML";
 			gtkFormatName = "text/html";
 			// GdkAtom atom = gdk_atom_intern(gtkFormatName, TRUE);
 			// gtk_target_list_add(list, atom, 0, CB_FORMAT_HTML);
+			g_ptr_array_add(formats, (gpointer)CB_FORMAT_HTML);
 		} else if (format->formatId == CB_FORMAT_TEXTURILIST) {
 			serverFormatName = "CB_FORMAT_TEXTURILIST";
 			gtkFormatName = "text/uri-list";
 			// GdkAtom atom = gdk_atom_intern(gtkFormatName, TRUE);
 			// gtk_target_list_add(list, atom, 0, CB_FORMAT_TEXTURILIST);
+			g_ptr_array_add(formats, (gpointer)CB_FORMAT_TEXTURILIST);
 		} else if (format->formatId == CF_LOCALE) {
 			serverFormatName = "CF_LOCALE";
 		} else if (format->formatId == CF_METAFILEPICT) {
@@ -308,6 +315,7 @@ static UINT remmina_rdp_cliprdr_server_format_list(CliprdrClientContext *context
 			gtkFormatName = "text/html";
 			// GdkAtom atom = gdk_atom_intern(gtkFormatName, TRUE);
 			// gtk_target_list_add(list, atom, 0, format->formatId);
+			g_ptr_array_add(formats, (gpointer)(format->formatId));
 			clipboard->server_html_format_id = format->formatId;
 		}
 		REMMINA_PLUGIN_DEBUG("the server has clipboard format %d: %s -> GTK %s", format->formatId, serverFormatName, gtkFormatName);
@@ -316,10 +324,10 @@ static UINT remmina_rdp_cliprdr_server_format_list(CliprdrClientContext *context
 	/* Keep only one DIB format, if present */
 	if (has_dib_level) {
 		// GdkAtom atom = gdk_atom_intern("image/bmp", TRUE);
-		// if (has_dib_level == 5)
-		// 	gtk_target_list_add(list, atom, 0, CF_DIBV5);
-		// else
-		// 	gtk_target_list_add(list, atom, 0, CF_DIB);
+		if (has_dib_level == 5)
+			g_ptr_array_add(formats, (gpointer)CF_DIBV5);
+		else
+			g_ptr_array_add(formats, (gpointer)CF_DIB);
 	}
 
 
@@ -338,7 +346,7 @@ static UINT remmina_rdp_cliprdr_server_format_list(CliprdrClientContext *context
 	  when setting clipboard owner later.
 	  We put it directly in the clipboard cache (clipboard->srv_data),
 	  so remmina will never ask it to the server via ClientFormatDataRequest */
-	gint n_targets = 0;
+	gint n_targets = formats->len;
 	// GtkTargetEntry *target_table = gtk_target_table_new_from_list(list, &n_targets);
 	// if (target_table)
 	// 	gtk_target_table_free(target_table, n_targets);
@@ -346,6 +354,7 @@ static UINT remmina_rdp_cliprdr_server_format_list(CliprdrClientContext *context
 		REMMINA_PLUGIN_DEBUG("gp=%p adding a dummy text target (empty text) for local clipboard, because we have no interesting targets from the server. Putting it in the local clipboard cache.");
 		// GdkAtom atom = gdk_atom_intern("text/plain;charset=utf-8", TRUE);
 		// gtk_target_list_add(list, atom, 0, CF_UNICODETEXT);
+		g_ptr_array_add(formats, (gpointer)CF_UNICODETEXT);
 		pthread_mutex_lock(&clipboard->srv_data_mutex);
 		clipboard->srv_data = malloc(1);
 		((char *)(clipboard->srv_data))[0] = 0;
@@ -358,6 +367,7 @@ static UINT remmina_rdp_cliprdr_server_format_list(CliprdrClientContext *context
 	ui->type = REMMINA_RDP_UI_CLIPBOARD;
 	ui->clipboard.clipboard = clipboard;
 	ui->clipboard.type = REMMINA_RDP_UI_CLIPBOARD_SET_DATA;
+	ui->clipboard.formats = formats;
 	// ui->clipboard.targetlist = list;
 	remmina_rdp_event_queue_ui_async(gp, ui);
 
@@ -569,7 +579,7 @@ static UINT remmina_rdp_cliprdr_server_format_data_response(CliprdrClientContext
 }
 
 
-void remmina_rdp_cliprdr_request_data(GdkClipboard *GdkClipboard, guint info, RemminaProtocolWidget *gp)
+gpointer remmina_rdp_cliprdr_request_data(GdkClipboard *GdkClipboard, guint info, RemminaProtocolWidget *gp)
 {
 	TRACE_CALL(__func__);
 
@@ -583,6 +593,7 @@ void remmina_rdp_cliprdr_request_data(GdkClipboard *GdkClipboard, guint info, Re
 	struct timespec to;
 	struct timeval tv;
 	int rc;
+	gpointer ret = NULL;
 	time_t tlimit, tlimit1s, tnow, tstart;
 
 	REMMINA_PLUGIN_DEBUG("gp=%p: A local application has requested remote clipboard data for remote format id %d", gp, info);
@@ -636,8 +647,8 @@ void remmina_rdp_cliprdr_request_data(GdkClipboard *GdkClipboard, guint info, Re
 			rc = pthread_cond_timedwait(&clipboard->transfer_clip_cond, &clipboard->transfer_clip_mutex, &to);
 			if (rc == 0)
 				break;
-
-			gtk_main_iteration_do(FALSE);
+			GMainContext* context = g_main_context_get_thread_default();
+			g_main_context_iteration(context, FALSE);
 		}
 
 		if (rc != 0) {
@@ -662,20 +673,23 @@ void remmina_rdp_cliprdr_request_data(GdkClipboard *GdkClipboard, guint info, Re
 		/* We have data in cache, just paste it */
 		if (info == CB_FORMAT_PNG || info == CF_DIB || info == CF_DIBV5 || info == CB_FORMAT_JPEG) {
 			// gtk_selection_data_set_pixbuf(selection_data, clipboard->srv_data);
+			ret = clipboard->srv_data;
 		} else if (info == CB_FORMAT_HTML || info == clipboard->server_html_format_id) {
 			REMMINA_PLUGIN_DEBUG("gp=%p returning %zu bytes of HTML in clipboard to requesting application", gp, strlen(clipboard->srv_data));
 			// GdkAtom atom = gdk_atom_intern("text/html", TRUE);
 			// gtk_selection_data_set(selection_data, atom, 8, clipboard->srv_data, strlen(clipboard->srv_data));
+			//ret = clipboard->srv_data;
 		} else {
 			REMMINA_PLUGIN_DEBUG("gp=%p returning %zu bytes of text in clipboard to requesting application", gp, strlen(clipboard->srv_data));
 			// gtk_selection_data_set_text(selection_data, clipboard->srv_data, -1);
+			ret = clipboard->srv_data;
 		}
 		clipboard->srv_clip_data_wait = SCDW_NONE;
 	} else {
 		REMMINA_PLUGIN_DEBUG("gp=%p cannot paste data to local application because ->srv_data is NULL", gp);
 	}
 	pthread_mutex_unlock(&clipboard->srv_data_mutex);
-
+	return ret;
 }
 
 void remmina_rdp_cliprdr_empty_clipboard(GdkClipboard *GdkClipboard, rfClipboard *clipboard)
@@ -871,7 +885,7 @@ void remmina_rdp_cliprdr_get_clipboard_data(RemminaProtocolWidget *gp, RemminaPl
 			case CF_UNICODETEXT:
 			case CB_FORMAT_HTML:
 			{
-				gdk_clipboard_read_text_async(clipboard, NULL, read_text_callback, ui);
+				gdk_clipboard_read_text_async(clipboard, NULL, read_text_callback, gp);
 				break;
 			}
 
@@ -880,7 +894,7 @@ void remmina_rdp_cliprdr_get_clipboard_data(RemminaProtocolWidget *gp, RemminaPl
 			case CF_DIB:
 			case CF_DIBV5:
 			{
-				gdk_clipboard_read_image_async(clipboard, NULL, read_text_callback, ui);
+				gdk_clipboard_read_image_async(clipboard, NULL, read_image_callback, gp);
 				break;
 			}
 		}
@@ -889,16 +903,37 @@ void remmina_rdp_cliprdr_get_clipboard_data(RemminaProtocolWidget *gp, RemminaPl
 	
 }
 
+void remmina_rdp_cliprdr_request_data_all(gpointer data, gpointer user_data)
+{
+	RemminaProtocolWidget *gp = (RemminaProtocolWidget *)user_data;
+	rfContext *rfi = GET_PLUGIN_DATA(gp);
+	GdkClipboard *GdkClipboard = gtk_widget_get_clipboard(rfi->drawing_area);
+	
+	gpointer ret = remmina_rdp_cliprdr_request_data(GdkClipboard, (guint)data, gp);
+	if ((guint)data == CF_UNICODETEXT || (guint)data == CF_TEXT ){
+		gdk_clipboard_set (GdkClipboard, G_TYPE_STRING, (char*)ret);
+	}
+	else if ((guint)data == CB_FORMAT_JPEG || (guint)data == CB_FORMAT_PNG || (guint)data == CF_DIBV5 ){
+		gdk_clipboard_set (GdkClipboard, GDK_TYPE_PIXBUF, (char*)ret);
+	}
+	else if  ((guint)data == CB_FORMAT_TEXTURILIST ){
+		gdk_clipboard_set (GdkClipboard, GDK_TYPE_TEXTURE, (char*)ret);
+	}
+	else{
+		gdk_clipboard_set (GdkClipboard, GTK_TYPE_TEXT, (char*)ret);
+	}
+}
+
 void remmina_rdp_cliprdr_set_clipboard_data(RemminaProtocolWidget *gp, RemminaPluginRdpUiObject *ui)
 {
 	TRACE_CALL(__func__);
-	// GdkClipboard *GdkClipboard;
-	// gint n_targets = 0;
-	// rfContext *rfi = GET_PLUGIN_DATA(gp);
+	GdkClipboard *GdkClipboard;
+	gint n_targets = 0;
+	rfContext *rfi = GET_PLUGIN_DATA(gp);
 
-	// GdkClipboard = gtk_widget_get_clipboard(rfi->drawing_area, GDK_SELECTION_CLIPBOARD);
-	// if (GdkClipboard) {
-		//GtkTargetEntry *targets = gtk_target_table_new_from_list(ui->clipboard.targetlist, &n_targets);
+	GdkClipboard = gtk_widget_get_clipboard(rfi->drawing_area);
+	if (GdkClipboard) {
+		// GtkTargetEntry *targets = gtk_target_table_new_from_list(ui->clipboard.targetlist, &n_targets);
 		// if (!targets) {
 		// 	/* If no targets exists, this is an internal error, because
 		// 	 * remmina_rdp_cliprdr_server_format_list() must have produced
@@ -906,12 +941,15 @@ void remmina_rdp_cliprdr_set_clipboard_data(RemminaProtocolWidget *gp, RemminaPl
 		// 	g_warning("[RDP] internal error: no targets to insert into the local clipboard");
 		// }
 
-		// REMMINA_PLUGIN_DEBUG("setting clipboard with owner to me: %p", gp);
+		REMMINA_PLUGIN_DEBUG("setting clipboard with owner to me: %p", gp);
 		// gtk_clipboard_set_with_owner(GdkClipboard,  n_targets,
 		// 					remmina_rdp_cliprdr_request_data,
 		// 					remmina_rdp_cliprdr_empty_clipboard, G_OBJECT(gp));
-		// gtk_target_table_free(targets, n_targets);
-	// } TODO GTK4
+		g_ptr_array_foreach(ui->clipboard.formats, remmina_rdp_cliprdr_request_data_all, gp);
+		// gpointer ret = remmina_rdp_cliprdr_request_data(GdkClipboard,13, gp);
+		// gdk_clipboard_set (GdkClipboard, G_TYPE_STRING, (char*)ret);
+		
+	} 
 }
 
 void remmina_rdp_cliprdr_detach_owner(RemminaProtocolWidget *gp)

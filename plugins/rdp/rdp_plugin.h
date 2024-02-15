@@ -293,9 +293,11 @@ struct remmina_plugin_rdp_ui_object {
 		struct {
 			RemminaPluginRdpUiClipboardType type;
 			//GtkTargetList *			targetlist; TODO GTK4
+			GPtrArray *			formats;
 			UINT32				format;
 			rfClipboard *			clipboard;
 			gpointer			data;
+			bool				determined;
 		} clipboard;
 		struct {
 			RemminaPluginRdpUiEeventType type;
