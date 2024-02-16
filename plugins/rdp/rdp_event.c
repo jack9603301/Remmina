@@ -122,7 +122,7 @@ static gboolean remmina_rdp_event_on_focus_in(GtkEventControllerFocus *widget, R
 	if (!rfi || !rfi->connected || rfi->is_reconnecting)
 		return FALSE;
 
-	input = rfi->instance->input;
+	input = rfi->clientContext.context.input;
 	UINT32 toggle_keys_state = 0;
 
 #if GTK_CHECK_VERSION(3, 20, 0)
@@ -212,7 +212,8 @@ static void remmina_rdp_event_release_key(RemminaProtocolWidget *gp, RemminaPlug
 
 			if (rdp_event_2.key_event.key_code == rdp_event.key_event.key_code &&
 			    rdp_event_2.key_event.unicode_code == rdp_event.key_event.unicode_code &&
-			    rdp_event_2.key_event.extended == rdp_event.key_event.extended) {
+			    rdp_event_2.key_event.extended == rdp_event.key_event.extended &&
+				rdp_event_2.key_event.extended1 == rdp_event.key_event.extended1) {
 				g_array_remove_index_fast(rfi->pressed_keys, i);
 				break;
 			}
@@ -437,8 +438,8 @@ static gboolean remmina_rdp_event_delayed_monitor_layout(RemminaProtocolWidget *
 			}
 			rdp_event.type = REMMINA_RDP_EVENT_TYPE_SEND_MONITOR_LAYOUT;
 			if (remmina_plugin_service->file_get_int(remminafile, "multimon", FALSE)) {
-				const rdpMonitor *base = freerdp_settings_get_pointer(rfi->settings, FreeRDP_MonitorDefArray);
-				for (gint i = 0; i < freerdp_settings_get_uint32(rfi->settings, FreeRDP_MonitorCount); ++i) {
+				const rdpMonitor *base = freerdp_settings_get_pointer(rfi->clientContext.context.settings, FreeRDP_MonitorDefArray);
+				for (gint i = 0; i < freerdp_settings_get_uint32(rfi->clientContext.context.settings, FreeRDP_MonitorCount); ++i) {
 					const rdpMonitor *current = &base[i];
 					REMMINA_PLUGIN_DEBUG("Sending display layout n° %d", i);
 					rdp_event.monitor_layout.Flags = current->is_primary;
@@ -557,6 +558,24 @@ static void remmina_rdp_event_reverse_translate_pos_reverse(RemminaProtocolWidge
 		*ox = ix;
 		*oy = iy;
 	}
+}
+
+void remmina_rdp_mouse_jitter(RemminaProtocolWidget *gp){
+	TRACE_CALL(__func__);
+	RemminaPluginRdpEvent rdp_event = { 0 };
+	RemminaFile *remminafile;
+	rfContext *rfi = GET_PLUGIN_DATA(gp);
+
+	remminafile = remmina_plugin_service->protocol_plugin_get_file(gp);
+	if (remmina_plugin_service->file_get_int(remminafile, "viewonly", FALSE))
+		return;
+
+	rdp_event.type = REMMINA_RDP_EVENT_TYPE_MOUSE;
+	rdp_event.mouse_event.flags = PTR_FLAGS_MOVE;
+	rdp_event.mouse_event.extended = FALSE;
+	rdp_event.mouse_event.x = rfi->last_x;
+	rdp_event.mouse_event.y = rfi->last_y;
+	remmina_rdp_event_event_push(gp, &rdp_event);
 }
 
 static gboolean remmina_rdp_event_on_motion(GtkWidget *widget, gdouble x, gdouble y, RemminaProtocolWidget *gp)
@@ -851,6 +870,7 @@ static gboolean remmina_rdp_event_on_key_real(GtkWidget *widget, guint keyval, g
 	rdp_event.type = REMMINA_RDP_EVENT_TYPE_SCANCODE;
 	rdp_event.key_event.up = !is_pressed;
 	rdp_event.key_event.extended = false;
+	rdp_event.key_event.extended1 = false;
 
 	switch (keyval) {
 	case GDK_KEY_Pause:
@@ -861,15 +881,19 @@ static gboolean remmina_rdp_event_on_key_real(GtkWidget *widget, guint keyval, g
 		 */
 		rdp_event.key_event.key_code = 0x1D;
 		rdp_event.key_event.up = false;
+		rdp_event.key_event.extended1 = TRUE;
 		remmina_rdp_event_event_push(gp, &rdp_event);
 		rdp_event.key_event.key_code = 0x45;
 		rdp_event.key_event.up = false;
+		rdp_event.key_event.extended1 = FALSE;
 		remmina_rdp_event_event_push(gp, &rdp_event);
 		rdp_event.key_event.key_code = 0x1D;
 		rdp_event.key_event.up = true;
+		rdp_event.key_event.extended1 = TRUE;
 		remmina_rdp_event_event_push(gp, &rdp_event);
 		rdp_event.key_event.key_code = 0x45;
 		rdp_event.key_event.up = true;
+		rdp_event.key_event.extended1 = FALSE;
 		remmina_rdp_event_event_push(gp, &rdp_event);
 		break;
 
@@ -889,6 +913,7 @@ static gboolean remmina_rdp_event_on_key_real(GtkWidget *widget, guint keyval, g
 			if (scancode) {
 				rdp_event.key_event.key_code = scancode & 0xFF;
 				rdp_event.key_event.extended = scancode & 0x100;
+				rdp_event.key_event.extended1 = FALSE;
 				remmina_rdp_event_event_push(gp, &rdp_event);
 				keypress_list_add(gp, rdp_event);
 			}
@@ -911,6 +936,7 @@ static gboolean remmina_rdp_event_on_key_real(GtkWidget *widget, guint keyval, g
 				scancode = freerdp_keyboard_get_rdp_scancode_from_x11_keycode(hardware_keycode);
 				rdp_event.key_event.key_code = scancode & 0xFF;
 				rdp_event.key_event.extended = scancode & 0x100;
+				rdp_event.key_event.extended1 = FALSE;
 				if (rdp_event.key_event.key_code) {
 					remmina_rdp_event_event_push(gp, &rdp_event);
 					keypress_list_add(gp, rdp_event);
@@ -919,6 +945,7 @@ static gboolean remmina_rdp_event_on_key_real(GtkWidget *widget, guint keyval, g
 				rdp_event.type = REMMINA_RDP_EVENT_TYPE_SCANCODE_UNICODE;
 				rdp_event.key_event.unicode_code = unicode_keyval;
 				rdp_event.key_event.extended = false;
+				rdp_event.key_event.extended1 = FALSE;
 				remmina_rdp_event_event_push(gp, &rdp_event);
 				keypress_list_add(gp, rdp_event);
 			}
@@ -1275,7 +1302,7 @@ static void remmina_rdp_event_connected(RemminaProtocolWidget *gp, RemminaPlugin
 	remmina_rdp_event_update_scale(gp);
 
 	remmina_plugin_service->protocol_plugin_signal_connection_opened(gp);
-	const gchar *host = freerdp_settings_get_string (rfi->settings, FreeRDP_ServerHostname);
+	const gchar *host = freerdp_settings_get_string (rfi->clientContext.context.settings, FreeRDP_ServerHostname);
 	// TRANSLATORS: the placeholder may be either an IP/FQDN or a server hostname
 	REMMINA_PLUGIN_AUDIT(_("Connected to %s via RDP"), host);
 }

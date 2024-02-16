@@ -61,36 +61,19 @@ add_definitions(-DFREERDP_REQUIRED_MAJOR=${FREERDP_REQUIRED_MAJOR})
 add_definitions(-DFREERDP_REQUIRED_MINOR=${FREERDP_REQUIRED_MINOR})
 add_definitions(-DFREERDP_REQUIRED_REVISION=${FREERDP_REQUIRED_REVISION})
 
-option(WITH_FREERDP_MASTER "Compile the RDP plugin using symbols from FreeRDP master branch." OFF)
-if(WITH_FREERDP_MASTER)
-    message(STATUS "Compiling the RDP plugin using symbols from FreeRDP master branch.")
-    add_definitions(-DWITH_FREERDP_MASTER=ON)
-endif()
-
 add_library(remmina-plugin-rdp MODULE ${REMMINA_PLUGIN_RDP_SRCS})
 set_target_properties(remmina-plugin-rdp PROPERTIES PREFIX "")
 set_target_properties(remmina-plugin-rdp PROPERTIES NO_SONAME 1)
 
-if(WITH_FREERDP3)
-    include_directories(${REMMINA_COMMON_INCLUDE_DIRS} ${FREERDP3_INCLUDE_DIRS})
-    target_link_libraries(remmina-plugin-rdp
-        ${REMMINA_COMMON_LIBRARIES} ${FREERDP3_LIBRARIES})
-else()
-    include_directories(${REMMINA_COMMON_INCLUDE_DIRS} ${FREERDP_INCLUDE_DIRS})
-    target_link_libraries(remmina-plugin-rdp
-        ${REMMINA_COMMON_LIBRARIES} ${FREERDP_LIBRARIES})
-endif()
+include_directories(${REMMINA_COMMON_INCLUDE_DIRS} ${FreeRDP-Client_INCLUDE_DIR} ${FreeRDP_INCLUDE_DIR} ${WinPR_INCLUDE_DIR})
+target_link_libraries(remmina-plugin-rdp
+    ${REMMINA_COMMON_LIBRARIES} freerdp-client)
 
 if(CUPS_FOUND)
     add_definitions(-DHAVE_CUPS)
     include_directories(${CUPS_INCLUDE_DIR})
-    if(WITH_FREERDP3)
-        target_link_libraries(remmina-plugin-rdp
-            ${REMMINA_COMMON_LIBRARIES} ${FREERDP3_LIBRARIES} ${CUPS_LIBRARIES})
-    else()
-        target_link_libraries(remmina-plugin-rdp
-            ${REMMINA_COMMON_LIBRARIES} ${FREERDP_LIBRARIES} ${CUPS_LIBRARIES})
-    endif()
+    target_link_libraries(remmina-plugin-rdp
+        ${REMMINA_COMMON_LIBRARIES} freerdp-client ${CUPS_LIBRARIES})
 endif()
 
 install(TARGETS remmina-plugin-rdp DESTINATION ${REMMINA_PLUGINDIR})

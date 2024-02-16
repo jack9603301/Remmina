@@ -1,3 +1,114 @@
+## v1.4.34
+[full changelog](https://gitlab.com/Remmina/Remmina/compare/v.1.4.33...v1.4.34)
+
+* [REM-2981] Move ssh-unrelated code outside of HAVE_LIBSSH ifdef [!2540](https://gitlab.com/Remmina/Remmina/merge_requests/2540) *@myheroyuki*
+* [REM-2974] only attempt to resolve hostname if initial ssh_connect fails [!2542](https://gitlab.com/Remmina/Remmina/merge_requests/2542) *@myheroyuki*
+* [REM-2980] Remove flag that prevented remote audio from working with flatpak version of Remmina [!2543](https://gitlab.com/Remmina/Remmina/merge_requests/2543) *@myheroyuki*
+* [REM-2982] Update Flatpak to use GNOME runtime version 44 [!2541](https://gitlab.com/Remmina/Remmina/merge_requests/2541) *@myheroyuki*
+* initial port to core22 [!2539](https://gitlab.com/Remmina/Remmina/merge_requests/2539) *@soumyaDghosh*
+* [REM-2984] Add null check to prevent freeze when opening an rdp connection [!2545](https://gitlab.com/Remmina/Remmina/merge_requests/2545) *@myheroyuki*
+* Fix GTK critical error when editing RDP profile [!2544](https://gitlab.com/Remmina/Remmina/merge_requests/2544) *@bhatman1441*
+* Remove snap installs for broken link executables [!2546](https://gitlab.com/Remmina/Remmina/merge_requests/2546) *@bhatman1441*
+* SSH private key auth: If username is empty, prompt user to enter it [!2547](https://gitlab.com/Remmina/Remmina/merge_requests/2547) *@bhatman1441*
+* Fix Flatpak freeze on connection when importing RDP profile [!2548](https://gitlab.com/Remmina/Remmina/merge_requests/2548) *@bhatman1441*
+* Fix of some grammatic issues in German translation [!2550](https://gitlab.com/Remmina/Remmina/merge_requests/2550) *@vhhhl1*
+* [REM-3003] Re-add line removed by accident in !2532 [!2551](https://gitlab.com/Remmina/Remmina/merge_requests/2551) *@myheroyuki*
+* GtkFileChooserNative support [!2553](https://gitlab.com/Remmina/Remmina/merge_requests/2553) *@robxnano*
+* Spice UNIX socket channel initialization enhancement [!2549](https://gitlab.com/Remmina/Remmina/merge_requests/2549) *@BobbyTheBuilder*
+* Fix segfault for `remmina -p` [!2555](https://gitlab.com/Remmina/Remmina/merge_requests/2555) *@bhatman1441*
+* Add unlocking code to let plugins use passwords [!2556](https://gitlab.com/Remmina/Remmina/merge_requests/2556) *@pnowak433*
+* CI Pipeline Updates [!2557](https://gitlab.com/Remmina/Remmina/merge_requests/2557) *@bhatman1441*
+* [freerdp] update to build for stable-3.0 [!2554](https://gitlab.com/Remmina/Remmina/merge_requests/2554) *@akallabeth*
+* Allow Remmina to be built without FreeRDP [!2558](https://gitlab.com/Remmina/Remmina/merge_requests/2558) *@myheroyuki*
+* [REM-3048] Fix crash on multi-monitor with FreeRDP3 [!2559](https://gitlab.com/Remmina/Remmina/merge_requests/2559) *@myheroyuki*
+* Added developer_name to meet new flathub requirements [!2561](https://gitlab.com/Remmina/Remmina/merge_requests/2561) *@myheroyuki*
+* [New features] Bring back remmina server features with new additions [!2560](https://gitlab.com/Remmina/Remmina/merge_requests/2560) *@bhatman1441*
+* [REM-2983] compile ssh with gcrypt for flatpak builds. Also sync flatpak... [!2563](https://gitlab.com/Remmina/Remmina/merge_requests/2563) *@myheroyuki*
+* Update copyright info [!2562](https://gitlab.com/Remmina/Remmina/merge_requests/2562) *@bhatman1441*
+
+## v.1.4.33
+[full changelog](https://gitlab.com/Remmina/Remmina/compare/v1.4.32...v1.4.33)
+
+* [REM-2977] add shortcut for 'send clipboard as keystrokes' [!2535](https://gitlab.com/Remmina/Remmina/merge_requests/2535) *@myheroyuki*
+* [REM-2972] Make keeping window open on session disconnect configurable [!2537](https://gitlab.com/Remmina/Remmina/merge_requests/2537) *@myheroyuki*
+* [REM-2974] fix crash cause by using freed memory [!2536](https://gitlab.com/Remmina/Remmina/merge_requests/2536) *@myheroyuki*
+
+## v.1.4.32
+[full changelog](https://gitlab.com/Remmina/Remmina/compare/v1.4.31...v1.4.32)
+
+* [REM2916] Added option to kill async process started by exec plugin on tab close [!2501](https://gitlab.com/Remmina/Remmina/merge_requests/2501) *@myheroyuki*
+* Fix search bar toggle behavior [!2503](https://gitlab.com/Remmina/Remmina/merge_requests/2503) *@myheroyuki*
+* Fix memory leaks [!2504](https://gitlab.com/Remmina/Remmina/merge_requests/2504) *@bhatman1441*
+* [REM-2920] Password visibility can now be toggled on remmina_message_panels [!2505](https://gitlab.com/Remmina/Remmina/merge_requests/2505) *@myheroyuki*
+* Remove SSH file paths from remmina file when unchecking box in profile edit [!2506](https://gitlab.com/Remmina/Remmina/merge_requests/2506) *@bhatman1441*
+* Solved issue #2910 - Added support for IPv6 with fallback to IPv4 for ssh [!2507](https://gitlab.com/Remmina/Remmina/merge_requests/2507) *@scoulondre*
+* Fix UI bugs in Remmina Preferences set new password [!2508](https://gitlab.com/Remmina/Remmina/merge_requests/2508) *@bhatman1441*
+* Fix memory leaks and change GTK critical errors to remmina warnings for null icon autostart file [!2509](https://gitlab.com/Remmina/Remmina/merge_requests/2509) *@bhatman1441*
+* [REM-2926] Added ability to set a fixed aspect ratio for vnc connections when... [!2511](https://gitlab.com/Remmina/Remmina/merge_requests/2511) *@myheroyuki*
+* Fix snap crash [!2512](https://gitlab.com/Remmina/Remmina/merge_requests/2512) *@bhatman1441*
+* [REM-2936] Fix crash related to unmap events [!2513](https://gitlab.com/Remmina/Remmina/merge_requests/2513) *@myheroyuki*
+* [REM-2938] Improved ordering of tray icon menu items [!2514](https://gitlab.com/Remmina/Remmina/merge_requests/2514) *@myheroyuki*
+* Fix memory leaks in remmina_plugin_manager_init with g_free and g_ptr_array_free [!2515](https://gitlab.com/Remmina/Remmina/merge_requests/2515) *@bhatman1441*
+* Remote assistance [!2516](https://gitlab.com/Remmina/Remmina/merge_requests/2516) *@myheroyuki*
+* Spelling: Various strings for assistance mode [!2517](https://gitlab.com/Remmina/Remmina/merge_requests/2517) *@kingu*
+* Fix some compiler warnings [!2518](https://gitlab.com/Remmina/Remmina/merge_requests/2518) *@myheroyuki*
+* Ability to SPICE connect to unix domain socket [!2519](https://gitlab.com/Remmina/Remmina/merge_requests/2519) *@BobbyTheBuilder*
+* update multi monitor icon [!2520](https://gitlab.com/Remmina/Remmina/merge_requests/2520) *@jtmoree*
+* Save toggle options when duplicating connection [!2521](https://gitlab.com/Remmina/Remmina/merge_requests/2521) *@myheroyuki*
+* Rem 2954 [!2522](https://gitlab.com/Remmina/Remmina/merge_requests/2522) *@myheroyuki*
+* New feature: Allow user to specify use of modifiers when changing key preferences [!2523](https://gitlab.com/Remmina/Remmina/merge_requests/2523) *@bhatman1441*
+* [REM-2914] Alert user of unexpected disconnect instead of immediately closing the connection window [!2524](https://gitlab.com/Remmina/Remmina/merge_requests/2524) *@myheroyuki*
+* Fix Remmina not using `@REMMINA_BINARY_PATH@` [!2525](https://gitlab.com/Remmina/Remmina/merge_requests/2525) *@Enzime*
+* Highlight top bar when `Grab all keyboard events` is enabled [!2526](https://gitlab.com/Remmina/Remmina/merge_requests/2526) *@toliak*
+* Snapcraft: Allow remmina preferences file to point to symlinked `current` directory [!2527](https://gitlab.com/Remmina/Remmina/merge_requests/2527) *@bhatman1441*
+* [REM-2850] Add ability to automatically move mouse to keep RDP connections alive [!2528](https://gitlab.com/Remmina/Remmina/merge_requests/2528) *@myheroyuki*
+* Allow user to set REMMINA_GIT_REVISION [!2529](https://gitlab.com/Remmina/Remmina/merge_requests/2529) *@yurivict*
+* Remove unnecessary parameters from remmina_public_get_server_port_wrapper [!2530](https://gitlab.com/Remmina/Remmina/merge_requests/2530) *@bhatman1441*
+* Fix freeze that occurs when loading in python modules properly [!2531](https://gitlab.com/Remmina/Remmina/merge_requests/2531) *@myheroyuki*
+* [REM-1923] Fix handling of pause break key for RDP connections [!2532](https://gitlab.com/Remmina/Remmina/merge_requests/2532) *@myheroyuki*
+* [REM-2971] When quiting Remmina from the system tray the are you sure prompt now functions properly [!2533](https://gitlab.com/Remmina/Remmina/merge_requests/2533) *@myheroyuki*
+
+## v.1.4.31
+[full changelog](https://gitlab.com/Remmina/Remmina/compare/v1.4.30...v1.4.31)
+
+* [REM-2874] muli password changer search now matches partial strings [!2480](https://gitlab.com/Remmina/Remmina/merge_requests/2480) *@myheroyuki*
+* Fix segfault in VNC when using domain socket [!2481](https://gitlab.com/Remmina/Remmina/merge_requests/2481) *@jchw*
+* Switched pylist Append to SetItem [!2482](https://gitlab.com/Remmina/Remmina/merge_requests/2482) *@bhatman1441*
+* Template texts updated [!2484](https://gitlab.com/Remmina/Remmina/merge_requests/2484) *@kingu*
+* Add menu option to delete multiple profiles at the same time [!2483](https://gitlab.com/Remmina/Remmina/merge_requests/2483) *@bhatman1441*
+* add 1080p as a default resolution to remmina_pref.c [!2486](https://gitlab.com/Remmina/Remmina/merge_requests/2486) *@Thibaultmol*
+* Add ubuntu22.04 dockerfile [!2487](https://gitlab.com/Remmina/Remmina/merge_requests/2487) *@yasinbakhtiar*
+* Remove character limit on password length [!2489](https://gitlab.com/Remmina/Remmina/merge_requests/2489) *@bhatman1441*
+* Create better postats.html [!2488](https://gitlab.com/Remmina/Remmina/merge_requests/2488) *@yasinbakhtiar*
+* Redesign santahat.png & add santahat.svg [!2492](https://gitlab.com/Remmina/Remmina/merge_requests/2492) *@yasinbakhtiar*
+* Edit preferences UI [!2491](https://gitlab.com/Remmina/Remmina/merge_requests/2491) *@yasinbakhtiar*
+* Change the icon of the new connection button [!2493](https://gitlab.com/Remmina/Remmina/merge_requests/2493) *@yasinbakhtiar*
+* Modify the checkbox of the appearance-tab [!2494](https://gitlab.com/Remmina/Remmina/merge_requests/2494) *@yasinbakhtiar*
+* Add valign to the switch of the debugging window [!2495](https://gitlab.com/Remmina/Remmina/merge_requests/2495) *@yasinbakhtiar*
+* plugins/rdp: Ensure output redirection configuration applies to both dynamic and static rdpsnd [!2498](https://gitlab.com/Remmina/Remmina/merge_requests/2498) *@msizanoen*
+
+## v.1.4.30
+[full changelog](https://gitlab.com/Remmina/Remmina/compare/v1.4.29...v1.4.30)
+
+* Update snap build to use freerdp 2.9.0 [!2458](https://gitlab.com/Remmina/Remmina/merge_requests/2458) *@myheroyuki*
+* Add text mime type formats to RDP clibpoard [!2459](https://gitlab.com/Remmina/Remmina/merge_requests/2459) *@giox069*
+* Ensure timer is null after destruction [!2462](https://gitlab.com/Remmina/Remmina/merge_requests/2462) *@myheroyuki*
+* Ability to view passwords in the clear using a toggle in the password field [!2460](https://gitlab.com/Remmina/Remmina/merge_requests/2460) *@benoit.lagarde*
+* Made icons viewable in lower resulution. [!2463](https://gitlab.com/Remmina/Remmina/merge_requests/2463) *@benoit.lagarde*
+* Improve mime file [!2464](https://gitlab.com/Remmina/Remmina/merge_requests/2464) *@yselkowitz1*
+* [REM-2809] Appearance preferences now refresh in the main window when the user... [!2466](https://gitlab.com/Remmina/Remmina/merge_requests/2466) *@myheroyuki*
+* This should be a message instead of a info print. So that the user can see it by default. [!2461](https://gitlab.com/Remmina/Remmina/merge_requests/2461) *@sork*
+* remmina_rdp_monitor_get(): fix maxw, maxh and monitorids calculation [!2467](https://gitlab.com/Remmina/Remmina/merge_requests/2467) *@MaxIhlenfeldt*
+* Rem 2864 [!2469](https://gitlab.com/Remmina/Remmina/merge_requests/2469) *@myheroyuki*
+* Fix undefined symbol error when importing gi in a python extension [!2470](https://gitlab.com/Remmina/Remmina/merge_requests/2470) *@bhatman1441*
+* make it build on macOS [!2471](https://gitlab.com/Remmina/Remmina/merge_requests/2471) *@mvzlb*
+* Rem 2864 [!2472](https://gitlab.com/Remmina/Remmina/merge_requests/2472) *@myheroyuki*
+* Fix autostart file flatpak exec command [!2474](https://gitlab.com/Remmina/Remmina/merge_requests/2474) *@bhatman1441*
+* [REM-1987] allow for dynamic resolution updates for vnc connections [!2476](https://gitlab.com/Remmina/Remmina/merge_requests/2476) *@myheroyuki*
+* Fix overlapping text in preferences menu, terminal tab [!2477](https://gitlab.com/Remmina/Remmina/merge_requests/2477) *@bhatman1441*
+* Allow could not authenticate banner to go away after successful reauthentication [!2478](https://gitlab.com/Remmina/Remmina/merge_requests/2478) *@bhatman1441*
+* Add environments for easy manual testing [!2473](https://gitlab.com/Remmina/Remmina/merge_requests/2473) *@ToolsDevler*
+
 ## v1.4.29
 [full changelog](https://gitlab.com/Remmina/Remmina/compare/v1.4.28...v1.4.29)
 

@@ -403,7 +403,7 @@ remmina_ftp_client_get_download_dir(RemminaFTPClient *client)
 {
 	TRACE_CALL(__func__);
 	RemminaFTPClientPriv *priv = (RemminaFTPClientPriv*)client->priv;
-	GtkWidget *dialog;
+	GtkFileChooserNative *dialog;
 	gchar *localdir = NULL;
 
 	dialog = gtk_file_chooser_dialog_new(_("Choose download location"),
@@ -604,8 +604,8 @@ static void remmina_ftp_client_action_upload(GObject *object, RemminaFTPClient *
 	struct stat st;
 
 	dialog = gtk_file_chooser_dialog_new(_("Choose a file to upload"),
-		GTK_WINDOW(gtk_widget_get_root(GTK_WIDGET(client))), GTK_FILE_CHOOSER_ACTION_OPEN, "_Cancel",
-		GTK_RESPONSE_CANCEL, "_OK", GTK_RESPONSE_ACCEPT, NULL);
+		GTK_WINDOW(gtk_widget_get_root(GTK_WIDGET(client))), GTK_FILE_CHOOSER_ACTION_OPEN, _("_Cancel"),
+		GTK_RESPONSE_CANCEL, _("Upload"), GTK_RESPONSE_ACCEPT, NULL);
 	gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(dialog), TRUE);
 	if (priv->working_directory) {
 		gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(dialog), g_file_new_for_path(priv->working_directory), NULL);

@@ -4,6 +4,7 @@
  * Copyright (C) 2014-2015 Antenore Gatta, Fabio Castelli, Giovanni Panozzo
  * Copyright (C) 2016-2022 Antenore Gatta, Giovanni Panozzo
  * Copyright (C) 2022-2023 Antenore Gatta, Giovanni Panozzo, Hiroyuki Tanaka
+ * Copyright (C) 2023-2024 Hiroyuki Tanaka, Sunil Bhat
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -57,6 +58,7 @@
 #include "remmina_pref_dialog.h"
 #include "remmina_widget_pool.h"
 #include "remmina_plugin_manager.h"
+#include "remmina_bug_report.h"
 #include "remmina_log.h"
 #include "remmina_icon.h"
 #include "remmina_main.h"
@@ -99,6 +101,7 @@ static GActionEntry app_actions[] = {
 	{ "mpchange",	 remmina_main_on_action_application_mpchange,	 NULL, NULL, NULL },
 	{ "plugins",	 remmina_main_on_action_application_plugins,	 NULL, NULL, NULL },
 	{ "preferences", remmina_main_on_action_application_preferences, NULL,  NULL, NULL },
+	{ "bug_report",  remmina_main_on_action_application_bug_report, NULL, NULL, NULL},
 	{ "dark",	 remmina_main_on_action_application_dark_theme,	 NULL, NULL, NULL },
 	{ "debug",	 remmina_main_on_action_help_debug,		 NULL, NULL, NULL },
 	{ "community",	 remmina_main_on_action_help_community,		 NULL, NULL, NULL },
@@ -863,6 +866,7 @@ void remmina_main_on_action_connection_new(GSimpleAction *action, GVariant *para
 		return;
 	GtkWidget *widget;
 
+	remmina_plugin_manager_get_available_plugins();
 	if (remmina_pref_get_boolean("use_primary_password")
 			&& remmina_pref_get_boolean("lock_edit")
 			&& remmina_unlock_new(remminamain->window) == 0)
@@ -1105,6 +1109,64 @@ void remmina_main_on_action_connection_delete_multiple(GSimpleAction *action, GV
 }
 
 
+// void remmina_main_on_action_connection_delete_multiple(GSimpleAction *action, GVariant *param, gpointer data)
+// {
+// 	TRACE_CALL(__func__);
+// 	GtkWidget *dialog;
+// 	GtkTreeSelection *sel = gtk_tree_view_get_selection(remminamain->tree_files_list);
+// 	GtkTreeModel *model = gtk_tree_view_get_model(remminamain->tree_files_list);
+// 	GList *list = gtk_tree_selection_get_selected_rows(sel, &model);
+// 	gchar *file_to_delete;
+
+// 	dialog = gtk_message_dialog_new(remminamain->window, GTK_DIALOG_MODAL, GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO,
+// 				_("Are you sure you want to delete the selected files?"));
+
+// 	// Delete files if Yes is clicked
+// 	if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_YES) {
+// 		while (list) {
+// 			GtkTreePath *path = list->data;
+// 			GtkTreeIter iter;
+			
+// 			if (!gtk_tree_model_get_iter(model, &iter, path)) {
+// 				GtkWidget *dialog_warning;
+// 				dialog_warning = gtk_message_dialog_new(remminamain->window, GTK_DIALOG_MODAL, GTK_MESSAGE_WARNING, GTK_BUTTONS_OK, 
+// 					_("Failed to delete files!"));
+// 				gtk_dialog_run(GTK_DIALOG(dialog_warning));
+// 				gtk_widget_destroy(dialog_warning);
+// 				gtk_widget_destroy(dialog);
+// 				remmina_main_clear_selection_data();
+// 				return;
+// 			}
+
+// 			gtk_tree_model_get(model, &iter, 
+// 					FILENAME_COLUMN, &file_to_delete, -1);
+
+// 			RemminaFile *remminafile = remmina_file_load(file_to_delete);
+
+// 			if (((remmina_pref_get_boolean("lock_edit")
+// 					&& remmina_pref_get_boolean("use_primary_password"))
+// 					|| remmina_file_get_int (remminafile, "profile-lock", FALSE))
+// 				&& remmina_unlock_new(remminamain->window) == 0)
+// 				return;
+
+// 			if (remminafile) {
+// 				remmina_file_free(remminafile);
+// 				remminafile = NULL;
+// 			}
+
+// 			gchar *delfilename = g_strdup(file_to_delete);
+// 			remmina_file_delete(delfilename);
+// 			g_free(delfilename), delfilename = NULL;
+// 			remmina_icon_populate_menu();
+// 			remmina_main_load_files();
+// 			list = g_list_next(list);
+// 		}
+// 	}
+	
+// 	gtk_widget_destroy(dialog);
+// 	remmina_main_clear_selection_data();
+// } TODO GTK4
+
 void remmina_main_on_accel_application_preferences(GSimpleAction *action, GVariant *param, gpointer data)
 {
 	TRACE_CALL(__func__);
@@ -1118,8 +1180,15 @@ void remmina_main_reload_preferences()
 	GtkSettings *settings;
 	settings = gtk_settings_get_default();
 	g_object_set(settings, "gtk-application-prefer-dark-theme", remmina_pref.dark_theme, NULL);
-	remmina_main_on_action_search_toggle(NULL,NULL,NULL);
-	gtk_tree_view_column_set_visible(remminamain->column_files_list_notes, remmina_pref.always_show_notes);
+	if (remminamain) {
+		if(remmina_pref.hide_searchbar){
+			gtk_toggle_button_set_active(remminamain->search_toggle, FALSE);
+		}
+		else{
+			gtk_toggle_button_set_active(remminamain->search_toggle, TRUE);
+		}
+		gtk_tree_view_column_set_visible(remminamain->column_files_list_notes, remmina_pref.always_show_notes);
+	}
 }
 
 void remmina_main_on_action_application_preferences(GSimpleAction *action, GVariant *param, gpointer data)
@@ -1195,6 +1264,24 @@ void remmina_main_on_date_column_sort_clicked()
 	}
 }
 
+void remmina_main_toggle_password_view(GtkWidget *widget, gpointer data)
+{
+	GtkWindow *mainwindow;
+	gboolean visible = gtk_entry_get_visibility(GTK_ENTRY(widget));
+
+	mainwindow = remmina_main_get_window();
+	if (remmina_pref_get_boolean("use_primary_password") && remmina_pref_get_boolean("lock_view_passwords") && remmina_unlock_new(mainwindow) == 0)
+		return;
+
+	if (visible) {
+		gtk_entry_set_visibility(GTK_ENTRY(widget), FALSE);
+		gtk_entry_set_icon_from_icon_name(GTK_ENTRY(widget), GTK_ENTRY_ICON_SECONDARY, "org.remmina.Remmina-password-reveal-symbolic");
+	} else {
+		gtk_entry_set_visibility(GTK_ENTRY(widget), TRUE);
+		gtk_entry_set_icon_from_icon_name(GTK_ENTRY(widget), GTK_ENTRY_ICON_SECONDARY, "org.remmina.Remmina-password-conceal-symbolic");
+	}
+}
+
 static void remmina_main_import_file_list(GSList *files)
 {
 	TRACE_CALL(__func__);
@@ -1238,7 +1325,7 @@ static void remmina_main_import_file_list(GSList *files)
 		remmina_main_load_files();
 }
 
-static void remmina_main_action_tools_import_on_response(GtkDialog *dialog, gint response_id, gpointer user_data)
+static void remmina_main_action_tools_import_on_response(GtkNativeDialog *dialog, gint response_id, gpointer user_data)
 {
 	TRACE_CALL(__func__);
 	GSList *files = NULL;
@@ -1249,6 +1336,28 @@ static void remmina_main_action_tools_import_on_response(GtkDialog *dialog, gint
 		remmina_main_import_file_list(files);
 	}
 	gtk_window_destroy(GTK_WINDOW(dialog));
+}
+
+static void remmina_set_file_chooser_filters(GtkFileChooser *chooser)
+{
+	GtkFileFilter *filter;
+
+	g_return_if_fail(GTK_IS_FILE_CHOOSER(chooser));
+
+	filter = gtk_file_filter_new();
+	gtk_file_filter_set_name(filter, _("RDP Files"));
+	gtk_file_filter_add_pattern(filter, "*.rdp");
+	gtk_file_filter_add_pattern(filter, "*.rdpx");
+	gtk_file_filter_add_pattern(filter, "*.RDP");
+	gtk_file_filter_add_pattern(filter, "*.RDPX");
+	gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(chooser), filter);
+	gtk_file_chooser_set_filter(GTK_FILE_CHOOSER(chooser), filter);
+
+	filter = gtk_file_filter_new();
+	gtk_file_filter_set_name(filter, _("All Files"));
+	gtk_file_filter_add_pattern(filter, "*");
+	gtk_file_chooser_add_filter(chooser, filter);
+	
 }
 
 void remmina_main_on_action_tools_import(GSimpleAction *action, GVariant *param, gpointer data)
@@ -1282,6 +1391,8 @@ void remmina_main_on_action_tools_export(GSimpleAction *action, GVariant *param,
 	RemminaFilePlugin *plugin;
 	RemminaFile *remminafile;
 	GtkWidget *dialog;
+	GtkFileChooserNative *chooser;
+	gchar *export_name;
 
 	if (!remminamain->priv->selected_filename){
 		dialog = gtk_message_dialog_new(remminamain->window, GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK,
@@ -1320,6 +1431,7 @@ void remmina_main_on_action_tools_export(GSimpleAction *action, GVariant *param,
 void remmina_main_on_action_application_plugins(GSimpleAction *action, GVariant *param, gpointer data)
 {
 	TRACE_CALL(__func__);
+	remmina_plugin_manager_get_available_plugins();
 	remmina_plugin_manager_show(remminamain->window);
 }
 
@@ -1373,6 +1485,12 @@ void remmina_main_on_action_application_about(GSimpleAction *action, GVariant *p
 {
 	TRACE_CALL(__func__);
 	remmina_about_open(remminamain->window);
+};
+
+void remmina_main_on_action_application_bug_report(GSimpleAction *action, GVariant *param, gpointer data)
+{
+	TRACE_CALL(__func__);
+	remmina_bug_report_open(remminamain->window);
 };
 
 static gboolean is_empty(const gchar *s)
@@ -1516,7 +1634,7 @@ void remmina_main_file_list_on_button_press(GtkGestureClick* self, gint n_press,
 {
 	TRACE_CALL(__func__);
 	if (gtk_gesture_single_get_current_button(GTK_GESTURE_SINGLE(self)) == MOUSE_BUTTON_RIGHT) {
-		if (!kioskmode && kioskmode == FALSE) {
+		if (!kioskmode && kioskmode == FALSE) { 
 			//get coordinates of click
 			GdkRectangle coords = {.x = x, .y = y, .width = 0, .height = 0};		
 			// For now, if more than one selected row, display only a delete menu option

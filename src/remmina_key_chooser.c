@@ -54,6 +54,14 @@ static gboolean remmina_key_chooser_dialog_on_key_press(GtkEventControllerKey* s
 	return TRUE;
 }
 
+/* User option to use key modifiers when selecting keyboard shortcuts */
+void remmina_key_chooser_dialog_set_option_modifier(GtkWidget *widget, gboolean state, RemminaKeyChooserArguments *arguments)
+{
+	TRACE_CALL(__func__);
+	gtk_switch_set_state(GTK_SWITCH(widget), state);
+	arguments->use_modifiers = state;
+}
+
 static void remmina_key_chooser_dialog_on_response(GtkDialog* self,
   gint response_id,
   gpointer user_data)
@@ -67,6 +75,7 @@ static void remmina_key_chooser_dialog_on_response(GtkDialog* self,
 	}
 	gtk_window_destroy(GTK_WINDOW(self)); 
   }
+
 
 /* Show a key chooser dialog and return the keyval for the selected key */
 void remmina_key_chooser_new(GtkWindow *parent_window, gboolean use_modifiers, GtkWidget *widget)
@@ -85,6 +94,11 @@ void remmina_key_chooser_new(GtkWindow *parent_window, gboolean use_modifiers, G
 	dialog = GTK_DIALOG(gtk_builder_get_object(builder, "KeyChooserDialog"));
 	arguments->dialog = dialog;
 	gtk_window_set_transient_for(GTK_WINDOW(dialog), parent_window);
+
+	/* Connect the key modifier switch signal */
+	g_signal_connect(gtk_builder_get_object(builder, "switch_option_key_modifier"), "state-set",
+		G_CALLBACK(remmina_key_chooser_dialog_set_option_modifier), arguments);
+	
 	/* Connect the GtkEventBox signal */
 	GtkEventControllerKey* key_event_controller = (GtkEventControllerKey*)gtk_event_controller_key_new();
 	// GtkBox* eventbox_key_chooser = GTK_BOX(gtk_builder_get_object(builder, "eventbox_key_chooser"));
@@ -93,6 +107,7 @@ void remmina_key_chooser_new(GtkWindow *parent_window, gboolean use_modifiers, G
 
 	g_signal_connect(key_event_controller, "key-released",
 		G_CALLBACK(remmina_key_chooser_dialog_on_key_press), arguments);
+			
 	g_signal_connect(dialog, "response",
 		G_CALLBACK(remmina_key_chooser_dialog_on_response), arguments);
 	gtk_widget_show(dialog);

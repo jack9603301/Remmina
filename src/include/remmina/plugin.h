@@ -3,6 +3,7 @@
  * Copyright (C) 2010-2011 Vic Lee
  * Copyright (C) 2014-2015 Antenore Gatta, Fabio Castelli, Giovanni Panozzo
  * Copyright (C) 2016-2023 Antenore Gatta, Giovanni Panozzo
+ * Copyright (C) 2023-2024 Hiroyuki Tanaka, Sunil Bhat
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -60,6 +61,21 @@ typedef struct _RemminaPlugin {
 	const gchar *		domain;
 	const gchar *		version;
 } RemminaPlugin;
+
+typedef struct _RemminaServerPluginResponse {
+	const gchar * name;
+	const gchar * version;
+	const gchar * file_name; 
+    /*
+     * This is the signature received directly from the server. It should be base64 encoded.
+     */
+	const guchar * signature;
+    /*
+     * This is the data received directly from the server. It should be
+     * first compressed with gzip and then base64 encoded.
+    */
+	guchar * data;
+} RemminaServerPluginResponse;
 
 typedef struct _RemminaProtocolPlugin _RemminaProtocolPlugin;
 typedef struct _RemminaProtocolPlugin {
@@ -220,6 +236,7 @@ typedef struct _RemminaPluginService {
 	gchar *       (*file_get_secret)(RemminaFile * remminafile, const gchar *setting);
 	void (*file_set_int)(RemminaFile *remminafile, const gchar *setting, gint value);
 	gint (*file_get_int)(RemminaFile *remminafile, const gchar *setting, gint default_value);
+	gdouble (*file_get_double)(RemminaFile *remminafile, const gchar *setting, gdouble default_value);
 	void (*file_unsave_passwords)(RemminaFile *remminafile);
 
 	void (*pref_set_value)(const gchar *key, const gchar *value);
@@ -301,6 +318,7 @@ typedef struct _RemminaPluginService {
 	GtkWidget *(*rcw_open_from_file_full)(RemminaFile *remminafile, GCallback disconnect_cb, gpointer data, guint *handler);
 	void (*show_dialog)(GtkMessageType msg, GtkButtonsType buttons, const gchar* message);
 	GtkWindow *(*get_window)(void);
+	gint (*plugin_unlock_new)(GtkWindow* parent);
 } RemminaPluginService;
 
 /* "Prototype" of the plugin entry function */

@@ -92,9 +92,10 @@ static gboolean remmina_mpchange_fieldcompare(const gchar *needle, const gchar *
 		return TRUE;
 	}
 
-	if (strcasecmp(needle, haystack) != 0)
+	if (haystack[0] == 0 || strstr(haystack, needle) == NULL){
 		return FALSE;
-
+	}
+	
 	(*matchcount)++;
 	return TRUE;
 

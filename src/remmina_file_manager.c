@@ -3,6 +3,7 @@
  * Copyright (C) 2009-2010 Vic Lee
  * Copyright (C) 2014-2015 Antenore Gatta, Fabio Castelli, Giovanni Panozzo
  * Copyright (C) 2016-2023 Antenore Gatta, Giovanni Panozzo
+ * Copyright (C) 2023-2024 Hiroyuki Tanaka, Sunil Bhat
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -150,6 +151,7 @@ void remmina_file_manager_init(void)
 				g_build_path("/", g_get_user_data_dir(),
 					     "remmina", filename, NULL));
 		}
+		g_dir_close(dir);
 	}
 
 	/* XDG_DATA_DIRS, i.e. /usr/local/share/remmina */

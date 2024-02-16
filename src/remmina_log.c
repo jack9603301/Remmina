@@ -3,6 +3,7 @@
  * Copyright (C) 2010 Vic Lee
  * Copyright (C) 2014-2015 Antenore Gatta, Fabio Castelli, Giovanni Panozzo
  * Copyright (C) 2016-2023 Antenore Gatta, Giovanni Panozzo
+ * Copyright (C) 2023-2024 Hiroyuki Tanaka, Sunil Bhat
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -39,7 +40,7 @@
 #include "remmina_public.h"
 #include "remmina_pref.h"
 #include "remmina_log.h"
-#include "remmina_stats.h"
+#include "remmina_info.h"
 #include "remmina/remmina_trace_calls.h"
 
 gboolean logstart;
@@ -74,7 +75,7 @@ void remmina_log_stats()
 	TRACE_CALL(__func__);
 	JsonNode *n;
 
-	n = remmina_stats_get_all();
+	n = remmina_info_stats_get_all();
 	if (n != NULL) {
 
 		JsonGenerator *g = json_generator_new();
@@ -144,6 +145,7 @@ void remmina_log_start(void)
 		GtkWidget *start = gtk_switch_new ();
 		logstart = TRUE;
 		gtk_switch_set_active (GTK_SWITCH(start), logstart);
+		gtk_widget_set_valign (start, GTK_ALIGN_CENTER);
 		gtk_header_bar_pack_start (GTK_HEADER_BAR (header), start);
 
 		gtk_window_set_titlebar (GTK_WINDOW (log_window), header);
@@ -205,6 +207,20 @@ void remmina_log_print(const gchar *text)
 	IDLE_ADD(remmina_log_print_real, g_strdup(text));
 }
 
+void remmina_log_file_append(gchar *text) {
+	gchar *log_filename = g_build_filename(g_get_tmp_dir(), LOG_FILE_NAME, NULL);
+	FILE *log_file = fopen(log_filename, "a");
+	g_free(log_filename);
+	
+	if (log_file != NULL)
+	{
+		gchar* text_log = g_strconcat(text, "\n", NULL);
+		fwrite(text_log, sizeof(char), strlen(text_log), log_file);
+		fclose(log_file);
+		g_free(text_log);
+	}
+}
+
 void _remmina_info(const gchar *fmt, ...)
 {
 	TRACE_CALL(__func__);
@@ -214,6 +230,9 @@ void _remmina_info(const gchar *fmt, ...)
 	va_start(args, fmt);
 	text = g_strdup_vprintf(fmt, args);
 	va_end(args);
+
+	// Append text to remmina_log_file.log
+	remmina_log_file_append(text);
 
 	// always appends newline
 	g_info ("%s", text);
@@ -239,6 +258,9 @@ void _remmina_message(const gchar *fmt, ...)
 	text = g_strdup_vprintf(fmt, args);
 	va_end(args);
 
+	// Append text to remmina_log_file.log
+	remmina_log_file_append(text);
+
 	// always appends newline
 	g_message ("%s", text);
 
@@ -255,7 +277,7 @@ void _remmina_message(const gchar *fmt, ...)
 
 /**
  * Print a string in the Remmina Debug Windows and in the terminal.
- * The string will be visible in the terminal if G_MESSAGES_DEBUG=all
+ * The string will be visible in the terminal if G_MESSAGES_DEBUG=remmina
  * Variadic function of REMMINA_DEBUG
  */
 void _remmina_debug(const gchar *fun, const gchar *fmt, ...)
@@ -267,6 +289,9 @@ void _remmina_debug(const gchar *fun, const gchar *fmt, ...)
 	va_start(args, fmt);
 	text = g_strdup_vprintf(fmt, args);
 	va_end(args);
+
+	// Append text to remmina_log_file.log
+	remmina_log_file_append(text);
 
 	g_autofree gchar *buf = g_strconcat("(", fun, ") - ", text, NULL);
 	g_free(text);
@@ -295,6 +320,9 @@ void _remmina_warning(const gchar *fun, const gchar *fmt, ...)
 	text = g_strdup_vprintf(fmt, args);
 	va_end(args);
 
+	// Append text to remmina_log_file.log
+	remmina_log_file_append(text);
+
 	g_autofree gchar *buf = g_strconcat("(", fun, ") - ", text, NULL);
 	g_free(text);
 
@@ -319,6 +347,9 @@ void _remmina_audit(const gchar *fun, const gchar *fmt, ...)
 	va_start(args, fmt);
 	gchar *text = g_strdup_vprintf(fmt, args);
 	va_end(args);
+
+	// Append text to remmina_log_file.log
+	remmina_log_file_append(text);
 
 #if GLIB_CHECK_VERSION(2,62,0)
 	GDateTime* tv = g_date_time_new_now_local();
@@ -364,6 +395,9 @@ void _remmina_error(const gchar *fun, const gchar *fmt, ...)
 	text = g_strdup_vprintf(fmt, args);
 	va_end(args);
 
+	// Append text to remmina_log_file.log
+	remmina_log_file_append(text);
+
 	g_autofree gchar *buf = g_strconcat("(", fun, ") - ", text, NULL);
 	g_free(text);
 
@@ -390,6 +424,9 @@ void _remmina_critical(const gchar *fun, const gchar *fmt, ...)
 	va_start(args, fmt);
 	text = g_strdup_vprintf(fmt, args);
 	va_end(args);
+
+	// Append text to remmina_log_file.log
+	remmina_log_file_append(text);
 
 	g_autofree gchar *buf = g_strconcat("(", fun, ") - ", text, NULL);
 	g_free(text);

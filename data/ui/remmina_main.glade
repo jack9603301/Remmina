@@ -176,9 +176,35 @@
                   </object>
                 </child>
               </object>
-            </property>
+             </property>
           </object>
         </child>
+<!-- 
+            <child>
+              <object class="GtkMenuItem" id="menuitem_delete_rc">
+                <property name="app-paintable">True</property>
+                <property name="can-focus">False</property>
+                <property name="label">Popup menu for delete</property>
+                <child type="submenu">
+                  <object class="GtkMenu" id="menu_popup_delete_rc">
+                    <property name="visible">True</property>
+                    <property name="app-paintable">True</property>
+                    <property name="can-focus">False</property>
+                    <child>
+                      <object class="GtkMenuItem" id="menuitem_popup_delete_rc">
+                        <property name="visible">True</property>
+                        <property name="app-paintable">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="action-name">main.delete_multiple</property>
+                        <property name="label" translatable="yes">Delete</property>
+                        <property name="use-underline">True</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child> -->
+ 
         <child>
           <object class="GtkScrolledWindow" id="scrolled_files_list">
             <property name="focusable">1</property>

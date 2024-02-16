@@ -4,6 +4,7 @@
  * Copyright (C) 2014-2015 Antenore Gatta, Fabio Castelli, Giovanni Panozzo
  * Copyright (C) 2016-2022 Antenore Gatta, Giovanni Panozzo
  * Copyright (C) 2022-2023 Antenore Gatta, Giovanni Panozzo, Hiroyuki Tanaka
+ * Copyright (C) 2023-2024 Hiroyuki Tanaka, Sunil Bhat
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -878,6 +879,12 @@ remmina_ssh_auth_pubkey(RemminaSSH *ssh, RemminaProtocolWidget *gp, RemminaFile 
 			return REMMINA_SSH_AUTH_FATAL_ERROR;
 		}
 
+		// Check for empty username
+		if (ssh->user == NULL) {
+			remmina_ssh_set_error(ssh, _("No username found. Asking user to enter it."));
+			return REMMINA_SSH_AUTH_AUTHFAILED_EMPTY_USERNAME;
+		}
+
 		g_snprintf(pubkey, sizeof(pubkey), "%s.pub", ssh->privkeyfile);
 
 		/*G_FILE_TEST_EXISTS*/
@@ -1531,12 +1538,48 @@ remmina_ssh_auth_gui(RemminaSSH *ssh, RemminaProtocolWidget *gp, RemminaFile *re
 	 * on a ssh connection. And the 3rd failed attempt will block the calling thread forever.
 	 * So we retry only 2 extra time authentication. */
 	for (attempt = 0;
-	     attempt < 2 && ret == REMMINA_SSH_AUTH_AUTHFAILED_RETRY_AFTER_PROMPT;
+	     attempt < 2 && (ret == REMMINA_SSH_AUTH_AUTHFAILED_RETRY_AFTER_PROMPT || ret == REMMINA_SSH_AUTH_AUTHFAILED_EMPTY_USERNAME);
 	     attempt++) {
 		if (ssh->error)
 			REMMINA_DEBUG("Retrying auth because %s", ssh->error);
 
 		if (remmina_ssh_auth_type == REMMINA_SSH_AUTH_PKPASSPHRASE) {
+			// If username is empty, prompt user to enter it and attempt reconnect
+			if ( ret == REMMINA_SSH_AUTH_AUTHFAILED_EMPTY_USERNAME ) {
+				current_user = g_strdup(remmina_file_get_string(remminafile, ssh->is_tunnel ? "ssh_tunnel_username" : "username"));
+				ret = remmina_protocol_widget_panel_auth(gp,
+										(REMMINA_MESSAGE_PANEL_FLAG_USERNAME | REMMINA_MESSAGE_PANEL_FLAG_SAVEPASSWORD),
+										(ssh->is_tunnel ? _("SSH tunnel private key credentials") : _("SSH private key credentials")),
+										current_user,
+										remmina_file_get_string(remminafile, pwdfkey),
+										NULL,
+										_("Password for private SSH key"));
+
+				if (ret == GTK_RESPONSE_OK) {
+					// Save username to remmina file and reset ssh error for reconnect attempt
+					// If password is empty or changed, save the new password
+					remmina_file_set_string(remminafile, ssh->is_tunnel ? "ssh_tunnel_username" : "username", remmina_protocol_widget_get_username(gp));
+					ssh->user = remmina_protocol_widget_get_username(gp);
+					
+					g_free(current_pwd);
+					current_pwd = remmina_protocol_widget_get_password(gp);
+					save_password = remmina_protocol_widget_get_savepassword(gp);
+					if (save_password) {
+						remmina_file_set_string(remminafile, pwdfkey, current_pwd);
+					}
+					else {
+						remmina_file_set_string(remminafile, pwdfkey, NULL);
+					}
+
+					ssh->passphrase = remmina_protocol_widget_get_password(gp);
+					ssh->error = NULL;
+					return REMMINA_SSH_AUTH_RECONNECT;
+				}
+				else {
+					return REMMINA_SSH_AUTH_USERCANCEL;
+				}
+			}
+
 			ret = remmina_protocol_widget_panel_auth(gp,
 								 (disablepasswordstoring ? 0 :
 								  REMMINA_MESSAGE_PANEL_FLAG_SAVEPASSWORD),
@@ -1672,6 +1715,12 @@ remmina_ssh_init_session(RemminaSSH *ssh)
 	socket_t sshsock;
 	gint optval;
 #endif
+	// Handle IPv4 / IPv6 dual stack
+	char *hostname;
+	struct addrinfo hints,*aitop,*ai;
+	char ipstr[INET6_ADDRSTRLEN];
+	void *addr4=NULL;
+	void *addr6=NULL;
 
 	ssh->callback = g_new0(struct ssh_callbacks_struct, 1);
 
@@ -1840,13 +1889,83 @@ remmina_ssh_init_session(RemminaSSH *ssh)
 	else
 		REMMINA_DEBUG("SSH_OPTIONS_COMPRESSION does not have a valid value. %s", ssh->compression);
 
+	// Handle the dual IPv4 / IPv6 stack
+	// Prioritize IPv6 and fallback to IPv4
 	if (ssh_connect(ssh->session)) {
-		// TRANSLATORS: The placeholder %s is an error message
-		remmina_ssh_set_error(ssh, _("Could not start SSH session. %s"));
-		return FALSE;
-	}
+		unsigned short int success = 0;
 
-#ifdef HAVE_NETINET_TCP_H
+		// Run the DNS resolution 
+		// First retrieve host from the ssh->session structure
+		ssh_options_get(ssh->session, SSH_OPTIONS_HOST, &hostname);
+		// Call getaddrinfo
+		memset(&hints, 0, sizeof(hints));
+		hints.ai_family = AF_INET6;
+		hints.ai_socktype = SOCK_STREAM;
+		if ((getaddrinfo(hostname, NULL, &hints, &aitop)) != 0) {
+			ssh->error = g_strdup_printf("Could not resolve hostname %s to IPv6", hostname);
+			REMMINA_DEBUG(ssh->error);
+		}
+		else {
+			// We have one or more IPV6 addesses now, extract them
+			ai = aitop;
+			while (ai != NULL) {
+				struct sockaddr_in6 *ipv6 = (struct sockaddr_in6 *)ai->ai_addr;
+				addr6 = &(ipv6->sin6_addr);
+				inet_ntop(AF_INET6, addr6, ipstr, sizeof ipstr);
+				ssh_options_set(ssh->session, SSH_OPTIONS_HOST, ipstr);
+				REMMINA_DEBUG("Setting SSH_OPTIONS_HOST to IPv6 %s", ipstr);
+				if (ssh_connect(ssh->session)) {
+					ssh_disconnect(ssh->session);
+					REMMINA_DEBUG("IPv6 session failed");
+				} else {
+					success = 1;
+					REMMINA_DEBUG("IPv6 session success !");
+					break;
+				}
+				ai = ai->ai_next;
+			}
+			freeaddrinfo(aitop);
+		}
+		if (success == 0) {
+			// Fallback to IPv4
+			// Call getaddrinfo
+			memset(&hints, 0, sizeof(hints));
+			hints.ai_family = AF_INET;
+			hints.ai_socktype = SOCK_STREAM;
+			if ((getaddrinfo(hostname, NULL, &hints, &aitop)) != 0) {
+				ssh->error = g_strdup_printf("Could not resolve hostname %s to IPv4", hostname);
+				REMMINA_DEBUG(ssh->error);
+				return FALSE;
+			}
+			else {
+				// We have one or more IPV4 addesses now, extract them
+				ai = aitop;
+				while (ai != NULL) {
+					struct sockaddr_in *ipv4 = (struct sockaddr_in *)ai->ai_addr;
+					addr4 = &(ipv4->sin_addr);
+					inet_ntop(AF_INET, addr4, ipstr, sizeof ipstr);
+					ssh_options_set(ssh->session, SSH_OPTIONS_HOST, ipstr);
+					REMMINA_DEBUG("Setting SSH_OPTIONS_HOST to IPv4 %s", ipstr);
+					if (ssh_connect(ssh->session)) {
+						ssh_disconnect(ssh->session);
+						REMMINA_DEBUG("IPv4 session failed");
+					} else {
+						success = 1;
+						REMMINA_DEBUG("IPv4 session success !");
+						break;
+					}
+					ai = ai->ai_next;
+				}
+				freeaddrinfo(aitop);
+			}
+		}
+		if (success == 0){
+			return FALSE;
+		}
+	}
+ 
+ #ifdef HAVE_NETINET_TCP_H
+
 	/* Set keepalive on SSH socket, so we can keep firewalls awaken and detect
 	 * when we loss the tunnel */
 	sshsock = ssh_get_fd(ssh->session);
@@ -2280,7 +2399,8 @@ remmina_ssh_tunnel_main_thread_proc(gpointer data)
 	gint ret;
 	struct sockaddr_in sin;
 
-	t1 = t2 = g_date_time_new_now_local();
+	t1 = g_date_time_new_now_local();
+	t2 = g_date_time_new_now_local();
 
 	switch (tunnel->tunnel_type) {
 	case REMMINA_SSH_TUNNEL_OPEN:
@@ -2408,10 +2528,8 @@ remmina_ssh_tunnel_main_thread_proc(gpointer data)
 					REMMINA_DEBUG("Polling tunnel channels");
 						channel = ssh_channel_accept_forward(REMMINA_SSH(tunnel)->session, 0, &tunnel->port);
 					if (channel == NULL)
-						t2 = t1;
+						t2 = g_date_time_new_now_local();
 				}
-				g_date_time_unref(t1);
-				g_date_time_unref(t2);
 			}
 
 			if (channel) {

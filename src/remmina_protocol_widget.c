@@ -69,6 +69,7 @@ struct _RemminaProtocolWidgetPriv {
 
 	gboolean		has_error;
 	gchar *			error_message;
+	gboolean		user_disconnect;
 	/* ssh_tunnels is an array of RemminaSSHTunnel*
 	 * the 1st one is the "main" tunnel, other tunnels are used for example in sftp commands */
 	GPtrArray *		ssh_tunnels;
@@ -87,6 +88,7 @@ struct _RemminaProtocolWidgetPriv {
 	RemminaMessagePanel *	connect_message_panel;
 	RemminaMessagePanel *	listen_message_panel;
 	RemminaMessagePanel *	auth_message_panel;
+	RemminaMessagePanel *	retry_message_panel;
 
 	/* Data saved from the last message_panel when the user confirm */
 	gchar *			username;
@@ -233,6 +235,7 @@ static void remmina_protocol_widget_init(RemminaProtocolWidget *gp)
 
 	priv = g_new0(RemminaProtocolWidgetPriv, 1);
 	gp->priv = priv;
+	gp->priv->user_disconnect = FALSE;
 	gp->priv->closed = TRUE;
 	gp->priv->ssh_tunnels = g_ptr_array_new();
 
@@ -341,12 +344,11 @@ void remmina_protocol_widget_open_connection(RemminaProtocolWidget *gp)
 	remmina_protocol_widget_open_connection_real(gp);
 }
 
-static gboolean conn_closed(gpointer data)
-{
+static gboolean conn_closed_real(gpointer data, int button){
 	TRACE_CALL(__func__);
 	RemminaProtocolWidget *gp = (RemminaProtocolWidget *)data;
 
-#ifdef HAVE_LIBSSH
+	#ifdef HAVE_LIBSSH
 	/* This will close all tunnels */
 	remmina_protocol_widget_close_all_tunnels(gp);
 #endif
@@ -355,11 +357,36 @@ static gboolean conn_closed(gpointer data)
 	/* Notify listeners (usually rcw) that the connection is closed */
 	g_signal_emit_by_name(G_OBJECT(gp), "disconnect");
 	return G_SOURCE_REMOVE;
+
+}
+
+static gboolean conn_closed(gpointer data)
+{
+	TRACE_CALL(__func__);
+	RemminaProtocolWidget *gp = (RemminaProtocolWidget *)data;
+	int disconnect_prompt = remmina_file_get_int(gp->priv->remmina_file, "disconnect-prompt", FALSE);
+	if (!gp->priv->user_disconnect && !gp->priv->has_error && disconnect_prompt){
+		const char* msg = "Plugin Disconnected";
+		if (gp->priv->has_error){
+			msg = remmina_protocol_widget_get_error_message(gp);
+			remmina_protocol_widget_set_error(gp, NULL);
+		}
+		gp->priv->user_disconnect = FALSE;
+		RemminaMessagePanel* mp = remmina_message_panel_new();
+		remmina_message_panel_setup_message(mp, msg, (RemminaMessagePanelCallback)conn_closed_real, gp);
+		rco_show_message_panel(gp->cnnobj, mp);
+		return G_SOURCE_REMOVE;
+	}
+	else{
+		return conn_closed_real(gp, 0);
+	}
+
 }
 
 void remmina_protocol_widget_signal_connection_closed(RemminaProtocolWidget *gp)
 {
-	/* Plugin told us that it closed the connection,
+	/* User told us that they closed the connection,
+	 * or the connection was closed with a known error,
 	 * add async event to main thread to complete our close tasks */
 	TRACE_CALL(__func__);
 	gp->priv->closed = TRUE;
@@ -384,6 +411,10 @@ static gboolean conn_opened(gpointer data)
 	if (gp->priv->connect_message_panel) {
 		rco_destroy_message_panel(gp->cnnobj, gp->priv->connect_message_panel);
 		gp->priv->connect_message_panel = NULL;
+	}
+	if (gp->priv->retry_message_panel) {
+		rco_destroy_message_panel(gp->cnnobj, gp->priv->retry_message_panel);
+		gp->priv->retry_message_panel = NULL;
 	}
 	g_signal_emit_by_name(G_OBJECT(gp), "connect");
 	return G_SOURCE_REMOVE;
@@ -486,6 +517,7 @@ void remmina_protocol_widget_close_connection(RemminaProtocolWidget *gp)
 		g_signal_emit_by_name(G_OBJECT(gp), "disconnect");
 		return;
 	}
+	gp->priv->user_disconnect = TRUE;
 
 	/* Ask the plugin to close, async.
 	 *      The plugin will emit a "disconnect" signal on gp to call our
@@ -732,7 +764,7 @@ gboolean remmina_protocol_widget_map_event(RemminaProtocolWidget *gp)
 gboolean remmina_protocol_widget_unmap_event(RemminaProtocolWidget *gp)
 {
 	TRACE_CALL(__func__);
-	if (!gp->priv->plugin->get_plugin_screenshot) {
+	if (!gp->priv->plugin->unmap_event) {
 		REMMINA_DEBUG("Unmap plugin function not implemented");
 		return FALSE;
 	}
@@ -1148,6 +1180,44 @@ gchar *remmina_protocol_widget_start_direct_tunnel(RemminaProtocolWidget *gp, gi
 
 	g_ptr_array_add(gp->priv->ssh_tunnels, tunnel);
 
+
+	//try startup command
+	ssh_channel channel;
+	int rc;
+	const gchar* tunnel_command = remmina_file_get_string(gp->priv->remmina_file, "ssh_tunnel_command");
+	if (tunnel_command != NULL){
+		channel = ssh_channel_new(REMMINA_SSH(tunnel)->session);
+		if (channel == NULL) return g_strdup_printf("127.0.0.1:%i", remmina_pref.sshtunnel_port);
+
+		rc = ssh_channel_open_session(channel);
+		if (rc != SSH_OK)
+		{
+			ssh_channel_free(channel);
+			return g_strdup_printf("127.0.0.1:%i", remmina_pref.sshtunnel_port);
+		}
+		rc = ssh_channel_request_exec(channel, tunnel_command);
+		if (rc != SSH_OK)
+		{
+			ssh_channel_close(channel);
+			ssh_channel_free(channel);
+			return g_strdup_printf("127.0.0.1:%i", remmina_pref.sshtunnel_port);
+		}
+		struct timeval timeout = {10, 0};
+		ssh_channel channels[2];
+		channels[0] = channel;
+		channels[1] = NULL;
+		rc = ssh_channel_select(channels, NULL, NULL, &timeout);
+		if (rc == SSH_OK){
+			char buffer[256];
+			ssh_channel_read(channel, buffer, sizeof(buffer), 0);
+		}
+		
+		REMMINA_DEBUG("Ran startup command");
+		ssh_channel_close(channel);
+		ssh_channel_free(channel);
+	}
+
+
 	return g_strdup_printf("127.0.0.1:%i", remmina_pref.sshtunnel_port);
 
 #else
@@ -1551,6 +1621,9 @@ static gboolean remmina_protocol_widget_dialog_mt_setup(gpointer user_data)
 	mp = remmina_message_panel_new();
 
 	if (d->dtype == RPWDT_AUTH) {
+		if (d->pflags & REMMINA_MESSAGE_PANEL_FLAG_USERNAME) {
+			remmina_message_panel_field_set_string(mp, REMMINA_MESSAGE_PANEL_USERNAME, d->default_username);
+		}
 		remmina_message_panel_setup_auth(mp, authpanel_mt_cb, d, d->title, d->strpasswordlabel, d->pflags);
 		remmina_message_panel_field_set_string(mp, REMMINA_MESSAGE_PANEL_USERNAME, d->default_username);
 		if (d->pflags & REMMINA_MESSAGE_PANEL_FLAG_DOMAIN)
@@ -1995,6 +2068,7 @@ void remmina_protocol_widget_panel_show_retry(RemminaProtocolWidget *gp)
 
 	mp = remmina_message_panel_new();
 	remmina_message_panel_setup_progress(mp, _("Could not authenticate, attempting reconnection…"), NULL, NULL);
+	gp->priv->retry_message_panel = mp;
 	rco_show_message_panel(gp->cnnobj, mp);
 }
 

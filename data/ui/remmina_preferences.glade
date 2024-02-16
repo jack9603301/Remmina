@@ -1,5 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.38.2 -->
+<!-- Generated with glade 3.40.0
+
+Remmina - The GTK Remmina Remote Desktop Client
+Copyright © 2014-2022 Antenore Gatta, Giovanni Panozzo
+Copyright © 2022-2023 Antenore Gatta, Giovanni Panozzo, Hiroyuki Tanaka
+Copyright © 2023-2024 Hiroyuki Tanaka, Sunil Bhat
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+
+-->
 <interface>
   <requires lib="gtk+" version="3.12"/>
   <object class="GtkWindow" id="RemminaPrefDialog">
@@ -28,7 +49,7 @@
                 <property name="can-focus">True</property>
                 <property name="focusable">True</property>
                 <child>
-                  <!-- n-columns=3 n-rows=15 -->
+                  <!-- n-columns=3 n-rows=17 -->
                   <object class="GtkGrid" id="grid_options">
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
@@ -459,6 +480,109 @@
                         </layout>
                       </object>
                     </child>
+                    <child>
+                      <object class="GtkLabel" id="remmina_info_disable_stats_label">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="halign">start</property>
+                        <property name="margin-start">18</property>
+                        <property name="margin-end">6</property>
+                        <property name="label" translatable="yes">Disable anonymous statistics</property>
+                        <property name="justify">right</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">13</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkSwitch" id="switch_disable_stats">
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="halign">start</property>
+                        <property name="valign">center</property>
+                        <property name="margin-end">18</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="row">13</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="remmina_info_disable_news_label">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="halign">start</property>
+                        <property name="margin-start">18</property>
+                        <property name="margin-end">6</property>
+                        <property name="label" translatable="yes">Disable news from &lt;a href="https://remmina.org" title="Remmina news site"&gt;remmina.org&lt;/a&gt;</property>
+                        <property name="use-markup">True</property>
+                        <property name="justify">right</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">14</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkSwitch" id="switch_disable_news">
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="halign">start</property>
+                        <property name="valign">center</property>
+                        <property name="margin-end">18</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="row">14</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="remmina_info_disable_tip">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="halign">start</property>
+                        <property name="margin-start">18</property>
+                        <property name="margin-end">6</property>
+                        <property name="label" translatable="yes">Disable tip of the day</property>
+                        <property name="justify">right</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">15</property>
+                        </layout>
+                      </object>ing>
+                    </child>
+                    <child>
+                      <object class="GtkSwitch" id="switch_disable_tip">
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="halign">start</property>
+                        <property name="valign">center</property>
+                        <property name="margin-end">18</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="row">15</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <placeholder/>
+                    </child>
+                    <child>
+                      <placeholder/>
+                    </child>
+                    <child>
+                      <placeholder/>
+                    </child>
+                    <child>
+                      <placeholder/>
+                    </child>
+                    <child>
+                      <placeholder/>
+                    </child>
+                    <child>
+                      <placeholder/>
+                    </child>
                   </object>
                 </child>
               </object>
@@ -470,7 +594,7 @@
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="halign">start</property>
-            <property name="label" translatable="yes">Options</property>
+            <property name="label" translatable="yes">General</property>
           </object>
         </child>
         <child>
@@ -484,7 +608,7 @@
                 <property name="can-focus">True</property>
                 <property name="focusable">True</property>ty>
                 <child>
-                  <!-- n-columns=3 n-rows=9 -->
+                  <!-- n-columns=3 n-rows=10 -->
                   <object class="GtkGrid" id="grid_appearance">
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
@@ -724,6 +848,7 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="can-focus">True</property>
                         <property name="tooltip-text" translatable="yes">Enable/Disable “Grab all keyboard events” status colour</property>
                         <property name="halign">start</property>
+                        <property name="valign">center</property>
                         <property name="margin-start">6</property>
                         <property name="margin-end">6</property>
                         <property name="margin-top">18</property>
@@ -733,6 +858,42 @@ It changes the background colour of connection names in the Remmina connection t
                           <property name="row">0</property>
                         </layout>
                       </object>
+                    </child>
+                    <child>
+                      <placeholder/>
+                    </child>
+                    <child>
+                      <placeholder/>
+                    </child>
+                    <child>
+                      <placeholder/>
+                    </child>
+                    <child>
+                      <placeholder/>
+                    </child>
+                    <child>
+                      <placeholder/>
+                    </child>
+                    <child>
+                      <placeholder/>
+                    </child>
+                    <child>
+                      <placeholder/>
+                    </child>
+                    <child>
+                      <placeholder/>
+                    </child>
+                    <child>
+                      <placeholder/>
+                    </child>
+                    <child>
+                      <placeholder/>
+                    </child>
+                    <child>
+                      <placeholder/>
+                    </child>
+                    <child>
+                      <placeholder/>
                     </child>
                   </object>
                 </child>
@@ -744,6 +905,7 @@ It changes the background colour of connection names in the Remmina connection t
           <object class="GtkLabel" id="label_tab_appearance">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
+            <property name="halign">start</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Appearance</property>
           </object>
@@ -1225,15 +1387,12 @@ It changes the background colour of connection names in the Remmina connection t
                         <property name="margin-bottom">18</property>
                         <property name="label" translatable="yes">Multi monitor</property>
                         <property name="ellipsize">start</property>
-                         <layout>
-                          <property name="column">0</property>
-                          <property name="row">11</property>
-                        </layout>
                       </object>
+ 
                     </child>
-                    <child>
-                      <object class="GtkButton" id="button_keyboard_multimon">
-                        <property name="label" translatable="yes">Multi monitor</property>
+                     <child>
+                      <object class="GtkButton" id="button_keyboard_clipboard">
+                        <property name="label" translatable="yes">Send-clipboard</property>
                         <property name="width-request">100</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
@@ -1246,6 +1405,18 @@ It changes the background colour of connection names in the Remmina connection t
                           <property name="row">11</property>
                         </layout>
                         <signal name="clicked" handler="remmina_pref_dialog_on_key_chooser" swapped="no"/>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="label_keyboard_clipboard">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="halign">start</property>
+                        <property name="margin-start">18</property>
+                        <property name="margin-end">6</property>
+                        <property name="margin-bottom">18</property>
+                        <property name="label" translatable="yes">Send clipboard as keystrokes</property>
+                        <property name="ellipsize">start</property>
                       </object>
                     </child>
                   </object>
@@ -1507,7 +1678,7 @@ It changes the background colour of connection names in the Remmina connection t
                 <property name="focusable">True</property>
                 <property name="tooltip-text" translatable="yes">Time in seconds before Remmina will lock the session and asks for a password again. Default: 300 Seconds.</property>
                 <child>
-                  <!-- n-columns=2 n-rows=7 -->
+                  <!-- n-columns=2 n-rows=8 -->
                   <object class="GtkGrid">
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
@@ -1623,7 +1794,7 @@ It changes the background colour of connection names in the Remmina connection t
                         </layout>
                       </object>
                     </child>
-                   <child>
+                    <child>
                       <object class="GtkSwitch" id="switch_security_lock_connect">
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
@@ -1651,7 +1822,7 @@ It changes the background colour of connection names in the Remmina connection t
                         </layout>
                       </object>
                     </child>
-                   <child>
+                    <child>
                       <object class="GtkSwitch" id="switch_security_lock_view_passwords">
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>

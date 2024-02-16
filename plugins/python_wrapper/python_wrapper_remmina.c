@@ -67,6 +67,7 @@ static PyObject* python_wrapper_debug_wrapper(PyObject* self, PyObject* msg);
 static PyObject* remmina_register_plugin_wrapper(PyObject* self, PyObject* plugin);
 static PyObject* remmina_file_get_datadir_wrapper(PyObject* self, PyObject* plugin);
 static PyObject* remmina_file_new_wrapper(PyObject* self, PyObject* args, PyObject* kwargs);
+static PyObject* remmina_unlock_new_wrapper(PyObject* self, PyObject* args, PyObject* kwargs);
 static PyObject* remmina_pref_set_value_wrapper(PyObject* self, PyObject* args, PyObject* kwargs);
 static PyObject* remmina_pref_get_value_wrapper(PyObject* self, PyObject* args, PyObject* kwargs);
 static PyObject* remmina_pref_get_scale_quality_wrapper(PyObject* self, PyObject* plugin);
@@ -131,6 +132,11 @@ static PyMethodDef remmina_python_module_type_methods[] = {
 	 * Calls remmina_file_new and returns its result.
 	 */
 	{ "file_new", (PyCFunction)remmina_file_new_wrapper, METH_VARARGS | METH_KEYWORDS, NULL },
+
+	/**
+	 * Calls remmina_unlock_new and returns its result.
+	 */
+	{ "unlock_new", (PyCFunction)remmina_unlock_new_wrapper, METH_VARARGS | METH_KEYWORDS, NULL },
 
 	/**
 	 * Calls remmina_pref_set_value and returns its result.
@@ -661,6 +667,7 @@ PyMODINIT_FUNC python_wrapper_module_initialize(void)
 	PyModule_AddIntConstant(module, "PROTOCOL_SETTING_TYPE_SERVER", (long)REMMINA_PROTOCOL_SETTING_TYPE_SERVER);
 	PyModule_AddIntConstant(module, "PROTOCOL_SETTING_TYPE_PASSWORD", (long)REMMINA_PROTOCOL_SETTING_TYPE_PASSWORD);
 	PyModule_AddIntConstant(module, "PROTOCOL_SETTING_TYPE_RESOLUTION", (long)REMMINA_PROTOCOL_SETTING_TYPE_RESOLUTION);
+	PyModule_AddIntConstant(module, "PROTOCOL_SETTING_TYPE_ASSISTANCE", (long)REMMINA_PROTOCOL_SETTING_TYPE_ASSISTANCE);
 	PyModule_AddIntConstant(module, "PROTOCOL_SETTING_TYPE_KEYMAP", (long)REMMINA_PROTOCOL_SETTING_TYPE_KEYMAP);
 	PyModule_AddIntConstant(module, "PROTOCOL_SETTING_TYPE_TEXT", (long)REMMINA_PROTOCOL_SETTING_TYPE_TEXT);
 	PyModule_AddIntConstant(module, "PROTOCOL_SETTING_TYPE_SELECT", (long)REMMINA_PROTOCOL_SETTING_TYPE_SELECT);
@@ -853,6 +860,21 @@ static PyObject* remmina_file_new_wrapper(PyObject* self, PyObject* args, PyObje
 	return Py_None;
 }
 
+static PyObject* remmina_unlock_new_wrapper(PyObject* self, PyObject* args, PyObject* kwargs)
+{
+	TRACE_CALL(__func__);
+
+	static char* kwlist[] = { "window", NULL};
+	GtkWindow* window = NULL;
+
+	if (!PyArg_ParseTupleAndKeywords(args, kwargs, "|0", kwlist, &window))
+	{
+		return Py_None;
+	}
+
+	return PyBool_FromLong(python_wrapper_get_service()->plugin_unlock_new(window));
+}
+
 static PyObject* remmina_pref_set_value_wrapper(PyObject* self, PyObject* args, PyObject* kwargs)
 {
 	TRACE_CALL(__func__);
@@ -892,7 +914,7 @@ static PyObject* remmina_pref_get_value_wrapper(PyObject* self, PyObject* args, 
 		const gchar* value = python_wrapper_get_service()->pref_get_value(key);
 		if (value)
 		{
-			result = PyUnicode_FromFormat("%s", result);
+			result = PyUnicode_FromFormat("%s", value);
 		}
 	}
 
@@ -1023,19 +1045,20 @@ static PyObject* remmina_public_get_server_port_wrapper(PyObject* self, PyObject
 {
 	TRACE_CALL(__func__);
 
-	static char* kwlist[] = { "server", "defaultport", "host", "port", NULL };
+	static char* kwlist[] = { "server", "defaultport", NULL };
 	gchar* server;
 	gint defaultport;
 
-	if (PyArg_ParseTupleAndKeywords(args, kwargs, "slsl", kwlist, &server, &defaultport) && server)
+	if (PyArg_ParseTupleAndKeywords(args, kwargs, "sl", kwlist, &server, &defaultport) && server)
 	{
 		gchar* host;
 		gint port;
 		python_wrapper_get_service()->get_server_port(server, defaultport, &host, &port);
 
 		PyObject* result = PyList_New(2);
-		PyList_Append(result, PyUnicode_FromString(host));
-		PyList_Append(result, PyLong_FromLong(port));
+		PyList_SetItem(result, 0, PyUnicode_FromString(host));
+		PyList_SetItem(result, 1, PyLong_FromLong(port));
+
 		return PyList_AsTuple(result);
 	}
 

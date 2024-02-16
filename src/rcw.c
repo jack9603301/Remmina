@@ -94,6 +94,7 @@ struct _RemminaConnectionWindowPriv {
 	GtkWidget *					overlay;
 	GtkWidget *					revealer;
 	GtkWidget *					overlay_ftb_overlay;
+	GtkWidget *					overlay_ftb_fr;
 
 	GtkWidget *					floating_toolbar_label;
 	gdouble						floating_toolbar_opacity;
@@ -202,6 +203,7 @@ static GtkWidget *rco_create_tab_label(RemminaConnectionObject *cnnobj);
 void rcw_grab_focus(RemminaConnectionWindow *cnnwin);
 static GtkWidget *rcw_create_toolbar(RemminaConnectionWindow *cnnwin, gint mode);
 static void rcw_place_toolbar(GtkBox *toolbar, GtkGrid *grid, GtkWidget *sibling, int toolbar_placement);
+static void rco_update_toolbar(RemminaConnectionObject *cnnobj);
 static void rcw_keyboard_grab(RemminaConnectionWindow *cnnwin);
 static void rcw_run_feature(GSimpleAction *action, GVariant *param, gpointer data);
 static void rcw_toolbar_menu_on_launch_item(GSimpleAction *action, GVariant *param, gpointer data);
@@ -2440,6 +2442,8 @@ static void rcw_toolbar_duplicate(GtkWidget *toggle, RemminaConnectionWindow *cn
 		return;
 	if (!(cnnobj = rcw_get_visible_cnnobj(cnnwin))) return;
 
+	remmina_file_save(cnnobj->remmina_file);
+
 	remmina_exec_command(REMMINA_COMMAND_CONNECT, cnnobj->remmina_file->filename);
 }
 
@@ -2618,8 +2622,13 @@ static void rcw_toolbar_grab(GtkWidget *toggle, RemminaConnectionWindow *cnnwin)
 	if (!(cnnobj = rcw_get_visible_cnnobj(cnnwin))) return;
 
 	capture = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(toggle));
-	remmina_file_set_int(cnnobj->remmina_file, "keyboard_grab", capture);
+	
+	if (cnnobj->connected){
+		remmina_file_set_int(cnnobj->remmina_file, "keyboard_grab", capture);
+	}
+
 	if (capture && cnnobj->connected) {
+		
 #if DEBUG_KB_GRABBING
 		printf("DEBUG_KB_GRABBING: Grabbing for button\n");
 #endif
@@ -2629,6 +2638,8 @@ static void rcw_toolbar_grab(GtkWidget *toggle, RemminaConnectionWindow *cnnwin)
 	} else {
 		rcw_kp_ungrab(cnnobj->cnnwin);
 	}
+
+	rco_update_toolbar(cnnobj);
 }
 
 static GtkWidget *
@@ -3036,11 +3047,15 @@ static void rco_update_toolbar(RemminaConnectionObject *cnnobj)
 		}
 
 		if (remmina_file_get_int(cnnobj->remmina_file, "keyboard_grab", FALSE)) {
-			if (remmina_pref_get_boolean("grab_color_switch"))
-				format = g_strconcat("<span bgcolor=\"", bg, "\" size=\"large\"><b>(G:ON) - \%s</b></span>", NULL);
-			else
-				format = "<big><b>(G:ON) - \%s</b></big>";
+			if (remmina_pref_get_boolean("grab_color_switch")) {
+				// gtk_widget_override_background_color(priv->overlay_ftb_fr, GTK_STATE_NORMAL, &rgba);
+				format = g_strconcat("<span bgcolor=\"", bg, "\" size=\"large\"><b>(G: ON) - \%s</b></span>", NULL);
+			} else {
+				// gtk_widget_override_background_color(priv->overlay_ftb_fr, GTK_STATE_NORMAL, NULL);
+				format = "<big><b>(G: ON) - \%s</b></big>";
+			}
 		} else {
+			// gtk_widget_override_background_color(priv->overlay_ftb_fr, GTK_STATE_NORMAL, NULL); TODO GTK4
 			format = "<big><b>(G:OFF) - \%s</b></big>";
 		}
 		gchar *markup;
@@ -4199,6 +4214,10 @@ static void rcw_create_overlay_ftb_overlay(RemminaConnectionWindow *cnnwin)
 		priv->overlay_ftb_overlay = NULL;
 		priv->revealer = NULL;
 	}
+	if (priv->overlay_ftb_fr != NULL) {
+		gtk_window_destroy(priv->overlay_ftb_fr);
+		priv->overlay_ftb_fr = NULL;
+	}
 
 	rcw_create_floating_toolbar(cnnwin, priv->fss_view_mode);
 
@@ -4239,6 +4258,7 @@ static void rcw_create_overlay_ftb_overlay(RemminaConnectionWindow *cnnwin)
 	GtkWidget *fr;
 
 	fr = gtk_frame_new(NULL);
+	priv->overlay_ftb_fr = fr;
 	gtk_box_append(GTK_BOX(priv->overlay_ftb_overlay), fr);
 	gtk_frame_set_child(GTK_FRAME(fr), vbox);
 
@@ -4528,6 +4548,10 @@ static gboolean rcw_hostkey_func(RemminaProtocolWidget *gp, guint keyval, gboole
 		if (i < 0)
 			i = gtk_notebook_get_n_pages(GTK_NOTEBOOK(priv->notebook)) - 1;
 		gtk_notebook_set_current_page(GTK_NOTEBOOK(priv->notebook), i);
+	} else if (keyval == remmina_pref.shortcutkey_clipboard && !extrahardening) {
+		if (remmina_protocol_widget_plugin_receives_keystrokes(REMMINA_PROTOCOL_WIDGET(cnnobj->proto))) {
+			remmina_protocol_widget_send_clipboard((RemminaProtocolWidget*)cnnobj->proto, G_OBJECT(cnnobj->proto));
+		}
 	} else if (keyval == remmina_pref.shortcutkey_scale && !extrahardening) {
 		if (gtk_widget_is_sensitive(GTK_WIDGET(priv->toolitem_scale))) {
 			gtk_toggle_button_set_active(

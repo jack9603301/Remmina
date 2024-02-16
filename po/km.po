@@ -4,13 +4,14 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
 # Allan Nordhøy <epost@anotheragency.no>, 2020, 2022.
 # Antenore Gatta <antenore@simbiosi.org>, 2021.
+# កុសិនារា <kursinarapok@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: remmina\n"
 "Report-Msgid-Bugs-To: l10n@lists.remmina.org\n"
-"POT-Creation-Date: 2023-03-27 12:04+0000\n"
-"PO-Revision-Date: 2022-11-27 08:48+0000\n"
-"Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
+"POT-Creation-Date: 2024-02-08 11:49+0000\n"
+"PO-Revision-Date: 2023-12-22 11:08+0000\n"
+"Last-Translator: កុសិនារា <kursinarapok@gmail.com>\n"
 "Language-Team: Khmer (Central) <https://hosted.weblate.org/projects/remmina/"
 "remmina/km/>\n"
 "Language: km\n"
@@ -18,86 +19,76 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.15-dev\n"
+"X-Generator: Weblate 5.4-dev\n"
 "X-Launchpad-Export-Date: 2014-09-20 14:24+0000\n"
 
 #: src/remmina_sftp_plugin.c:309 src/remmina_sftp_plugin.c:353
-#: src/remmina_protocol_widget.c:1694 src/remmina_protocol_widget.c:1713
-#: src/remmina_file_editor.c:1137 src/remmina_file_editor.c:1260
-#: src/remmina_ssh_plugin.c:1394 plugins/rdp/rdp_plugin.c:2814
+#: src/remmina_protocol_widget.c:1729 src/remmina_protocol_widget.c:1748
+#: src/remmina_file_editor.c:1216 src/remmina_file_editor.c:1339
+#: src/remmina_ssh_plugin.c:1394 plugins/rdp/rdp_plugin.c:3110
 #: plugins/www/www_plugin.c:909 plugins/x2go/x2go_plugin.c:3397
-#: data/ui/remmina_mpc.glade:218 data/ui/remmina_passwd.glade:84
-#: data/ui/remmina_unlock.glade:109
-#, fuzzy
+#: data/ui/remmina_mpc.glade:218 data/ui/remmina_passwd.glade:68
+#: data/ui/remmina_unlock.glade:98
 msgid "Password"
-msgstr "ពាក្យ​សម្ងាត់"
+msgstr "ពាក្យសម្ងាត់"
 
 #: src/remmina_sftp_plugin.c:310 src/remmina_sftp_plugin.c:355
-#: src/remmina_file_editor.c:1138 src/remmina_ssh_plugin.c:1395
+#: src/remmina_file_editor.c:1217 src/remmina_ssh_plugin.c:1395
 #: src/remmina_ssh_plugin.c:1506 plugins/x2go/x2go_plugin.c:3420
-#, fuzzy
 msgid "SSH identity file"
-msgstr "ឯកសារ អត្តសញ្ញាណ SSH"
+msgstr "ឯកសារអត្តសញ្ញាណ SSH"
 
-#: src/remmina_sftp_plugin.c:311 src/remmina_file_editor.c:1139
+#: src/remmina_sftp_plugin.c:311 src/remmina_file_editor.c:1218
 #: src/remmina_ssh_plugin.c:1396
-#, fuzzy
 msgid "SSH agent"
 msgstr "ភ្នាក់ងារ SSH"
 
-#: src/remmina_sftp_plugin.c:312 src/remmina_file_editor.c:1140
+#: src/remmina_sftp_plugin.c:312 src/remmina_file_editor.c:1219
 #: src/remmina_ssh_plugin.c:1397
-#, fuzzy
 msgid "Public key (automatic)"
-msgstr "សោសាធារណៈ (ស្វ័យប្រវត្ត)"
+msgstr "ឃីសាធារណៈ (ស្វ័យប្រវត្តិ)"
 
-#: src/remmina_sftp_plugin.c:313 src/remmina_file_editor.c:1141
+#: src/remmina_sftp_plugin.c:313 src/remmina_file_editor.c:1220
 #: src/remmina_ssh_plugin.c:1398
 #, fuzzy
 msgid "Kerberos (GSSAPI)"
 msgstr "Kerberos (GSSAPI)"
 
 #: src/remmina_sftp_plugin.c:322
-#, fuzzy
 msgid "Show Hidden Files"
-msgstr "បង្ហាញ ឯកសារ លាក់"
+msgstr "បង្ហាញឯកសារដែលលាក់"
 
 #: src/remmina_sftp_plugin.c:324
-#, fuzzy
 msgid "Overwrite all files"
-msgstr "លើសពីការសរសេរឯកសារទាំងអស់"
+msgstr "សរសេរជាន់ឯកសារទាំងអស់"
 
 #: src/remmina_sftp_plugin.c:326
-#, fuzzy
 msgid "Resume all file transfers"
-msgstr "បន្ត ការ ផ្ទេរ ឯកសារ ទាំងអស់"
+msgstr "បន្តការផ្ទេរឯកសារទាំងអស់"
 
-#: src/remmina_sftp_plugin.c:327 src/remmina_protocol_widget.c:282
-#, fuzzy
+#: src/remmina_sftp_plugin.c:327 src/remmina_protocol_widget.c:285
 msgid "Connect via SSH from a new terminal"
 msgstr "ភ្ជាប់តាមរយៈ SSH ពីស្ថានីយថ្មី"
 
-#: src/remmina_sftp_plugin.c:352 src/remmina_message_panel.c:329
-#: src/remmina_file_editor.c:1254 src/remmina_ssh_plugin.c:1504
-#: plugins/rdp/rdp_plugin.c:2813 plugins/vnc/vnc_plugin.c:2079
-#: plugins/vnc/vnc_plugin.c:2091 plugins/www/www_plugin.c:908
+#: src/remmina_sftp_plugin.c:352 src/remmina_message_panel.c:330
+#: src/remmina_file_editor.c:1333 src/remmina_ssh_plugin.c:1504
+#: plugins/rdp/rdp_plugin.c:3109 plugins/vnc/vnc_plugin.c:2098
+#: plugins/vnc/vnc_plugin.c:2110 plugins/www/www_plugin.c:908
 #: plugins/x2go/x2go_plugin.c:482 plugins/x2go/x2go_plugin.c:3396
 #: data/ui/remmina_mpc.glade:122
-#, fuzzy
 msgid "Username"
-msgstr "ឈ្មោះ​គណនី"
+msgstr "អត្ថនាម"
 
-#: src/remmina_sftp_plugin.c:354 src/remmina_file_editor.c:1245
+#: src/remmina_sftp_plugin.c:354 src/remmina_file_editor.c:1324
 #: src/remmina_ssh_plugin.c:1503
 #, fuzzy
 msgid "Authentication type"
 msgstr "ប្រភេទផ្ទៀងផ្ទាត់"
 
-#: src/remmina_sftp_plugin.c:356 src/remmina_file_editor.c:1278
+#: src/remmina_sftp_plugin.c:356 src/remmina_file_editor.c:1357
 #: src/remmina_ssh_plugin.c:1510
-#, fuzzy
 msgid "Password to unlock private key"
-msgstr "ពាក្យសម្ងាត់ដើម្បីដោះសោគន្លឹះឯកជន"
+msgstr "ពាក្យសម្ងាត់ ដើម្បីដោះសោឃីឯកជន"
 
 #: src/remmina_sftp_plugin.c:357 src/remmina_ssh_plugin.c:1541
 #, fuzzy
@@ -105,23 +96,18 @@ msgid "SSH Proxy Command"
 msgstr "បញ្ជា SSH Proxy"
 
 #: src/remmina_sftp_plugin.c:366
-#, fuzzy
 msgid "SFTP - Secure File Transfer"
 msgstr "SFTP - ការផ្ទេរឯកសារសុវត្ថិភាព"
 
-#: src/remmina_log.c:130
-#, fuzzy
-#| msgid "Open Main Window"
+#: src/remmina_log.c:131
 msgid "Remmina debugging window"
-msgstr "បើក បង្អួច មេ Remmina"
+msgstr "ផ្ទាំងកែកំហុស Remmina"
 
-#: src/remmina_log.c:134
-#, fuzzy
-#| msgid "Open Main Window"
+#: src/remmina_log.c:135
 msgid "Paste system info in the Remmina debugging window"
-msgstr "បើក បង្អួច មេ Remmina"
+msgstr "បិទភ្ជាប់ព័ត៌មានប្រព័ន្ធក្នុងផ្ទាំងកែកំហុស Remmina"
 
-#: src/remmina_log.c:154
+#: src/remmina_log.c:156
 msgid ""
 "This window can help you find connection problems.\n"
 "You can stop and start the logging at any moment using the On/Off switch.\n"
@@ -131,86 +117,101 @@ msgid ""
 "Remmina/-/wikis/Usage/Remmina-debugging\n"
 msgstr ""
 
-#: src/remmina_plugin_manager.c:74 src/remmina_file_editor.c:2005
-#, fuzzy
+#: src/remmina_plugin_manager.c:86 src/remmina_file_editor.c:2119
 msgid "Protocol"
 msgstr "ពិធីការ"
 
-#: src/remmina_plugin_manager.c:74
+#: src/remmina_plugin_manager.c:86
 #, fuzzy
 msgid "Entry"
 msgstr "ធាតុ"
 
-#: src/remmina_plugin_manager.c:74
-#, fuzzy
+#: src/remmina_plugin_manager.c:86
 msgid "File"
 msgstr "ឯកសារ"
 
-#: src/remmina_plugin_manager.c:74
-#, fuzzy
+#: src/remmina_plugin_manager.c:86
 msgid "Tool"
 msgstr "ឧបករណ៍"
 
-#: src/remmina_plugin_manager.c:74
-#, fuzzy
+#: src/remmina_plugin_manager.c:86
 msgid "Preference"
 msgstr "ចំណូលចិត្ត"
 
-#: src/remmina_plugin_manager.c:74
-#, fuzzy
+#: src/remmina_plugin_manager.c:86
 msgid "Secret"
-msgstr "អាថ៌កំបាំង"
+msgstr "ការសម្ងាត់"
 
-#: src/remmina_plugin_manager.c:74
+#: src/remmina_plugin_manager.c:86
 msgid "Language Wrapper"
 msgstr ""
 
-#: src/remmina_plugin_manager.c:526 data/ui/remmina_main.glade:306
+#: src/remmina_plugin_manager.c:773
+#, fuzzy
+#| msgid "Download"
+msgid "Plugin Download"
+msgstr "ទាញយក"
+
+#: src/remmina_plugin_manager.c:773 src/remmina_message_panel.c:455
+#: src/remmina_message_panel.c:624 src/remmina_ftp_client.c:411
+#: src/remmina_file_editor.c:253
+msgid "_OK"
+msgstr "អូខេ(_O)"
+
+#: src/remmina_plugin_manager.c:1369 data/ui/remmina_main.glade:330
 #, fuzzy
 msgid "Plugins"
 msgstr "ឧបករណ៍"
 
-#: src/remmina_plugin_manager.c:526 src/remmina_message_panel.c:451
-#: src/remmina_message_panel.c:620 src/remmina_file_editor.c:245
+#: src/remmina_plugin_manager.c:1369
 #, fuzzy
-msgid "_OK"
-msgstr "_OK"
+#| msgid "Download"
+msgid "_Download"
+msgstr "ទាញយក"
 
-#: src/remmina_plugin_manager.c:544 src/remmina_file_editor.c:1937
-#: data/ui/remmina_main.glade:433
-#, fuzzy
+#: src/remmina_plugin_manager.c:1369 src/remmina_message_panel.c:199
+#: data/ui/remmina_snap_info_dialog.glade:25
+#: data/ui/remmina_string_list.glade:8 data/ui/remmina_string_list.glade:9
+#: data/ui/remmina_string_list.glade:63 data/ui/remmina_info.glade:49
+#: data/ui/remmina_preferences.glade:2860
+msgid "Close"
+msgstr "បិទ"
+
+#: src/remmina_plugin_manager.c:1408
+msgid "Install"
+msgstr ""
+
+#: src/remmina_plugin_manager.c:1415 src/remmina_plugin_manager.c:1420
+#: src/remmina_file_editor.c:2051 data/ui/remmina_main.glade:466
+#: data/ui/remmina_bug_report.glade:128
 msgid "Name"
 msgstr "ឈ្មោះ"
 
-#: src/remmina_plugin_manager.c:550
-#, fuzzy
+#: src/remmina_plugin_manager.c:1426 src/remmina_plugin_manager.c:1431
 msgid "Type"
 msgstr "ប្រភេទ"
 
-#: src/remmina_plugin_manager.c:556
+#: src/remmina_plugin_manager.c:1437 src/remmina_plugin_manager.c:1442
 #, fuzzy
 msgid "Description"
 msgstr "ពិពណ៍នា"
 
-#: src/remmina_plugin_manager.c:562
-#, fuzzy
+#: src/remmina_plugin_manager.c:1449 src/remmina_plugin_manager.c:1454
 msgid "Version"
 msgstr "កំណែ"
 
 #: src/remmina_chat_window.c:177
-#, fuzzy, c-format
+#, c-format
 msgid "Chat with %s"
 msgstr "ជជែក​ជាមួយ %s"
 
 #: src/remmina_chat_window.c:229
-#, fuzzy
 msgid "_Send"
-msgstr "ផ្ញើ"
+msgstr "បញ្ជូន(_S)"
 
 #: src/remmina_chat_window.c:239
-#, fuzzy
 msgid "_Clear"
-msgstr "ជម្រះ"
+msgstr "ជម្រះ(_C)"
 
 #: src/remmina_applet_menu_item.c:125
 #, fuzzy
@@ -218,83 +219,70 @@ msgid "Discovered"
 msgstr "បាន​រកឃើញ"
 
 #: src/remmina_applet_menu_item.c:130
-#, fuzzy
 msgid "New Connection"
 msgstr "ការ​​​តភ្ជាប់​​ថ្មី"
 
 #: src/remmina_key_chooser.h:40
-#, fuzzy
 msgid "Shift+"
-msgstr "ប្តូរ+"
+msgstr "Shift+"
 
 #: src/remmina_key_chooser.h:41
-#, fuzzy
 msgid "Ctrl+"
 msgstr "Ctrl+"
 
 #: src/remmina_key_chooser.h:42
-#, fuzzy
 msgid "Alt+"
 msgstr "Alt+"
 
 #: src/remmina_key_chooser.h:43
-#, fuzzy
 msgid "Super+"
 msgstr "Super+"
 
 #: src/remmina_key_chooser.h:44
-#, fuzzy
 msgid "Hyper+"
 msgstr "Hyper+"
 
 #: src/remmina_key_chooser.h:45
-#, fuzzy
 msgid "Meta+"
 msgstr "Meta+"
 
 #: src/remmina_key_chooser.h:46
-#, fuzzy
 msgid "<None>"
-msgstr "<None>"
+msgstr "<ទទេ>"
 
-#: src/remmina_pref_dialog.c:94 src/remmina_file_editor.c:549
-#, fuzzy
+#: src/remmina_pref_dialog.c:95 src/remmina_file_editor.c:561
 msgid "Resolutions"
-msgstr "គុណភាព​បង្ហាញ"
+msgstr "កម្រិតបង្ហាញ"
 
-#: src/remmina_pref_dialog.c:94 src/remmina_file_editor.c:549
-#, fuzzy
+#: src/remmina_pref_dialog.c:95 src/remmina_file_editor.c:561
 msgid "Configure the available resolutions"
-msgstr "កំណត់ រចនា សម្ព័ន្ធ រចនាសម្ព័ន្ធ ដែល មាន"
+msgstr "កំណត់រចនាសម្ព័ន្ធកម្រិតបង្ហាញដែលអាចប្រើបាន"
 
-#: src/remmina_pref_dialog.c:146
-#, fuzzy
+#: src/remmina_pref_dialog.c:147
 msgid "Recent lists cleared."
-msgstr "បញ្ជី ថ្មីៗ បាន ជម្រះ & # 160; ។"
+msgstr "បានជម្រះបញ្ជីថ្មីៗ។"
 
-#: src/remmina_pref_dialog.c:158 src/rcw.c:2071
-#: data/ui/remmina_preferences.glade:169 data/ui/remmina_preferences.glade:179
-#, fuzzy
+#: src/remmina_pref_dialog.c:159 src/rcw.c:2073
+#: data/ui/remmina_preferences.glade:190 data/ui/remmina_preferences.glade:200
 msgid "Keystrokes"
-msgstr "គន្លឹះ trokes"
+msgstr "គ្រាប់ចុច"
 
-#: src/remmina_pref_dialog.c:158
-#, fuzzy
+#: src/remmina_pref_dialog.c:159
 msgid "Configure the keystrokes"
-msgstr "កំណត់រចនាសម្ព័ន្ធគន្លឹះ"
+msgstr "កំណត់រចនាសម្ព័ន្ធគ្រាប់ចុច"
 
 #. TRANSLATORS: Do not translate libsodium, is the name of a library
-#: src/remmina_pref_dialog.c:479
+#: src/remmina_pref_dialog.c:483
 #, fuzzy
 msgid "libsodium >= 1.9.0 is required to use Primary Password"
 msgstr "libsodium >= 1.9.0 ត្រូវ បាន តម្រូវ ឲ្យ ប្រើ ពាក្យ សម្ងាត់ មេ"
 
-#: src/remmina_pref_dialog.c:813
+#: src/remmina_pref_dialog.c:845
 #, fuzzy
 msgid "Picking a terminal colouring file replaces the file: "
 msgstr "ការ ជ្រើស រើស ឯកសារ ពណ៌ ស្ថានីយ ជំនួស ឯកសារ ៖ "
 
-#: src/remmina_pref_dialog.c:817
+#: src/remmina_pref_dialog.c:849
 #, fuzzy
 msgid ""
 "This file contains the “Custom” terminal colour scheme selectable from the "
@@ -304,115 +292,93 @@ msgstr ""
 "ឯកសារ នេះ មាន គំរោង ពណ៌ ស្ថានីយ \"Custom\" ដែល អាច ជ្រើស បាន ពី ផ្ទាំង \"Advanced\" "
 "នៃ ការ តភ្ជាប់ ស្ថានីយ និង អាច កែសម្រួល បាន នៅ ក្នុង ផ្ទាំង \"Terminal\" ក្នុង ការកំណត់ ។"
 
-#: src/remmina_message_panel.c:162 data/ui/remmina_mpc.glade:33
-#: data/ui/remmina_passwd.glade:19 data/ui/remmina_unlock.glade:43
-#, fuzzy
+#: src/remmina_message_panel.c:163 data/ui/remmina_mpc.glade:33
+#: data/ui/remmina_passwd.glade:21 data/ui/remmina_unlock.glade:44
 msgid "Cancel"
 msgstr "បោះបង់"
 
-#: src/remmina_message_panel.c:198 data/ui/remmina_snap_info_dialog.glade:25
-#: data/ui/remmina_string_list.glade:8 data/ui/remmina_string_list.glade:9
-#: data/ui/remmina_string_list.glade:63 data/ui/remmina_news.glade:33
-#: data/ui/remmina_preferences.glade:2683
-#, fuzzy
-msgid "Close"
-msgstr "បិទ"
-
-#: src/remmina_message_panel.c:259
-#, fuzzy
+#: src/remmina_message_panel.c:260
 msgid "Yes"
 msgstr "បាទ/ចាស"
 
-#: src/remmina_message_panel.c:266
-#, fuzzy
+#: src/remmina_message_panel.c:267 plugins/rdp/rdp_plugin.c:2993
 msgid "No"
 msgstr "ទេ"
 
-#: src/remmina_message_panel.c:390 plugins/rdp/rdp_plugin.c:2815
+#: src/remmina_message_panel.c:394 plugins/rdp/rdp_plugin.c:3111
 #: data/ui/remmina_mpc.glade:151
-#, fuzzy
 msgid "Domain"
 msgstr "ដែន"
 
-#: src/remmina_message_panel.c:419
-#, fuzzy
+#: src/remmina_message_panel.c:423
 msgid "Save password"
 msgstr "រក្សា​​ទុក​​​ពាក្យ​​​សម្ងាត់"
 
-#: src/remmina_message_panel.c:456 src/remmina_message_panel.c:628
-#: src/remmina_sftp_client.c:972 src/remmina_file_editor.c:244
-#: src/remmina_file_editor.c:1811 plugins/spice/spice_plugin_file_transfer.c:84
+#: src/remmina_message_panel.c:460 src/remmina_message_panel.c:632
+#: src/remmina_ftp_client.c:411 src/remmina_ftp_client.c:607
+#: src/remmina_main.c:1267 src/remmina_main.c:1318
+#: src/remmina_sftp_client.c:972 src/remmina_file_editor.c:252
+#: src/remmina_file_editor.c:1925 plugins/spice/spice_plugin_file_transfer.c:84
 #: data/ui/remmina_key_chooser.glade:8 data/ui/remmina_key_chooser.glade:9
 #: data/ui/remmina_spinner.glade:8 data/ui/remmina_spinner.glade:9
-#, fuzzy
 msgid "_Cancel"
-msgstr "_Cancel"
+msgstr "បោះបង់(_C)"
 
-#: src/remmina_message_panel.c:512
-#, fuzzy
+#: src/remmina_message_panel.c:516
 msgid "Enter certificate authentication files"
-msgstr "បញ្ចូលឯកសារផ្ទៀងផ្ទាត់វិញ្ញាបនប័ត្រ"
+msgstr "បញ្ចូលឯកសារផ្ទៀងផ្ទាត់វិញ្ញាបនបត្រ"
 
-#: src/remmina_message_panel.c:524
-#, fuzzy
+#: src/remmina_message_panel.c:528
 msgid "CA Certificate File"
 msgstr "ឯកសារវិញ្ញាបនបត្រ CA"
 
-#: src/remmina_message_panel.c:546
-#, fuzzy
+#: src/remmina_message_panel.c:550
 msgid "CA CRL File"
 msgstr "ឯកសារ CA CRL"
 
-#: src/remmina_message_panel.c:568
-#, fuzzy
+#: src/remmina_message_panel.c:572
 msgid "Client Certificate File"
-msgstr "ឯកសារវិញ្ញាបនបត្រអតិថិជន"
+msgstr "ឯកសារវិញ្ញាបនបត្រអតិថូបករណ៍"
 
-#: src/remmina_message_panel.c:590
-#, fuzzy
+#: src/remmina_message_panel.c:594
 msgid "Client Certificate Key"
-msgstr "គន្លឹះវិញ្ញាបនបត្រអតិថិជន"
+msgstr "ឃីវិញ្ញាបនបត្រអតិថូបករណ៍"
 
-#: src/rcw.c:671
+#: src/rcw.c:673
 #, c-format
 msgid ""
 "Are you sure you want to close %i active connections in the current window?"
 msgstr "តើអ្នកចង់លុុប '%s' ទេ"
 
-#: src/rcw.c:681
-#, fuzzy
-#| msgid ""
-#| "Are you sure you want to close %i active connections in the current "
-#| "window?"
+#: src/rcw.c:683
 msgid "Are you sure you want to close this last active connection?"
-msgstr "តើអ្នកចង់លុុប '%s' ទេ"
+msgstr "តើអ្នកប្រាកដថាចង់បិទការតភ្ជាប់សកម្មចុងក្រោយនេះមែនទេ?"
 
-#: src/rcw.c:1441
-#, fuzzy
+#: src/rcw.c:1443
 msgid "Viewport fullscreen mode"
-msgstr "របៀប Viewport fullscreen"
+msgstr "ម៉ូដច្រកទិដ្ឋភាពពេញអេក្រង់"
 
-#: src/rcw.c:1449 data/ui/remmina_preferences.glade:560
+#: src/rcw.c:1451 data/ui/remmina_preferences.glade:696
 #, fuzzy
 msgid "Scrolled fullscreen"
 msgstr "រមូរ ពេញ អេក្រង់"
 
-#: src/rcw.c:1535
+#: src/rcw.c:1537
 #, fuzzy
 msgid "Keep aspect ratio when scaled"
 msgstr "រក្សា សមាមាត្រ ទិដ្ឋភាព ពេល មាត្រដ្ឋាន"
 
-#: src/rcw.c:1543
+#: src/rcw.c:1545
 #, fuzzy
 msgid "Fill client window when scaled"
 msgstr "បំពេញ បង្អួច ម៉ាស៊ីន ភ្ញៀវ ពេល មាត្រដ្ឋាន"
 
-#: src/rcw.c:2092
+#: src/rcw.c:2094
 #, fuzzy
 msgid "Send clipboard content as keystrokes"
 msgstr "ផ្ញើមាតិកា clipboard ជា keytrokes"
 
-#: src/rcw.c:2094
+#: src/rcw.c:2096
 msgid ""
 "CAUTION: Pasted text will be sent as a sequence of key-codes as if typed on "
 "your local keyboard.\n"
@@ -428,117 +394,117 @@ msgid ""
 "\n"
 msgstr ""
 
-#: src/rcw.c:2208
+#: src/rcw.c:2212
 #, fuzzy
 msgid "Turn off scaling to avoid screenshot distortion."
 msgstr "បិទ ការ ធ្វើ មាត្រដ្ឋាន ដើម្បី ចៀស វាង ការ បង្ខូច រូប ថត អេក្រង់ & # 160; ។"
 
-#: src/rcw.c:2268 plugins/www/www_plugin.c:868
+#: src/rcw.c:2272 plugins/www/www_plugin.c:868
 #, fuzzy
 msgid "Screenshot taken"
 msgstr "ថត Screenshot"
 
-#: src/rcw.c:2351
+#: src/rcw.c:2362
 #, fuzzy
 msgid "_Menu"
 msgstr "_Menu"
 
-#: src/rcw.c:2352
+#: src/rcw.c:2363
 #, fuzzy
 msgid "Menu"
 msgstr "មឺុនុយ"
 
-#: src/rcw.c:2361
+#: src/rcw.c:2372
 #, fuzzy
 #| msgid "Open Main Window"
 msgid "Open the Remmina main window"
 msgstr "បើក បង្អួច មេ Remmina"
 
-#: src/rcw.c:2371
+#: src/rcw.c:2382
 #, fuzzy
 msgid "Duplicate current connection"
 msgstr "ការតភ្ជាប់បច្ចុប្បន្ន Duplicate"
 
-#: src/rcw.c:2388
+#: src/rcw.c:2399
 #, fuzzy
 msgid "Resize the window to fit in remote resolution"
 msgstr "ធ្វើ ឲ្យ បង្អួច សម ទៅ នឹង ដំណោះ ស្រាយ ពី ចម្ងាយ"
 
-#: src/rcw.c:2399
+#: src/rcw.c:2410
 #, fuzzy
 msgid "Toggle fullscreen mode"
 msgstr "បិទ/បើក​របៀប​ពេញ​អេក្រង់"
 
-#: src/rcw.c:2445 data/ui/remmina_preferences.glade:1300
-#: data/ui/remmina_preferences.glade:1310
+#: src/rcw.c:2456 data/ui/remmina_preferences.glade:1443
+#: data/ui/remmina_preferences.glade:1453
 #, fuzzy
 msgid "Multi monitor"
 msgstr "ម៉ូនីទ័រចម្រុះ"
 
-#: src/rcw.c:2461
+#: src/rcw.c:2472
 #, fuzzy
 msgid "Toggle dynamic resolution update"
 msgstr "ការ ធ្វើ បច្ចុប្បន្ន ភាព គុណភាព ថាមវន្ត"
 
-#: src/rcw.c:2471
+#: src/rcw.c:2482
 #, fuzzy
 msgid "Toggle scaled mode"
 msgstr "របៀបធ្វើមាត្រដ្ឋាន Toggle"
 
-#: src/rcw.c:2511 data/ui/remmina_preferences.glade:1034
+#: src/rcw.c:2522 data/ui/remmina_preferences.glade:1177
 #, fuzzy
 msgid "Switch tab pages"
 msgstr "ប្ដូរ ទំព័រ ផ្ទាំង"
 
-#: src/rcw.c:2521
+#: src/rcw.c:2532
 #, fuzzy
 msgid "Grab all keyboard events"
 msgstr "ចាប់ យក ព្រឹត្តិការណ៍ ក្ដារ ចុច ទាំងអស់"
 
-#: src/rcw.c:2538
+#: src/rcw.c:2549
 #, fuzzy
 msgid "Preferences"
 msgstr "ចំណូលចិត្ត"
 
-#: src/rcw.c:2547
+#: src/rcw.c:2558
 msgid "_Tools"
 msgstr "ឧបករណ៍​"
 
-#: src/rcw.c:2548 data/ui/remmina_main.glade:208
+#: src/rcw.c:2559 data/ui/remmina_main.glade:208
 #, fuzzy
 msgid "Tools"
 msgstr "ឧបករណ៍​"
 
-#: src/rcw.c:2561 data/ui/remmina_preferences.glade:1235
-#: data/ui/remmina_preferences.glade:1245
+#: src/rcw.c:2572 data/ui/remmina_preferences.glade:1378
+#: data/ui/remmina_preferences.glade:1388
 #, fuzzy
 msgid "Screenshot"
 msgstr "Screenshot"
 
-#: src/rcw.c:2575 data/ui/remmina_preferences.glade:1142
+#: src/rcw.c:2586 data/ui/remmina_preferences.glade:1285
 #, fuzzy
 msgid "Minimize window"
 msgstr "បង្រួម​​បង្អួច​អប្បបរមា"
 
-#: src/rcw.c:2585 data/ui/remmina_preferences.glade:1173
+#: src/rcw.c:2596 data/ui/remmina_preferences.glade:1316
 #, fuzzy
 msgid "Disconnect"
 msgstr "ផ្តាច់"
 
-#: src/rcw.c:4413
+#: src/rcw.c:4437
 #, fuzzy, c-format
 msgid "The file “%s” is corrupted, unreadable, or could not be found."
 msgstr "ឯកសារ \"%s\" គឺពុករលួយ មិនសមហេតុផល ឬមិនអាចរកបាន។"
 
 #. TRANSLATORS: This should be a link to the Remmina wiki page:
 #. TRANSLATORS: 'GtkSocket feature is not available'.
-#: src/rcw.c:4487
+#: src/rcw.c:4511
 msgid ""
 "https://gitlab.com/Remmina/Remmina/-/wikis/GtkSocket-feature-is-not-"
 "available-in-a-Wayland-session"
 msgstr ""
 
-#: src/rcw.c:4631
+#: src/rcw.c:4655
 #, fuzzy
 msgid ""
 "Warning: This plugin requires GtkSocket, but this feature is unavailable in "
@@ -547,7 +513,7 @@ msgstr "ការព្រមាន: កម្មវិធីជំនួយន�
 
 #. TRANSLATORS: This should be a link to the Remmina wiki page:
 #. 'GtkSocket feature is not available'.
-#: src/rcw.c:4637
+#: src/rcw.c:4661
 msgid ""
 "Plugins relying on GtkSocket can't run in a Wayland session.\n"
 "For more info and a possible workaround, please visit the Remmina wiki at:\n"
@@ -556,51 +522,51 @@ msgid ""
 "available-in-a-Wayland-session"
 msgstr ""
 
-#: src/rcw.c:4651
+#: src/rcw.c:4675
 #, fuzzy
 #| msgid "Open Main Window"
 msgid "Open in web browser"
 msgstr "បើកបង្អួចសំខាន់"
 
-#: src/remmina_mpchange.c:262
+#: src/remmina_mpchange.c:263
 #, fuzzy
 msgid "The passwords do not match"
 msgstr "ពាក្យ សម្ងាត់ មិន ផ្គូផ្គង"
 
-#: src/remmina_mpchange.c:275
+#: src/remmina_mpchange.c:276
 #, fuzzy
 msgid "The Gateway passwords do not match"
 msgstr "ពាក្យ សម្ងាត់ មិន ផ្គូផ្គង"
 
-#: src/remmina_mpchange.c:289
+#: src/remmina_mpchange.c:290
 #, fuzzy
 msgid "Resetting passwords, please wait…"
 msgstr "ការកំណត់លេខសម្ងាត់ឡើងវិញ សូមរង់ចាំ…"
 
-#: src/remmina_mpchange.c:380
+#: src/remmina_mpchange.c:381
 #, fuzzy
 msgid "The multi password changer requires a secrecy plugin.\n"
 msgstr "អ្នក ផ្លាស់ប្ដូរ ពាក្យ សម្ងាត់ ច្រើន តម្រូវ ឲ្យ មាន កម្មវិធី ជំនួយ សម្ងាត់ & # 160; ។\n"
 
-#: src/remmina_mpchange.c:383
+#: src/remmina_mpchange.c:384
 #, fuzzy
 msgid "The multi password changer requires a secrecy service.\n"
 msgstr "អ្នក ផ្លាស់ប្ដូរ ពាក្យ សម្ងាត់ ច្រើន តម្រូវ ឲ្យ មាន សេវា សម្ងាត់ មួយ ។\n"
 
-#: src/remmina_mpchange.c:478
+#: src/remmina_mpchange.c:479
 #, fuzzy, c-format
 msgid "%d password changed."
 msgid_plural "%d passwords changed."
 msgstr[0] "%d ពាក្យសម្ងាត់បានផ្លាស់ប្តូរ។"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:96
+#: src/remmina.c:102
 #, fuzzy
 msgid "Show 'About'"
 msgstr "បង្ហាញ 'About'"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:98
+#: src/remmina.c:104
 #, fuzzy
 msgid ""
 "Connect either to a desktop described in a file (.remmina or a filetype "
@@ -609,13 +575,13 @@ msgstr ""
 "ភ្ជាប់ទៅផ្ទៃតុ ដែលបានរៀបរាប់ក្នុងឯកសារ (.remmina ឬ filetype ដែលគាំទ្រដោយ plugin) ឬ "
 "URI ដែលគាំទ្រ (RDP, VNC, SSH ឬ SPICE)"
 
-#: src/remmina.c:98 src/remmina.c:100 src/remmina.c:102
+#: src/remmina.c:104 src/remmina.c:106 src/remmina.c:108
 #, fuzzy
 msgid "FILE"
 msgstr "ឯកសារ"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:100
+#: src/remmina.c:106
 #, fuzzy
 msgid ""
 "Connect to a desktop described in a file (.remmina or a filetype supported "
@@ -624,7 +590,7 @@ msgstr ""
 "ភ្ជាប់ ទៅ ផ្ទៃតុ ដែល បាន រៀបរាប់ ក្នុង ឯកសារ (.remmina ឬ ប្រភេទ ដែល គាំទ្រ ដោយ plugin)"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:102
+#: src/remmina.c:108
 #, fuzzy
 msgid ""
 "Edit desktop connection described in file (.remmina or a filetype supported "
@@ -634,105 +600,115 @@ msgstr ""
 "plugin)"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:105
+#: src/remmina.c:111
 #, fuzzy
 msgid "Start in kiosk mode"
 msgstr "ចាប់ផ្ដើម ក្នុង របៀប kiosk"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:107
+#: src/remmina.c:113
 msgid "Create new connection profile"
 msgstr "ការ​​​តភ្ជាប់​​ថ្មី"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:109
+#: src/remmina.c:115
 msgid "Show preferences"
 msgstr "ចំណូលចិត្ត"
 
-#: src/remmina.c:109
+#: src/remmina.c:115
 #, fuzzy
 msgid "TABINDEX"
 msgstr "TABINDEX"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:116
+#: src/remmina.c:122
 #, fuzzy
 msgid "Quit"
 msgstr "ឈប់"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:118
+#: src/remmina.c:124
 #, fuzzy
 msgid "Use default server name (for --new)"
 msgstr "ប្រើ default server name (សម្រាប់ --new)"
 
-#: src/remmina.c:118
+#: src/remmina.c:124
 #, fuzzy
 msgid "SERVER"
 msgstr "ម៉ាស៊ីន បម្រើ"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:120
+#: src/remmina.c:126
 #, fuzzy
 msgid "Use default protocol (for --new)"
 msgstr "ប្រើ default protocol (សម្រាប់ --new)"
 
-#: src/remmina.c:120
+#: src/remmina.c:126
 #, fuzzy
 msgid "PROTOCOL"
 msgstr "ពិធីការ"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:122
+#: src/remmina.c:128
 #, fuzzy
 msgid "Start in tray"
 msgstr "ចាប់ផ្តើមនៅក្នុង tray"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:124
+#: src/remmina.c:130
 #, fuzzy
 msgid "Show the application version"
 msgstr "បង្ហាញ កំណែ កម្មវិធី"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:126
+#: src/remmina.c:132
 #, fuzzy
 msgid "Show version of the application and its plugins"
 msgstr "បង្ហាញ កំណែ កម្មវិធី និង កម្មវិធី ជំនួយ របស់ វា"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:128
+#: src/remmina.c:134
 #, fuzzy
 msgid "Modify connection profile (requires --set-option)"
 msgstr "កែប្រែទម្រង់តំណភ្ជាប់ (តម្រូវ --កំណត់-option)"
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:130
+#: src/remmina.c:136
 #, fuzzy
 msgid "Set one or more profile settings, to be used with --update-profile"
 msgstr "កំណត់ទម្រង់មួយឬច្រើន, ដើម្បីប្រើជាមួយ --update-profile"
 
-#: src/remmina.c:131
+#: src/remmina.c:137
 msgid "Encrypt a password"
 msgstr "រក្សា​​ទុក​​​ពាក្យ​​​សម្ងាត់"
 
-#: src/remmina.c:132
+#: src/remmina.c:138
+#, fuzzy
+msgid "Disable news"
+msgstr "គ្មាន រូបតំណាង tray"
+
+#: src/remmina.c:139
+#, fuzzy
+msgid "Disable stats"
+msgstr "បង្ហាញ/hide toolbar"
+
+#: src/remmina.c:140
 #, fuzzy
 msgid "Disable toolbar"
 msgstr "បង្ហាញ/hide toolbar"
 
-#: src/remmina.c:133
+#: src/remmina.c:141
 #, fuzzy
 msgid "Enable fullscreen"
 msgstr "រមូរ ពេញ អេក្រង់"
 
-#: src/remmina.c:134
+#: src/remmina.c:142
 msgid ""
 "Enable extra hardening (disable closing confirmation, disable unsafe "
 "shortcut keys, hide tabs, hide search bar)"
 msgstr ""
 
-#: src/remmina.c:135
+#: src/remmina.c:143
 #, fuzzy
 msgid "Disable tray icon"
 msgstr "គ្មាន រូបតំណាង tray"
@@ -741,21 +717,21 @@ msgstr "គ្មាន រូបតំណាង tray"
 #. * This link should point to a resource explaining how to get Remmina
 #. * to log more verbose statements.
 #.
-#: src/remmina.c:364
+#: src/remmina.c:393
 msgid ""
 "Remmina does not log all output statements. Turn on more verbose output by "
-"using \"G_MESSAGES_DEBUG=all\" as an environment variable.\n"
+"using \"G_MESSAGES_DEBUG=remmina\" as an environment variable.\n"
 "More info available on the Remmina wiki at:\n"
 "https://gitlab.com/Remmina/Remmina/-/wikis/Usage/Remmina-debugging"
 msgstr ""
 
 #. TRANSLATORS: Shown in terminal. Do not use characters that may be not supported on a terminal
-#: src/remmina.c:418
+#: src/remmina.c:447
 #, fuzzy
 msgid "- or protocol://username:encryptedpassword@host:port"
 msgstr "- ឬ protocol://username:encryptedpassword@host:port"
 
-#: src/remmina.c:421
+#: src/remmina.c:450
 #, fuzzy
 msgid ""
 "Examples:\n"
@@ -871,25 +847,23 @@ msgstr "តើ អ្នក ប្រាកដ ជា លុប ឯកសារ 
 msgid "Choose a file to upload"
 msgstr "ជ្រើស ឯកសារ ដើម្បី ផ្ទុក ឡើង"
 
+#: src/remmina_ftp_client.c:608 src/remmina_ftp_client.c:676
+#: src/remmina_ftp_client.c:793
+msgid "Upload"
+msgstr "អាប់ឡូត"
+
 #: src/remmina_ftp_client.c:613
 #, fuzzy
 msgid "Upload folder"
 msgstr "ផ្ទុក ថត"
 
 #: src/remmina_ftp_client.c:669 src/remmina_ftp_client.c:786
-#, fuzzy
 msgid "Download"
-msgstr "ការទាញយក"
-
-#: src/remmina_ftp_client.c:676 src/remmina_ftp_client.c:793
-#, fuzzy
-msgid "Upload"
-msgstr "ផ្ទុកឡើង"
+msgstr "ទាញយក"
 
 #: src/remmina_ftp_client.c:683
-#, fuzzy
 msgid "_Delete"
-msgstr "_Delete"
+msgstr "លុប(_D)"
 
 #: src/remmina_ftp_client.c:771
 #, fuzzy
@@ -902,7 +876,6 @@ msgid "Go to home folder"
 msgstr "ទៅ ថត ផ្ទះ"
 
 #: src/remmina_ftp_client.c:776
-#, fuzzy
 msgid "Up"
 msgstr "ទៅលើ"
 
@@ -911,9 +884,8 @@ msgstr "ទៅលើ"
 msgid "Go to parent folder"
 msgstr "ទៅ ថត មេ"
 
-#: src/remmina_ftp_client.c:781 plugins/rdp/rdp_plugin.c:2908
-#: plugins/vnc/vnc_plugin.c:2134
-#, fuzzy
+#: src/remmina_ftp_client.c:781 plugins/rdp/rdp_plugin.c:3207
+#: plugins/vnc/vnc_plugin.c:2154
 msgid "Refresh"
 msgstr "ធ្វើឱ្យស្រស់"
 
@@ -933,7 +905,7 @@ msgid "Upload to server"
 msgstr "ផ្ទុក ឡើង ទៅ ម៉ាស៊ីន បម្រើ"
 
 #: src/remmina_ftp_client.c:798 data/ui/remmina_main.glade:198
-#, fuzzy
+#: data/ui/remmina_main.glade:252
 msgid "Delete"
 msgstr "លុប"
 
@@ -957,8 +929,8 @@ msgstr "ទំហំ"
 msgid "User"
 msgstr "គណនី"
 
-#: src/remmina_ftp_client.c:955 src/remmina_file_editor.c:1962
-#: data/ui/remmina_mpc.glade:93 data/ui/remmina_main.glade:455
+#: src/remmina_ftp_client.c:955 src/remmina_file_editor.c:2076
+#: data/ui/remmina_mpc.glade:93 data/ui/remmina_main.glade:488
 #, fuzzy
 msgid "Group"
 msgstr "ដាក់​ជា​ក្រុម"
@@ -972,12 +944,12 @@ msgstr "សិទ្ធិ"
 msgid "Modified"
 msgstr ""
 
-#: src/remmina_ftp_client.c:1021 plugins/rdp/rdp_plugin.c:2690
+#: src/remmina_ftp_client.c:1021 plugins/rdp/rdp_plugin.c:2975
 #, fuzzy
 msgid "Remote"
 msgstr "ពី​ចម្ងាយ"
 
-#: src/remmina_ftp_client.c:1028 plugins/rdp/rdp_plugin.c:2689
+#: src/remmina_ftp_client.c:1028 plugins/rdp/rdp_plugin.c:2974
 #, fuzzy
 msgid "Local"
 msgstr "មូលដ្ឋាន"
@@ -987,255 +959,261 @@ msgstr "មូលដ្ឋាន"
 msgid "Progress"
 msgstr "វឌ្ឍនភាព"
 
-#: src/remmina_protocol_widget.c:292 src/remmina_ssh_plugin.c:841
+#: src/remmina_protocol_widget.c:295 src/remmina_ssh_plugin.c:841
 #: src/remmina_ssh_plugin.c:1479
 #, fuzzy
 msgid "Open SFTP transfer…"
 msgstr "បើក SFTP ផ្ទេរ…"
 
-#: src/remmina_protocol_widget.c:324
+#: src/remmina_protocol_widget.c:327
 #, fuzzy
 msgid "Executing external commands…"
 msgstr "ការ អនុវត្ត ពាក្យ បញ្ជា ខាង ក្រៅ…"
 
 #. TRANSLATORS: “%s” is a placeholder for the connection profile name
-#: src/remmina_protocol_widget.c:332
+#: src/remmina_protocol_widget.c:335
 #, c-format
 msgid "Connecting to “%s”…"
 msgstr "កំពុង​តភ្ជាប់​ទៅ '%s'…"
 
 #. TRANSLATORS: “%s” is a placeholder for an hostname or an IP address.
-#: src/remmina_protocol_widget.c:926 src/remmina_protocol_widget.c:1110
+#: src/remmina_protocol_widget.c:958 src/remmina_protocol_widget.c:1142
 #, c-format
 msgid "Connecting to “%s” via SSH…"
 msgstr "កំពុង​តភ្ជាប់​ទៅ '%s'…"
 
 #. TRANSLATORS: “%i” is a placeholder for a TCP port number.
-#: src/remmina_protocol_widget.c:1174
+#: src/remmina_protocol_widget.c:1206
 #, fuzzy, c-format
 msgid "Awaiting incoming SSH connection on port %i…"
 msgstr "រង់ចាំការភ្ជាប់ SSH ចូលមកនៅលើ port %i…"
 
-#: src/remmina_protocol_widget.c:1227
+#: src/remmina_protocol_widget.c:1259
 #, fuzzy, c-format
 msgid "The “%s” command is not available on the SSH server."
 msgstr "ពាក្យ បញ្ជា \"%s\" មិន មាន នៅ លើ ម៉ាស៊ីន បម្រើ SSH ទេ។"
 
-#: src/remmina_protocol_widget.c:1232
+#: src/remmina_protocol_widget.c:1264
 #, fuzzy, c-format
 msgid "Could not run the “%s” command on the SSH server (status = %i)."
 msgstr "មិនអាចរត់ពាក្យបញ្ជា \"%s\" នៅលើម៉ាស៊ីនបម្រើ SSH (status = %i) ។"
 
 #. TRANSLATORS: %s is a placeholder for an error message
-#: src/remmina_protocol_widget.c:1240
+#: src/remmina_protocol_widget.c:1272
 #, fuzzy, c-format
 msgid "Could not run command. %s"
 msgstr "មិន អាច រត់ ពាក្យ បញ្ជា បាន ទេ & # 160; ។ %s"
 
 #. TRANSLATORS: “%s” is a placeholder for a hostname or IP address.
-#: src/remmina_protocol_widget.c:1310
+#: src/remmina_protocol_widget.c:1342
 #, c-format
 msgid "Connecting to %s via SSH…"
 msgstr "កំពុង​តភ្ជាប់​ទៅ '%s'…"
 
-#: src/remmina_protocol_widget.c:1712
+#: src/remmina_protocol_widget.c:1747
 #, fuzzy
 msgid "Type in SSH username and password."
 msgstr "វាយបញ្ចូលក្នុង SSH username និង password។"
 
-#: src/remmina_protocol_widget.c:1767 src/remmina_protocol_widget.c:1799
+#: src/remmina_protocol_widget.c:1802 src/remmina_protocol_widget.c:1834
 #, fuzzy
 msgid "Fingerprint automatically accepted"
 msgstr "ម្រាមដៃ ដែល បាន ទទួល ដោយ ស្វ័យ ប្រវត្តិ"
 
 #. TRANSLATORS: The user is asked to verify a new SSL certificate.
-#: src/remmina_protocol_widget.c:1775
+#: src/remmina_protocol_widget.c:1810
 #, fuzzy
 msgid "Certificate details:"
 msgstr "សេចក្តី លម្អិត នៃ វិញ្ញាបនបត្រ ៖"
 
 #. TRANSLATORS: An SSL certificate subject is usually the remote server the user connect to.
-#: src/remmina_protocol_widget.c:1777 src/remmina_protocol_widget.c:1809
+#: src/remmina_protocol_widget.c:1812 src/remmina_protocol_widget.c:1844
 #, fuzzy
 msgid "Subject:"
 msgstr "ប្រធានបទ ៖"
 
 #. TRANSLATORS: The name or email of the entity that have issued the SSL certificate
-#: src/remmina_protocol_widget.c:1779 src/remmina_protocol_widget.c:1811
+#: src/remmina_protocol_widget.c:1814 src/remmina_protocol_widget.c:1846
 #, fuzzy
 msgid "Issuer:"
 msgstr "អ្នក​ចេញ​ផ្សាយ ៖"
 
 #. TRANSLATORS: An SSL certificate fingerprint, is a hash of a certificate calculated on all certificate's data and its signature.
-#: src/remmina_protocol_widget.c:1781
+#: src/remmina_protocol_widget.c:1816
 #, fuzzy
 msgid "Fingerprint:"
 msgstr "ស្នាមម្រាមដៃ ៖"
 
 #. TRANSLATORS: The user is asked to accept or refuse a new SSL certificate.
-#: src/remmina_protocol_widget.c:1783
+#: src/remmina_protocol_widget.c:1818
 #, fuzzy
 msgid "Accept certificate?"
 msgstr "ទទួលយកសញ្ញាបត្រ?"
 
 #. TRANSLATORS: The user is asked to verify a new SSL certificate.
-#: src/remmina_protocol_widget.c:1807
+#: src/remmina_protocol_widget.c:1842
 #, fuzzy
 msgid "The certificate changed! Details:"
 msgstr "សញ្ញាបត្របានផ្លាស់ប្តូរ! ព័ត៌មានលម្អិត៖"
 
 #. TRANSLATORS: An SSL certificate fingerprint, is a hash of a certificate calculated on all certificate's data and its signature.
-#: src/remmina_protocol_widget.c:1813
+#: src/remmina_protocol_widget.c:1848
 msgid "Old fingerprint:"
 msgstr "ស្នាមម្រាមដៃ ៖"
 
 #. TRANSLATORS: An SSL certificate fingerprint, is a hash of a certificate calculated on all certificate's data and its signature.
-#: src/remmina_protocol_widget.c:1815
+#: src/remmina_protocol_widget.c:1850
 msgid "New fingerprint:"
 msgstr "ស្នាមម្រាមដៃ ៖"
 
 #. TRANSLATORS: The user is asked to accept or refuse a new SSL certificate.
-#: src/remmina_protocol_widget.c:1817
+#: src/remmina_protocol_widget.c:1852
 #, fuzzy
 msgid "Accept changed certificate?"
 msgstr "ទទួលយក វិញ្ញាបនបត្រ ដែល បាន ផ្លាស់ប្ដូរ ?"
 
 #. TRANSLATORS: “%i” is a placeholder for a port number. “%s”  is a placeholder for a protocol name (VNC).
-#: src/remmina_protocol_widget.c:1960
+#: src/remmina_protocol_widget.c:1995
 #, fuzzy, c-format
 msgid "Listening on port %i for an incoming %s connection…"
 msgstr "លឺនៅលើ port %i សម្រាប់ការតភ្ជាប់ %s ដែលមកដល់…"
 
-#: src/remmina_protocol_widget.c:1985
+#: src/remmina_protocol_widget.c:2020
 #, fuzzy
 msgid "Could not authenticate, attempting reconnection…"
 msgstr "មិនអាចផ្ទៀងផ្ទាត់, ការប៉ុនប៉ងភ្ជាប់ឡើងវិញ…"
 
-#: src/remmina_protocol_widget.c:2047 src/remmina_file_editor.c:438
-#: src/remmina_file_editor.c:1210 data/ui/remmina_main.glade:485
+#: src/remmina_protocol_widget.c:2083 src/remmina_file_editor.c:465
+#: src/remmina_file_editor.c:1289 data/ui/remmina_main.glade:518
 #, fuzzy
 msgid "Server"
 msgstr "ម៉ាស៊ីន​បម្រើ"
 
 #. TRANSLATORS: “%s” is a placeholder for a protocol name, like “RDP”.
-#: src/remmina_protocol_widget.c:2065
+#: src/remmina_protocol_widget.c:2101
 #, fuzzy, c-format
 msgid "Install the %s protocol plugin first."
 msgstr "ដំឡើង កម្មវិធី ជំនួយ ពិធីការ %s ជា មុន សិន។"
 
-#: src/remmina_ssh.c:744
+#: src/remmina_ssh.c:745
 #, fuzzy, c-format
 msgid "Could not authenticate with TOTP/OTP/2FA. %s"
 msgstr "មិនអាចផ្ទៀងផ្ទាត់ជាមួយ TOTP/OTP/2FA បាន។ %s"
 
-#: src/remmina_ssh.c:803 src/remmina_ssh.c:1184
+#: src/remmina_ssh.c:804 src/remmina_ssh.c:1191
 #, fuzzy, c-format
 msgid "Could not authenticate with SSH password. %s"
 msgstr "មិនអាចផ្ទៀងផ្ទាត់ជាមួយពាក្យសម្ងាត់ SSH បាន។ %s"
 
-#: src/remmina_ssh.c:830 src/remmina_ssh.c:897
+#: src/remmina_ssh.c:831 src/remmina_ssh.c:904
 #, fuzzy
 msgid "No saved SSH password supplied. Asking user to enter it."
 msgstr ""
 "មិន បាន រក្សា ទុក SSH passphrase ដែល បាន ផ្គត់ផ្គង់ ឡើយ ។ សុំ ឲ្យ អ្នក ប្រើ បញ្ចូល វា ។"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:835 src/remmina_ssh.c:876 src/remmina_ssh.c:902
-#: src/remmina_ssh.c:941 src/remmina_ssh.c:1254
+#: src/remmina_ssh.c:836 src/remmina_ssh.c:877 src/remmina_ssh.c:909
+#: src/remmina_ssh.c:948 src/remmina_ssh.c:1261
 #, fuzzy, c-format
 msgid "Could not authenticate with public SSH key. %s"
 msgstr "មិន អាច ផ្ទៀង ផ្ទាត់ ជាមួយ នឹង គន្លឹះ SSH សាធារណៈ បាន ទេ & # 160; ។ %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:844
+#: src/remmina_ssh.c:845
 #, fuzzy, c-format
 msgid "SSH certificate cannot be imported. %s"
 msgstr "វិញ្ញាបនបត្រ SSH មិនអាចនាំចូលបាន។ %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:853
+#: src/remmina_ssh.c:854
 #, fuzzy, c-format
 msgid "SSH certificate cannot be copied into the private SSH key. %s"
 msgstr "វិញ្ញាបនបត្រ SSH មិនអាចចម្លងទៅក្នុងសោ SSH ឯកជនបាន។ %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:863
+#: src/remmina_ssh.c:864
 #, fuzzy, c-format
 msgid "Could not authenticate using SSH certificate. %s"
 msgstr "មិនអាចផ្ទៀងផ្ទាត់ការប្រើប្រាស់វិញ្ញាបនប័ត្រ SSH បាន។ %s"
 
-#: src/remmina_ssh.c:877
+#: src/remmina_ssh.c:878
 #, fuzzy
 msgid "SSH identity file not selected."
 msgstr "ឯកសារ អត្តសញ្ញាណ SSH មិន ត្រូវ បាន ជ្រើស & # 160; ។"
 
+#: src/remmina_ssh.c:884
+#, fuzzy
+msgid "No username found. Asking user to enter it."
+msgstr ""
+"មិន បាន រក្សា ទុក SSH passphrase ដែល បាន ផ្គត់ផ្គង់ ឡើយ ។ សុំ ឲ្យ អ្នក ប្រើ បញ្ចូល វា ។"
+
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:888
+#: src/remmina_ssh.c:895
 #, fuzzy, c-format
 msgid "Public SSH key cannot be imported. %s"
 msgstr "សោ SSH សាធារណៈមិនអាចនាំចូលបាន។ %s"
 
-#: src/remmina_ssh.c:986
+#: src/remmina_ssh.c:993
 #, fuzzy, c-format
 msgid "Could not authenticate automatically with public SSH key. %s"
 msgstr ""
 "មិន អាច ផ្ទៀង ផ្ទាត់ ដោយ ស្វ័យ ប្រវត្តិ ជាមួយ នឹង គន្លឹះ SSH សាធារណៈ បាន ទេ & # 160; ។ %s"
 
-#: src/remmina_ssh.c:1031
+#: src/remmina_ssh.c:1038
 #, fuzzy, c-format
 msgid "Could not authenticate automatically with SSH agent. %s"
 msgstr "មិនអាចផ្ទៀងផ្ទាត់ដោយស្វ័យប្រវត្តិជាមួយភ្នាក់ងារ SSH។ %s"
 
-#: src/remmina_ssh.c:1077 src/remmina_ssh.c:1364
+#: src/remmina_ssh.c:1084 src/remmina_ssh.c:1371
 #, fuzzy, c-format
 msgid "Could not authenticate with SSH GSSAPI/Kerberos. %s"
 msgstr "មិនអាចផ្ទៀងផ្ទាត់ជាមួយ SSH GSSAPI/Kerberos បាន។ %s"
 
-#: src/remmina_ssh.c:1106
+#: src/remmina_ssh.c:1113
 #, fuzzy
 msgid "The public SSH key changed!"
 msgstr "គន្លឹះ SSH សាធារណៈបានផ្លាស់ប្តូរ!"
 
-#: src/remmina_ssh.c:1219
+#: src/remmina_ssh.c:1226
 #, fuzzy, c-format
 msgid "Could not authenticate with keyboard-interactive. %s"
 msgstr "មិន អាច ផ្ទៀង ផ្ទាត់ ភាព ត្រឹមត្រូវ ជាមួយ ក្ដារ ចុច-អន្តរកម្ម បាន ទេ & # 160; ។ %s"
 
-#: src/remmina_ssh.c:1321
+#: src/remmina_ssh.c:1328
 #, fuzzy, c-format
 msgid "Could not authenticate with automatic public SSH key. %s"
 msgstr ""
 "មិន អាច ផ្ទៀង ផ្ទាត់ ជាមួយ នឹង គន្លឹះ SSH សាធារណៈ ដោយ ស្វ័យ ប្រវត្តិ បាន ទេ & # 160; ។ %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:1429
+#: src/remmina_ssh.c:1436
 #, fuzzy, c-format
 msgid "Could not fetch the server's public SSH key. %s"
 msgstr "មិន អាច ទះ សោ SSH សាធារណៈ របស់ ម៉ាស៊ីន បម្រើ បាន ទេ & # 160; ។ %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:1436
+#: src/remmina_ssh.c:1443
 #, fuzzy, c-format
 msgid "Could not fetch public SSH key. %s"
 msgstr "មិន អាច ទះ សោ SSH សាធារណៈ បាន ទេ & # 160; ។ %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:1444
+#: src/remmina_ssh.c:1451
 #, fuzzy, c-format
 msgid "Could not fetch checksum of the public SSH key. %s"
 msgstr "មិនអាច fetch checksum របស់ សាធារណជន SSH key បាន ទេ ។ %s"
 
-#: src/remmina_ssh.c:1457
+#: src/remmina_ssh.c:1464
 #, fuzzy
 msgid "The server is unknown. The public key fingerprint is:"
 msgstr "មិនដឹងម៉ាស៊ីនបម្រើ ។ ស្នាមម្រាមដៃរបស់ public key គឺ៎ ៖"
 
-#: src/remmina_ssh.c:1459 src/remmina_ssh.c:1465
+#: src/remmina_ssh.c:1466 src/remmina_ssh.c:1472
 #, fuzzy
 msgid "Do you trust the new public key?"
 msgstr "តើ អ្នក ទុក ចិត្ត លើ គន្លឹះ សាធារណៈ ថ្មី ដែរ ឬ ទេ ?"
 
-#: src/remmina_ssh.c:1462
+#: src/remmina_ssh.c:1469
 msgid ""
 "Warning: The server has changed its public key. This means you are either "
 "under attack,\n"
@@ -1246,195 +1224,218 @@ msgstr ""
 "ឬអ្នកគ្រប់គ្រងបានផ្លាស់ key ។ ស្នាមម្រាមដៃថ្មីរបស់ public key គឺ៎ ៖"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:1487
+#: src/remmina_ssh.c:1494
 #, fuzzy, c-format
 msgid "Could not check list of known SSH hosts. %s"
 msgstr "មិន អាច ពិនិត្យ មើល បញ្ជី ម្ចាស់ ផ្ទះ SSH ដែល គេ ស្គាល់ បាន ទេ & # 160; ។ %s"
 
-#: src/remmina_ssh.c:1496
+#: src/remmina_ssh.c:1503
 #, fuzzy
 msgid "SSH password"
 msgstr "ពាក្យសម្ងាត់ SSH"
 
-#: src/remmina_ssh.c:1503 src/remmina_ssh.c:1547
+#: src/remmina_ssh.c:1510 src/remmina_ssh.c:1556 src/remmina_ssh.c:1590
 #, fuzzy
 msgid "Password for private SSH key"
 msgstr "ពាក្យសម្ងាត់ដើម្បីដោះសោគន្លឹះឯកជន"
 
-#: src/remmina_ssh.c:1508
+#: src/remmina_ssh.c:1515
 #, fuzzy
 msgid "SSH Kerberos/GSSAPI"
 msgstr "SSH Kerberos/GSSAPI"
 
-#: src/remmina_ssh.c:1513
+#: src/remmina_ssh.c:1520
 #, fuzzy
 msgid "Enter TOTP/OTP/2FA code"
 msgstr "បញ្ចូលកូដ TOTP/OTP/2FA"
 
-#: src/remmina_ssh.c:1543 src/remmina_ssh.c:1569
+#: src/remmina_ssh.c:1552
+#, fuzzy
+msgid "SSH tunnel private key credentials"
+msgstr "សមត្ថ ភាព ផ្លូវ រូង ក្រោម ដី SSH"
+
+#: src/remmina_ssh.c:1552
+#, fuzzy
+msgid "SSH private key credentials"
+msgstr "ឯកសារ គន្លឹះ ឯកជន SSH"
+
+#: src/remmina_ssh.c:1586 src/remmina_ssh.c:1612
 #, fuzzy
 msgid "SSH tunnel credentials"
 msgstr "សមត្ថ ភាព ផ្លូវ រូង ក្រោម ដី SSH"
 
-#: src/remmina_ssh.c:1543 src/remmina_ssh.c:1569
+#: src/remmina_ssh.c:1586 src/remmina_ssh.c:1612
 #, fuzzy
 msgid "SSH credentials"
 msgstr "សមត្ថ ភាព SSH"
 
-#: src/remmina_ssh.c:1620
+#: src/remmina_ssh.c:1663
 #, fuzzy
 msgid "Keyboard interactive login, TOTP/OTP/2FA"
 msgstr "Keyboard interactive login, TOTP/OTP/2FA"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:1845
-#, fuzzy, c-format
-msgid "Could not start SSH session. %s"
-msgstr "មិន អាច ចាប់ ផ្តើម សម័យ SSH បាន ទេ & # 160; ។ %s"
-
-#. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2244
+#: src/remmina_ssh.c:2363
 #, fuzzy, c-format
 msgid "Could not create channel. %s"
 msgstr "មិន អាច បង្កើត channel បាន ទេ ។ %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2255
+#: src/remmina_ssh.c:2374
 #, fuzzy, c-format
 msgid "Could not connect to SSH tunnel. %s"
 msgstr "មិន អាច ភ្ជាប់ ទៅ ផ្លូវ រូង ក្រោម ដី SSH បាន ទេ ។ %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2325 src/remmina_ssh.c:2346 src/remmina_ssh.c:2355
+#: src/remmina_ssh.c:2445 src/remmina_ssh.c:2466 src/remmina_ssh.c:2475
 #, fuzzy, c-format
 msgid "Could not request port forwarding. %s"
 msgstr "មិន អាច ស្នើ សុំ ច្រក ឆ្ពោះ ទៅ មុខ បាន ទេ & # 160; ។ %s"
 
-#: src/remmina_ssh.c:2385
+#: src/remmina_ssh.c:2505
 #, fuzzy
 msgid "The server did not respond."
 msgstr "ម៉ាស៊ីន បម្រើ មិន បាន ឆ្លើយ តប ទេ & # 160; ។"
 
-#: src/remmina_ssh.c:2425
+#: src/remmina_ssh.c:2543
 #, fuzzy, c-format
 msgid "Cannot connect to local port %i."
 msgstr "មិនអាចភ្ជាប់ទៅកំពង់ផែក្នុងស្រុក %i."
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2474
+#: src/remmina_ssh.c:2592
 #, fuzzy, c-format
 msgid "Could not write to SSH channel. %s"
 msgstr "មិន អាច សរសេរ ទៅ កាន់ ប៉ុស្តិ៍ SSH បាន ទេ ។ %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2481
+#: src/remmina_ssh.c:2599
 #, fuzzy, c-format
 msgid "Could not read from tunnel listening socket. %s"
 msgstr "មិន អាច អាន ពី រន្ធ ស្តាប់ ផ្លូវ រូង ក្រោម ដី បាន ទេ ។ %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2501
+#: src/remmina_ssh.c:2619
 #, fuzzy, c-format
 msgid "Could not poll SSH channel. %s"
 msgstr "មិនអាចស្ទង់មតិប៉ុស្តិ៍ SSH បានទេ។ %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2508
+#: src/remmina_ssh.c:2626
 #, fuzzy, c-format
 msgid "Could not read SSH channel in a non-blocking way. %s"
 msgstr "មិន អាច អាន ប៉ុស្តិ៍ SSH តាម វិធី ដែល មិន រា រាំង បាន ទេ ។ %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2527
+#: src/remmina_ssh.c:2645
 #, fuzzy, c-format
 msgid "Could not send data to tunnel listening socket. %s"
 msgstr "មិន អាច ផ្ញើ ទិន្នន័យ ទៅ រន្ធ ស្តាប់ ផ្លូវ រូង ក្រោម ដី បាន ទេ & # 160; ។ %s"
 
-#: src/remmina_ssh.c:2629
+#: src/remmina_ssh.c:2747
 #, fuzzy
 msgid "Assign a destination port."
 msgstr "ចាត់តាំងច្រកគោលដៅ។"
 
-#: src/remmina_ssh.c:2636
+#: src/remmina_ssh.c:2754
 #, fuzzy
 msgid "Could not create socket."
 msgstr "មិន អាច បង្កើត socket បាន ទេ។"
 
-#: src/remmina_ssh.c:2646
+#: src/remmina_ssh.c:2764
 #, fuzzy
 msgid "Could not bind server socket to local port."
 msgstr "មិនអាចចងរន្ធម៉ាស៊ីនបម្រើទៅ port មូលដ្ឋានបានទេ។"
 
-#: src/remmina_ssh.c:2652
+#: src/remmina_ssh.c:2770
 #, fuzzy
 msgid "Could not listen to local port."
 msgstr "មិន អាច ស្តាប់ ច្រក ក្នុង ស្រុក បាន ទេ ។"
 
 #. TRANSLATORS: Do not translate pthread
-#: src/remmina_ssh.c:2662 src/remmina_ssh.c:2679 src/remmina_ssh.c:2697
+#: src/remmina_ssh.c:2780 src/remmina_ssh.c:2797 src/remmina_ssh.c:2815
 #, fuzzy
 msgid "Could not start pthread."
 msgstr "មិនអាចចាប់ផ្តើម pthread បានទេ។"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2789
+#: src/remmina_ssh.c:2907
 #, fuzzy, c-format
 msgid "Could not create SFTP session. %s"
 msgstr "មិន អាច បង្កើត សម័យ SFTP បាន ទេ & # 160; ។ %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2794
+#: src/remmina_ssh.c:2912
 #, fuzzy, c-format
 msgid "Could not start SFTP session. %s"
 msgstr "មិន អាច ចាប់ផ្ដើម សម័យ SFTP បាន ទេ & # 160; ។ %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2886
+#: src/remmina_ssh.c:3004
 #, fuzzy, c-format
 msgid "Could not open channel. %s"
 msgstr "មិន អាច បើក ប៉ុស្តិ៍ បាន ទេ & # 160; ។ %s"
 
 #. TRANSLATORS: The placeholder %s is an error message
-#: src/remmina_ssh.c:2929
+#: src/remmina_ssh.c:3047
 #, fuzzy, c-format
 msgid "Could not request shell. %s"
 msgstr "មិន អាច ស្នើ សុំ សែល បាន ទេ ។ %s"
 
-#: src/remmina_ssh.c:3059
+#: src/remmina_ssh.c:3177
 #, fuzzy
 msgid "Could not create PTY device."
 msgstr "មិន អាច បង្កើត ឧបករណ៍ PTY បាន ទេ & # 160; ។"
 
-#: src/remmina_exec.c:491
+#: src/remmina_exec.c:128
+#, fuzzy
+#| msgid ""
+#| "Are you sure you want to close %i active connections in the current "
+#| "window?"
+msgid ""
+"Are you sure you want to fully quit Remmina?\n"
+" This will close any active connections."
+msgstr "តើអ្នកចង់លុុប '%s' ទេ"
+
+#: src/remmina_exec.c:505
 #, fuzzy, c-format
 msgid "Plugin %s is not registered."
 msgstr "កម្មវិធី ជំនួយ %s មិន ត្រូវ បាន ចុះ ឈ្មោះ ទេ ។"
 
-#: src/remmina_main.c:732
+#: src/remmina_main.c:736
 #, fuzzy
 msgid "The latest successful connection attempt, or a pre-computed date"
 msgstr "ការ ប៉ុនប៉ង តភ្ជាប់ ជោគជ័យ ចុងក្រោយ បំផុត ឬ កាលបរិច្ឆេទ ដែល បាន គណនា មុន"
 
-#: src/remmina_main.c:734
+#: src/remmina_main.c:738
 #, c-format
 msgid "Total %i item."
 msgid_plural "Total %i items."
 msgstr[0] "មាន %i ធាតុុ ។"
 
-#: src/remmina_main.c:742
+#: src/remmina_main.c:746
 msgid "Network status: fully online"
 msgstr ""
 
-#: src/remmina_main.c:745
+#: src/remmina_main.c:749
 msgid "Network status: offline"
 msgstr ""
 
-#: src/remmina_main.c:998
+#: src/remmina_main.c:1003
 #, c-format
 msgid "Are you sure you want to delete “%s”?"
 msgstr "តើអ្នកចង់លុុប '%s' ទេ"
 
-#: src/remmina_main.c:1133
+#: src/remmina_main.c:1025
+#, fuzzy
+msgid "Are you sure you want to delete the selected files?"
+msgstr "តើ អ្នក ប្រាកដ ជា លុប ឯកសារ ដែល បាន ជ្រើស នៅ លើ ម៉ាស៊ីន បម្រើ ឬ ទេ ?"
+
+#: src/remmina_main.c:1036
+msgid "Failed to delete files!"
+msgstr ""
+
+#: src/remmina_main.c:1219
 #, fuzzy, c-format
 msgid ""
 "Unable to import:\n"
@@ -1443,27 +1444,50 @@ msgstr ""
 "មិនអាចនាំចូល ៖\n"
 "%s"
 
-#: src/remmina_main.c:1159 data/ui/remmina_main.glade:286
+#: src/remmina_main.c:1247
+#, fuzzy
+#| msgid "File"
+msgid "RDP Files"
+msgstr "ឯកសារ"
+
+#: src/remmina_main.c:1256
+#, fuzzy
+#| msgid "File"
+msgid "All Files"
+msgstr "ឯកសារ"
+
+#: src/remmina_main.c:1266 src/remmina_main.c:1267
+#: data/ui/remmina_main.glade:310
 #, fuzzy
 msgid "Import"
 msgstr "នាំចូល"
 
-#: src/remmina_main.c:1182 src/remmina_file_editor.c:1819
+#: src/remmina_main.c:1300
 #, fuzzy
-msgid "_Save"
-msgstr "_Save"
+#| msgid "Create new connection profile"
+msgid "Select the connection profile."
+msgstr "ការ​​​តភ្ជាប់​​ថ្មី"
 
-#: src/remmina_main.c:1188
+#: src/remmina_main.c:1309
+#, fuzzy
+msgid "Remmina couldn't export."
+msgstr "ថតទិន្នន័យ Remmina"
+
+#: src/remmina_main.c:1318 src/remmina_file_editor.c:1933
+msgid "_Save"
+msgstr "រក្សាទុក(_S)"
+
+#: src/remmina_main.c:1331
 #, fuzzy
 msgid "This protocol does not support exporting."
 msgstr "protocol នេះមិនការ​គាំទ្រ​ការ​នាំ​ចេញ ។"
 
-#: src/remmina_main.c:1501
+#: src/remmina_main.c:1658
 #, fuzzy
 msgid "Remmina Remote Desktop Client"
 msgstr "ម៉ាស៊ីន​ភ្ញៀវ​ផ្ទៃតុ​ពី​ចម្ងាយ​របស់ Remmina"
 
-#: src/remmina_main.c:1503
+#: src/remmina_main.c:1660
 #, fuzzy
 msgid "Remmina Kiosk"
 msgstr "Remmina Kiosk"
@@ -1551,7 +1575,7 @@ msgstr "ការ សរសេរ ហួស ហេតុ"
 msgid "The following file already exists in the target folder:"
 msgstr "ឯកសារ ខាង ក្រោម មាន រួច ហើយ នៅ ក្នុង ថត គោលដៅ ៖"
 
-#: src/remmina_file_editor.c:60
+#: src/remmina_file_editor.c:61
 #, fuzzy
 msgid ""
 "<big>Supported formats\n"
@@ -1568,7 +1592,7 @@ msgstr ""
 "• ID:repeater ID number\n"
 "• unix:///path/socket.sock</big>"
 
-#: src/remmina_file_editor.c:69
+#: src/remmina_file_editor.c:70
 #, fuzzy
 msgid ""
 "<big>• command in PATH args %h\n"
@@ -1597,7 +1621,7 @@ msgstr ""
 "& # 160; ។\n"
 "</big>"
 
-#: src/remmina_file_editor.c:83
+#: src/remmina_file_editor.c:84
 #, fuzzy
 msgid ""
 "<big>Supported formats\n"
@@ -1610,153 +1634,165 @@ msgstr ""
 "• server[:p ort]\n"
 "• username@server[:p ort] (SSH protocol only)</big>"
 
-#: src/remmina_file_editor.c:164
+#: src/remmina_file_editor.c:172
 #, fuzzy
 msgid "Input is invalid."
 msgstr "បញ្ចូល គឺ មិន ត្រឹមត្រូវ ទេ & # 160; ។"
 
-#: src/remmina_file_editor.c:242
+#: src/remmina_file_editor.c:250
 #, fuzzy
 msgid "Choose a Remote Desktop Server"
 msgstr "ជ្រើស ម៉ាស៊ីន បម្រើ ផ្ទៃតុ ពី ចម្ងាយ"
 
-#: src/remmina_file_editor.c:462
+#: src/remmina_file_editor.c:489
 #, fuzzy, c-format
 msgid "Browse the network to find a %s server"
 msgstr "រកមើល network ដើម្បីរកម៉ាស៊ីនបម្រើ %s"
 
-#: src/remmina_file_editor.c:585
+#: src/remmina_file_editor.c:597
 #, fuzzy
 msgid "Resolution"
 msgstr "​គុណភាព​បង្ហាញ"
 
-#: src/remmina_file_editor.c:592
+#: src/remmina_file_editor.c:604
 #, fuzzy
 msgid "Use initial window size"
 msgstr "ប្រើ ទំហំ បង្អួច ដំបូង"
 
-#: src/remmina_file_editor.c:596
+#: src/remmina_file_editor.c:608
 #, fuzzy
 msgid "Use client resolution"
 msgstr "ប្រើ resolution របស់ client"
 
-#: src/remmina_file_editor.c:607 src/remmina_file_editor.c:1190
+#: src/remmina_file_editor.c:619 src/remmina_file_editor.c:1269
 #, fuzzy
 msgid "Custom"
 msgstr "ផ្ទាល់​ខ្លួន​"
 
-#: src/remmina_file_editor.c:973
+#: src/remmina_file_editor.c:658
+msgid "Assistance Mode"
+msgstr ""
+
+#: src/remmina_file_editor.c:1045
 #, fuzzy
 msgid "Keyboard mapping"
 msgstr "ការ ផ្គូផ្គង ក្ដារ ចុច"
 
-#: src/remmina_file_editor.c:1100
+#: src/remmina_file_editor.c:1172
 #, fuzzy
 msgid "Behavior"
 msgstr "ឥរិយាបថ"
 
-#: src/remmina_file_editor.c:1103
+#: src/remmina_file_editor.c:1175
 #, fuzzy
 msgid "Execute a Command"
 msgstr "ប្រតិបត្តិបទបញ្ជា"
 
-#: src/remmina_file_editor.c:1107
+#: src/remmina_file_editor.c:1179
 msgid "Before connecting"
 msgstr "ការ​​​តភ្ជាប់​​ថ្មី"
 
-#: src/remmina_file_editor.c:1109
+#: src/remmina_file_editor.c:1181
 #, fuzzy
 msgid "command %h %u %t %U %p %g --option"
 msgstr "ការ ជូនដំណឹង នេះ ត្រូវ បាន ជូនដំណឹង ថា ជា ការ ជូនដំណឹង ដែល បាន ជ្រើស & # 160; ។"
 
-#: src/remmina_file_editor.c:1114
+#: src/remmina_file_editor.c:1186
 msgid "After connecting"
 msgstr "ការ​​​តភ្ជាប់​​ថ្មី"
 
-#: src/remmina_file_editor.c:1116
+#: src/remmina_file_editor.c:1188
 #, fuzzy
 msgid "/path/to/command -opt1 arg %h %u %t -opt2 %U %p %g"
 msgstr "១០."
 
-#: src/remmina_file_editor.c:1120
+#: src/remmina_file_editor.c:1192
 msgid "Start-up"
 msgstr "ចាប់ផ្ដើម​កម្មវិធី"
 
-#: src/remmina_file_editor.c:1123
+#: src/remmina_file_editor.c:1195
 #, fuzzy
 msgid "Auto-start this profile"
 msgstr "ស្វ័យប្រវត្តិ-ចាប់ផ្តើមទម្រង់នេះ"
 
-#: src/remmina_file_editor.c:1127
+#: src/remmina_file_editor.c:1199
 #, fuzzy
 #| msgid "New connection profile"
 msgid "Connection profile security"
 msgstr "ការ​​​តភ្ជាប់​​ថ្មី"
 
-#: src/remmina_file_editor.c:1130
+#: src/remmina_file_editor.c:1202
 msgid "Require password to connect or edit the profile"
 msgstr ""
 
-#: src/remmina_file_editor.c:1163
+#: src/remmina_file_editor.c:1206
+msgid "Unexpected disconnect"
+msgstr ""
+
+#: src/remmina_file_editor.c:1209
+msgid "Keep window from closing if not disconnected by Remmina"
+msgstr ""
+
+#: src/remmina_file_editor.c:1242
 #, fuzzy
 msgid "SSH Tunnel"
 msgstr "ផ្លូវរូង SSH"
 
-#: src/remmina_file_editor.c:1164
+#: src/remmina_file_editor.c:1243
 #, fuzzy
 msgid "Enable SSH tunnel"
 msgstr "បើក ផ្លូវ រូង ក្រោម ដី SSH"
 
-#: src/remmina_file_editor.c:1171
+#: src/remmina_file_editor.c:1250
 #, fuzzy
 msgid "Tunnel via loopback address"
 msgstr "ផ្លូវ រូង ក្រោម ដី តាម រយៈ អាសយដ្ឋាន loopback"
 
-#: src/remmina_file_editor.c:1181
+#: src/remmina_file_editor.c:1260
 #, fuzzy, c-format
 msgid "Same server at port %i"
 msgstr "ម៉ាស៊ីនបម្រើដូចគ្នានៅ port %i"
 
-#: src/remmina_file_editor.c:1231 plugins/rdp/rdp_plugin.c:2859
+#: src/remmina_file_editor.c:1310 plugins/rdp/rdp_plugin.c:3155
 msgid "Start-up path"
 msgstr "ចាប់ផ្ដើម​កម្មវិធី"
 
-#: src/remmina_file_editor.c:1240
+#: src/remmina_file_editor.c:1319
 #, fuzzy
 msgid "SSH Authentication"
 msgstr "ការផ្ទៀងផ្ទាត់ SSH"
 
-#: src/remmina_file_editor.c:1267
+#: src/remmina_file_editor.c:1346
 #, fuzzy
 msgid "SSH private key file"
 msgstr "ឯកសារ គន្លឹះ ឯកជន SSH"
 
-#: src/remmina_file_editor.c:1273 src/remmina_ssh_plugin.c:1508
+#: src/remmina_file_editor.c:1352 src/remmina_ssh_plugin.c:1508
 #, fuzzy
 msgid "SSH certificate file"
 msgstr "ឯកសារវិញ្ញាបនបត្រ SSH"
 
-#: src/remmina_file_editor.c:1330
+#: src/remmina_file_editor.c:1409
 #, fuzzy
 msgid "Basic"
 msgstr "បឋម"
 
-#: src/remmina_file_editor.c:1336
+#: src/remmina_file_editor.c:1415
 #, fuzzy
 msgid "Advanced"
 msgstr "កម្រិត​ខ្ពស់"
 
-#: src/remmina_file_editor.c:1347 data/ui/remmina_main.glade:499
+#: src/remmina_file_editor.c:1426 data/ui/remmina_main.glade:532
 #, fuzzy
 msgid "Notes"
 msgstr "សម្គាល់"
 
-#: src/remmina_file_editor.c:1464
+#: src/remmina_file_editor.c:1558
 #, fuzzy, c-format
 msgid "(%s: %i): Can't validate setting '%s' since 'value' or 'gfe' are NULL!"
 msgstr "(%s: %i) : មិនអាចកំណត់សុពលភាព '%s' ចាប់តាំងពី 'តម្លៃ' ឬ 'gfe' គឺជា NULL!"
 
-#: src/remmina_file_editor.c:1468
+#: src/remmina_file_editor.c:1562
 #, fuzzy, c-format
 msgid ""
 "(%s: %i): Can't validate user input since 'setting_name_to_validate', "
@@ -1766,73 +1802,70 @@ msgstr ""
 "'setting_name_to_validate', 'តម្លៃ' ឬ 'gfe' គឺជា NULL!"
 
 #. TRANSLATORS: Meta-error. Shouldn't be visible.
-#: src/remmina_file_editor.c:1472 plugins/x2go/x2go_plugin.c:2574
+#: src/remmina_file_editor.c:1566 plugins/x2go/x2go_plugin.c:2574
 #: plugins/x2go/x2go_plugin.c:3224
 #, fuzzy
 msgid "Internal error."
 msgstr "កំហុសខាងក្នុង។"
 
-#: src/remmina_file_editor.c:1695 src/remmina_file_editor.c:1731
-#: src/remmina_file_editor.c:1752 src/remmina_file_editor.c:1775
+#: src/remmina_file_editor.c:1809 src/remmina_file_editor.c:1845
+#: src/remmina_file_editor.c:1866 src/remmina_file_editor.c:1889
 #, fuzzy, c-format
 msgid "Couldn't validate user input. %s"
 msgstr "មិន អាច ធ្វើ ឲ្យ ការ បញ្ចូល របស់ អ្នក ប្រើ មាន សុពលភាព បាន ទេ & # 160; ។ %s"
 
-#: src/remmina_file_editor.c:1719
+#: src/remmina_file_editor.c:1833
 #, fuzzy
 msgid "Default settings saved."
 msgstr "ការកំណត់លំនាំដើមរក្សាទុក។"
 
-#: src/remmina_file_editor.c:1809
+#: src/remmina_file_editor.c:1923
 msgid "Remote Connection Profile"
 msgstr "ការ​​​តភ្ជាប់​​ថ្មី"
 
-#: src/remmina_file_editor.c:1815
-#, fuzzy
+#: src/remmina_file_editor.c:1929
 msgid "Save as Default"
-msgstr "រក្សាទុកជា Default"
+msgstr "រក្សាទុកជាបុរេជម្រើស"
 
-#: src/remmina_file_editor.c:1816
+#: src/remmina_file_editor.c:1930
 #, fuzzy
 msgid "Use the current settings as the default for all new connection profiles"
 msgstr "ប្រើ ការកំណត់ បច្ចុប្បន្ន ជា លំនាំ ដើម សម្រាប់ ទម្រង់ តភ្ជាប់ ថ្មី ទាំងអស់"
 
-#: src/remmina_file_editor.c:1824 data/ui/remmina_main.glade:161
-#, fuzzy
+#: src/remmina_file_editor.c:1938 data/ui/remmina_main.glade:161
 msgid "Connect"
 msgstr "តភ្ជាប់"
 
-#: src/remmina_file_editor.c:1827
-#, fuzzy
+#: src/remmina_file_editor.c:1941
 msgid "_Save and Connect"
-msgstr "_Save និង Connect"
+msgstr "រក្សាទុកនិងតភ្ជាប់(_S)"
 
-#: src/remmina_file_editor.c:1951
+#: src/remmina_file_editor.c:2065
 #, fuzzy
 msgid "Quick Connect"
 msgstr "តភ្ជាប់រហ័ស"
 
-#: src/remmina_file_editor.c:1975
+#: src/remmina_file_editor.c:2089
 #, fuzzy, c-format
 msgid "Use '%s' as subgroup delimiter"
 msgstr "ប្រើ '%s' ជា subgroup delimiter"
 
-#: src/remmina_file_editor.c:1980 data/ui/remmina_main.glade:469
+#: src/remmina_file_editor.c:2094 data/ui/remmina_main.glade:502
 msgid "Labels"
 msgstr ""
 
-#: src/remmina_file_editor.c:1994
+#: src/remmina_file_editor.c:2108
 msgid "Label1,Label2"
 msgstr ""
 
-#: src/remmina_file_editor.c:2066 src/remmina_file_editor.c:2085
+#: src/remmina_file_editor.c:2180 src/remmina_file_editor.c:2199
 #, fuzzy, c-format
 msgid "Could not find the file “%s”."
 msgstr "មិនអាចស្វែងរកឯកសារ \"%s\"។"
 
 #. TRANSLATORS: This is a message that pops up when an external Remmina plugin tries to set the window resolution using a legacy parameter.
 #. TRANSLATORS: This is a message that pop-up when an external Remmina plugin tries to set the windows resolution using a legacy parameter.
-#: src/remmina_file.c:494 src/remmina_file.c:540
+#: src/remmina_file.c:495 src/remmina_file.c:541
 #, fuzzy
 msgid ""
 "Using the «resolution» parameter in the Remmina preferences file is "
@@ -1841,63 +1874,63 @@ msgstr ""
 "ការប្រើប្រាស់ប៉ារ៉ាម៉ែត្រ \"resolution\" នៅក្នុងឯកសារចំណូលចិត្ត Remmina ត្រូវបាន deprecated "
 "។\n"
 
-#: src/remmina_icon.c:136
-#, fuzzy
-msgid "Open Main Window"
-msgstr "បើកបង្អួចសំខាន់"
-
-#: src/remmina_icon.c:141 data/ui/remmina_main.glade:255
-#, fuzzy
-msgid "_Preferences"
-msgstr "ចំណូលចិត្ត"
-
-#: src/remmina_icon.c:146
-#, fuzzy
-msgid "_About"
-msgstr "_About"
-
-#: src/remmina_icon.c:156
+#: src/remmina_icon.c:143
 #, fuzzy
 msgid "Enable Service Discovery"
 msgstr "បើកការរកឃើញសេវាកម្ម"
 
-#: src/remmina_icon.c:168 data/ui/remmina_main.glade:395
+#: src/remmina_icon.c:157 data/ui/remmina_main.glade:428
 #, fuzzy
 msgid "_Quit"
 msgstr "_Quit"
 
+#: src/remmina_icon.c:162
+#, fuzzy
+msgid "_About"
+msgstr "_About"
+
+#: src/remmina_icon.c:167 data/ui/remmina_main.glade:279
+#, fuzzy
+msgid "_Preferences"
+msgstr "ចំណូលចិត្ត"
+
+#: src/remmina_icon.c:172
+#, fuzzy
+msgid "Open Main Window"
+msgstr "បើកបង្អួចសំខាន់"
+
 #. TRANSLATORS: Applet name as per the Freedesktop Desktop entry specification https://specifications.freedesktop.org/desktop-entry-spec/latest/
 #. TRANSLATORS: Applet Name as per the Freedesktop Desktop entry specification https://specifications.freedesktop.org/desktop-entry-spec/latest/
-#: src/remmina_icon.c:294 src/remmina_icon.c:452
+#: src/remmina_icon.c:306 src/remmina_icon.c:472
 #, fuzzy
 msgid "Remmina Applet"
 msgstr "Remmina Applet"
 
 #. TRANSLATORS: Applet comment/description as per the Freedesktop Desktop entry specification https://specifications.freedesktop.org/desktop-entry-spec/latest/
-#: src/remmina_icon.c:296 src/remmina_icon.c:454
+#: src/remmina_icon.c:308 src/remmina_icon.c:474
 #, fuzzy
 msgid "Connect to remote desktops through the applet menu"
 msgstr "ភ្ជាប់ ទៅ ផ្ទៃតុ ពី ចម្ងាយ តាម រយៈ ម៉ឺនុយ applet"
 
-#: src/remmina_icon.c:365
+#: src/remmina_icon.c:377
 #, fuzzy
 msgid "StatusNotifier/Appindicator support in “"
 msgstr "StatusNotifier/Appindicator support in \""
 
 #. TRANSLATORS: %s is a placeholder for "StatusNotifier/Appindicator suppor in “DESKTOP NAME”: "
-#: src/remmina_icon.c:372
+#: src/remmina_icon.c:384
 #, fuzzy, c-format
 msgid "%s your desktop does support it"
 msgstr "%s ផ្ទៃតុ របស់ អ្នក គាំទ្រ វា"
 
 #. TRANSLATORS: %s is a placeholder for "StatusNotifier/Appindicator suppor in “DESKTOP NAME”: "
-#: src/remmina_icon.c:374
+#: src/remmina_icon.c:386
 #, fuzzy, c-format
 msgid "%s and Remmina has built-in (compiled) support for libappindicator."
 msgstr "%s និង Remmina បានសាង-in (compiled) support for libappindicator."
 
 #. TRANSLATORS: %s is a placeholder for "StatusNotifier/Appindicator suppor in “DESKTOP NAME”: "
-#: src/remmina_icon.c:377
+#: src/remmina_icon.c:389
 #, fuzzy, c-format
 msgid ""
 "%s not supported natively by your Desktop Environment. libappindicator will "
@@ -1907,25 +1940,25 @@ msgstr ""
 "ទៅ GtkStatusIcon/xembed"
 
 #. TRANSLATORS: %s is a placeholder for "StatusNotifier/Appindicator suppor in “DESKTOP NAME”: "
-#: src/remmina_icon.c:381
+#: src/remmina_icon.c:393
 #, fuzzy, c-format
 msgid "%s You may need to install, and use XApp Status Applet"
 msgstr "%s អ្នកប្រហែលជាត្រូវការដំឡើង, និងប្រើ XApp Status Applet"
 
 #. TRANSLATORS: %s is a placeholder for "StatusNotifier/Appindicator suppor in “DESKTOP NAME”: "
-#: src/remmina_icon.c:384
+#: src/remmina_icon.c:396
 #, fuzzy, c-format
 msgid "%s You may need to install, and use KStatusNotifierItem"
 msgstr "%s អ្នក ប្រហែល ជា ត្រូវ ដំឡើង ហើយ ប្រើ KStatusNotifierItem"
 
 #. TRANSLATORS: %s is a placeholder for "StatusNotifier/Appindicator suppor in “DESKTOP NAME”: "
-#: src/remmina_icon.c:387
+#: src/remmina_icon.c:399
 #, fuzzy, c-format
 msgid "%s You may need to install, and use XEmbed SNI Proxy"
 msgstr "%s អ្នកប្រហែលជាត្រូវការដំឡើង, និងប្រើ XEmbed SNI Proxy"
 
 #. TRANSLATORS: %s is a placeholder for "StatusNotifier/Appindicator suppor in “DESKTOP NAME”: "
-#: src/remmina_icon.c:390
+#: src/remmina_icon.c:402
 #, fuzzy, c-format
 msgid "%s You may need to install, and use Gnome Shell Extension Appindicator"
 msgstr "%s អ្នក ប្រហែល ជា ត្រូវ ដំឡើង ហើយ ប្រើ Gnome Shell Extension Appindicator"
@@ -1989,34 +2022,28 @@ msgid "Disconnected from %s:%d via SSH"
 msgstr "កំពុង​តភ្ជាប់​ទៅ '%s'…"
 
 #: src/remmina_ssh_plugin.c:1473 data/ui/remmina_main.glade:178
-#, fuzzy
 msgid "Copy"
 msgstr "ចម្លង"
 
 #: src/remmina_ssh_plugin.c:1473
-#, fuzzy
 msgid "_Copy"
-msgstr "_Copy"
+msgstr "ចម្លង(_C)"
 
 #: src/remmina_ssh_plugin.c:1474
-#, fuzzy
 msgid "Paste"
 msgstr "បិទភ្ជាប់"
 
 #: src/remmina_ssh_plugin.c:1474
-#, fuzzy
 msgid "_Paste"
-msgstr "_Paste"
+msgstr "បិទភ្ជាប់(_P)"
 
 #: src/remmina_ssh_plugin.c:1475
-#, fuzzy
 msgid "Select all"
-msgstr "ជ្រើស ទាំងអស់"
+msgstr "ជ្រើសទាំងអស់"
 
 #: src/remmina_ssh_plugin.c:1475
-#, fuzzy
 msgid "_Select all"
-msgstr "_Select ទាំងអស់"
+msgstr "ជ្រើសទាំងអស់(_S)"
 
 #: src/remmina_ssh_plugin.c:1476
 #, fuzzy
@@ -2048,8 +2075,8 @@ msgstr "រកអត្ថបទ"
 msgid "_Find text"
 msgstr "អត្ថបទ _Find"
 
-#: src/remmina_ssh_plugin.c:1505 plugins/spice/spice_plugin.c:676
-#: plugins/vnc/vnc_plugin.c:2080 plugins/vnc/vnc_plugin.c:2092
+#: src/remmina_ssh_plugin.c:1505 plugins/spice/spice_plugin.c:680
+#: plugins/vnc/vnc_plugin.c:2099 plugins/vnc/vnc_plugin.c:2111
 #, fuzzy
 msgid "User password"
 msgstr "ពាក្យសម្ងាត់របស់អ្នកប្រើប្រាស់"
@@ -2175,180 +2202,185 @@ msgstr "SSH - សែលសុវត្ថិភាព"
 msgid "Secured password storage in KWallet"
 msgstr "ការ ផ្ទុក ពាក្យ សម្ងាត់ ដែល មាន សុវត្ថិភាព នៅ ក្នុង KWallet"
 
-#: plugins/rdp/rdp_settings.c:215
+#: plugins/rdp/rdp_settings.c:214
 #, fuzzy
 msgid "<Auto-detect>"
 msgstr "<Auto-detect>"
 
-#: plugins/rdp/rdp_settings.c:247
+#: plugins/rdp/rdp_settings.c:267
 #, fuzzy
 msgid "<Not set>"
 msgstr "<Not set>"
 
-#: plugins/rdp/rdp_settings.c:278
+#: plugins/rdp/rdp_settings.c:298
 #, fuzzy
 msgid "<Choose a quality level to edit…>"
 msgstr "<Choose កម្រិតគុណភាពដើម្បីកែសម្រួល...>"
 
-#: plugins/rdp/rdp_settings.c:280 plugins/rdp/rdp_plugin.c:2664
-#: plugins/vnc/vnc_plugin.c:2029
+#: plugins/rdp/rdp_settings.c:300 plugins/rdp/rdp_plugin.c:2949
+#: plugins/vnc/vnc_plugin.c:2041
 #, fuzzy
 msgid "Poor (fastest)"
 msgstr "អ្នកក្រ (លឿនបំផុត)"
 
-#: plugins/rdp/rdp_settings.c:282 plugins/rdp/rdp_plugin.c:2665
-#: plugins/vnc/vnc_plugin.c:2028
+#: plugins/rdp/rdp_settings.c:302 plugins/rdp/rdp_plugin.c:2950
+#: plugins/vnc/vnc_plugin.c:2040
 #, fuzzy
 msgid "Medium"
 msgstr "មធ្យម"
 
-#: plugins/rdp/rdp_settings.c:284 plugins/rdp/rdp_plugin.c:2666
-#: plugins/vnc/vnc_plugin.c:2026
+#: plugins/rdp/rdp_settings.c:304 plugins/rdp/rdp_plugin.c:2951
+#: plugins/vnc/vnc_plugin.c:2038
 #, fuzzy
 msgid "Good"
 msgstr "ល្អ"
 
-#: plugins/rdp/rdp_settings.c:286 plugins/rdp/rdp_plugin.c:2667
-#: plugins/vnc/vnc_plugin.c:2027
+#: plugins/rdp/rdp_settings.c:306 plugins/rdp/rdp_plugin.c:2952
+#: plugins/vnc/vnc_plugin.c:2039
 #, fuzzy
 msgid "Best (slowest)"
 msgstr "Best (យឺតបំផុត)"
 
-#: plugins/rdp/rdp_settings.c:425
+#: plugins/rdp/rdp_settings.c:445
 #, fuzzy
 msgid "Keyboard layout"
 msgstr "ប្លង់​ក្តារចុច"
 
-#: plugins/rdp/rdp_settings.c:455
+#: plugins/rdp/rdp_settings.c:475
 #, fuzzy
 msgid "Use client keyboard mapping"
 msgstr "ប្រើផែនទីក្តារចុច client"
 
-#: plugins/rdp/rdp_settings.c:466
+#: plugins/rdp/rdp_settings.c:486
 #, fuzzy
 msgid "Keyboard scancode remapping"
 msgstr "ចុច scancode remapping"
 
-#: plugins/rdp/rdp_settings.c:481
+#: plugins/rdp/rdp_settings.c:501
 #, fuzzy
 msgid "List of key=value,… pairs to remap scancodes. E.g. 0x56=0x29,0x29=0x56"
 msgstr "បញ្ជីនៃ key=តម្លៃ,... គូដើម្បីremap scancodes។ ឧ. 0x56=0x29,0x29=0x56"
 
-#: plugins/rdp/rdp_settings.c:484
+#: plugins/rdp/rdp_settings.c:504
 #, fuzzy
 msgid "FreeRDP > 2.3.0 is required to map scancodes"
 msgstr "FreeRDP > 2.3.0 ត្រូវ បាន តម្រូវ ឲ្យ ធ្វើ ផែនទី scancodes"
 
-#: plugins/rdp/rdp_settings.c:492
+#: plugins/rdp/rdp_settings.c:512
 #, fuzzy
 msgid "Quality settings"
 msgstr "ការកំណត់គុណភាព"
 
-#: plugins/rdp/rdp_settings.c:515
+#: plugins/rdp/rdp_settings.c:535
 #, fuzzy
 msgid "Wallpaper"
 msgstr "ផ្ទាំងរូបភាព"
 
-#: plugins/rdp/rdp_settings.c:523
+#: plugins/rdp/rdp_settings.c:543
 #, fuzzy
 msgid "Window drag"
 msgstr "ការ អូស បង្អួច"
 
-#: plugins/rdp/rdp_settings.c:530
+#: plugins/rdp/rdp_settings.c:550
 #, fuzzy
 msgid "Menu animation"
 msgstr "គំនូរជីវចល Menu"
 
-#: plugins/rdp/rdp_settings.c:538
+#: plugins/rdp/rdp_settings.c:558
 #, fuzzy
 msgid "Theme"
 msgstr "ប្រធានបទ"
 
-#: plugins/rdp/rdp_settings.c:545
+#: plugins/rdp/rdp_settings.c:565
 #, fuzzy
 msgid "Cursor shadow"
 msgstr "ស្រមោល Cursor"
 
-#: plugins/rdp/rdp_settings.c:553
+#: plugins/rdp/rdp_settings.c:573
 #, fuzzy
 msgid "Cursor blinking"
 msgstr "ការ ភ្លឹបភ្លែត Cursor"
 
-#: plugins/rdp/rdp_settings.c:560
+#: plugins/rdp/rdp_settings.c:580
 #, fuzzy
 msgid "Font smoothing"
 msgstr "Font រលោង"
 
-#: plugins/rdp/rdp_settings.c:568
+#: plugins/rdp/rdp_settings.c:588
 #, fuzzy
 msgid "Composition"
 msgstr "សមាសភាព"
 
-#: plugins/rdp/rdp_settings.c:578
+#: plugins/rdp/rdp_settings.c:598
 #, fuzzy
 msgid "Remote scale factor"
 msgstr "កត្តា មាត្រដ្ឋាន ពី ចម្ងាយ"
 
-#: plugins/rdp/rdp_settings.c:593
+#: plugins/rdp/rdp_settings.c:613
 #, fuzzy
 msgid "Desktop scale factor %"
 msgstr "កត្តា មាត្រដ្ឋាន ផ្ទៃតុ %"
 
-#: plugins/rdp/rdp_settings.c:605
+#: plugins/rdp/rdp_settings.c:625
 #, fuzzy
 msgid "Device scale factor %"
 msgstr "កត្តា មាត្រដ្ឋាន ឧបករណ៍ %"
 
-#: plugins/rdp/rdp_settings.c:628
+#: plugins/rdp/rdp_settings.c:648
 #, fuzzy
 msgid "Desktop orientation"
 msgstr "ទិស ផ្ទៃតុ"
 
-#: plugins/rdp/rdp_settings.c:648
+#: plugins/rdp/rdp_settings.c:668
 #, fuzzy
 msgid "Input device settings"
 msgstr "ការ កំណត់ ឧបករណ៍ បញ្ចូល"
 
-#: plugins/rdp/rdp_settings.c:656 plugins/rdp/rdp_plugin.c:2820
-#: plugins/vnc/vnc_plugin.c:2112
+#: plugins/rdp/rdp_settings.c:676 plugins/rdp/rdp_plugin.c:3116
+#: plugins/vnc/vnc_plugin.c:2132
 #, fuzzy
 msgid "Disable smooth scrolling"
 msgstr "បិទ ការ រមូរ រលោង"
 
-#: plugins/rdp/rdp_settings.c:667
+#: plugins/rdp/rdp_settings.c:687
 #, fuzzy
 msgid "General settings"
 msgstr "ការ កំណត់ ទូទៅ"
 
-#: plugins/rdp/rdp_settings.c:674 plugins/rdp/rdp_plugin.c:2873
+#: plugins/rdp/rdp_settings.c:694 plugins/rdp/rdp_plugin.c:3169
 #, fuzzy
 #| msgid "Reconnection attempt %d of %d…"
 msgid "Reconnect attempts number"
 msgstr "លេខ ប៉ុនប៉ង តភ្ជាប់ ឡើង វិញ"
 
-#: plugins/rdp/rdp_settings.c:687 plugins/rdp/rdp_plugin.c:2873
+#: plugins/rdp/rdp_settings.c:707 plugins/rdp/rdp_plugin.c:3169
 #, fuzzy
 msgid ""
 "The maximum number of reconnect attempts upon an RDP disconnect (default: 20)"
 msgstr "ចំនួនអតិបរមានៃការតភ្ជាប់ឡើងវិញលើការផ្តាច់ RDP (default: 20)"
 
-#: plugins/rdp/rdp_plugin.c:789 plugins/rdp/rdp_plugin.c:854
+#: plugins/rdp/rdp_plugin.c:837 plugins/rdp/rdp_plugin.c:902
+#: plugins/rdp/rdp_plugin.c:987
 #, fuzzy
 msgid "Enter RDP authentication credentials"
 msgstr "បញ្ចូល RDP authentication សមត្ថ ភាព"
 
-#: plugins/rdp/rdp_plugin.c:862
+#: plugins/rdp/rdp_plugin.c:910 plugins/rdp/rdp_plugin.c:998
 #, fuzzy
 msgid "Enter RDP gateway authentication credentials"
 msgstr "បញ្ចូល RDP gateway authentication សមត្ថ ភាព"
 
+#: plugins/rdp/rdp_plugin.c:1007
+msgid "Enter RDP SmartCard PIN"
+msgstr ""
+
 #. TRANSLATORS: the placeholder may be either an IP/FQDN or a server hostname
-#: plugins/rdp/rdp_plugin.c:1043
+#: plugins/rdp/rdp_plugin.c:1269
 #, c-format
 msgid "Disconnected from %s via RDP"
 msgstr ""
 
-#: plugins/rdp/rdp_plugin.c:2195
+#: plugins/rdp/rdp_plugin.c:2463
 #, fuzzy, c-format
 msgid ""
 "Could not access the RDP server “%s”.\n"
@@ -2357,7 +2389,7 @@ msgstr ""
 "មិន អាច ចូល ដំណើរ ការ ម៉ាស៊ីន បម្រើ RDP \"%s\"។\n"
 "Account locked out."
 
-#: plugins/rdp/rdp_plugin.c:2202
+#: plugins/rdp/rdp_plugin.c:2470
 #, fuzzy, c-format
 msgid ""
 "Could not access the RDP server “%s”.\n"
@@ -2366,7 +2398,7 @@ msgstr ""
 "មិន អាច ចូល ដំណើរ ការ ម៉ាស៊ីន បម្រើ RDP \"%s\"។\n"
 "គណនីផុតកំណត់។"
 
-#: plugins/rdp/rdp_plugin.c:2209
+#: plugins/rdp/rdp_plugin.c:2477
 #, fuzzy, c-format
 msgid ""
 "Could not access the RDP server “%s”.\n"
@@ -2375,7 +2407,7 @@ msgstr ""
 "មិន អាច ចូល ដំណើរ ការ ម៉ាស៊ីន បម្រើ RDP \"%s\"។\n"
 "ពាក្យសម្ងាត់បានផុតកំណត់។"
 
-#: plugins/rdp/rdp_plugin.c:2216
+#: plugins/rdp/rdp_plugin.c:2484
 #, fuzzy, c-format
 msgid ""
 "Could not access the RDP server “%s”.\n"
@@ -2384,7 +2416,7 @@ msgstr ""
 "មិន អាច ចូល ដំណើរ ការ ម៉ាស៊ីន បម្រើ RDP \"%s\"។\n"
 "ពិការភាពគណនេយ្យ។"
 
-#: plugins/rdp/rdp_plugin.c:2222
+#: plugins/rdp/rdp_plugin.c:2490
 #, fuzzy, c-format
 msgid ""
 "Could not access the RDP server “%s”.\n"
@@ -2393,7 +2425,7 @@ msgstr ""
 "មិន អាច ចូល ដំណើរ ការ ម៉ាស៊ីន បម្រើ RDP \"%s\"។\n"
 "អភ័យឯកសិទ្ធិអ្នកប្រើមិនគ្រប់គ្រាន់។"
 
-#: plugins/rdp/rdp_plugin.c:2230
+#: plugins/rdp/rdp_plugin.c:2498
 #, fuzzy, c-format
 msgid ""
 "Could not access the RDP server “%s”.\n"
@@ -2402,7 +2434,7 @@ msgstr ""
 "មិន អាច ចូល ដំណើរ ការ ម៉ាស៊ីន បម្រើ RDP \"%s\"។\n"
 "គណនីត្រូវបានដាក់កម្រិត។"
 
-#: plugins/rdp/rdp_plugin.c:2238
+#: plugins/rdp/rdp_plugin.c:2506
 #, fuzzy, c-format
 msgid ""
 "Could not access the RDP server “%s”.\n"
@@ -2411,17 +2443,17 @@ msgstr ""
 "មិន អាច ចូល ដំណើរ ការ ម៉ាស៊ីន បម្រើ RDP \"%s\"។\n"
 "ផ្លាស់ប្ដូរ ពាក្យ សម្ងាត់ របស់ អ្នក ប្រើ មុន ពេល ភ្ជាប់ & # 160; ។"
 
-#: plugins/rdp/rdp_plugin.c:2243
+#: plugins/rdp/rdp_plugin.c:2511
 #, fuzzy, c-format
 msgid "Lost connection to the RDP server “%s”."
 msgstr "វង្វេងការភ្ជាប់ទៅម៉ាស៊ីនបម្រើ RDP \"%s\"។"
 
-#: plugins/rdp/rdp_plugin.c:2246
+#: plugins/rdp/rdp_plugin.c:2514
 #, fuzzy, c-format
 msgid "Could not find the address for the RDP server “%s”."
 msgstr "មិនអាចស្វែងរកអាស័យដ្ឋានសម្រាប់ម៉ាស៊ីនបម្រើ RDP \"%s\"។"
 
-#: plugins/rdp/rdp_plugin.c:2250
+#: plugins/rdp/rdp_plugin.c:2518
 #, fuzzy, c-format
 msgid ""
 "Could not connect to the RDP server “%s” via TLS. See the DEBUG traces from "
@@ -2431,7 +2463,7 @@ msgstr ""
 "ម៉ាស៊ីន បម្រើ គាំទ្រ កំណែ TLS ទូទៅ & # 160; ។"
 
 #. TRANSLATORS: the placeholder may be either an IP/FQDN or a server hostname
-#: plugins/rdp/rdp_plugin.c:2254
+#: plugins/rdp/rdp_plugin.c:2522
 #, fuzzy, c-format
 msgid ""
 "Unable to establish a connection to the RDP server “%s”. Check “Security "
@@ -2439,17 +2471,17 @@ msgid ""
 msgstr ""
 "មិនអាចបង្កើតការតភ្ជាប់ទៅកាន់ម៉ាស៊ីនបម្រើ RDP \"%s\"។ ពិនិត្យមើល \"ការចរចាពិធីការសុវត្ថិភាព\"។"
 
-#: plugins/rdp/rdp_plugin.c:2262
+#: plugins/rdp/rdp_plugin.c:2530
 #, fuzzy, c-format
 msgid "Cannot connect to the RDP server “%s”."
 msgstr "មិនអាចភ្ជាប់ទៅកាន់ RDP server \"%s\"។"
 
-#: plugins/rdp/rdp_plugin.c:2265
+#: plugins/rdp/rdp_plugin.c:2533
 #, fuzzy
 msgid "Could not start libfreerdp-gdi."
 msgstr "មិន អាច ចាប់ ផ្តើម libfreerdp-gdi បាន ទេ & # 160; ។"
 
-#: plugins/rdp/rdp_plugin.c:2268
+#: plugins/rdp/rdp_plugin.c:2536
 #, fuzzy, c-format
 msgid ""
 "You requested a H.264 GFX mode for the server “%s”, but your libfreerdp does "
@@ -2458,182 +2490,198 @@ msgstr ""
 "អ្នក បាន ស្នើ សុំ របៀប H.264 GFX សម្រាប់ server \"%s\" ប៉ុន្តែ libfreerdp របស់ អ្នក មិន "
 "គាំទ្រ H.264 ទេ។ សូម ប្រើ ការកំណត់ ជម្រៅ ពណ៌ AVC ដែល មិន មែន ជា AVC ។"
 
-#: plugins/rdp/rdp_plugin.c:2275
+#: plugins/rdp/rdp_plugin.c:2543
 #, fuzzy, c-format
 msgid "The “%s” server refused the connection."
 msgstr "ម៉ាស៊ីន បម្រើ \"%s\" បាន បដិសេធ ការ តភ្ជាប់ ។"
 
-#: plugins/rdp/rdp_plugin.c:2280
+#: plugins/rdp/rdp_plugin.c:2548
 #, fuzzy, c-format
 msgid ""
 "The Remote Desktop Gateway “%s” denied the user “%s\\%s” access due to "
 "policy."
 msgstr "ច្រកចូលពីចម្ងាយ \"%s\" បានបដិសេធអ្នកប្រើ \"%s\\%s\" ចូលទៅកាន់ដោយ សារគោលនយោបាយ។"
 
-#: plugins/rdp/rdp_plugin.c:2290
+#: plugins/rdp/rdp_plugin.c:2558
 #, fuzzy, c-format
 msgid "Cannot connect to the “%s” RDP server."
 msgstr "មិនអាចភ្ជាប់ទៅកាន់ម៉ាស៊ីនបម្រើ \"%s\" RDP server បាន។"
 
-#: plugins/rdp/rdp_plugin.c:2633
+#: plugins/rdp/rdp_plugin.c:2918
 #, fuzzy
 msgid "Automatic (32 bpp) (Server chooses its best format)"
 msgstr "ដោយស្វ័យប្រវត្តិ (32 bpp) (Server ជ្រើសរើសទ្រង់ទ្រាយល្អបំផុតរបស់វា)"
 
-#: plugins/rdp/rdp_plugin.c:2634
+#: plugins/rdp/rdp_plugin.c:2919
 #, fuzzy
 msgid "GFX AVC444 (32 bpp)"
 msgstr "GFX AVC444 (32 bpp)"
 
-#: plugins/rdp/rdp_plugin.c:2635
+#: plugins/rdp/rdp_plugin.c:2920
 #, fuzzy
 msgid "GFX AVC420 (32 bpp)"
 msgstr "GFX AVC420 (32 bpp)"
 
-#: plugins/rdp/rdp_plugin.c:2636
+#: plugins/rdp/rdp_plugin.c:2921
 #, fuzzy
 msgid "GFX RFX (32 bpp)"
 msgstr "GFX RFX (32 bpp)"
 
-#: plugins/rdp/rdp_plugin.c:2637
+#: plugins/rdp/rdp_plugin.c:2922
 #, fuzzy
 msgid "GFX RFX Progressive (32 bpp)"
 msgstr "GFX RFX វឌ្ឍនៈ (32 bpp)"
 
-#: plugins/rdp/rdp_plugin.c:2638
+#: plugins/rdp/rdp_plugin.c:2923
 #, fuzzy
 msgid "RemoteFX (32 bpp)"
 msgstr "RemoteFX (32 bpp)"
 
-#: plugins/rdp/rdp_plugin.c:2639 plugins/vnc/vnc_plugin.c:2017
+#: plugins/rdp/rdp_plugin.c:2924 plugins/vnc/vnc_plugin.c:2029
 #, fuzzy
 msgid "True colour (32 bpp)"
 msgstr "ពណ៌ពិត (32 bpp)"
 
-#: plugins/rdp/rdp_plugin.c:2640
+#: plugins/rdp/rdp_plugin.c:2925
 #, fuzzy
 msgid "True colour (24 bpp)"
 msgstr "ពណ៌ពិត (24 bpp)"
 
-#: plugins/rdp/rdp_plugin.c:2641 plugins/vnc/vnc_plugin.c:2018
+#: plugins/rdp/rdp_plugin.c:2926 plugins/vnc/vnc_plugin.c:2030
 #, fuzzy
 msgid "High colour (16 bpp)"
 msgstr "ពណ៌ខ្ពស់ (16 bpp)"
 
-#: plugins/rdp/rdp_plugin.c:2642
+#: plugins/rdp/rdp_plugin.c:2927
 #, fuzzy
 msgid "High colour (15 bpp)"
 msgstr "ពណ៌ខ្ពស់ (15 bpp)"
 
-#: plugins/rdp/rdp_plugin.c:2643 plugins/vnc/vnc_plugin.c:2019
+#: plugins/rdp/rdp_plugin.c:2928 plugins/vnc/vnc_plugin.c:2031
 #, fuzzy
 msgid "256 colours (8 bpp)"
 msgstr "256 ពណ៌ (8 bpp)"
 
-#: plugins/rdp/rdp_plugin.c:2674 data/ui/remmina_preferences.glade:592
+#: plugins/rdp/rdp_plugin.c:2959 data/ui/remmina_preferences.glade:728
 #, fuzzy
 msgid "None"
 msgstr "មិនមាន"
 
-#: plugins/rdp/rdp_plugin.c:2675
+#: plugins/rdp/rdp_plugin.c:2960
 #, fuzzy
 msgid "Auto-detect"
 msgstr "រក ឃើញ ស្វ័យ ប្រវត្តិ"
 
-#: plugins/rdp/rdp_plugin.c:2676
+#: plugins/rdp/rdp_plugin.c:2961
 #, fuzzy
 msgid "Modem"
 msgstr "Modem"
 
-#: plugins/rdp/rdp_plugin.c:2677
+#: plugins/rdp/rdp_plugin.c:2962
 #, fuzzy
 msgid "Low performance broadband"
 msgstr "រលក អាកាស សមត្ថ ភាព ទាប"
 
-#: plugins/rdp/rdp_plugin.c:2678
+#: plugins/rdp/rdp_plugin.c:2963
 #, fuzzy
 msgid "Satellite"
 msgstr "ផ្កាយ រណប"
 
-#: plugins/rdp/rdp_plugin.c:2679
+#: plugins/rdp/rdp_plugin.c:2964
 #, fuzzy
 msgid "High performance broadband"
 msgstr "រលក អាកាស សមត្ថ ភាព ខ្ពស់"
 
-#: plugins/rdp/rdp_plugin.c:2680
+#: plugins/rdp/rdp_plugin.c:2965
 #, fuzzy
 msgid "WAN"
 msgstr "វ៉ាន់"
 
-#: plugins/rdp/rdp_plugin.c:2681
+#: plugins/rdp/rdp_plugin.c:2966
 #, fuzzy
 msgid "LAN"
 msgstr "ឡាន"
 
-#: plugins/rdp/rdp_plugin.c:2688 plugins/spice/spice_plugin.c:637
-#: data/ui/remmina_preferences.glade:628
+#: plugins/rdp/rdp_plugin.c:2973 plugins/spice/spice_plugin.c:641
+#: data/ui/remmina_preferences.glade:764
 #, fuzzy
 msgid "Off"
 msgstr "បិទ"
 
-#: plugins/rdp/rdp_plugin.c:2697
+#: plugins/rdp/rdp_plugin.c:2982
 #, fuzzy
 msgid "Automatic negotiation"
 msgstr "ការចរចារដោយស្វ័យប្រវត្តិ"
 
-#: plugins/rdp/rdp_plugin.c:2698
+#: plugins/rdp/rdp_plugin.c:2983
 msgid "NLA protocol security"
 msgstr "ពិធីការ"
 
-#: plugins/rdp/rdp_plugin.c:2699
+#: plugins/rdp/rdp_plugin.c:2984
 msgid "TLS protocol security"
 msgstr "ពិធីការ"
 
-#: plugins/rdp/rdp_plugin.c:2700
+#: plugins/rdp/rdp_plugin.c:2985
 msgid "RDP protocol security"
 msgstr "ពិធីការ"
 
-#: plugins/rdp/rdp_plugin.c:2701
+#: plugins/rdp/rdp_plugin.c:2986
 #, fuzzy
 msgid "NLA extended protocol security"
 msgstr "NLA បាន ពង្រីក សុវត្ថិភាព ពិធីការ"
 
-#: plugins/rdp/rdp_plugin.c:2715 plugins/spice/spice_plugin.c:618
-#: plugins/spice/spice_plugin.c:636
+#: plugins/rdp/rdp_plugin.c:2994
+msgid "Every 1 min"
+msgstr ""
+
+#: plugins/rdp/rdp_plugin.c:2995
+msgid "Every 3 min"
+msgstr ""
+
+#: plugins/rdp/rdp_plugin.c:2996
+msgid "Every 5 min"
+msgstr ""
+
+#: plugins/rdp/rdp_plugin.c:2997
+msgid "Every 10 min"
+msgstr ""
+
+#: plugins/rdp/rdp_plugin.c:3011 plugins/spice/spice_plugin.c:622
+#: plugins/spice/spice_plugin.c:640
 #, fuzzy
 msgid "Default"
 msgstr "លំនាំដើម"
 
-#: plugins/rdp/rdp_plugin.c:2716
+#: plugins/rdp/rdp_plugin.c:3012
 msgid "0 — Windows 7 compatible"
 msgstr ""
 
-#: plugins/rdp/rdp_plugin.c:2717
+#: plugins/rdp/rdp_plugin.c:3013
 msgid "1"
 msgstr ""
 
-#: plugins/rdp/rdp_plugin.c:2718
+#: plugins/rdp/rdp_plugin.c:3014
 msgid "2"
 msgstr ""
 
-#: plugins/rdp/rdp_plugin.c:2719
+#: plugins/rdp/rdp_plugin.c:3015
 msgid "3"
 msgstr ""
 
-#: plugins/rdp/rdp_plugin.c:2720
+#: plugins/rdp/rdp_plugin.c:3016
 msgid "4"
 msgstr ""
 
-#: plugins/rdp/rdp_plugin.c:2721
+#: plugins/rdp/rdp_plugin.c:3017
 msgid "5"
 msgstr ""
 
-#: plugins/rdp/rdp_plugin.c:2726
+#: plugins/rdp/rdp_plugin.c:3022
 #, fuzzy
 msgid "2600 (Windows XP), 7601 (Windows Vista/7), 9600 (Windows 8 and newer)"
 msgstr "2600 (Windows XP), 7601 (Windows Vista/7), 9600 (Windows 8 និង newer)"
 
-#: plugins/rdp/rdp_plugin.c:2729
+#: plugins/rdp/rdp_plugin.c:3025
 #, fuzzy
 msgid ""
 "Used i.a. by terminal services in a smart card channel to distinguish client "
@@ -2651,7 +2699,7 @@ msgstr ""
 "Windows 8 និង newer: SCardGetReaderIcon(),\n"
 "    SCardGetDeviceTypeId()"
 
-#: plugins/rdp/rdp_plugin.c:2737
+#: plugins/rdp/rdp_plugin.c:3033
 #, fuzzy
 msgid ""
 "Options for redirection of audio input:\n"
@@ -2670,7 +2718,7 @@ msgstr ""
 "  • sys:oss,dev:1,format:1\n"
 "  • sys:alsa"
 
-#: plugins/rdp/rdp_plugin.c:2746
+#: plugins/rdp/rdp_plugin.c:3042
 #, fuzzy
 msgid ""
 "Options for redirection of audio output:\n"
@@ -2689,7 +2737,7 @@ msgstr ""
 "  • sys:oss,dev:1,format:1\n"
 "  • sys:alsa"
 
-#: plugins/rdp/rdp_plugin.c:2756
+#: plugins/rdp/rdp_plugin.c:3052
 #, fuzzy
 msgid ""
 "Options for redirection of USB device:\n"
@@ -2702,7 +2750,7 @@ msgstr ""
 "  • ស្វ័យប្រវត្តិ\n"
 "  • id:054c:0268#4669:6e6b,addr:04:0c"
 
-#: plugins/rdp/rdp_plugin.c:2762
+#: plugins/rdp/rdp_plugin.c:3058
 #, fuzzy
 msgid ""
 "Advanced setting for high latency links:\n"
@@ -2714,7 +2762,7 @@ msgstr ""
 "។\n"
 "តម្លៃ ខ្ពស់ បំផុត ដែល អាច ធ្វើ ទៅ បាន គឺ 600000 ms ( 10 នាទី ) ។\n"
 
-#: plugins/rdp/rdp_plugin.c:2767
+#: plugins/rdp/rdp_plugin.c:3063
 #, fuzzy
 msgid ""
 "Performance optimisations based on the network connection type:\n"
@@ -2725,7 +2773,7 @@ msgstr ""
 "ការប្រើប្រាស់ការរកឃើញស្វ័យប្រវត្តិត្រូវបានណែនាំ។\n"
 "ប្រសិនបើ \"Auto-detect\" បរាជ័យ, ជ្រើសជម្រើសដែលសមរម្យបំផុតនៅក្នុងបញ្ជី.\n"
 
-#: plugins/rdp/rdp_plugin.c:2772
+#: plugins/rdp/rdp_plugin.c:3068
 #, fuzzy
 msgid ""
 "Comma-separated list of monitor IDs and desktop orientations:\n"
@@ -2750,7 +2798,7 @@ msgstr ""
 "  • 270 (រូបភាព flipped)\n"
 "\n"
 
-#: plugins/rdp/rdp_plugin.c:2784
+#: plugins/rdp/rdp_plugin.c:3080
 #, fuzzy
 msgid ""
 "Redirect directory <path> as named share <name>.\n"
@@ -2771,163 +2819,163 @@ msgstr ""
 "  • ក្តៅៗ,*\n"
 "\n"
 
-#: plugins/rdp/rdp_plugin.c:2816 plugins/spice/spice_plugin.c:679
+#: plugins/rdp/rdp_plugin.c:3112 plugins/spice/spice_plugin.c:683
 #, fuzzy
 msgid "Share folder"
 msgstr "ថតចែករំលែក"
 
-#: plugins/rdp/rdp_plugin.c:2817
+#: plugins/rdp/rdp_plugin.c:3113
 #, fuzzy
 msgid "Restricted admin mode"
 msgstr "របៀបដាក់កម្រិត admin"
 
-#: plugins/rdp/rdp_plugin.c:2818
+#: plugins/rdp/rdp_plugin.c:3114
 #, fuzzy
 #| msgid "Password"
 msgid "Password hash"
 msgstr "ពាក្យសម្ងាត់ hash"
 
-#: plugins/rdp/rdp_plugin.c:2818
+#: plugins/rdp/rdp_plugin.c:3114
 #, fuzzy
 msgid "Restricted admin mode password hash"
 msgstr "លេខកូដសម្ងាត់ របៀប admin ដែល បាន ដាក់ កម្រិត"
 
-#: plugins/rdp/rdp_plugin.c:2819
+#: plugins/rdp/rdp_plugin.c:3115
 #, fuzzy
 msgid "Left-handed mouse support"
 msgstr "ការ គាំទ្រ កណ្ដុរ ឆ្វេង ដៃ"
 
-#: plugins/rdp/rdp_plugin.c:2819
+#: plugins/rdp/rdp_plugin.c:3115
 #, fuzzy
 msgid "Swap left and right mouse buttons for left-handed mouse support"
 msgstr "ប្ដូរ ប៊ូតុង កណ្ដុរ ឆ្វេង និង ស្តាំ សម្រាប់ ការ គាំទ្រ កណ្ដុរ ឆ្វេង"
 
-#: plugins/rdp/rdp_plugin.c:2821
+#: plugins/rdp/rdp_plugin.c:3117
 #, fuzzy
 msgid "Enable multi monitor"
 msgstr "បើក ម៉ូនីទ័រ ច្រើន"
 
-#: plugins/rdp/rdp_plugin.c:2822
+#: plugins/rdp/rdp_plugin.c:3118
 #, fuzzy
 msgid "Span screen over multiple monitors"
 msgstr "អេក្រង់ Span លើ ម៉ូនីទ័រ ច្រើន"
 
-#: plugins/rdp/rdp_plugin.c:2823
+#: plugins/rdp/rdp_plugin.c:3119
 #, fuzzy
 msgid "List monitor IDs"
 msgstr "បញ្ជី ត្រួតពិនិត្យ IDs"
 
-#: plugins/rdp/rdp_plugin.c:2825 plugins/vnc/vnc_plugin.c:2081
-#: plugins/vnc/vnc_plugin.c:2093 plugins/gvnc/gvnc_plugin.c:848
+#: plugins/rdp/rdp_plugin.c:3121 plugins/vnc/vnc_plugin.c:2100
+#: plugins/vnc/vnc_plugin.c:2112 plugins/gvnc/gvnc_plugin.c:848
 #, fuzzy
 msgid "Colour depth"
 msgstr "ជម្រៅ ពណ៌"
 
-#: plugins/rdp/rdp_plugin.c:2826
+#: plugins/rdp/rdp_plugin.c:3122
 msgid "Network connection type"
 msgstr "ការ​​​តភ្ជាប់​​ថ្មី"
 
-#: plugins/rdp/rdp_plugin.c:2842 plugins/vnc/vnc_plugin.c:2082
-#: plugins/vnc/vnc_plugin.c:2094
+#: plugins/rdp/rdp_plugin.c:3138 plugins/vnc/vnc_plugin.c:2101
+#: plugins/vnc/vnc_plugin.c:2113
 #, fuzzy
 msgid "Quality"
 msgstr "គុណភាព"
 
-#: plugins/rdp/rdp_plugin.c:2843
+#: plugins/rdp/rdp_plugin.c:3139
 #, fuzzy
 msgid "Security protocol negotiation"
 msgstr "ការ ចរចា ពិធីការ សន្តិសុខ"
 
-#: plugins/rdp/rdp_plugin.c:2844
+#: plugins/rdp/rdp_plugin.c:3140
 #, fuzzy
 msgid "Gateway transport type"
 msgstr "ប្រភេទដឹកជញ្ជូនផ្លូវចូល"
 
-#: plugins/rdp/rdp_plugin.c:2845
+#: plugins/rdp/rdp_plugin.c:3141
 #, fuzzy
 msgid "TLS Security Level"
 msgstr "សន្តិសុខ"
 
-#: plugins/rdp/rdp_plugin.c:2846
+#: plugins/rdp/rdp_plugin.c:3142
 #, fuzzy
 msgid "FreeRDP log level"
 msgstr "កម្រិត log FreeRDP"
 
-#: plugins/rdp/rdp_plugin.c:2847
+#: plugins/rdp/rdp_plugin.c:3143
 #, fuzzy
 msgid "FreeRDP log filters"
 msgstr "តម្រងកំណត់ហេតុ FreeRDP"
 
-#: plugins/rdp/rdp_plugin.c:2847
+#: plugins/rdp/rdp_plugin.c:3143
 #, fuzzy
 msgid "tag:level[,tag:level[,…]]"
 msgstr "tag:level[,tag:level[,...]]"
 
-#: plugins/rdp/rdp_plugin.c:2848
+#: plugins/rdp/rdp_plugin.c:3144
 #, fuzzy
 msgid "Audio output mode"
 msgstr "របៀបចេញអូឌីយ៉ូ"
 
-#: plugins/rdp/rdp_plugin.c:2849
+#: plugins/rdp/rdp_plugin.c:3145
 #, fuzzy
 msgid "Redirect local audio output"
 msgstr "ទិន្នផលអូឌីយ៉ូមូលដ្ឋាន Redirect"
 
-#: plugins/rdp/rdp_plugin.c:2850
+#: plugins/rdp/rdp_plugin.c:3146
 #, fuzzy
 msgid "Redirect local microphone"
 msgstr "មីក្រូហ្វូន ក្នុង ស្រុក រេប្រយោល"
 
-#: plugins/rdp/rdp_plugin.c:2851
+#: plugins/rdp/rdp_plugin.c:3147
 msgid "Connection timeout in ms"
 msgstr "កំពុង​តភ្ជាប់​ទៅ '%s'…"
 
-#: plugins/rdp/rdp_plugin.c:2852
+#: plugins/rdp/rdp_plugin.c:3148
 #, fuzzy
 msgid "Remote Desktop Gateway server"
 msgstr "ម៉ាស៊ីន បម្រើ Remote Desktop Gateway"
 
-#: plugins/rdp/rdp_plugin.c:2853
+#: plugins/rdp/rdp_plugin.c:3149
 #, fuzzy
 msgid "Remote Desktop Gateway username"
 msgstr "ឈ្មោះអ្នកប្រើ Remote Desktop Gateway"
 
-#: plugins/rdp/rdp_plugin.c:2854
+#: plugins/rdp/rdp_plugin.c:3150
 #, fuzzy
 msgid "Remote Desktop Gateway password"
 msgstr "ពាក្យសម្ងាត់ Remote Desktop Gateway"
 
-#: plugins/rdp/rdp_plugin.c:2855
+#: plugins/rdp/rdp_plugin.c:3151
 #, fuzzy
 msgid "Remote Desktop Gateway domain"
 msgstr "ដែនទ្វារផ្ទៃតុពីចម្ងាយ"
 
-#: plugins/rdp/rdp_plugin.c:2856
+#: plugins/rdp/rdp_plugin.c:3152
 #, fuzzy
 msgid "Client name"
 msgstr "ឈ្មោះ Client"
 
-#: plugins/rdp/rdp_plugin.c:2857
+#: plugins/rdp/rdp_plugin.c:3153
 #, fuzzy
 msgid "Client build"
 msgstr "ការ ស្ថាបនា ម៉ាស៊ីន បម្រើ"
 
-#: plugins/rdp/rdp_plugin.c:2858
+#: plugins/rdp/rdp_plugin.c:3154
 msgid "Start-up program"
 msgstr "ចាប់ផ្ដើម​កម្មវិធី"
 
-#: plugins/rdp/rdp_plugin.c:2860
+#: plugins/rdp/rdp_plugin.c:3156
 #, fuzzy
 msgid "Load balance info"
 msgstr "ផ្ទុក ព័ត៌មាន តុល្យភាព"
 
 #. TRANSLATORS: Do not use typographic quotation marks, these must stay as "double quote", also know as “Typewriter ("programmer's") quote, ambidextrous.”
-#: plugins/rdp/rdp_plugin.c:2862
+#: plugins/rdp/rdp_plugin.c:3158
 #, fuzzy
 msgid "Override printer drivers"
 msgstr "អ្នក បើក បរ ម៉ាស៊ីន បោះពុម្ព Override"
 
-#: plugins/rdp/rdp_plugin.c:2862
+#: plugins/rdp/rdp_plugin.c:3158
 #, fuzzy
 msgid ""
 "\"Samsung_CLX-3300_Series\":\"Samsung CLX-3300 Series PS\";\"Canon MF410\":"
@@ -2936,239 +2984,249 @@ msgstr ""
 "\"Samsung_CLX-3300_Series\":\"Samsung CLX-3300 ស៊េរី PS\";\" Canon MF410\":"
 "\"Canon MF410 ស៊េរី UFR II\""
 
-#: plugins/rdp/rdp_plugin.c:2863
+#: plugins/rdp/rdp_plugin.c:3159
 #, fuzzy
 msgid "USB device redirection"
 msgstr "ការ រេ រេ ទ័រ ឧបករណ៍ USB"
 
-#: plugins/rdp/rdp_plugin.c:2864
+#: plugins/rdp/rdp_plugin.c:3160
 #, fuzzy
 msgid "Local serial name"
 msgstr "ឈ្មោះ serial ក្នុង ស្រុក"
 
-#: plugins/rdp/rdp_plugin.c:2864
+#: plugins/rdp/rdp_plugin.c:3160
 #, fuzzy
 msgid "COM1, COM2, etc."
 msgstr "COM1, COM2, ល។"
 
-#: plugins/rdp/rdp_plugin.c:2865
+#: plugins/rdp/rdp_plugin.c:3161
 #, fuzzy
 msgid "Local serial driver"
 msgstr "អ្នក បើក បរ ស៊េរី ក្នុង ស្រុក"
 
-#: plugins/rdp/rdp_plugin.c:2865
+#: plugins/rdp/rdp_plugin.c:3161
 #, fuzzy
 msgid "Serial"
 msgstr "សៀរៀល"
 
-#: plugins/rdp/rdp_plugin.c:2866
+#: plugins/rdp/rdp_plugin.c:3162
 #, fuzzy
 msgid "Local serial path"
 msgstr "ផ្លូវ សៀរៀល ក្នុង ស្រុក"
 
-#: plugins/rdp/rdp_plugin.c:2866
+#: plugins/rdp/rdp_plugin.c:3162
 #, fuzzy
 msgid "/dev/ttyS0, /dev/ttyS1, etc."
 msgstr "/dev/ttyS0, /dev/ttyS1។ ល។"
 
-#: plugins/rdp/rdp_plugin.c:2867
+#: plugins/rdp/rdp_plugin.c:3163
 #, fuzzy
 msgid "Local parallel name"
 msgstr "ឈ្មោះប៉ារ៉ាឡែលមូលដ្ឋាន"
 
-#: plugins/rdp/rdp_plugin.c:2868
+#: plugins/rdp/rdp_plugin.c:3164
 #, fuzzy
 msgid "Local parallel device"
 msgstr "ឧបករណ៍ប៉ារ៉ាឡែលមូលដ្ឋាន"
 
-#: plugins/rdp/rdp_plugin.c:2869
+#: plugins/rdp/rdp_plugin.c:3165
 #, fuzzy
 msgid "Name of smart card"
 msgstr "ឈ្មោះកាតឆ្លាតវៃ"
 
-#: plugins/rdp/rdp_plugin.c:2870
+#: plugins/rdp/rdp_plugin.c:3166
 #, fuzzy
 msgid "Dynamic virtual channel"
 msgstr "ឆានែលនិម្មិត Dynamic"
 
-#: plugins/rdp/rdp_plugin.c:2870 plugins/rdp/rdp_plugin.c:2871
+#: plugins/rdp/rdp_plugin.c:3166 plugins/rdp/rdp_plugin.c:3167
 #, fuzzy
 msgid "<channel>[,<options>]"
 msgstr "<channel>[,<options>]"
 
-#: plugins/rdp/rdp_plugin.c:2871
+#: plugins/rdp/rdp_plugin.c:3167
 #, fuzzy
 msgid "Static virtual channel"
 msgstr "ឆានែលនិម្មិត Static"
 
-#: plugins/rdp/rdp_plugin.c:2872
+#: plugins/rdp/rdp_plugin.c:3168
 #, fuzzy
 #| msgid "Per connection"
 msgid "TCP redirection"
 msgstr "ការ បង្វិល សង TCP"
 
-#: plugins/rdp/rdp_plugin.c:2872
+#: plugins/rdp/rdp_plugin.c:3168
 #, fuzzy
 msgid "/PATH/TO/rdp2tcp"
 msgstr "/PATH/TO/rdp2tcp"
 
-#: plugins/rdp/rdp_plugin.c:2874
+#: plugins/rdp/rdp_plugin.c:3170
+#, fuzzy
+#| msgid "Remote Connection Profile"
+msgid "Move mouse when connection is idle"
+msgstr "ការ​​​តភ្ជាប់​​ថ្មី"
+
+#: plugins/rdp/rdp_plugin.c:3172
+msgid "Attempt to connect in assistance mode"
+msgstr ""
+
+#: plugins/rdp/rdp_plugin.c:3173
 #, fuzzy
 msgid "Prefer IPv6 AAAA record over IPv4 A record"
 msgstr "កំណត់ត្រា IPv6 AAAA លើ IPv4 A record"
 
-#: plugins/rdp/rdp_plugin.c:2875
+#: plugins/rdp/rdp_plugin.c:3174
 #, fuzzy
 msgid "Share printers"
 msgstr "ចែក រំលែក ម៉ាស៊ីន បោះពុម្ព"
 
-#: plugins/rdp/rdp_plugin.c:2876
+#: plugins/rdp/rdp_plugin.c:3175
 #, fuzzy
 msgid "Share serial ports"
 msgstr "ចែក រំលែក ច្រក សៀរៀល"
 
-#: plugins/rdp/rdp_plugin.c:2877
+#: plugins/rdp/rdp_plugin.c:3176
 #, fuzzy
 msgid "(SELinux) permissive mode for serial ports"
 msgstr "(SELinux) permissive mode for serial ports"
 
-#: plugins/rdp/rdp_plugin.c:2878
+#: plugins/rdp/rdp_plugin.c:3177
 #, fuzzy
 msgid "Share parallel ports"
 msgstr "ចែក រំលែក ច្រក ប៉ារ៉ាឡែល"
 
-#: plugins/rdp/rdp_plugin.c:2879
+#: plugins/rdp/rdp_plugin.c:3178
 #, fuzzy
 msgid "Share a smart card"
 msgstr "ចែករំលែកកាតឆ្លាតវៃ"
 
-#: plugins/rdp/rdp_plugin.c:2880 plugins/vnc/vnc_plugin.c:2117
+#: plugins/rdp/rdp_plugin.c:3179 plugins/vnc/vnc_plugin.c:2137
 #, fuzzy
 msgid "Turn off clipboard sync"
 msgstr "បិទ ការ ធ្វើ សមកាលកម្ម ក្ដារខៀន"
 
-#: plugins/rdp/rdp_plugin.c:2881
+#: plugins/rdp/rdp_plugin.c:3180
 #, fuzzy
 msgid "Ignore certificate"
 msgstr "អើពើ នឹង វិញ្ញាបនបត្រ"
 
-#: plugins/rdp/rdp_plugin.c:2882
+#: plugins/rdp/rdp_plugin.c:3181
 #, fuzzy
 msgid "Use the old license workflow"
 msgstr "ប្រើ លំហូរ ការងារ អាជ្ញាប័ណ្ណ ចាស់"
 
-#: plugins/rdp/rdp_plugin.c:2882
+#: plugins/rdp/rdp_plugin.c:3181
 #, fuzzy
 msgid "It disables CAL and hwId is set to 0"
 msgstr "វា បិទ CAL និង hwId ត្រូវ បាន កំណត់ ទៅ 0"
 
-#: plugins/rdp/rdp_plugin.c:2883 plugins/spice/spice_plugin.c:704
-#: plugins/vnc/vnc_plugin.c:2113 plugins/www/www_plugin.c:936
+#: plugins/rdp/rdp_plugin.c:3182 plugins/spice/spice_plugin.c:708
+#: plugins/vnc/vnc_plugin.c:2133 plugins/www/www_plugin.c:936
 #: plugins/gvnc/gvnc_plugin.c:866
 #, fuzzy
 msgid "Forget passwords after use"
 msgstr "ភ្លេចពាក្យសម្ងាត់បន្ទាប់ពីប្រើ"
 
-#: plugins/rdp/rdp_plugin.c:2884
+#: plugins/rdp/rdp_plugin.c:3183
 #, fuzzy
 msgid "Attach to console (2003/2003 R2)"
 msgstr "ភ្ជាប់ទៅ console (2003/2003 R2)"
 
-#: plugins/rdp/rdp_plugin.c:2885
+#: plugins/rdp/rdp_plugin.c:3184
 #, fuzzy
 msgid "Turn off fast-path"
 msgstr "បិទផ្លូវលឿន"
 
-#: plugins/rdp/rdp_plugin.c:2886
+#: plugins/rdp/rdp_plugin.c:3185
 #, fuzzy
 msgid "Server detection using Remote Desktop Gateway"
 msgstr "ការ រក ឃើញ ម៉ាស៊ីន បម្រើ ដោយ ប្រើ Remote Desktop Gateway"
 
-#: plugins/rdp/rdp_plugin.c:2888
+#: plugins/rdp/rdp_plugin.c:3187
 #, fuzzy
 msgid "Use system proxy settings"
 msgstr "ប្រើ ការ កំណត់ ប្រូកស៊ី ប្រព័ន្ធ"
 
-#: plugins/rdp/rdp_plugin.c:2890
+#: plugins/rdp/rdp_plugin.c:3189
 #, fuzzy
 msgid "Turn off automatic reconnection"
 msgstr "បិទ ការ តភ្ជាប់ ឡើង វិញ ដោយ ស្វ័យ ប្រវត្តិ"
 
-#: plugins/rdp/rdp_plugin.c:2891
+#: plugins/rdp/rdp_plugin.c:3190
 #, fuzzy
 msgid "Relax order checks"
 msgstr "ការត្រួតពិនិត្យការបញ្ជាសម្រាក"
 
-#: plugins/rdp/rdp_plugin.c:2892
+#: plugins/rdp/rdp_plugin.c:3191
 #, fuzzy
 msgid "Glyph cache"
 msgstr "ឃ្លាំង Glyph"
 
-#: plugins/rdp/rdp_plugin.c:2893
+#: plugins/rdp/rdp_plugin.c:3192
 #, fuzzy
 msgid "Enable multitransport protocol (UDP)"
 msgstr "អនុញ្ញាត ឲ្យ មាន ពិធីការ multitransport (UDP)"
 
-#: plugins/rdp/rdp_plugin.c:2893
+#: plugins/rdp/rdp_plugin.c:3192
 #, fuzzy
 msgid "Using the UDP protocol may improve performance"
 msgstr "ការប្រើប្រាស់ UDP protocol អាចនឹងធ្វើឱ្យប្រសើរឡើងនូវការសម្តែង"
 
-#: plugins/rdp/rdp_plugin.c:2894
+#: plugins/rdp/rdp_plugin.c:3193
 #, fuzzy
 msgid "Use base credentials for gateway too"
 msgstr "ប្រើ លក្ខិ ណា ដែល មាន មូលដ្ឋាន សម្រាប់ ច្រក ចូល ផង ដែរ"
 
-#: plugins/rdp/rdp_plugin.c:2896
+#: plugins/rdp/rdp_plugin.c:3195
 #, fuzzy
 msgid "Enable Gateway websockets support"
 msgstr "បើក ការ គាំទ្រ Websockets Gateway"
 
-#: plugins/rdp/rdp_plugin.c:2898
+#: plugins/rdp/rdp_plugin.c:3197
 msgid "Update framebuffer even when not visible"
 msgstr ""
 
-#: plugins/rdp/rdp_plugin.c:2907 plugins/spice/spice_plugin.c:707
-#: plugins/spice/spice_plugin.c:715 plugins/vnc/vnc_plugin.c:2119
-#: plugins/vnc/vnc_plugin.c:2132 plugins/gvnc/gvnc_plugin.c:869
+#: plugins/rdp/rdp_plugin.c:3206 plugins/spice/spice_plugin.c:711
+#: plugins/spice/spice_plugin.c:719 plugins/vnc/vnc_plugin.c:2139
+#: plugins/vnc/vnc_plugin.c:2152 plugins/gvnc/gvnc_plugin.c:869
 #: plugins/gvnc/gvnc_plugin.c:878
 #, fuzzy
 msgid "View only"
 msgstr "មើលតែ"
 
-#: plugins/rdp/rdp_plugin.c:2912 plugins/spice/spice_plugin.c:717
-#: plugins/vnc/vnc_plugin.c:2136
+#: plugins/rdp/rdp_plugin.c:3211 plugins/spice/spice_plugin.c:721
+#: plugins/vnc/vnc_plugin.c:2156
 #, fuzzy
 msgid "Send Ctrl+Alt+Delete"
 msgstr "ផ្ញើ Ctrl+Alt+Delete"
 
-#: plugins/rdp/rdp_plugin.c:2925
+#: plugins/rdp/rdp_plugin.c:3224
 #, fuzzy
 msgid "RDP - Remote Desktop Protocol"
 msgstr "RDP - ពិធីការផ្ទៃតុពីចម្ងាយ"
 
-#: plugins/rdp/rdp_plugin.c:2950
+#: plugins/rdp/rdp_plugin.c:3249
 #, fuzzy
 msgid "RDP - RDP File Handler"
 msgstr "RDP - RDP File Handler"
 
-#: plugins/rdp/rdp_plugin.c:2965
+#: plugins/rdp/rdp_plugin.c:3264
 #, fuzzy
 msgid "RDP - Preferences"
 msgstr "RDP - ចំណង់ចំណូលចិត្ត"
 
-#: plugins/rdp/rdp_plugin.c:3018
+#: plugins/rdp/rdp_plugin.c:3317
 #, fuzzy
 msgid "Export connection in Windows .rdp file format"
 msgstr "ការតភ្ជាប់ការនាំចេញនៅក្នុងទ្រង់ទ្រាយឯកសារ Windows .rdp"
 
-#: plugins/rdp/rdp_event.c:362
+#: plugins/rdp/rdp_event.c:363
 #, c-format
 msgid "Reconnection attempt %d of %d…"
 msgstr "កំពុង​តភ្ជាប់​ទៅ '%s'…"
 
 #. TRANSLATORS: the placeholder may be either an IP/FQDN or a server hostname
-#: plugins/rdp/rdp_event.c:1158
+#: plugins/rdp/rdp_event.c:1191
 #, fuzzy, c-format
 #| msgid "Connecting to %s via SSH…"
 msgid "Connected to %s via RDP"
@@ -3199,99 +3257,99 @@ msgstr "ការផ្ទេរបានបញ្ចប់"
 msgid "The %s file has been transferred"
 msgstr "ឯកសារ %s ត្រូវបានផ្ទេរ"
 
-#: plugins/spice/spice_plugin.c:351
+#: plugins/spice/spice_plugin.c:341
 msgid "Enter SPICE password"
 msgstr "រក្សា​​ទុក​​​ពាក្យ​​​សម្ងាត់"
 
-#: plugins/spice/spice_plugin.c:386
-#, fuzzy, c-format
-msgid "Disconnected from the SPICE server “%s”."
-msgstr "ផ្តាច់ពីម៉ាស៊ីនបម្រើ SPICE \"%s\"។"
-
 #: plugins/spice/spice_plugin.c:388
 #, fuzzy, c-format
-msgid "Disconnected from %s:%d via SPICE"
+msgid "Disconnected from the SPICE %s."
 msgstr "ផ្តាច់ពីម៉ាស៊ីនបម្រើ SPICE \"%s\"។"
 
-#: plugins/spice/spice_plugin.c:391
+#: plugins/spice/spice_plugin.c:390
+#, fuzzy, c-format
+msgid "Disconnected from %s via SPICE"
+msgstr "ផ្តាច់ពីម៉ាស៊ីនបម្រើ SPICE \"%s\"។"
+
+#: plugins/spice/spice_plugin.c:393
 #, fuzzy, c-format
 #| msgid "Connecting to %s via SSH…"
-msgid "Connected to %s:%d via SPICE"
+msgid "Connected to %s via SPICE"
 msgstr "កំពុង​តភ្ជាប់​ទៅ '%s'…"
 
-#: plugins/spice/spice_plugin.c:403
+#: plugins/spice/spice_plugin.c:405
 #, fuzzy
 msgid "TLS connection error."
 msgstr "កំហុសការតភ្ជាប់ TLS។"
 
-#: plugins/spice/spice_plugin.c:409
+#: plugins/spice/spice_plugin.c:411
 #, fuzzy
 msgid "Connection to the SPICE server dropped."
 msgstr "ការតភ្ជាប់ទៅម៉ាស៊ីនបម្រើ SPICE បានធ្លាក់ចុះ។"
 
-#: plugins/spice/spice_plugin.c:638
+#: plugins/spice/spice_plugin.c:642
 #, fuzzy
 msgid "Auto GLZ"
 msgstr "ស្វ័យប្រវត្តិ GLZ"
 
-#: plugins/spice/spice_plugin.c:639
+#: plugins/spice/spice_plugin.c:643
 #, fuzzy
 msgid "Auto LZ"
 msgstr "Auto LZ"
 
-#: plugins/spice/spice_plugin.c:652
+#: plugins/spice/spice_plugin.c:656
 #, fuzzy
 msgid "Disable video overlay if videos are not displayed properly.\n"
 msgstr "បិទ វីដេអូ ហួស ហេតុ បើ វីដេអូ មិន ត្រូវ បាន បង្ហាញ ឲ្យ បាន ត្រឹមត្រូវ ។\n"
 
-#: plugins/spice/spice_plugin.c:677
+#: plugins/spice/spice_plugin.c:681
 #, fuzzy
 msgid "Use TLS encryption"
 msgstr "ប្រើ ការ អ៊ិនគ្រីប TLS"
 
-#: plugins/spice/spice_plugin.c:678
+#: plugins/spice/spice_plugin.c:682
 #, fuzzy
 msgid "Server CA certificate"
 msgstr "វិញ្ញាបនបត្រ Server CA"
 
-#: plugins/spice/spice_plugin.c:696
+#: plugins/spice/spice_plugin.c:700
 #, fuzzy
 #| msgid "Prefered video codec"
 msgid "Preferred video codec"
 msgstr "ចំណូលចិត្ត"
 
-#: plugins/spice/spice_plugin.c:697
+#: plugins/spice/spice_plugin.c:701
 #, fuzzy
 msgid "Turn off GStreamer overlay"
 msgstr "បិទ GStreamer overlay"
 
-#: plugins/spice/spice_plugin.c:700
+#: plugins/spice/spice_plugin.c:704
 #, fuzzy
 msgid "Preferred image compression"
 msgstr "ការ បង្ហាប់ រូបភាព ដែល ពេញ ចិត្ត"
 
-#: plugins/spice/spice_plugin.c:703 plugins/spice/spice_plugin.c:716
+#: plugins/spice/spice_plugin.c:707 plugins/spice/spice_plugin.c:720
 #: plugins/gvnc/gvnc_plugin.c:865 plugins/gvnc/gvnc_plugin.c:879
 #, fuzzy
 msgid "No clipboard sync"
 msgstr "គ្មាន ការ ធ្វើ សមកាលកម្ម ក្ដារខៀន"
 
-#: plugins/spice/spice_plugin.c:705 plugins/gvnc/gvnc_plugin.c:868
+#: plugins/spice/spice_plugin.c:709 plugins/gvnc/gvnc_plugin.c:868
 #, fuzzy
 msgid "Enable audio channel"
 msgstr "ឆានែលអូឌីយ៉ូ"
 
-#: plugins/spice/spice_plugin.c:706
+#: plugins/spice/spice_plugin.c:710
 #, fuzzy
 msgid "Share smart card"
 msgstr "ចែករំលែកកាតឆ្លាតវៃ"
 
-#: plugins/spice/spice_plugin.c:718 plugins/spice/spice_plugin_usb.c:51
+#: plugins/spice/spice_plugin.c:722 plugins/spice/spice_plugin_usb.c:51
 #, fuzzy
 msgid "Select USB devices for redirection"
 msgstr "ជ្រើស ឧបករណ៍ USB សម្រាប់ ការ រេ រើ ឡើង វិញ"
 
-#: plugins/spice/spice_plugin.c:729
+#: plugins/spice/spice_plugin.c:733
 #, fuzzy
 msgid "SPICE - Simple Protocol for Independent Computing Environments"
 msgstr "SPICE - ពិធីសារសាមញ្ញសម្រាប់បរិស្ថានគណនាឯករាជ្យ"
@@ -3362,7 +3420,7 @@ msgstr "កំពុង​តភ្ជាប់​ទៅ '%s'…"
 msgid "Disconnected from %s:%d via VNC"
 msgstr ""
 
-#: plugins/vnc/vnc_plugin.c:2034
+#: plugins/vnc/vnc_plugin.c:2046
 #, fuzzy
 msgid ""
 "Connect to VNC using a repeater:\n"
@@ -3381,7 +3439,7 @@ msgstr ""
 "    ផ្ទួនៗ ឧ. ជាមួយ x11vnc:\n"
 "    x11vnc -connect repeater=ID:123456789+10.10.10.12:5500"
 
-#: plugins/vnc/vnc_plugin.c:2043
+#: plugins/vnc/vnc_plugin.c:2055
 #, fuzzy
 msgid ""
 "Listening for remote VNC connection:\n"
@@ -3398,7 +3456,16 @@ msgstr ""
 "    Remmina, ឧ. ជាមួយ x11vnc:\n"
 "    x11vnc -display :0 -connect 192.168.1.36:8888"
 
-#: plugins/vnc/vnc_plugin.c:2051
+#: plugins/vnc/vnc_plugin.c:2063
+msgid ""
+"Lock the aspect ratio when dynamic resolution is enabled:\n"
+"\n"
+"  • The aspect ratio should be entered as a decimal number, e.g. 1.777\n"
+"  • 16:9 corresponds roughly to 1.7777, 4:3 corresponds roughly to 1.333\n"
+"  • The default value of 0 does not enforce any aspect ratio"
+msgstr ""
+
+#: plugins/vnc/vnc_plugin.c:2070
 msgid ""
 "Overriding the pre-set VNC encoding quality:\n"
 "\n"
@@ -3411,49 +3478,53 @@ msgid ""
 "corre rre raw”"
 msgstr ""
 
-#: plugins/vnc/vnc_plugin.c:2078
+#: plugins/vnc/vnc_plugin.c:2097
 #, fuzzy
 msgid "Repeater"
 msgstr "អ្នក ធ្វើ ឡើង វិញ"
 
-#: plugins/vnc/vnc_plugin.c:2090
+#: plugins/vnc/vnc_plugin.c:2109
 #, fuzzy
 msgid "Listen on port"
 msgstr "សូម ស្ដាប់ នៅ លើ ច្រក"
 
-#: plugins/vnc/vnc_plugin.c:2110
+#: plugins/vnc/vnc_plugin.c:2129
 msgid "Override pre-set VNC encodings"
 msgstr ""
 
-#: plugins/vnc/vnc_plugin.c:2111
+#: plugins/vnc/vnc_plugin.c:2130
+msgid "Dynamic resolution enforced aspec ratio"
+msgstr ""
+
+#: plugins/vnc/vnc_plugin.c:2131
 msgid "Force tight encoding"
 msgstr ""
 
-#: plugins/vnc/vnc_plugin.c:2111
+#: plugins/vnc/vnc_plugin.c:2131
 msgid "Enabling this may help when the remote desktop looks scrambled"
 msgstr ""
 
-#: plugins/vnc/vnc_plugin.c:2114 plugins/gvnc/gvnc_plugin.c:867
+#: plugins/vnc/vnc_plugin.c:2134 plugins/gvnc/gvnc_plugin.c:867
 #, fuzzy
 msgid "Ignore remote bell messages"
 msgstr "មិន អើពើ នឹង សារ កណ្តឹង ពី ចម្ងាយ"
 
-#: plugins/vnc/vnc_plugin.c:2115 plugins/vnc/vnc_plugin.c:2133
+#: plugins/vnc/vnc_plugin.c:2135 plugins/vnc/vnc_plugin.c:2153
 #, fuzzy
 msgid "Prevent local interaction on the server"
 msgstr "ការពារ អន្តរកម្ម ក្នុង ស្រុក នៅ លើ ម៉ាស៊ីន បម្រើ"
 
-#: plugins/vnc/vnc_plugin.c:2116
+#: plugins/vnc/vnc_plugin.c:2136
 #, fuzzy
 msgid "Show remote cursor"
 msgstr "បង្ហាញ cursor ពី ចម្ងាយ"
 
-#: plugins/vnc/vnc_plugin.c:2118
+#: plugins/vnc/vnc_plugin.c:2138
 #, fuzzy
 msgid "Turn off encryption"
 msgstr "បិទ ការ អ៊ិនគ្រីប"
 
-#: plugins/vnc/vnc_plugin.c:2135
+#: plugins/vnc/vnc_plugin.c:2155
 #, fuzzy
 msgid "Open Chat…"
 msgstr "បើក Chat…"
@@ -3548,12 +3619,12 @@ msgstr "មិន អើពើ នឹង កំហុស TLS"
 msgid "Turn on Web Inspector"
 msgstr "បត់លើ Web Inspector"
 
-#: plugins/exec/exec_plugin.c:160
+#: plugins/exec/exec_plugin.c:167
 #, fuzzy
 msgid "You did not set any command to be executed"
 msgstr "អ្នក មិន បាន កំណត់ ពាក្យ បញ្ជា ណា មួយ ដែល ត្រូវ អនុវត្ត ឡើយ"
 
-#: plugins/exec/exec_plugin.c:206
+#: plugins/exec/exec_plugin.c:214
 #, fuzzy
 msgid ""
 "Warning: Running a command synchronously may cause Remmina not to respond.\n"
@@ -3562,15 +3633,19 @@ msgstr ""
 "ការព្រមាន: ការរត់បញ្ជាមួយអាចបណ្តាលឱ្យ Remmina មិនឆ្លើយតប។\n"
 "តើ អ្នក ពិត ជា ចង់ បន្ត ឬ ទេ ?"
 
-#: plugins/exec/exec_plugin.c:274
+#: plugins/exec/exec_plugin.c:297
 #, fuzzy
 msgid "Command"
 msgstr "បទបញ្ជា"
 
-#: plugins/exec/exec_plugin.c:275
+#: plugins/exec/exec_plugin.c:298
 #, fuzzy
 msgid "Asynchronous execution"
 msgstr "ការ ប្រហារ ជីវិត ដោយ គ្មាន ការ ប្រមាថ"
+
+#: plugins/exec/exec_plugin.c:299
+msgid "Kill process on disconnect"
+msgstr ""
 
 #: plugins/exec/exec_plugin_config.h:41
 #, fuzzy
@@ -4553,15 +4628,16 @@ msgstr "ផ្គូផ្គង ជា កន្សោម _regular"
 msgid "_Wrap around"
 msgstr "_Wrap ជុំវិញ"
 
-#: data/ui/remmina_about.glade:31 data/ui/remmina_main.glade:386
+#: data/ui/remmina_about.glade:32 data/ui/remmina_main.glade:419
 #, fuzzy
 msgid "About"
 msgstr "អំពី"
 
-#: data/ui/remmina_about.glade:35
+#: data/ui/remmina_about.glade:36
 #, fuzzy
 msgid ""
-"Copyright © 2014–2023 Antenore Gatta, Giovanni Panozzo.\n"
+"Copyright © 2023–2024 Hiroyuki Tanaka, Sunil Bhat\n"
+"Copyright © 2014–2023 Antenore Gatta, Giovanni Panozzo\n"
 "Copyright © 2009–2014 Vic Lee\n"
 "More details in COPYING"
 msgstr ""
@@ -4569,7 +4645,7 @@ msgstr ""
 "រក្សាសិទ្ធិ © 2009-2014 Vic Lee\n"
 "លម្អិត បន្ថែម ក្នុង COPYING"
 
-#: data/ui/remmina_about.glade:39
+#: data/ui/remmina_about.glade:41
 #, fuzzy
 msgid "https://www.remmina.org/"
 msgstr "https://www.remmina.org/"
@@ -4586,19 +4662,16 @@ msgid "_Remove"
 msgstr "_Remove"
 
 #: data/ui/remmina_string_list.glade:26 data/ui/remmina_string_list.glade:116
-#, fuzzy
 msgid "Move up"
-msgstr "ការផ្លាស់ទីឡើង"
+msgstr "រំកិលឡើង"
 
 #: data/ui/remmina_string_list.glade:32 data/ui/remmina_string_list.glade:95
-#, fuzzy
 msgid "Move down"
-msgstr "រំកិល ចុះ ក្រោម"
+msgstr "រំកិលចុះ"
 
 #: data/ui/remmina_mpc.glade:19
-#, fuzzy
 msgid "Change"
-msgstr "ការផ្លាស់ប្តូរ"
+msgstr "ផ្លាស់ប្តូរ"
 
 #: data/ui/remmina_mpc.glade:180
 #, fuzzy
@@ -4610,7 +4683,7 @@ msgstr "លក្ខខណ្ឌជ្រើសរើស"
 msgid "Confirm password"
 msgstr "បញ្ជាក់​ពាក្យ​សម្ងាត់"
 
-#: data/ui/remmina_mpc.glade:271
+#: data/ui/remmina_mpc.glade:271 data/ui/remmina_passwd.glade:6
 msgid "Set new password"
 msgstr "រក្សា​​ទុក​​​ពាក្យ​​​សម្ងាត់"
 
@@ -4636,7 +4709,6 @@ msgstr "បញ្ជាក់​ពាក្យ​សម្ងាត់"
 
 #. A column table with multiple check-boxes
 #: data/ui/remmina_mpc.glade:503
-#, fuzzy
 msgctxt "Multi password changer"
 msgid "Select"
 msgstr "ជ្រើសរើស"
@@ -4670,34 +4742,36 @@ msgstr "ដែន\\Username"
 msgid "<span weight='bold' size='larger'>Multi Password Changer</span>"
 msgstr "<span weight='bold' size='larger'> Multi Password Changer</span>"
 
-#: data/ui/remmina_passwd.glade:33
+#: data/ui/remmina_passwd.glade:35
 #, fuzzy
 msgid "OK"
 msgstr "_OK"
 
-#: data/ui/remmina_passwd.glade:60
-#, fuzzy
-#| msgid "Set new password"
-msgid "Set Primary Password"
-msgstr "រក្សា​​ទុក​​​ពាក្យ​​​សម្ងាត់"
-
-#: data/ui/remmina_passwd.glade:101
+#: data/ui/remmina_passwd.glade:85
 #, fuzzy
 msgid "Verify password"
 msgstr "ពាក្យសម្ងាត់របស់អ្នកប្រើប្រាស់"
 
-#: data/ui/remmina_news.glade:75
+#: data/ui/remmina_info.glade:90
+#, fuzzy
+#| msgid ""
+#| "<big><b>The news are turned off</b></big>\n"
+#| "\n"
+#| "<span>\n"
+#| "Turning on news means the program connects to a Remmina server to "
+#| "download the release notes.\n"
+#| "</span>\n"
+#| "\n"
+#| "<span>\n"
+#| "Version checking can only be activated at compile time.\n"
+#| "</span>\n"
+#| "\n"
+#| "<span>\n"
+#| "<a href=\"https://gitlab.com/Remmina/Remmina/-/tags/\" title=\"Remmina "
+#| "release notes\"><i>Visit the website to read the release notes</i></a>.\n"
+#| "</span>"
 msgid ""
-"<big><b>The news are turned off</b></big>\n"
-"\n"
-"<span>\n"
-"Turning on news means the program connects to a Remmina server to download "
-"the release notes.\n"
-"</span>\n"
-"\n"
-"<span>\n"
-"Version checking can only be activated at compile time.\n"
-"</span>\n"
+"<big><b>The news failed to load</b></big>\n"
 "\n"
 "<span>\n"
 "<a href=\"https://gitlab.com/Remmina/Remmina/-/tags/\" title=\"Remmina "
@@ -4720,73 +4794,16 @@ msgstr ""
 "release notes\"><i>សូមចូលទៅកាន់គេហទំព័រដើម្បីអានកំណត់ត្រានៃការចេញផ្សាយ</i></a>។\n"
 "</span>"
 
-#: data/ui/remmina_news.glade:130
-msgid "Use as default remote desktop client"
-msgstr "ម៉ាស៊ីន​ភ្ញៀវ​ផ្ទៃតុ​ពី​ចម្ងាយ​របស់ Remmina"
-
-#: data/ui/remmina_news.glade:139
-#, fuzzy
-msgid "Apply"
-msgstr "អនុវត្ត"
-
-#: data/ui/remmina_news.glade:143
-#, fuzzy
-msgid "Allow Remmina to automatically open .rdp and .remmina files."
-msgstr "អនុញ្ញាតអោយ Remmina បើក .rdp និង .remmina files ដោយស្វ័យប្រវត្តិ។"
-
-#. The star (*) is a reference to privacy consent
-#: data/ui/remmina_news.glade:157
-#, fuzzy
-msgid ""
-"Fetch news from <a href=\"https://remmina.org\" title=\"Remmina news site"
-"\">remmina.org</a> (*)"
-msgstr ""
-"ព័ត៌មាន Fetch ពី <a href=\"https://remmina.org\" title=\"Remmina news site"
-"\">remmina.org</a> (*)"
-
-#: data/ui/remmina_news.glade:169
-msgid "Receives updated news from remmina.org"
-msgstr ""
-
-#: data/ui/remmina_news.glade:182
-#, fuzzy
-msgid "* By turning on news you consent to fetching data from remmina.org"
-msgstr "* ដោយអាចធ្វើស្ថិតិ និង/ឬព័ត៌មានដែលអ្នកយល់ព្រមក្នុងការផ្ញើនិងចាប់ទិន្នន័យទៅ/ពី remmina.org"
-
-#: data/ui/remmina_news.glade:205
-#, fuzzy
-msgid "<big>Take part</big>"
-msgstr "<big> យកចំណែក</big>"
-
-#. Pay attention to the quoting characters as they may break the pango layout. If in doubt and cannot test, copy and paste the symbols from the English string.
-#: data/ui/remmina_news.glade:231
-#, fuzzy
-msgid ""
-"<span>\n"
-"<b>You have our gratitude in choosing copylefted libre software, <a href="
-"\"https://remmina.org/donations/\" title=\"Where’s the money, Lebowski? "
-"“blblblblblb”\">donations also make us happy</a>, and further help improve "
-"Remmina.</b>\n"
-"</span>\n"
-msgstr ""
-"<span>\n"
-"<b> អ្នក មាន ការ ដឹង គុណ របស់ យើង ក្នុង ការ ជ្រើស រើស កម្មវិធី libre ដែល មាន ថត ចម្លង "
-"<a href=\"https://remmina.org/donations/\" title=\"Where’s the money, "
-"Lebowski? “blblblblblb”\"> ការ បរិច្ចាគ ក៏ ធ្វើ ឲ្យ យើង សប្បាយ ចិត្ត</a>, និង ជួយ "
-"បន្ថែម ទៀត ដើម្បី ធ្វើ ឲ្យ Remmina ប្រសើរ ឡើង ថែម ទៀត។ </b>\n"
-"</span>\n"
-
-#: data/ui/remmina_news.glade:251
-#, fuzzy
-msgid "<big>Contribute</big>"
-msgstr "<big> បរិច្ចាគ</big>"
-
 #: data/ui/remmina_key_chooser.glade:23
 #, fuzzy
 msgid "Choose a new key"
 msgstr "ជ្រើស រើស គន្លឹះ ថ្មី"
 
-#: data/ui/remmina_key_chooser.glade:82
+#: data/ui/remmina_key_chooser.glade:84 data/ui/remmina_key_chooser.glade:88
+msgid "Allow key modifiers"
+msgstr ""
+
+#: data/ui/remmina_key_chooser.glade:121
 #, fuzzy
 msgid "Please press the new key…"
 msgstr "សូម ចុច គន្លឹះ ថ្មី…"
@@ -4821,7 +4838,7 @@ msgid "Server name or IP address"
 msgstr "ឈ្មោះ Server ឬ IP address"
 
 #: data/ui/remmina_main.glade:103 data/ui/remmina_main.glade:105
-#: data/ui/remmina_preferences.glade:426
+#: data/ui/remmina_preferences.glade:447
 #, fuzzy
 msgid "Clear"
 msgstr "ជម្រះ"
@@ -4841,166 +4858,216 @@ msgstr "ខ្ទេចអស់"
 msgid "Expand all"
 msgstr "ពង្រីកទាំងអស់គ្នា"
 
-#: data/ui/remmina_main.glade:266
+#: data/ui/remmina_main.glade:290
 #, fuzzy
 msgid "Multi password changer"
 msgstr "អ្នក ផ្លាស់ប្ដូរ ពាក្យ សម្ងាត់ ច្រើន"
 
-#: data/ui/remmina_main.glade:276
+#: data/ui/remmina_main.glade:300
 #, fuzzy
 msgid "Debugging"
 msgstr "ការ ឌិប"
 
-#: data/ui/remmina_main.glade:296
+#: data/ui/remmina_main.glade:320
 #, fuzzy
 msgid "Export"
 msgstr "នាំចេញ"
 
-#: data/ui/remmina_main.glade:323
+#: data/ui/remmina_main.glade:339
+msgid "Report Bug"
+msgstr ""
+
+#: data/ui/remmina_main.glade:356
 msgid "Make Remmina your default remote desktop client"
 msgstr "ម៉ាស៊ីន​ភ្ញៀវ​ផ្ទៃតុ​ពី​ចម្ងាយ​របស់ Remmina"
 
-#: data/ui/remmina_main.glade:339
+#: data/ui/remmina_main.glade:372
 #, fuzzy
 msgid "Homepage"
 msgstr "គេហទំព័រ"
 
-#: data/ui/remmina_main.glade:349
+#: data/ui/remmina_main.glade:382
 #, fuzzy
 msgid "Donations"
 msgstr "ការបរិច្ចាគ"
 
-#: data/ui/remmina_main.glade:359
+#: data/ui/remmina_main.glade:392
 #, fuzzy
 msgid "Wiki"
 msgstr "វិគី"
 
 #. Remmina community website
-#: data/ui/remmina_main.glade:369
+#: data/ui/remmina_main.glade:402
 #, fuzzy
 msgid "Community"
 msgstr "សហគមន៍"
 
-#: data/ui/remmina_main.glade:513
+#: data/ui/remmina_main.glade:546
 #, fuzzy
 msgid "Plugin"
 msgstr "កម្មវិធីជំនួយ"
 
-#: data/ui/remmina_main.glade:527
+#: data/ui/remmina_main.glade:560
 #, fuzzy
 msgid "Last used"
 msgstr "ប្រើ ចុងក្រោយ"
 
-#: data/ui/remmina_main.glade:576
+#: data/ui/remmina_main.glade:609
 msgid "New connection profile"
 msgstr "ការ​​​តភ្ជាប់​​ថ្មី"
 
-#: data/ui/remmina_main.glade:588
+#: data/ui/remmina_main.glade:621
 #, fuzzy
 msgid "Show search bar"
 msgstr "បង្ហាញ របារ ស្វែងរក"
 
-#: data/ui/remmina_main.glade:608
+#: data/ui/remmina_main.glade:641
 #, fuzzy
 msgid "Remmina main menu"
 msgstr "ម៉ឺនុយមេ Remmina"
 
-#: data/ui/remmina_main.glade:615
+#: data/ui/remmina_main.glade:648
 #, fuzzy
 msgid "Actions"
 msgstr "សកម្មភាព"
 
-#: data/ui/remmina_main.glade:630
+#: data/ui/remmina_main.glade:663
 #, fuzzy
 msgid "Toggle view"
 msgstr "ទិដ្ឋភាព ggle"
+
+#: data/ui/remmina_bug_report.glade:43
+msgid "Include System Info"
+msgstr ""
+
+#: data/ui/remmina_bug_report.glade:59
+msgid "Include Debug Data"
+msgstr ""
+
+#: data/ui/remmina_bug_report.glade:75
+msgid "Submit"
+msgstr ""
+
+#: data/ui/remmina_bug_report.glade:114
+#, fuzzy
+#| msgid "Username"
+msgid "Name/Username:"
+msgstr "អត្ថនាម"
+
+#: data/ui/remmina_bug_report.glade:141
+msgid "E-mail:"
+msgstr ""
+
+#: data/ui/remmina_bug_report.glade:154
+msgid "Email"
+msgstr ""
+
+#: data/ui/remmina_bug_report.glade:173 data/ui/remmina_bug_report.glade:188
+msgid "Bug Title"
+msgstr ""
+
+#: data/ui/remmina_bug_report.glade:200
+#, fuzzy
+msgid "Bug Description"
+msgstr "ពិពណ៍នា"
+
+#: data/ui/remmina_bug_report.glade:245
+msgid ""
+"Clicking \"Submit\" will send this to Remmina's GitLab page and "
+"automatically create a new issue on the issue tracker."
+msgstr ""
+
+#: data/ui/remmina_bug_report.glade:296
+#, fuzzy
+msgid "Remmina Report Bug"
+msgstr "ពាក្យសម្ងាត់របស់អ្នកប្រើប្រាស់"
 
 #: data/ui/remmina_spinner.glade:54
 #, fuzzy
 msgid "Please wait…"
 msgstr "សូមរង់ចាំ…"
 
-#: data/ui/remmina_preferences.glade:42
+#: data/ui/remmina_preferences.glade:63
 #, fuzzy
 msgid "Double-click action"
 msgstr "សកម្មភាព ចុច ទ្វេ ដង"
 
-#: data/ui/remmina_preferences.glade:58
+#: data/ui/remmina_preferences.glade:79
 #, fuzzy
 msgid "Open connection"
 msgstr "បើក ការ តភ្ជាប់"
 
-#: data/ui/remmina_preferences.glade:59
+#: data/ui/remmina_preferences.glade:80
 #, fuzzy
 msgid "Edit settings"
 msgstr "កែសម្រួល ការ កំណត់"
 
-#: data/ui/remmina_preferences.glade:75
+#: data/ui/remmina_preferences.glade:96
 #, fuzzy
 msgid "Scaling quality"
 msgstr "គុណភាព Scaling"
 
-#: data/ui/remmina_preferences.glade:91
+#: data/ui/remmina_preferences.glade:112
 #, fuzzy
 msgid "Nearest"
 msgstr "នៅជិតបំផុត"
 
-#: data/ui/remmina_preferences.glade:92
+#: data/ui/remmina_preferences.glade:113
 #, fuzzy
 msgid "Tiles"
 msgstr "ក្បឿង"
 
-#: data/ui/remmina_preferences.glade:93
+#: data/ui/remmina_preferences.glade:114
 #, fuzzy
 msgid "Bilinear"
 msgstr "Bilinear"
 
-#: data/ui/remmina_preferences.glade:94
+#: data/ui/remmina_preferences.glade:115
 #, fuzzy
 msgid "Hyper"
 msgstr "ហាយភើ"
 
-#: data/ui/remmina_preferences.glade:110
+#: data/ui/remmina_preferences.glade:131
 #, fuzzy
 msgid "Step size for auto-scroll"
 msgstr "ទំហំជំហានសម្រាប់ auto-scroll"
 
-#: data/ui/remmina_preferences.glade:139
+#: data/ui/remmina_preferences.glade:160
 #, fuzzy
 msgid "Maximal amount of recent items"
 msgstr "ចំនួនអតិបរមានៃធាតុថ្មីៗ"
 
-#: data/ui/remmina_preferences.glade:154
+#: data/ui/remmina_preferences.glade:175
 #, fuzzy
 msgid "Screen resolutions"
 msgstr "គុណភាព អេក្រង់"
 
-#: data/ui/remmina_preferences.glade:200
+#: data/ui/remmina_preferences.glade:221
 #, fuzzy
 msgid "Folder for screenshots"
 msgstr "ថតសម្រាប់ថតអេក្រង់"
 
-#: data/ui/remmina_preferences.glade:212
+#: data/ui/remmina_preferences.glade:233
 #, fuzzy
 msgid "Choose a folder to save screenshots from Remmina in."
 msgstr "ជ្រើស ថត ដើម្បី រក្សា ទុក អេក្រង់ ពី Remmina in ។"
 
-#: data/ui/remmina_preferences.glade:216 data/ui/remmina_preferences.glade:302
+#: data/ui/remmina_preferences.glade:237 data/ui/remmina_preferences.glade:323
 #, fuzzy
 msgid "Select a folder"
 msgstr "ជ្រើស ថត"
 
-#: data/ui/remmina_preferences.glade:227
+#: data/ui/remmina_preferences.glade:248
 #, fuzzy
 msgid "Set up"
 msgstr "រៀបចំ"
 
-#: data/ui/remmina_preferences.glade:249
+#: data/ui/remmina_preferences.glade:270
 #, fuzzy
 msgid "Screenshot filenames"
 msgstr "ឈ្មោះ ឯកសារ Screenshot"
 
-#: data/ui/remmina_preferences.glade:261
+#: data/ui/remmina_preferences.glade:282
 #, fuzzy
 msgid ""
 "%p Profile name\n"
@@ -5011,34 +5078,34 @@ msgstr ""
 "% h Server name/IP\n"
 "% Y Year, %m Month, %d Day, %H Hour, %M Minute, %S seconds (UTC time)\n"
 
-#: data/ui/remmina_preferences.glade:280
+#: data/ui/remmina_preferences.glade:301
 #, fuzzy
 msgid ""
 "The folder connection profiles are saved in, it defaults to the XDG_USER_DATA"
 msgstr "ទម្រង់ភ្ជាប់ folder ត្រូវបានរក្សាទុកនៅក្នុង, លំនាំដើមទៅ XDG_USER_DATA"
 
 #. The folder where profiles are saved
-#: data/ui/remmina_preferences.glade:285
+#: data/ui/remmina_preferences.glade:306
 #, fuzzy
 msgid "Remmina data folder"
 msgstr "ថតទិន្នន័យ Remmina"
 
-#: data/ui/remmina_preferences.glade:297
+#: data/ui/remmina_preferences.glade:318
 #, fuzzy
 msgid "Choose a folder to save connection profiles from Remmina in."
 msgstr "ជ្រើស ថត ដើម្បី រក្សា ទុក ទម្រង់ ការ តភ្ជាប់ ពី Remmina in ។"
 
-#: data/ui/remmina_preferences.glade:315
+#: data/ui/remmina_preferences.glade:336
 #, fuzzy
 msgid "Remember last view for each connection"
 msgstr "ចងចាំទិដ្ឋភាពចុងក្រោយសម្រាប់ការតភ្ជាប់នីមួយៗ"
 
-#: data/ui/remmina_preferences.glade:319
+#: data/ui/remmina_preferences.glade:340
 #, fuzzy
 msgid "Remember last view mode"
 msgstr "ចងចាំ របៀប មើល ចុងក្រោយ"
 
-#: data/ui/remmina_preferences.glade:345
+#: data/ui/remmina_preferences.glade:366
 #, fuzzy
 msgid ""
 "Set a custom filename for your Remmina connection profiles, using a "
@@ -5047,13 +5114,13 @@ msgstr ""
 "កំណត់ ឈ្មោះ ឯកសារ ផ្ទាល់ ខ្លួន សម្រាប់ ទម្រង់ ការ តភ្ជាប់ Remmina របស់ អ្នក ដោយ ប្រើ ខ្សែ "
 "អក្សរ ទ្រង់ទ្រាយ & # 160; ។"
 
-#: data/ui/remmina_preferences.glade:349
+#: data/ui/remmina_preferences.glade:370
 #, fuzzy
 msgid "Template for profile filenames"
 msgstr "ពុម្ពសម្រាប់ profile filenames"
 
 #. Placeholders used to name a Remmina connection profile
-#: data/ui/remmina_preferences.glade:361
+#: data/ui/remmina_preferences.glade:382
 #, fuzzy
 msgid ""
 "%G Name of group (slashes \\/ are converted to dashes -)\n"
@@ -5070,104 +5137,122 @@ msgstr ""
 "\n"
 "\n"
 
-#: data/ui/remmina_preferences.glade:383
+#: data/ui/remmina_preferences.glade:404
 #, fuzzy
 msgid "Only save generated screenshots, don't copy them to clipboard."
 msgstr "គ្រាន់តែរក្សាទុកអេក្រង់ដែលបានបង្កើតប៉ុណ្ណោះ កុំចម្លងពួកវាទៅផ្ទាំង clipboard។"
 
-#: data/ui/remmina_preferences.glade:387
+#: data/ui/remmina_preferences.glade:408
 #, fuzzy
 msgid "Prevent screenshots from entering clipboard"
 msgstr "ទប់ស្កាត់ការថតអេក្រង់ពីការចូល clipboard"
 
-#: data/ui/remmina_preferences.glade:448
+#: data/ui/remmina_preferences.glade:469
 msgid "Confirm before closing multiple tabs"
 msgstr ""
 
-#: data/ui/remmina_preferences.glade:482
+#: data/ui/remmina_preferences.glade:501
 #, fuzzy
-msgid "Options"
-msgstr "ជម្រើស"
+msgid "Disable anonymous statistics"
+msgstr "ផ្ញើស្ថិតិអនាមិក"
 
-#: data/ui/remmina_preferences.glade:507
+#: data/ui/remmina_preferences.glade:533
+#, fuzzy
+msgid ""
+"Disable news from <a href=\"https://remmina.org\" title=\"Remmina news "
+"site\">remmina.org</a>"
+msgstr ""
+"ព័ត៌មាន Fetch ពី <a href=\"https://remmina.org\" title=\"Remmina news "
+"site\">remmina.org</a> (*)"
+
+#: data/ui/remmina_preferences.glade:566
+msgid "Disable tip of the day"
+msgstr ""
+
+#: data/ui/remmina_preferences.glade:618
+#, fuzzy
+msgid "General"
+msgstr "ការ កំណត់ ទូទៅ"
+
+#: data/ui/remmina_preferences.glade:643
 #, fuzzy
 msgid "Always show tabs"
 msgstr "បង្ហាញ ផ្ទាំង ជានិច្ច"
 
-#: data/ui/remmina_preferences.glade:523
+#: data/ui/remmina_preferences.glade:659
 #, fuzzy
 msgid "Hide the toolbar shown in the tabbed interface"
 msgstr "លាក់ របារ ឧបករណ៍ ដែល បាន បង្ហាញ នៅ ក្នុង ចំណុច ប្រទាក់ ផ្ទាំង"
 
-#: data/ui/remmina_preferences.glade:544
+#: data/ui/remmina_preferences.glade:680
 msgid "Default view"
 msgstr "លំនាំដើម"
 
-#: data/ui/remmina_preferences.glade:558
+#: data/ui/remmina_preferences.glade:694
 #, fuzzy
 msgid "Automatic"
 msgstr "ស្វ័យប្រវត្តិ"
 
-#: data/ui/remmina_preferences.glade:559
+#: data/ui/remmina_preferences.glade:695
 #, fuzzy
 msgid "Scrolled window"
 msgstr "បង្អួច រមូរ"
 
-#: data/ui/remmina_preferences.glade:561
+#: data/ui/remmina_preferences.glade:697
 #, fuzzy
 msgid "Viewport fullscreen"
 msgstr "Viewport fullscreen"
 
 #. How tabs are grouped in the Remmina connection window
-#: data/ui/remmina_preferences.glade:577
+#: data/ui/remmina_preferences.glade:713
 #, fuzzy
 msgctxt "Appearance preferences"
 msgid "Tabs grouping"
 msgstr "ក្រុម Tabs"
 
-#: data/ui/remmina_preferences.glade:589
+#: data/ui/remmina_preferences.glade:725
 msgid "By group"
 msgstr "ដាក់​ជា​ក្រុម"
 
-#: data/ui/remmina_preferences.glade:590
+#: data/ui/remmina_preferences.glade:726
 msgid "By protocol"
 msgstr "ពិធីការ"
 
-#: data/ui/remmina_preferences.glade:591
+#: data/ui/remmina_preferences.glade:727
 msgid "Per connection"
 msgstr "ការ​​​តភ្ជាប់​​ថ្មី"
 
-#: data/ui/remmina_preferences.glade:603
+#: data/ui/remmina_preferences.glade:739
 #, fuzzy
 msgid "Fullscreen on the same screen as the connection window"
 msgstr "អេក្រង់ ពេញ នៅ លើ អេក្រង់ ដូច គ្នា នឹង បង្អួច តភ្ជាប់"
 
-#: data/ui/remmina_preferences.glade:626
+#: data/ui/remmina_preferences.glade:762
 #, fuzzy
 msgid "Peeking"
 msgstr "ការ សម្លឹង មើល"
 
-#: data/ui/remmina_preferences.glade:627
+#: data/ui/remmina_preferences.glade:763
 #, fuzzy
 msgid "Hidden"
 msgstr "លាក់កំបាំង"
 
-#: data/ui/remmina_preferences.glade:644
+#: data/ui/remmina_preferences.glade:780
 #, fuzzy
 msgid "Fullscreen toolbar visibility"
 msgstr "ការ មើល ឃើញ របារ ឧបករណ៍ ពេញលេញ"
 
-#: data/ui/remmina_preferences.glade:654
+#: data/ui/remmina_preferences.glade:790
 #, fuzzy
 msgid "Hide the search bar shown in the main window"
 msgstr "លាក់ របារ ស្វែងរក ដែល បាន បង្ហាញ នៅ ក្នុង បង្អួច សំខាន់"
 
-#: data/ui/remmina_preferences.glade:670
+#: data/ui/remmina_preferences.glade:806
 #, fuzzy
 msgid "Prefer dark theme"
 msgstr "ចូលចិត្ត ស្បែក ងងឹត"
 
-#: data/ui/remmina_preferences.glade:674
+#: data/ui/remmina_preferences.glade:810
 #, fuzzy
 msgid ""
 "If a GTK theme includes a dark variant, it will be used instead of the "
@@ -5176,21 +5261,21 @@ msgstr ""
 "ប្រសិន បើ ស្បែក GTK រួម មាន វ៉ារ្យ៉ង់ ងងឹត វា នឹង ត្រូវ បាន ប្រើ ជំនួស ឲ្យ ស្បែក ដែល បាន កំណត់ "
 "រចនា សម្ព័ន្ធ ។"
 
-#: data/ui/remmina_preferences.glade:687
+#: data/ui/remmina_preferences.glade:823
 #, fuzzy
 msgid "Always show notes"
 msgstr "បង្ហាញ ផ្ទាំង ជានិច្ច"
 
-#: data/ui/remmina_preferences.glade:691
+#: data/ui/remmina_preferences.glade:827
 msgid "Add a column displaying any notes associated with a connection."
 msgstr ""
 
-#: data/ui/remmina_preferences.glade:711
+#: data/ui/remmina_preferences.glade:847
 #, fuzzy
 msgid "“Grab all keyboard events” status colour"
 msgstr "\"Grab all keyboard events\" status colour"
 
-#: data/ui/remmina_preferences.glade:722
+#: data/ui/remmina_preferences.glade:858
 #, fuzzy
 msgid ""
 "Hexadecimal- or colour names (red, #ff0000).\n"
@@ -5201,136 +5286,145 @@ msgstr ""
 "វា ផ្លាស់ប្ដូរ ពណ៌ ផ្ទៃ ខាង ក្រោយ នៃ ឈ្មោះ តភ្ជាប់ នៅ ក្នុង របារ ឧបករណ៍ តភ្ជាប់ Remmina "
 "(ពេល នៅ ក្នុង អេក្រង់ ពេញ )។"
 
-#: data/ui/remmina_preferences.glade:739
+#: data/ui/remmina_preferences.glade:875
 #, fuzzy
 msgid "Enable/Disable “Grab all keyboard events” status colour"
 msgstr "បើក/បិទ \"Grab all keyboard events\" status colour"
 
-#: data/ui/remmina_preferences.glade:795
+#: data/ui/remmina_preferences.glade:938
 #, fuzzy
 msgid "Appearance"
 msgstr "រូបរាង"
 
-#: data/ui/remmina_preferences.glade:821
+#: data/ui/remmina_preferences.glade:964
 #, fuzzy
 msgid "Show new connection on top of the menu"
 msgstr "បង្ហាញ ការ តភ្ជាប់ ថ្មី នៅ លើ កំពូល នៃ ម៉ឺនុយ"
 
-#: data/ui/remmina_preferences.glade:840
+#: data/ui/remmina_preferences.glade:983
 #, fuzzy
 msgid "Hide total count shown in the group menu"
 msgstr "លាក់ ចំនួន សរុប ដែល បាន បង្ហាញ នៅ ក្នុង ម៉ឺនុយ ក្រុម"
 
-#: data/ui/remmina_preferences.glade:858
+#: data/ui/remmina_preferences.glade:1001
 #, fuzzy
 msgid "No tray icon"
 msgstr "គ្មាន រូបតំណាង tray"
 
-#: data/ui/remmina_preferences.glade:877
+#: data/ui/remmina_preferences.glade:1020
 #, fuzzy
 msgid "Start in tray upon user login"
 msgstr "ចាប់ផ្ដើម ក្នុង tray នៅ ពេល ចូល អ្នក ប្រើ"
 
-#: data/ui/remmina_preferences.glade:908
+#: data/ui/remmina_preferences.glade:1051
 #, fuzzy
 msgid "Applet"
 msgstr "Applet"
 
-#: data/ui/remmina_preferences.glade:940
+#: data/ui/remmina_preferences.glade:1083
 #, fuzzy
 msgid "Host key"
 msgstr "គន្លឹះ Host"
 
-#: data/ui/remmina_preferences.glade:972
+#: data/ui/remmina_preferences.glade:1115
 msgid "Show/hide fullscreen"
 msgstr "បិទ/បើក​របៀប​ពេញ​អេក្រង់"
 
-#: data/ui/remmina_preferences.glade:1003
+#: data/ui/remmina_preferences.glade:1146
 #, fuzzy
 msgid "Auto-fit window"
 msgstr "បង្អួច ស្វ័យ ប្រវត្តិ"
 
-#: data/ui/remmina_preferences.glade:1080
+#: data/ui/remmina_preferences.glade:1223
 #, fuzzy
 msgid "Apply/remove scaling"
 msgstr "អនុវត្ត/remove scaling"
 
-#: data/ui/remmina_preferences.glade:1111
+#: data/ui/remmina_preferences.glade:1254
 #, fuzzy
 msgid "Grab keyboard"
 msgstr "ក្តារចុច Grab"
 
-#: data/ui/remmina_preferences.glade:1204
+#: data/ui/remmina_preferences.glade:1347
 #, fuzzy
 msgid "Show/hide toolbar"
 msgstr "បង្ហាញ/hide toolbar"
 
-#: data/ui/remmina_preferences.glade:1267
-#: data/ui/remmina_preferences.glade:1277
+#: data/ui/remmina_preferences.glade:1410
+#: data/ui/remmina_preferences.glade:1420
 #, fuzzy
 msgid "View-only mode"
 msgstr "របៀបមើល-only"
 
-#: data/ui/remmina_preferences.glade:1340
+#: data/ui/remmina_preferences.glade:1477
+#, fuzzy
+msgid "Send clipboard as keystrokes"
+msgstr "ផ្ញើមាតិកា clipboard ជា keytrokes"
+
+#: data/ui/remmina_preferences.glade:1487
+msgid "Send-clipboard"
+msgstr ""
+
+#: data/ui/remmina_preferences.glade:1517
 #, fuzzy
 msgid "Keyboard"
 msgstr "ក្តារ​ចុច"
 
-#: data/ui/remmina_preferences.glade:1371
+#: data/ui/remmina_preferences.glade:1548
 #, fuzzy
 msgid "Local SSH port"
 msgstr "កំពង់ ផែ SSH ក្នុង ស្រុក"
 
-#: data/ui/remmina_preferences.glade:1395
+#: data/ui/remmina_preferences.glade:1572
 #, fuzzy
 msgid "Parse ~/.ssh/config"
 msgstr "Parse ~/.ssh/config"
 
-#: data/ui/remmina_preferences.glade:1419
+#: data/ui/remmina_preferences.glade:1596
 #, fuzzy
 msgid "No logging at all"
 msgstr "គ្មាន ការ កាប់ ឈើ ទាល់ តែ សោះ"
 
-#: data/ui/remmina_preferences.glade:1420
+#: data/ui/remmina_preferences.glade:1597
 #, fuzzy
 msgid "Rare conditions or warnings"
 msgstr "លក្ខខណ្ឌ ឬ ការ ព្រមាន ដ៏ កម្រ"
 
-#: data/ui/remmina_preferences.glade:1421
+#: data/ui/remmina_preferences.glade:1598
 #, fuzzy
 msgid "API-accessible entrypoints"
 msgstr "API-ចំនុចចូលដែលអាចប្រើប្រាស់បាន"
 
-#: data/ui/remmina_preferences.glade:1422
+#: data/ui/remmina_preferences.glade:1599
 #, fuzzy
 msgid "Lower level protocol info, packet level"
 msgstr "ព័ត៌មាន protocol កម្រិត ទាប កម្រិត ប៉ាកេត"
 
-#: data/ui/remmina_preferences.glade:1423
+#: data/ui/remmina_preferences.glade:1600
 #, fuzzy
 msgid "Function entering and leaving"
 msgstr "មុខងារចូលនិងចាកចេញ"
 
-#: data/ui/remmina_preferences.glade:1440
+#: data/ui/remmina_preferences.glade:1617
 #, fuzzy
 msgid "SSH log level"
 msgstr "កម្រិតកំណត់ហេតុ SSH"
 
 #. http://man7.org/linux/man-pages/man7/tcp.7.html
-#: data/ui/remmina_preferences.glade:1511
+#: data/ui/remmina_preferences.glade:1688
 #, fuzzy
 msgid "Seconds of connection idleness before TCP keepalive probes are sent."
 msgstr ""
 "វិនាទី នៃ ភាព ទំនេរ នៃ ការ ត ភ្ជាប់ មុន ពេល ការ ស៊ើប អង្កេត រក្សា TCP ត្រូវ បាន ផ្ញើ ។"
 
 #. http://man7.org/linux/man-pages/man7/tcp.7.html
-#: data/ui/remmina_preferences.glade:1527
+#: data/ui/remmina_preferences.glade:1704
 #, fuzzy
 msgid "Seconds between each keepalive probe."
 msgstr "វិនាទី រវាង ការ ស៊ើប អង្កេត ការ រក្សា ទុក នីមួយ ៗ ។"
 
 #. http://man7.org/linux/man-pages/man7/tcp.7.html
-#: data/ui/remmina_preferences.glade:1543
+#: data/ui/remmina_preferences.glade:1720
 #, fuzzy
 msgid ""
 "Number of keepalive probes sent via TCP connection before it is dropped."
@@ -5339,7 +5433,7 @@ msgstr ""
 "ត្រូវ បាន ទម្លាក់ ។"
 
 #. http://man7.org/linux/man-pages/man7/tcp.7.html
-#: data/ui/remmina_preferences.glade:1559
+#: data/ui/remmina_preferences.glade:1736
 #, fuzzy
 msgid ""
 "Amount of milliseconds to attempt acknowledging data before closing the "
@@ -5348,81 +5442,81 @@ msgstr ""
 "ចំនួន មីល្លីវិនាទី ដើម្បី ព្យាយាម ទទួល ស្គាល់ ទិន្នន័យ មុន ពេល បិទ ការ ត ភ្ជាប់ TCP ដែល ត្រូវ គ្នា "
 "ដោយ បង្ខំ ។"
 
-#: data/ui/remmina_preferences.glade:1585
+#: data/ui/remmina_preferences.glade:1762
 #, fuzzy
 msgid "SSH options"
 msgstr "ជម្រើស SSH"
 
-#: data/ui/remmina_preferences.glade:1602
+#: data/ui/remmina_preferences.glade:1779
 msgid ""
 "Time in seconds before Remmina will lock the session and asks for a password "
 "again. Default: 300 Seconds."
 msgstr ""
 
-#: data/ui/remmina_preferences.glade:1614
+#: data/ui/remmina_preferences.glade:1791
 msgid "Set and use a secret key to protect Remmina from unauthorized use."
 msgstr ""
 
-#: data/ui/remmina_preferences.glade:1619
+#: data/ui/remmina_preferences.glade:1796
 #, fuzzy
 msgid "Remmina password"
 msgstr "ពាក្យសម្ងាត់របស់អ្នកប្រើប្រាស់"
 
-#: data/ui/remmina_preferences.glade:1630
+#: data/ui/remmina_preferences.glade:1807
 #, fuzzy
 msgid "Use secret key authentication for some widgets"
 msgstr "ប្រើ ការផ្ទៀងផ្ទាត់ key សម្ងាត់ សម្រាប់ widget មួយចំនួន"
 
-#: data/ui/remmina_preferences.glade:1650
+#: data/ui/remmina_preferences.glade:1827
 msgid "Valid for"
 msgstr ""
 
-#: data/ui/remmina_preferences.glade:1661
+#: data/ui/remmina_preferences.glade:1838
 msgid "Number of seconds to keep password valid for"
 msgstr ""
 
-#: data/ui/remmina_preferences.glade:1666
+#: data/ui/remmina_preferences.glade:1843
 msgid "timeout in seconds (default 300)"
 msgstr ""
 
-#: data/ui/remmina_preferences.glade:1678
+#: data/ui/remmina_preferences.glade:1855
 #, fuzzy
 msgid "Enter your Remmina password to connect"
 msgstr "ការ ផ្ទុក ពាក្យ សម្ងាត់ ដែល មាន សុវត្ថិភាព នៅ ក្នុង KWallet"
 
 #. “Require to connect” is “Require the Remmina password before to connect”, the Remmina password is the Master/Principal Password, that is used to protect Remmina from unauthorized use.
-#: data/ui/remmina_preferences.glade:1682
+#: data/ui/remmina_preferences.glade:1859
 #, fuzzy
 msgid "Require to connect"
 msgstr "ការ ផ្ទុក ពាក្យ សម្ងាត់ ដែល មាន សុវត្ថិភាព នៅ ក្នុង KWallet"
 
-#: data/ui/remmina_preferences.glade:1693
+#: data/ui/remmina_preferences.glade:1870
 msgid "Creation, editing, copying, and deletions require the Remmina password"
 msgstr ""
 
 #. Creation, editing, copying, and deletions require the primary password
-#: data/ui/remmina_preferences.glade:1697
+#: data/ui/remmina_preferences.glade:1874
 msgid "Require to modify"
 msgstr ""
 
-#: data/ui/remmina_preferences.glade:1708
+#: data/ui/remmina_preferences.glade:1885
 #, fuzzy
 msgid "Enter your Remmina password to view passwords"
 msgstr "ការ ផ្ទុក ពាក្យ សម្ងាត់ ដែល មាន សុវត្ថិភាព នៅ ក្នុង KWallet"
 
 #. “Require to view passwords” is “Require the Remmina password before to connect”, the Remmina password is the Master/Principal Password, that is used to protect Remmina from unauthorized use.
-#: data/ui/remmina_preferences.glade:1712
+#: data/ui/remmina_preferences.glade:1889
 #, fuzzy
 #| msgid "Set new password"
 msgid "Require to view passwords"
 msgstr "រក្សា​​ទុក​​​ពាក្យ​​​សម្ងាត់"
 
-#: data/ui/remmina_preferences.glade:1768
+#: data/ui/remmina_preferences.glade:1945
 #, fuzzy
 msgid "Encryption"
 msgstr "ពិពណ៍នា"
 
-#: data/ui/remmina_preferences.glade:1779
+#: data/ui/remmina_preferences.glade:1956
 msgid ""
 "These are the encryption methods used by Remmina to store passwords.\n"
 "\n"
@@ -5433,74 +5527,74 @@ msgid ""
 "\"Sensitive\" is more secure, but uses +1 GiB of RAM and many CPU cycles. "
 msgstr ""
 
-#: data/ui/remmina_preferences.glade:1788
+#: data/ui/remmina_preferences.glade:1965
 msgid "Intermediate (+64 MiB RAM)"
 msgstr ""
 
-#: data/ui/remmina_preferences.glade:1789
+#: data/ui/remmina_preferences.glade:1966
 msgid "Strong (+256 MiB, ~2009 CPU)"
 msgstr ""
 
-#: data/ui/remmina_preferences.glade:1790
+#: data/ui/remmina_preferences.glade:1967
 msgid "Sensitive (+1 GiB, ~2014 CPU)"
 msgstr ""
 
-#: data/ui/remmina_preferences.glade:1806
+#: data/ui/remmina_preferences.glade:1983
 #, fuzzy
 msgid "Auditing log"
 msgstr "កែសម្រួល ការ កំណត់"
 
-#: data/ui/remmina_preferences.glade:1831
+#: data/ui/remmina_preferences.glade:2008
 #, fuzzy
 msgid "Automatically accept all fingerprints and certificates"
 msgstr "ដោយស្វ័យប្រវត្តិទទួលយកស្នាមម្រាមដៃនិងវិញ្ញាបនបត្រទាំងអស់ដោយស្វ័យប្រវត្តិ"
 
-#: data/ui/remmina_preferences.glade:1836
+#: data/ui/remmina_preferences.glade:2013
 #, fuzzy
 msgid "Trust all certificates"
 msgstr "ទុកចិត្តរាល់ស្នាមម្រាមដៃ និងសញ្ញាប័ណ្ណ"
 
-#: data/ui/remmina_preferences.glade:1871
+#: data/ui/remmina_preferences.glade:2048
 #, fuzzy
 msgid "Security"
 msgstr "សន្តិសុខ"
 
-#: data/ui/remmina_preferences.glade:1902
+#: data/ui/remmina_preferences.glade:2079
 #, fuzzy
 msgid "Terminal font"
 msgstr "ពុម្ពអក្សរ Terminal"
 
-#: data/ui/remmina_preferences.glade:1915
+#: data/ui/remmina_preferences.glade:2092
 #, fuzzy
 msgid "Scrollback lines"
 msgstr "បន្ទាត់ រមូរ"
 
-#: data/ui/remmina_preferences.glade:1963
+#: data/ui/remmina_preferences.glade:2140
 #, fuzzy
 msgid "Shortcuts for copying and pasting"
 msgstr "ខ្លីៗសម្រាប់ថតចម្លង និង អតីតកាល"
 
-#: data/ui/remmina_preferences.glade:1976
+#: data/ui/remmina_preferences.glade:2153
 #, fuzzy
 msgid "Select all shortcuts"
 msgstr "ជ្រើសរើស shortcut ទាំងអស់"
 
-#: data/ui/remmina_preferences.glade:1989
-#: data/ui/remmina_preferences.glade:2006
-#: data/ui/remmina_preferences.glade:2459
-#: data/ui/remmina_preferences.glade:2489
-#: data/ui/remmina_preferences.glade:2623
-#: data/ui/remmina_preferences.glade:2640
+#: data/ui/remmina_preferences.glade:2166
+#: data/ui/remmina_preferences.glade:2183
+#: data/ui/remmina_preferences.glade:2636
+#: data/ui/remmina_preferences.glade:2666
+#: data/ui/remmina_preferences.glade:2800
+#: data/ui/remmina_preferences.glade:2817
 #, fuzzy
 msgid "(Host key+)"
 msgstr "(Host key+)"
 
-#: data/ui/remmina_preferences.glade:2024
+#: data/ui/remmina_preferences.glade:2201
 #, fuzzy
 msgid "Use default system font"
 msgstr "ប្រើ ពុម្ព អក្សរ ប្រព័ន្ធ លំនាំដើម"
 
-#: data/ui/remmina_preferences.glade:2049
+#: data/ui/remmina_preferences.glade:2226
 #, fuzzy
 msgid ""
 "Selecting “SGR 1” also switches to the bright counterparts of the first 8 "
@@ -5509,16 +5603,16 @@ msgstr ""
 "ការ ជ្រើស រើស \"SGR 1\" ក៏ ប្ដូរ ទៅ ជា ដៃ គូ ដ៏ ភ្លឺ ស្វាង នៃ ពណ៌ សម្បុរ ៨ ដើម (បន្ថែម ពី "
 "លើ ការ បង្កើត អត្ថបទ ដិត ចុះ)។"
 
-#: data/ui/remmina_preferences.glade:2065
+#: data/ui/remmina_preferences.glade:2242
 msgid "Show bold text in bright colors"
 msgstr ""
 
-#: data/ui/remmina_preferences.glade:2079
+#: data/ui/remmina_preferences.glade:2256
 #, fuzzy
 msgid "Colour theme"
 msgstr "ស្បែកពណ៌"
 
-#: data/ui/remmina_preferences.glade:2090
+#: data/ui/remmina_preferences.glade:2267
 #, fuzzy
 msgid ""
 "Choose a colour scheme file. Usually available in /usr/share/remmina/theme. "
@@ -5527,177 +5621,228 @@ msgstr ""
 "ជ្រើស ឯកសារ គំរោង ពណ៌ ។ ជាធម្មតាមាននៅក្នុង /usr/share/remmina/theme។ https://"
 "github.com/mbadolato/iTerm2-Color-Schemes មាន ព័ត៌មាន លម្អិត បន្ថែម ។"
 
-#: data/ui/remmina_preferences.glade:2094
+#: data/ui/remmina_preferences.glade:2271
 #, fuzzy
 msgid "Pick a terminal colouring file"
 msgstr "ជ្រើស ឯកសារ ពណ៌ ស្ថានីយ"
 
-#: data/ui/remmina_preferences.glade:2109
+#: data/ui/remmina_preferences.glade:2286
 #, fuzzy
 msgid "Bright colours"
 msgstr "ពណ៌ភ្លឺថ្លា"
 
-#: data/ui/remmina_preferences.glade:2123
+#: data/ui/remmina_preferences.glade:2300
 #, fuzzy
 msgid "Pick a light black colour"
 msgstr "រើស ពណ៌ ខ្មៅ ស្រាល"
 
-#: data/ui/remmina_preferences.glade:2137
+#: data/ui/remmina_preferences.glade:2314
 #, fuzzy
 msgid "Pick a light red colour"
 msgstr "រើស ពណ៌ ក្រហម ស្រាល"
 
-#: data/ui/remmina_preferences.glade:2151
+#: data/ui/remmina_preferences.glade:2328
 #, fuzzy
 msgid "Pick a bright green colour"
 msgstr "ជ្រើស ពណ៌ បៃតង ភ្លឺ"
 
-#: data/ui/remmina_preferences.glade:2165
+#: data/ui/remmina_preferences.glade:2342
 #, fuzzy
 msgid "Pick a bright yellow colour"
 msgstr "រើស ពណ៌ លឿង ភ្លឺ"
 
-#: data/ui/remmina_preferences.glade:2179
+#: data/ui/remmina_preferences.glade:2356
 #, fuzzy
 msgid "Pick a bright blue colour"
 msgstr "ជ្រើស ពណ៌ ខៀវ ភ្លឺ"
 
-#: data/ui/remmina_preferences.glade:2193
+#: data/ui/remmina_preferences.glade:2370
 #, fuzzy
 msgid "Pick a light magenta colour"
 msgstr "ជ្រើស ពណ៌ ម៉ាញ៉េទិច ស្រាល"
 
-#: data/ui/remmina_preferences.glade:2207
+#: data/ui/remmina_preferences.glade:2384
 #, fuzzy
 msgid "Pick a light cyan colour"
 msgstr "រើស ពណ៌ cyan ស្រាល"
 
-#: data/ui/remmina_preferences.glade:2221
+#: data/ui/remmina_preferences.glade:2398
 #, fuzzy
 msgid "Pick a light white colour"
 msgstr "រើស ពណ៌ ស ស្រាល"
 
-#: data/ui/remmina_preferences.glade:2235
+#: data/ui/remmina_preferences.glade:2412
 #, fuzzy
 msgid "Pick a black colour"
 msgstr "រើស ពណ៌ ខ្មៅ"
 
-#: data/ui/remmina_preferences.glade:2249
+#: data/ui/remmina_preferences.glade:2426
 #, fuzzy
 msgid "Pick a red colour"
 msgstr "រើស ពណ៌ ក្រហម"
 
-#: data/ui/remmina_preferences.glade:2263
+#: data/ui/remmina_preferences.glade:2440
 #, fuzzy
 msgid "Pick a green colour"
 msgstr "រើស ពណ៌ បៃតង"
 
-#: data/ui/remmina_preferences.glade:2277
+#: data/ui/remmina_preferences.glade:2454
 #, fuzzy
 msgid "Pick a yellow colour"
 msgstr "រើស ពណ៌ លឿង"
 
-#: data/ui/remmina_preferences.glade:2291
+#: data/ui/remmina_preferences.glade:2468
 #, fuzzy
 msgid "Pick a blue colour"
 msgstr "រើស ពណ៌ ខៀវ"
 
-#: data/ui/remmina_preferences.glade:2305
+#: data/ui/remmina_preferences.glade:2482
 #, fuzzy
 msgid "Pick a magenta colour"
 msgstr "រើសពណ៌ magenta"
 
-#: data/ui/remmina_preferences.glade:2319
+#: data/ui/remmina_preferences.glade:2496
 #, fuzzy
 msgid "Pick a cyan colour"
 msgstr "រើសពណ៌ cyan"
 
-#: data/ui/remmina_preferences.glade:2333
+#: data/ui/remmina_preferences.glade:2510
 #, fuzzy
 msgid "Pick a white colour"
 msgstr "រើស ពណ៌ ស"
 
-#: data/ui/remmina_preferences.glade:2346
+#: data/ui/remmina_preferences.glade:2523
 #, fuzzy
 msgid "Normal colours"
 msgstr "ពណ៌ ធម្មតា"
 
-#: data/ui/remmina_preferences.glade:2359
-#: data/ui/remmina_preferences.glade:2374
+#: data/ui/remmina_preferences.glade:2536
+#: data/ui/remmina_preferences.glade:2551
 #, fuzzy
 msgid "Cursor colour"
 msgstr "ពណ៌ Cursor"
 
-#: data/ui/remmina_preferences.glade:2388
-#: data/ui/remmina_preferences.glade:2403
+#: data/ui/remmina_preferences.glade:2565
+#: data/ui/remmina_preferences.glade:2580
 #, fuzzy
 msgid "Background colour"
 msgstr "ពណ៌ ផ្ទៃខាងក្រោយ"
 
-#: data/ui/remmina_preferences.glade:2419
-#: data/ui/remmina_preferences.glade:2433
+#: data/ui/remmina_preferences.glade:2596
+#: data/ui/remmina_preferences.glade:2610
 #, fuzzy
 msgid "Foreground colour"
 msgstr "ពណ៌ ផ្ទៃ ខាង មុខ"
 
-#: data/ui/remmina_preferences.glade:2446
+#: data/ui/remmina_preferences.glade:2623
 #, fuzzy
 msgid "Increase and decrease font size"
 msgstr "បង្កើន និង បន្ថយ ទំហំ ពុម្ព អក្សរ"
 
-#: data/ui/remmina_preferences.glade:2476
+#: data/ui/remmina_preferences.glade:2653
 #, fuzzy
 msgid "Search text shortcut"
 msgstr "ស្វែងរក shortcut អត្ថបទ"
 
-#: data/ui/remmina_preferences.glade:2507
-#: data/ui/remmina_preferences.glade:2522
+#: data/ui/remmina_preferences.glade:2684
+#: data/ui/remmina_preferences.glade:2699
 #, fuzzy
 msgid "Bold colour"
 msgstr "ពណ៌ ដិត"
 
-#: data/ui/remmina_preferences.glade:2536
-#: data/ui/remmina_preferences.glade:2577
+#: data/ui/remmina_preferences.glade:2713
+#: data/ui/remmina_preferences.glade:2754
 #, fuzzy
 msgid "Highlight colour"
 msgstr "ពណ៌សំខាន់ៗ"
 
-#: data/ui/remmina_preferences.glade:2549
-#: data/ui/remmina_preferences.glade:2593
+#: data/ui/remmina_preferences.glade:2726
+#: data/ui/remmina_preferences.glade:2770
 #, fuzzy
 msgid "Highlight foreground colour"
 msgstr "ពណ៌ ផ្ទៃ ខាង ក្រោយ"
 
-#: data/ui/remmina_preferences.glade:2562
-#: data/ui/remmina_preferences.glade:2609
+#: data/ui/remmina_preferences.glade:2739
+#: data/ui/remmina_preferences.glade:2786
 #, fuzzy
 msgid "Cursor foreground colour"
 msgstr "ពណ៌ Cursor foreground"
 
-#: data/ui/remmina_preferences.glade:2665
+#: data/ui/remmina_preferences.glade:2842
 #, fuzzy
 msgid "Terminal"
 msgstr "ស្ថានីយ"
 
-#: data/ui/remmina_preferences.glade:2679
+#: data/ui/remmina_preferences.glade:2856
 #, fuzzy
 msgid "Remmina Preferences"
 msgstr "ចំណង់ចំណូលចិត្ត Remmina"
 
-#: data/ui/remmina_unlock.glade:56
-#, fuzzy
-msgid "Unlock"
-msgstr "ដោះសោ"
-
-#: data/ui/remmina_unlock.glade:85
+#: data/ui/remmina_unlock.glade:30
 #, fuzzy
 msgid "Unlock Remmina"
 msgstr "ដោះសោ Remmina"
 
-#: data/ui/remmina_unlock.glade:120
+#: data/ui/remmina_unlock.glade:57
+msgid "Unlock"
+msgstr "ដោះសោ"
+
+#: data/ui/remmina_unlock.glade:109
 #, fuzzy
 msgid "Master password"
 msgstr "ពាក្យ សម្ងាត់ មេ"
+
+#~ msgid "Use as default remote desktop client"
+#~ msgstr "ម៉ាស៊ីន​ភ្ញៀវ​ផ្ទៃតុ​ពី​ចម្ងាយ​របស់ Remmina"
+
+#~ msgid "Apply"
+#~ msgstr "អនុវត្ត"
+
+#, fuzzy
+#~ msgid "Allow Remmina to automatically open .rdp and .remmina files."
+#~ msgstr "អនុញ្ញាតអោយ Remmina បើក .rdp និង .remmina files ដោយស្វ័យប្រវត្តិ។"
+
+#, fuzzy
+#~ msgid "* By turning on news you consent to fetching data from remmina.org"
+#~ msgstr ""
+#~ "* ដោយអាចធ្វើស្ថិតិ និង/ឬព័ត៌មានដែលអ្នកយល់ព្រមក្នុងការផ្ញើនិងចាប់ទិន្នន័យទៅ/ពី remmina.org"
+
+#, fuzzy
+#~ msgid "<big>Take part</big>"
+#~ msgstr "<big> យកចំណែក</big>"
+
+#, fuzzy
+#~ msgid ""
+#~ "<span>\n"
+#~ "<b>You have our gratitude in choosing copylefted libre software, <a "
+#~ "href=\"https://remmina.org/donations/\" title=\"Where’s the money, "
+#~ "Lebowski? “blblblblblb”\">donations also make us happy</a>, and further "
+#~ "help improve Remmina.</b>\n"
+#~ "</span>\n"
+#~ msgstr ""
+#~ "<span>\n"
+#~ "<b> អ្នក មាន ការ ដឹង គុណ របស់ យើង ក្នុង ការ ជ្រើស រើស កម្មវិធី libre ដែល មាន ថត "
+#~ "ចម្លង <a href=\"https://remmina.org/donations/\" title=\"Where’s the "
+#~ "money, Lebowski? “blblblblblb”\"> ការ បរិច្ចាគ ក៏ ធ្វើ ឲ្យ យើង សប្បាយ ចិត្ត</a>, "
+#~ "និង ជួយ បន្ថែម ទៀត ដើម្បី ធ្វើ ឲ្យ Remmina ប្រសើរ ឡើង ថែម ទៀត។ </b>\n"
+#~ "</span>\n"
+
+#, fuzzy
+#~ msgid "<big>Contribute</big>"
+#~ msgstr "<big> បរិច្ចាគ</big>"
+
+#, fuzzy, c-format
+#~ msgid "Could not start SSH session. %s"
+#~ msgstr "មិន អាច ចាប់ ផ្តើម សម័យ SSH បាន ទេ & # 160; ។ %s"
+
+#, fuzzy
+#~| msgid "Set new password"
+#~ msgid "Set Primary Password"
+#~ msgstr "រក្សា​​ទុក​​​ពាក្យ​​​សម្ងាត់"
+
+#, fuzzy
+#~ msgid "Options"
+#~ msgstr "ជម្រើស"
 
 #, fuzzy, c-format
 #~ msgid ""
@@ -5800,16 +5945,12 @@ msgstr "ពាក្យ សម្ងាត់ មេ"
 #, fuzzy
 #~ msgid ""
 #~ "Send <b><a href=\"https://remmina.gitlab.io/remminadoc.gitlab.io/"
-#~ "remmina__stats_8c.html#details\" title=\"Remmina usage statistics"
-#~ "\">anonymous</a></b> statistics. (*)"
+#~ "remmina__stats_8c.html#details\" title=\"Remmina usage "
+#~ "statistics\">anonymous</a></b> statistics. (*)"
 #~ msgstr ""
 #~ "ផ្ញើ <b><a href=\"https://remmina.gitlab.io/remminadoc.gitlab.io/"
-#~ "remmina__stats_8c.html#details\" title=\"Remmina usage statistics"
-#~ "\">anonymous</a></b> statistics. (*)"
-
-#, fuzzy
-#~ msgid "Send anonymous statistics"
-#~ msgstr "ផ្ញើស្ថិតិអនាមិក"
+#~ "remmina__stats_8c.html#details\" title=\"Remmina usage "
+#~ "statistics\">anonymous</a></b> statistics. (*)"
 
 #, fuzzy
 #~ msgid "Started pyhoca-cli with following arguments:"

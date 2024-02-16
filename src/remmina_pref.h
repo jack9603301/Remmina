@@ -4,6 +4,7 @@
  * Copyright (C) 2014-2015 Antenore Gatta, Fabio Castelli, Giovanni Panozzo
  * Copyright (C) 2016-2022 Antenore Gatta, Giovanni Panozzo
  * Copyright (C) 2022-2023 Antenore Gatta, Giovanni Panozzo, Hiroyuki Tanaka
+ * Copyright (C) 2023-2024 Hiroyuki Tanaka, Sunil Bhat
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -175,6 +176,7 @@ typedef struct _RemminaPref {
 	guint			shortcutkey_fullscreen;
 	guint			shortcutkey_autofit;
 	guint			shortcutkey_prevtab;
+	guint			shortcutkey_clipboard;
 	guint			shortcutkey_nexttab;
 	guint			shortcutkey_dynres;
 	guint			shortcutkey_scale;
@@ -235,7 +237,14 @@ typedef struct _RemminaPref {
 	RemminaColorPref	color_pref;
 
 	/* Usage stats */
-	gchar *			last_success;
+	gboolean		disable_stats;
+	gchar *			info_uid_prefix;
+
+	/* Remmina news */
+	gboolean 		disable_news;
+	gchar * 		periodic_news_last_checksum;
+
+	gboolean 		disable_tip;
 
 } RemminaPref;
 

@@ -195,6 +195,7 @@ struct remmina_plugin_rdp_event {
 			BOOL	extended;
 			UINT8	key_code;
 			UINT32	unicode_code;
+			BOOL	extended1;
 		} key_event;
 		struct {
 			UINT16	flags;
@@ -319,19 +320,15 @@ typedef struct remmina_plugin_rdp_keymap_entry {
 } RemminaPluginRdpKeymapEntry;
 
 struct rf_context {
-	rdpContext		context;
-	DEFINE_RDP_CLIENT_COMMON();
+	rdpClientContext clientContext;
 
-	RemminaProtocolWidget * protocol_widget;
+	RemminaProtocolWidget *protocol_widget;
 
 	/* main */
-	rdpSettings *		settings;
-	freerdp *		instance;
-
-	pthread_t		remmina_plugin_thread;
-	RemminaScaleMode	scale;
-	gboolean		user_cancelled;
-	gboolean		thread_cancelled;
+	pthread_t remmina_plugin_thread;
+	RemminaScaleMode scale;
+	gboolean user_cancelled;
+	gboolean thread_cancelled;
 
 	CliprdrClientContext *	cliprdr;
 	DispClientContext *	dispcontext;
@@ -384,6 +381,8 @@ struct rf_context {
 	GAsyncQueue *		event_queue;
 	gint			event_pipe[2];
 	HANDLE			event_handle;
+	UINT16         	last_x;
+	UINT16         	last_y;
 
 	rfClipboard		clipboard;
 

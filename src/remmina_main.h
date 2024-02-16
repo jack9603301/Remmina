@@ -4,6 +4,7 @@
  * Copyright (C) 2014-2015 Antenore Gatta, Fabio Castelli, Giovanni Panozzo
  * Copyright (C) 2016-2022 Antenore Gatta, Giovanni Panozzo
  * Copyright (C) 2022-2023 Antenore Gatta, Giovanni Panozzo, Hiroyuki Tanaka
+ * Copyright (C) 2023-2024 Hiroyuki Tanaka, Sunil Bhat
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -53,7 +54,7 @@ typedef struct _RemminaMain {
 	GtkPopover *		menu_popup;
 	GtkMenuButton *		menu_header_button;
 	GtkPopover *		menu_popup_full;
-	GtkPopover *		menu_popup_delete_rc;
+	GtkPopover *       menu_popup_delete_rc;
 	GtkCheckButton *	menuitem_view_mode_list;
 	GtkCheckButton *	menuitem_view_mode_tree;
 	GtkButton *		menuitem_connection_quit;
@@ -116,6 +117,7 @@ void remmina_main_save_before_destroy(void);
 void remmina_main_show_dialog(GtkMessageType msg, GtkButtonsType buttons, const gchar* message);
 void remmina_main_show_warning_dialog(const gchar *message);
 void remmina_main_on_action_application_about(GSimpleAction *action, GVariant *param, gpointer data);
+void remmina_main_on_action_application_bug_report(GSimpleAction *action, GVariant *param, gpointer data);
 void remmina_main_on_action_application_default(GSimpleAction *action, GVariant *param, gpointer data);
 void remmina_main_on_action_application_mpchange(GSimpleAction *action, GVariant *param, gpointer data);
 void remmina_main_on_action_application_plugins(GSimpleAction *action, GVariant *param, gpointer data);
@@ -139,6 +141,7 @@ void remmina_main_on_action_tools_import(GSimpleAction *action, GVariant *param,
 void remmina_main_on_action_expand(GSimpleAction *action, GVariant *param, gpointer data);
 void remmina_main_on_action_collapse(GSimpleAction *action, GVariant *param, gpointer data);
 void remmina_main_on_action_search_toggle(GSimpleAction *action, GVariant *param, gpointer data);
+void remmina_main_toggle_password_view(GtkWidget *widget, gpointer data);
 void remmina_main_reload_preferences();
 
 G_END_DECLS
