@@ -27,7 +27,7 @@ Author: Antenore Gatta
   <!-- interface-copyright 2016-2023 Antenore Gatta, Giovanni Panozzo -->
   <!-- interface-authors Antenore Gatta -->
   <object class="GtkWindow" id="RemminaSearchWidget">
-    <property name="can_focus">False</property>
+    <property name="can_focus">True</property>
     <property name="modal">True</property>
     <property name="destroy_with_parent">True</property>
     <child type="titlebar">
@@ -36,35 +36,35 @@ Author: Antenore Gatta
     <child>
       <object class="GtkBox" id="box1">
         <property name="visible">True</property>
-        <property name="can_focus">False</property>
+        <property name="can_focus">True</property>
         <property name="margin_top">12</property>
         <property name="margin_bottom">12</property>
         <property name="orientation">vertical</property>
         <child>
           <object class="GtkBox" id="box2">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
+            <property name="can_focus">True</property>
             <property name="spacing">18</property>
             <child>
               <object class="GtkBox" id="box4">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
+                <property name="can_focus">True</property>
                 <child>
                   <object class="GtkSearchEntry" id="search_entry">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="activates_default">True</property>
                     <property name="width_chars">30</property>
-                    <property name="primary_icon_name">edit-find-symbolic</property>
-                    <property name="primary_icon_activatable">False</property>
-                    <property name="primary_icon_sensitive">False</property>
+                    <!-- <property name="primary_icon_name">edit-find-symbolic</property> -->
+                    <!-- <property name="primary_icon_activatable">False</property>
+                    <property name="primary_icon_sensitive">False</property> -->
                     <property name="placeholder_text" translatable="yes">Search</property>
                   </object>
-                  <packing>
+                  <!-- <packing>
                     <property name="expand">True</property>
                     <property name="fill">True</property>
                     <property name="position">0</property>
-                  </packing>
+                  </packing> -->
                 </child>
                 <child>
                   <object class="GtkButton" id="search_prev_button">
@@ -76,24 +76,23 @@ Author: Antenore Gatta
                     <child>
                       <object class="GtkImage" id="image2">
                         <property name="visible">True</property>
-                        <property name="can_focus">False</property>
+                        <property name="can_focus">True</property>
                         <property name="icon_name">go-up-symbolic</property>
                         <property name="use_fallback">True</property>
                       </object>
                     </child>
                   </object>
-                  <packing>
+                  <!-- <packing>
                     <property name="expand">False</property>
                     <property name="fill">True</property>
                     <property name="position">1</property>
-                  </packing>
+                  </packing> -->
                 </child>
                 <child>
                   <object class="GtkButton" id="search_next_button">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="focus_on_click">False</property>
-                    <property name="can_default">True</property>
                     <property name="receives_default">True</property>
                     <property name="tooltip_text" translatable="yes">Search for next occurrence</property>
                     <child>
@@ -105,21 +104,21 @@ Author: Antenore Gatta
                       </object>
                     </child>
                   </object>
-                  <packing>
+                  <!-- <packing>
                     <property name="expand">False</property>
                     <property name="fill">True</property>
                     <property name="position">2</property>
-                  </packing>
+                  </packing> -->
                 </child>
                 <style>
                   <class name="linked"/>
                 </style>
               </object>
-              <packing>
+              <!-- <packing>
                 <property name="expand">True</property>
                 <property name="fill">True</property>
                 <property name="position">0</property>
-              </packing>
+              </packing> -->
             </child>
             <child>
               <object class="GtkToggleButton" id="reveal_button">
@@ -136,15 +135,15 @@ Author: Antenore Gatta
                     <property name="use_fallback">True</property>
                   </object>
                 </child>
-                <accessibility>
+                <!-- <accessibility>
                   <relation type="controller-for" target="revealer"/>
-                </accessibility>
+                </accessibility> -->
               </object>
-              <packing>
+              <!-- <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
                 <property name="position">1</property>
-              </packing>
+              </packing> -->
             </child>
             <child>
               <object class="GtkButton" id="close_button">
@@ -161,28 +160,28 @@ Author: Antenore Gatta
                   </object>
                 </child>
               </object>
-              <packing>
+              <!-- <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
                 <property name="position">2</property>
-              </packing>
+              </packing> -->
             </child>
           </object>
-          <packing>
+          <!-- <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
             <property name="position">0</property>
-          </packing>
+          </packing> -->
         </child>
         <child>
           <object class="GtkRevealer" id="revealer">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
+            <property name="can_focus">True</property>
             <property name="transition_type">none</property>
             <child>
               <object class="GtkBox" id="box3">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
+                <property name="can_focus">True</property>
                 <property name="margin_top">18</property>
                 <property name="orientation">vertical</property>
                 <property name="spacing">6</property>
@@ -195,13 +194,12 @@ Author: Antenore Gatta
                     <property name="receives_default">False</property>
                     <property name="halign">start</property>
                     <property name="use_underline">True</property>
-                    <property name="draw_indicator">True</property>
                   </object>
-                  <packing>
+                  <!-- <packing>
                     <property name="expand">False</property>
                     <property name="fill">False</property>
                     <property name="position">0</property>
-                  </packing>
+                  </packing> -->
                 </child>
                 <child>
                   <object class="GtkCheckButton" id="entire_word_checkbutton">
@@ -212,13 +210,12 @@ Author: Antenore Gatta
                     <property name="receives_default">False</property>
                     <property name="halign">start</property>
                     <property name="use_underline">True</property>
-                    <property name="draw_indicator">True</property>
                   </object>
-                  <packing>
+                  <!-- <packing>
                     <property name="expand">False</property>
                     <property name="fill">False</property>
                     <property name="position">1</property>
-                  </packing>
+                  </packing> -->
                 </child>
                 <child>
                   <object class="GtkCheckButton" id="regex_checkbutton">
@@ -229,13 +226,12 @@ Author: Antenore Gatta
                     <property name="receives_default">False</property>
                     <property name="halign">start</property>
                     <property name="use_underline">True</property>
-                    <property name="draw_indicator">True</property>
                   </object>
-                  <packing>
+                  <!-- <packing>
                     <property name="expand">False</property>
                     <property name="fill">False</property>
                     <property name="position">2</property>
-                  </packing>
+                  </packing> -->
                 </child>
                 <child>
                   <object class="GtkCheckButton" id="wrap_around_checkbutton">
@@ -247,22 +243,21 @@ Author: Antenore Gatta
                     <property name="halign">start</property>
                     <property name="use_underline">True</property>
                     <property name="active">True</property>
-                    <property name="draw_indicator">True</property>
                   </object>
-                  <packing>
+                  <!-- <packing>
                     <property name="expand">False</property>
                     <property name="fill">False</property>
                     <property name="position">3</property>
-                  </packing>
+                  </packing> -->
                 </child>
               </object>
             </child>
           </object>
-          <packing>
+          <!-- <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
             <property name="position">1</property>
-          </packing>
+          </packing> -->
         </child>
       </object>
     </child>

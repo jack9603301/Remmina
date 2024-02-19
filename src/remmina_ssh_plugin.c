@@ -496,7 +496,7 @@ remmina_plugin_ssh_set_vte_pref(RemminaProtocolWidget *gp)
 }
 
 void
-remmina_plugin_ssh_vte_select_all(gpointer vte)
+remmina_plugin_ssh_vte_select_all(GSimpleAction* self, GVariant* parameter, gpointer vte)
 {
 	TRACE_CALL(__func__);
 	vte_terminal_select_all(VTE_TERMINAL(vte));
@@ -504,21 +504,21 @@ remmina_plugin_ssh_vte_select_all(gpointer vte)
 }
 
 void
-remmina_plugin_ssh_vte_decrease_font(gpointer vte)
+remmina_plugin_ssh_vte_decrease_font(GSimpleAction* self, GVariant* parameter, gpointer vte)
 {
 	TRACE_CALL(__func__);
 	vte_terminal_set_font_scale(VTE_TERMINAL(vte), vte_terminal_get_font_scale(VTE_TERMINAL(vte)) - SCALE_FACTOR);
 }
 
 void
-remmina_plugin_ssh_vte_increase_font(gpointer vte)
+remmina_plugin_ssh_vte_increase_font(GSimpleAction* self, GVariant* parameter, gpointer vte)
 {
 	TRACE_CALL(__func__);
 	vte_terminal_set_font_scale(VTE_TERMINAL(vte), vte_terminal_get_font_scale(VTE_TERMINAL(vte)) + SCALE_FACTOR);
 }
 
 void
-remmina_plugin_ssh_vte_copy_clipboard(gpointer vte)
+remmina_plugin_ssh_vte_copy_clipboard(GSimpleAction* self, GVariant* parameter, gpointer vte)
 {
 	TRACE_CALL(__func__);
 #if VTE_CHECK_VERSION(0, 50, 0)
@@ -529,11 +529,19 @@ remmina_plugin_ssh_vte_copy_clipboard(gpointer vte)
 }
 
 void
-remmina_plugin_ssh_vte_paste_clipboard(gpointer vte)
+remmina_plugin_ssh_vte_paste_clipboard(GSimpleAction* self, GVariant* parameter, gpointer vte)
 {
 	TRACE_CALL(__func__);
 	vte_terminal_paste_clipboard(VTE_TERMINAL(vte));
 }
+
+void
+remmina_plugin_ssh_vte_save_session_action(GSimpleAction* self, GVariant* parameter, RemminaProtocolWidget *gp)
+{
+	TRACE_CALL(__func__);
+	remmina_plugin_ssh_vte_save_session(gp);
+}
+
 
 void
 remmina_plugin_ssh_vte_save_session(RemminaProtocolWidget *gp)
@@ -692,7 +700,7 @@ static void
 remmina_search_widget_search_forward(RemminaPluginSshData *gpdata)
 {
 	TRACE_CALL(__func__);
-
+	REMMINA_DEBUG("Searching forward");
 	RemminaSshSearch *search_sidget = gpdata->search_widget;
 
 	if (!search_sidget->has_regex)
@@ -745,18 +753,18 @@ GtkWidget *remmina_plugin_pop_search_new(GtkWidget *relative_to, RemminaProtocol
 	// /* Connect signals */
 	// //gtk_builder_connect_signals(search_widget->builder, NULL); TODO GTK4
 
-	// g_signal_connect_swapped(search_widget->close_button, "clicked", G_CALLBACK(gtk_window_destroy), GTK_WIDGET(search_widget->window));
+	g_signal_connect_swapped(search_widget->close_button, "clicked", G_CALLBACK(gtk_window_destroy), GTK_WIDGET(search_widget->window));
 
-	// g_object_bind_property(search_widget->reveal_button, "active",
-	// 		       search_widget->revealer, "reveal-child",
-	// 		       G_BINDING_DEFAULT | G_BINDING_SYNC_CREATE);
+	g_object_bind_property(search_widget->reveal_button, "active",
+			       search_widget->revealer, "reveal-child",
+			       G_BINDING_DEFAULT | G_BINDING_SYNC_CREATE);
 
 	g_signal_connect_swapped(search_widget->search_entry, "next-match", G_CALLBACK(remmina_search_widget_search_forward), gpdata);
 	g_signal_connect_swapped(search_widget->search_entry, "previous-match", G_CALLBACK(remmina_search_widget_search_backward), gpdata);
 	g_signal_connect_swapped(search_widget->search_entry, "search-changed", G_CALLBACK(remmina_search_widget_update_regex), gpdata);
 
-	// g_signal_connect_swapped(search_widget->search_next_button, "clicked", G_CALLBACK(remmina_search_widget_search_forward), gpdata);
-	// g_signal_connect_swapped(search_widget->search_prev_button, "clicked", G_CALLBACK(remmina_search_widget_search_backward), gpdata);
+	g_signal_connect_swapped(search_widget->search_next_button, "clicked", G_CALLBACK(remmina_search_widget_search_forward), gpdata);
+	g_signal_connect_swapped(search_widget->search_prev_button, "clicked", G_CALLBACK(remmina_search_widget_search_backward), gpdata);
 
 	// g_signal_connect_swapped(search_widget->match_case_checkbutton, "toggled", G_CALLBACK(remmina_search_widget_update_regex), gpdata);
 	// g_signal_connect_swapped(search_widget->entire_word_checkbutton, "toggled", G_CALLBACK(remmina_search_widget_update_regex), gpdata);
@@ -767,6 +775,10 @@ GtkWidget *remmina_plugin_pop_search_new(GtkWidget *relative_to, RemminaProtocol
 
 	// remmina_search_widget_update_sensitivity(search_widget);
 	return search_widget->window;
+}
+
+void remmina_plugin_pop_search_action(GSimpleAction* self, GVariant* parameter, RemminaProtocolWidget *gp){
+	remmina_plugin_pop_search(gp);
 }
 
 void remmina_plugin_pop_search(RemminaProtocolWidget *gp)
@@ -800,17 +812,96 @@ remmina_ssh_plugin_popup_menu(GtkGestureClick* self,
 										gint n_press,
 										gdouble x,
 										gdouble y,
-										gpointer menu)
+										gpointer user_data)
 {
-	//if ((get_event_type(event) == GDK_BUTTON_PRESS) && (gdk_button_event_get_button((GdkButtonEvent *)event) == 3)) {
-// #if GTK_CHECK_VERSION(3, 22, 0)
-// 		gtk_menu_popup_at_pointer(GTK_MENU(menu), NULL);
-// #else
-// 		gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL,
-// 			       ((GdkEventButton *)event)->button, gtk_get_current_event_time());
-// #endif
-// 		return TRUE;
-	//} TODO GTK4
+	REMMINA_DEBUG("Got into click place");
+	RemminaProtocolWidget *gp = (RemminaProtocolWidget *)user_data;
+	RemminaPluginSshData *gpdata = GET_PLUGIN_DATA(gp);
+
+
+	GSimpleAction *select_all_action = g_simple_action_new("select_all", NULL);
+	GSimpleAction *copy_action = g_simple_action_new("copy", NULL);
+	GSimpleAction *paste_action = g_simple_action_new("paste", NULL);
+	GSimpleAction *save_action = g_simple_action_new("save", NULL);
+	GSimpleAction *font_incr_action = g_simple_action_new("font_incr", NULL);
+	GSimpleAction *font_decr_action = g_simple_action_new("font_decr", NULL);
+	GSimpleAction *find_text_action = g_simple_action_new("find_text", NULL);
+	GSimpleAction *sftp_action = g_simple_action_new("sftp", NULL);
+	GSimpleActionGroup* actions = g_simple_action_group_new();
+	gtk_widget_insert_action_group(GTK_WIDGET(gpdata->vte), "ssh", G_ACTION_GROUP(actions));
+
+	g_action_map_add_action(G_ACTION_MAP(actions), select_all_action);
+	g_action_map_add_action(G_ACTION_MAP(actions), copy_action);
+	g_action_map_add_action(G_ACTION_MAP(actions), paste_action);
+	g_action_map_add_action(G_ACTION_MAP(actions), save_action);
+	g_action_map_add_action(G_ACTION_MAP(actions), font_incr_action);
+	g_action_map_add_action(G_ACTION_MAP(actions), font_decr_action);
+	g_action_map_add_action(G_ACTION_MAP(actions), find_text_action);
+	g_action_map_add_action(G_ACTION_MAP(actions), sftp_action);
+
+	g_signal_connect(G_OBJECT(select_all_action), "activate",
+			 G_CALLBACK(remmina_plugin_ssh_vte_select_all), gpdata->vte);
+	g_signal_connect(G_OBJECT(copy_action), "activate",
+			 G_CALLBACK(remmina_plugin_ssh_vte_copy_clipboard), gpdata->vte);
+	g_signal_connect(G_OBJECT(paste_action), "activate",
+			 G_CALLBACK(remmina_plugin_ssh_vte_paste_clipboard), gpdata->vte);
+	g_signal_connect(G_OBJECT(save_action), "activate",
+			 G_CALLBACK(remmina_plugin_ssh_vte_save_session_action), gp);
+	g_signal_connect(G_OBJECT(font_incr_action), "activate",
+			 G_CALLBACK(remmina_plugin_ssh_vte_increase_font), gpdata->vte);
+	g_signal_connect(G_OBJECT(font_decr_action), "activate",
+			 G_CALLBACK(remmina_plugin_ssh_vte_decrease_font), gpdata->vte);
+	g_signal_connect(G_OBJECT(find_text_action), "activate",
+			 G_CALLBACK(remmina_plugin_pop_search_action), gp);
+	g_signal_connect(G_OBJECT(sftp_action), "activate",
+			 G_CALLBACK(remmina_plugin_ssh_call_sftp), gp);
+
+
+
+	GMenuItem *select_all = g_menu_item_new(_("Select All (host+A)"), "ssh.select_all");
+	GMenuItem *copy = g_menu_item_new(_("Copy (host+C)"), "ssh.copy");
+	GMenuItem *paste = g_menu_item_new(_("Paste (host+V)"), "ssh.paste");
+	GMenuItem *save = g_menu_item_new(_("Save session to file"), "ssh.save");
+	GMenuItem *font_incr = g_menu_item_new(_("Increase font size (host+Page Up)"), "ssh.font_incr");
+	GMenuItem *font_decr = g_menu_item_new(_("Decrease font size (host+Page Down)"), "ssh.font_decr");
+	GMenuItem *find_text = g_menu_item_new(_("Find text (host+G)"), "ssh.find_text");
+	GMenuItem *sftp = g_menu_item_new(_("Open SFTP transfer…"), "ssh.sftp");
+
+	GMenu* menu = g_menu_new();
+	g_menu_append_item(menu, select_all);
+	g_menu_append_item(menu, copy);
+	g_menu_append_item(menu, paste);
+	g_menu_append_item(menu, save);
+	g_menu_append_item(menu, font_incr);
+	g_menu_append_item(menu, font_decr);
+	g_menu_append_item(menu, find_text);
+	g_menu_append_item(menu, sftp);
+	GdkRectangle coords = {.x = x, .y = y, .width = 0, .height = 0};
+	GtkPopover* popover_menu = (GtkPopover*)gtk_popover_menu_new_from_model(G_MENU_MODEL(menu));
+	gtk_widget_set_parent(popover_menu, gpdata->vte);
+	gtk_popover_set_pointing_to(popover_menu, &coords);
+	gtk_popover_popup(popover_menu);
+
+
+
+
+
+
+	// if (gtk_gesture_single_get_current_button(GTK_GESTURE_SINGLE(self)) == MOUSE_BUTTON_RIGHT) {
+	// 	//get coordinates of click
+	// 	GdkRectangle coords = {.x = x, .y = y, .width = 0, .height = 0};		
+	// 	// For now, if more than one selected row, display only a delete menu option
+	// 	if (gtk_tree_selection_count_selected_rows(gtk_tree_view_get_selection(remminamain->tree_files_list)) > 1) {
+	// 		gtk_popover_set_pointing_to(remminamain->menu_popup_delete_rc, &coords);
+	// 		gtk_popover_popup(remminamain->menu_popup_delete_rc);
+
+	// 	}
+	// 	else {
+	// 		gtk_popover_set_pointing_to(remminamain->menu_popup, &coords);
+	// 		gtk_popover_popup(remminamain->menu_popup);
+	// 	}
+	// }
+
 
 	return FALSE;
 }
@@ -835,48 +926,18 @@ void remmina_plugin_ssh_popup_ui(RemminaProtocolWidget *gp)
 	/* Context menu for slection and clipboard */
 	GtkWidget *menu = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
 
-	GtkWidget *select_all = gtk_button_new_with_label(_("Select All (host+A)"));
-	GtkWidget *copy = gtk_button_new_with_label(_("Copy (host+C)"));
-	GtkWidget *paste = gtk_button_new_with_label(_("Paste (host+V)"));
-	GtkWidget *save = gtk_button_new_with_label(_("Save session to file"));
-	GtkWidget *font_incr = gtk_button_new_with_label(_("Increase font size (host+Page Up)"));
-	GtkWidget *font_decr = gtk_button_new_with_label(_("Decrease font size (host+Page Down)"));
-	GtkWidget *find_text = gtk_button_new_with_label(_("Find text (host+G)"));
-	GtkWidget *sftp = gtk_button_new_with_label(_("Open SFTP transfer…"));
-
-	// gtk_menu_shell_append(GTK_MENU_SHELL(menu), select_all);
-	// gtk_menu_shell_append(GTK_MENU_SHELL(menu), copy);
-	// gtk_menu_shell_append(GTK_MENU_SHELL(menu), paste);
-	// gtk_menu_shell_append(GTK_MENU_SHELL(menu), save);
-	// gtk_menu_shell_append(GTK_MENU_SHELL(menu), font_incr);
-	// gtk_menu_shell_append(GTK_MENU_SHELL(menu), font_decr);
-	// gtk_menu_shell_append(GTK_MENU_SHELL(menu), find_text);
-	// gtk_menu_shell_append(GTK_MENU_SHELL(menu), sftp);
+	
 
 	GtkGesture* click_gesture = gtk_gesture_click_new();
+	gtk_gesture_single_set_button(GTK_GESTURE_SINGLE(click_gesture), MOUSE_BUTTON_RIGHT);
 	// gtk_event_controller_set_propagation_phase (GTK_EVENT_CONTROLLER(click_gesture),
     //                                           GTK_PHASE_CAPTURE );
 	gtk_widget_add_controller(GTK_WIDGET(gpdata->vte), GTK_EVENT_CONTROLLER(click_gesture));
 
 	g_signal_connect(click_gesture, "pressed",
-			 G_CALLBACK(remmina_ssh_plugin_popup_menu), menu);
+			 G_CALLBACK(remmina_ssh_plugin_popup_menu), gp);
 
-	g_signal_connect(G_OBJECT(select_all), "activate",
-			 G_CALLBACK(remmina_plugin_ssh_vte_select_all), gpdata->vte);
-	g_signal_connect(G_OBJECT(copy), "activate",
-			 G_CALLBACK(remmina_plugin_ssh_vte_copy_clipboard), gpdata->vte);
-	g_signal_connect(G_OBJECT(paste), "activate",
-			 G_CALLBACK(remmina_plugin_ssh_vte_paste_clipboard), gpdata->vte);
-	g_signal_connect(G_OBJECT(save), "activate",
-			 G_CALLBACK(remmina_plugin_ssh_vte_save_session), gp);
-	g_signal_connect(G_OBJECT(font_incr), "activate",
-			 G_CALLBACK(remmina_plugin_ssh_vte_increase_font), gpdata->vte);
-	g_signal_connect(G_OBJECT(font_decr), "activate",
-			 G_CALLBACK(remmina_plugin_ssh_vte_decrease_font), gpdata->vte);
-	g_signal_connect(G_OBJECT(find_text), "activate",
-			 G_CALLBACK(remmina_plugin_pop_search), gp);
-	g_signal_connect(G_OBJECT(sftp), "activate",
-			 G_CALLBACK(remmina_plugin_ssh_call_sftp), gp);
+
 
 	//gtk_widget_show_all(menu);
 }
