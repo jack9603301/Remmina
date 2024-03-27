@@ -83,13 +83,13 @@
 #include <unistd.h>
 #include <string.h>
 
-#ifdef GDK_WINDOWING_X11
-#include <X11/Xlib.h>
-#include <X11/XKBlib.h>
-#include <gdk/gdkx.h>
-#elif defined(GDK_WINDOWING_WAYLAND)
-#include <gdk/gdkwayland.h>
-#endif
+// #ifdef GDK_WINDOWING_X11
+// #include <X11/Xlib.h>
+// #include <X11/XKBlib.h>
+// #include <gdk/gdkx.h>
+// #elif defined(GDK_WINDOWING_WAYLAND)
+// #include <gdk/gdkwayland.h>
+// #endif
 
 #if defined(__FreeBSD__)
 #include <pthread_np.h>
@@ -682,28 +682,28 @@ static BOOL rf_play_sound(rdpContext *context, const PLAY_SOUND_UPDATE *play_sou
 static BOOL rf_keyboard_set_indicators(rdpContext *context, UINT16 led_flags)
 {
 	TRACE_CALL(__func__);
-	rfContext *rfi;
-	RemminaProtocolWidget *gp;
-	GdkDisplay *disp;
+	// rfContext *rfi;
+	// RemminaProtocolWidget *gp;
+	// GdkDisplay *disp;
 
-	rfi = (rfContext *)context;
-	gp = rfi->protocol_widget;
-	disp = gtk_widget_get_display(GTK_WIDGET(gp));
+	// rfi = (rfContext *)context;
+	// gp = rfi->protocol_widget;
+	// disp = gtk_widget_get_display(GTK_WIDGET(gp));
 
-#ifdef GDK_WINDOWING_X11
-	if (GDK_IS_X11_DISPLAY(disp)) {
-		/* TODO: We are not on the main thread. Will X.Org complain? */
-		Display *x11_display;
-		x11_display = gdk_x11_display_get_xdisplay(disp);
-		XkbLockModifiers(x11_display, XkbUseCoreKbd,
-				 LockMask | Mod2Mask,
-				 ((led_flags & KBD_SYNC_CAPS_LOCK) ? LockMask : 0) |
-				 ((led_flags & KBD_SYNC_NUM_LOCK) ? Mod2Mask : 0)
-				 );
+// #ifdef GDK_WINDOWING_X11
+// 	if (GDK_IS_X11_DISPLAY(disp)) {
+// 		/* TODO: We are not on the main thread. Will X.Org complain? */
+// 		Display *x11_display;
+// 		x11_display = gdk_x11_display_get_xdisplay(disp);
+// 		XkbLockModifiers(x11_display, XkbUseCoreKbd,
+// 				 LockMask | Mod2Mask,
+// 				 ((led_flags & KBD_SYNC_CAPS_LOCK) ? LockMask : 0) |
+// 				 ((led_flags & KBD_SYNC_NUM_LOCK) ? Mod2Mask : 0)
+// 				 );
 
-		/* TODO: Add support to KANA_LOCK and SCROLL_LOCK */
-	}
-#endif
+// 		/* TODO: Add support to KANA_LOCK and SCROLL_LOCK */
+// 	}
+// #endif
 
 	return TRUE;
 }
@@ -2815,6 +2815,8 @@ static void remmina_rdp_call_feature(RemminaProtocolWidget *gp, const RemminaPro
 	case REMMINA_RDP_FEATURE_UNFOCUS:
 		remmina_rdp_event_unfocus(gp);
 		break;
+	case REMMINA_RDP_FEATURE_VIEWONLY:
+		break;
 
 	case REMMINA_RDP_FEATURE_SCALE:
 		if (rfi) {
@@ -2845,9 +2847,7 @@ static void remmina_rdp_call_feature(RemminaProtocolWidget *gp, const RemminaPro
 
 	case REMMINA_RDP_FEATURE_TOOL_REFRESH:
 		if (rfi)
-			gtk_widget_queue_draw_area(rfi->drawing_area, 0, 0,
-						   remmina_plugin_service->protocol_plugin_get_width(gp),
-						   remmina_plugin_service->protocol_plugin_get_height(gp));
+			gtk_widget_queue_draw(rfi->drawing_area);
 		else
 			REMMINA_PLUGIN_DEBUG("Remmina RDP plugin warning: Null value for rfi by REMMINA_RDP_FEATURE_TOOL_REFRESH");
 		break;

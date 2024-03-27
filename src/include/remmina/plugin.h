@@ -134,7 +134,7 @@ typedef struct _RemminaToolPlugin {
 	const gchar *		domain;
 	const gchar *		version;
 
-	void (*exec_func)(GtkMenuItem* item, struct _RemminaToolPlugin* instance);
+	void (*exec_func)(GtkButton* item, struct _RemminaToolPlugin* instance);
 } RemminaToolPlugin;
 
 typedef struct _RemminaPrefPlugin {
@@ -278,6 +278,7 @@ typedef struct _RemminaPluginService {
 	void (*protocol_widget_set_error)(RemminaProtocolWidget *gp, const gchar *fmt, ...);
 	gboolean (*protocol_widget_has_error)(RemminaProtocolWidget *gp);
 	GtkWidget *(*protocol_widget_gtkviewport)(RemminaProtocolWidget *gp);
+	GtkWindow *(*protocol_widget_gtkwindow)(RemminaProtocolWidget *gp);
 	gboolean (*protocol_widget_is_closed)(RemminaProtocolWidget *gp);
 	RemminaFile *(*protocol_widget_get_file)(RemminaProtocolWidget *gp);
 	gint (*protocol_widget_panel_auth)(RemminaProtocolWidget *gp, RemminaMessagePanelFlags pflags,

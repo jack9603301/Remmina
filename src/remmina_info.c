@@ -160,10 +160,10 @@
 #include "remmina_plugin_manager.h"
 
 #ifdef GDK_WINDOWING_WAYLAND
-	#include <gdk/gdkwayland.h>
+//	#include <gdk/gdkwayland.h>
 #endif
 #ifdef GDK_WINDOWING_X11
-	#include <gdk/gdkx.h>
+//	#include <gdk/gdkx.h>
 #endif
 #include "remmina_info.h"
 
@@ -540,25 +540,25 @@ JsonNode *remmina_info_stats_get_gtk_backend()
 {
 	TRACE_CALL(__func__);
 	JsonNode *r;
-	GdkDisplay *disp;
+	// GdkDisplay *disp;
 	gchar *bkend;
 
 	/** @warning this function is usually executed on a dedicated thread,
 	 * not on the main thread
 	 */
 
-	disp = gdk_display_get_default();
+	// disp = gdk_display_get_default();
 
-#ifdef GDK_WINDOWING_WAYLAND
-	if (GDK_IS_WAYLAND_DISPLAY(disp)) {
-		bkend = "Wayland";
-	}else
-#endif
-#ifdef GDK_WINDOWING_X11
-	if (GDK_IS_X11_DISPLAY(disp)) {
-		bkend = "X11";
-	}   else
-#endif
+// #ifdef GDK_WINDOWING_WAYLAND
+// 	if (GDK_IS_WAYLAND_DISPLAY(disp)) {
+// 		bkend = "Wayland";
+// 	}else
+// #endif
+// #ifdef GDK_WINDOWING_X11
+// 	if (GDK_IS_X11_DISPLAY(disp)) {
+// 		bkend = "X11";
+// 	}   else
+// #endif
 	bkend = "n/a";
 
 	r = json_node_alloc();
@@ -1102,7 +1102,7 @@ static void remmina_info_close_clicked(GtkButton *btn, gpointer user_data)
 {
 	TRACE_CALL(__func__);
 	if (remmina_info_dialog->dialog) {
-		gtk_widget_destroy(GTK_WIDGET(remmina_info_dialog->dialog));
+		gtk_window_destroy((remmina_info_dialog->dialog));
 	}
 	remmina_info_dialog->dialog = NULL;
 	g_free(remmina_info_dialog);
@@ -1112,7 +1112,7 @@ static void remmina_info_close_clicked(GtkButton *btn, gpointer user_data)
 static gboolean remmina_info_dialog_deleted(GtkButton *btn, gpointer user_data)
 {
 	TRACE_CALL(__func__);
-	gtk_widget_destroy(GTK_WIDGET(remmina_info_dialog->dialog));
+	gtk_window_destroy((remmina_info_dialog->dialog));
 	remmina_info_dialog->dialog = NULL;
 	g_free(remmina_info_dialog);
 	remmina_info_dialog = NULL;
@@ -1138,8 +1138,8 @@ gboolean remmina_info_show_response(gpointer user_data)
 	remmina_info_dialog->remmina_info_label = GTK_LABEL(GET_OBJ("remmina_info_label"));
 
 	remmina_info_dialog->remmina_info_button_close = GTK_BUTTON(GET_OBJ("remmina_info_button_close"));
-	gtk_widget_set_can_default(GTK_WIDGET(remmina_info_dialog->remmina_info_button_close), TRUE);
-	gtk_widget_grab_default(GTK_WIDGET(remmina_info_dialog->remmina_info_button_close));
+	// gtk_widget_set_can_default(GTK_WIDGET(remmina_info_dialog->remmina_info_button_close), TRUE);
+	// gtk_widget_grab_default(GTK_WIDGET(remmina_info_dialog->remmina_info_button_close));
 
 	gtk_label_set_markup(remmina_info_dialog->remmina_info_label, message->info_string);
 
@@ -1151,10 +1151,10 @@ gboolean remmina_info_show_response(gpointer user_data)
 			 G_CALLBACK(remmina_info_dialog_deleted), NULL);
 
 	/* Connect signals */
-	gtk_builder_connect_signals(remmina_info_dialog->builder, NULL);
+	// gtk_builder_connect_signals(remmina_info_dialog->builder, NULL);
 
 	/* Show the modal news dialog */
-	gtk_widget_show_all(GTK_WIDGET(remmina_info_dialog->dialog));
+	gtk_widget_show(GTK_WIDGET(remmina_info_dialog->dialog));
 	gtk_window_present(GTK_WINDOW(remmina_info_dialog->dialog));
 	if (parent) {
 		gtk_window_set_transient_for(GTK_WINDOW(remmina_info_dialog->dialog), parent);

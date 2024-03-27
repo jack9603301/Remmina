@@ -47,12 +47,12 @@
 #include "remmina_utils.h"
 
 
-#ifdef GDK_WINDOWING_WAYLAND
-	#include <gdk/gdkwayland.h>
-#endif
-#ifdef GDK_WINDOWING_X11
-	#include <gdk/gdkx.h>
-#endif
+// #ifdef GDK_WINDOWING_WAYLAND
+// 	#include <gdk/gdkwayland.h>
+// #endif
+// #ifdef GDK_WINDOWING_X11
+// 	#include <gdk/gdkx.h>
+// #endif
 
 extern gboolean info_disable_stats;
 extern gboolean info_disable_news;

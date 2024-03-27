@@ -43,7 +43,7 @@
 #include <gmodule.h>
 #include <json-glib/json-glib.h>
 #ifdef GDK_WINDOWING_X11
-#include <gdk/gdkx.h>
+//#include <gdk/gdkx.h>
 #elif defined(GDK_WINDOWING_WAYLAND)
 #include <gdk/gdkwayland.h>
 #endif
@@ -166,21 +166,22 @@ static gboolean remmina_plugin_manager_register_plugin(RemminaPlugin *plugin)
 
 gboolean remmina_gtksocket_available()
 {
-	GdkDisplayManager* dm;
-	GdkDisplay* d;
-	gboolean available;
+	// GdkDisplayManager* dm;
+	// GdkDisplay* d;
+	// gboolean available;
 
-	dm = gdk_display_manager_get();
-	d = gdk_display_manager_get_default_display(dm);
-	available = FALSE;
+	// dm = gdk_display_manager_get();
+	// d = gdk_display_manager_get_default_display(dm);
+	// available = FALSE;
 
-#ifdef GDK_WINDOWING_X11
-	if (GDK_IS_X11_DISPLAY(d)) {
-		/* GtkSocket support is available only under X.Org */
-		available = TRUE;
-	}
-#endif
-	return available;
+// #ifdef GDK_WINDOWING_X11
+// 	if (GDK_IS_X11_DISPLAY(d)) {
+// 		/* GtkSocket support is available only under X.Org */
+// 		available = TRUE;
+// 	}
+// #endif
+// 	return available;
+	return FALSE; //TODO GTK4
 }
 
 RemminaPluginService remmina_plugin_manager_service =
@@ -283,6 +284,7 @@ RemminaPluginService remmina_plugin_manager_service =
 	remmina_protocol_widget_set_error,
 	remmina_protocol_widget_has_error,
 	remmina_protocol_widget_gtkviewport,
+	remmina_protocol_widget_get_gtkwindow,
 	remmina_protocol_widget_is_closed,
 	remmina_protocol_widget_get_file,
 	remmina_protocol_widget_panel_auth,
@@ -758,7 +760,7 @@ static gboolean remmina_plugin_manager_show_for_each_available(RemminaPlugin *pl
 void result_dialog_cleanup(GtkDialog * dialog, gint response_id, gpointer user_data)
 {
 	TRACE_CALL(__func__);
-	gtk_widget_destroy(GTK_WIDGET(dialog));
+	gtk_window_destroy(GTK_WIDGET(dialog));
 
 	gtk_widget_hide(remmina_plugin_signal_data->label);
 	gtk_spinner_stop(GTK_SPINNER(remmina_plugin_signal_data->spinner));
@@ -776,9 +778,9 @@ void remmina_plugin_manager_download_result_dialog(GtkDialog * dialog, gchar * m
 	remmina_plugin_signal_data->downloading = FALSE;
 
 	gtk_window_set_default_size(GTK_WINDOW(child_dialog), 500, 50);
-	gtk_container_add(GTK_CONTAINER (content_area), label);
+	gtk_box_append(GTK_BOX (content_area), label);
 	g_signal_connect(G_OBJECT(child_dialog), "response", G_CALLBACK(result_dialog_cleanup), NULL);
-	gtk_widget_show_all(child_dialog);
+	gtk_widget_show(child_dialog);
 }
 
 void remmina_plugin_manager_toggle_checkbox(GtkCellRendererToggle * cell, gchar * path, GtkListStore * model)
@@ -1337,7 +1339,7 @@ void remmina_plugin_manager_on_response(GtkDialog * dialog, gint response_id, gp
 		}
 	}
 	else{
-		gtk_widget_destroy(GTK_WIDGET(dialog));
+		gtk_window_destroy(GTK_WINDOW(dialog));
 		remmina_plugin_window = NULL;
 	}
 	if (found == FALSE){
@@ -1371,24 +1373,25 @@ void remmina_plugin_manager_show(GtkWindow *parent)
 
 		gtk_window_set_default_size(GTK_WINDOW(dialog), 800, 600);
 
-		scrolledwindow = gtk_scrolled_window_new(NULL, NULL);
-		gtk_widget_show(scrolledwindow);
-		gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolledwindow), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-		gtk_box_pack_start(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(dialog))), scrolledwindow, TRUE, TRUE, 0);
+	scrolledwindow = gtk_scrolled_window_new();
+	gtk_widget_set_vexpand(scrolledwindow, TRUE);
+	gtk_widget_show(scrolledwindow);
+	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolledwindow), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+	gtk_box_append(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(dialog))), scrolledwindow);
 
 		tree = gtk_tree_view_new();
 		available_tree = gtk_tree_view_new();
 		GtkWidget* tree_box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
-		gtk_container_add(GTK_CONTAINER(scrolledwindow), tree_box);
+		gtk_scrolled_window_set_child(GTK_SCROLLED_WINDOW(scrolledwindow), tree_box);
 
-		gtk_box_pack_end(GTK_BOX(tree_box), available_tree, TRUE, TRUE, 0);
+		gtk_box_append(GTK_BOX(tree_box), available_tree);
 		GtkLabel *label_available = (GtkLabel*)gtk_label_new("Available");
 		GtkLabel *label_installed = (GtkLabel*)gtk_label_new("Installed");
 		gtk_widget_set_halign(GTK_WIDGET(label_available), GTK_ALIGN_START);
 		gtk_widget_set_halign(GTK_WIDGET(label_installed), GTK_ALIGN_START);
-		gtk_box_pack_end(GTK_BOX(tree_box), GTK_WIDGET(label_available), TRUE, TRUE, 1);
-		gtk_box_pack_end(GTK_BOX(tree_box), tree, TRUE, TRUE, 10);
-		gtk_box_pack_end(GTK_BOX(tree_box), GTK_WIDGET(label_installed), TRUE, TRUE, 1);
+		gtk_box_append(GTK_BOX(tree_box), GTK_WIDGET(label_available));
+		gtk_box_append(GTK_BOX(tree_box), tree);
+		gtk_box_append(GTK_BOX(tree_box), GTK_WIDGET(label_installed));
 		
 		gtk_widget_show(tree);
 		gtk_widget_show(available_tree);
@@ -1463,8 +1466,8 @@ void remmina_plugin_manager_show(GtkWindow *parent)
 
 		g_signal_connect(G_OBJECT(dialog), "response", G_CALLBACK(remmina_plugin_manager_on_response), data);
 
-		gtk_box_pack_end(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(dialog))), label, FALSE, FALSE, 0);
-		gtk_box_pack_start(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(dialog))), spinner, FALSE, FALSE, 0);
+		gtk_box_append(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(dialog))), label);
+		gtk_box_prepend(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(dialog))), spinner);
 
 	}
 	else {
@@ -1553,3 +1556,4 @@ gboolean remmina_plugin_manager_is_encrypted_setting(RemminaProtocolPlugin *pp, 
 
 	return TRUE;
 }
+

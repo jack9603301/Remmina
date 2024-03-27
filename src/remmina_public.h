@@ -39,7 +39,7 @@
 #include "config.h"
 #include <gtk/gtk.h>
 
-#define IDLE_ADD        gdk_threads_add_idle
+#define IDLE_ADD        g_idle_add
 #define TIMEOUT_ADD     gdk_threads_add_timeout
 #define CANCEL_ASYNC    pthread_setcanceltype(PTHREAD_CANCEL_ASYNCHRONOUS, NULL); pthread_testcancel();
 #define CANCEL_DEFER    pthread_setcanceltype(PTHREAD_CANCEL_DEFERRED, NULL);
@@ -104,15 +104,15 @@ gboolean remmina_public_get_xauth_cookie(const gchar *display, gchar **msg);
 gint remmina_public_open_xdisplay(const gchar *disp);
 
 /* Find hardware keycode for the requested keyval */
-guint16 remmina_public_get_keycode_for_keyval(GdkKeymap *keymap, guint keyval);
+guint16 remmina_public_get_keycode_for_keyval(GdkDisplay *display, guint keyval);
 /* Check if the requested keycode is a key modifier */
-gboolean remmina_public_get_modifier_for_keycode(GdkKeymap *keymap, guint16 keycode);
+gboolean remmina_public_get_modifier_for_keycode(GdkDisplay *display, guint16 keycode);
 /* Load a GtkBuilder object from a filename */
 GtkBuilder *remmina_public_gtk_builder_new_from_file(gchar *filename);
 /* Load a GtkBuilder object from a resource */
 GtkBuilder *remmina_public_gtk_builder_new_from_resource(gchar *resource);
 /* Change parent container for a widget */
-void remmina_public_gtk_widget_reparent(GtkWidget *widget, GtkContainer *container);
+// void remmina_public_gtk_widget_reparent(GtkWidget *widget, GtkContainer *container);
 /* Used to send desktop notifications */
 void remmina_public_send_notification(const gchar *notification_id, const gchar *notification_title, const gchar *notification_message);
 /* Validate the inserted value for a new resolution */

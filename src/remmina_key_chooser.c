@@ -40,14 +40,16 @@
 #include "remmina/remmina_trace_calls.h"
 
 /* Handle key-presses on the GtkEventBox */
-static gboolean remmina_key_chooser_dialog_on_key_press(GtkWidget *widget, GdkEventKey *event, RemminaKeyChooserArguments *arguments)
+static gboolean remmina_key_chooser_dialog_on_key_press(GtkEventControllerKey* self,
+  guint keyval,
+  guint keycode,
+  GdkModifierType state, RemminaKeyChooserArguments *arguments)
 {
 	TRACE_CALL(__func__);
-	if (!arguments->use_modifiers || !event->is_modifier) {
-		arguments->state = event->state;
-		arguments->keyval = gdk_keyval_to_lower(event->keyval);
-		gtk_dialog_response(GTK_DIALOG(gtk_widget_get_toplevel(widget)),
-			event->keyval == GDK_KEY_Escape ? GTK_RESPONSE_CANCEL : GTK_RESPONSE_OK);
+	if (!arguments->use_modifiers || !gdk_key_event_is_modifier(gtk_event_controller_get_current_event(GTK_EVENT_CONTROLLER(self)))) {
+		arguments->val = remmina_key_chooser_get_value(keyval, state);
+		gtk_dialog_response(arguments->dialog, keyval == GDK_KEY_Escape ? GTK_RESPONSE_CANCEL : GTK_RESPONSE_OK);
+		
 	}
 	return TRUE;
 }
@@ -60,19 +62,37 @@ void remmina_key_chooser_dialog_set_option_modifier(GtkWidget *widget, gboolean 
 	arguments->use_modifiers = state;
 }
 
+static void remmina_key_chooser_dialog_on_response(GtkDialog* self,
+  gint response_id,
+  gpointer user_data)
+{
+	RemminaKeyChooserArguments* args = user_data;
+	if (response_id == GTK_RESPONSE_REJECT ) {
+		gtk_button_set_label(GTK_BUTTON(args->widget), KEY_CHOOSER_NONE);
+	}
+	else if(response_id == GTK_RESPONSE_OK ){
+		gtk_button_set_label(GTK_BUTTON(args->widget), args->val);
+	}
+	gtk_window_destroy(GTK_WINDOW(self)); 
+  }
+
+
 /* Show a key chooser dialog and return the keyval for the selected key */
-RemminaKeyChooserArguments* remmina_key_chooser_new(GtkWindow *parent_window, gboolean use_modifiers)
+void remmina_key_chooser_new(GtkWindow *parent_window, gboolean use_modifiers, GtkWidget *widget)
 {
 	TRACE_CALL(__func__);
 	GtkBuilder *builder = remmina_public_gtk_builder_new_from_resource ("/org/remmina/Remmina/src/../data/ui/remmina_key_chooser.glade");
 	GtkDialog *dialog;
 	RemminaKeyChooserArguments *arguments;
 	arguments = g_new0(RemminaKeyChooserArguments, 1);
-	arguments->state = 0;
 	arguments->use_modifiers = use_modifiers;
+	arguments->widget = widget;
+	arguments->val = gtk_button_get_label(GTK_BUTTON(widget));
+
 
 	/* Setup the dialog */
 	dialog = GTK_DIALOG(gtk_builder_get_object(builder, "KeyChooserDialog"));
+	arguments->dialog = dialog;
 	gtk_window_set_transient_for(GTK_WINDOW(dialog), parent_window);
 
 	/* Connect the key modifier switch signal */
@@ -80,16 +100,17 @@ RemminaKeyChooserArguments* remmina_key_chooser_new(GtkWindow *parent_window, gb
 		G_CALLBACK(remmina_key_chooser_dialog_set_option_modifier), arguments);
 	
 	/* Connect the GtkEventBox signal */
-	g_signal_connect(gtk_builder_get_object(builder, "eventbox_key_chooser"), "key-press-event",
+	GtkEventControllerKey* key_event_controller = (GtkEventControllerKey*)gtk_event_controller_key_new();
+	// GtkBox* eventbox_key_chooser = GTK_BOX(gtk_builder_get_object(builder, "eventbox_key_chooser"));
+	gtk_widget_add_controller(GTK_WIDGET(dialog), GTK_EVENT_CONTROLLER(key_event_controller));
+	gtk_window_set_modal(GTK_WINDOW(dialog), true);
+
+	g_signal_connect(key_event_controller, "key-released",
 		G_CALLBACK(remmina_key_chooser_dialog_on_key_press), arguments);
 			
-	/* Show the dialog and destroy it after the use */
-	arguments->response = gtk_dialog_run(dialog);
-	gtk_widget_destroy(GTK_WIDGET(dialog));
-	/* The delete button set the keyval 0 */
-	if (arguments->response == GTK_RESPONSE_REJECT)
-		arguments->keyval = 0;
-	return arguments;
+	g_signal_connect(dialog, "response",
+		G_CALLBACK(remmina_key_chooser_dialog_on_response), arguments);
+	gtk_widget_show(dialog);
 }
 
 /* Get the uppercase character value of a keyval */
@@ -103,7 +124,7 @@ gchar* remmina_key_chooser_get_value(guint keyval, guint state)
 	return g_strdup_printf("%s%s%s%s%s%s%s",
 		(state & GDK_SHIFT_MASK) ? KEY_MODIFIER_SHIFT : "",
 		(state & GDK_CONTROL_MASK) ? KEY_MODIFIER_CTRL : "",
-		(state & GDK_MOD1_MASK) ? KEY_MODIFIER_ALT : "",
+		(state & GDK_ALT_MASK) ? KEY_MODIFIER_ALT : "",
 		(state & GDK_SUPER_MASK) ? KEY_MODIFIER_SUPER : "",
 		(state & GDK_HYPER_MASK) ? KEY_MODIFIER_HYPER : "",
 		(state & GDK_META_MASK) ? KEY_MODIFIER_META : "",

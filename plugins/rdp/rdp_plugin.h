@@ -47,11 +47,11 @@
 #include <freerdp/gdi/region.h>
 #include <freerdp/client/cliprdr.h>
 #include <freerdp/client/disp.h>
-#ifdef GDK_WINDOWING_X11
-#include <gdk/gdkx.h>
-#elif defined(GDK_WINDOWING_WAYLAND)
-#include <gdk/gdkwayland.h>
-#endif
+// #ifdef GDK_WINDOWING_X11
+// #include <gdk/gdkx.h>
+// #elif defined(GDK_WINDOWING_WAYLAND)
+// #include <gdk/gdkwayland.h>
+// #endif
 
 #include <winpr/clipboard.h>
 
@@ -293,10 +293,12 @@ struct remmina_plugin_rdp_ui_object {
 		} nocodec;
 		struct {
 			RemminaPluginRdpUiClipboardType type;
-			GtkTargetList *			targetlist;
+			//GtkTargetList *			targetlist; TODO GTK4
+			GPtrArray *			formats;
 			UINT32				format;
 			rfClipboard *			clipboard;
 			gpointer			data;
+			bool				determined;
 		} clipboard;
 		struct {
 			RemminaPluginRdpUiEeventType type;
@@ -354,12 +356,14 @@ struct rf_context {
 	gint			scale_height;
 	gdouble			scale_x;
 	gdouble			scale_y;
+	gdouble 		cur_pos_x;
+	gdouble			cur_pos_y;
 	guint			delayed_monitor_layout_handler;
 	gboolean		use_client_keymap;
 
 	gint			srcBpp;
 	GdkDisplay *		display;
-	GdkVisual *		visual;
+	//GdkVisual *		visual;
 	cairo_surface_t *	surface;
 	cairo_format_t		cairo_format;
 	gint			bpp;

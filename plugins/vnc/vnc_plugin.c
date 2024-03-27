@@ -56,10 +56,7 @@
 
 static RemminaPluginService *remmina_plugin_service = NULL;
 
-static int dot_cursor_x_hot = 2;
-static int dot_cursor_y_hot = 2;
-static const gchar *dot_cursor_xpm[] =
-{ "5 5 3 1", "  c None", ".	c #000000", "+	c #FFFFFF", " ... ", ".+++.", ".+ +.", ".+++.", " ... " };
+
 
 
 #define LOCK_BUFFER(t)      if (t) { CANCEL_DEFER } pthread_mutex_lock(&gpdata->buffer_mutex);
@@ -112,7 +109,7 @@ static void onMainThread_schedule_callback_and_wait(struct onMainThread_cb_data 
 	pthread_cleanup_push(onMainThread_cleanup_handler, d);
 	pthread_mutex_init(&d->mu, NULL);
 	pthread_mutex_lock(&d->mu);
-	gdk_threads_add_idle((GSourceFunc)onMainThread_cb, (gpointer)d);
+	g_idle_add((GSourceFunc)onMainThread_cb, (gpointer)d);
 
 	pthread_mutex_lock(&d->mu);
 
@@ -147,6 +144,11 @@ static void remmina_plugin_vnc_event_push(RemminaProtocolWidget *gp, gint event_
 		event->event_data.key.pressed = GPOINTER_TO_INT(p2);
 		break;
 	case REMMINA_PLUGIN_VNC_EVENT_POINTER:
+		event->event_data.pointer.x = GPOINTER_TO_INT(p1);
+		event->event_data.pointer.y = GPOINTER_TO_INT(p2);
+		event->event_data.pointer.button_mask = GPOINTER_TO_INT(p3);
+		break;
+	case REMMINA_PLUGIN_VNC_EVENT_SCROLL:
 		event->event_data.pointer.x = GPOINTER_TO_INT(p1);
 		event->event_data.pointer.y = GPOINTER_TO_INT(p2);
 		event->event_data.pointer.button_mask = GPOINTER_TO_INT(p3);
@@ -262,20 +264,19 @@ gboolean remmina_plugin_vnc_setcursor(RemminaProtocolWidget *gp)
 {
 	TRACE_CALL(__func__);
 	RemminaPluginVncData *gpdata = GET_PLUGIN_DATA(gp);
-	GdkCursor *cur;
+	GdkCursor *cur = NULL;
 
 	LOCK_BUFFER(FALSE);
 	gpdata->queuecursor_handler = 0;
 
 	if (gpdata->queuecursor_surface) {
-		cur = gdk_cursor_new_from_surface(gdk_display_get_default(), gpdata->queuecursor_surface, gpdata->queuecursor_x,
-						  gpdata->queuecursor_y);
-		gdk_window_set_cursor(gtk_widget_get_window(gpdata->drawing_area), cur);
+		cur = gdk_cursor_new_from_name("default", NULL);
+		gtk_widget_set_cursor(gpdata->drawing_area, cur);
 		g_object_unref(cur);
 		cairo_surface_destroy(gpdata->queuecursor_surface);
 		gpdata->queuecursor_surface = NULL;
 	} else {
-		gdk_window_set_cursor(gtk_widget_get_window(gpdata->drawing_area), NULL);
+		gtk_widget_set_cursor(gpdata->drawing_area, cur);
 	}
 	UNLOCK_BUFFER(FALSE);
 
@@ -337,6 +338,10 @@ static void remmina_plugin_vnc_process_vnc_event(RemminaProtocolWidget *gp)
 				SendKeyEvent(cl, event->event_data.key.keyval, event->event_data.key.pressed);
 				break;
 			case REMMINA_PLUGIN_VNC_EVENT_POINTER:
+				SendPointerEvent(cl, event->event_data.pointer.x, event->event_data.pointer.y,
+						 event->event_data.pointer.button_mask);
+				break;
+			case REMMINA_PLUGIN_VNC_EVENT_SCROLL:
 				SendPointerEvent(cl, event->event_data.pointer.x, event->event_data.pointer.y,
 						 event->event_data.pointer.button_mask);
 				break;
@@ -553,18 +558,14 @@ static gboolean remmina_plugin_vnc_queue_draw_area_real(RemminaProtocolWidget *g
 {
 	TRACE_CALL(__func__);
 	RemminaPluginVncData *gpdata = GET_PLUGIN_DATA(gp);
-	gint x, y, w, h;
 
 	if (GTK_IS_WIDGET(gp) && gpdata->connected) {
 		LOCK_BUFFER(FALSE);
-		x = gpdata->queuedraw_x;
-		y = gpdata->queuedraw_y;
-		w = gpdata->queuedraw_w;
-		h = gpdata->queuedraw_h;
+
 		gpdata->queuedraw_handler = 0;
 		UNLOCK_BUFFER(FALSE);
 
-		gtk_widget_queue_draw_area(GTK_WIDGET(gp), x, y, w, h);
+		gtk_widget_queue_draw(GTK_WIDGET(gpdata->drawing_area));
 	}
 	return FALSE;
 }
@@ -745,7 +746,9 @@ static gboolean remmina_plugin_vnc_queue_cuttext(RemminaPluginVncCuttextParam *p
 			/* Convert text from VNC latin-1 to current GTK charset (usually UTF-8) */
 			g_get_charset(&cur_charset);
 			text = g_convert_with_fallback(param->text, param->textlen, cur_charset, "ISO-8859-1", "?", &br, &bw, NULL);
-			gtk_clipboard_set_text(gtk_clipboard_get(GDK_SELECTION_CLIPBOARD), text, bw);
+			GdkDisplay* display = gdk_display_get_default();
+			GdkClipboard* clipboard = gdk_display_get_clipboard(display);
+			gdk_clipboard_set_text(clipboard, text);
 			g_free(text);
 		} else {
 			g_date_time_unref(t);
@@ -903,7 +906,7 @@ static void remmina_plugin_vnc_rfb_cursor_shape(rfbClient *cl, int xhot, int yho
 	RemminaProtocolWidget *gp = rfbClientGetClientData(cl, NULL);
 	RemminaPluginVncData *gpdata = GET_PLUGIN_DATA(gp);
 
-	if (!gtk_widget_get_window(GTK_WIDGET(gp)))
+	if (!gtk_widget_get_realized(GTK_WIDGET(gp)))
 		return;
 
 	if (width && height) {
@@ -933,7 +936,7 @@ static void remmina_plugin_vnc_rfb_bell(rfbClient *cl)
 	REMMINA_PLUGIN_DEBUG("Bell message received");
 	RemminaProtocolWidget *gp;
 	RemminaFile *remminafile;
-	GdkWindow *window;
+	GdkDisplay *display;
 
 	gp = (RemminaProtocolWidget *)(rfbClientGetClientData(cl, NULL));
 	remminafile = remmina_plugin_service->protocol_plugin_get_file(gp);
@@ -941,11 +944,11 @@ static void remmina_plugin_vnc_rfb_bell(rfbClient *cl)
 	if (remmina_plugin_service->file_get_int(remminafile, "disableserverbell", FALSE))
 		return;
 
-	window = gtk_widget_get_window(GTK_WIDGET(gp));
+	display = gtk_widget_get_display(GTK_WIDGET(gp));
 
-	if (window)
-		gdk_window_beep(window);
-	REMMINA_PLUGIN_DEBUG("Beep emitted");
+	if (display)
+		gdk_display_beep(display);
+	REMMINA_PLUGIN_DEBUG("Beep emitted"); 
 }
 
 /* Translate known VNC messages. It’s for intltool only, not for gcc */
@@ -1416,7 +1419,7 @@ static RemminaPluginVncCoordinates remmina_plugin_vnc_scale_coordinates(GtkWidge
 	return result;
 }
 
-static gboolean remmina_plugin_vnc_on_motion(GtkWidget *widget, GdkEventMotion *event, RemminaProtocolWidget *gp)
+static gboolean remmina_plugin_vnc_on_motion(GtkWidget *widget, gdouble x, gdouble y, RemminaProtocolWidget *gp)
 {
 	TRACE_CALL(__func__);
 	RemminaPluginVncData *gpdata = GET_PLUGIN_DATA(gp);
@@ -1428,14 +1431,15 @@ static gboolean remmina_plugin_vnc_on_motion(GtkWidget *widget, GdkEventMotion *
 	remminafile = remmina_plugin_service->protocol_plugin_get_file(gp);
 	if (remmina_plugin_service->file_get_int(remminafile, "viewonly", FALSE))
 		return FALSE;
-
-	coordinates = remmina_plugin_vnc_scale_coordinates(widget, gp, event->x, event->y);
+	gpdata->cur_pos_x = x;
+	gpdata->cur_pos_y = y;
+	coordinates = remmina_plugin_vnc_scale_coordinates(gpdata->drawing_area, gp, x, y);
 	remmina_plugin_vnc_event_push(gp, REMMINA_PLUGIN_VNC_EVENT_POINTER, GINT_TO_POINTER(coordinates.x), GINT_TO_POINTER(coordinates.y),
 				      GINT_TO_POINTER(gpdata->button_mask));
 	return TRUE;
 }
 
-static gboolean remmina_plugin_vnc_on_button(GtkWidget *widget, GdkEventButton *event, RemminaProtocolWidget *gp)
+static gboolean remmina_plugin_vnc_on_button_press(GtkGestureClick *self, gint n_press, gdouble x, gdouble y, RemminaProtocolWidget *gp)
 {
 	TRACE_CALL(__func__);
 	RemminaPluginVncData *gpdata = GET_PLUGIN_DATA(gp);
@@ -1450,17 +1454,42 @@ static gboolean remmina_plugin_vnc_on_button(GtkWidget *widget, GdkEventButton *
 		return FALSE;
 
 	/* We only accept 3 buttons */
-	if (event->button < 1 || event->button > 3)
+	if (gtk_gesture_single_get_current_button(GTK_GESTURE_SINGLE(self)) < 1 || gtk_gesture_single_get_current_button(GTK_GESTURE_SINGLE(self)) > 3)
 		return FALSE;
-	/* We bypass 2button-press and 3button-press events */
-	if (event->type != GDK_BUTTON_PRESS && event->type != GDK_BUTTON_RELEASE)
-		return TRUE;
 
-	mask = (1 << (event->button - 1));
-	gpdata->button_mask = (event->type == GDK_BUTTON_PRESS ? (gpdata->button_mask | mask) :
-			       (gpdata->button_mask & (0xff - mask)));
+	mask = (1 << (gtk_gesture_single_get_current_button(GTK_GESTURE_SINGLE(self)) - 1));
+	gpdata->button_mask = (gpdata->button_mask | mask);
 
-	coordinates = remmina_plugin_vnc_scale_coordinates(widget, gp, event->x, event->y);
+
+	coordinates = remmina_plugin_vnc_scale_coordinates(gpdata->drawing_area, gp, x, y);
+	remmina_plugin_vnc_event_push(gp, REMMINA_PLUGIN_VNC_EVENT_POINTER, GINT_TO_POINTER(coordinates.x), GINT_TO_POINTER(coordinates.y),
+				      GINT_TO_POINTER(gpdata->button_mask));
+	return TRUE;
+}
+
+static gboolean remmina_plugin_vnc_on_button_release(GtkGestureClick *self, gint n_press, gdouble x, gdouble y, RemminaProtocolWidget *gp)
+{
+	TRACE_CALL(__func__);
+	RemminaPluginVncData *gpdata = GET_PLUGIN_DATA(gp);
+	RemminaFile *remminafile;
+	RemminaPluginVncCoordinates coordinates;
+	gint mask;
+
+	if (!gpdata->connected || !gpdata->client)
+		return FALSE;
+	remminafile = remmina_plugin_service->protocol_plugin_get_file(gp);
+	if (remmina_plugin_service->file_get_int(remminafile, "viewonly", FALSE))
+		return FALSE;
+
+	/* We only accept 3 buttons */
+	if (gtk_gesture_single_get_current_button(GTK_GESTURE_SINGLE(self)) < 1 || gtk_gesture_single_get_current_button(GTK_GESTURE_SINGLE(self)) > 3)
+		return FALSE;
+
+	mask = (1 << (gtk_gesture_single_get_current_button(GTK_GESTURE_SINGLE(self)) - 1));
+	gpdata->button_mask = (gpdata->button_mask & (0xff - mask));
+
+
+	coordinates = remmina_plugin_vnc_scale_coordinates(gpdata->drawing_area, gp, x, y);
 	remmina_plugin_vnc_event_push(gp, REMMINA_PLUGIN_VNC_EVENT_POINTER, GINT_TO_POINTER(coordinates.x), GINT_TO_POINTER(coordinates.y),
 				      GINT_TO_POINTER(gpdata->button_mask));
 	return TRUE;
@@ -1479,7 +1508,7 @@ static gint delta_to_mask(float delta, float *accum, gint mask_plus, gint mask_m
 	return 0;
 }
 
-static gboolean remmina_plugin_vnc_on_scroll(GtkWidget *widget, GdkEventScroll *event, RemminaProtocolWidget *gp)
+static gboolean remmina_plugin_vnc_on_scroll(GtkWidget *widget, gdouble x, gdouble y, RemminaProtocolWidget *gp)
 {
 	TRACE_CALL(__func__);
 	RemminaPluginVncData *gpdata = GET_PLUGIN_DATA(gp);
@@ -1493,7 +1522,13 @@ static gboolean remmina_plugin_vnc_on_scroll(GtkWidget *widget, GdkEventScroll *
 	if (remmina_plugin_service->file_get_int(remminafile, "viewonly", FALSE))
 		return FALSE;
 
-	switch (event->direction) {
+	GdkEvent* event = gtk_event_controller_get_current_event((GtkEventController*)widget);
+	// Getting position currently doesn't work, unfortunately.
+	// We'll have to save mouse position when it moves.
+	// See https://gitlab.gnome.org/GNOME/gtk/-/issues/5134 and https://discourse.gnome.org/t/gtk-4-gtkeventcontrollerscroll-how-to-access-mouse-coordinates/3585
+	// gdk_event_get_position(event, &pos_x, &pos_y); 
+
+	switch (gdk_scroll_event_get_direction(event)) {
 	case GDK_SCROLL_UP:
 		mask = (1 << 3);
 		gpdata->scroll_y_accumulator = 0;
@@ -1514,8 +1549,8 @@ static gboolean remmina_plugin_vnc_on_scroll(GtkWidget *widget, GdkEventScroll *
 	case GDK_SCROLL_SMOOTH:
 		/* RFB does not seems to support SMOOTH scroll, so we accumulate GTK delta requested
 		 * up to 1.0 and then send a normal RFB wheel scroll when the accumulator reaches 1.0 */
-		mask = delta_to_mask(event->delta_y, &(gpdata->scroll_y_accumulator), (1 << 4), (1 << 3));
-		mask |= delta_to_mask(event->delta_x, &(gpdata->scroll_x_accumulator), (1 << 6), (1 << 5));
+		mask = delta_to_mask(y, &(gpdata->scroll_y_accumulator), (1 << 4), (1 << 3));
+		mask |= delta_to_mask(x, &(gpdata->scroll_x_accumulator), (1 << 6), (1 << 5));
 		if (!mask)
 			return FALSE;
 		break;
@@ -1524,11 +1559,12 @@ static gboolean remmina_plugin_vnc_on_scroll(GtkWidget *widget, GdkEventScroll *
 		return FALSE;
 	}
 
-	coordinates = remmina_plugin_vnc_scale_coordinates(widget, gp, event->x, event->y);
-	remmina_plugin_vnc_event_push(gp, REMMINA_PLUGIN_VNC_EVENT_POINTER, GINT_TO_POINTER(coordinates.x), GINT_TO_POINTER(coordinates.y),
+	coordinates = remmina_plugin_vnc_scale_coordinates(gpdata->drawing_area, gp, gpdata->cur_pos_x, gpdata->cur_pos_y);
+	remmina_plugin_vnc_event_push(gp, REMMINA_PLUGIN_VNC_EVENT_SCROLL, GINT_TO_POINTER(coordinates.x), GINT_TO_POINTER(coordinates.y),
 				      GINT_TO_POINTER(mask | gpdata->button_mask));
-	remmina_plugin_vnc_event_push(gp, REMMINA_PLUGIN_VNC_EVENT_POINTER, GINT_TO_POINTER(coordinates.x), GINT_TO_POINTER(coordinates.y),
+	remmina_plugin_vnc_event_push(gp, REMMINA_PLUGIN_VNC_EVENT_SCROLL, GINT_TO_POINTER(coordinates.x), GINT_TO_POINTER(coordinates.y),
 				      GINT_TO_POINTER(gpdata->button_mask));
+
 
 	return TRUE;
 }
@@ -1565,14 +1601,13 @@ static void remmina_plugin_vnc_release_key(RemminaProtocolWidget *gp, guint16 ke
 	}
 }
 
-static gboolean remmina_plugin_vnc_on_key(GtkWidget *widget, GdkEventKey *event, RemminaProtocolWidget *gp)
+static gboolean remmina_plugin_vnc_on_key_press(GtkWidget *widget, guint keyval, guint keycode, GdkModifierType state, RemminaProtocolWidget *gp)
 {
 	TRACE_CALL(__func__);
 	RemminaPluginVncData *gpdata = GET_PLUGIN_DATA(gp);
 	RemminaFile *remminafile;
 	RemminaKeyVal *k;
-	guint event_keyval;
-	guint keyval;
+	guint event_keyval = keyval;
 
 	if (!gpdata->connected || !gpdata->client)
 		return FALSE;
@@ -1583,39 +1618,59 @@ static gboolean remmina_plugin_vnc_on_key(GtkWidget *widget, GdkEventKey *event,
 	gpdata->scroll_x_accumulator = 0;
 	gpdata->scroll_y_accumulator = 0;
 
-	/* When sending key release, try first to find out a previously sent keyval
-	 * to workaround bugs like https://bugs.freedesktop.org/show_bug.cgi?id=7430 */
+	keyval = remmina_plugin_service->pref_keymap_get_keyval(remmina_plugin_service->file_get_string(remminafile, "keymap"),
+								event_keyval);
 
-	event_keyval = event->keyval;
-	if (event->type == GDK_KEY_RELEASE) {
-		for (int i = 0; i < gpdata->pressed_keys->len; i++) {
-			k = g_ptr_array_index(gpdata->pressed_keys, i);
-			if (k->keycode == event->hardware_keycode) {
-				event_keyval = k->keyval;
-				break;
-			}
+	remmina_plugin_vnc_event_push(gp, REMMINA_PLUGIN_VNC_EVENT_KEY, GUINT_TO_POINTER(keyval), GUINT_TO_POINTER(TRUE), NULL);
+
+	/* Register the pressed key */
+	
+	k = g_new(RemminaKeyVal, 1);
+	k->keyval = keyval;
+	k->keycode = keycode;
+	g_ptr_array_add(gpdata->pressed_keys, k);
+
+	return TRUE;
+}
+
+static gboolean remmina_plugin_vnc_on_key_release(GtkWidget *widget, guint keyval, guint keycode, GdkModifierType state, RemminaProtocolWidget *gp)
+{
+	TRACE_CALL(__func__);
+	RemminaPluginVncData *gpdata = GET_PLUGIN_DATA(gp);
+	RemminaFile *remminafile;
+	RemminaKeyVal *k;
+	guint event_keyval = keyval;
+
+	if (!gpdata->connected || !gpdata->client)
+		return FALSE;
+	remminafile = remmina_plugin_service->protocol_plugin_get_file(gp);
+	if (remmina_plugin_service->file_get_int(remminafile, "viewonly", FALSE))
+		return FALSE;
+
+	gpdata->scroll_x_accumulator = 0;
+	gpdata->scroll_y_accumulator = 0;
+
+	for (int i = 0; i < gpdata->pressed_keys->len; i++) {
+		k = g_ptr_array_index(gpdata->pressed_keys, i);
+		if (k->keycode == keycode) {
+			event_keyval = k->keyval;
+			break;
 		}
 	}
 
 	keyval = remmina_plugin_service->pref_keymap_get_keyval(remmina_plugin_service->file_get_string(remminafile, "keymap"),
 								event_keyval);
 
-	remmina_plugin_vnc_event_push(gp, REMMINA_PLUGIN_VNC_EVENT_KEY, GUINT_TO_POINTER(keyval),
-				      GINT_TO_POINTER(event->type == GDK_KEY_PRESS ? TRUE : FALSE), NULL);
+	remmina_plugin_vnc_event_push(gp, REMMINA_PLUGIN_VNC_EVENT_KEY, GUINT_TO_POINTER(keyval), FALSE, NULL);
 
-	/* Register/unregister the pressed key */
-	if (event->type == GDK_KEY_PRESS) {
-		k = g_new(RemminaKeyVal, 1);
-		k->keyval = keyval;
-		k->keycode = event->hardware_keycode;
-		g_ptr_array_add(gpdata->pressed_keys, k);
-	} else {
-		remmina_plugin_vnc_release_key(gp, event->hardware_keycode);
-	}
+	/* unregister the released key */
+	
+	remmina_plugin_vnc_release_key(gp, keycode);
+
 	return TRUE;
 }
 
-static void remmina_plugin_vnc_on_cuttext_request(GtkClipboard *clipboard, const gchar *text, RemminaProtocolWidget *gp)
+static void remmina_plugin_vnc_on_cuttext_request(GdkClipboard *clipboard, GAsyncResult *res, RemminaProtocolWidget *gp)
 {
 	TRACE_CALL(__func__);
 	RemminaPluginVncData *gpdata = GET_PLUGIN_DATA(gp);
@@ -1624,7 +1679,7 @@ static void remmina_plugin_vnc_on_cuttext_request(GtkClipboard *clipboard, const
 	gsize br, bw;
 	gchar *latin1_text;
 	const char *cur_charset;
-
+	char* text = gdk_clipboard_read_text_finish(clipboard, res, NULL);
 	if (text) {
 		/* A timer (1 second) to avoid clipboard "loopback": text cut out from VNC won’t paste back into VNC */
 		t = g_date_time_new_now_utc();
@@ -1642,7 +1697,7 @@ static void remmina_plugin_vnc_on_cuttext_request(GtkClipboard *clipboard, const
 	}
 }
 
-static void remmina_plugin_vnc_on_cuttext(GtkClipboard *clipboard, GdkEvent *event, RemminaProtocolWidget *gp)
+static void remmina_plugin_vnc_on_cuttext(GdkClipboard *clipboard, RemminaProtocolWidget *gp)
 {
 	TRACE_CALL(__func__);
 	RemminaPluginVncData *gpdata = GET_PLUGIN_DATA(gp);
@@ -1654,7 +1709,7 @@ static void remmina_plugin_vnc_on_cuttext(GtkClipboard *clipboard, GdkEvent *eve
 	if (remmina_plugin_service->file_get_int(remminafile, "viewonly", FALSE))
 		return;
 
-	gtk_clipboard_request_text(clipboard, (GtkClipboardTextReceivedFunc)remmina_plugin_vnc_on_cuttext_request, gp);
+	gdk_clipboard_read_text_async(clipboard, NULL, (GAsyncReadyCallback)remmina_plugin_vnc_on_cuttext_request, gp); 
 }
 
 static void remmina_plugin_vnc_on_realize(RemminaProtocolWidget *gp, gpointer data)
@@ -1662,18 +1717,15 @@ static void remmina_plugin_vnc_on_realize(RemminaProtocolWidget *gp, gpointer da
 	TRACE_CALL(__func__);
 	RemminaFile *remminafile;
 	GdkCursor *cursor;
-	GdkPixbuf *pixbuf;
 
 	remminafile = remmina_plugin_service->protocol_plugin_get_file(gp);
 
 	if (remmina_plugin_service->file_get_int(remminafile, "showcursor", FALSE)) {
 		/* Hide local cursor (show a small dot instead) */
-		pixbuf = gdk_pixbuf_new_from_xpm_data(dot_cursor_xpm);
-		cursor = gdk_cursor_new_from_pixbuf(gdk_display_get_default(), pixbuf, dot_cursor_x_hot, dot_cursor_y_hot);
-		g_object_unref(pixbuf);
-		gdk_window_set_cursor(gtk_widget_get_window(GTK_WIDGET(gp)), cursor);
+		cursor = gdk_cursor_new_from_name("none", NULL);
+		gtk_widget_set_cursor(GTK_WIDGET(gp), cursor);
 		g_object_unref(cursor);
-	}
+	} 
 }
 
 /******************************************************************************************/
@@ -1694,17 +1746,36 @@ static gboolean remmina_plugin_vnc_open_connection(RemminaProtocolWidget *gp)
 	remmina_plugin_service->protocol_plugin_register_hostkey(gp, gpdata->drawing_area);
 
 	g_signal_connect(G_OBJECT(gp), "realize", G_CALLBACK(remmina_plugin_vnc_on_realize), NULL);
-	g_signal_connect(G_OBJECT(gpdata->drawing_area), "motion-notify-event", G_CALLBACK(remmina_plugin_vnc_on_motion), gp);
-	g_signal_connect(G_OBJECT(gpdata->drawing_area), "button-press-event", G_CALLBACK(remmina_plugin_vnc_on_button), gp);
-	g_signal_connect(G_OBJECT(gpdata->drawing_area), "button-release-event", G_CALLBACK(remmina_plugin_vnc_on_button), gp);
-	g_signal_connect(G_OBJECT(gpdata->drawing_area), "scroll-event", G_CALLBACK(remmina_plugin_vnc_on_scroll), gp);
-	g_signal_connect(G_OBJECT(gpdata->drawing_area), "key-press-event", G_CALLBACK(remmina_plugin_vnc_on_key), gp);
-	g_signal_connect(G_OBJECT(gpdata->drawing_area), "key-release-event", G_CALLBACK(remmina_plugin_vnc_on_key), gp);
 
-	if (!remmina_plugin_service->file_get_int(remminafile, "disableclipboard", FALSE))
-		gpdata->clipboard_handler = g_signal_connect(G_OBJECT(gtk_clipboard_get(GDK_SELECTION_CLIPBOARD)),
-							     "owner-change", G_CALLBACK(remmina_plugin_vnc_on_cuttext), gp);
 
+	gtk_widget_set_focusable(GTK_WIDGET(gpdata->drawing_area), TRUE);
+	GtkGestureSingle *gesture = (GtkGestureSingle*)gtk_gesture_click_new();
+	gtk_gesture_single_set_button(gesture, 0);
+	g_signal_connect (gesture, "pressed", G_CALLBACK (remmina_plugin_vnc_on_button_press), gp);
+	g_signal_connect (gesture, "released", G_CALLBACK (remmina_plugin_vnc_on_button_release), gp);
+	gtk_event_controller_set_propagation_phase(GTK_EVENT_CONTROLLER(gesture), GTK_PHASE_TARGET);
+	gtk_widget_add_controller(gpdata->drawing_area, GTK_EVENT_CONTROLLER (gesture));
+
+
+	GtkEventControllerMotion* motion_event_controller = (GtkEventControllerMotion*)gtk_event_controller_motion_new();
+	gtk_widget_add_controller(GTK_WIDGET(gpdata->drawing_area), GTK_EVENT_CONTROLLER(motion_event_controller));
+	g_signal_connect(motion_event_controller, "motion", G_CALLBACK(remmina_plugin_vnc_on_motion), gp);
+
+	GtkEventControllerScroll* scroll_event_controller = (GtkEventControllerScroll*)gtk_event_controller_scroll_new(GTK_EVENT_CONTROLLER_SCROLL_BOTH_AXES );
+	gtk_widget_add_controller(GTK_WIDGET(gpdata->drawing_area), GTK_EVENT_CONTROLLER(scroll_event_controller));
+	g_signal_connect(scroll_event_controller, "scroll", G_CALLBACK(remmina_plugin_vnc_on_scroll), gp);
+
+	GtkEventControllerKey* key_event_controller = (GtkEventControllerKey*)gtk_event_controller_key_new();
+	gtk_widget_add_controller(GTK_WIDGET(gpdata->drawing_area), GTK_EVENT_CONTROLLER(key_event_controller));
+	g_signal_connect(key_event_controller, "key-pressed", G_CALLBACK(remmina_plugin_vnc_on_key_press), gp);
+	g_signal_connect(key_event_controller, "key-released", G_CALLBACK(remmina_plugin_vnc_on_key_release), gp);
+
+
+
+
+	GdkDisplay* display = gdk_display_get_default();
+	GdkClipboard* clipboard = gdk_display_get_clipboard(display);
+	gpdata->clipboard_handler = g_signal_connect(clipboard, "changed", G_CALLBACK(remmina_plugin_vnc_on_cuttext), gp);
 
 	if (pthread_create(&gpdata->thread, NULL, remmina_plugin_vnc_main_thread, gp)) {
 		/* I don’t think this will ever happen… */
@@ -1755,7 +1826,9 @@ static gboolean remmina_plugin_vnc_close_connection_timeout(RemminaProtocolWidge
 
 	/* unregister the clipboard monitor */
 	if (gpdata->clipboard_handler) {
-		g_signal_handler_disconnect(G_OBJECT(gtk_clipboard_get(GDK_SELECTION_CLIPBOARD)), gpdata->clipboard_handler);
+		GdkDisplay* display = gdk_display_get_default();
+		GdkClipboard* clipboard = gdk_display_get_clipboard(display);
+		g_signal_handler_disconnect(G_OBJECT(clipboard), gpdata->clipboard_handler);
 		gpdata->clipboard_handler = 0;
 	}
 
@@ -1904,7 +1977,7 @@ static void remmina_plugin_vnc_keystroke(RemminaProtocolWidget *gp, const guint 
 }
 
 #if LIBVNCSERVER_CHECK_VERSION_VERSION(0, 9, 14)
-static gboolean remmina_plugin_vnc_on_size_allocate(GtkWidget *widget, GtkAllocation *alloc, RemminaProtocolWidget *gp)
+static gboolean remmina_plugin_vnc_on_size_allocate(GtkWidget *widget, gint width, gint height, RemminaProtocolWidget *gp)
 {
 	TRACE_CALL(__func__);
 	RemminaScaleMode scale_mode = remmina_plugin_service->remmina_protocol_widget_get_current_scale_mode(gp);
@@ -1912,22 +1985,21 @@ static gboolean remmina_plugin_vnc_on_size_allocate(GtkWidget *widget, GtkAlloca
 
 	if (scale_mode == REMMINA_PROTOCOL_WIDGET_SCALE_MODE_DYNRES){
 		char str[1024];
-		sprintf(str, "DEBUG: %d x %d", alloc->width, alloc->height);
+		sprintf(str, "DEBUG: %d x %d", width, height);
 		TRACE_CALL(str);
 		if (gpdata->client){
-			SendExtDesktopSize(gpdata->client, alloc->width, alloc->height);
+			SendExtDesktopSize(gpdata->client, width, height);
 		}
 	}
 	return TRUE;
 }
 #endif
 
-static gboolean remmina_plugin_vnc_on_draw(GtkWidget *widget, cairo_t *context, RemminaProtocolWidget *gp)
+static void remmina_plugin_vnc_on_draw(GtkDrawingArea *widget, cairo_t *context, int width, int height, void *gp)
 {
 	TRACE_CALL(__func__);
-	RemminaPluginVncData *gpdata = GET_PLUGIN_DATA(gp);
+	RemminaPluginVncData *gpdata = GET_PLUGIN_DATA((RemminaProtocolWidget*)gp);
 	cairo_surface_t *surface;
-	gint width, height;
 	GtkAllocation widget_allocation;
 
 	LOCK_BUFFER(FALSE);
@@ -1935,14 +2007,14 @@ static gboolean remmina_plugin_vnc_on_draw(GtkWidget *widget, cairo_t *context, 
 	surface = gpdata->rgb_buffer;
 	if (!surface) {
 		UNLOCK_BUFFER(FALSE);
-		return FALSE;
+		return;
 	}
 
 	width = remmina_plugin_service->protocol_plugin_get_width(gp);
 	height = remmina_plugin_service->protocol_plugin_get_height(gp);
 
 	if ((remmina_plugin_service->remmina_protocol_widget_get_current_scale_mode(gp) != REMMINA_PROTOCOL_WIDGET_SCALE_MODE_NONE)) {
-		gtk_widget_get_allocation(widget, &widget_allocation);
+		gtk_widget_get_allocation(GTK_WIDGET(widget), &widget_allocation);
 		cairo_scale(context,
 			    (double)widget_allocation.width / width,
 			    (double)widget_allocation.height / height);
@@ -1953,7 +2025,7 @@ static gboolean remmina_plugin_vnc_on_draw(GtkWidget *widget, cairo_t *context, 
 	cairo_fill(context);
 
 	UNLOCK_BUFFER(FALSE);
-	return TRUE;
+	return;
 }
 
 static void remmina_plugin_vnc_init(RemminaProtocolWidget *gp)
@@ -1977,34 +2049,35 @@ static void remmina_plugin_vnc_init(RemminaProtocolWidget *gp)
 
 	aspect_ratio = remmina_plugin_service->file_get_double(remminafile, "aspect_ratio", 0);
 	if (aspect_ratio > 0){
-		GtkWidget* aspectframe = gtk_aspect_frame_new(NULL, 0, 0, aspect_ratio, FALSE);
+		GtkWidget* aspectframe = gtk_aspect_frame_new(0, 0, aspect_ratio, FALSE);
 
-		gtk_frame_set_shadow_type(GTK_FRAME(aspectframe), GTK_SHADOW_NONE);
 		gtk_widget_show(aspectframe);
-		gtk_container_add(GTK_CONTAINER(aspectframe), gpdata->drawing_area);
-		gtk_container_add(GTK_CONTAINER(gp), aspectframe);
+		gtk_aspect_frame_set_child((aspectframe), gpdata->drawing_area);
+		gtk_box_append(GTK_BOX(gp), aspectframe);
 	}
 	else{
-		gtk_container_add(GTK_CONTAINER(gp), gpdata->drawing_area);
+		gtk_widget_set_hexpand(gpdata->drawing_area, TRUE);
+		gtk_widget_set_vexpand(gpdata->drawing_area, TRUE);
+		gtk_box_append(GTK_BOX(gp), gpdata->drawing_area);
+		g_object_set_data_full(G_OBJECT(gp), "child_plugin", gpdata->drawing_area, g_free);
 	}
+	
 
-	gtk_widget_add_events(
-		gpdata->drawing_area,
-		GDK_POINTER_MOTION_MASK | GDK_BUTTON_PRESS_MASK
-		| GDK_BUTTON_RELEASE_MASK | GDK_KEY_PRESS_MASK
-		| GDK_KEY_RELEASE_MASK
-		| GDK_SCROLL_MASK);
+
 	gtk_widget_set_can_focus(gpdata->drawing_area, TRUE);
 
 	if (!disable_smooth_scrolling) {
-		REMMINA_PLUGIN_DEBUG("Adding GDK_SMOOTH_SCROLL_MASK");
-		gtk_widget_add_events(gpdata->drawing_area, GDK_SMOOTH_SCROLL_MASK);
+		// REMMINA_PLUGIN_DEBUG("Adding GDK_SMOOTH_SCROLL_MASK");
+		// GtkEventControllerScroll* scroll_event_controller = (GtkEventControllerScroll*)gtk_event_controller_scroll_new(GDK_SMOOTH_SCROLL_MASK );
+		// gtk_widget_add_controller(GTK_WIDGET(gpdata->drawing_area), GTK_EVENT_CONTROLLER(scroll_event_controller)); TODO GTK4 seems like smooth scroll flag is gone
 	}
 
 
-	g_signal_connect(G_OBJECT(gpdata->drawing_area), "draw", G_CALLBACK(remmina_plugin_vnc_on_draw), gp);
+	gtk_drawing_area_set_draw_func(GTK_DRAWING_AREA(gpdata->drawing_area), remmina_plugin_vnc_on_draw, gp, NULL);
+
+
 #if LIBVNCSERVER_CHECK_VERSION_VERSION(0, 9, 14)
-	g_signal_connect(G_OBJECT(gpdata->drawing_area), "size-allocate", G_CALLBACK(remmina_plugin_vnc_on_size_allocate), gp);
+	g_signal_connect(G_OBJECT(gpdata->drawing_area), "resize", G_CALLBACK(remmina_plugin_vnc_on_size_allocate), gp);
 #endif
 	gpdata->auth_first = TRUE;
 	gpdata->clipboard_timer = g_date_time_new_now_utc();

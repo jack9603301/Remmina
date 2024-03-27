@@ -37,11 +37,11 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 #include <gtk/gtk.h>
-#ifdef GDK_WINDOWING_X11
-#include <gdk/gdkx.h>
-#elif defined(GDK_WINDOWING_WAYLAND)
-#include <gdk/gdkwayland.h>
-#endif
+// #ifdef GDK_WINDOWING_X11
+// #include <gdk/gdkx.h>
+// #elif defined(GDK_WINDOWING_WAYLAND)
+// #include <gdk/gdkwayland.h>
+// #endif
 #include "config.h"
 #include "remmina/plugin.h"
 #include "remmina/remmina_trace_calls.h"

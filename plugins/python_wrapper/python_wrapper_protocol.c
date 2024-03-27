@@ -78,7 +78,7 @@ gboolean remmina_protocol_open_connection_wrapper(RemminaProtocolWidget* gp)
 	}
 	else
 	{
-		return gtk_false();
+		return false;
 	}
 }
 

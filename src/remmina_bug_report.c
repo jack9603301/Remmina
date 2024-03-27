@@ -374,17 +374,17 @@ JsonNode *remmina_bug_report_get_all()
 
 	// Allocate new json node for each text entry and add to total blob
 	n = json_node_alloc();
-	json_node_init_string(n, gtk_entry_get_text(remmina_bug_report_dialog->bug_report_name_entry));
+	json_node_init_string(n, gtk_entry_buffer_get_text(gtk_entry_get_buffer(remmina_bug_report_dialog->bug_report_name_entry)));
 	json_builder_set_member_name(b_outer, "Name");
 	json_builder_add_value(b_outer, n);
 
 	n = json_node_alloc();
-	json_node_init_string(n, gtk_entry_get_text(remmina_bug_report_dialog->bug_report_email_entry));
+	json_node_init_string(n, gtk_entry_buffer_get_text(gtk_entry_get_buffer(remmina_bug_report_dialog->bug_report_email_entry)));
 	json_builder_set_member_name(b_outer, "Email");
 	json_builder_add_value(b_outer, n);
 
 	n = json_node_alloc();
-	json_node_init_string(n, gtk_entry_get_text(remmina_bug_report_dialog->bug_report_title_entry));
+	json_node_init_string(n, gtk_entry_buffer_get_text(gtk_entry_get_buffer(remmina_bug_report_dialog->bug_report_title_entry)));
 	json_builder_set_member_name(b_outer, "Bug_Title");
 	json_builder_add_value(b_outer, n);
 

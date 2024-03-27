@@ -51,10 +51,10 @@
 #include <sys/un.h>
 #endif
 #ifdef GDK_WINDOWING_X11
-#include <gdk/gdkx.h>
-#include <X11/Xlib.h>
-#include <X11/Xutil.h>
-#include <X11/Xatom.h>
+// #include <gdk/gdkx.h>
+// #include <X11/Xlib.h>
+// #include <X11/Xutil.h>
+// #include <X11/Xatom.h>
 #elif defined(GDK_WINDOWING_WAYLAND)
 #include <gdk/gdkwayland.h>
 #endif
@@ -107,7 +107,8 @@ remmina_public_create_combo_entry(const gchar *text, const gchar *def, gboolean 
 	}
 
 	if (!found && def && def[0] != '\0') {
-		gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(combo))), def);
+		gtk_combo_box_text_prepend_text(combo, def);
+		gtk_combo_box_set_active(GTK_COMBO_BOX(combo), 0);
 	}
 
 	return combo;
@@ -525,14 +526,14 @@ gint remmina_public_open_xdisplay(const gchar *disp)
 }
 
 /* Find hardware keycode for the requested keyval */
-guint16 remmina_public_get_keycode_for_keyval(GdkKeymap *keymap, guint keyval)
+guint16 remmina_public_get_keycode_for_keyval(GdkDisplay *display, guint keyval)
 {
 	TRACE_CALL(__func__);
 	GdkKeymapKey *keys = NULL;
 	gint length = 0;
 	guint16 keycode = 0;
 
-	if (gdk_keymap_get_entries_for_keyval(keymap, keyval, &keys, &length)) {
+	if (gdk_display_map_keyval(display, keyval, &keys, &length)) {
 		keycode = keys[0].keycode;
 		g_free(keys);
 	}
@@ -540,16 +541,18 @@ guint16 remmina_public_get_keycode_for_keyval(GdkKeymap *keymap, guint keyval)
 }
 
 /* Check if the requested keycode is a key modifier */
-gboolean remmina_public_get_modifier_for_keycode(GdkKeymap *keymap, guint16 keycode)
+gboolean remmina_public_get_modifier_for_keycode(GdkDisplay *display, guint16 keycode)
 {
 	TRACE_CALL(__func__);
 	//g_return_val_if_fail(keycode > 0, FALSE);
 	if (keycode > 0) return FALSE;
-#ifdef GDK_WINDOWING_X11
-	return gdk_x11_keymap_key_is_modifier(keymap, keycode);
-#else
-	return FALSE;
-#endif
+	//TODO Find gtk4 way of handeling this case
+// #ifdef GDK_WINDOWING_X11
+// 	return gdk_x11_keymap_key_is_modifier(keymap, keycode);
+// #else
+// 	return FALSE;
+// #endif
+	return FALSE; //TODO GTK4
 }
 
 /* Load a GtkBuilder object from a filename */
@@ -585,14 +588,14 @@ GtkBuilder* remmina_public_gtk_builder_new_from_resource(gchar *resource)
 
 /* Change parent container for a widget
  * If possible use this function instead of the deprecated gtk_widget_reparent */
-void remmina_public_gtk_widget_reparent(GtkWidget *widget, GtkContainer *container)
-{
-	TRACE_CALL(__func__);
-	g_object_ref(widget);
-	gtk_container_remove(GTK_CONTAINER(gtk_widget_get_parent(widget)), widget);
-	gtk_container_add(container, widget);
-	g_object_unref(widget);
-}
+// void remmina_public_gtk_widget_reparent(GtkWidget *widget, GtkContainer *container)
+// {
+// 	TRACE_CALL(__func__);
+// 	g_object_ref(widget);
+// 	gtk_container_remove(GTK_CONTAINER(gtk_widget_get_parent(widget)), widget);
+// 	gtk_container_add(container, widget);
+// 	g_object_unref(widget);
+// }
 
 /* Validate the inserted value for a new resolution */
 gboolean remmina_public_resolution_validation_func(const gchar *new_str, gchar **error)

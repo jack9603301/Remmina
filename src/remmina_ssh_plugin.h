@@ -56,12 +56,12 @@ typedef struct _RemminaProtocolSettingOpt {
 /* For callback in main thread */
 #if defined (HAVE_LIBSSH) && defined (HAVE_LIBVTE)
 void remmina_plugin_ssh_vte_terminal_set_encoding_and_pty(VteTerminal *terminal, const char *codeset, int master, int slave);
-void remmina_plugin_ssh_vte_select_all(GtkMenuItem *menuitem, gpointer vte);
-void remmina_plugin_ssh_vte_copy_clipboard(GtkMenuItem *menuitem, gpointer vte);
-void remmina_plugin_ssh_vte_paste_clipboard(GtkMenuItem *menuitem, gpointer vte);
-void remmina_plugin_ssh_vte_decrease_font(GtkMenuItem *menuitem, gpointer vte);
-void remmina_plugin_ssh_vte_increase_font(GtkMenuItem *menuitem, gpointer vte);
-gboolean remmina_ssh_plugin_popup_menu(GtkWidget *widget, GdkEvent *event, GtkWidget *menu);
+void remmina_plugin_ssh_vte_select_all(gpointer vte);
+void remmina_plugin_ssh_vte_copy_clipboard(gpointer vte);
+void remmina_plugin_ssh_vte_paste_clipboard(gpointer vte);
+void remmina_plugin_ssh_vte_decrease_font(gpointer vte);
+void remmina_plugin_ssh_vte_increase_font(gpointer vte);
+gboolean remmina_ssh_plugin_popup_menu(GtkGestureClick* self, gint n_press, gdouble x, gdouble y, gpointer menu);
 #endif
 
 G_END_DECLS

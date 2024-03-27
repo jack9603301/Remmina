@@ -116,12 +116,14 @@ typedef struct _RemminaPluginVncData {
 	pthread_mutex_t		buffer_mutex;
 
 	float		scroll_x_accumulator, scroll_y_accumulator;
+	gdouble 	cur_pos_x, cur_pos_y;
 
 } RemminaPluginVncData;
 
 enum {
 	REMMINA_PLUGIN_VNC_EVENT_KEY,
 	REMMINA_PLUGIN_VNC_EVENT_POINTER,
+	REMMINA_PLUGIN_VNC_EVENT_SCROLL,
 	REMMINA_PLUGIN_VNC_EVENT_CUTTEXT,
 	REMMINA_PLUGIN_VNC_EVENT_CHAT_OPEN,
 	REMMINA_PLUGIN_VNC_EVENT_CHAT_SEND,

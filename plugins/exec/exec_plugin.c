@@ -130,17 +130,18 @@ static void remmina_plugin_exec_init(RemminaProtocolWidget *gp)
 	gtk_text_view_set_editable(GTK_TEXT_VIEW(gpdata->log_view), FALSE);
 	gtk_text_view_set_left_margin (GTK_TEXT_VIEW (gpdata->log_view), 20);
 	gtk_text_view_set_right_margin (GTK_TEXT_VIEW (gpdata->log_view), 20);
+	gtk_widget_set_hexpand(gpdata->log_view, TRUE);
+	gtk_widget_set_vexpand(gpdata->log_view, TRUE);
 	gpdata->log_buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (gpdata->log_view));
-	gpdata->sw = gtk_scrolled_window_new (NULL, NULL);
+	gpdata->sw = gtk_scrolled_window_new ();
 	gtk_widget_set_size_request (gpdata->sw, 640, 480);
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (gpdata->sw),
 			GTK_POLICY_AUTOMATIC,
 			GTK_POLICY_AUTOMATIC);
-	gtk_container_add(GTK_CONTAINER(gp), gpdata->sw);
-	gtk_container_add(GTK_CONTAINER(gpdata->sw), gpdata->log_view);
+	gtk_box_append(GTK_BOX(gp), gpdata->sw);
+	gtk_scrolled_window_set_child(GTK_SCROLLED_WINDOW(gpdata->sw), gpdata->log_view);
 	gtk_text_buffer_set_text (gpdata->log_buffer, "Remmina Exec Plugin Logger", -1);
 
-	gtk_widget_show_all(gpdata->sw);
 }
 
 static gboolean remmina_plugin_exec_run(RemminaProtocolWidget *gp)
@@ -212,18 +213,18 @@ static gboolean remmina_plugin_exec_run(RemminaProtocolWidget *gp)
 		dialog = GTK_DIALOG(gtk_message_dialog_new(NULL, GTK_DIALOG_MODAL,
 					GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO,
 			_("Warning: Running a command synchronously may cause Remmina not to respond.\nDo you really want to continue?")));
-		gint result = gtk_dialog_run (GTK_DIALOG (dialog));
+		// gint result = gtk_dialog_run (GTK_DIALOG (dialog));
 
-		switch (result)
-		{
-			case GTK_RESPONSE_YES:
-				break;
-			default:
-				gtk_widget_destroy(GTK_WIDGET(dialog));
-				return FALSE;
-				break;
-		}
-		gtk_widget_destroy(GTK_WIDGET(dialog));
+		// switch (result)
+		// {
+		// 	case GTK_RESPONSE_YES:
+		// 		break;
+		// 	default:
+		// 		gtk_window_destroy(GTK_WINDOW(dialog));
+		// 		return FALSE;
+		// 		break;
+		// } TODO GTK4
+		gtk_window_destroy(GTK_WINDOW(dialog));
 		REMMINA_PLUGIN_DEBUG("[%s] Run Sync", PLUGIN_NAME);
 		g_spawn_sync (NULL,				    // CWD or NULL
 				argv,

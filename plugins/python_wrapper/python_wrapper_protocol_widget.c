@@ -825,7 +825,7 @@ static PyObject* protocol_widget_send_keys_signals(PyRemminaProtocolWidget* self
 
 	if (PyArg_ParseTuple(args, "Osii", &widget, &keyvals, &length, &event_type) && widget && keyvals)
 	{
-		if (event_type < GDK_NOTHING || event_type >= GDK_EVENT_LAST)
+		if ( event_type >= GDK_EVENT_LAST)
 		{
 			g_printerr("[%s:%d@%s]: %d is not a known value for GdkEventType!\n", __FILE__, __LINE__, __func__, event_type);
 			return NULL;

@@ -157,7 +157,7 @@ static void remmina_plugin_spice_xfer_widgets_free(RemminaPluginSpiceXferWidgets
 	TRACE_CALL(__func__);
 
 	/* Child widgets will be destroyed automatically */
-	gtk_widget_destroy(widgets->vbox);
+	//gtk_window_destroy(widgets->vbox); TODO GTK4
 	g_free(widgets);
 }
 

@@ -126,10 +126,10 @@ void remmina_exec_exitremmina_one_confirm()
 	GtkWidget* dialog = gtk_message_dialog_new(NULL, GTK_DIALOG_MODAL, GTK_MESSAGE_QUESTION,
 							GTK_BUTTONS_YES_NO,
 							_("Are you sure you want to fully quit Remmina?\n This will close any active connections."));
-			int response = gtk_dialog_run(GTK_DIALOG(dialog));
-			gtk_widget_destroy(dialog);
-			if (response != GTK_RESPONSE_YES)
-				return;
+			// int response = gtk_dialog_run(GTK_DIALOG(dialog));
+			// gtk_widget_destroy(dialog);
+			// if (response != GTK_RESPONSE_YES)
+			// 	return; TODO GTK4
 	remmina_widget_pool_foreach(disable_rcw_delete_confirm_cb, NULL);
 	remmina_exec_exitremmina();
 }
@@ -401,7 +401,6 @@ void remmina_exec_command(RemminaCommandType command, const gchar* data)
 	case REMMINA_COMMAND_MAIN:
 		if (mainwindow) {
 			gtk_window_present(mainwindow);
-			gtk_window_deiconify(GTK_WINDOW(mainwindow));
 		}else  {
 			widget = remmina_main_new();
 			gtk_widget_show(widget);
@@ -415,7 +414,7 @@ void remmina_exec_command(RemminaCommandType command, const gchar* data)
 		prefdialog = remmina_pref_dialog_get_dialog();
 		if (prefdialog) {
 			gtk_window_present(GTK_WINDOW(prefdialog));
-			gtk_window_deiconify(GTK_WINDOW(prefdialog));
+			//gdk_toplevel_present(GTK_WINDOW(prefdialog));
 		}else  {
 			/* Create a new preference dialog */
 			widget = remmina_pref_dialog_new(atoi(data), NULL);
@@ -503,7 +502,7 @@ void remmina_exec_command(RemminaCommandType command, const gchar* data)
 		}else  {
 			widget = gtk_message_dialog_new(NULL, GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK,
 				_("Plugin %s is not registered."), data);
-			g_signal_connect(G_OBJECT(widget), "response", G_CALLBACK(gtk_widget_destroy), NULL);
+			g_signal_connect(G_OBJECT(widget), "response", G_CALLBACK(gtk_window_destroy), NULL);
 			gtk_widget_show(widget);
 			remmina_widget_pool_register(widget);
 		}

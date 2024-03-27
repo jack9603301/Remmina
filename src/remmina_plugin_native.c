@@ -40,7 +40,7 @@
 #include <string.h>
 
 #ifdef GDK_WINDOWING_X11
-#include <gdk/gdkx.h>
+//#include <gdk/gdkx.h>
 #elif defined(GDK_WINDOWING_WAYLAND)
 #include <gdk/gdkwayland.h>
 #endif
@@ -65,7 +65,7 @@ gboolean remmina_plugin_native_load(RemminaPluginService* service, const char* n
 
 	//Python plugins cannot be lazy loaded, so hande their loading seperately
 	if (strstr(name, "remmina-plugin-python_wrapper") != NULL ){
-		module = g_module_open(name, 0);
+		module = g_module_open(name, G_MODULE_BIND_LAZY | G_MODULE_BIND_LOCAL);
 	}
 	else{
 		module = g_module_open(name, G_MODULE_BIND_LAZY | G_MODULE_BIND_LOCAL);

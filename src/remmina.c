@@ -39,11 +39,11 @@
 #ifndef G_LOG_DOMAIN
 #define G_LOG_DOMAIN    ((gchar*)"remmina")
 #endif  /* G_LOG_DOMAIN */
-#ifdef GDK_WINDOWING_X11
-#include <gdk/gdkx.h>
-#elif defined(GDK_WINDOWING_WAYLAND)
-#include <gdk/gdkwayland.h>
-#endif
+//#ifdef GDK_WINDOWING_X11
+// #include <gdk/gdkx.h>
+// #elif defined(GDK_WINDOWING_WAYLAND)
+//#include <gdk/gdkwayland.h>
+// #endif
 #include <gio/gio.h>
 #include <glib/gi18n.h>
 #include <stdlib.h>
@@ -306,10 +306,10 @@ static void remmina_on_startup(GApplication *app)
 
 	/* Setting the X11 program class (WM_CLASS) is necessary to group
 	* windows with .desktop file which has the same StartupWMClass */
-	gdk_set_program_class(REMMINA_APP_ID);
+	//gdk_set_program_class(REMMINA_APP_ID);
 
-	gtk_icon_theme_append_search_path(gtk_icon_theme_get_default(),
-					  REMMINA_RUNTIME_DATADIR G_DIR_SEPARATOR_S "icons");
+	// gtk_icon_theme_append_search_path(gtk_icon_theme_get_default(),
+	// 				  REMMINA_RUNTIME_DATADIR G_DIR_SEPARATOR_S "icons");
 	g_application_hold(app);
 	remmina_info_schedule();
 

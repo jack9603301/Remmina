@@ -47,7 +47,7 @@ void python_wrapper_tool_init(void)
 	TRACE_CALL(__func__);
 }
 
-void python_wrapper_tool_exec_func_wrapper(GtkMenuItem* self, RemminaToolPlugin* instance)
+void python_wrapper_tool_exec_func_wrapper(GtkButton* self, RemminaToolPlugin* instance)
 {
 	TRACE_CALL(__func__);
 

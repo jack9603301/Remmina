@@ -108,7 +108,7 @@ if(SPICE_FOUND)
     add_subdirectory(spice)
 endif()
 
-option(WITH_WWW "Build WWW plugin" ON)
+option(WITH_WWW "Build WWW plugin" OFF)
 if(WITH_WWW)
     message(STATUS "Enabling WWW plugin.")
     add_definitions(-DWITH_WWW)

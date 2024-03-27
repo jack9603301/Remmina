@@ -436,7 +436,7 @@ void remmina_plugin_ssh_vte_terminal_set_encoding_and_pty(VteTerminal *terminal,
 }
 
 static gboolean
-remmina_plugin_ssh_on_focus_in(GtkWidget *widget, GdkEventFocus *event, RemminaProtocolWidget *gp)
+remmina_plugin_ssh_on_focus_in(GtkWidget *widget, RemminaProtocolWidget *gp)
 {
 	TRACE_CALL(__func__);
 	RemminaPluginSshData *gpdata = GET_PLUGIN_DATA(gp);
@@ -496,7 +496,7 @@ remmina_plugin_ssh_set_vte_pref(RemminaProtocolWidget *gp)
 }
 
 void
-remmina_plugin_ssh_vte_select_all(GtkMenuItem *menuitem, gpointer vte)
+remmina_plugin_ssh_vte_select_all(gpointer vte)
 {
 	TRACE_CALL(__func__);
 	vte_terminal_select_all(VTE_TERMINAL(vte));
@@ -504,21 +504,21 @@ remmina_plugin_ssh_vte_select_all(GtkMenuItem *menuitem, gpointer vte)
 }
 
 void
-remmina_plugin_ssh_vte_decrease_font(GtkMenuItem *menuitem, gpointer vte)
+remmina_plugin_ssh_vte_decrease_font(gpointer vte)
 {
 	TRACE_CALL(__func__);
 	vte_terminal_set_font_scale(VTE_TERMINAL(vte), vte_terminal_get_font_scale(VTE_TERMINAL(vte)) - SCALE_FACTOR);
 }
 
 void
-remmina_plugin_ssh_vte_increase_font(GtkMenuItem *menuitem, gpointer vte)
+remmina_plugin_ssh_vte_increase_font(gpointer vte)
 {
 	TRACE_CALL(__func__);
 	vte_terminal_set_font_scale(VTE_TERMINAL(vte), vte_terminal_get_font_scale(VTE_TERMINAL(vte)) + SCALE_FACTOR);
 }
 
 void
-remmina_plugin_ssh_vte_copy_clipboard(GtkMenuItem *menuitem, gpointer vte)
+remmina_plugin_ssh_vte_copy_clipboard(gpointer vte)
 {
 	TRACE_CALL(__func__);
 #if VTE_CHECK_VERSION(0, 50, 0)
@@ -529,14 +529,14 @@ remmina_plugin_ssh_vte_copy_clipboard(GtkMenuItem *menuitem, gpointer vte)
 }
 
 void
-remmina_plugin_ssh_vte_paste_clipboard(GtkMenuItem *menuitem, gpointer vte)
+remmina_plugin_ssh_vte_paste_clipboard(gpointer vte)
 {
 	TRACE_CALL(__func__);
 	vte_terminal_paste_clipboard(VTE_TERMINAL(vte));
 }
 
 void
-remmina_plugin_ssh_vte_save_session(GtkMenuItem *menuitem, RemminaProtocolWidget *gp)
+remmina_plugin_ssh_vte_save_session(RemminaProtocolWidget *gp)
 {
 	TRACE_CALL(__func__);
 	RemminaPluginSshData *gpdata = GET_PLUGIN_DATA(gp);
@@ -549,7 +549,7 @@ remmina_plugin_ssh_vte_save_session(GtkMenuItem *menuitem, RemminaProtocolWidget
 	if (err != NULL) {
 		// TRANSLATORS: %s is a placeholder for an error message
 		widget = gtk_message_dialog_new(NULL, GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Error: %s"), err->message);
-		g_signal_connect(G_OBJECT(widget), "response", G_CALLBACK(gtk_widget_destroy), NULL);
+		g_signal_connect(G_OBJECT(widget), "response", G_CALLBACK(gtk_window_destroy), NULL);
 		gtk_widget_show(widget);
 		return;
 	}
@@ -631,7 +631,7 @@ remmina_search_widget_update_regex(RemminaPluginSshData *gpdata)
 	GError *error = NULL;
 
 	RemminaSshSearch *search_widget = gpdata->search_widget;
-	char const *search_text = gtk_entry_get_text(GTK_ENTRY(search_widget->search_entry));
+	char const *search_text = gtk_editable_get_text(GTK_EDITABLE(search_widget->search_entry));
 	gboolean caseless = gtk_toggle_button_get_active(search_widget->match_case_checkbutton) == FALSE;
 
 	char *pattern;
@@ -737,39 +737,39 @@ GtkWidget *remmina_plugin_pop_search_new(GtkWidget *relative_to, RemminaProtocol
 	search_widget->reveal_button = GTK_WIDGET(GET_OBJECT("reveal_button"));
 	search_widget->revealer = GTK_WIDGET(GET_OBJECT("revealer"));
 
-	gtk_widget_set_can_default(search_widget->search_next_button, TRUE);
-	gtk_widget_grab_default(search_widget->search_next_button);
+	//gtk_widget_set_can_default(search_widget->search_next_button, TRUE); TODO GTK4
+	//gtk_widget_grab_default(search_widget->search_next_button);
 
-	gtk_entry_set_activates_default(GTK_ENTRY(search_widget->search_entry), TRUE);
+	// gtk_entry_set_activates_default(GTK_ENTRY(search_widget->search_entry), TRUE);
 
-	/* Connect signals */
-	gtk_builder_connect_signals(search_widget->builder, NULL);
+	// /* Connect signals */
+	// //gtk_builder_connect_signals(search_widget->builder, NULL); TODO GTK4
 
-	g_signal_connect_swapped(search_widget->close_button, "clicked", G_CALLBACK(gtk_widget_destroy), GTK_WIDGET(search_widget->window));
+	// g_signal_connect_swapped(search_widget->close_button, "clicked", G_CALLBACK(gtk_window_destroy), GTK_WIDGET(search_widget->window));
 
-	g_object_bind_property(search_widget->reveal_button, "active",
-			       search_widget->revealer, "reveal-child",
-			       G_BINDING_DEFAULT | G_BINDING_SYNC_CREATE);
+	// g_object_bind_property(search_widget->reveal_button, "active",
+	// 		       search_widget->revealer, "reveal-child",
+	// 		       G_BINDING_DEFAULT | G_BINDING_SYNC_CREATE);
 
 	g_signal_connect_swapped(search_widget->search_entry, "next-match", G_CALLBACK(remmina_search_widget_search_forward), gpdata);
 	g_signal_connect_swapped(search_widget->search_entry, "previous-match", G_CALLBACK(remmina_search_widget_search_backward), gpdata);
 	g_signal_connect_swapped(search_widget->search_entry, "search-changed", G_CALLBACK(remmina_search_widget_update_regex), gpdata);
 
-	g_signal_connect_swapped(search_widget->search_next_button, "clicked", G_CALLBACK(remmina_search_widget_search_forward), gpdata);
-	g_signal_connect_swapped(search_widget->search_prev_button, "clicked", G_CALLBACK(remmina_search_widget_search_backward), gpdata);
+	// g_signal_connect_swapped(search_widget->search_next_button, "clicked", G_CALLBACK(remmina_search_widget_search_forward), gpdata);
+	// g_signal_connect_swapped(search_widget->search_prev_button, "clicked", G_CALLBACK(remmina_search_widget_search_backward), gpdata);
 
-	g_signal_connect_swapped(search_widget->match_case_checkbutton, "toggled", G_CALLBACK(remmina_search_widget_update_regex), gpdata);
-	g_signal_connect_swapped(search_widget->entire_word_checkbutton, "toggled", G_CALLBACK(remmina_search_widget_update_regex), gpdata);
-	g_signal_connect_swapped(search_widget->regex_checkbutton, "toggled", G_CALLBACK(remmina_search_widget_update_regex), gpdata);
-	g_signal_connect_swapped(search_widget->match_case_checkbutton, "toggled", G_CALLBACK(remmina_search_widget_update_regex), gpdata);
+	// g_signal_connect_swapped(search_widget->match_case_checkbutton, "toggled", G_CALLBACK(remmina_search_widget_update_regex), gpdata);
+	// g_signal_connect_swapped(search_widget->entire_word_checkbutton, "toggled", G_CALLBACK(remmina_search_widget_update_regex), gpdata);
+	// g_signal_connect_swapped(search_widget->regex_checkbutton, "toggled", G_CALLBACK(remmina_search_widget_update_regex), gpdata);
+	// g_signal_connect_swapped(search_widget->match_case_checkbutton, "toggled", G_CALLBACK(remmina_search_widget_update_regex), gpdata);
 
 	g_signal_connect(search_widget->wrap_around_checkbutton, "toggled", G_CALLBACK(remmina_search_widget_wrap_around_toggled), gpdata);
 
-	remmina_search_widget_update_sensitivity(search_widget);
+	// remmina_search_widget_update_sensitivity(search_widget);
 	return search_widget->window;
 }
 
-void remmina_plugin_pop_search(GtkMenuItem *menuitem, RemminaProtocolWidget *gp)
+void remmina_plugin_pop_search(RemminaProtocolWidget *gp)
 {
 	TRACE_CALL(__func__);
 	RemminaPluginSshData *gpdata = GET_PLUGIN_DATA(gp);
@@ -778,35 +778,39 @@ void remmina_plugin_pop_search(GtkMenuItem *menuitem, RemminaProtocolWidget *gp)
 
 	REMMINA_DEBUG("Before popover");
 	GtkWidget *window = remmina_plugin_pop_search_new(gpdata->vte, gp);
-	GtkWidget *toplevel = gtk_widget_get_toplevel(gpdata->vte);
+	GtkRoot *toplevel = gtk_widget_get_root(gpdata->vte);
 
 	if (GTK_IS_WINDOW(toplevel)) {
 		parent = GTK_WINDOW(toplevel);
 		gtk_window_set_transient_for(GTK_WINDOW(window), parent);
-		gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER_ON_PARENT);
+		//gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER_ON_PARENT); TODO GTK4
 	}
 	gtk_widget_show(window);
 	REMMINA_DEBUG("After popover");
 }
 
-void remmina_plugin_ssh_call_sftp(GtkMenuItem *menuitem, RemminaProtocolWidget *gp)
+void remmina_plugin_ssh_call_sftp(RemminaProtocolWidget *gp)
 {
 	TRACE_CALL(__func__);
 	remmina_protocol_widget_call_feature_by_type(gp, REMMINA_PROTOCOL_FEATURE_TYPE_TOOL, REMMINA_PROTOCOL_FEATURE_TOOL_SFTP);
 }
 
 gboolean
-remmina_ssh_plugin_popup_menu(GtkWidget *widget, GdkEvent *event, GtkWidget *menu)
+remmina_ssh_plugin_popup_menu(GtkGestureClick* self,
+										gint n_press,
+										gdouble x,
+										gdouble y,
+										gpointer menu)
 {
-	if ((event->type == GDK_BUTTON_PRESS) && (((GdkEventButton *)event)->button == 3)) {
-#if GTK_CHECK_VERSION(3, 22, 0)
-		gtk_menu_popup_at_pointer(GTK_MENU(menu), NULL);
-#else
-		gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL,
-			       ((GdkEventButton *)event)->button, gtk_get_current_event_time());
-#endif
-		return TRUE;
-	}
+	//if ((get_event_type(event) == GDK_BUTTON_PRESS) && (gdk_button_event_get_button((GdkButtonEvent *)event) == 3)) {
+// #if GTK_CHECK_VERSION(3, 22, 0)
+// 		gtk_menu_popup_at_pointer(GTK_MENU(menu), NULL);
+// #else
+// 		gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL,
+// 			       ((GdkEventButton *)event)->button, gtk_get_current_event_time());
+// #endif
+// 		return TRUE;
+	//} TODO GTK4
 
 	return FALSE;
 }
@@ -829,27 +833,32 @@ void remmina_plugin_ssh_popup_ui(RemminaProtocolWidget *gp)
 	TRACE_CALL(__func__);
 	RemminaPluginSshData *gpdata = GET_PLUGIN_DATA(gp);
 	/* Context menu for slection and clipboard */
-	GtkWidget *menu = gtk_menu_new();
+	GtkWidget *menu = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
 
-	GtkWidget *select_all = gtk_menu_item_new_with_label(_("Select All (host+A)"));
-	GtkWidget *copy = gtk_menu_item_new_with_label(_("Copy (host+C)"));
-	GtkWidget *paste = gtk_menu_item_new_with_label(_("Paste (host+V)"));
-	GtkWidget *save = gtk_menu_item_new_with_label(_("Save session to file"));
-	GtkWidget *font_incr = gtk_menu_item_new_with_label(_("Increase font size (host+Page Up)"));
-	GtkWidget *font_decr = gtk_menu_item_new_with_label(_("Decrease font size (host+Page Down)"));
-	GtkWidget *find_text = gtk_menu_item_new_with_label(_("Find text (host+G)"));
-	GtkWidget *sftp = gtk_menu_item_new_with_label(_("Open SFTP transfer…"));
+	GtkWidget *select_all = gtk_button_new_with_label(_("Select All (host+A)"));
+	GtkWidget *copy = gtk_button_new_with_label(_("Copy (host+C)"));
+	GtkWidget *paste = gtk_button_new_with_label(_("Paste (host+V)"));
+	GtkWidget *save = gtk_button_new_with_label(_("Save session to file"));
+	GtkWidget *font_incr = gtk_button_new_with_label(_("Increase font size (host+Page Up)"));
+	GtkWidget *font_decr = gtk_button_new_with_label(_("Decrease font size (host+Page Down)"));
+	GtkWidget *find_text = gtk_button_new_with_label(_("Find text (host+G)"));
+	GtkWidget *sftp = gtk_button_new_with_label(_("Open SFTP transfer…"));
 
-	gtk_menu_shell_append(GTK_MENU_SHELL(menu), select_all);
-	gtk_menu_shell_append(GTK_MENU_SHELL(menu), copy);
-	gtk_menu_shell_append(GTK_MENU_SHELL(menu), paste);
-	gtk_menu_shell_append(GTK_MENU_SHELL(menu), save);
-	gtk_menu_shell_append(GTK_MENU_SHELL(menu), font_incr);
-	gtk_menu_shell_append(GTK_MENU_SHELL(menu), font_decr);
-	gtk_menu_shell_append(GTK_MENU_SHELL(menu), find_text);
-	gtk_menu_shell_append(GTK_MENU_SHELL(menu), sftp);
+	// gtk_menu_shell_append(GTK_MENU_SHELL(menu), select_all);
+	// gtk_menu_shell_append(GTK_MENU_SHELL(menu), copy);
+	// gtk_menu_shell_append(GTK_MENU_SHELL(menu), paste);
+	// gtk_menu_shell_append(GTK_MENU_SHELL(menu), save);
+	// gtk_menu_shell_append(GTK_MENU_SHELL(menu), font_incr);
+	// gtk_menu_shell_append(GTK_MENU_SHELL(menu), font_decr);
+	// gtk_menu_shell_append(GTK_MENU_SHELL(menu), find_text);
+	// gtk_menu_shell_append(GTK_MENU_SHELL(menu), sftp);
 
-	g_signal_connect(G_OBJECT(gpdata->vte), "button_press_event",
+	GtkGesture* click_gesture = gtk_gesture_click_new();
+	// gtk_event_controller_set_propagation_phase (GTK_EVENT_CONTROLLER(click_gesture),
+    //                                           GTK_PHASE_CAPTURE );
+	gtk_widget_add_controller(GTK_WIDGET(gpdata->vte), GTK_EVENT_CONTROLLER(click_gesture));
+
+	g_signal_connect(click_gesture, "pressed",
 			 G_CALLBACK(remmina_ssh_plugin_popup_menu), menu);
 
 	g_signal_connect(G_OBJECT(select_all), "activate",
@@ -869,7 +878,7 @@ void remmina_plugin_ssh_popup_ui(RemminaProtocolWidget *gp)
 	g_signal_connect(G_OBJECT(sftp), "activate",
 			 G_CALLBACK(remmina_plugin_ssh_call_sftp), gp);
 
-	gtk_widget_show_all(menu);
+	//gtk_widget_show_all(menu);
 }
 
 static void
@@ -884,7 +893,7 @@ remmina_plugin_ssh_eof(VteTerminal *vteterminal, RemminaProtocolWidget *gp)
 		return;
 
 	if (remmina_file_get_int(remminafile, "sshlogenabled", FALSE))
-		remmina_plugin_ssh_vte_save_session(NULL, gp);
+		remmina_plugin_ssh_vte_save_session(gp);
 
 	gchar *server;
 	gint port;
@@ -910,7 +919,7 @@ remmina_plugin_ssh_close_connection(RemminaProtocolWidget *gp)
 	remminafile = remmina_plugin_service->protocol_plugin_get_file(gp);
 
 	if (remmina_file_get_int(remminafile, "sshlogenabled", FALSE))
-		remmina_plugin_ssh_vte_save_session(NULL, gp);
+		remmina_plugin_ssh_vte_save_session( gp);
 	remmina_plugin_ssh_eof(VTE_TERMINAL(gpdata->vte), gp);
 
 	if (gpdata->thread) {
@@ -965,11 +974,18 @@ remmina_plugin_ssh_init(RemminaProtocolWidget *gp)
 
 	hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
 	gtk_widget_show(hbox);
-	gtk_container_add(GTK_CONTAINER(gp), hbox);
-	g_signal_connect(G_OBJECT(hbox), "focus-in-event", G_CALLBACK(remmina_plugin_ssh_on_focus_in), gp);
+
+
+
+	GtkEventControllerFocus* focus_event_controller = (GtkEventControllerFocus*)gtk_event_controller_focus_new();
+	gtk_event_controller_set_propagation_phase(GTK_EVENT_CONTROLLER(focus_event_controller), GTK_PHASE_BUBBLE);
+	gtk_widget_add_controller(GTK_WIDGET(hbox), GTK_EVENT_CONTROLLER(focus_event_controller));
+	g_signal_connect(focus_event_controller, "enter", G_CALLBACK(remmina_plugin_ssh_on_focus_in), gp);
+
 
 	vte = vte_terminal_new();
-	//gtk_widget_show(vte);
+
+	gtk_widget_set_hexpand(vte, TRUE);
 	vte_terminal_set_size(VTE_TERMINAL(vte), 80, 25);
 	vte_terminal_set_scroll_on_keystroke(VTE_TERMINAL(vte), TRUE);
 #if !VTE_CHECK_VERSION(0, 38, 0)
@@ -1228,7 +1244,7 @@ remmina_plugin_ssh_init(RemminaProtocolWidget *gp)
 	vte_terminal_set_colors(VTE_TERMINAL(vte), &foreground_gdkcolor, &background_gdkcolor, NULL, 0);
 #endif
 
-	gtk_box_pack_start(GTK_BOX(hbox), vte, TRUE, TRUE, 0);
+	gtk_box_append(GTK_BOX(hbox), vte);
 	gpdata->vte = vte;
 	remmina_plugin_ssh_set_vte_pref(gp);
 
@@ -1243,7 +1259,7 @@ remmina_plugin_ssh_init(RemminaProtocolWidget *gp)
 	vscrollbar = gtk_scrollbar_new(GTK_ORIENTATION_VERTICAL, vadjustment);
 
 	gtk_widget_show(vscrollbar);
-	gtk_box_pack_start(GTK_BOX(hbox), vscrollbar, FALSE, TRUE, 0);
+	gtk_box_append(GTK_BOX(hbox), vscrollbar);
 
 	const gchar *dir;
 	const gchar *sshlogname;
@@ -1269,12 +1285,13 @@ remmina_plugin_ssh_init(RemminaProtocolWidget *gp)
 	gpdata->vte_session_file = g_file_new_for_path(fp);
 	g_free(fp);
 
-	g_signal_connect(G_OBJECT(vte), "size-allocate", G_CALLBACK(remmina_plugin_ssh_on_size_allocate), gp);
+	g_signal_connect(G_OBJECT(vte), "size-allocate", G_CALLBACK(remmina_plugin_ssh_on_size_allocate), gp); //TODO GTK4
 	g_signal_connect(G_OBJECT(vte), "unrealize", G_CALLBACK(remmina_plugin_ssh_eof), gp);
 	g_signal_connect(G_OBJECT(vte), "eof", G_CALLBACK(remmina_plugin_ssh_eof), gp);
 	g_signal_connect(G_OBJECT(vte), "child-exited", G_CALLBACK(remmina_plugin_ssh_eof), gp);
 	remmina_plugin_ssh_popup_ui(gp);
-	gtk_widget_show_all(hbox);
+	gtk_box_append(GTK_BOX(gp), hbox);
+	gtk_widget_show(hbox);
 }
 
 /**
@@ -1373,7 +1390,7 @@ remmina_plugin_ssh_call_feature(RemminaProtocolWidget *gp, const RemminaProtocol
 					    vte_terminal_get_font_scale(VTE_TERMINAL(gpdata->vte)) - SCALE_FACTOR);
 		return;
 	case REMMINA_PLUGIN_SSH_FEATURE_TOOL_SEARCH:
-		remmina_plugin_pop_search(NULL, gp);
+		remmina_plugin_pop_search(gp);
 		return;
 	}
 }

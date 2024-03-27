@@ -57,7 +57,7 @@ static void view_popup_menu_onDoSomething(GtkWidget *menuitem, gpointer userdata
 gboolean remmina_external_tools_from_filename(RemminaMain *remminamain, gchar* remminafilename)
 {
 	TRACE_CALL(__func__);
-	GtkWidget *menu, *menuitem;
+	GtkWidget *menuitem;
 	gchar dirname[MAX_PATH_LEN];
 	gchar filename[MAX_PATH_LEN];
 	GDir* dir;
@@ -69,32 +69,32 @@ gboolean remmina_external_tools_from_filename(RemminaMain *remminamain, gchar* r
 	if (dir == NULL)
 		return FALSE;
 
-	menu = gtk_menu_new();
+	// menu = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
 
 	while ((name = g_dir_read_name(dir)) != NULL) {
 		if (!g_str_has_prefix(name, "remmina_"))
 			continue;
 		g_snprintf(filename, MAX_PATH_LEN, "%s/%s", dirname, name);
 
-		menuitem = gtk_menu_item_new_with_label(name + 8);
+		menuitem = gtk_button_new_with_label(name + 8);
 		g_object_set_data_full(G_OBJECT(menuitem), "remminafilename", g_strdup(remminafilename), g_free);
 		g_object_set_data_full(G_OBJECT(menuitem), "scriptfilename", g_strdup(filename), g_free);
 		g_object_set_data_full(G_OBJECT(menuitem), "scriptshortname", g_strdup(name), g_free);
 		g_signal_connect(menuitem, "activate", (GCallback)view_popup_menu_onDoSomething, NULL);
-		gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
+		//gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
 	}
 	g_dir_close(dir);
 
-	gtk_widget_show_all(menu);
+	//gtk_widget_show_all(menu);
 
 	/* Note: event can be NULL here when called from view_onPopupMenu;
 	 *  gdk_event_get_time() accepts a NULL argument
 	 */
-#if GTK_CHECK_VERSION(3, 22, 0)
-	gtk_menu_popup_at_pointer(GTK_MENU(menu), NULL);
-#else
-	gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, 0, 0);
-#endif
+// #if GTK_CHECK_VERSION(3, 22, 0)
+// 	gtk_menu_popup_at_pointer(GTK_MENU(menu), NULL);
+// #else
+// 	gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, 0, 0);
+// #endif
 
 	return TRUE;
 }

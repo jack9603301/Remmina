@@ -56,7 +56,7 @@ static gboolean remmina_plugin_tool_open_connection(RemminaProtocolWidget *gp)
 	dialog = GTK_DIALOG(gtk_message_dialog_new(NULL, GTK_DIALOG_MODAL | GTK_DIALOG_USE_HEADER_BAR,
 			GTK_MESSAGE_INFO, GTK_BUTTONS_OK, PLUGIN_DESCRIPTION));
 	gtk_dialog_run(dialog);
-	gtk_widget_destroy(GTK_WIDGET(dialog));
+	gtk_window_destroy(GTK_WINDOW(dialog));
 	return FALSE;
 }
 
