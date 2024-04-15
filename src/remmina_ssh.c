@@ -1789,10 +1789,10 @@ remmina_ssh_init_session(RemminaSSH *ssh)
 		else
 			REMMINA_DEBUG("Cannot parse ssh_config: %s", ssh_get_error(ssh->session));
 	}
-	if (g_strcmp0(ssh->tunnel_entrance_host, "127.0.0.1") == 0) {
-		REMMINA_DEBUG("Setting SSH_OPTIONS_HOST to ssh->tunnel_entrance_host is 127.0.0.1,");
-		ssh_options_set(ssh->session, SSH_OPTIONS_HOST, ssh->tunnel_entrance_host);
-	}
+	// if (g_strcmp0(ssh->tunnel_entrance_host, "127.0.0.1") == 0) {
+	// 	REMMINA_DEBUG("Setting SSH_OPTIONS_HOST to ssh->tunnel_entrance_host is 127.0.0.1,");
+	// 	ssh_options_set(ssh->session, SSH_OPTIONS_HOST, ssh->tunnel_entrance_host);
+	// }
 	if (!ssh->user || *ssh->user == 0) {
     rc = ssh_options_get(ssh->session, SSH_OPTIONS_USER, &parsed_config);
     if (rc == SSH_OK) {

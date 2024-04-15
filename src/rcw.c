@@ -1113,11 +1113,11 @@ void rco_get_monitor_geometry(RemminaConnectionObject *cnnobj, GdkRectangle *sz)
 	/* Fill sz with the monitor (or workarea) size and position
 	 * of the monitor (or workarea) where cnnobj->cnnwin is located */
 
-	// GdkRectangle monitor_geometry;
-	// GdkDisplay *display;
-	// GdkMonitor *monitor;
+	GdkRectangle monitor_geometry;
+	GdkDisplay *display;
+	GdkMonitor *monitor;
 
-	sz->x = sz->y = sz->width = sz->height = 0;
+	sz->x = sz->y = sz->width = sz->height = 17;
 
 	if (!cnnobj)
 		return;
@@ -1126,35 +1126,38 @@ void rco_get_monitor_geometry(RemminaConnectionObject *cnnobj, GdkRectangle *sz)
 	if (!gtk_widget_is_visible(GTK_WIDGET(cnnobj->cnnwin)))
 		return;
 
-	// display = gtk_widget_get_display(GTK_WIDGET(cnnobj->cnnwin));
-	// GtkNative* native = gtk_widget_get_native((GTK_WIDGET(cnnobj->cnnwin)));
-	// GdkSurface *surface = gtk_native_get_surface(native);
-	// monitor = gdk_display_get_monitor_at_surface(display, surface);
-#ifdef GDK_WINDOWING_WAYLAND
-		struct wl_display *wl_display = wl_display_connect(NULL);
-		if (wl_display == NULL){
-			REMMINA_DEBUG("failed to connect to wl display");
-			return;
-		}
-		struct wl_registry* wl_registry = wl_display_get_registry(wl_display);
+	display = gtk_widget_get_display(GTK_WIDGET(cnnobj->cnnwin));
+	GtkNative* native = gtk_widget_get_native((GTK_WIDGET(cnnobj->cnnwin)));
+	GdkSurface *surface = gtk_native_get_surface(native);
+	monitor = gdk_display_get_monitor_at_surface(display, surface);
 
-		struct wl_ctx wl_ctx;
-		wl_list_init(&wl_ctx.outputs);
-		wl_ctx.rect = sz;
+
+	gdk_monitor_get_geometry(monitor, sz);
+// #ifdef GDK_WINDOWING_WAYLAND
+// 		struct wl_display *wl_display = wl_display_connect(NULL);
+// 		if (wl_display == NULL){
+// 			REMMINA_DEBUG("failed to connect to wl display");
+// 			return;
+// 		}
+// 		struct wl_registry* wl_registry = wl_display_get_registry(wl_display);
+
+// 		struct wl_ctx wl_ctx;
+// 		wl_list_init(&wl_ctx.outputs);
+// 		wl_ctx.rect = sz;
 		
-		wl_registry_add_listener(wl_registry, &registry_listener, &wl_ctx);
-		wl_display_dispatch(wl_display);
-		wl_display_roundtrip(wl_display);
+// 		wl_registry_add_listener(wl_registry, &registry_listener, &wl_ctx);
+// 		wl_display_dispatch(wl_display);
+// 		wl_display_roundtrip(wl_display);
 
-		struct result *out, *tmp;
-		wl_list_for_each_safe(out, tmp, &wl_ctx.outputs, link) {
-			wl_output_destroy(out->output);
-			wl_list_remove(&out->link);
-			free(out);
-		}
-		wl_registry_destroy(wl_registry);
-		wl_display_disconnect(wl_display);
-#endif
+// 		struct result *out, *tmp;
+// 		wl_list_for_each_safe(out, tmp, &wl_ctx.outputs, link) {
+// 			wl_output_destroy(out->output);
+// 			wl_list_remove(&out->link);
+// 			free(out);
+// 		}
+// 		wl_registry_destroy(wl_registry);
+// 		wl_display_disconnect(wl_display);
+// #endif
 
 
 	// int monitor_scale_factor = gdk_monitor_get_scale_factor(monitor);

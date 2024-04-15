@@ -211,10 +211,10 @@ typedef struct _RemminaSshSearch {
 	GtkWidget *		search_prev_button;
 	GtkWidget *		search_next_button;
 	GtkWidget *		close_button;
-	GtkToggleButton *	match_case_checkbutton;
-	GtkToggleButton *	entire_word_checkbutton;
-	GtkToggleButton *	regex_checkbutton;
-	GtkToggleButton *	wrap_around_checkbutton;
+	GtkCheckButton *	match_case_checkbutton;
+	GtkCheckButton *	entire_word_checkbutton;
+	GtkCheckButton *	regex_checkbutton;
+	GtkCheckButton *	wrap_around_checkbutton;
 	GtkWidget *		reveal_button;
 	GtkWidget *		revealer;
 
@@ -640,16 +640,16 @@ remmina_search_widget_update_regex(RemminaPluginSshData *gpdata)
 
 	RemminaSshSearch *search_widget = gpdata->search_widget;
 	char const *search_text = gtk_editable_get_text(GTK_EDITABLE(search_widget->search_entry));
-	gboolean caseless = gtk_toggle_button_get_active(search_widget->match_case_checkbutton) == FALSE;
+	gboolean caseless = gtk_check_button_get_active(search_widget->match_case_checkbutton) == FALSE;
 
 	char *pattern;
 
-	if (gtk_toggle_button_get_active(search_widget->regex_checkbutton))
+	if (gtk_check_button_get_active(search_widget->regex_checkbutton))
 		pattern = g_strdup(search_text);
 	else
 		pattern = g_regex_escape_string(search_text, -1);
 
-	if (gtk_toggle_button_get_active(search_widget->regex_checkbutton)) {
+	if (gtk_check_button_get_active(search_widget->regex_checkbutton)) {
 		char *tmp = g_strdup_printf("\\b%s\\b", pattern);
 		g_free(pattern);
 		pattern = tmp;
@@ -689,11 +689,11 @@ remmina_search_widget_update_regex(RemminaPluginSshData *gpdata)
 }
 
 static void
-remmina_search_widget_wrap_around_toggled(GtkToggleButton *button, RemminaPluginSshData *gpdata)
+remmina_search_widget_wrap_around_toggled(GtkCheckButton *button, RemminaPluginSshData *gpdata)
 {
 	TRACE_CALL(__func__);
 
-	vte_terminal_search_set_wrap_around(VTE_TERMINAL(gpdata->vte), gtk_toggle_button_get_active(button));
+	vte_terminal_search_set_wrap_around(VTE_TERMINAL(gpdata->vte), gtk_check_button_get_active(button));
 }
 
 static void
@@ -738,10 +738,10 @@ GtkWidget *remmina_plugin_pop_search_new(GtkWidget *relative_to, RemminaProtocol
 	search_widget->search_prev_button = GTK_WIDGET(GET_OBJECT("search_prev_button"));
 	search_widget->search_next_button = GTK_WIDGET(GET_OBJECT("search_next_button"));
 	search_widget->close_button = GTK_WIDGET(GET_OBJECT("close_button"));
-	search_widget->match_case_checkbutton = GTK_TOGGLE_BUTTON(GET_OBJECT("match_case_checkbutton"));
-	search_widget->entire_word_checkbutton = GTK_TOGGLE_BUTTON(GET_OBJECT("entire_word_checkbutton"));
-	search_widget->regex_checkbutton = GTK_TOGGLE_BUTTON(GET_OBJECT("regex_checkbutton"));
-	search_widget->wrap_around_checkbutton = GTK_TOGGLE_BUTTON(GET_OBJECT("wrap_around_checkbutton"));
+	search_widget->match_case_checkbutton = GTK_CHECK_BUTTON(GET_OBJECT("match_case_checkbutton"));
+	search_widget->entire_word_checkbutton = GTK_CHECK_BUTTON(GET_OBJECT("entire_word_checkbutton"));
+	search_widget->regex_checkbutton = GTK_CHECK_BUTTON(GET_OBJECT("regex_checkbutton"));
+	search_widget->wrap_around_checkbutton = GTK_CHECK_BUTTON(GET_OBJECT("wrap_around_checkbutton"));
 	search_widget->reveal_button = GTK_WIDGET(GET_OBJECT("reveal_button"));
 	search_widget->revealer = GTK_WIDGET(GET_OBJECT("revealer"));
 
@@ -766,10 +766,9 @@ GtkWidget *remmina_plugin_pop_search_new(GtkWidget *relative_to, RemminaProtocol
 	g_signal_connect_swapped(search_widget->search_next_button, "clicked", G_CALLBACK(remmina_search_widget_search_forward), gpdata);
 	g_signal_connect_swapped(search_widget->search_prev_button, "clicked", G_CALLBACK(remmina_search_widget_search_backward), gpdata);
 
-	// g_signal_connect_swapped(search_widget->match_case_checkbutton, "toggled", G_CALLBACK(remmina_search_widget_update_regex), gpdata);
-	// g_signal_connect_swapped(search_widget->entire_word_checkbutton, "toggled", G_CALLBACK(remmina_search_widget_update_regex), gpdata);
-	// g_signal_connect_swapped(search_widget->regex_checkbutton, "toggled", G_CALLBACK(remmina_search_widget_update_regex), gpdata);
-	// g_signal_connect_swapped(search_widget->match_case_checkbutton, "toggled", G_CALLBACK(remmina_search_widget_update_regex), gpdata);
+	g_signal_connect_swapped(search_widget->match_case_checkbutton, "toggled", G_CALLBACK(remmina_search_widget_update_regex), gpdata);
+	g_signal_connect_swapped(search_widget->entire_word_checkbutton, "toggled", G_CALLBACK(remmina_search_widget_update_regex), gpdata);
+	g_signal_connect_swapped(search_widget->regex_checkbutton, "toggled", G_CALLBACK(remmina_search_widget_update_regex), gpdata);
 
 	g_signal_connect(search_widget->wrap_around_checkbutton, "toggled", G_CALLBACK(remmina_search_widget_wrap_around_toggled), gpdata);
 
