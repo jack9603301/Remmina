@@ -843,7 +843,17 @@ void read_text_callback(GdkClipboard *clipboard, GAsyncResult *res, gpointer use
 	}
 
 	rdp_event.type = REMMINA_RDP_EVENT_TYPE_CLIPBOARD_SEND_CLIENT_FORMAT_DATA_RESPONSE;
-	rdp_event.clipboard_formatdataresponse.data = outbuf;
+#if FREERDP_VERSION_MAJOR >= 3
+	// For unicode, use the wchar buffer
+	if (outbuf == NULL && outbuf_wchar != NULL) {
+		rdp_event.clipboard_formatdataresponse.data = (unsigned char *)outbuf_wchar;
+	}
+	else {
+		rdp_event.clipboard_formatdataresponse.data = (unsigned char *)outbuf;
+	}
+#else
+	rdp_event.clipboard_formatdataresponse.data = (unsigned char *)outbuf;
+#endif
 	rdp_event.clipboard_formatdataresponse.size = size;
 	remmina_rdp_event_event_push(gp, &rdp_event);
 }
@@ -854,6 +864,7 @@ void read_image_callback(GdkClipboard *clipboard, GAsyncResult *res, gpointer us
 	RemminaProtocolWidget *gp= (RemminaPluginRdpUiObject*)user_data;
 	RemminaPluginRdpUiObject *ui = (RemminaPluginRdpUiObject *)g_object_get_data(G_OBJECT(gp), "ui");
 	UINT8 *outbuf = NULL;
+	WCHAR *outbuf_wchar = NULL;
 	GdkPixbuf *image = NULL;
 	int size = 0;
 	RemminaPluginRdpEvent rdp_event = { 0 };

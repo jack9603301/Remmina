@@ -127,7 +127,7 @@ static RemminaPluginSpiceXferWidgets * remmina_plugin_spice_xfer_widgets_new(Spi
 	gtk_widget_set_hexpand(widgets->progress, TRUE);
 	gtk_widget_set_valign(widgets->progress, GTK_ALIGN_CENTER);
 
-	widgets->cancel = gtk_button_new_from_icon_name("gtk-cancel", GTK_ICON_SIZE_SMALL_TOOLBAR);
+	widgets->cancel = gtk_button_new_from_icon_name("gtk-cancel");
 	g_signal_connect(widgets->cancel,
 		"clicked",
 		G_CALLBACK(remmina_plugin_spice_file_transfer_cancel_cb),
