@@ -37,7 +37,7 @@
 #include "common/remmina_plugin.h"
 
 #include <glib.h>
-#include <webkit2/webkit2.h>
+#include <webkit/webkit.h>
 
 typedef enum {
 	WWW_WEB_VIEW_DOCUMENT_HTML,

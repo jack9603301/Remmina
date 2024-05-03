@@ -106,7 +106,7 @@ if(SPICE_FOUND)
     add_subdirectory(spice)
 endif()
 
-option(WITH_WWW "Build WWW plugin" OFF)
+option(WITH_WWW "Build WWW plugin" ON)
 if(WITH_WWW)
     message(STATUS "Enabling WWW plugin.")
     add_definitions(-DWITH_WWW)
@@ -125,7 +125,7 @@ endif()
 
 add_subdirectory(exec)
 
-option(WITH_KF5WALLET "Building KF5WALLET plugin" OFF)
+option(WITH_KF5WALLET "Building KF5WALLET plugin" ON)
 if(WITH_KF5WALLET)
     CheckHasModule(KF5Wallet)
     if(HAS_MODULE_KF5Wallet)
