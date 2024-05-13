@@ -1419,6 +1419,16 @@ static RemminaPluginVncCoordinates remmina_plugin_vnc_scale_coordinates(GtkWidge
 	return result;
 }
 
+static gboolean
+remmina_plugin_vnc_on_focus_in(GtkWidget *widget, RemminaProtocolWidget *gp)
+{
+	TRACE_CALL(__func__);
+	RemminaPluginVncData *gpdata = GET_PLUGIN_DATA(gp);
+
+	gtk_widget_grab_focus(gpdata->drawing_area);
+	return TRUE;
+}
+
 static gboolean remmina_plugin_vnc_on_motion(GtkWidget *widget, gdouble x, gdouble y, RemminaProtocolWidget *gp)
 {
 	TRACE_CALL(__func__);
@@ -1464,7 +1474,9 @@ static gboolean remmina_plugin_vnc_on_button_press(GtkGestureClick *self, gint n
 	coordinates = remmina_plugin_vnc_scale_coordinates(gpdata->drawing_area, gp, x, y);
 	remmina_plugin_vnc_event_push(gp, REMMINA_PLUGIN_VNC_EVENT_POINTER, GINT_TO_POINTER(coordinates.x), GINT_TO_POINTER(coordinates.y),
 				      GINT_TO_POINTER(gpdata->button_mask));
-	return TRUE;
+
+	gtk_widget_grab_focus(gpdata->drawing_area);	//TODO GTK4 works, but seems like a hack.   
+	return FALSE;
 }
 
 static gboolean remmina_plugin_vnc_on_button_release(GtkGestureClick *self, gint n_press, gdouble x, gdouble y, RemminaProtocolWidget *gp)
@@ -1753,7 +1765,7 @@ static gboolean remmina_plugin_vnc_open_connection(RemminaProtocolWidget *gp)
 	gtk_gesture_single_set_button(gesture, 0);
 	g_signal_connect (gesture, "pressed", G_CALLBACK (remmina_plugin_vnc_on_button_press), gp);
 	g_signal_connect (gesture, "released", G_CALLBACK (remmina_plugin_vnc_on_button_release), gp);
-	gtk_event_controller_set_propagation_phase(GTK_EVENT_CONTROLLER(gesture), GTK_PHASE_TARGET);
+	// gtk_event_controller_set_propagation_phase(GTK_EVENT_CONTROLLER(gesture), GTK_PHASE_BUBBLE);
 	gtk_widget_add_controller(gpdata->drawing_area, GTK_EVENT_CONTROLLER (gesture));
 
 
@@ -2065,6 +2077,10 @@ static void remmina_plugin_vnc_init(RemminaProtocolWidget *gp)
 
 
 	gtk_widget_set_can_focus(gpdata->drawing_area, TRUE);
+	GtkEventControllerFocus* focus_event_controller = (GtkEventControllerFocus*)gtk_event_controller_focus_new();
+	gtk_event_controller_set_propagation_phase(GTK_EVENT_CONTROLLER(focus_event_controller), GTK_PHASE_BUBBLE);
+	gtk_widget_add_controller(GTK_WIDGET(gpdata->drawing_area), GTK_EVENT_CONTROLLER(focus_event_controller));
+	g_signal_connect(focus_event_controller, "enter", G_CALLBACK(remmina_plugin_vnc_on_focus_in), gp);
 
 	if (!disable_smooth_scrolling) {
 		// REMMINA_PLUGIN_DEBUG("Adding GDK_SMOOTH_SCROLL_MASK");

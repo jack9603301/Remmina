@@ -454,40 +454,45 @@ static void rcw_kp_ungrab(RemminaConnectionWindow *cnnwin)
 {
 	TRACE_CALL(__func__);
 
+	GtkNative* native = gtk_widget_get_native((GTK_WIDGET(cnnwin)));
 
-	if (cnnwin->priv->grab_retry_eventsourceid) {
-		g_source_remove(cnnwin->priv->grab_retry_eventsourceid);
-		cnnwin->priv->grab_retry_eventsourceid = 0;
-	}
-	if (cnnwin->priv->delayed_grab_eventsourceid) {
-		g_source_remove(cnnwin->priv->delayed_grab_eventsourceid);
-		cnnwin->priv->delayed_grab_eventsourceid = 0;
-	}
+	GdkSurface *surface = gtk_native_get_surface(native);
+	gdk_toplevel_restore_system_shortcuts(surface);
 
 
-	if (!cnnwin->priv->kbcaptured && !cnnwin->priv->pointer_captured)
-		return;
+// 	if (cnnwin->priv->grab_retry_eventsourceid) {
+// 		g_source_remove(cnnwin->priv->grab_retry_eventsourceid);
+// 		cnnwin->priv->grab_retry_eventsourceid = 0;
+// 	}
+// 	if (cnnwin->priv->delayed_grab_eventsourceid) {
+// 		g_source_remove(cnnwin->priv->delayed_grab_eventsourceid);
+// 		cnnwin->priv->delayed_grab_eventsourceid = 0;
+// 	}
 
-#if DEBUG_KB_GRABBING
-	printf("DEBUG_KB_GRABBING: --- ungrabbing\n");
-#endif
+
+// 	if (!cnnwin->priv->kbcaptured && !cnnwin->priv->pointer_captured)
+// 		return;
+
+// #if DEBUG_KB_GRABBING
+// 	printf("DEBUG_KB_GRABBING: --- ungrabbing\n");
+// #endif
 
 
 
-#if GTK_CHECK_VERSION(3, 20, 0)
-	/* We can use gtk_seat_grab()/_ungrab() only after GTK 3.24 */
-	//gdk_seat_ungrab(seat);
-#else
-	// if (keyboard != NULL) {
-	// 	if (gdk_device_get_source(keyboard) != GDK_SOURCE_KEYBOARD)
-	// 		keyboard = gdk_device_get_associated_device(keyboard);
-	// 	G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-	// 	gdk_device_ungrab(keyboard, GDK_CURRENT_TIME);
-	// 	G_GNUC_END_IGNORE_DEPRECATIONS
-	// }
-#endif
-	cnnwin->priv->kbcaptured = FALSE;
-	cnnwin->priv->pointer_captured = FALSE;
+// #if GTK_CHECK_VERSION(3, 20, 0)
+// 	/* We can use gtk_seat_grab()/_ungrab() only after GTK 3.24 */
+// 	//gdk_seat_ungrab(seat);
+// #else
+// 	// if (keyboard != NULL) {
+// 	// 	if (gdk_device_get_source(keyboard) != GDK_SOURCE_KEYBOARD)
+// 	// 		keyboard = gdk_device_get_associated_device(keyboard);
+// 	// 	G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+// 	// 	gdk_device_ungrab(keyboard, GDK_CURRENT_TIME);
+// 	// 	G_GNUC_END_IGNORE_DEPRECATIONS
+// 	// }
+// #endif
+// 	cnnwin->priv->kbcaptured = FALSE;
+// 	cnnwin->priv->pointer_captured = FALSE;
 }
 
 static gboolean rcw_keyboard_grab_retry(gpointer user_data)
@@ -566,6 +571,11 @@ static void rcw_handle_keystrokes(GSimpleAction *action, GVariant *param, gpoint
 
 static void rcw_keyboard_grab(RemminaConnectionWindow *cnnwin)
 {
+
+	GtkNative* native = gtk_widget_get_native((GTK_WIDGET(cnnwin)));
+
+	GdkSurface *surface = gtk_native_get_surface(native);
+	gdk_toplevel_inhibit_system_shortcuts(surface, NULL);
 // 	TRACE_CALL(__func__);
 // 	GdkDisplay *display;
 
