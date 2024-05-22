@@ -2505,9 +2505,10 @@ static void rcw_toolbar_screenshot(GtkWidget *toggle, RemminaConnectionWindow *c
 
 		srcsurface = cairo_image_surface_create_for_data(rpsd.buffer, cairo_format, width, height, stride);
 		// Transfer the PixBuf in the main clipboard selection
-		if (denyclip && (g_strcmp0(denyclip, "true")))
+		if (denyclip && (g_strcmp0(denyclip, "true"))){
 			// gtk_clipboard_set_image(c, gdk_pixbuf_get_from_surface(
 			// 				srcsurface, 0, 0, width, height));
+		}
 		surface = cairo_image_surface_create(CAIRO_FORMAT_RGB24, width, height);
 		cr = cairo_create(surface);
 		cairo_set_source_surface(cr, srcsurface, 0, 0);

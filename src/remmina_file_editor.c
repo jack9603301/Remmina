@@ -312,7 +312,35 @@ static void remmina_file_editor_destroy(GtkWidget *widget, gpointer data)
 static void remmina_file_editor_button_on_toggled(GtkToggleButton *togglebutton, GtkWidget *widget)
 {
 	TRACE_CALL(__func__);
-	gtk_widget_set_sensitive(widget, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(togglebutton)));
+	gtk_widget_set_sensitive(widget, gtk_check_button_get_active(GTK_CHECK_BUTTON(togglebutton)));
+}
+
+static void
+on_open_response (GtkDialog *dialog, int response, gpointer user_data)
+{
+  if (response == GTK_RESPONSE_ACCEPT)
+    {
+      GtkFileChooser *chooser = GTK_FILE_CHOOSER (dialog);
+
+      g_autoptr(GFile) file = gtk_file_chooser_get_file (chooser);
+
+	  gtk_button_set_label(GTK_BUTTON(user_data), g_file_get_path(file));
+    }
+
+  gtk_window_destroy (GTK_WINDOW (dialog));
+}
+
+remmina_file_editor_chooser_on_checked(GtkWidget *widget, gpointer user_data)
+{
+	GtkWidget *dialog;
+	GtkFileChooserAction action = GTK_FILE_CHOOSER_ACTION_OPEN;
+
+	dialog = gtk_file_chooser_dialog_new("Open File", NULL, action, _("_Cancel"), GTK_RESPONSE_CANCEL,
+                                        _("_Open"), GTK_RESPONSE_ACCEPT, NULL);
+
+	g_signal_connect(dialog, "response", G_CALLBACK(on_open_response),  widget);
+
+	gtk_window_present(GTK_WINDOW (dialog));
 }
 
 static void remmina_file_editor_button_on_checked(GtkCheckButton *checkbutton, GtkWidget *widget)
@@ -448,7 +476,7 @@ static void remmina_file_editor_ssh_tunnel_enabled_check_on_toggled(GtkToggleBut
 		gtk_file_chooser_set_file(GTK_FILE_CHOOSER(gfe->priv->ssh_tunnel_privatekey_chooser), g_file_new_for_path(s), NULL);
 	s = remmina_file_get_string(gfe->priv->remmina_file, "ssh_tunnel_certfile");
 	if (s)
-		gtk_file_chooser_set_file(GTK_FILE_CHOOSER(gfe->priv->ssh_tunnel_certfile_chooser), g_file_new_for_path(s), NULL);
+		gtk_button_set_label(gfe->priv->ssh_tunnel_certfile_chooser, s);
 
 	if (gfe->priv->ssh_tunnel_username_entry)
 	
@@ -909,16 +937,20 @@ remmina_file_editor_create_chooser(RemminaFileEditor *gfe, GtkWidget *grid, gint
 
 	// Create file-chooser
 	widget = gtk_button_new();
+	gtk_widget_set_hexpand(widget, TRUE);
 	if (setting_name)
 		gtk_widget_set_name(widget, setting_name);
 	gtk_widget_show(widget);
 	if (value)
-		gtk_file_chooser_set_file(GTK_FILE_CHOOSER(widget), g_file_new_for_path(value), NULL);
+		gtk_button_set_label(GTK_BUTTON(widget), value);
 	gtk_box_append(GTK_BOX(hbox), widget);
 
-	g_signal_connect(G_OBJECT(check), "toggled", G_CALLBACK(remmina_file_editor_button_on_checked), widget);
-	remmina_file_editor_button_on_checked(GTK_CHECK_BUTTON(check), widget);
+	char* test = gtk_button_get_label(GTK_BUTTON(widget));
+	gtk_button_set_label(GTK_BUTTON(widget), test);
 
+	g_signal_connect(G_OBJECT(widget), "clicked", G_CALLBACK(remmina_file_editor_chooser_on_checked), widget);
+	g_signal_connect(G_OBJECT(check), "toggled", G_CALLBACK(remmina_file_editor_button_on_checked), widget);
+	remmina_file_editor_button_on_checked(check, widget);
 	return widget;
 }
 
@@ -1305,6 +1337,7 @@ static void remmina_file_editor_create_ssh_tunnel_tab(RemminaFileEditor *gfe, Re
 		row++;
 
 		widget = gtk_check_button_new_with_label(_("Custom"));
+		gtk_check_button_set_group(widget, priv->ssh_tunnel_server_default_radio);
 		gtk_grid_attach(GTK_GRID(grid), widget, 0, row, 1, 1);
 		g_signal_connect(G_OBJECT(widget), "toggled",
 				 G_CALLBACK(remmina_file_editor_ssh_tunnel_server_custom_radio_on_toggled), gfe);
@@ -1583,7 +1616,7 @@ static void remmina_file_editor_save_ssh_tunnel_tab(RemminaFileEditor *gfe)
 		remmina_file_set_string(
 			priv->remmina_file,
 			"ssh_tunnel_certfile",
-			(priv->ssh_tunnel_certfile_chooser ? g_file_get_path(gtk_file_chooser_get_file(GTK_FILE_CHOOSER(priv->ssh_tunnel_certfile_chooser))) : NULL));
+			(priv->ssh_tunnel_certfile_chooser ? gtk_button_get_label(priv->ssh_tunnel_certfile_chooser) : NULL));
 	}
 	else {
 		remmina_file_set_string(priv->remmina_file, "ssh_tunnel_certfile", NULL);
