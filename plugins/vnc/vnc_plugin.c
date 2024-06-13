@@ -391,8 +391,8 @@ static void remmina_plugin_vnc_update_quality(rfbClient *cl, gint quality)
 	switch (quality) {
 	case 9:
 		cl->appData.useBGR233 = 0;
-		cl->appData.encodingsString = "copyrect zlib hextile raw";
-		cl->appData.compressLevel = 1;
+		cl->appData.encodingsString = "tight copyrect zlib hextile raw";
+		cl->appData.compressLevel = 2;
 		cl->appData.qualityLevel = 9;
 		break;
 	case 2:
@@ -409,9 +409,8 @@ static void remmina_plugin_vnc_update_quality(rfbClient *cl, gint quality)
 		break;
 	case 0:
 	default:
-		// bpp8 and tight encoding is not supported in libvnc
 		cl->appData.useBGR233 = 1;
-		cl->appData.encodingsString = "copyrect zrle ultra zlib hextile corre rre raw";
+		cl->appData.encodingsString = "tight copyrect zrle ultra zlib hextile corre rre raw";
 		cl->appData.qualityLevel = 1;
 		break;
 	}
@@ -1328,14 +1327,6 @@ static gboolean remmina_plugin_vnc_main(RemminaProtocolWidget *gp)
 
 		remmina_plugin_vnc_update_quality(cl, quality);
 		remmina_plugin_vnc_update_colordepth(cl, colordepth);
-		if ((cl->format.depth == 8) && (quality == 9))
-			cl->appData.encodingsString = "copyrect zlib hextile raw";
-		else if ((cl->format.depth == 8) && (quality == 2))
-			cl->appData.encodingsString = "zrle ultra copyrect hextile zlib corre rre raw";
-		else if ((cl->format.depth == 8) && (quality == 1))
-			cl->appData.encodingsString = "zrle ultra copyrect hextile zlib corre rre raw";
-		else if ((cl->format.depth == 8) && (quality == 0))
-			cl->appData.encodingsString = "zrle ultra copyrect hextile zlib corre rre raw";
 		SetFormatAndEncodings(cl);
 
 		if (remmina_plugin_service->file_get_int(remminafile, "disableencryption", FALSE)) {
@@ -2110,7 +2101,7 @@ static gchar vncencodings_tooltip[] =
 	   "  • “Poor (fastest)” sets encoding to “copyrect zlib hextile raw”\n"
 	   "  • “Medium” sets encoding to “tight zrle ultra copyrect hextile zlib corre rre raw”\n"
 	   "  • “Good” sets encoding to “tight zrle ultra copyrect hextile zlib corre rre raw”\n"
-	   "  • “Best (slowest)” sets encoding to “copyrect zrle ultra zlib hextile corre rre raw”");
+	   "  • “Best (slowest)” sets encoding to “tight copyrect zlib hextile raw”");
 
 /* Array of RemminaProtocolSetting for basic settings.
  * Each item is composed by:
